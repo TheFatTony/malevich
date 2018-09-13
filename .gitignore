@@ -13,23 +13,11 @@
 *.ips
 .idea/
 
-### NetBeans ###
-/nbproject/private/
-/build/
-/nbbuild/
-/dist/
-/nbdist/
-/.nb-gradle/
-
-
 # Eclipse
 .settings/
 .metadata/
 .classpath
 .project
-
-#NetBeans
-nb-configuration.xml
 
 #Maven
 .mvn/

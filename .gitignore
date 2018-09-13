@@ -1,21 +1,17 @@
-#################### server ####################
-/target/
-!.mvn/wrapper/maven-wrapper.jar
+/node_modules
 
-### STS ###
-.apt_generated
-.classpath
-.factorypath
-.project
-.settings
-.springBeans
-.sts4-cache
+# IDEs and editors
+.c9/
+*.launch
+*.sublime-workspace
 
 ### IntelliJ IDEA ###
-.idea
+.idea/
 *.iws
-*.iml
+/*.iml
 *.ipr
+*.ips
+.idea/
 
 ### NetBeans ###
 /nbproject/private/
@@ -25,33 +21,6 @@
 /nbdist/
 /.nb-gradle/
 
-.DS_Store
-
-
-#################### Client ####################
-# See http://help.github.com/ignore-files/ for more about ignoring files.
-
-# compiled output
-/dist
-/tmp
-/out-tsc
-
-# dependencies
-/node_modules
-
-# IDEs and editors
-.c9/
-*.launch
-.settings/
-*.sublime-workspace
-
-# IntelliJ
-.idea/
-*.iws
-/*.iml
-*.ipr
-*.ips
-.idea/
 
 # Eclipse
 .settings/
@@ -83,12 +52,6 @@ testem.log
 /typings
 package-lock.json
 
-# Generated
-target/
-javadoc/
-bin/
-log/
-classes/
 
 # Misc.
 .DS_Store

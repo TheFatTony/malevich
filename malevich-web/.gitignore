@@ -1,26 +1,21 @@
+# See http://help.github.com/ignore-files/ for more about ignoring files.
+
+# compiled output
+/dist
+/tmp
+/out-tsc
+
+# dependencies
 /node_modules
 
 # IDEs and editors
+/.idea
+.project
+.classpath
 .c9/
 *.launch
-*.sublime-workspace
-
-### IntelliJ IDEA ###
-.idea/
-*.iws
-**/*.iml
-*.ipr
-*.ips
-.idea/
-
-# Eclipse
 .settings/
-.metadata/
-.classpath
-.project
-
-#Maven
-.mvn/
+*.sublime-workspace
 
 # IDE - VSCode
 .vscode/*
@@ -38,18 +33,7 @@ npm-debug.log
 yarn-error.log
 testem.log
 /typings
-package-lock.json
 
-
-# Misc.
+# System Files
 .DS_Store
-*.swp
-*.swo
-
-# Server
-target
-
-# Web
-node_modules
-dist
-package-lock.json
+Thumbs.db

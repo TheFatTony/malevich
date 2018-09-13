@@ -8,7 +8,7 @@
 ### IntelliJ IDEA ###
 .idea/
 *.iws
-**/*.iml
+*/*.iml
 *.ipr
 *.ips
 .idea/
@@ -47,16 +47,20 @@ package-lock.json
 *.swo
 
 # Server
-target
+malevich-server/target
 
 # Web
-node_modules
-dist
-package-lock.json
+malevich-web/node_modules
+malevich-web/package-lock.json
+malevich-web/dist
+malevich-mobile/tmp
+malevich-mobile/temp
 
 # Mobile
-www
-tmp
-temp
-platforms
-plugins
+malevich-mobile/node_modules
+malevich-mobile/package-lock.json
+malevich-mobile/www
+malevich-mobile/tmp
+malevich-mobile/temp
+malevich-mobile/platforms
+malevich-mobile/plugins

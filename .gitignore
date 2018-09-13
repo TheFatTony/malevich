@@ -1,0 +1,96 @@
+#################### server ####################
+/target/
+!.mvn/wrapper/maven-wrapper.jar
+
+### STS ###
+.apt_generated
+.classpath
+.factorypath
+.project
+.settings
+.springBeans
+.sts4-cache
+
+### IntelliJ IDEA ###
+.idea
+*.iws
+*.iml
+*.ipr
+
+### NetBeans ###
+/nbproject/private/
+/build/
+/nbbuild/
+/dist/
+/nbdist/
+/.nb-gradle/
+
+.DS_Store
+
+
+#################### Client ####################
+# See http://help.github.com/ignore-files/ for more about ignoring files.
+
+# compiled output
+/dist
+/tmp
+/out-tsc
+
+# dependencies
+/node_modules
+
+# IDEs and editors
+.c9/
+*.launch
+.settings/
+*.sublime-workspace
+
+# IntelliJ
+.idea/
+*.iws
+/*.iml
+*.ipr
+*.ips
+.idea/
+
+# Eclipse
+.settings/
+.metadata/
+.classpath
+.project
+
+#NetBeans
+nb-configuration.xml
+
+#Maven
+.mvn/
+
+# IDE - VSCode
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+
+# misc
+/.sass-cache
+/connect.lock
+/coverage
+/libpeerconnection.log
+npm-debug.log
+yarn-error.log
+testem.log
+/typings
+package-lock.json
+
+# Generated
+target/
+javadoc/
+bin/
+log/
+classes/
+
+# Misc.
+.DS_Store
+*.swp
+*.swo

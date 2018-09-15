@@ -12,8 +12,8 @@ export class MainPageComponent implements OnInit, AfterViewInit {
   ngOnInit() {
   }
 
-  ngAfterViewInit(): void {
-    var countdowns = $['HSCore'].components.HSCountdown.init('.js-countdown', {
+  ngAfterViewInit() {
+    var countdowns = $['HSCore'].components['HSCountdown'].init('.js-countdown', {
       yearsElSelector: '.js-cd-years',
       monthElSelector: '.js-cd-month',
       daysElSelector: '.js-cd-days',

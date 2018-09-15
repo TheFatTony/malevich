@@ -28,7 +28,6 @@ export class MainHeaderComponent implements OnInit, AfterViewInit {
       }
     });
 
-    $['HSCore'].components.HSScrollBar.init($('.js-scrollbar'));
   }
 
 }

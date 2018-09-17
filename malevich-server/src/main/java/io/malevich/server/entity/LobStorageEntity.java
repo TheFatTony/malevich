@@ -4,7 +4,7 @@ package io.malevich.server.entity;
 import javax.persistence.*;
 import java.sql.Blob;
 
-@Entity
+@javax.persistence.Entity
 @Table(name = "lob_storage")
 public class LobStorageEntity implements Entity {
 

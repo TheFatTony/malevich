@@ -5,7 +5,7 @@ import io.malevich.server.entity.enums.Role;
 import javax.persistence.*;
 import java.util.Set;
 
-@Entity
+@javax.persistence.Entity
 @Table(name = "person")
 public class PersonEntity implements Entity {
 

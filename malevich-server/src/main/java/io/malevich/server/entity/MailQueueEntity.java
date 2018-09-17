@@ -4,7 +4,7 @@ package io.malevich.server.entity;
 import javax.persistence.*;
 import java.sql.Timestamp;
 
-@Entity
+@javax.persistence.Entity
 @Table(name = "mail_queue")
 public class MailQueueEntity implements Entity {
 

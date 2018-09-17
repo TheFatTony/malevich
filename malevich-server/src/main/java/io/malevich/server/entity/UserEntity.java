@@ -9,7 +9,7 @@ import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
 
-@Entity(name = "user")
+@javax.persistence.Entity(name = "user")
 @Table(name = "user")
 public class UserEntity implements Entity, UserDetails {
 

@@ -48,6 +48,7 @@ package-lock.json
 
 # Server
 */target
+*/logs
 
 # Web
 */node_modules

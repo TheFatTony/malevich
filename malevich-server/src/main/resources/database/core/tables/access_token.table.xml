@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog/1.9"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog/1.9 http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-1.9.xsd">
+
+    <changeSet author="thefattony" id="access_token-table">
+        <createTable tableName="access_token">
+            <column name="id" type="bigint"/>
+            <column name="expiry" type="datetime"/>
+            <column name="token" type="varchar(255)"/>
+            <column name="user_id" type="bigint"/>
+        </createTable>
+    </changeSet>
+
+    <changeSet author="thefattony" id="access_token-id-pk">
+        <addPrimaryKey columnNames="id" constraintName="access_token_pk" tableName="access_token"/>
+    </changeSet>
+
+
+</databaseChangeLog>
+

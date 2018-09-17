@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog/1.9"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog/1.9 http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-1.9.xsd">
+
+    <changeSet author="thefattony" id="lob_storage-id-nn">
+        <addNotNullConstraint columnDataType="bigint" columnName="id" tableName="lob_storage"/>
+    </changeSet>
+
+    <changeSet author="thefattony" id="lob_storage-file_id-nn">
+        <addNotNullConstraint columnDataType="bigint" columnName="file_id" tableName="lob_storage"/>
+    </changeSet>
+
+    <changeSet author="thefattony" id="lob_storage-id-aa">
+        <addAutoIncrement columnDataType="bigint" columnName="id" tableName="lob_storage"/>
+    </changeSet>
+
+</databaseChangeLog>

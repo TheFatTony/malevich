@@ -1,0 +1,19 @@
+<div class="container" *ngIf="message">
+  <!-- Success Alert -->
+  <div *ngIf="message.type === 'success'" class="alert alert-success alert-dismissible fade show" role="alert">
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+      <span aria-hidden="true">×</span>
+    </button>
+    <strong>Well done!</strong> {{message.text}}
+  </div>
+  <!-- End Success Alert -->
+
+  <!-- Danger Alert -->
+  <div *ngIf="message.type === 'error'" class="alert alert-danger alert-dismissible fade show" role="alert">
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+      <span aria-hidden="true">×</span>
+    </button>
+    <strong>Oh snap!</strong> {{message.text}}
+  </div>
+  <!-- End Danger Alert -->
+</div>

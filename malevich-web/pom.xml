@@ -32,29 +32,29 @@
   <build>
     <finalName>malevich-web</finalName>
     <plugins>
-      <!--<plugin>-->
-        <!--<groupId>com.github.eirslett</groupId>-->
-        <!--<artifactId>frontend-maven-plugin</artifactId>-->
-        <!--<version>${frontend-maven-plugin.version}</version>-->
-        <!--<configuration>-->
-          <!--<installDirectory>node_modules</installDirectory>-->
-        <!--</configuration>-->
-        <!--<executions>-->
-          <!--<execution>-->
-            <!--<id>ng build</id>-->
-            <!--<goals>-->
-              <!--<goal>npm</goal>-->
-            <!--</goals>-->
-            <!--<configuration>-->
-              <!--<arguments>run build</arguments>-->
-            <!--</configuration>-->
-          <!--</execution>-->
-        <!--</executions>-->
-      <!--</plugin>-->
+      <plugin>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>exec-maven-plugin</artifactId>
+        <executions>
+          <execution>
+            <id>exec-npm</id>
+            <phase>process-resources</phase>
+            <configuration>
+              <executable>npm</executable>
+              <arguments>
+                <argument>run-script</argument>
+                <argument>build</argument>
+              </arguments>
+            </configuration>
+            <goals>
+              <goal>exec</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-war-plugin</artifactId>
-        <version>3.1.0</version>
         <configuration>
           <webXml>src/WEB-INF/web.xml</webXml>
           <webResources>
@@ -67,7 +67,6 @@
       <plugin>
         <groupId>org.apache.tomcat.maven</groupId>
         <artifactId>tomcat7-maven-plugin</artifactId>
-        <version>2.1</version>
         <configuration>
           <update>true</update>
           <path>${project.name}##${project.version}</path>

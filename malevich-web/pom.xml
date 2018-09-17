@@ -40,10 +40,11 @@
             <id>exec-npm</id>
             <phase>process-resources</phase>
             <configuration>
-              <executable>npm</executable>
+              <executable>yarn</executable>
               <arguments>
-                <argument>run-script</argument>
+                <argument>run</argument>
                 <argument>build</argument>
+                <argument>--prod</argument>
               </arguments>
             </configuration>
             <goals>

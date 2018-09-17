@@ -7,12 +7,27 @@ import {MainFooterComponent} from './main/main-footer/main-footer.component';
 import {MainPageComponent} from './main/main-page/main-page.component';
 import {AppRoutingModule} from './app-routing.module';
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
-import {HttpClientModule} from "@angular/common/http";
+import {HTTP_INTERCEPTORS, HttpClient, HttpClientModule} from "@angular/common/http";
 import {CommonModule} from "@angular/common";
+import {AdminModule} from "./admin/admin.module";
+import {NgxPaginationModule} from "ngx-pagination";
+import {TranslateLoader, TranslateModule} from "@ngx-translate/core";
+import {TranslateHttpLoader} from "@ngx-translate/http-loader";
+import {AlertComponent} from "./_directives/alert/alert.component";
+import {Globals} from "./globals";
+import {AlertService, FileService, LoginService} from "./_services";
+import {AuthGuard} from "./_guards/auth.guard";
+import {AdminGuard} from "./_guards/admin.guard";
+import {ErrorInterceptor, JwtInterceptor} from "./_helpers";
+
+export function createTranslateLoader(http: HttpClient) {
+  return new TranslateHttpLoader(http, './assets/i18n/', '.json');
+}
 
 @NgModule({
   declarations: [
     AppComponent,
+    AlertComponent,
     MainHeaderComponent,
     MainFooterComponent,
     MainPageComponent
@@ -20,12 +35,23 @@ import {CommonModule} from "@angular/common";
   imports: [
     BrowserModule,
     CommonModule,
+    TranslateModule.forRoot({
+      loader: {
+        provide: TranslateLoader,
+        useFactory: (createTranslateLoader),
+        deps: [HttpClient]
+      }
+    }),
     FormsModule,
     ReactiveFormsModule,
     HttpClientModule,
-    AppRoutingModule
+    AppRoutingModule,
+    NgxPaginationModule,
+    AdminModule
   ],
-  providers: [],
+  providers: [Globals, LoginService, FileService, AlertService, AuthGuard, AdminGuard,
+    {provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true},
+    {provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true}],
   bootstrap: [AppComponent]
 })
 export class AppModule {

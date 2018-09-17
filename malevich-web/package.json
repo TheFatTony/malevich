@@ -8,7 +8,7 @@
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
-    "yarn": "/usr/local/lib/node_modules/yarn/bin/yarn"
+    "yarn": "yarn"
   },
   "private": true,
   "dependencies": {
@@ -37,7 +37,8 @@
     "rxjs": "6.2.2",
     "simple-line-icons": "^2.4.1",
     "slick-carousel": "^1.8.1",
-    "zone.js": "^0.8.26"
+    "zone.js": "^0.8.26",
+    "jqwidgets-scripts": "^6.0.6"
   },
   "devDependencies": {
     "@angular/cli": "~6.1.1",

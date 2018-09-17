@@ -3,7 +3,7 @@ package io.malevich.server.entity;
 import javax.persistence.*;
 
 
-@Entity
+@javax.persistence.Entity
 @Table(name = "user_type")
 public class UserTypeEntity implements Entity {
     @Id

@@ -1,6 +1,6 @@
 package io.malevich.server.utils;
 
-import app.turgenev.server.AppTest;
+import io.malevich.server.AppTest;
 import org.springframework.boot.jdbc.DataSourceBuilder;
 import org.springframework.boot.test.util.TestPropertyValues;
 import org.springframework.context.ApplicationContextInitializer;

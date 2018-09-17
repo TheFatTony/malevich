@@ -1,10 +1,9 @@
 package io.malevich.server.entity;
 
 import javax.persistence.*;
-import javax.persistence.Entity;
 import java.util.Date;
 
-@Entity
+@javax.persistence.Entity
 @Table(name = "access_token")
 public class AccessTokenEntity implements Entity {
     @Id

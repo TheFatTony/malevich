@@ -2,7 +2,7 @@ package io.malevich.server.entity;
 
 import javax.persistence.*;
 
-@Entity
+@javax.persistence.Entity
 @Table(name = "files")
 public class FileEntity implements Entity {
 

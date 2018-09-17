@@ -22,6 +22,7 @@ public class TestApplicationContextInitializer implements ApplicationContextInit
                 .build();
 
         try {
+            System.out.println("!!!!!!!!!!!!!!!!!!!!");
             TestUtils.initFunction(dataSource.getConnection());
         } catch (SQLException e) {
             e.printStackTrace();

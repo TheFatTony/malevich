@@ -1,11 +1,12 @@
 <main>
   <app-main-header></app-main-header>
-  <router-outlet></router-outlet>
+  <router-outlet (activate)="scrollToTop($event)"></router-outlet>
   <app-main-footer></app-main-footer>
   <a class="js-go-to u-go-to-v2 animated js-animation-was-fired zoomIn" href="#!" data-type="fixed" data-position="{
            &quot;bottom&quot;: 15,
            &quot;right&quot;: 15
-         }" data-offset-top="400" data-compensation="#js-header" data-show-effect="zoomIn" style="display: inline-block; position: fixed; bottom: 15px; right: 15px;">
+         }" data-offset-top="400" data-compensation="#js-header" data-show-effect="zoomIn"
+     style="display: inline-block; position: fixed; bottom: 15px; right: 15px;">
     <i class="hs-icon hs-icon-arrow-top"></i>
   </a>
 </main>

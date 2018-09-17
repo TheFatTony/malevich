@@ -33,7 +33,13 @@ export class AppComponent implements AfterViewInit{
       }
     }
   }
+
   ngAfterViewInit(): void {
     $['HSCore'].components.HSGoTo.init('.js-go-to');
   }
+
+  scrollToTop(event) {
+    window.scroll(0, 0);
+  }
+
 }

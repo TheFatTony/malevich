@@ -19,6 +19,9 @@ import {AlertService, FileService, LoginService} from "./_services";
 import {AuthGuard} from "./_guards/auth.guard";
 import {AdminGuard} from "./_guards/admin.guard";
 import {ErrorInterceptor, JwtInterceptor} from "./_helpers";
+import { HelpComponent } from './main/help/help.component';
+import { AboutComponent } from './main/about/about.component';
+import { ContactComponent } from './main/contact/contact.component';
 
 export function createTranslateLoader(http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
@@ -30,7 +33,10 @@ export function createTranslateLoader(http: HttpClient) {
     AlertComponent,
     MainHeaderComponent,
     MainFooterComponent,
-    MainPageComponent
+    MainPageComponent,
+    HelpComponent,
+    AboutComponent,
+    ContactComponent
   ],
   imports: [
     BrowserModule,

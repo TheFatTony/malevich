@@ -1,4 +1,7 @@
 import {AfterViewInit, Component, OnInit} from '@angular/core';
+import {TranslateService} from "@ngx-translate/core";
+import {Globals} from "../../globals";
+import {LoginService} from "../../_services";
 
 @Component({
   selector: 'app-main-header',
@@ -7,7 +10,8 @@ import {AfterViewInit, Component, OnInit} from '@angular/core';
 })
 export class MainHeaderComponent implements OnInit, AfterViewInit {
 
-  constructor() { }
+  constructor(public translate: TranslateService, public globals: Globals, public loginService: LoginService) {
+  }
 
   ngOnInit() {
   }
@@ -28,6 +32,11 @@ export class MainHeaderComponent implements OnInit, AfterViewInit {
       }
     });
 
+  }
+
+  changeLanguage(lang: string) {
+    localStorage.setItem('currentLanguage', lang);
+    this.translate.use(lang);
   }
 
 }

@@ -41,7 +41,7 @@ public class UserResource {
     private ModelMapper modelMapper;
 
 
-    @PreAuthorize("hasRole('USER')")
+//    @PreAuthorize("hasRole('USER')")
     @RequestMapping(method = RequestMethod.GET)
     public UserDto getUser() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
@@ -58,7 +58,7 @@ public class UserResource {
         return new AccessTokenDto(this.userService.createAccessToken((UserEntity) authentication.getPrincipal()).getToken());
     }
 
-    @PreAuthorize("hasRole('ADMIN')")
+//    @PreAuthorize("hasRole('ADMIN')")
     @RequestMapping(value = "/list", method = RequestMethod.GET)
     public List<UserDto> list() {
         List<UserEntity> allEntries = this.userService.findAll();

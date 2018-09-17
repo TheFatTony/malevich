@@ -1,0 +1,27 @@
+<jqxGrid #myGrid
+  [width]="'100%'" [height]="'100%'" [pageable]="true" [sortable]="true" [columnsresize]="true" [pagermode]="'simple'">
+  <tr>
+    <th>File Name</th>
+    <th>Mime Type</th>
+    <th>File Size</th>
+    <th>Url</th>
+    <th>Alt</th>
+  </tr>
+  <tr *ngFor="let file of files">
+    <td>
+      {{file.fileName}}
+    </td>
+    <td>
+      {{file.mimeType}}
+    </td>
+    <td>
+      {{file.fileSize}}
+    </td>
+    <td>
+      {{file.url}}
+    </td>
+    <td>
+      {{file.alt}}
+    </td>
+  </tr>
+</jqxGrid>

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog/1.9"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog/1.9 http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-1.9.xsd">
+
+   <changeSet author="thefattony" id="user_type-id-nn">
+        <addNotNullConstraint columnDataType="bigint" columnName="id" tableName="user_type"/>
+    </changeSet>
+
+    <changeSet author="thefattony" id="user_type-type_name-nn">
+        <addNotNullConstraint columnDataType="varchar(1000)" columnName="type_name" tableName="user_type"/>
+    </changeSet>
+    
+     <changeSet author="thefattony" id="user_type-user_type-id-aa">
+        <addAutoIncrement columnDataType="bigint" columnName="id" tableName="user_type"/>
+    </changeSet>
+
+</databaseChangeLog>

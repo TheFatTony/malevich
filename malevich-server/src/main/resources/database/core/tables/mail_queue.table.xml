@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog/1.9"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog/1.9 http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-1.9.xsd">
+
+    <changeSet author="thefattony" id="mail_queue-table">
+        <createTable tableName="mail_queue">
+            <column name="id" type="bigint"/>
+            <column name="recipient" type="varchar(1000)"/>
+            <column name="header" type="varchar(4000)"/>
+            <column name="body" type="clob"/>
+            <column name="effective_date" type="datetime"/>
+        </createTable>
+        <modifySql dbms="mysql">
+            <replace replace="clob" with="longtext"/>
+        </modifySql>
+    </changeSet>
+
+    <changeSet author="thefattony" id="mail_queue-id-pk">
+        <addPrimaryKey columnNames="id" constraintName="mail_queue_pk" tableName="mail_queue"/>
+    </changeSet>
+
+</databaseChangeLog>
+

@@ -70,7 +70,7 @@ public class FileResource {
     }
 
 
-    @PreAuthorize("hasRole('ADMIN')")
+//    @PreAuthorize("hasRole('ADMIN')")
     @RequestMapping(value = "/list", method = RequestMethod.GET)
     public List<FileDto> list() {
         this.logger.info("list()");

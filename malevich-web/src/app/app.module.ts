@@ -22,6 +22,13 @@ import {ErrorInterceptor, JwtInterceptor} from "./_helpers";
 import { HelpComponent } from './main/help/help.component';
 import { AboutComponent } from './main/about/about.component';
 import { ContactComponent } from './main/contact/contact.component';
+import { LoginComponent } from './auth/login/login.component';
+import { RegisterComponent } from './auth/register/register.component';
+import { ResetComponent } from './auth/reset/reset.component';
+import { TraderProfileComponent } from './profile/trader-profile/trader-profile.component';
+import { ArtworksListComponent } from './artworks/artworks-list/artworks-list.component';
+import { GalleriesListComponent } from './galleries/galleries-list/galleries-list.component';
+import { ArtistsListComponent } from './artists/artists-list/artists-list.component';
 
 export function createTranslateLoader(http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
@@ -36,7 +43,14 @@ export function createTranslateLoader(http: HttpClient) {
     MainPageComponent,
     HelpComponent,
     AboutComponent,
-    ContactComponent
+    ContactComponent,
+    LoginComponent,
+    RegisterComponent,
+    ResetComponent,
+    TraderProfileComponent,
+    ArtworksListComponent,
+    GalleriesListComponent,
+    ArtistsListComponent
   ],
   imports: [
     BrowserModule,

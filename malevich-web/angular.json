@@ -43,7 +43,8 @@
               "src/assets/vendor/revolution-slider/revolution-addons/typewriter/css/typewriter.css",
               "node_modules/jqwidgets-scripts/jqwidgets/styles/jqx.base.css",
               "node_modules/jqwidgets-scripts/jqwidgets/styles/jqx.bootstrap.css",
-              "src/assets/e-commerce/css/styles.e-commerce.css"
+              "src/assets/e-commerce/css/styles.e-commerce.css",
+              "src/assets/malevich/css/malevich.css"
             ],
             "scripts": [
               "node_modules/jquery/dist/jquery.js",

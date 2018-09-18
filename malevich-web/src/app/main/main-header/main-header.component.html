@@ -32,7 +32,7 @@
           <li class="nav-item">
             <a
               class="nav-link g-color-white g-brd-right--lg g-brd-primary-dark-v1 g-bg-primary-dark-v1--hover g-font-weight-600--md g-font-size-default g-px-17 g-px-23--xl g-py-15"
-              routerLink="">
+              routerLink="/artworks/artworks-list">
               Art-Hunter
             </a>
           </li>
@@ -40,7 +40,7 @@
           <li class="nav-item">
             <a
               class="nav-link g-color-white g-brd-right--lg g-brd-primary-dark-v1 g-bg-primary-dark-v1--hover g-font-weight-600--md g-font-size-default g-px-17 g-px-23--xl g-py-15"
-              routerLink="">
+              routerLink="/galleries/galleries-list">
               Galleries
             </a>
           </li>
@@ -48,7 +48,7 @@
           <li class="nav-item">
             <a
               class="nav-link g-color-white g-brd-right--lg g-brd-primary-dark-v1 g-bg-primary-dark-v1--hover g-font-weight-600--md g-font-size-default g-px-17 g-px-23--xl g-py-15"
-              routerLink="">
+              routerLink="/artists/artists-list">
               Artists
             </a>
           </li>
@@ -57,7 +57,7 @@
           <li class="nav-item">
             <a
               class="nav-link g-color-white g-brd-right--lg g-brd-primary-dark-v1 g-bg-primary-dark-v1--hover g-font-weight-600--md g-font-size-default g-px-17 g-px-23--xl g-py-15"
-              routerLink="/about">
+              routerLink="/main/about">
               About
             </a>
           </li>
@@ -65,7 +65,7 @@
           <li class="nav-item">
             <a
               class="nav-link g-color-white g-brd-right--lg g-brd-primary-dark-v1 g-bg-primary-dark-v1--hover g-font-weight-600--md g-font-size-default g-px-17 g-px-23--xl g-py-15"
-              routerLink="admin">
+              routerLink="/admin">
               Admin
             </a>
           </li>
@@ -92,6 +92,14 @@
       <div id="navBar"
            class="collapse navbar-collapse align-items-center order-lg-last g-brd-top g-brd-none--lg g-brd-primary-dark-v1">
         <ul class="navbar-nav g-py-30 g-py-0--lg">
+          <li class="nav-item">
+            <a
+              class="nav-link g-color-white g-brd-right--lg g-brd-primary-dark-v1 g-bg-primary-dark-v1--hover g-font-weight-400 g-font-size-default g-px-17 g-px-23--xl g-py-15"
+              routerLink="/auth/login">
+              Login
+            </a>
+          </li>
+
           <!-- Listing - Submenu -->
           <li class="nav-item hs-has-sub-menu">
             <a id="nav-link--listing"
@@ -107,12 +115,10 @@
             <ul id="nav-submenu--listing" class="hs-sub-menu list-unstyled u-shadow-v11 g-min-width-220 g-mt-2"
                 aria-labelledby="nav-link--listing" style="z-index: 99999;">
               <li class="dropdown-item">
-                <a class="nav-link g-color-text g-font-weight-600" routerLink="/booking/booking-list"
-                  >User Profile</a>
+                <a class="nav-link g-color-text g-font-weight-600" routerLink="/profile/trader">User Profile</a>
               </li>
               <li class="dropdown-item">
-                <a class="nav-link g-color-text g-font-weight-600" routerLink="/booking/booking-view"
-                  >Logout</a>
+                <a class="nav-link g-color-text g-font-weight-600" href="javascript:void(0);" (click)="loginService.logout()">Logout</a>
               </li>
             </ul>
             <!-- End Submenu -->
@@ -135,7 +141,8 @@
             <ul id="nav-submenu--listing" class="hs-sub-menu list-unstyled u-shadow-v11 g-min-width-220 g-mt-2"
                 aria-labelledby="nav-link--listing" style="z-index: 99999;">
               <li class="dropdown-item">
-                <a class="nav-link g-color-text g-font-weight-600" [class.active]="translate.currentLang == 'en'" href="javascript:void(0);" (click)="changeLanguage('en')">
+                <a class="nav-link g-color-text g-font-weight-600" [class.active]="translate.currentLang == 'en'"
+                   href="javascript:void(0);" (click)="changeLanguage('en')">
                   <svg class="mr-1 g-ml-minus-10" xmlns="http://www.w3.org/2000/svg" height="11" width="27"
                        viewBox="0 0 640 480">
                     <defs>
@@ -160,7 +167,8 @@
                   English</a>
               </li>
               <li class="dropdown-item">
-                <a class="nav-link g-color-text g-font-weight-600" [class.active]="translate.currentLang == 'ru'" href="javascript:void(0);" (click)="changeLanguage('ru')">
+                <a class="nav-link g-color-text g-font-weight-600" [class.active]="translate.currentLang == 'ru'"
+                   href="javascript:void(0);" (click)="changeLanguage('ru')">
                   <svg class="mr-1 g-ml-minus-10" xmlns="http://www.w3.org/2000/svg" height="11" width="27"
                        viewBox="0 0 640 480">
                     <g fill-rule="evenodd" stroke-width="1pt">

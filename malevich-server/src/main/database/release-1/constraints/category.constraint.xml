@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.6.xsd">
+
+    <changeSet author="thefattony" id="category-id-nn">
+        <addNotNullConstraint columnDataType="bigint" columnName="id" tableName="category"/>
+    </changeSet>
+
+    <changeSet author="thefattony" id="category-language-nn">
+        <addNotNullConstraint columnDataType="char(2)" columnName="language" tableName="category"/>
+    </changeSet>
+
+    <changeSet author="thefattony" id="category-category_name-nn">
+        <addNotNullConstraint columnDataType="varchar(255)" columnName="category_name" tableName="category"/>
+    </changeSet>
+
+    <changeSet author="thefattony" id="category-category_name-uc">
+        <addUniqueConstraint columnNames="language, category_name" constraintName="category_category_name_uc" tableName="category"/>
+    </changeSet>
+
+    <changeSet author="thefattony" id="category-description-nn">
+        <addNotNullConstraint columnDataType="varchar(255)" columnName="description" tableName="category"/>
+    </changeSet>
+
+
+    <changeSet author="thefattony" id="category-id-aa">
+        <addAutoIncrement columnDataType="bigint" columnName="id" tableName="category"/>
+    </changeSet>
+
+</databaseChangeLog>

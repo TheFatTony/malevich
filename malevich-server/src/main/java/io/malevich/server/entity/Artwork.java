@@ -1,13 +1,14 @@
 package io.malevich.server.entity;
 
 
-import javax.persistence.Column;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 @javax.persistence.Entity
 @Table(name = "artwork")
 public class Artwork implements Entity {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Column(name = "language")

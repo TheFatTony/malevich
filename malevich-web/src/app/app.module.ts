@@ -29,6 +29,9 @@ import { TraderProfileComponent } from './profile/trader-profile/trader-profile.
 import { ArtworksListComponent } from './artworks/artworks-list/artworks-list.component';
 import { GalleriesListComponent } from './galleries/galleries-list/galleries-list.component';
 import { ArtistsListComponent } from './artists/artists-list/artists-list.component';
+import { FiltersComponent } from './artworks/artworks-list/filters/filters.component';
+import { GridComponent } from './artworks/artworks-list/grid/grid.component';
+import { ListComponent } from './artworks/artworks-list/list/list.component';
 
 export function createTranslateLoader(http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
@@ -50,7 +53,10 @@ export function createTranslateLoader(http: HttpClient) {
     TraderProfileComponent,
     ArtworksListComponent,
     GalleriesListComponent,
-    ArtistsListComponent
+    ArtistsListComponent,
+    FiltersComponent,
+    GridComponent,
+    ListComponent
   ],
   imports: [
     BrowserModule,

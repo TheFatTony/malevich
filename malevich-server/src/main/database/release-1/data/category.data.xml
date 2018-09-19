@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.6.xsd">
+
+    <changeSet author="thefattony" id="category-data">
+        <sql endDelimiter="\nGO" splitStatements="true" stripComments="true">
+            INSERT INTO category (id, language, category_name, description)
+            VALUES (1, 'en', 'Painting', ''),
+                   (1, 'ru', 'Картина', ''),
+                   (2, 'en', 'Sculpture', ''),
+                   (2, 'ru', 'Скульптура', ''),
+                   (3, 'en', 'Photography', ''),
+                   (3, 'ru', 'Фотография', ''),
+                   (4, 'en', 'Digital Art', ''),
+                   (4, 'ru', 'Цифровое искусство', ''),
+                   (5, 'en', 'Multimedia', ''),
+                   (5, 'ru', 'Мультимедиа', ''),
+                   (6, 'en', 'Installation', ''),
+                   (6, 'ru', 'Инсталляция', ''),
+                   (7, 'en', 'Artistic handicrafts', ''),
+                   (7, 'ru', 'Художественные ремёсла', ''),
+                   (8, 'en', 'Prints and Engravings', ''),
+                   (8, 'ru', 'Отпечатки и Гравюры', ''),
+                   (9, 'en', 'Calligraphy', ''),
+                   (9, 'ru', 'Каллиграфия', ''),
+                   (10, 'en', 'Artistic composition', ''),
+                   (10, 'ru', 'Художественная композиция', ''),
+                   (11, 'en', 'Drawing', ''),
+                   (11, 'ru', 'Рисунок', '');
+        </sql>
+    </changeSet>
+
+</databaseChangeLog>

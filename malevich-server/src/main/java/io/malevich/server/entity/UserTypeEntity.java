@@ -1,5 +1,8 @@
 package io.malevich.server.entity;
 
+import lombok.Getter;
+import lombok.Setter;
+
 import javax.persistence.*;
 
 
@@ -8,35 +11,15 @@ import javax.persistence.*;
 public class UserTypeEntity implements Entity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Getter @Setter
     private long id;
 
     @Column(name = "type_name")
+    @Getter @Setter
     private String typeName;
 
     @Column(name = "description")
+    @Getter @Setter
     private String description;
 
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(long id) {
-        this.id = id;
-    }
-
-    public String getTypeName() {
-        return typeName;
-    }
-
-    public void setTypeName(String typeName) {
-        this.typeName = typeName;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
 }

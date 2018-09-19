@@ -1,7 +1,11 @@
 package io.malevich.server.transfer;
 
+import lombok.Getter;
+import lombok.Setter;
+
 public class AccessTokenDto {
 
+    @Getter @Setter
     private String token;
 
 
@@ -9,11 +13,4 @@ public class AccessTokenDto {
         this.token = token;
     }
 
-    public String getToken() {
-        return token;
-    }
-
-    public void setToken(String token) {
-        this.token = token;
-    }
 }

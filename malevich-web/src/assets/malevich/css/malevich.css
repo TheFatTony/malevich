@@ -1,16 +1,16 @@
 /* Variables */
 /* Imports */
 * {
-  font-family: 'Roboto', sans-serif;
+  font-family: sans-serif;
 }
 
 /* Typography */
 body,
 p {
-  line-height: 1.6em;
-  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
-  font-size: 14px;
+  line-height: 1.5;
   color: #000;
+  font-family: "Open Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+  font-weight: 400;
 }
 
 ::-moz-selection {
@@ -35,6 +35,10 @@ h3, .h3,
 h4, .h4,
 h5, .h5,
 h6, .h6 {
+  margin-bottom: 0.5rem;
+  font-family: inherit;
+  font-weight: 300;
+  line-height: 1.2;
   color: #000;
 }
 
@@ -262,4 +266,9 @@ input[type="radio"]:checked + * .g-bg-primary--checked {
 .g-bg-primary--checked.g-checked,
 .g-checked .g-bg-primary--checked {
   background-color: #e44235 !important;
+}
+
+.u-go-to-v2:hover, .u-go-to-v2:focus:hover {
+  color: #fff;
+  background-color: #e44235;
 }

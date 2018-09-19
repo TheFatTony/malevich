@@ -21,6 +21,15 @@ p {
   background-color: #e44235;
 }
 
+.g-bg-primary ::selection {
+  color: #e44235;
+  background-color: #fff;
+}
+.g-bg-primary ::selection {
+  color: #e44235;
+  background-color: #fff;
+}
+
 a {
   color: #e44235;
 }
@@ -271,4 +280,11 @@ input[type="radio"]:checked + * .g-bg-primary--checked {
 .u-go-to-v2:hover, .u-go-to-v2:focus:hover {
   color: #fff;
   background-color: #e44235;
+}
+
+
+[class*="u-nav-v5"].u-nav-primary .nav-link.active {
+  border-color: #e44235;
+  border-bottom-color: rgb(228, 66, 53);
+  color: #e44235;
 }

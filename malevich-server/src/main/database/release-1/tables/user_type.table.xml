@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-2.0.xsd">
+
+    <changeSet author="thefattony" id="user_type-table">
+        <createTable tableName="user_type">
+            <column name="id" type="bigint"/>
+            <column name="type_name" type="varchar(1000)"/>
+            <column name="description" type="varchar(4000)"/>
+        </createTable>
+    </changeSet>
+
+    <changeSet author="thefattony" id="user_type-pk">
+        <addPrimaryKey columnNames="id" constraintName="user_type_pk" tableName="user_type"/>
+    </changeSet>
+
+</databaseChangeLog>
+

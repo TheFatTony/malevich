@@ -15,10 +15,10 @@ public class TestUtils {
         Database database = null;
         try {
             database = DatabaseFactory.getInstance().findCorrectDatabaseImplementation(new JdbcConnection(connection));
-            Liquibase liquibase = new Liquibase("src/main/resources/database/app.changelog.xml", new FileSystemResourceAccessor(), database);
+            Liquibase liquibase = new Liquibase("src/main/database/app.changelog.xml", new FileSystemResourceAccessor(), database);
             liquibase.update("");
 
-            liquibase = new Liquibase("src/test/resources/database/data.changelog.xml", new FileSystemResourceAccessor(), database);
+            liquibase = new Liquibase("src/test/database/data.changelog.xml", new FileSystemResourceAccessor(), database);
             liquibase.update("");
 
         } catch (LiquibaseException e) {

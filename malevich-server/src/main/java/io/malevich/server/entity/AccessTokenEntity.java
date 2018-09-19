@@ -10,7 +10,7 @@ public class AccessTokenEntity implements Entity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(nullable = false)
+    @Column
     private String token;
 
     @ManyToOne

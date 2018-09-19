@@ -17,10 +17,10 @@ public class UserEntity implements Entity, UserDetails {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 
-	@Column(unique = true, length = 255, nullable = false)
+	@Column(name = "name")
 	private String name;
 
-	@Column(length = 255, nullable = false)
+	@Column(name = "password")
 	private String password;
 
 	@ElementCollection(fetch = FetchType.EAGER)

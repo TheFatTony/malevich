@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-2.0.xsd">
+
+    <changeSet author="thefattony" id="artwork-id-nn">
+        <addNotNullConstraint columnDataType="bigint" columnName="id" tableName="artwork"/>
+    </changeSet>
+
+    <changeSet author="thefattony" id="artwork-language-nn">
+        <addNotNullConstraint columnDataType="char(2)" columnName="language" tableName="artwork"/>
+    </changeSet>
+
+    <changeSet author="thefattony" id="artwork-title-nn">
+        <addNotNullConstraint columnDataType="varchar(4000)" columnName="title" tableName="artwork"/>
+    </changeSet>
+
+    <changeSet author="thefattony" id="artwork-id-aa">
+        <addAutoIncrement columnDataType="bigint" columnName="id" tableName="artwork" />
+    </changeSet>
+
+</databaseChangeLog>

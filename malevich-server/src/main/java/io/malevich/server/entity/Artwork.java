@@ -1,6 +1,9 @@
 package io.malevich.server.entity;
 
 
+import lombok.Getter;
+import lombok.Setter;
+
 import javax.persistence.*;
 
 @javax.persistence.Entity
@@ -9,63 +12,23 @@ public class Artwork implements Entity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Getter @Setter
     private Long id;
 
     @Column(name = "language")
+    @Getter @Setter
     private String language;
 
     @Column(name = "title")
+    @Getter @Setter
     private String title;
 
     @Column(name = "description")
+    @Getter @Setter
     private String description;
 
     @Column(name = "price")
+    @Getter @Setter
     private double price;
-
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-
-    public String getLanguage() {
-        return language;
-    }
-
-    public void setLanguage(String language) {
-        this.language = language;
-    }
-
-
-    public String getTitle() {
-        return title;
-    }
-
-    public void setTitle(String title) {
-        this.title = title;
-    }
-
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-
-    public double getPrice() {
-        return price;
-    }
-
-    public void setPrice(double price) {
-        this.price = price;
-    }
 
 }

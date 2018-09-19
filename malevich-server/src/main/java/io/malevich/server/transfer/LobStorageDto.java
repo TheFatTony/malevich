@@ -1,47 +1,23 @@
 package io.malevich.server.transfer;
 
 
+import lombok.Getter;
+import lombok.Setter;
+
 public class LobStorageDto {
 
-  private long id;
-  private long fileId;
-  private String content;
-  private long fileSize;
 
+    @Getter @Setter
+    private long id;
 
-  public long getId() {
-    return id;
-  }
+    @Getter @Setter
+    private long fileId;
 
-  public void setId(long id) {
-    this.id = id;
-  }
+    @Getter @Setter
+    private String content;
 
+    @Getter @Setter
+    private long fileSize;
 
-  public long getFileId() {
-    return fileId;
-  }
-
-  public void setFileId(long fileId) {
-    this.fileId = fileId;
-  }
-
-
-  public String getContent() {
-    return content;
-  }
-
-  public void setContent(String content) {
-    this.content = content;
-  }
-
-
-  public long getFileSize() {
-    return fileSize;
-  }
-
-  public void setFileSize(long fileSize) {
-    this.fileSize = fileSize;
-  }
 
 }

@@ -1,17 +1,15 @@
 package io.malevich.server.transfer;
 
+import lombok.Getter;
+
 public class TokenDto {
 
-    private final String token;
 
+    @Getter
+    private final String token;
 
     public TokenDto(String token) {
         this.token = token;
-    }
-
-
-    public String getToken() {
-        return this.token;
     }
 
 }

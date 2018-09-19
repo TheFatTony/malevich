@@ -34,6 +34,7 @@ public class FileEntity implements Entity {
         this.id = id;
     }
 
+
     public String getFileName() {
         return fileName;
     }
@@ -41,6 +42,7 @@ public class FileEntity implements Entity {
     public void setFileName(String fileName) {
         this.fileName = fileName;
     }
+
 
     public String getMimeType() {
         return mimeType;
@@ -50,6 +52,7 @@ public class FileEntity implements Entity {
         this.mimeType = mimeType;
     }
 
+
     public String getUrl() {
         return url;
     }
@@ -58,6 +61,7 @@ public class FileEntity implements Entity {
         this.url = url;
     }
 
+
     public String getAlt() {
         return alt;
     }
@@ -65,6 +69,7 @@ public class FileEntity implements Entity {
     public void setAlt(String alt) {
         this.alt = alt;
     }
+
 
     public Long getFileSize() {
         return fileSize;

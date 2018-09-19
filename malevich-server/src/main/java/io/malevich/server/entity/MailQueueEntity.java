@@ -46,6 +46,7 @@ public class MailQueueEntity implements Entity {
         this.id = id;
     }
 
+
     public String getRecipient() {
         return recipient;
     }
@@ -53,6 +54,7 @@ public class MailQueueEntity implements Entity {
     public void setRecipient(String recipient) {
         this.recipient = recipient;
     }
+
 
     public String getHeader() {
         return header;
@@ -62,6 +64,7 @@ public class MailQueueEntity implements Entity {
         this.header = header;
     }
 
+
     public String getBody() {
         return body;
     }
@@ -69,6 +72,7 @@ public class MailQueueEntity implements Entity {
     public void setBody(String body) {
         this.body = body;
     }
+
 
     public Timestamp getEffectiveDate() {
         return effectiveDate;

@@ -1,6 +1,13 @@
 # Malevich
 
+
+
 ## Server
+
+**Build command:**
+
+resources:resources clean liquibase:updateSQL package -DskipTests=true
+
 
 ## Mobile
 

@@ -10,10 +10,10 @@ public class UserTypeEntity implements Entity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-    @Column(name = "type_name", length = 1000, nullable = false)
+    @Column(name = "type_name")
     private String typeName;
 
-    @Column(name = "description", length = 4000, nullable = true)
+    @Column(name = "description")
     private String description;
 
     public Long getId() {

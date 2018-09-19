@@ -3,17 +3,12 @@
                    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
                    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-2.0.xsd">
 
-    <changeSet author="thefattony" id="person-table">
-        <createTable tableName="person">
+    <changeSet author="thefattony" id="artwork-id-language-index">
+        <createIndex indexName="artwork_pk_idx" tableName="artwork" unique="true">
             <column name="id" type="bigint"/>
-            <column name="full_name" type="varchar(1000)"/>
-        </createTable>
+            <column name="language" type="char(2)"/>
+        </createIndex>
     </changeSet>
-
-    <changeSet author="thefattony" id="person-id-pk">
-        <addPrimaryKey columnNames="id" constraintName="person_pk" tableName="person"/>
-    </changeSet>
-
 
 </databaseChangeLog>
 

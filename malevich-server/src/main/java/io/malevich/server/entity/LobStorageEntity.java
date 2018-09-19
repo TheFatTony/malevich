@@ -1,6 +1,9 @@
 package io.malevich.server.entity;
 
 
+import lombok.Getter;
+import lombok.Setter;
+
 import javax.persistence.*;
 import java.sql.Blob;
 
@@ -10,42 +13,18 @@ public class LobStorageEntity implements Entity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Getter @Setter
     private Long id;
 
     @OneToOne
     @JoinColumn(name = "file_id", referencedColumnName = "id")
+    @Getter @Setter
     private FileEntity file;
 
     @Lob
     @Basic(fetch = FetchType.LAZY)
     @Column(name = "content")
+    @Getter @Setter
     private Blob content;
-
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public void setFile(FileEntity file) {
-        this.file = file;
-    }
-
-    public FileEntity getFile() {
-        return file;
-    }
-
-
-    public Blob getContent() {
-        return content;
-    }
-
-    public void setContent(Blob content) {
-        this.content = content;
-    }
-
 
 }

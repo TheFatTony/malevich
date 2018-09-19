@@ -1,14 +1,23 @@
 package io.malevich.server.transfer;
 
+import lombok.Getter;
+import lombok.Setter;
+
 import java.util.List;
 
 
 public class UserDto {
 
+
+    @Getter @Setter
     private  String name;
 
+
+    @Getter @Setter
     private  String password;
 
+
+    @Getter @Setter
     private  List<String> roles;
 
     public UserDto() {
@@ -19,22 +28,6 @@ public class UserDto {
         this.name = userName;
         this.roles = roles;
         this.password = password;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public List<String> getRoles() {
-        return this.roles;
-    }
-
-    public String getPassword() {
-        return password;
     }
 
 }

@@ -1,5 +1,8 @@
 package io.malevich.server.entity;
 
+import lombok.Getter;
+import lombok.Setter;
+
 import javax.persistence.*;
 import java.util.Date;
 
@@ -8,15 +11,19 @@ import java.util.Date;
 public class AccessTokenEntity implements Entity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Getter
     private Long id;
 
     @Column
+    @Getter
     private String token;
 
     @ManyToOne
+    @Getter
     private UserEntity user;
 
     @Column
+    @Getter
     private Date expiry;
 
     protected AccessTokenEntity() {
@@ -31,23 +38,6 @@ public class AccessTokenEntity implements Entity {
     public AccessTokenEntity(UserEntity user, String token, Date expiry) {
         this(user, token);
         this.expiry = expiry;
-    }
-
-    @Override
-    public Long getId() {
-        return this.id;
-    }
-
-    public String getToken() {
-        return this.token;
-    }
-
-    public UserEntity getUser() {
-        return this.user;
-    }
-
-    public Date getExpiry() {
-        return this.expiry;
     }
 
     public boolean isExpired() {

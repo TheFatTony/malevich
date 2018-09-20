@@ -8,27 +8,33 @@ import javax.persistence.*;
 
 @javax.persistence.Entity
 @Table(name = "artwork")
-public class Artwork implements Entity {
+public class ArtworkEntity implements Entity {
 
+
+    @Getter
+    @Setter
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Getter @Setter
     private Long id;
 
+    @Getter
+    @Setter
     @Column(name = "language")
-    @Getter @Setter
     private String language;
 
+    @Getter
+    @Setter
     @Column(name = "title")
-    @Getter @Setter
     private String title;
 
+    @Getter
+    @Setter
     @Column(name = "description")
-    @Getter @Setter
     private String description;
 
+    @Getter
+    @Setter
     @Column(name = "price")
-    @Getter @Setter
     private double price;
 
 }

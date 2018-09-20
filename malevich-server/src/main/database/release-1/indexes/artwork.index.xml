@@ -4,7 +4,7 @@
                    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.6.xsd">
 
     <changeSet author="thefattony" id="artwork-category_id-index">
-        <createIndex indexName="artwork_category_id_idx" tableName="artwork" unique="true">
+        <createIndex indexName="artwork_category_id_idx" tableName="artwork" unique="false">
             <column name="category_id" type="bigint"/>
         </createIndex>
     </changeSet>

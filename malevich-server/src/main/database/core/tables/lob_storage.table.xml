@@ -5,9 +5,9 @@
 
 	<changeSet author="thefattony" id="lob_storage-table">
 		<createTable tableName="lob_storage">
-			<column name="id" type="bigint" />
-			<column name="file_id" type="bigint" />
-			<column name="content" type="blob" />
+			<column name="id" type="bigint"/>
+			<column name="file_id" type="bigint"/>
+			<column name="content" type="blob"/>
 		</createTable>
 		<modifySql dbms="mysql">
 			<replace replace="blob" with="longblob"/>
@@ -15,7 +15,7 @@
 	</changeSet>
 
 	<changeSet author="thefattony" id="lob_storage-pk">
-		<addPrimaryKey columnNames="id" constraintName="pk_lob_storage" tableName="lob_storage" />
+		<addPrimaryKey columnNames="id" constraintName="pk_lob_storage" tableName="lob_storage"/>
 	</changeSet>
 
 </databaseChangeLog>

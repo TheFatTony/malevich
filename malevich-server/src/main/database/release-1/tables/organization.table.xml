@@ -5,13 +5,13 @@
 
 	<changeSet author="thefattony" id="organization-table">
 		<createTable tableName="organization">
-			<column name="id" type="bigint" />
-			<column name="legal_name" type="varchar(100)" />
+			<column name="id" type="bigint"/>
+			<column name="legal_name" type="varchar(100)"/>
 		</createTable>
 	</changeSet>
 
 	<changeSet author="thefattony" id="organization-pk">
-		<addPrimaryKey columnNames="id" constraintName="organization_pk" tableName="organization" />
+		<addPrimaryKey columnNames="id" constraintName="organization_pk" tableName="organization"/>
 	</changeSet>
 
 </databaseChangeLog>

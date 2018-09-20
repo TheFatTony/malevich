@@ -4,15 +4,15 @@
                    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.6.xsd">
 
 	<changeSet author="thefattony" id="files-id-nn">
-		<addNotNullConstraint columnDataType="bigint" columnName="id" tableName="files" />
+		<addNotNullConstraint columnDataType="bigint" columnName="id" tableName="files"/>
 	</changeSet>
 
 	<changeSet author="thefattony" id="files-file_name-nn">
-		<addNotNullConstraint columnDataType="varchar(4000)" columnName="file_name" tableName="files" />
+		<addNotNullConstraint columnDataType="varchar(4000)" columnName="file_name" tableName="files"/>
 	</changeSet>
 
 	<changeSet author="thefattony" id="files-id-aa">
-		<addAutoIncrement columnDataType="bigint" columnName="id" tableName="files" />
+		<addAutoIncrement columnDataType="bigint" columnName="id" tableName="files"/>
 	</changeSet>
 
 </databaseChangeLog>

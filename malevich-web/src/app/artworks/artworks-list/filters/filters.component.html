@@ -1,47 +1,11 @@
 <!-- Categories -->
 <div class="g-mb-30">
-  <h3 class="h5 mb-3">Categories</h3>
+  <h3 class="h5 mb-3">{{'ARTHUNTER.CATEGORY_TITLE' | translate}}</h3>
 
   <ul class="list-unstyled">
-    <li class="my-3">
-      <a class="d-block u-link-v5 g-color-gray-dark-v4 g-color-primary--hover" href="#!">Clothes
-        <span class="float-right g-font-size-12">202</span></a>
-    </li>
-    <li class="my-3">
-      <a class="d-block u-link-v5 g-color-gray-dark-v4 g-color-primary--hover" href="#!">T-shirts
-        <span class="float-right g-font-size-12">44</span></a>
-    </li>
-    <li class="my-3">
-      <a class="d-block u-link-v5 g-color-gray-dark-v4 g-color-primary--hover" href="#!">Shirts
-        <span class="float-right g-font-size-12">398</span></a>
-    </li>
-    <li class="my-3">
-      <a class="d-block u-link-v5 g-color-gray-dark-v4 g-color-primary--hover" href="#!">Shorts
-        <span class="float-right g-font-size-12">56</span></a>
-    </li>
-    <li class="my-3">
-      <a class="d-block u-link-v5 g-color-gray-dark-v4 g-color-primary--hover" href="#!">Jackets
-        <span class="float-right g-font-size-12">71</span></a>
-    </li>
-    <li class="my-3">
-      <a class="d-block u-link-v5 g-color-gray-dark-v4 g-color-primary--hover" href="#!">Shoes
-        <span class="float-right g-font-size-12">943</span></a>
-    </li>
-    <li class="my-3">
-      <a class="d-block u-link-v5 g-color-gray-dark-v4 g-color-primary--hover" href="#!">Glasses
-        <span class="float-right g-font-size-12">109</span></a>
-    </li>
-    <li class="my-3">
-      <a class="d-block u-link-v5 g-color-gray-dark-v4 g-color-primary--hover" href="#!">Classic
-        <span class="float-right g-font-size-12">88</span></a>
-    </li>
-    <li class="my-3">
-      <a class="d-block u-link-v5 g-color-gray-dark-v4 g-color-primary--hover" href="#!">Trending
-        <span class="float-right g-font-size-12">111</span></a>
-    </li>
-    <li class="my-3">
-      <a class="d-block u-link-v5 g-color-gray-dark-v4 g-color-primary--hover" href="#!">Accessories
-        <span class="float-right g-font-size-12">5</span></a>
+    <li class="my-3" *ngFor="let category of categories">
+      <a class="d-block u-link-v5 g-color-gray-dark-v4 g-color-primary--hover" href="#!">{{category.categoryNameMl[translate.currentLang]}}
+        <span class="float-right g-font-size-12">...</span></a>
     </li>
   </ul>
 </div>

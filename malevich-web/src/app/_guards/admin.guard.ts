@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
 import {ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot} from '@angular/router';
-import {User} from '../_transfer';
+import {UserDto} from '../_transfer';
 
 @Injectable()
 export class AdminGuard implements CanActivate {
@@ -9,7 +9,7 @@ export class AdminGuard implements CanActivate {
   }
 
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
-    const usr: User = JSON.parse(localStorage.getItem('user'));
+    const usr: UserDto = JSON.parse(localStorage.getItem('user'));
     if (usr) {
       if (usr.roles.find(x => x === 'ROLE_ADMIN'))
         return true;

@@ -3,7 +3,7 @@ import {Injectable} from '@angular/core';
 import {map} from 'rxjs/operators';
 import {environment} from '../../environments/environment';
 import {Globals} from '../globals';
-import {User} from '../_transfer';
+import {UserDto} from '../_transfer';
 
 @Injectable()
 export class LoginService {
@@ -27,7 +27,7 @@ export class LoginService {
   }
 
   refreshToken() {
-    this.http.get<User>(this.url).subscribe(user => {
+    this.http.get<UserDto>(this.url).subscribe(user => {
       localStorage.setItem('user', JSON.stringify(user));
     });
   }

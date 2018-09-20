@@ -18,7 +18,7 @@
         </modifySql>
     </changeSet>
 
-    <changeSet author="thefattony" id="category-table-mysql" dbms="mysql">
+    <changeSet author="thefattony" id="category-table-ml" dbms="mysql">
         <addColumn tableName="category">
             <column name="category_name_ml" type="json"/>
         </addColumn>

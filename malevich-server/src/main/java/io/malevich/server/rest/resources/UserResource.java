@@ -46,7 +46,12 @@ public class UserResource {
     public UserDto getUser() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         Object principal = authentication.getPrincipal();
-        UserDetails userDetails = (UserDetails) principal;
+        UserDetails userDetails = null;
+        try {
+            userDetails = (UserDetails) principal;
+        } catch (ClassCastException e) {
+            return null;
+        }
         return new UserDto(userDetails.getUsername(), null, this.createRoleMap(userDetails));
     }
 

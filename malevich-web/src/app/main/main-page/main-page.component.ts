@@ -1,5 +1,4 @@
 import {AfterViewInit, Component, OnInit} from '@angular/core';
-import {TranslateService} from "@ngx-translate/core";
 
 @Component({
   selector: 'app-main-page',
@@ -8,9 +7,9 @@ import {TranslateService} from "@ngx-translate/core";
 })
 export class MainPageComponent implements OnInit, AfterViewInit {
 
-  objectKeys = { ru: 'Russian', en: 'English' };
 
-  constructor(public translate: TranslateService) { }
+  constructor() {
+  }
 
   ngOnInit() {
   }

@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import {HttpClient, HttpErrorResponse} from '@angular/common/http';
 import {catchError, map} from 'rxjs/operators';
 
-import { File } from '../_transfer';
+import { FileDto } from '../_transfer';
 import {environment} from '../../environments/environment';
 import {throwError} from 'rxjs';
 
@@ -15,7 +15,7 @@ export class FileService {
 
   getFiles() {
     return this.http
-      .get<File[]>(this.url + '/list')
+      .get<FileDto[]>(this.url + '/list')
       .pipe(map(data => data));
   }
 

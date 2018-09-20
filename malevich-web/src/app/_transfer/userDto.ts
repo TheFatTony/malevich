@@ -1,4 +1,4 @@
-export class User {
+export class UserDto {
   name: string;
   password: string;
   roles: string[];

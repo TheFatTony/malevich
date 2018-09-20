@@ -64,6 +64,7 @@
               "src/assets/js/hs.core.js",
               "src/assets/js/components/hs.header.js",
               "src/assets/js/helpers/hs.hamburgers.js",
+              "src/assets/js/helpers/hs.rating.js",
               "src/assets/js/components/hs.dropdown.js",
               "src/assets/js/components/hs.slider.js",
               "src/assets/js/components/hs.select.js",

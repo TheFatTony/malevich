@@ -3,37 +3,6 @@
                    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
                    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.6.xsd">
 
-    <changeSet author="thefattony" id="000_user_data">
-        <sqlFile
-                endDelimiter="\nGO"
-                path="src/test/database/data/000_user.sql"
-                splitStatements="false"
-                stripComments="false"/>
-    </changeSet>
-
-    <changeSet author="thefattony" id="001_user_roles_data">
-        <sqlFile
-                endDelimiter="\nGO"
-                path="src/test/database/data/001_user_roles.sql"
-                splitStatements="false"
-                stripComments="false"/>
-    </changeSet>
-
-    <changeSet author="thefattony" id="002_files_data">
-        <sqlFile
-                endDelimiter="\nGO"
-                path="src/test/database/data/002_files.sql"
-                splitStatements="false"
-                stripComments="false"/>
-    </changeSet>
-
-    <changeSet author="thefattony" id="003_lob_storage_data">
-        <sqlFile
-                endDelimiter="\nGO"
-                path="src/test/database/data/003_lob_storage.sql"
-                splitStatements="false"
-                stripComments="false"/>
-    </changeSet>
 
 </databaseChangeLog>
 

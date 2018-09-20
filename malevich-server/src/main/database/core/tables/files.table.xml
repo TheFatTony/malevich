@@ -5,17 +5,17 @@
 
 	<changeSet author="thefattony" id="files-table">
 		<createTable tableName="files">
-			<column name="id" type="bigint" />
-			<column name="file_name" type="varchar(4000)" />
-			<column name="mime_type" type="varchar(255)" />
-			<column name="file_size" type="bigint" />
-			<column name="url" type="varchar(4000)" />
-			<column name="alt" type="varchar(4000)" />
+			<column name="id" type="bigint"/>
+			<column name="file_name" type="varchar(4000)"/>
+			<column name="mime_type" type="varchar(255)"/>
+			<column name="file_size" type="bigint"/>
+			<column name="url" type="varchar(4000)"/>
+			<column name="alt" type="varchar(4000)"/>
 		</createTable>
 	</changeSet>
 
 	<changeSet author="thefattony" id="files-pk">
-		<addPrimaryKey columnNames="id" constraintName="pk_files" tableName="files" />
+		<addPrimaryKey columnNames="id" constraintName="pk_files" tableName="files"/>
 	</changeSet>
 
 </databaseChangeLog>

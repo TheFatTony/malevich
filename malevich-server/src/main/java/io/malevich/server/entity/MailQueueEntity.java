@@ -11,28 +11,33 @@ import java.sql.Timestamp;
 @Table(name = "mail_queue")
 public class MailQueueEntity implements Entity {
 
+    @Getter
+    @Setter
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Getter @Setter
     private Long id;
 
+    @Getter
+    @Setter
     @Column(name = "recipient")
-    @Getter @Setter
     private String recipient;
 
 
+    @Getter
+    @Setter
     @Column(name = "header")
-    @Getter @Setter
     private String header;
 
 
+    @Getter
+    @Setter
     @Column(name = "body")
-    @Getter @Setter
     private String body;
 
 
+    @Getter
+    @Setter
     @Column(name = "effective_date")
-    @Getter @Setter
     private Timestamp effectiveDate;
 
     public MailQueueEntity() {

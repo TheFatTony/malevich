@@ -11,20 +11,23 @@ import java.sql.Blob;
 @Table(name = "lob_storage")
 public class LobStorageEntity implements Entity {
 
+    @Getter
+    @Setter
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Getter @Setter
     private Long id;
 
+    @Getter
+    @Setter
     @OneToOne
     @JoinColumn(name = "file_id", referencedColumnName = "id")
-    @Getter @Setter
     private FileEntity file;
 
+    @Getter
+    @Setter
     @Lob
     @Basic(fetch = FetchType.LAZY)
     @Column(name = "content")
-    @Getter @Setter
     private Blob content;
 
 }

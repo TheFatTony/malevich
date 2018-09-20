@@ -10,30 +10,35 @@ import javax.persistence.*;
 public class FileEntity implements Entity {
 
 
+    @Getter
+    @Setter
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Getter @Setter
     private Long id;
 
+    @Getter
+    @Setter
     @Column(name = "file_name")
-
-    @Getter @Setter
     private String fileName;
 
+    @Getter
+    @Setter
     @Column(name = "mime_type")
-    @Getter @Setter
     private String mimeType;
 
+    @Getter
+    @Setter
     @Column(name = "url")
-    @Getter @Setter
     private String url;
 
+    @Getter
+    @Setter
     @Column(name = "alt")
-    @Getter @Setter
     private String alt;
 
+    @Getter
+    @Setter
     @Column(name = "file_size")
-    @Getter @Setter
     private Long fileSize;
 
 

@@ -11,15 +11,18 @@ import javax.persistence.*;
 public class UserTypeEntity implements Entity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Getter @Setter
+    @Getter
+    @Setter
     private long id;
 
     @Column(name = "type_name")
-    @Getter @Setter
+    @Getter
+    @Setter
     private String typeName;
 
     @Column(name = "description")
-    @Getter @Setter
+    @Getter
+    @Setter
     private String description;
 
 }

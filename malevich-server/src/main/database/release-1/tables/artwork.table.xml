@@ -20,6 +20,9 @@
             <column name="category_id" type="bigint">
                 <constraints nullable="false"/>
             </column>
+            <column name="thumbnail_id" type="bigint">
+                <constraints nullable="false"/>
+            </column>
         </createTable>
         <modifySql dbms="mysql">
             <replace replace="clob" with="longtext"/>

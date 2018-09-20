@@ -23,5 +23,10 @@
                  path="src/main/database/test_data/003_lob_storage.sql"/>
     </changeSet>
 
+    <changeSet author="thefattony" id="004_artwork_data">
+        <sqlFile endDelimiter="\nGO" splitStatements="false" stripComments="false"
+                 path="src/main/database/test_data/004_artwork.sql"/>
+    </changeSet>
+
 </databaseChangeLog>
 

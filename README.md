@@ -8,6 +8,11 @@
 
 resources:resources clean liquibase:updateSQL package -DskipTests=true
 
+**Tests**
+
+To test add profile to VM arguments:
+
+-Dspring.profiles.active=local 
 
 ## Mobile
 

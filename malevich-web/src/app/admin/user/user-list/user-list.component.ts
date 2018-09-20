@@ -1,6 +1,6 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
 import {jqxGridComponent} from 'jqwidgets-scripts/jqwidgets-ts/angular_jqxgrid';
-import {User} from '../../../_transfer';
+import {UserDto} from '../../../_transfer';
 import {UsersService} from '../../_services/users.service';
 
 @Component({
@@ -10,15 +10,16 @@ import {UsersService} from '../../_services/users.service';
 })
 export class UserListComponent implements OnInit {
   @ViewChild('myGrid') myGrid: jqxGridComponent;
-  users: User[];
+  users: UserDto[];
 
-  constructor(private usersService: UsersService) { }
+  constructor(private usersService: UsersService) {
+  }
 
   getUsers(): void {
     this.usersService
       .getUsers()
       .subscribe(
-        heroes => (this.users = heroes)
+        data => (this.users = data)
       );
   }
 

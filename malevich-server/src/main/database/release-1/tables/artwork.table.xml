@@ -29,7 +29,7 @@
         </modifySql>
     </changeSet>
 
-    <changeSet author="thefattony" id="artwork-table-mysql" dbms="mysql">
+    <changeSet author="thefattony" id="artwork-table-ml" dbms="mysql">
         <addColumn tableName="artwork">
             <column name="title_ml" type="json"/>
         </addColumn>

@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import {environment} from '../../../environments/environment';
-import {User} from '../../_transfer';
+import {UserDto} from '../../_transfer';
 import {map} from 'rxjs/operators';
 import {HttpClient} from '@angular/common/http';
 
@@ -13,7 +13,7 @@ export class UsersService {
 
   getUsers() {
     return this.http
-      .get<User[]>(this.url + '/list')
+      .get<UserDto[]>(this.url + '/list')
       .pipe(map(data => data));
   }
 

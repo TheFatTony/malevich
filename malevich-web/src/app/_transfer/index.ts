@@ -1,2 +1,3 @@
-export * from './user';
-export * from './file';
+export * from './userDto';
+export * from './fileDto';
+export * from './categoryDto';

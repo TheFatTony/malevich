@@ -3,11 +3,11 @@
                    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
                    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.6.xsd">
     
-    <include relativeToChangelogFile="true" file="release-1/tables.changelog.xml" />
-    <include relativeToChangelogFile="true" file="release-1/constraints.changelog.xml" />
-    <include relativeToChangelogFile="true" file="release-1/indexes.changelog.xml" />
-    <include relativeToChangelogFile="true" file="release-1/foreign_keys.changelog.xml" />
-    <include relativeToChangelogFile="true" file="release-1/data.changelog.xml" />
+    <include relativeToChangelogFile="true" file="release-1/tables.changelog.xml"/>
+    <include relativeToChangelogFile="true" file="release-1/constraints.changelog.xml"/>
+    <include relativeToChangelogFile="true" file="release-1/indexes.changelog.xml"/>
+    <include relativeToChangelogFile="true" file="release-1/foreign_keys.changelog.xml"/>
+    <include relativeToChangelogFile="true" file="release-1/data.changelog.xml"/>
 
 </databaseChangeLog>
 

@@ -1,6 +1,6 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
 import {FileService} from '../../../_services';
-import { File } from '../../../_transfer';
+import { FileDto } from '../../../_transfer';
 import {jqxGridComponent} from 'jqwidgets-scripts/jqwidgets-ts/angular_jqxgrid';
 
 @Component({
@@ -10,7 +10,7 @@ import {jqxGridComponent} from 'jqwidgets-scripts/jqwidgets-ts/angular_jqxgrid';
 })
 export class FilesListComponent implements OnInit {
   @ViewChild('myGrid') myGrid: jqxGridComponent;
-  files: File[];
+  files: FileDto[];
   constructor( private fileService: FileService) { }
 
 
@@ -18,7 +18,7 @@ export class FilesListComponent implements OnInit {
     this.fileService
       .getFiles()
       .subscribe(
-        heroes => (this.files = heroes)
+        data => (this.files = data)
       );
   }
 

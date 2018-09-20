@@ -233,8 +233,8 @@
 				<artifactId>liquibase-maven-plugin</artifactId>
 				<version>${version.org.liquibase}</version>
 				<configuration>
-					<propertyFileWillOverride>false</propertyFileWillOverride>
 					<promptOnNonLocalDatabase>false</promptOnNonLocalDatabase>
+					<propertyFileWillOverride>true</propertyFileWillOverride>
 					<propertyFile>src/main/resources/liquibase-${build.profile.id}.properties</propertyFile>
 				</configuration>
 			</plugin>

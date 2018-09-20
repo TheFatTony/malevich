@@ -1,7 +1,6 @@
 package io.malevich.server.entity;
 
 import lombok.Getter;
-import lombok.Setter;
 
 import javax.persistence.*;
 import java.util.Date;
@@ -9,21 +8,25 @@ import java.util.Date;
 @javax.persistence.Entity
 @Table(name = "access_token")
 public class AccessTokenEntity implements Entity {
+
+    @Getter
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Getter
     private Long id;
 
-    @Column
+
     @Getter
+    @Column
     private String token;
 
-    @ManyToOne
+
     @Getter
+    @ManyToOne
     private UserEntity user;
 
-    @Column
+
     @Getter
+    @Column
     private Date expiry;
 
     protected AccessTokenEntity() {

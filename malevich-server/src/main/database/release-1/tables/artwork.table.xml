@@ -1,25 +1,47 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
-				   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-				   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.6.xsd">
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.6.xsd">
 
-	<changeSet author="thefattony" id="artwork-table">
-		<createTable tableName="artwork">
-			<column name="id" type="bigint" />
-            <column name="language" type="char(2)"/>
-			<column name="title" type="varchar(1000)" />
-			<column name="description" type="clob" />
-			<column name="price" type="double" />
-            <column name="category_id" type="bigint" />
-		</createTable>
-		<modifySql dbms="mysql">
-			<replace replace="clob" with="longtext"/>
-		</modifySql>
-	</changeSet>
+    <changeSet author="thefattony" id="artwork-table">
+        <createTable tableName="artwork">
+            <column name="id" type="bigint">
+                <constraints nullable="false"/>
+            </column>
+            <column name="language" type="char(2)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="title" type="varchar(1000)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="description" type="clob">
+                <constraints nullable="false"/>
+            </column>
+            <column name="price" type="double">
+                <constraints nullable="false"/>
+            </column>
+            <column name="category_id" type="bigint">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+        <modifySql dbms="mysql">
+            <replace replace="clob" with="longtext"/>
+        </modifySql>
+    </changeSet>
 
-	<changeSet author="thefattony" id="artwork-pk">
-		<addPrimaryKey columnNames="id, language" constraintName="artwork_pk" tableName="artwork" />
-	</changeSet>
+    <changeSet author="thefattony" id="artwork-table-mysql" dbms="mysql">
+        <addColumn tableName="artwork">
+            <column name="title_ml" type="json"/>
+        </addColumn>
+    </changeSet>
+
+    <changeSet author="thefattony" id="artwork-pk">
+        <addPrimaryKey columnNames="id, language" constraintName="artwork_pk" tableName="artwork"/>
+    </changeSet>
+
+    <changeSet author="thefattony" id="artwork-id-aa" dbms="mysql">
+        <addAutoIncrement columnDataType="bigint" columnName="id" tableName="artwork"/>
+    </changeSet>
 
 </databaseChangeLog>
 

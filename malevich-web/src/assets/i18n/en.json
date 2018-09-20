@@ -1,5 +1,29 @@
 {
   "ARTHUNTER": {
     "CATEGORY_TITLE": "Category"
+  },
+  "INDEX": {
+    "LANG_MENU_ITEM": "Language",
+    "LANG_ENGLISH": "Английский",
+    "LANG_RUSSIAN": "Русский",
+    "LOGOUT_MENU_ITEM": "Logout",
+    "MAIN_MENU_ITEM": "Home",
+    "ARTHUNTER_MENU_ITEM": "Art-Hunter",
+    "GALLERIES_MENU_ITEM": "Gallery",
+    "ARTISTS_MENU_ITEM": "Artists",
+    "ABOUT_MENU_ITEM": "About",
+    "ADMIN_MENU_ITEM": "Admin"
+  },
+  "GRID": {
+    "FILTERS_SHOW" : "Show",
+    "FILTERS_SHOW_ALL" : "All",
+    "FILTERS_SORT_BY" : "Sort By",
+    "FILTERS_SORT_BS" : "Bestseller",
+    "FILTERS_SORT_TR" : "Trending",
+    "FILTERS_SORT_PLTH" : "Price low to high",
+    "FILTERS_SORT_PHTL" : "Price high to low",
+    "FILTERS_PAGE" : "Page",
+    "FILTERS_PAGE_OF" : "of",
+    "FILTERS_FILTER" : "Filter"
   }
 }

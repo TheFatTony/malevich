@@ -9,4 +9,10 @@
                                  referencedColumnNames="id" referencedTableName="category"/>
     </changeSet>
 
+    <changeSet author="thefattony" id="artwork-files-fk">
+        <addForeignKeyConstraint baseColumnNames="thumbnail_id" baseTableName="artwork"
+                                 constraintName="artwork_files_fk"
+                                 referencedColumnNames="id" referencedTableName="files"/>
+    </changeSet>
+
 </databaseChangeLog>

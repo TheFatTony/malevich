@@ -6,9 +6,15 @@
     <changeSet author="thefattony" id="register_token-table">
         <createTable tableName="register_token">
             <column name="id" type="bigint"/>
-            <column name="token" type="varchar(255)"/>
-            <column name="user_id" type="bigint"/>
-            <column name="effective_date" type="datetime"/>
+            <column name="token" type="varchar(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="user_id" type="bigint">
+                <constraints nullable="false"/>
+            </column>
+            <column name="effective_date" type="datetime">
+                <constraints nullable="false"/>
+            </column>
         </createTable>
     </changeSet>
 
@@ -16,6 +22,9 @@
         <addPrimaryKey columnNames="id" constraintName="register_token_pk" tableName="register_token"/>
     </changeSet>
 
+    <changeSet author="thefattony" id="register_token-id-aa" dbms="mysql">
+        <addAutoIncrement columnDataType="bigint" columnName="id" tableName="register_token"/>
+    </changeSet>
 
 </databaseChangeLog>
 

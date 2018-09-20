@@ -5,15 +5,25 @@
 
     <changeSet author="thefattony" id="user-table">
         <createTable tableName="user">
-            <column name="id" type="bigint"/>
-            <column name="name" type="varchar(255)"/>
-            <column name="password" type="varchar(255)"/>
+            <column name="id" type="bigint">
+                <constraints nullable="false"/>
+            </column>
+            <column name="name" type="varchar(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="password" type="varchar(255)">
+                <constraints nullable="false"/>
+            </column>
             <column name="activity_flag" type="boolean"/>
         </createTable>
     </changeSet>
 
     <changeSet author="thefattony" id="user-pk">
         <addPrimaryKey columnNames="id" constraintName="user_pk" tableName="user"/>
+    </changeSet>
+
+    <changeSet author="thefattony" id="user-id-aa" dbms="mysql">
+        <addAutoIncrement columnDataType="bigint" columnName="id" tableName="user"/>
     </changeSet>
 
 </databaseChangeLog>

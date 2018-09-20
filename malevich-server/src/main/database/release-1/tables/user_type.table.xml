@@ -15,5 +15,9 @@
         <addPrimaryKey columnNames="id" constraintName="user_type_pk" tableName="user_type"/>
     </changeSet>
 
+    <changeSet author="thefattony" id="user_type-user_type-id-aa" dbms="mysql">
+        <addAutoIncrement columnDataType="bigint" columnName="id" tableName="user_type"/>
+    </changeSet>
+
 </databaseChangeLog>
 

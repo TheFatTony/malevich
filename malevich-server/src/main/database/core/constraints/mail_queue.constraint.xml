@@ -3,24 +3,4 @@
                    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
                    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.6.xsd">
 
-    <changeSet author="thefattony" id="mail_queue-id-nn">
-        <addNotNullConstraint columnDataType="bigint" columnName="id" tableName="mail_queue"/>
-    </changeSet>
-
-    <changeSet author="thefattony" id="mail_queue-recipient-nn">
-        <addNotNullConstraint columnDataType="varchar(1000)" columnName="recipient" tableName="mail_queue"/>
-    </changeSet>
-
-    <changeSet author="thefattony" id="mail_queue-header-nn">
-        <addNotNullConstraint columnDataType="varchar(4000)" columnName="header" tableName="mail_queue"/>
-    </changeSet>
-
-    <changeSet author="thefattony" id="mail_queue-effective_date-nn">
-        <addNotNullConstraint columnDataType="datetime" columnName="effective_date" tableName="mail_queue"/>
-    </changeSet>
-
-    <changeSet author="thefattony" id="mail_queue-id-aa">
-        <addAutoIncrement columnDataType="bigint" columnName="id" tableName="mail_queue"/>
-    </changeSet>
-
 </databaseChangeLog>

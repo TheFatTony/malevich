@@ -5,8 +5,12 @@
 
 	<changeSet author="thefattony" id="lob_storage-table">
 		<createTable tableName="lob_storage">
-			<column name="id" type="bigint"/>
-			<column name="file_id" type="bigint"/>
+			<column name="id" type="bigint">
+				<constraints nullable="false"/>
+			</column>
+			<column name="file_id" type="bigint">
+				<constraints nullable="false"/>
+			</column>
 			<column name="content" type="blob"/>
 		</createTable>
 		<modifySql dbms="mysql">
@@ -16,6 +20,10 @@
 
 	<changeSet author="thefattony" id="lob_storage-pk">
 		<addPrimaryKey columnNames="id" constraintName="pk_lob_storage" tableName="lob_storage"/>
+	</changeSet>
+
+	<changeSet author="thefattony" id="lob_storage-id-aa" dbms="mysql">
+		<addAutoIncrement columnDataType="bigint" columnName="id" tableName="lob_storage"/>
 	</changeSet>
 
 </databaseChangeLog>

@@ -10,10 +10,6 @@
         </createTable>
     </changeSet>
 
-    <changeSet author="thefattony" id="person-pk">
-        <addPrimaryKey columnNames="id" constraintName="person_pk" tableName="person"/>
-    </changeSet>
-
 
 </databaseChangeLog>
 

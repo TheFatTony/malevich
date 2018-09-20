@@ -5,8 +5,12 @@
 
     <changeSet author="thefattony" id="user_roles-table">
         <createTable tableName="user_roles">
-            <column name="user_id" type="bigint"/>
-            <column name="roles" type="int"/>
+            <column name="user_id" type="bigint">
+                <constraints nullable="false"/>
+            </column>
+            <column name="roles" type="int">
+                <constraints nullable="false"/>
+            </column>
         </createTable>
     </changeSet>
 

@@ -5,11 +5,19 @@
 
     <changeSet author="thefattony" id="mail_queue-table">
         <createTable tableName="mail_queue">
-            <column name="id" type="bigint"/>
-            <column name="recipient" type="varchar(1000)"/>
-            <column name="header" type="varchar(4000)"/>
+            <column name="id" type="bigint">
+                <constraints nullable="false"/>
+            </column>
+            <column name="recipient" type="varchar(1000)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="header" type="varchar(4000)">
+                <constraints nullable="false"/>
+            </column>
             <column name="body" type="clob"/>
-            <column name="effective_date" type="datetime"/>
+            <column name="effective_date" type="datetime">
+                <constraints nullable="false"/>
+            </column>
         </createTable>
         <modifySql dbms="mysql">
             <replace replace="clob" with="longtext"/>
@@ -18,6 +26,10 @@
 
     <changeSet author="thefattony" id="mail_queue-pk">
         <addPrimaryKey columnNames="id" constraintName="mail_queue_pk" tableName="mail_queue"/>
+    </changeSet>
+
+    <changeSet author="thefattony" id="mail_queue-id-aa" dbms="mysql">
+        <addAutoIncrement columnDataType="bigint" columnName="id" tableName="mail_queue"/>
     </changeSet>
 
 </databaseChangeLog>

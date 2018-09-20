@@ -8,9 +8,6 @@
             <column name="id" type="bigint">
                 <constraints nullable="false"/>
             </column>
-            <column name="language" type="char(2)">
-                <constraints nullable="false"/>
-            </column>
             <column name="title" type="varchar(1000)">
                 <constraints nullable="false"/>
             </column>
@@ -32,11 +29,12 @@
     <changeSet author="thefattony" id="artwork-table-ml" dbms="mysql">
         <addColumn tableName="artwork">
             <column name="title_ml" type="json"/>
+            <column name="description_ml" type="json"/>
         </addColumn>
     </changeSet>
 
     <changeSet author="thefattony" id="artwork-pk">
-        <addPrimaryKey columnNames="id, language" constraintName="artwork_pk" tableName="artwork"/>
+        <addPrimaryKey columnNames="id" constraintName="artwork_pk" tableName="artwork"/>
     </changeSet>
 
     <changeSet author="thefattony" id="artwork-id-aa" dbms="mysql">

@@ -5,8 +5,12 @@
 
 	<changeSet author="thefattony" id="files-table">
 		<createTable tableName="files">
-			<column name="id" type="bigint"/>
-			<column name="file_name" type="varchar(4000)"/>
+			<column name="id" type="bigint">
+				<constraints nullable="false"/>
+			</column>
+			<column name="file_name" type="varchar(4000)">
+				<constraints nullable="false"/>
+			</column>
 			<column name="mime_type" type="varchar(255)"/>
 			<column name="file_size" type="bigint"/>
 			<column name="url" type="varchar(4000)"/>
@@ -16,6 +20,10 @@
 
 	<changeSet author="thefattony" id="files-pk">
 		<addPrimaryKey columnNames="id" constraintName="pk_files" tableName="files"/>
+	</changeSet>
+
+	<changeSet author="thefattony" id="files-id-aa" dbms="mysql">
+		<addAutoIncrement columnDataType="bigint" columnName="id" tableName="files"/>
 	</changeSet>
 
 </databaseChangeLog>

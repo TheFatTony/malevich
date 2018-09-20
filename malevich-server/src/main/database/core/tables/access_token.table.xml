@@ -5,10 +5,16 @@
 
     <changeSet author="thefattony" id="access_token-table">
         <createTable tableName="access_token">
-            <column name="id" type="bigint"/>
+            <column name="id" type="bigint">
+                <constraints nullable="false"/>
+            </column>
             <column name="expiry" type="datetime"/>
-            <column name="token" type="varchar(255)"/>
-            <column name="user_id" type="bigint"/>
+            <column name="token" type="varchar(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="user_id" type="bigint">
+                <constraints nullable="false"/>
+            </column>
         </createTable>
     </changeSet>
 
@@ -16,6 +22,9 @@
         <addPrimaryKey columnNames="id" constraintName="access_token_pk" tableName="access_token"/>
     </changeSet>
 
+    <changeSet author="thefattony" id="access_token-id-aa" dbms="mysql">
+        <addAutoIncrement columnDataType="bigint" columnName="id" tableName="access_token"/>
+    </changeSet>
 
 </databaseChangeLog>
 

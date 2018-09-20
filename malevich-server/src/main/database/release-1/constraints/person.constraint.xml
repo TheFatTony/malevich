@@ -3,8 +3,4 @@
                    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
                    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.6.xsd">
 
-    <changeSet author="thefattony" id="person-person_id-nn">
-        <addNotNullConstraint columnDataType="bigint" columnName="id" tableName="person"/>
-    </changeSet>
-
 </databaseChangeLog>

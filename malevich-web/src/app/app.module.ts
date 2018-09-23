@@ -27,9 +27,20 @@ import {RegisterComponent} from './auth/register/register.component';
 import {ResetComponent} from './auth/reset/reset.component';
 import {TraderProfileComponent} from './profile/trader-profile/trader-profile.component';
 
-import {ArtworksModule} from "./artworks/artworks.module";
-import {GalleriesModule} from "./galleries/galleries.module";
-import {ArtistsModule} from "./artists/artists.module";
+import {ArtworksListComponent} from './artworks/artworks-list/artworks-list.component';
+import {FiltersComponent as ArtworksListFiltersComponent} from './artworks/artworks-list/filters/filters.component';
+import {GridComponent as ArtworksListGridComponent} from './artworks/artworks-list/grid/grid.component';
+import {ListComponent as ArtworksListListComponent} from './artworks/artworks-list/list/list.component';
+
+import {GalleriesListComponent} from "./galleries/galleries-list/galleries-list.component";
+import {FiltersComponent as GalleriesListFiltersComponent} from "./galleries/galleries-list/filters/filters.component";
+import {GridComponent as GalleriesListGridComponent} from "./galleries/galleries-list/grid/grid.component";
+import {ListComponent as GalleriesListListComponent} from "./galleries/galleries-list/list/list.component";
+
+import {ArtistsListComponent} from "./artists/artists-list/artists-list.component";
+import {FiltersComponent as ArtistsListFiltersComponent} from './artists/artists-list/filters/filters.component';
+import {GridComponent as ArtistsListGridComponent} from './artists/artists-list/grid/grid.component';
+import {ListComponent as ArtistsListListComponent} from './artists/artists-list/list/list.component';
 
 export function createTranslateLoader(http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
@@ -48,7 +59,19 @@ export function createTranslateLoader(http: HttpClient) {
     LoginComponent,
     RegisterComponent,
     ResetComponent,
-    TraderProfileComponent
+    TraderProfileComponent,
+    ArtworksListComponent,
+    ArtworksListFiltersComponent,
+    ArtworksListGridComponent,
+    ArtworksListListComponent,
+    GalleriesListComponent,
+    GalleriesListFiltersComponent,
+    GalleriesListGridComponent,
+    GalleriesListListComponent,
+    ArtistsListComponent,
+    ArtistsListFiltersComponent,
+    ArtistsListGridComponent,
+    ArtistsListListComponent
   ],
   imports: [
     BrowserModule,
@@ -65,10 +88,7 @@ export function createTranslateLoader(http: HttpClient) {
     HttpClientModule,
     AppRoutingModule,
     NgxPaginationModule,
-    AdminModule,
-    ArtworksModule,
-    GalleriesModule,
-    ArtistsModule
+    AdminModule
   ],
   providers: [Globals, LoginService, FileService, AlertService, AuthGuard, AdminGuard,
     {provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true},

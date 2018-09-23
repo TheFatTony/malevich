@@ -1,11 +1,7 @@
 package io.malevich.server.rest.resources;
 
-import io.malevich.server.entity.ArtworkEntity;
 import io.malevich.server.entity.GalleryEntity;
-import io.malevich.server.services.artwork.ArtworkService;
 import io.malevich.server.services.gallery.GalleryService;
-import io.malevich.server.transfer.ArtworkDto;
-import io.malevich.server.transfer.FileDto;
 import io.malevich.server.transfer.GalleryDto;
 import org.modelmapper.ModelMapper;
 import org.slf4j.Logger;

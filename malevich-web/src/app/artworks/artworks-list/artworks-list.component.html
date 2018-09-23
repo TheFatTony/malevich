@@ -95,8 +95,8 @@
         <!-- End Filters -->
 
         <!-- Products -->
-        <app-artworks-artworks-list-grid *ngIf="showGrid"></app-artworks-artworks-list-grid>
-        <app-artworks-artworks-list-list *ngIf="!showGrid"></app-artworks-artworks-list-list>
+        <app-artworks-artworks-list-grid [artworks]="artworks" *ngIf="showGrid"></app-artworks-artworks-list-grid>
+        <app-artworks-artworks-list-list [artworks]="artworks" *ngIf="!showGrid"></app-artworks-artworks-list-list>
         <!-- End Products -->
 
         <hr class="g-mb-60">

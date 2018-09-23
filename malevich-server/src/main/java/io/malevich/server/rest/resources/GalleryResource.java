@@ -1,9 +1,12 @@
 package io.malevich.server.rest.resources;
 
 import io.malevich.server.entity.ArtworkEntity;
+import io.malevich.server.entity.GalleryEntity;
 import io.malevich.server.services.artwork.ArtworkService;
+import io.malevich.server.services.gallery.GalleryService;
 import io.malevich.server.transfer.ArtworkDto;
 import io.malevich.server.transfer.FileDto;
+import io.malevich.server.transfer.GalleryDto;
 import org.modelmapper.ModelMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -17,33 +20,33 @@ import java.util.stream.Collectors;
 
 
 @RestController
-@RequestMapping(value = "/artworks")
-public class ArtworkResource {
+@RequestMapping(value = "/galleries")
+public class GalleryResource {
 
     private Logger logger = LoggerFactory.getLogger(this.getClass());
 
     @Autowired
-    private ArtworkService artworkService;
+    private GalleryService galleryService;
 
     @Autowired
     private ModelMapper modelMapper;
 
 
-    //    @PreAuthorize("hasRole('ADMIN')")
+    //    @PreAuthorize("hasRole('USER')")
     @RequestMapping(value = "/list", method = RequestMethod.GET)
-    public List<ArtworkDto> list() {
+    public List<GalleryDto> list() {
         this.logger.info("list()");
-        List<ArtworkEntity> allEntries = this.artworkService.findAll();
+        List<GalleryEntity> allEntries = this.galleryService.findAll();
         return allEntries.stream().map(allEntry -> convertToDto(allEntry)).collect(Collectors.toList());
     }
 
-    private ArtworkDto convertToDto(ArtworkEntity files) {
-        ArtworkDto filesDto = modelMapper.map(files, ArtworkDto.class);
+    private GalleryDto convertToDto(GalleryEntity files) {
+        GalleryDto filesDto = modelMapper.map(files, GalleryDto.class);
         return filesDto;
     }
 
-    private ArtworkEntity convertToEntity(FileDto filesDto) {
-        ArtworkEntity files = modelMapper.map(filesDto, ArtworkEntity.class);
+    private GalleryEntity convertToEntity(GalleryDto filesDto) {
+        GalleryEntity files = modelMapper.map(filesDto, GalleryEntity.class);
         return files;
     }
 

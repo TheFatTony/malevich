@@ -1,10 +1,11 @@
 package io.malevich.server.transfer;
 
-
 import lombok.Getter;
 import lombok.Setter;
 
-public class FileDto {
+import java.util.Map;
+
+public class GalleryDto {
 
     @Getter
     @Setter
@@ -12,22 +13,20 @@ public class FileDto {
 
     @Getter
     @Setter
-    private String fileName;
+    private OrganizationDto organization;
+
 
     @Getter
     @Setter
-    private String mimeType;
+    private String description;
 
     @Getter
     @Setter
-    private Long fileSize;
+    private FileDto thumbnail;
 
     @Getter
     @Setter
-    private String url;
+    private Map<String, String> descriptionMl;
 
-    @Getter
-    @Setter
-    private String alt;
 
 }

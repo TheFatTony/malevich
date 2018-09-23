@@ -1,6 +1,5 @@
 package io.malevich.server.entity;
 
-
 import io.malevich.server.entity.utils.JpaConverterJson;
 import lombok.Getter;
 import lombok.Setter;
@@ -8,21 +7,21 @@ import lombok.Setter;
 import javax.persistence.*;
 import java.util.Map;
 
-
 @javax.persistence.Entity
-@Table(name = "artwork")
-public class ArtworkEntity implements Entity {
+@Table(name = "gallery")
+public class GalleryEntity implements Entity {
 
     @Getter
     @Setter
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+    private Long id;
 
     @Getter
     @Setter
-    @Column(name = "title")
-    private String title;
+    @OneToOne
+    private OrganizationEntity organization;
+
 
     @Getter
     @Setter
@@ -31,30 +30,14 @@ public class ArtworkEntity implements Entity {
 
     @Getter
     @Setter
-    @Column(name = "price")
-    private double price;
-
-    @Getter
-    @Setter
-    @ManyToOne
-    private CategoryEntity category;
-
-    @Getter
-    @Setter
     @ManyToOne
     private FileEntity thumbnail;
-
-
-    @Getter
-    @Setter
-    @Convert(converter = JpaConverterJson.class)
-    @Column(name = "title_ml")
-    private Map<String, String> titleMl;
 
     @Getter
     @Setter
     @Convert(converter = JpaConverterJson.class)
     @Column(name = "description_ml")
     private Map<String, String> descriptionMl;
+
 
 }

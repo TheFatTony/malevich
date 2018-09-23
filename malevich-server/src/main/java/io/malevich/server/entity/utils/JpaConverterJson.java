@@ -16,7 +16,7 @@ public class JpaConverterJson implements AttributeConverter<Object, String> {
     private static ObjectMapper objectMapper;
 
     @Autowired
-    public void setObjectMapper(ObjectMapper objectMapper){
+    public void setObjectMapper(ObjectMapper objectMapper) {
         JpaConverterJson.objectMapper = objectMapper;
     }
 

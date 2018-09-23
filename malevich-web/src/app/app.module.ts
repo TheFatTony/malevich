@@ -19,24 +19,17 @@ import {AlertService, FileService, LoginService} from "./_services";
 import {AuthGuard} from "./_guards/auth.guard";
 import {AdminGuard} from "./_guards/admin.guard";
 import {ErrorInterceptor, JwtInterceptor} from "./_helpers";
-import { HelpComponent } from './main/help/help.component';
-import { AboutComponent } from './main/about/about.component';
-import { ContactComponent } from './main/contact/contact.component';
-import { LoginComponent } from './auth/login/login.component';
-import { RegisterComponent } from './auth/register/register.component';
-import { ResetComponent } from './auth/reset/reset.component';
-import { TraderProfileComponent } from './profile/trader-profile/trader-profile.component';
-import { ArtworksListComponent } from './artworks/artworks-list/artworks-list.component';
-import { ArtistsListComponent } from './artists/artists-list/artists-list.component';
-import { FiltersComponent as ArtistsArtistsFiltersComponent } from './artworks/artworks-list/filters/filters.component';
-import { GridComponent  as ArtistsArtistsGridComponent} from './artworks/artworks-list/grid/grid.component';
-import { ListComponent  as ArtistsArtistsListComponent} from './artworks/artworks-list/list/list.component';
+import {HelpComponent} from './main/help/help.component';
+import {AboutComponent} from './main/about/about.component';
+import {ContactComponent} from './main/contact/contact.component';
+import {LoginComponent} from './auth/login/login.component';
+import {RegisterComponent} from './auth/register/register.component';
+import {ResetComponent} from './auth/reset/reset.component';
+import {TraderProfileComponent} from './profile/trader-profile/trader-profile.component';
+import {ArtistsListComponent} from './artists/artists-list/artists-list.component';
 
-
-import { GalleriesListComponent } from './galleries/galleries-list/galleries-list.component';
-import { FiltersComponent as GalleriesGalleriesFiltersComponent } from './galleries/galleries-list/filters/filters.component';
-import { GridComponent  as GalleriesGalleriesGridComponent} from './galleries/galleries-list/grid/grid.component';
-import { ListComponent  as GalleriesGalleriesListComponent} from './galleries/galleries-list/list/list.component';
+import {ArtworksModule} from "./artworks/artworks.module";
+import {GalleriesModule} from "./galleries/galleries.module";
 
 export function createTranslateLoader(http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
@@ -56,15 +49,7 @@ export function createTranslateLoader(http: HttpClient) {
     RegisterComponent,
     ResetComponent,
     TraderProfileComponent,
-    ArtworksListComponent,
-    ArtistsListComponent,
-    ArtistsArtistsFiltersComponent,
-    ArtistsArtistsGridComponent,
-    ArtistsArtistsListComponent,
-    GalleriesListComponent,
-    GalleriesGalleriesFiltersComponent,
-    GalleriesGalleriesGridComponent,
-    GalleriesGalleriesListComponent
+    ArtistsListComponent
   ],
   imports: [
     BrowserModule,
@@ -81,7 +66,9 @@ export function createTranslateLoader(http: HttpClient) {
     HttpClientModule,
     AppRoutingModule,
     NgxPaginationModule,
-    AdminModule
+    AdminModule,
+    ArtworksModule,
+    GalleriesModule
   ],
   providers: [Globals, LoginService, FileService, AlertService, AuthGuard, AdminGuard,
     {provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true},

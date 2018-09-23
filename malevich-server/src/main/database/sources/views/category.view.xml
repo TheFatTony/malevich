@@ -7,4 +7,3 @@
         <createView viewName="category_vw">select * from category</createView>
     </changeSet>
 </databaseChangeLog>
-

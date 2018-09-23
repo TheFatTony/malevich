@@ -8,4 +8,3 @@
         <createView replaceIfExists="true" viewName="artwork_vw">select * from artwork</createView>
     </changeSet>
 </databaseChangeLog>
-

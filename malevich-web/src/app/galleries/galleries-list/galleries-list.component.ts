@@ -7,6 +7,8 @@ import { Component, OnInit } from '@angular/core';
 })
 export class GalleriesListComponent implements OnInit {
 
+  showGrid: boolean = true;
+
   constructor() { }
 
   ngOnInit() {

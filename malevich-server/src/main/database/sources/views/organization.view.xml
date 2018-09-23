@@ -7,4 +7,3 @@
         <createView replaceIfExists="true" viewName="organization_vw">select * from organization</createView>
     </changeSet>
 </databaseChangeLog>
-

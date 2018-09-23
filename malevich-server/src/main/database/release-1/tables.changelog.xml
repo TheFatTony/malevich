@@ -5,9 +5,8 @@
 
     <include relativeToChangelogFile="true" file="tables/user_type.table.xml"/>
     <include relativeToChangelogFile="true" file="tables/organization.table.xml"/>
-    <include relativeToChangelogFile="true" file="tables/person.table.xml"/>
+    <include relativeToChangelogFile="true" file="tables/gallery.table.xml"/>
     <include relativeToChangelogFile="true" file="tables/category.table.xml"/>
     <include relativeToChangelogFile="true" file="tables/artwork.table.xml"/>
 
 </databaseChangeLog>
-

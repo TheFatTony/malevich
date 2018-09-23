@@ -27,11 +27,16 @@ import { RegisterComponent } from './auth/register/register.component';
 import { ResetComponent } from './auth/reset/reset.component';
 import { TraderProfileComponent } from './profile/trader-profile/trader-profile.component';
 import { ArtworksListComponent } from './artworks/artworks-list/artworks-list.component';
-import { GalleriesListComponent } from './galleries/galleries-list/galleries-list.component';
 import { ArtistsListComponent } from './artists/artists-list/artists-list.component';
-import { FiltersComponent } from './artworks/artworks-list/filters/filters.component';
-import { GridComponent } from './artworks/artworks-list/grid/grid.component';
-import { ListComponent } from './artworks/artworks-list/list/list.component';
+import { FiltersComponent as ArtistsArtistsFiltersComponent } from './artworks/artworks-list/filters/filters.component';
+import { GridComponent  as ArtistsArtistsGridComponent} from './artworks/artworks-list/grid/grid.component';
+import { ListComponent  as ArtistsArtistsListComponent} from './artworks/artworks-list/list/list.component';
+
+
+import { GalleriesListComponent } from './galleries/galleries-list/galleries-list.component';
+import { FiltersComponent as GalleriesGalleriesFiltersComponent } from './galleries/galleries-list/filters/filters.component';
+import { GridComponent  as GalleriesGalleriesGridComponent} from './galleries/galleries-list/grid/grid.component';
+import { ListComponent  as GalleriesGalleriesListComponent} from './galleries/galleries-list/list/list.component';
 
 export function createTranslateLoader(http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
@@ -52,11 +57,14 @@ export function createTranslateLoader(http: HttpClient) {
     ResetComponent,
     TraderProfileComponent,
     ArtworksListComponent,
-    GalleriesListComponent,
     ArtistsListComponent,
-    FiltersComponent,
-    GridComponent,
-    ListComponent
+    ArtistsArtistsFiltersComponent,
+    ArtistsArtistsGridComponent,
+    ArtistsArtistsListComponent,
+    GalleriesListComponent,
+    GalleriesGalleriesFiltersComponent,
+    GalleriesGalleriesGridComponent,
+    GalleriesGalleriesListComponent
   ],
   imports: [
     BrowserModule,

@@ -6,10 +6,10 @@ import org.springframework.stereotype.Component;
 
 
 @Component
-public class JpaUserTypeDao extends JpaDao<UserTypeEntity, Long> implements UserTypeDao{
+public class JpaUserTypeDao extends JpaDao<UserTypeEntity, Long> implements UserTypeDao {
 
-	public JpaUserTypeDao() {
-		super(UserTypeEntity.class);
-	}
+    public JpaUserTypeDao() {
+        super(UserTypeEntity.class);
+    }
 
 }

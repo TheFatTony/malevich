@@ -1,8 +1,7 @@
 package io.malevich.server.rest.resources;
 
 import io.malevich.server.entity.ArtworkEntity;
-import io.malevich.server.services.artwork.category.ArtworkService;
-import io.malevich.server.services.category.CategoryService;
+import io.malevich.server.services.artwork.ArtworkService;
 import io.malevich.server.transfer.ArtworkDto;
 import io.malevich.server.transfer.FileDto;
 import org.modelmapper.ModelMapper;
@@ -30,7 +29,7 @@ public class ArtworkResource {
     private ModelMapper modelMapper;
 
 
-//    @PreAuthorize("hasRole('ADMIN')")
+    //    @PreAuthorize("hasRole('ADMIN')")
     @RequestMapping(value = "/list", method = RequestMethod.GET)
     public List<ArtworkDto> list() {
         this.logger.info("list()");

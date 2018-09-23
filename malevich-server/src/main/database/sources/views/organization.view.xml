@@ -6,5 +6,5 @@
     <changeSet author="thefattony" id="organization-view" runOnChange="true">
         <createView replaceIfExists="true" viewName="organization_vw">select * from organization</createView>
     </changeSet>
-</databaseChangeLog>
 
+</databaseChangeLog>

@@ -9,7 +9,7 @@ import org.springframework.boot.autoconfigure.liquibase.LiquibaseAutoConfigurati
 @EnableAutoConfiguration(exclude = {LiquibaseAutoConfiguration.class})
 public class MalevichServerApplication {
 
-	public static void main(String[] args) {
-		SpringApplication.run(MalevichServerApplication.class, args);
-	}
+    public static void main(String[] args) {
+        SpringApplication.run(MalevichServerApplication.class, args);
+    }
 }

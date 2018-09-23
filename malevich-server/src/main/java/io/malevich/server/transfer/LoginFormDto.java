@@ -6,10 +6,12 @@ import lombok.Setter;
 public class LoginFormDto {
 
 
-    @Getter @Setter
+    @Getter
+    @Setter
     private String username;
 
-    @Getter @Setter
+    @Getter
+    @Setter
     private String password;
 
 }

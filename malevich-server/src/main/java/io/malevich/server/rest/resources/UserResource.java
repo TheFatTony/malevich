@@ -8,7 +8,6 @@ import io.malevich.server.transfer.LoginFormDto;
 import io.malevich.server.transfer.UserDto;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -41,7 +40,7 @@ public class UserResource {
     private ModelMapper modelMapper;
 
 
-//    @PreAuthorize("hasRole('USER')")
+    //    @PreAuthorize("hasRole('USER')")
     @RequestMapping(method = RequestMethod.GET)
     public UserDto getUser() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
@@ -63,7 +62,7 @@ public class UserResource {
         return new AccessTokenDto(this.userService.createAccessToken((UserEntity) authentication.getPrincipal()).getToken());
     }
 
-//    @PreAuthorize("hasRole('ADMIN')")
+    //    @PreAuthorize("hasRole('ADMIN')")
     @RequestMapping(value = "/list", method = RequestMethod.GET)
     public List<UserDto> list() {
         List<UserEntity> allEntries = this.userService.findAll();

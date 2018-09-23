@@ -1,4 +1,4 @@
-package io.malevich.server.services.artwork.category;
+package io.malevich.server.services.artwork;
 
 
 import io.malevich.server.entity.ArtworkEntity;

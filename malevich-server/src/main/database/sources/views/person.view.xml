@@ -6,5 +6,5 @@
     <changeSet author="thefattony" id="person-view" runOnChange="true">
         <createView replaceIfExists="true" viewName="person_vw">select * from person</createView>
     </changeSet>
-</databaseChangeLog>
 
+</databaseChangeLog>

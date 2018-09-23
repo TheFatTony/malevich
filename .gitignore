@@ -46,21 +46,24 @@ package-lock.json
 *.swp
 *.swo
 
+logs
+
 # Server
-malevich-server/target
+*/target
+*/logs
 
 # Web
-malevich-web/node_modules
-malevich-web/package-lock.json
-malevich-web/dist
-malevich-mobile/tmp
-malevich-mobile/temp
+*/node_modules
+*/package-lock.json
+*/dist
+*/tmp
+*/temp
 
 # Mobile
-malevich-mobile/node_modules
-malevich-mobile/package-lock.json
-malevich-mobile/www
-malevich-mobile/tmp
-malevich-mobile/temp
-malevich-mobile/platforms
-malevich-mobile/plugins
+*/node_modules
+*/package-lock.json
+*/www
+*/tmp
+*/temp
+*/platforms
+*/plugins

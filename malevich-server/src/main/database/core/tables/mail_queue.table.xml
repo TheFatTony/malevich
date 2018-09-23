@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.6.xsd">
+
+    <changeSet author="thefattony" id="mail_queue-table">
+        <createTable tableName="mail_queue">
+            <column name="id" type="bigint">
+                <constraints nullable="false"/>
+            </column>
+            <column name="recipient" type="varchar(1000)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="header" type="varchar(4000)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="body" type="clob"/>
+            <column name="effective_date" type="datetime">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+        <modifySql dbms="mysql">
+            <replace replace="clob" with="longtext"/>
+        </modifySql>
+    </changeSet>
+
+    <changeSet author="thefattony" id="mail_queue-pk">
+        <addPrimaryKey columnNames="id" constraintName="mail_queue_pk" tableName="mail_queue"/>
+    </changeSet>
+
+    <changeSet author="thefattony" id="mail_queue-id-aa" dbms="mysql">
+        <addAutoIncrement columnDataType="bigint" columnName="id" tableName="mail_queue"/>
+    </changeSet>
+
+</databaseChangeLog>
+

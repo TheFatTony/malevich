@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+				   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+				   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.6.xsd">
+
+	<changeSet author="thefattony" id="artist-table">
+		<createTable tableName="artist">
+			<column name="id" type="bigint">
+				<constraints nullable="false"/>
+			</column>
+			<column name="person_id" type="bigint">
+				<constraints nullable="false"/>
+			</column>
+			<column name="description" type="clob"/>
+			<column name="thumbnail_id" type="bigint">
+				<constraints nullable="false"/>
+			</column>
+		</createTable>
+		<modifySql dbms="mysql">
+			<replace replace="clob" with="longtext"/>
+		</modifySql>
+	</changeSet>
+
+	<changeSet author="thefattony" id="artist-table-ml" dbms="mysql">
+		<addColumn tableName="artist">
+			<column name="description_ml" type="json"/>
+		</addColumn>
+	</changeSet>
+
+	<changeSet author="thefattony" id="artist-pk">
+		<addPrimaryKey columnNames="id" constraintName="artist_pk" tableName="artist"/>
+	</changeSet>
+
+	<changeSet author="thefattony" id="artist-id-aa" dbms="mysql">
+		<addAutoIncrement columnDataType="bigint" columnName="id" tableName="artist"/>
+	</changeSet>
+
+</databaseChangeLog>

@@ -1,0 +1,22 @@
+import {Component, Input, OnInit} from '@angular/core';
+import {environment} from "../../../../environments/environment";
+import {TranslateService} from "@ngx-translate/core";
+
+@Component({
+  selector: 'app-artists-artists-list-grid',
+  templateUrl: './grid.component.html',
+  styleUrls: ['./grid.component.css']
+})
+export class GridComponent implements OnInit {
+
+  @Input() artists;
+
+  private url = environment.baseUrl;
+
+  constructor(public translate: TranslateService) {
+  }
+
+  ngOnInit() {
+  }
+
+}

@@ -28,7 +28,7 @@ public class ApplicationConfig {
     public LocaleResolver localeResolver() {
         SmartLocaleResolver localeResolver = new SmartLocaleResolver();
         localeResolver.setDefaultLocale(Locale.ENGLISH);
-        return  localeResolver;
+        return localeResolver;
     }
 
     @Bean
@@ -46,6 +46,16 @@ public class ApplicationConfig {
         return messageSource;
     }
 
+    @Bean
+    public ModelMapper modelMapper() {
+        return new ModelMapper();
+    }
+
+    @Bean
+    public ObjectMapper objectMapper() {
+        return new ObjectMapper();
+    }
+
     class SmartLocaleResolver extends CookieLocaleResolver {
 
         @Override
@@ -57,17 +67,6 @@ public class ApplicationConfig {
             return request.getLocale();
         }
 
-    }
-
-    @Bean
-    public ModelMapper modelMapper() {
-        return new ModelMapper();
-    }
-
-
-    @Bean
-    public ObjectMapper objectMapper() {
-        return new ObjectMapper();
     }
 
 

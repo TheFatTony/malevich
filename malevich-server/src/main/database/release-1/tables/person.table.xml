@@ -5,11 +5,27 @@
 
     <changeSet author="thefattony" id="person-table">
         <createTable tableName="person">
-            <column name="id" type="bigint"/>
-            <column name="full_name" type="varchar(1000)"/>
+            <column name="id" type="bigint">
+                <constraints nullable="false"/>
+            </column>
+            <column name="full_name" type="varchar(1000)">
+                <constraints nullable="false"/>
+            </column>
         </createTable>
     </changeSet>
 
+    <changeSet author="thefattony" id="person-table-ml" dbms="mysql">
+        <addColumn tableName="person">
+            <column name="full_name_ml" type="json"/>
+        </addColumn>
+    </changeSet>
+
+    <changeSet author="thefattony" id="person-pk">
+        <addPrimaryKey columnNames="id" constraintName="person_pk" tableName="person"/>
+    </changeSet>
+
+    <changeSet author="thefattony" id="person-id-aa" dbms="mysql">
+        <addAutoIncrement columnDataType="bigint" columnName="id" tableName="person"/>
+    </changeSet>
 
 </databaseChangeLog>
-

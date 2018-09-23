@@ -19,19 +19,17 @@ import {AlertService, FileService, LoginService} from "./_services";
 import {AuthGuard} from "./_guards/auth.guard";
 import {AdminGuard} from "./_guards/admin.guard";
 import {ErrorInterceptor, JwtInterceptor} from "./_helpers";
-import { HelpComponent } from './main/help/help.component';
-import { AboutComponent } from './main/about/about.component';
-import { ContactComponent } from './main/contact/contact.component';
-import { LoginComponent } from './auth/login/login.component';
-import { RegisterComponent } from './auth/register/register.component';
-import { ResetComponent } from './auth/reset/reset.component';
-import { TraderProfileComponent } from './profile/trader-profile/trader-profile.component';
-import { ArtworksListComponent } from './artworks/artworks-list/artworks-list.component';
-import { GalleriesListComponent } from './galleries/galleries-list/galleries-list.component';
-import { ArtistsListComponent } from './artists/artists-list/artists-list.component';
-import { FiltersComponent } from './artworks/artworks-list/filters/filters.component';
-import { GridComponent } from './artworks/artworks-list/grid/grid.component';
-import { ListComponent } from './artworks/artworks-list/list/list.component';
+import {HelpComponent} from './main/help/help.component';
+import {AboutComponent} from './main/about/about.component';
+import {ContactComponent} from './main/contact/contact.component';
+import {LoginComponent} from './auth/login/login.component';
+import {RegisterComponent} from './auth/register/register.component';
+import {ResetComponent} from './auth/reset/reset.component';
+import {TraderProfileComponent} from './profile/trader-profile/trader-profile.component';
+
+import {ArtworksModule} from "./artworks/artworks.module";
+import {GalleriesModule} from "./galleries/galleries.module";
+import {ArtistsModule} from "./artists/artists.module";
 
 export function createTranslateLoader(http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
@@ -50,13 +48,7 @@ export function createTranslateLoader(http: HttpClient) {
     LoginComponent,
     RegisterComponent,
     ResetComponent,
-    TraderProfileComponent,
-    ArtworksListComponent,
-    GalleriesListComponent,
-    ArtistsListComponent,
-    FiltersComponent,
-    GridComponent,
-    ListComponent
+    TraderProfileComponent
   ],
   imports: [
     BrowserModule,
@@ -73,7 +65,10 @@ export function createTranslateLoader(http: HttpClient) {
     HttpClientModule,
     AppRoutingModule,
     NgxPaginationModule,
-    AdminModule
+    AdminModule,
+    ArtworksModule,
+    GalleriesModule,
+    ArtistsModule
   ],
   providers: [Globals, LoginService, FileService, AlertService, AuthGuard, AdminGuard,
     {provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true},

@@ -1,7 +1,7 @@
 # Malevich
 
 
-##Build commands:
+## Build commands
 
 **Client:** 
 
@@ -15,7 +15,7 @@ mvn resources:resources clean package -DskipTests=true
 
 mvn resources:resources liquibase:dropAll liquibase:update
 
-##Tests:
+## Tests
 
 **VM arguments:**
 

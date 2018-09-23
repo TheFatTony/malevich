@@ -12,4 +12,3 @@
     <include relativeToChangelogFile="true" file="tables/mail_queue.table.xml"/>
 
 </databaseChangeLog>
-

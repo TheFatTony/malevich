@@ -7,4 +7,3 @@
     <include relativeToChangelogFile="true" file="data/category.data.xml"/>
 
 </databaseChangeLog>
-

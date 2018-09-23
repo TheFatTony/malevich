@@ -7,16 +7,20 @@ import lombok.Setter;
 public class LobStorageDto {
 
 
-    @Getter @Setter
+    @Getter
+    @Setter
     private long id;
 
-    @Getter @Setter
+    @Getter
+    @Setter
     private long fileId;
 
-    @Getter @Setter
+    @Getter
+    @Setter
     private String content;
 
-    @Getter @Setter
+    @Getter
+    @Setter
     private long fileSize;
 
 

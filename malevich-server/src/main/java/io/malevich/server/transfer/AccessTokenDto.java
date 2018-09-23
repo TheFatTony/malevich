@@ -5,7 +5,8 @@ import lombok.Setter;
 
 public class AccessTokenDto {
 
-    @Getter @Setter
+    @Getter
+    @Setter
     private String token;
 
 

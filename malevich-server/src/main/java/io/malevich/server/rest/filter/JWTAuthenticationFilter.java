@@ -1,9 +1,9 @@
 package io.malevich.server.rest.filter;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import io.malevich.server.entity.UserEntity;
 import io.malevich.server.rest.util.JWTUtil;
 import io.malevich.server.transfer.UserDto;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -41,8 +41,7 @@ public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilte
             UsernamePasswordAuthenticationToken authToken = new UsernamePasswordAuthenticationToken(creds.getName(), creds.getPassword(), new ArrayList<>());
             Authentication auth = authenticationManager.authenticate(authToken);
             return auth;
-        }
-        catch (IOException e) {
+        } catch (IOException e) {
             throw new RuntimeException(e);
         }
     }

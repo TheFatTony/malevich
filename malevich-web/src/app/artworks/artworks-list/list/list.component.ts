@@ -1,35 +1,22 @@
-import {AfterViewInit, Component, OnInit} from '@angular/core';
-import {ArtworkDto} from "../../../_transfer";
-import {environment} from "../../../../environments/environment";
+import {Component, Input, OnInit} from '@angular/core';
 import {TranslateService} from "@ngx-translate/core";
-import {ArtworkService} from "../../../_services/artwork.service";
+import {environment} from "../../../../environments/environment";
 
 @Component({
   selector: 'app-artworks-artworks-list-list',
   templateUrl: './list.component.html',
   styleUrls: ['./list.component.css']
 })
-export class ListComponent implements OnInit, AfterViewInit {
+export class ListComponent implements OnInit {
 
-  artworks: ArtworkDto[];
+  @Input() artworks;
+
   private url = environment.baseUrl;
 
-  constructor(public translate: TranslateService, private artworkService: ArtworkService) {
+  constructor(public translate: TranslateService) {
   }
 
   ngOnInit() {
-    this.getArtworks();
-  }
-
-  ngAfterViewInit(): void {
-  }
-
-  getArtworks(): void {
-    this.artworkService
-      .getArtworks()
-      .subscribe(
-        data => (this.artworks = data)
-      );
   }
 
 }

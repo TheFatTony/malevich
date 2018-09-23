@@ -1,4 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
+import {environment} from "../../../../environments/environment";
+import {TranslateService} from "@ngx-translate/core";
 
 @Component({
   selector: 'app-galleries-galleries-list-grid',
@@ -7,7 +9,12 @@ import { Component, OnInit } from '@angular/core';
 })
 export class GridComponent implements OnInit {
 
-  constructor() { }
+  @Input() galleries;
+
+  private url = environment.baseUrl;
+
+  constructor(public translate: TranslateService) {
+  }
 
   ngOnInit() {
   }

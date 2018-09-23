@@ -15,7 +15,6 @@ public class GalleryDto {
     @Setter
     private OrganizationDto organization;
 
-
     @Getter
     @Setter
     private String description;

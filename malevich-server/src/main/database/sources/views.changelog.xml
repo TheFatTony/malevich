@@ -5,7 +5,7 @@
 
     <include relativeToChangelogFile="true" file="views/user_type.view.xml"/>
     <include relativeToChangelogFile="true" file="views/organization.view.xml"/>
-    <include relativeToChangelogFile="true" file="views/person.view.xml"/>
+    <include relativeToChangelogFile="true" file="views/gallery.view.xml"/>
     <include relativeToChangelogFile="true" file="views/artwork.view.xml"/>
 
 </databaseChangeLog>

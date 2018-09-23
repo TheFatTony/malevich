@@ -5,13 +5,34 @@
 
 	<changeSet author="thefattony" id="gallery-table">
 		<createTable tableName="gallery">
-			<column name="id" type="bigint"/>
-			<column name="organisation_id" type="bigint"/>
+			<column name="id" type="bigint">
+				<constraints nullable="false"/>
+			</column>
+			<column name="organization_id" type="bigint">
+				<constraints nullable="false"/>
+			</column>
 			<column name="description" type="clob"/>
+			<column name="thumbnail_id" type="bigint">
+				<constraints nullable="false"/>
+			</column>
 		</createTable>
 		<modifySql dbms="mysql">
 			<replace replace="clob" with="longtext"/>
 		</modifySql>
+	</changeSet>
+
+	<changeSet author="thefattony" id="gallery-table-ml" dbms="mysql">
+		<addColumn tableName="gallery">
+			<column name="description_ml" type="json"/>
+		</addColumn>
+	</changeSet>
+
+	<changeSet author="thefattony" id="gallery-pk">
+		<addPrimaryKey columnNames="id" constraintName="gallery_pk" tableName="gallery"/>
+	</changeSet>
+
+	<changeSet author="thefattony" id="gallery-id-aa" dbms="mysql">
+		<addAutoIncrement columnDataType="bigint" columnName="id" tableName="gallery"/>
 	</changeSet>
 
 </databaseChangeLog>

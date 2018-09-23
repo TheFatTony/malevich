@@ -34,7 +34,7 @@ public class TestResource {
         context.put("test", "World !!!");
 
         StringWriter stringWriter = new StringWriter();
-        stringWriter.append(messageSource.getMessage("welcome.message",null, LocaleContextHolder.getLocale()));
+        stringWriter.append(messageSource.getMessage("welcome.message", null, LocaleContextHolder.getLocale()));
 //        velocityEngine.mergeTemplate("templates/mail/confirm_email.vm", "UTF-8", context, stringWriter);
 //        mailQueueService.create(new MailQueue("anton.alexeyev85@gmail.com", "Testing Subject", stringWriter.toString()));
         return stringWriter.toString();

@@ -6,4 +6,5 @@
 	<changeSet author="thefattony" id="user_type-view" runOnChange="true">
 		<createView replaceIfExists="true" viewName="user_type_vw">select * from user_type</createView>
 	</changeSet>
+
 </databaseChangeLog>

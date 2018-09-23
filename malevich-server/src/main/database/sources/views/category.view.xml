@@ -6,4 +6,5 @@
     <changeSet author="thefattony" id="category-view" runOnChange="true">
         <createView viewName="category_vw">select * from category</createView>
     </changeSet>
+
 </databaseChangeLog>

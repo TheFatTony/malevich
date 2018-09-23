@@ -3,7 +3,8 @@
                    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
                    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.6.xsd">
 
-    <changeSet author="thefattony" id="person-view" runOnChange="true">
-        <createView replaceIfExists="true" viewName="person_vw">select * from person</createView>
+    <changeSet author="thefattony" id="gallery-view" runOnChange="true">
+        <createView replaceIfExists="true" viewName="gallery_vw">select * from gallery</createView>
     </changeSet>
+
 </databaseChangeLog>

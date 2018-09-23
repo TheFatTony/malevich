@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.6.xsd">
+
+    <include relativeToChangelogFile="true" file="foreign_keys/user_type.foreign_key.xml"/>
+    <include relativeToChangelogFile="true" file="foreign_keys/organization.foreign_key.xml"/>
+    <include relativeToChangelogFile="true" file="foreign_keys/person.foreign_key.xml"/>
+    <include relativeToChangelogFile="true" file="foreign_keys/category.foreign_key.xml"/>
+    <include relativeToChangelogFile="true" file="foreign_keys/artwork.foreign_key.xml"/>
+
+</databaseChangeLog>

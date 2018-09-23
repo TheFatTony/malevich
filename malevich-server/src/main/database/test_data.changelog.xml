@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.6.xsd">
+
+    <changeSet author="thefattony" id="000_user_data">
+        <sqlFile endDelimiter="\nGO" splitStatements="false" stripComments="false"
+                 path="src/main/database/test_data/000_user.sql"/>
+    </changeSet>
+
+    <changeSet author="thefattony" id="001_user_roles_data">
+        <sqlFile endDelimiter="\nGO" splitStatements="false" stripComments="false"
+                 path="src/main/database/test_data/001_user_roles.sql"/>
+    </changeSet>
+
+    <changeSet author="thefattony" id="002_files_data">
+        <sqlFile endDelimiter="\nGO" splitStatements="false" stripComments="false"
+                 path="src/main/database/test_data/002_files.sql"/>
+    </changeSet>
+
+    <changeSet author="thefattony" id="003_lob_storage_data">
+        <sqlFile endDelimiter="\nGO" splitStatements="false" stripComments="false"
+                 path="src/main/database/test_data/003_lob_storage.sql"/>
+    </changeSet>
+
+    <changeSet author="thefattony" id="004_artwork_data">
+        <sqlFile endDelimiter="\nGO" splitStatements="false" stripComments="false"
+                 path="src/main/database/test_data/004_artwork.sql"/>
+    </changeSet>
+
+</databaseChangeLog>
+

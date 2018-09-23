@@ -1,0 +1,29 @@
+{
+  "ARTHUNTER": {
+    "CATEGORY_TITLE": "Категория"
+  },
+  "INDEX": {
+    "LANG_MENU_ITEM": "Язык",
+    "LANG_ENGLISH": "English",
+    "LANG_RUSSIAN": "Russian",
+    "LOGOUT_MENU_ITEM": "Выход",
+    "MAIN_MENU_ITEM": "Домой",
+    "ARTHUNTER_MENU_ITEM": "Арт-Хантер",
+    "GALLERIES_MENU_ITEM": "Галереи",
+    "ARTISTS_MENU_ITEM": "Авторы",
+    "ABOUT_MENU_ITEM": "О Нас",
+    "ADMIN_MENU_ITEM": "Админ"
+  },
+  "GRID": {
+    "FILTERS_SHOW" : "Показывать",
+    "FILTERS_SHOW_ALL" : "Все",
+    "FILTERS_SORT_BY" : "Сортировать по",
+    "FILTERS_SORT_BS" : "Бестселлер",
+    "FILTERS_SORT_TR" : "Полулярные",
+    "FILTERS_SORT_PLTH" : "Цена по возрастанию",
+    "FILTERS_SORT_PHTL" : "Цена по убыванию",
+    "FILTERS_PAGE" : "Страница",
+    "FILTERS_PAGE_OF" : "из",
+    "FILTERS_FILTER" : "Фильтровать"
+  }
+}

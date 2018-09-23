@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.6.xsd">
+
+    <changeSet author="thefattony" id="register_token-user_id-index">
+        <createIndex indexName="register_token_user_id_idx" tableName="register_token" unique="true">
+            <column name="user_id" type="bigint"/>
+        </createIndex>
+    </changeSet>
+
+</databaseChangeLog>
+

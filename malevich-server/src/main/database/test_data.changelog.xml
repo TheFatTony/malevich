@@ -33,9 +33,19 @@
                  path="src/main/database/test_data/005_gallery.sql"/>
     </changeSet>
 
-    <changeSet author="thefattony" id="006_artwork-data">
+    <changeSet author="thefattony" id="006_person-data">
         <sqlFile endDelimiter="\nGO" splitStatements="false" stripComments="false"
-                 path="src/main/database/test_data/006_artwork.sql"/>
+                 path="src/main/database/test_data/006_person.sql"/>
+    </changeSet>
+
+    <changeSet author="thefattony" id="007_artist-data">
+        <sqlFile endDelimiter="\nGO" splitStatements="false" stripComments="false"
+                 path="src/main/database/test_data/007_artist.sql"/>
+    </changeSet>
+
+    <changeSet author="thefattony" id="008_artwork-data">
+        <sqlFile endDelimiter="\nGO" splitStatements="false" stripComments="false"
+                 path="src/main/database/test_data/008_artwork.sql"/>
     </changeSet>
 
 </databaseChangeLog>

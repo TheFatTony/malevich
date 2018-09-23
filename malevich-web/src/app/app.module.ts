@@ -26,10 +26,10 @@ import {LoginComponent} from './auth/login/login.component';
 import {RegisterComponent} from './auth/register/register.component';
 import {ResetComponent} from './auth/reset/reset.component';
 import {TraderProfileComponent} from './profile/trader-profile/trader-profile.component';
-import {ArtistsListComponent} from './artists/artists-list/artists-list.component';
 
 import {ArtworksModule} from "./artworks/artworks.module";
 import {GalleriesModule} from "./galleries/galleries.module";
+import {ArtistsModule} from "./artists/artists.module";
 
 export function createTranslateLoader(http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
@@ -48,8 +48,7 @@ export function createTranslateLoader(http: HttpClient) {
     LoginComponent,
     RegisterComponent,
     ResetComponent,
-    TraderProfileComponent,
-    ArtistsListComponent
+    TraderProfileComponent
   ],
   imports: [
     BrowserModule,
@@ -68,7 +67,8 @@ export function createTranslateLoader(http: HttpClient) {
     NgxPaginationModule,
     AdminModule,
     ArtworksModule,
-    GalleriesModule
+    GalleriesModule,
+    ArtistsModule
   ],
   providers: [Globals, LoginService, FileService, AlertService, AuthGuard, AdminGuard,
     {provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true},

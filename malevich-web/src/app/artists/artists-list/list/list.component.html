@@ -1,0 +1,23 @@
+<div class="row g-mb-70">
+  <div class="col-md-6 col-lg-4 g-mb-30" *ngFor="let artist of artists">
+    <!-- Agents -->
+    <div class="u-shadow-v11 u-shadow-v21--hover g-transition-0_3">
+      <div class="media g-bg-white g-pa-20">
+        <div class="d-flex g-width-100 g-height-100 mr-4">
+          <img class="img-fluid g-brd-around g-brd-3 g-brd-gray-light-v3 rounded-circle" src="{{url}}{{artist.thumbnail.url}}" alt="Image Description">
+        </div>
+        <div class="media-body">
+          <h3 class="h5"><a class="g-color-main" href="#">{{artist.person.fullNameMl[translate.currentLang]}}</a></h3>
+          <span class="d-block g-color-gray-dark-v5 g-font-size-13 mb-1">Paintings</span>
+          <span class="d-block g-font-size-13">xxxxxx</span>
+          <div class="g-brd-top g-brd-gray-light-v3 g-pt-10 g-mt-10">
+            <span class="d-block">xxxxxx</span>
+            <span class="d-block g-color-gray-dark-v5 g-font-size-13">xxxxxx</span>
+          </div>
+        </div>
+      </div>
+      <a class="u-link-v2" href="!#"></a>
+    </div>
+    <!-- End Agents -->
+  </div>
+</div>

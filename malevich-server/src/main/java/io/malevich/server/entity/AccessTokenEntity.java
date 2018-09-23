@@ -14,16 +14,13 @@ public class AccessTokenEntity implements Entity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-
     @Getter
     @Column
     private String token;
 
-
     @Getter
     @ManyToOne
     private UserEntity user;
-
 
     @Getter
     @Column

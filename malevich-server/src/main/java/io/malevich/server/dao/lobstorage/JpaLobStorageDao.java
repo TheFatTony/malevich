@@ -6,10 +6,7 @@ import io.malevich.server.entity.LobStorageEntity;
 import org.springframework.stereotype.Component;
 
 import javax.persistence.TypedQuery;
-import javax.persistence.criteria.CriteriaBuilder;
-import javax.persistence.criteria.CriteriaQuery;
-import javax.persistence.criteria.Predicate;
-import javax.persistence.criteria.Root;
+import javax.persistence.criteria.*;
 
 @Component
 public class JpaLobStorageDao extends JpaDao<LobStorageEntity, Long> implements LobStorageDao {
@@ -25,8 +22,10 @@ public class JpaLobStorageDao extends JpaDao<LobStorageEntity, Long> implements 
 
 
         Root<LobStorageEntity> root = criteriaQuery.from(this.entityClass);
+        root.fetch("file", JoinType.INNER);
         Predicate p1 = builder.and(builder.equal(root.get("file"), fileId));
 
+        criteriaQuery.select(root);
         criteriaQuery.where(p1);
 
         TypedQuery<LobStorageEntity> typedQuery = this.getEntityManager().createQuery(criteriaQuery);

@@ -5,8 +5,8 @@ import io.malevich.server.dao.file.FileDao;
 import io.malevich.server.entity.FileEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
-import javax.transaction.Transactional;
 import java.util.List;
 
 
@@ -20,12 +20,13 @@ public class FileServiceImpl implements FileService {
     }
 
     @Override
-    @Transactional
+    @Transactional(readOnly = true)
     public FileEntity find(Long id) {
         return this.fileDao.find(id);
     }
 
     @Override
+    @Transactional(readOnly = true)
     public List<FileEntity> findAll() {
         return fileDao.findAll();
     }

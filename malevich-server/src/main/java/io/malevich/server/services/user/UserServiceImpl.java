@@ -60,6 +60,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    @Transactional(readOnly = true)
     public List<UserEntity> findAll() {
         return userDao.findAll();
     }

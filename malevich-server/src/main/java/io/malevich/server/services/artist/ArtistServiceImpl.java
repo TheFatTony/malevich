@@ -6,8 +6,8 @@ import io.malevich.server.dao.organization.OrganizationDao;
 import io.malevich.server.entity.ArtistEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
-import javax.transaction.Transactional;
 import java.util.List;
 
 
@@ -22,13 +22,13 @@ public class ArtistServiceImpl implements ArtistService {
     }
 
     @Override
-    @Transactional
+    @Transactional(readOnly = true)
     public List<ArtistEntity> findAll() {
         return this.artistDao.findAll();
     }
 
     @Override
-    @Transactional
+    @Transactional(readOnly = true)
     public ArtistEntity find(Long id) {
         return this.artistDao.find(id);
     }

@@ -1,7 +1,7 @@
 import {AfterViewInit, Component, OnInit} from '@angular/core';
 import {TranslateService} from "@ngx-translate/core";
 import {Globals} from "../../globals";
-import {LoginService} from "../../_services";
+import {AuthService} from "../../_services";
 
 @Component({
   selector: 'app-main-header',
@@ -10,7 +10,8 @@ import {LoginService} from "../../_services";
 })
 export class MainHeaderComponent implements OnInit, AfterViewInit {
 
-  constructor(public translate: TranslateService, public globals: Globals, public loginService: LoginService) {
+
+  constructor(public translate: TranslateService, public globals: Globals, public loginService: AuthService) {
   }
 
   ngOnInit() {

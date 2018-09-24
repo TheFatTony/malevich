@@ -4,7 +4,6 @@ package io.malevich.server.dao.artwork;
 import io.malevich.server.dao.JpaDao;
 import io.malevich.server.entity.ArtworkEntity;
 import org.springframework.stereotype.Component;
-import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaBuilder;
@@ -20,10 +19,8 @@ public class JpaArtworkDao extends JpaDao<ArtworkEntity, Long> implements Artwor
     public JpaArtworkDao() {
         super(ArtworkEntity.class);
     }
-
-
+    
     @Override
-    @Transactional(readOnly = true)
     public List<ArtworkEntity> findAll() {
         final CriteriaBuilder builder = this.getEntityManager().getCriteriaBuilder();
         final CriteriaQuery<ArtworkEntity> criteriaQuery = builder.createQuery(this.entityClass);

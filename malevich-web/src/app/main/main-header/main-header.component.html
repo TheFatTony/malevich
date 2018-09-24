@@ -91,7 +91,7 @@
       <div id="navBar"
            class="collapse navbar-collapse align-items-center order-lg-last g-brd-top g-brd-none--lg g-brd-primary-dark-v1">
         <ul class="navbar-nav g-py-30 g-py-0--lg">
-          <li class="nav-item">
+          <li class="nav-item" *ngIf="!globals.isAuthorised">
             <a
               class="nav-link g-color-white g-brd-right--lg g-brd-primary-dark-v1 g-bg-primary-dark-v1--hover g-font-weight-400 g-font-size-default g-px-17 g-px-23--xl g-py-15"
               routerLink="/auth/login">
@@ -100,7 +100,7 @@
           </li>
 
           <!-- Listing - Submenu -->
-          <li class="nav-item hs-has-sub-menu">
+          <li class="nav-item hs-has-sub-menu" [hidden]="!globals.isAuthorised">
             <a id="nav-link--listing"
                class="nav-link g-color-white g-brd-right--lg g-brd-primary-dark-v1 g-bg-primary-dark-v1--hover g-font-weight-400 g-font-size-default g-px-17 g-px-23--xl g-py-15"
                href="javascript:void(0);"

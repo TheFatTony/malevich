@@ -15,7 +15,7 @@ import {TranslateLoader, TranslateModule} from "@ngx-translate/core";
 import {TranslateHttpLoader} from "@ngx-translate/http-loader";
 import {AlertComponent} from "./_directives/alert/alert.component";
 import {Globals} from "./globals";
-import {AlertService, FileService, LoginService} from "./_services";
+import {AlertService, FileService, AuthService} from "./_services";
 import {AuthGuard} from "./_guards/auth.guard";
 import {AdminGuard} from "./_guards/admin.guard";
 import {ErrorInterceptor, JwtInterceptor} from "./_helpers";
@@ -90,7 +90,7 @@ export function createTranslateLoader(http: HttpClient) {
     NgxPaginationModule,
     AdminModule
   ],
-  providers: [Globals, LoginService, FileService, AlertService, AuthGuard, AdminGuard,
+  providers: [Globals, FileService, AlertService, AuthGuard, AdminGuard,
     {provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true},
     {provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true}],
   bootstrap: [AppComponent]

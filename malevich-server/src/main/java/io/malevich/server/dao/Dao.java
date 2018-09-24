@@ -10,7 +10,9 @@ public interface Dao<T extends Entity, I> {
 
     T find(I id);
 
-    T save(T entity);
+    void create(T entity);
+
+    T update(T entity);
 
     void delete(I id);
 

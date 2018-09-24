@@ -5,10 +5,10 @@ import {environment} from '../../environments/environment';
 import {Globals} from '../globals';
 import {UserDto} from '../_transfer';
 
-@Injectable()
-export class LoginService {
+@Injectable({providedIn: 'root'})
+export class AuthService {
 
-  private url = environment.baseUrl + 'users';
+  private url = environment.baseUrl + 'auth';
 
   constructor(private http: HttpClient, public globals: Globals) {
   }
@@ -19,7 +19,8 @@ export class LoginService {
         if (user && user.token) {
           localStorage.setItem('currentUser', JSON.stringify(user));
           this.globals.isAuthorised = true;
-          this.refreshToken();
+          console.log(this.globals.isAuthorised);
+          this.getUser();
         }
 
         return user;
@@ -27,6 +28,17 @@ export class LoginService {
   }
 
   refreshToken() {
+    if (localStorage.getItem('currentUser')) {
+      this.globals.isAuthorised = true;
+      console.log(this.globals.isAuthorised);
+      this.getUser();
+      if (!localStorage.getItem('user')) {
+        this.logout();
+      }
+    }
+  }
+
+  getUser() {
     this.http.get<UserDto>(this.url).subscribe(user => {
       localStorage.setItem('user', JSON.stringify(user));
     });
@@ -36,6 +48,7 @@ export class LoginService {
     localStorage.removeItem('currentUser');
     localStorage.removeItem('user');
     this.globals.isAuthorised = false;
+    console.log(this.globals.isAuthorised);
   }
 
 }

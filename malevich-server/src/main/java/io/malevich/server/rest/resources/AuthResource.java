@@ -2,6 +2,7 @@ package io.malevich.server.rest.resources;
 
 
 import io.malevich.server.entity.UserEntity;
+import io.malevich.server.services.auth.user.AuthService;
 import io.malevich.server.services.user.UserService;
 import io.malevich.server.transfer.AccessTokenDto;
 import io.malevich.server.transfer.LoginFormDto;
@@ -26,27 +27,24 @@ import java.util.stream.Collectors;
 
 
 @RestController
-@RequestMapping(value = "/users")
-public class UserResource {
+@RequestMapping(value = "/auth")
+public class AuthResource {
 
 
     @Autowired
-    private UserService userService;
-
-    @Autowired
-    private ModelMapper modelMapper;
+    private AuthService authService;
 
 
-    @PreAuthorize("hasRole('ADMIN')")
-    @RequestMapping(value = "/list", method = RequestMethod.GET)
-    public List<UserDto> list() {
-        List<UserEntity> allEntries = this.userService.findAll();
-        return allEntries.stream().map(allEntry -> convertToDto(allEntry)).collect(Collectors.toList());
+    @PreAuthorize("hasRole('USER')")
+    @RequestMapping(method = RequestMethod.GET)
+    public UserDto getUser() {
+        return authService.getUser();
+    }
+
+    @RequestMapping(value = "/authenticate", method = RequestMethod.POST)
+    public AccessTokenDto authenticate(@RequestBody LoginFormDto loginFormDto) {
+        return authService.authenticate(loginFormDto);
     }
 
 
-    private UserDto convertToDto(UserEntity entity) {
-        UserDto dto = modelMapper.map(entity, UserDto.class);
-        return dto;
-    }
 }

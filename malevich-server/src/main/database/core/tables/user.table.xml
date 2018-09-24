@@ -14,7 +14,9 @@
             <column name="password" type="varchar(255)">
                 <constraints nullable="false"/>
             </column>
-            <column name="activity_flag" type="boolean"/>
+            <column name="activity_flag" type="boolean">
+                <constraints nullable="false"/>
+            </column>
         </createTable>
     </changeSet>
 

@@ -17,6 +17,7 @@ import {TraderProfileComponent} from "./profile/trader-profile/trader-profile.co
 import {ArtworksListComponent} from "./artworks/artworks-list/artworks-list.component";
 import {GalleriesListComponent} from "./galleries/galleries-list/galleries-list.component";
 import {ArtistsListComponent} from "./artists/artists-list/artists-list.component";
+import {AuthGuard} from "./_guards/auth.guard";
 
 const routes: Routes = [
   {path: '', redirectTo: '/main-page', pathMatch: 'full'},
@@ -27,15 +28,12 @@ const routes: Routes = [
   {path: 'auth/login', component: LoginComponent},
   {path: 'auth/register', component: RegisterComponent},
   {path: 'auth/reset', component: ResetComponent},
-  {path: 'profile/trader', component: TraderProfileComponent},
+  {path: 'profile/trader', component: TraderProfileComponent, canActivate: [AuthGuard]},
   {path: 'artworks/artworks-list', component: ArtworksListComponent},
   {path: 'galleries/galleries-list', component: GalleriesListComponent},
   {path: 'artists/artists-list', component: ArtistsListComponent},
   {
-    path: 'admin',
-    component: AdminComponent,
-    children: adminRoutes
-    // ,canActivate: [AdminGuard]
+    path: 'admin', component: AdminComponent, children: adminRoutes, canActivate: [AdminGuard]
   }
 ];
 

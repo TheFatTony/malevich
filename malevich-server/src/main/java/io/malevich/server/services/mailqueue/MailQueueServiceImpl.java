@@ -40,8 +40,8 @@ public class MailQueueServiceImpl implements MailQueueService {
 
     @Override
     @Transactional
-    public MailQueueEntity create(MailQueueEntity mailQueue) {
-        return this.mailQueueDao.save(mailQueue);
+    public void create(MailQueueEntity mailQueue) {
+        this.mailQueueDao.create(mailQueue);
     }
 
     @Override

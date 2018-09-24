@@ -1,14 +1,12 @@
 package io.malevich.server.services.organization;
 
 
-import io.malevich.server.dao.artwork.ArtworkDao;
 import io.malevich.server.dao.organization.OrganizationDao;
-import io.malevich.server.entity.ArtworkEntity;
 import io.malevich.server.entity.OrganizationEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
-import javax.transaction.Transactional;
 import java.util.List;
 
 
@@ -23,13 +21,13 @@ public class OrganizationServiceImpl implements OrganizationService {
     }
 
     @Override
-    @Transactional
+    @Transactional(readOnly = true)
     public List<OrganizationEntity> findAll() {
         return this.organizationDao.findAll();
     }
 
     @Override
-    @Transactional
+    @Transactional(readOnly = true)
     public OrganizationEntity find(Long id) {
         return this.organizationDao.find(id);
     }

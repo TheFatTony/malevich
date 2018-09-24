@@ -4,6 +4,7 @@ import {map} from 'rxjs/operators';
 import {environment} from '../../environments/environment';
 import {Globals} from '../globals';
 import {UserDto} from '../_transfer';
+import {Router} from "@angular/router";
 
 @Injectable({providedIn: 'root'})
 export class AuthService {
@@ -19,7 +20,6 @@ export class AuthService {
         if (user && user.token) {
           localStorage.setItem('currentUser', JSON.stringify(user));
           this.globals.isAuthorised = true;
-          console.log(this.globals.isAuthorised);
           this.getUser();
         }
 
@@ -30,7 +30,6 @@ export class AuthService {
   refreshToken() {
     if (localStorage.getItem('currentUser')) {
       this.globals.isAuthorised = true;
-      console.log(this.globals.isAuthorised);
       this.getUser();
       if (!localStorage.getItem('user')) {
         this.logout();
@@ -48,7 +47,6 @@ export class AuthService {
     localStorage.removeItem('currentUser');
     localStorage.removeItem('user');
     this.globals.isAuthorised = false;
-    console.log(this.globals.isAuthorised);
   }
 
 }

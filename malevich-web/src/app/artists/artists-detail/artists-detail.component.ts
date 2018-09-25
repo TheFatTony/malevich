@@ -16,7 +16,7 @@ export class ArtistsDetailComponent implements OnInit {
   artist: ArtistDto;
   id: number;
 
-  private url = environment.baseUrl;
+  public url = environment.baseUrl;
 
   constructor(private route: ActivatedRoute,
               public translate: TranslateService,

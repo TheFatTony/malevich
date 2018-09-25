@@ -15,7 +15,7 @@ export class GalleriesDetailComponent implements OnInit {
   gallery: GalleryDto;
   id: number;
 
-  private url = environment.baseUrl;
+  public url = environment.baseUrl;
 
   constructor(private route: ActivatedRoute,
               public translate: TranslateService,

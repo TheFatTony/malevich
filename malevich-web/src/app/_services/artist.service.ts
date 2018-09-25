@@ -1,8 +1,9 @@
-import { Injectable } from '@angular/core';
+import {Injectable} from '@angular/core';
 import {environment} from "../../environments/environment";
 import {HttpClient} from "@angular/common/http";
 import {ArtistDto} from "../_transfer";
 import {map} from "rxjs/operators";
+import {Observable} from "rxjs";
 
 @Injectable({
   providedIn: 'root'
@@ -19,4 +20,11 @@ export class ArtistService {
       .get<ArtistDto[]>(this.url + '/list')
       .pipe(map(data => data));
   }
+
+  getArtist(id: number): Observable<ArtistDto> {
+    return this.http
+      .get<ArtistDto>(this.url + '/item/' + id)
+      .pipe(map(data => data));
+  }
+
 }

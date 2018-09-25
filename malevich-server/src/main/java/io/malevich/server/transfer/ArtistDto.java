@@ -5,26 +5,21 @@ import lombok.Setter;
 
 import java.util.Map;
 
+@Getter
+@Setter
 public class ArtistDto {
 
-    @Getter
-    @Setter
+
     private Long id;
 
-    @Getter
-    @Setter
     private PersonDto person;
 
-    @Getter
-    @Setter
     private String description;
 
-    @Getter
-    @Setter
     private FileDto thumbnail;
 
-    @Getter
-    @Setter
+    private FileDto image;
+
     private Map<String, String> descriptionMl;
 
 }

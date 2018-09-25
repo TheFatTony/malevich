@@ -6,5 +6,6 @@ export class GalleryDto {
   organization: OrganizationDto;
   description: string;
   thumbnail: FileDto;
+  image: FileDto;
   descriptionMl: Map<string, string>;
 }

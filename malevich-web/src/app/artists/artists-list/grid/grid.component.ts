@@ -3,7 +3,7 @@ import {environment} from "../../../../environments/environment";
 import {TranslateService} from "@ngx-translate/core";
 
 @Component({
-  selector: 'app-artists-artists-list-grid',
+  selector: 'app-artists-list-grid',
   templateUrl: './grid.component.html',
   styleUrls: ['./grid.component.css']
 })

@@ -7,7 +7,9 @@
       <div class="g-brd-around g-brd-top-none g-brd-gray-light-v3 g-bg-white">
         <!-- Products - Address -->
         <div class="g-pa-25">
-          <h3 class="g-font-weight-600 g-font-size-16">{{gallery.organization.legalNameMl[translate.currentLang]}}</h3>
+          <h3 class="g-font-weight-600 g-font-size-16">
+            <a routerLink="/galleries/galleries-detail/{{gallery.id}}">{{gallery.organization.legalNameMl[translate.currentLang]}}</a>
+          </h3>
           <p class="g-font-size-13 mb-4">{{gallery.organization.locationMl[translate.currentLang]}}</p>
           <p class="g-color-text g-font-weight-500 g-font-size-13 mb-0">Posted: <span
             class="g-color-text g-font-weight-400">12 days ago</span></p>

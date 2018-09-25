@@ -41,6 +41,9 @@ import {ArtistsListComponent} from "./artists/artists-list/artists-list.componen
 import {FiltersComponent as ArtistsListFiltersComponent} from './artists/artists-list/filters/filters.component';
 import {GridComponent as ArtistsListGridComponent} from './artists/artists-list/grid/grid.component';
 import {ListComponent as ArtistsListListComponent} from './artists/artists-list/list/list.component';
+import { ArtworksDetailComponent } from './artworks/artworks-detail/artworks-detail.component';
+import { GalleriesDetailComponent } from './galleries/galleries-detail/galleries-detail.component';
+import { ArtistsDetailComponent } from './artists/artists-detail/artists-detail.component';
 
 export function createTranslateLoader(http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
@@ -71,7 +74,10 @@ export function createTranslateLoader(http: HttpClient) {
     ArtistsListComponent,
     ArtistsListFiltersComponent,
     ArtistsListGridComponent,
-    ArtistsListListComponent
+    ArtistsListListComponent,
+    ArtworksDetailComponent,
+    GalleriesDetailComponent,
+    ArtistsDetailComponent
   ],
   imports: [
     BrowserModule,

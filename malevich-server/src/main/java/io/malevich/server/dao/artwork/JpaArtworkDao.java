@@ -19,7 +19,7 @@ public class JpaArtworkDao extends JpaDao<ArtworkEntity, Long> implements Artwor
     public JpaArtworkDao() {
         super(ArtworkEntity.class);
     }
-    
+
     @Override
     public List<ArtworkEntity> findAll() {
         final CriteriaBuilder builder = this.getEntityManager().getCriteriaBuilder();
@@ -28,6 +28,7 @@ public class JpaArtworkDao extends JpaDao<ArtworkEntity, Long> implements Artwor
         Root<ArtworkEntity> root = criteriaQuery.from(this.entityClass);
         root.fetch("category", JoinType.INNER);
         root.fetch("thumbnail", JoinType.LEFT);
+        root.fetch("image", JoinType.LEFT);
 
         criteriaQuery.select(root);
 

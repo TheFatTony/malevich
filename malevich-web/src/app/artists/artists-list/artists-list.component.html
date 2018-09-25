@@ -95,8 +95,8 @@
         <!-- End Filters -->
 
         <!-- Products -->
-        <app-artists-artists-list-grid [artists]="artists" *ngIf="showGrid"></app-artists-artists-list-grid>
-        <app-artists-artists-list-list [artists]="artists" *ngIf="!showGrid"></app-artists-artists-list-list>
+        <app-artists-list-grid [artists]="artists" *ngIf="showGrid"></app-artists-list-grid>
+        <app-artists-list-list [artists]="artists" *ngIf="!showGrid"></app-artists-list-list>
         <!-- End Products -->
 
         <hr class="g-mb-60">
@@ -150,7 +150,7 @@
     <!-- Filters -->
     <div class="col-md-3 order-md-1 g-brd-right--lg g-brd-gray-light-v4 g-pt-40">
       <div class="g-pr-15--lg g-pt-60">
-        <app-artists-artists-list-filters></app-artists-artists-list-filters>
+        <app-artists-list-filters></app-artists-list-filters>
       </div>
     </div>
     <!-- End Filters -->

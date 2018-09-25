@@ -8,6 +8,7 @@ export class ArtworkDto {
   price: number;
   category: CategoryDto;
   thumbnail: FileDto;
+  image: FileDto;
   titleMl: Map<string, string>;
   descriptionMl: Map<string, string>;
 }

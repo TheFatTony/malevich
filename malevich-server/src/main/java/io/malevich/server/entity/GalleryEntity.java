@@ -38,6 +38,12 @@ public class GalleryEntity implements Entity {
 
     @Getter
     @Setter
+    @Fetch(FetchMode.JOIN)
+    @ManyToOne
+    private FileEntity image;
+
+    @Getter
+    @Setter
     @Convert(converter = JpaConverterJson.class)
     @Column(name = "description_ml")
     private Map<String, String> descriptionMl;

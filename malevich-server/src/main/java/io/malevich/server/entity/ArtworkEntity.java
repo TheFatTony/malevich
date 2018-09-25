@@ -48,6 +48,11 @@ public class ArtworkEntity implements Entity {
     @ManyToOne()
     private FileEntity thumbnail;
 
+    @Getter
+    @Setter
+    @Fetch(FetchMode.JOIN)
+    @ManyToOne()
+    private FileEntity image;
 
     @Getter
     @Setter

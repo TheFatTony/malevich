@@ -95,8 +95,8 @@
         <!-- End Filters -->
 
         <!-- Products -->
-        <app-galleries-galleries-list-grid [galleries]="galleries" *ngIf="showGrid"></app-galleries-galleries-list-grid>
-        <app-galleries-galleries-list-list [galleries]="galleries" *ngIf="!showGrid"></app-galleries-galleries-list-list>
+        <app-galleries-list-grid [galleries]="galleries" *ngIf="showGrid"></app-galleries-list-grid>
+        <app-galleries-list-list [galleries]="galleries" *ngIf="!showGrid"></app-galleries-list-list>
         <!-- End Products -->
 
         <hr class="g-mb-60">
@@ -150,7 +150,7 @@
     <!-- Filters -->
     <div class="col-md-3 order-md-1 g-brd-right--lg g-brd-gray-light-v4 g-pt-40">
       <div class="g-pr-15--lg g-pt-60">
-        <app-galleries-galleries-list-filters></app-galleries-galleries-list-filters>
+        <app-galleries-list-filters></app-galleries-list-filters>
       </div>
     </div>
     <!-- End Filters -->

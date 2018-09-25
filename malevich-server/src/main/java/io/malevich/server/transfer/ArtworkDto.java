@@ -6,39 +6,26 @@ import lombok.Setter;
 
 import java.util.Map;
 
-
+@Getter
+@Setter
 public class ArtworkDto {
 
-    @Getter
-    @Setter
     private long id;
 
-    @Getter
-    @Setter
     private String title;
 
-    @Getter
-    @Setter
     private String description;
 
-    @Getter
-    @Setter
     private double price;
 
-    @Getter
-    @Setter
     private CategoryDto category;
 
-    @Getter
-    @Setter
     private FileDto thumbnail;
 
-    @Getter
-    @Setter
+    private FileDto image;
+
     private Map<String, String> titleMl;
 
-    @Getter
-    @Setter
     private Map<String, String> descriptionMl;
 
 }

@@ -9,9 +9,15 @@
                                  referencedColumnNames="id" referencedTableName="category"/>
     </changeSet>
 
-    <changeSet author="thefattony" id="artwork-files-fk">
+    <changeSet author="thefattony" id="artwork-files-thumbnail_id-fk">
         <addForeignKeyConstraint baseColumnNames="thumbnail_id" baseTableName="artwork"
-                                 constraintName="artwork_files_fk"
+                                 constraintName="artwork_files_thumbnail_id_fk"
+                                 referencedColumnNames="id" referencedTableName="files"/>
+    </changeSet>
+
+    <changeSet author="thefattony" id="artwork-files-image_id-fk">
+        <addForeignKeyConstraint baseColumnNames="image_id" baseTableName="artwork"
+                                 constraintName="artwork_files_image_id_fk"
                                  referencedColumnNames="id" referencedTableName="files"/>
     </changeSet>
 

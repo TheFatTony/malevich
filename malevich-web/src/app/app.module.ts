@@ -44,6 +44,12 @@ import {ListComponent as ArtistsListListComponent} from './artists/artists-list/
 import { ArtworksDetailComponent } from './artworks/artworks-detail/artworks-detail.component';
 import { GalleriesDetailComponent } from './galleries/galleries-detail/galleries-detail.component';
 import { ArtistsDetailComponent } from './artists/artists-detail/artists-detail.component';
+import { SecurityComponent } from './profile/trader-profile/security/security.component';
+import { AddressesComponent } from './profile/trader-profile/addresses/addresses.component';
+import { WalletComponent } from './profile/trader-profile/wallet/wallet.component';
+import { WishlistComponent } from './profile/trader-profile/wishlist/wishlist.component';
+import { PaymentComponent } from './profile/trader-profile/payment/payment.component';
+import { NotificationsComponent } from './profile/trader-profile/notifications/notifications.component';
 
 export function createTranslateLoader(http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
@@ -77,7 +83,13 @@ export function createTranslateLoader(http: HttpClient) {
     ArtistsListListComponent,
     ArtworksDetailComponent,
     GalleriesDetailComponent,
-    ArtistsDetailComponent
+    ArtistsDetailComponent,
+    SecurityComponent,
+    AddressesComponent,
+    WalletComponent,
+    WishlistComponent,
+    PaymentComponent,
+    NotificationsComponent
   ],
   imports: [
     BrowserModule,

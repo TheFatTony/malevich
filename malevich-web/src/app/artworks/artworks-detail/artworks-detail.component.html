@@ -1,3 +1,30 @@
+<!-- Breadcrumbs -->
+<section class="g-brd-bottom g-brd-gray-light-v4 g-py-30">
+  <div class="container">
+    <div class="d-sm-flex text-center">
+      <div class="align-self-center">
+        <ul class="u-list-inline">
+          <li class="list-inline-item g-mr-5">
+            <a class="u-link-v5 g-color-text" routerLink="/main-page">{{'INDEX.MAIN_MENU_ITEM' | translate}}</a>
+            <i class="g-color-gray-light-v2 g-ml-5 fa fa-angle-right"></i>
+          </li>
+          <li class="list-inline-item g-mr-5">
+            <a class="u-link-v5 g-color-text" routerLink="/artworks/artworks-list">{{'INDEX.ARTHUNTER_MENU_ITEM' | translate}}</a>
+            <i class="g-color-gray-light-v2 g-ml-5 fa fa-angle-right"></i>
+          </li>
+          <li class="list-inline-item g-color-primary">
+            <span>{{artwork.titleMl[translate.currentLang]}}</span>
+          </li>
+        </ul>
+      </div>
+
+      <div class="align-self-center ml-auto">
+        <h1 class="h3 mb-0">{{'INDEX.ARTHUNTER_MENU_ITEM' | translate}}</h1>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- End Breadcrumbs -->
 <!-- Product Description -->
 <div class="container g-pt-50 g-pb-100">
   <div class="row">

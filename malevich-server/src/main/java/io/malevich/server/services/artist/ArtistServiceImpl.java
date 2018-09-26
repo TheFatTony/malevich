@@ -30,7 +30,7 @@ public class ArtistServiceImpl implements ArtistService {
     @Override
     @Transactional(readOnly = true)
     public ArtistEntity find(Long id) {
-        return this.artistDao.find(id);
+        return this.artistDao.findById(id).get();
     }
 
 }

@@ -29,7 +29,7 @@ public class PersonServiceImpl implements PersonService {
     @Override
     @Transactional(readOnly = true)
     public PersonEntity find(Long id) {
-        return this.personDao.find(id);
+        return this.personDao.findById(id).get();
     }
 
 }

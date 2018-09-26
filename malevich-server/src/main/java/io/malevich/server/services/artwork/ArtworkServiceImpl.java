@@ -29,7 +29,7 @@ public class ArtworkServiceImpl implements ArtworkService {
     @Override
     @Transactional(readOnly = true)
     public ArtworkEntity find(Long id) {
-        return this.artworkDao.find(id);
+        return this.artworkDao.findById(id).get();
     }
 
 }

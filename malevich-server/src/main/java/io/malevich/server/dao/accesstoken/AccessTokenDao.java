@@ -1,12 +1,13 @@
 package io.malevich.server.dao.accesstoken;
 
 
-import io.malevich.server.dao.Dao;
 import io.malevich.server.entity.AccessTokenEntity;
+import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Repository;
 
 
-@Component
-public interface AccessTokenDao extends Dao<AccessTokenEntity, Long> {
-    AccessTokenEntity findByToken(String accessTokenString);
+@Repository
+public interface AccessTokenDao extends JpaRepository<AccessTokenEntity, Long> {
+    AccessTokenEntity findByToken(String token);
 }

@@ -1,15 +1,10 @@
 package io.malevich.server.dao.category;
 
-import io.malevich.server.dao.Dao;
 import io.malevich.server.entity.CategoryEntity;
-import org.springframework.stereotype.Component;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
 
-import java.util.List;
+@Repository
+public interface CategoryDao extends JpaRepository<CategoryEntity, Long> {
 
-@Component
-public interface CategoryDao extends Dao<CategoryEntity, Long> {
-
-    List<CategoryEntity> findAll();
-
-    CategoryEntity find(Long id);
 }

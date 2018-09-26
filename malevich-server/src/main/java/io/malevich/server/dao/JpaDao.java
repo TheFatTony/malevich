@@ -45,9 +45,9 @@ public class JpaDao<T extends Entity, I> implements Dao<T, I> {
     @Override
     public Page<T> findAll(Pageable pageable) {
         if (pageable.isUnpaged())
+            return null;
+
         return null;
-
-
     }
 
     public void create(T entity) {

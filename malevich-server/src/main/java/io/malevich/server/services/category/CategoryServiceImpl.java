@@ -29,7 +29,7 @@ public class CategoryServiceImpl implements CategoryService {
     @Override
     @Transactional(readOnly = true)
     public CategoryEntity find(Long id) {
-        return this.categoryDao.find(id);
+        return this.categoryDao.findById(id).get();
     }
 
 }

@@ -4,14 +4,12 @@ package io.malevich.server.rest.resources;
 import io.malevich.server.dao.accesstoken.AccessTokenDao;
 import io.malevich.server.dao.user.UserDao;
 import io.malevich.server.entity.AccessTokenEntity;
-import io.malevich.server.entity.UserEntity;
 import io.malevich.server.services.mailqueue.MailQueueService;
 import org.apache.velocity.VelocityContext;
 import org.apache.velocity.app.VelocityEngine;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.context.i18n.LocaleContextHolder;
-import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -32,7 +30,6 @@ public class TestResource {
     private VelocityEngine velocityEngine;
 
 
-
     @Autowired
     private AccessTokenDao accessTokenDao;
 
@@ -42,7 +39,7 @@ public class TestResource {
     @Autowired
     private MessageSource messageSource;
 
-    @RequestMapping(method = RequestMethod.GET)
+    @RequestMapping(path = "ok", method = RequestMethod.GET)
     @Transactional
     public String test() {
         AccessTokenEntity accessTokenEntity = new AccessTokenEntity(userDao.findByName("admin@malevich.io"), "fhgjkl");
@@ -58,6 +55,13 @@ public class TestResource {
         return stringWriter.toString();
     }
 
+    @RequestMapping(path = "error", method = RequestMethod.GET)
+    @Transactional
+    public String test1() {
+        AccessTokenEntity accessTokenEntity = new AccessTokenEntity(userDao.findByName("admin@malevich.io"), "fhgjkl");
+        accessTokenDao.save(accessTokenEntity);
 
+        throw new NullPointerException("asdasd");
+    }
 
 }

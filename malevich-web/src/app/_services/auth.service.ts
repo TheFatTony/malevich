@@ -4,7 +4,6 @@ import {map} from 'rxjs/operators';
 import {environment} from '../../environments/environment';
 import {Globals} from '../globals';
 import {UserDto} from '../_transfer';
-import {Router} from "@angular/router";
 
 @Injectable({providedIn: 'root'})
 export class AuthService {

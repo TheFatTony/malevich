@@ -12,7 +12,8 @@ import {Router} from "@angular/router";
 export class MainHeaderComponent implements OnInit, AfterViewInit {
 
 
-  constructor(private router: Router,
+  constructor(
+              // public router: Router,
               public translate: TranslateService,
               public globals: Globals,
               public loginService: AuthService) {
@@ -46,7 +47,7 @@ export class MainHeaderComponent implements OnInit, AfterViewInit {
 
   doLogout() {
     this.loginService.logout();
-    this.router.navigate(['/']);
+    // this.router.navigate(['/']);
   }
 
 }

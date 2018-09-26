@@ -1,4 +1,4 @@
-package io.malevich.server.services.auth.user;
+package io.malevich.server.services.auth;
 
 import io.malevich.server.entity.AccessTokenEntity;
 import io.malevich.server.entity.UserEntity;

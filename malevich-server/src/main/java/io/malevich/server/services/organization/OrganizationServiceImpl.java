@@ -29,7 +29,7 @@ public class OrganizationServiceImpl implements OrganizationService {
     @Override
     @Transactional(readOnly = true)
     public OrganizationEntity find(Long id) {
-        return this.organizationDao.find(id);
+        return this.organizationDao.findById(id).get();
     }
 
 }

@@ -1,4 +1,4 @@
-package io.malevich.server.services.auth.user;
+package io.malevich.server.services.auth;
 
 
 import io.malevich.server.dao.accesstoken.AccessTokenDao;
@@ -44,7 +44,7 @@ public class AuthServiceImpl implements AuthService {
     @Override
     @Transactional(readOnly = true)
     public UserDetails loadUserByUsername(String username) {
-        return this.userDao.loadUserByUsername(username);
+        return this.userDao.findByName(username);
     }
 
     @Transactional
@@ -63,9 +63,9 @@ public class AuthServiceImpl implements AuthService {
         return accessTokenEntity.getUser();
     }
 
-    @Transactional
     public AccessTokenEntity createAccessToken(UserEntity user) {
         AccessTokenEntity accessTokenEntity = new AccessTokenEntity(user, jwtUtil.generateToken(user.getUsername()));
+//        accessTokenDao.save(accessTokenEntity);
         return accessTokenEntity;
     }
 

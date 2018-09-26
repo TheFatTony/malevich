@@ -4,7 +4,7 @@
                    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.6.xsd">
 
     <changeSet author="thefattony" id="access_token-user_id-index">
-        <createIndex indexName="access_token_user_id_idx" tableName="access_token" unique="true">
+        <createIndex indexName="access_token_user_id_idx" tableName="access_token" unique="false">
             <column name="user_id" type="bigint"/>
         </createIndex>
     </changeSet>

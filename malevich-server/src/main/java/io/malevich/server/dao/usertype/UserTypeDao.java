@@ -1,12 +1,12 @@
 package io.malevich.server.dao.usertype;
 
 
-import io.malevich.server.dao.Dao;
 import io.malevich.server.entity.UserTypeEntity;
-import org.springframework.stereotype.Component;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
 
-@Component
-public interface UserTypeDao extends Dao<UserTypeEntity, Long> {
+@Repository
+public interface UserTypeDao extends JpaRepository<UserTypeEntity, Long> {
 
 
 }

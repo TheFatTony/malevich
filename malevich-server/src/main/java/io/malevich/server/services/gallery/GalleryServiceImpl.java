@@ -29,7 +29,7 @@ public class GalleryServiceImpl implements GalleryService {
     @Override
     @Transactional(readOnly = true)
     public GalleryEntity find(Long id) {
-        return this.galleryDao.find(id);
+        return this.galleryDao.findById(id).get();
     }
 
 }

@@ -22,7 +22,7 @@ public class FileServiceImpl implements FileService {
     @Override
     @Transactional(readOnly = true)
     public FileEntity find(Long id) {
-        return this.fileDao.find(id);
+        return this.fileDao.findById(id).get();
     }
 
     @Override

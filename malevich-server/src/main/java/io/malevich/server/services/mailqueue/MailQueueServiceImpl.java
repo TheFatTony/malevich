@@ -35,19 +35,19 @@ public class MailQueueServiceImpl implements MailQueueService {
     @Override
     @Transactional
     public MailQueueEntity find(Long id) {
-        return this.mailQueueDao.find(id);
+        return this.mailQueueDao.findById(id).get();
     }
 
     @Override
     @Transactional
     public void create(MailQueueEntity mailQueue) {
-        this.mailQueueDao.create(mailQueue);
+        this.mailQueueDao.save(mailQueue);
     }
 
     @Override
     @Transactional
     public void delete(Long id) {
-        this.mailQueueDao.delete(id);
+        this.mailQueueDao.deleteById(id);
     }
 
     @Override

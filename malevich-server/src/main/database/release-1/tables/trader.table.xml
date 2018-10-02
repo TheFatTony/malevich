@@ -16,7 +16,7 @@
 			<column name="date_of_birth" type="date">
 				<constraints nullable="false"/>
 			</column>
-			<column name="gender" type="varchar(1)">
+			<column name="gender" type="char(1)">
 				<constraints nullable="false"/>
 			</column>
 			<column name="thumbnail_id" type="bigint">

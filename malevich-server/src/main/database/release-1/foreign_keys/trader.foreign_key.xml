@@ -14,5 +14,11 @@
                                  constraintName="trader_files_fk"
                                  referencedColumnNames="id" referencedTableName="files"/>
     </changeSet>
+
+    <changeSet author="thefattony" id="trader-gender-fk">
+        <addForeignKeyConstraint baseColumnNames="gender" baseTableName="trader"
+                                 constraintName="trader_gender_fk"
+                                 referencedColumnNames="id" referencedTableName="gender"/>
+    </changeSet>
     
 </databaseChangeLog>

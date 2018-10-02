@@ -7,6 +7,8 @@ import { Component, OnInit } from '@angular/core';
 })
 export class SecurityComponent implements OnInit {
 
+  isEditing: boolean = false;
+
   constructor() { }
 
   ngOnInit() {

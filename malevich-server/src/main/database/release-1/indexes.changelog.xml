@@ -4,10 +4,12 @@
                    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.6.xsd">
 
     <include relativeToChangelogFile="true" file="indexes/user_type.index.xml"/>
+    <include relativeToChangelogFile="true" file="indexes/gender.index.xml"/>
     <include relativeToChangelogFile="true" file="indexes/organization.index.xml"/>
     <include relativeToChangelogFile="true" file="indexes/gallery.index.xml"/>
     <include relativeToChangelogFile="true" file="indexes/person.index.xml"/>
     <include relativeToChangelogFile="true" file="indexes/artist.index.xml"/>
+    <include relativeToChangelogFile="true" file="indexes/trader.index.xml"/>
     <include relativeToChangelogFile="true" file="indexes/category.index.xml"/>
     <include relativeToChangelogFile="true" file="indexes/artwork.index.xml"/>
 

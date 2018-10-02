@@ -1,5 +1,6 @@
 package io.malevich.server.entity;
 
+
 import io.malevich.server.entity.utils.JpaConverterJson;
 import lombok.Getter;
 import lombok.Setter;
@@ -10,8 +11,8 @@ import javax.persistence.*;
 import java.util.Map;
 
 @javax.persistence.Entity
-@Table(name = "artist")
-public class ArtistEntity implements Entity {
+@Table(name = "trader")
+public class TraderEntity implements Entity {
 
     @Getter
     @Setter
@@ -32,26 +33,20 @@ public class ArtistEntity implements Entity {
 
     @Getter
     @Setter
+    @Column(name = "mobile")
+    private String mobile;
+
+    @Getter
+    @Setter
     @Fetch(FetchMode.JOIN)
     @ManyToOne
     private FileEntity thumbnail;
 
     @Getter
     @Setter
-    @Fetch(FetchMode.JOIN)
-    @ManyToOne
-    private FileEntity image;
-
-    @Getter
-    @Setter
-    @Convert(converter = JpaConverterJson.class)
-    @Column(name = "full_name_ml")
-    private Map<String, String> fullNameMl;
-
-    @Getter
-    @Setter
     @Convert(converter = JpaConverterJson.class)
     @Column(name = "description_ml")
     private Map<String, String> descriptionMl;
+
 
 }

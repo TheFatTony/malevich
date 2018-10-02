@@ -13,7 +13,7 @@
     <div class="col-4 text-right">
       <a
         class="btn g-brd-around g-brd-gray-light-v3 g-color-gray-dark-v3 g-bg-gray-light-v5 g-bg-gray-light-v4--hover g-font-size-13 rounded g-px-18 g-py-7"
-        (click)="isEditing=!isEditing">Edit</a>
+        (click)="switchMode()">Edit</a>
     </div>
   </div>
 
@@ -56,11 +56,8 @@
     <div class="col-8">
       <span class="d-block g-color-text g-font-size-13 mb-1">Mobile Phone Number:</span>
       <span *ngIf="!isEditing" class="d-block">+(01) 222 333 444</span>
-      <div class="form-group">
-        <input *ngIf="isEditing"
-               class="form-control form-control-md g-color-black g-bg-white g-bg-white--focus g-brd-gray-light-v3 rounded" type="text"
-               placeholder="X (XXX) XXX-XXXX" data-mask="9 (999) 999-9999">
-      </div>
+      <input [hidden]="!isEditing" class="form-control g-color-black g-bg-white g-bg-white--focus g-brd-gray-light-v3 rounded"
+             type="text" placeholder="X (XXX) XXX-XXXX" data-mask="9 (999) 999-9999">
     </div>
 
     <!--<div class="col-4 text-right">-->
@@ -81,7 +78,7 @@
     <div class="col-4 text-right">
       <a
         class="btn g-brd-around g-brd-gray-light-v3 g-color-gray-dark-v3 g-bg-gray-light-v5 g-bg-gray-light-v4--hover g-font-size-13 rounded g-px-18 g-py-7"
-        href="#!">Change</a>
+        href="#modal1" data-modal-target="#modal1" data-modal-effect="fadein">Change</a>
     </div>
   </div>
 
@@ -105,3 +102,17 @@
 <button *ngIf="isEditing" class="btn u-btn-primary g-font-size-12 text-uppercase g-py-12 g-px-25" type="submit">Update
 </button>
 <!-- End Login & Security -->
+
+
+<!-- Demo modal window -->
+<div id="modal1" class="text-left g-max-width-600 g-bg-white g-overflow-y-auto g-pa-20" style="display: none;">
+  <button type="button" class="close" onclick="Custombox.modal.close();">
+    <i class="hs-icon hs-icon-close"></i>
+  </button>
+  <h4 class="g-mb-20">Modal title</h4>
+  <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type
+    specimen book.</p>
+  <p>It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more
+    recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p>
+</div>
+<!-- End Demo modal window -->

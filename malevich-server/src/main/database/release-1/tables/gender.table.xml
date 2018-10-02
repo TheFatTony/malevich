@@ -28,8 +28,4 @@
         <addPrimaryKey columnNames="id" constraintName="gender_pk" tableName="gender"/>
     </changeSet>
 
-    <changeSet author="thefattony" id="gender-id-aa" dbms="mysql">
-        <addAutoIncrement columnDataType="bigint" columnName="id" tableName="gender"/>
-    </changeSet>
-
 </databaseChangeLog>

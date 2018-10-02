@@ -15,7 +15,6 @@ export class TraderProfileComponent implements OnInit, AfterViewInit {
   }
 
   ngAfterViewInit(): void {
-    $['HSCore'].components.HSMaskedInput.init('[data-mask]');
   }
 
 }

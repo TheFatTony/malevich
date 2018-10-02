@@ -32,13 +32,14 @@
     "jquery-countdown": "^2.2.0",
     "jquery-migrate": "^3.0.1",
     "jquery-ui": "^1.12.1",
+    "jquery.maskedinput": "^1.4.1",
+    "jqwidgets-scripts": "^6.0.6",
     "ngx-pagination": "^3.2.0",
     "popper.js": "^1.14.4",
     "rxjs": "6.2.2",
     "simple-line-icons": "^2.4.1",
     "slick-carousel": "^1.8.1",
-    "zone.js": "^0.8.26",
-    "jqwidgets-scripts": "^6.0.6"
+    "zone.js": "^0.8.26"
   },
   "devDependencies": {
     "@angular/cli": "~6.1.1",

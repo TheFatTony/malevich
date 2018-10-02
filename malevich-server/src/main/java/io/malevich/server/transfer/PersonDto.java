@@ -11,8 +11,10 @@ public class PersonDto {
 
     private Long id;
 
-    private String fullName;
+    private String firstName;
 
-    private Map<String, String> fullNameMl;
+    private String lastName;
+
+    private String fullName;
 
 }

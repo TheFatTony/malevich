@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.6.xsd">
+
+    <changeSet author="thefattony" id="gender-table">
+        <createTable tableName="gender">
+            <column name="id" type="char(1)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="gender_name" type="varchar(400)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="description" type="clob"/>
+        </createTable>
+        <modifySql dbms="mysql">
+            <replace replace="clob" with="longtext"/>
+        </modifySql>
+    </changeSet>
+
+    <changeSet author="thefattony" id="gender-table-ml" dbms="mysql">
+        <addColumn tableName="gender">
+            <column name="gender_name_ml" type="json"/>
+        </addColumn>
+    </changeSet>
+
+    <changeSet author="thefattony" id="gender-pk">
+        <addPrimaryKey columnNames="id" constraintName="gender_pk" tableName="gender"/>
+    </changeSet>
+
+    <changeSet author="thefattony" id="gender-id-aa" dbms="mysql">
+        <addAutoIncrement columnDataType="bigint" columnName="id" tableName="gender"/>
+    </changeSet>
+
+</databaseChangeLog>

@@ -4,10 +4,12 @@
                    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.6.xsd">
 
     <include relativeToChangelogFile="true" file="constraints/user_type.constraint.xml"/>
+    <include relativeToChangelogFile="true" file="constraints/gender.constraint.xml"/>
     <include relativeToChangelogFile="true" file="constraints/organization.constraint.xml"/>
     <include relativeToChangelogFile="true" file="constraints/gallery.constraint.xml"/>
     <include relativeToChangelogFile="true" file="constraints/person.constraint.xml"/>
     <include relativeToChangelogFile="true" file="constraints/artist.constraint.xml"/>
+    <include relativeToChangelogFile="true" file="constraints/trader.constraint.xml"/>
     <include relativeToChangelogFile="true" file="constraints/category.constraint.xml"/>
     <include relativeToChangelogFile="true" file="constraints/artwork.constraint.xml"/>
 

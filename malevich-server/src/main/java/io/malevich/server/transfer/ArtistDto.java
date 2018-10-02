@@ -20,6 +20,8 @@ public class ArtistDto {
 
     private FileDto image;
 
+    private Map<String, String> fullNameMl;
+
     private Map<String, String> descriptionMl;
 
 }

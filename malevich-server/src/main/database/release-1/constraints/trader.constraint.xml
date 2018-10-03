@@ -7,4 +7,12 @@
         <addUniqueConstraint columnNames="person_id" constraintName="trader_person_id_uc" tableName="trader"/>
     </changeSet>
 
+    <changeSet author="toolstik" id="trader-user_id-uc">
+        <addUniqueConstraint columnNames="user_id" constraintName="trader_user_id_uc" tableName="trader"/>
+    </changeSet>
+
+    <changeSet author="toolstik" id="trader-mobile-uc">
+        <addUniqueConstraint columnNames="mobile" constraintName="trader_mobile_uc" tableName="trader"/>
+    </changeSet>
+
 </databaseChangeLog>

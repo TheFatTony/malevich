@@ -31,6 +31,7 @@
               "node_modules/animate.css/animate.css",
               "node_modules/hamburgers/dist/hamburgers.css",
               "node_modules/chosen-js/chosen.css",
+              "node_modules/custombox/dist/custombox.min.css",
               "src/assets/vendor/slick-carousel/slick/slick.css",
               "src/assets/vendor/fancybox/jquery.fancybox.min.css",
               "src/assets/vendor/hs-megamenu/src/hs.megamenu.css",
@@ -50,6 +51,7 @@
             "scripts": [
               "node_modules/jquery/dist/jquery.js",
               "node_modules/jquery-migrate/dist/jquery-migrate.js",
+              "node_modules/custombox/dist/custombox.min.js",
               "node_modules/popper.js/dist/umd/popper.js",
               "node_modules/bootstrap/dist/js/bootstrap.js",
               "node_modules/jquery-ui/ui/widget.js",
@@ -83,6 +85,7 @@
               "src/assets/js/components/hs.counter.js",
               "src/assets/js/components/hs.countdown.js",
               "src/assets/js/components/hs.count-qty.js",
+              "src/assets/js/components/hs.modal-window.js",
               "src/assets/vendor/revolution-slider/revolution/js/jquery.themepunch.tools.min.js",
               "src/assets/vendor/revolution-slider/revolution/js/jquery.themepunch.revolution.min.js",
               "src/assets/vendor/revolution-slider/revolution-addons/typewriter/js/revolution.addon.typewriter.min.js",

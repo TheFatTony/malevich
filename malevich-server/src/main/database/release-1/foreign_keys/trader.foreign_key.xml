@@ -15,10 +15,16 @@
                                  referencedColumnNames="id" referencedTableName="files"/>
     </changeSet>
 
-    <changeSet author="thefattony" id="trader-gender-fk">
+    <changeSet author="toolstik" id="trader-gender-fk">
         <addForeignKeyConstraint baseColumnNames="gender" baseTableName="trader"
                                  constraintName="trader_gender_fk"
                                  referencedColumnNames="id" referencedTableName="gender"/>
+    </changeSet>
+
+    <changeSet author="toolstik" id="trader-user-fk">
+        <addForeignKeyConstraint baseColumnNames="user_id" baseTableName="trader"
+                                 constraintName="trader_user_fk"
+                                 referencedColumnNames="id" referencedTableName="user"/>
     </changeSet>
     
 </databaseChangeLog>

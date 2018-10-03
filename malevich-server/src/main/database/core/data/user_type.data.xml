@@ -6,8 +6,8 @@
     <changeSet author="thefattony" id="user_type-data">
         <sql endDelimiter="\nGO" splitStatements="true" stripComments="true">
             insert into user_type (id, type_name, description)
-            values (-1, 'Consumer', ''),
-                   (-2, 'Provider', '');
+            values (1, 'Gallery', ''),
+                   (2, 'Trader', '');
         </sql>
     </changeSet>
 

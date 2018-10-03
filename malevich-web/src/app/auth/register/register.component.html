@@ -15,22 +15,9 @@
               type="text" placeholder="Email address">
           </div>
 
-          <div class="g-mb-20">
-            <input
-              class="form-control g-color-black g-bg-white g-bg-white--focus g-brd-gray-light-v3 rounded g-py-15 g-px-15"
-              type="text" placeholder="Password">
-          </div>
-
-          <div class="g-mb-20">
-            <input
-              class="form-control g-color-black g-bg-white g-bg-white--focus g-brd-gray-light-v3 rounded g-py-15 g-px-15"
-              type="text" placeholder="Confirm password">
-          </div>
-
           <div class="form-group g-mb-20">
-            <select class="js-custom-select u-select-v1 g-brd-gray-light-v3 g-color-gray-dark-v5 rounded g-py-12"
-                    style="width: 100%;"
-                    data-placeholder="Type"
+            <select class="js-custom-select u-select-v1 g-brd-gray-light-v3 g-color-gray-dark-v5 rounded g-py-12" style="width: 100%;"
+                    data-placeholder="Account type"
                     data-open-icon="fa fa-angle-down"
                     data-close-icon="fa fa-angle-up">
               <option></option>
@@ -45,7 +32,7 @@
               <span class="d-block u-check-icon-checkbox-v6 g-absolute-centered--y g-left-0">
                       <i class="fa" data-check-icon=""></i>
                     </span>
-              I accept the <a href="#!">Terms and Conditions</a>
+              I accept the <a href="#modal1" data-modal-target="#modal1" data-modal-effect="fadein">Terms and Conditions</a>
             </label>
           </div>
 
@@ -120,3 +107,17 @@
     </div>
   </div>
 </section>
+
+
+<!-- Demo modal window -->
+<div id="modal1" class="text-left g-max-width-600 g-bg-white g-overflow-y-auto g-pa-20" style="display: none;">
+  <button type="button" class="close" onclick="Custombox.modal.close();">
+    <i class="hs-icon hs-icon-close"></i>
+  </button>
+  <h4 class="g-mb-20">Modal title</h4>
+  <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type
+    specimen book.</p>
+  <p>It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more
+    recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p>
+</div>
+<!-- End Demo modal window -->

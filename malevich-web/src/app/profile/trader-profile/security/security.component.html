@@ -4,15 +4,15 @@
   <div class="row">
     <div class="col-8">
       <span class="d-block g-color-text g-font-size-13 mb-1">First Name:</span>
-      <span *ngIf="!isEditing" class="d-block">Collins</span>
+      <span *ngIf="!isEditing" class="d-block">{{trader.person.firstName}}</span>
       <input *ngIf="isEditing"
              class="form-control g-color-black g-bg-white g-bg-white--focus g-brd-gray-light-v3 rounded"
-             type="text" placeholder="First name">
+             type="text" [(ngModel)]="trader.person.firstName" placeholder="First name">
     </div>
 
-    <div class="col-4 text-right">
+    <div *ngIf="!isEditing" class="col-4 text-right">
       <a
-        class="btn g-brd-around g-brd-gray-light-v3 g-color-gray-dark-v3 g-bg-gray-light-v5 g-bg-gray-light-v4--hover g-font-size-13 rounded g-px-18 g-py-7"
+         class="btn g-brd-around g-brd-gray-light-v3 g-color-gray-dark-v3 g-bg-gray-light-v5 g-bg-gray-light-v4--hover g-font-size-13 rounded g-px-18 g-py-7"
         (click)="switchMode()">Edit</a>
     </div>
   </div>
@@ -22,10 +22,10 @@
   <div class="row">
     <div class="col-8">
       <span class="d-block g-color-text g-font-size-13 mb-1">Last Name:</span>
-      <span *ngIf="!isEditing" class="d-block">Collins</span>
+      <span *ngIf="!isEditing" class="d-block">{{trader.person.lastName}}</span>
       <input *ngIf="isEditing"
              class="form-control g-color-black g-bg-white g-bg-white--focus g-brd-gray-light-v3 rounded"
-             type="text" placeholder="Last name">
+             type="text" [(ngModel)]="trader.person.lastName" placeholder="Last name">
     </div>
 
     <!--<div class="col-4 text-right">-->
@@ -40,7 +40,7 @@
   <div class="row">
     <div class="col-8">
       <span class="d-block g-color-text g-font-size-13 mb-1">Email:</span>
-      <span class="d-block">james@gmail.com</span>
+      <span class="d-block">{{trader.user.name}}</span>
     </div>
 
     <!--<div class="col-4 text-right">-->
@@ -55,9 +55,9 @@
   <div class="row">
     <div class="col-8">
       <span class="d-block g-color-text g-font-size-13 mb-1">Mobile Phone Number:</span>
-      <span *ngIf="!isEditing" class="d-block">+(01) 222 333 444</span>
-      <input [hidden]="!isEditing" class="form-control g-color-black g-bg-white g-bg-white--focus g-brd-gray-light-v3 rounded"
-             type="text" placeholder="X (XXX) XXX-XXXX" data-mask="9 (999) 999-9999">
+      <span *ngIf="!isEditing" class="d-block">{{trader.mobile}}</span>
+      <input *ngIf="isEditing" class="form-control g-color-black g-bg-white g-bg-white--focus g-brd-gray-light-v3 rounded"
+             type="text" [(ngModel)]="trader.mobile" placeholder="X (XXX) XXX-XXXX" data-mask="9 (999) 999-9999">
     </div>
 
     <!--<div class="col-4 text-right">-->
@@ -82,20 +82,6 @@
     </div>
   </div>
 
-  <hr class="g-brd-gray-light-v4 g-my-20">
-
-  <div class="row">
-    <div class="col-8">
-      <span class="d-block g-color-text g-font-size-13 mb-1">Advanced Security Settings:</span>
-      <span class="d-block">Manage how and when you receive security codes</span>
-    </div>
-
-    <!--<div class="col-4 text-right">-->
-    <!--<a-->
-    <!--class="btn g-brd-around g-brd-gray-light-v3 g-color-gray-dark-v3 g-bg-gray-light-v5 g-bg-gray-light-v4&#45;&#45;hover g-font-size-13 rounded g-px-18 g-py-7"-->
-    <!--href="#!">Edit</a>-->
-    <!--</div>-->
-  </div>
 </div>
 <!-- End Info -->
 

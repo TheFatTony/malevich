@@ -28,8 +28,9 @@ public class TraderEntity implements Entity {
 
     @Getter
     @Setter
-    @Column(name = "description")
-    private String description;
+    @Fetch(FetchMode.JOIN)
+    @OneToOne
+    private UserEntity user;
 
     @Getter
     @Setter
@@ -41,12 +42,5 @@ public class TraderEntity implements Entity {
     @Fetch(FetchMode.JOIN)
     @ManyToOne
     private FileEntity thumbnail;
-
-    @Getter
-    @Setter
-    @Convert(converter = JpaConverterJson.class)
-    @Column(name = "description_ml")
-    private Map<String, String> descriptionMl;
-
 
 }

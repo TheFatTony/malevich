@@ -9,4 +9,11 @@
         </createIndex>
     </changeSet>
 
+    <changeSet author="thefattony" id="trader-user_id-index">
+        <createIndex indexName="trader_user_id_idx" tableName="trader" unique="true">
+            <column name="user_id"/>
+        </createIndex>
+    </changeSet>
+
+
 </databaseChangeLog>

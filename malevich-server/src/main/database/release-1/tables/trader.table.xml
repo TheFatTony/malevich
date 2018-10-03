@@ -14,7 +14,6 @@
 			<column name="user_id" type="bigint">
 				<constraints nullable="false"/>
 			</column>
-			<column name="description" type="clob"/>
 			<column name="mobile" type="varchar(50)"/>
 			<column name="date_of_birth" type="date">
 				<constraints nullable="false"/>
@@ -29,12 +28,6 @@
 		<modifySql dbms="mysql">
 			<replace replace="clob" with="longtext"/>
 		</modifySql>
-	</changeSet>
-
-	<changeSet author="thefattony" id="trader-table-ml" dbms="mysql">
-		<addColumn tableName="trader">
-			<column name="description_ml" type="json"/>
-		</addColumn>
 	</changeSet>
 
 	<changeSet author="thefattony" id="trader-pk">

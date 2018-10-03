@@ -9,7 +9,9 @@ export class TraderProfileComponent implements OnInit, AfterViewInit {
 
   currentView: string = 'Security';
 
-  constructor() { }
+
+  constructor() {
+  }
 
   ngOnInit() {
   }

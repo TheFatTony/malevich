@@ -3,9 +3,9 @@
                    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
                    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.6.xsd">
 
-    <changeSet author="thefattony" id="register_token-user_id-index">
-        <createIndex indexName="register_token_user_id_idx" tableName="register_token" unique="true">
-            <column name="user_id" type="bigint"/>
+    <changeSet author="thefattony" id="register_token-token-index">
+        <createIndex indexName="register_token_token_idx" tableName="register_token" unique="true">
+            <column name="token" type="varchar(255)"/>
         </createIndex>
     </changeSet>
 

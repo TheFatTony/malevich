@@ -6,8 +6,8 @@
     <changeSet author="thefattony" id="gender-data" dbms="mysql">
         <sql endDelimiter="\nGO" splitStatements="true" stripComments="true">
             INSERT INTO gender (id, gender_name, description, gender_name_ml)
-            VALUES ('m', 'Male', '', JSON_OBJECT('en', 'Male', 'ru', 'Мужской')),
-                   ('f', 'Female', '', JSON_OBJECT('en', 'Female', 'ru', 'Женский'));
+            VALUES ('M', 'Male', '', JSON_OBJECT('en', 'Male', 'ru', 'Мужской')),
+                   ('F', 'Female', '', JSON_OBJECT('en', 'Female', 'ru', 'Женский'));
         </sql>
     </changeSet>
 

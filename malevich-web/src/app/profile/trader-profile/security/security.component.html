@@ -90,7 +90,7 @@
       <span *ngIf="!isEditing" class="d-block">{{trader.dateOfBirth | date: 'dd.MM.yyyy':'+0300'}}</span>
       <input id="datepickerDefault" [hidden]="!isEditing"
              class="form-control u-datepicker-v1 g-color-black g-bg-white g-bg-white--focus g-brd-gray-light-v3 rounded"
-             type="text" [ngModel]="trader.dateOfBirth | date: 'dd.MM.yyyy':'+0300'" (ngModelChange)="trader.dateOfBirth = $event">
+             type="text" [ngModel]="trader.dateOfBirth | date: 'dd.MM.yyyy':'+0300'">
     </div>
 
     <!--<div class="col-4 text-right">-->

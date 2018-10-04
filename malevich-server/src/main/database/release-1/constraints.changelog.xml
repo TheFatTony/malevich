@@ -3,7 +3,6 @@
                    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
                    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.6.xsd">
 
-    <include relativeToChangelogFile="true" file="constraints/user_type.constraint.xml"/>
     <include relativeToChangelogFile="true" file="constraints/gender.constraint.xml"/>
     <include relativeToChangelogFile="true" file="constraints/organization.constraint.xml"/>
     <include relativeToChangelogFile="true" file="constraints/gallery.constraint.xml"/>

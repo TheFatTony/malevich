@@ -25,6 +25,8 @@ export class SecurityComponent implements OnInit, AfterViewInit {
   ngAfterViewInit(): void {
     $['HSCore'].components.HSMaskedInput.init('[data-mask]');
     $['HSCore'].components.HSModalWindow.init('[data-modal-target]');
+    $['HSCore'].components.HSDatepicker.init('#datepickerDefault');
+
   }
 
   switchMode() {

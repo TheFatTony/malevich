@@ -1,14 +1,13 @@
 package io.malevich.server.entity;
 
 
-import io.malevich.server.entity.utils.JpaConverterJson;
 import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
 
 import javax.persistence.*;
-import java.util.Map;
+import java.util.Date;
 
 @javax.persistence.Entity
 @Table(name = "trader")
@@ -34,8 +33,12 @@ public class TraderEntity implements Entity {
 
     @Getter
     @Setter
-    @Column(name = "mobile")
     private String mobile;
+
+    @Getter
+    @Setter
+    @Column(name = "date_of_birth")
+    private Date dateOfBirth;
 
     @Getter
     @Setter

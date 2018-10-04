@@ -5,6 +5,7 @@ import io.malevich.server.dao.lobstorage.LobStorageDao;
 import io.malevich.server.entity.LobStorageEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 
 @Service
@@ -18,6 +19,7 @@ public class LobStorageServiceImpl implements LobStorageService {
     }
 
     @Override
+    @Transactional(readOnly = true)
     public LobStorageEntity findByFileId(Long fileId) {
         return lobStorageDao.findByFileId(fileId);
     }

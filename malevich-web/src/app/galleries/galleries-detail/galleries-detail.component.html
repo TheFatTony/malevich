@@ -1,0 +1,51 @@
+<!-- Breadcrumbs -->
+<section class="g-brd-bottom g-brd-gray-light-v4 g-py-30">
+  <div class="container">
+    <div class="d-sm-flex text-center">
+      <div class="align-self-center">
+        <ul class="u-list-inline">
+          <li class="list-inline-item g-mr-5">
+            <a class="u-link-v5 g-color-text" routerLink="/main-page">{{'INDEX.MAIN_MENU_ITEM' | translate}}</a>
+            <i class="g-color-gray-light-v2 g-ml-5 fa fa-angle-right"></i>
+          </li>
+          <li class="list-inline-item g-mr-5">
+            <a class="u-link-v5 g-color-text" routerLink="/galleries/galleries-list">{{'INDEX.GALLERIES_MENU_ITEM' | translate}}</a>
+            <i class="g-color-gray-light-v2 g-ml-5 fa fa-angle-right"></i>
+          </li>
+          <li class="list-inline-item g-color-primary">
+            <span>{{gallery.organization.legalNameMl[translate.currentLang]}}</span>
+          </li>
+        </ul>
+      </div>
+
+      <div class="align-self-center ml-auto">
+        <h1 class="h3 mb-0">{{'INDEX.GALLERIES_MENU_ITEM' | translate}}</h1>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- End Breadcrumbs -->
+<!-- Agent -->
+<div class="container g-pt-50 g-pb-100">
+  <div class="row justify-content-center">
+    <div class="col-lg-9 order-lg-2 g-mb-70">
+      <!-- Agent Info -->
+      <div class="mb-4">
+        <h2>{{gallery.organization.legalNameMl[translate.currentLang]}}</h2>
+        <ul class="list-inline g-color-text g-font-weight-600">
+          <li class="list-inline-item">{{gallery.organization.locationMl[translate.currentLang]}}</li>
+        </ul>
+      </div>
+      <p class="g-line-height-2">{{gallery.descriptionMl[translate.currentLang]}}</p>
+      <!-- End Agent Info -->
+
+      <hr class="g-brd-gray-light-v3 g-my-50">
+    </div>
+
+    <div class="col-md-5 col-lg-3 order-lg-1 g-mb-70">
+      <img class="img-fluid w-100 g-mb-30" src="{{url}}{{gallery.image.url}}" alt="Image Description">
+
+    </div>
+  </div>
+</div>
+<!-- End Agent -->

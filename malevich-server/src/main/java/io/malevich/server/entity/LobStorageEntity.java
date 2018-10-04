@@ -20,7 +20,6 @@ public class LobStorageEntity implements Entity {
     @Getter
     @Setter
     @OneToOne
-    @JoinColumn(name = "file_id", referencedColumnName = "id")
     private FileEntity file;
 
     @Getter

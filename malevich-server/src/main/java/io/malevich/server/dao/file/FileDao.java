@@ -1,13 +1,15 @@
 package io.malevich.server.dao.file;
 
 
-import io.malevich.server.dao.Dao;
 import io.malevich.server.entity.FileEntity;
-import org.springframework.stereotype.Component;
+import org.springframework.cache.annotation.Cacheable;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
+
+import java.util.List;
 
 
-@Component
-public interface FileDao extends Dao<FileEntity, Long> {
+@Repository
+public interface FileDao extends JpaRepository<FileEntity, Long> {
 
-    FileEntity find(Long id);
 }

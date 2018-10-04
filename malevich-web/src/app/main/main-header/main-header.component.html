@@ -1,4 +1,4 @@
-<header id="js-header" class="u-header u-header--static" style="z-index: 99999 !important;">
+<header id="js-header" class="u-header u-header--static" style="z-index: 999 !important;">
   <nav class="js-mega-menu navbar navbar-expand-lg g-brd-y g-brd-2 g-brd-primary-dark-v1 g-bg-primary g-pa-0">
     <div class="container-fluid">
       <!-- Responsive Toggle Button -->
@@ -91,16 +91,23 @@
       <div id="navBar"
            class="collapse navbar-collapse align-items-center order-lg-last g-brd-top g-brd-none--lg g-brd-primary-dark-v1">
         <ul class="navbar-nav g-py-30 g-py-0--lg">
-          <li class="nav-item">
+          <li class="nav-item" *ngIf="!globals.isAuthorised">
             <a
               class="nav-link g-color-white g-brd-right--lg g-brd-primary-dark-v1 g-bg-primary-dark-v1--hover g-font-weight-400 g-font-size-default g-px-17 g-px-23--xl g-py-15"
               routerLink="/auth/login">
               Login
             </a>
           </li>
+          <li class="nav-item" *ngIf="!globals.isAuthorised">
+            <a
+            class="nav-link g-color-white g-brd-right--lg g-brd-primary-dark-v1 g-bg-primary-dark-v1--hover g-font-weight-400 g-font-size-default g-px-17 g-px-23--xl g-py-15"
+            routerLink="/auth/register">
+            Register
+          </a>
+          </li>
 
           <!-- Listing - Submenu -->
-          <li class="nav-item hs-has-sub-menu">
+          <li class="nav-item hs-has-sub-menu" [hidden]="!globals.isAuthorised">
             <a id="nav-link--listing"
                class="nav-link g-color-white g-brd-right--lg g-brd-primary-dark-v1 g-bg-primary-dark-v1--hover g-font-weight-400 g-font-size-default g-px-17 g-px-23--xl g-py-15"
                href="javascript:void(0);"
@@ -117,7 +124,7 @@
                 <a class="nav-link g-color-text g-font-weight-600" routerLink="/profile/trader">User Profile</a>
               </li>
               <li class="dropdown-item">
-                <a class="nav-link g-color-text g-font-weight-600" href="javascript:void(0);" (click)="loginService.logout()">Logout</a>
+                <a class="nav-link g-color-text g-font-weight-600" href="javascript:void(0);" (click)="doLogout()">Logout</a>
               </li>
             </ul>
             <!-- End Submenu -->

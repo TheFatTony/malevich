@@ -15,35 +15,29 @@ import java.util.Set;
 @Table(name = "user")
 public class UserEntity implements Entity, UserDetails {
 
+    @Getter
+    @Setter
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Getter
-    @Setter
     private Long id;
 
-    @Column(name = "name")
     @Getter
     @Setter
+    @Column(name = "name")
     private String name;
 
-    @Column(name = "password")
     @Setter
+    @Column(name = "password")
     private String password;
 
-    @ElementCollection(fetch = FetchType.EAGER)
     @Getter
     @Setter
+    @ElementCollection(fetch = FetchType.EAGER)
     private Set<Role> roles = new HashSet<Role>();
 
-    @ManyToOne
-    @JoinColumn(name = "user_type_id", referencedColumnName = "id")
     @Getter
     @Setter
-    private UserTypeEntity userType;
-
     @Column(name = "activity_flag")
-    @Getter
-    @Setter
     private boolean activityFlag;
 
     protected UserEntity() {
@@ -54,11 +48,10 @@ public class UserEntity implements Entity, UserDetails {
         this.password = passwordHash;
     }
 
-    public UserEntity(String name, String password, Set<Role> roles, UserTypeEntity userType, boolean activityFlag) {
+    public UserEntity(String name, String password, Set<Role> roles, boolean activityFlag) {
         this.name = name;
         this.password = password;
         this.roles = roles;
-        this.userType = userType;
         this.activityFlag = activityFlag;
     }
 
@@ -94,6 +87,6 @@ public class UserEntity implements Entity, UserDetails {
 
     @Override
     public boolean isEnabled() {
-        return true;
+        return activityFlag;
     }
 }

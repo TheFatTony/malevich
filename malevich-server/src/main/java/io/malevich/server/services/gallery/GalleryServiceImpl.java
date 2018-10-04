@@ -5,8 +5,8 @@ import io.malevich.server.dao.gallery.GalleryDao;
 import io.malevich.server.entity.GalleryEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
-import javax.transaction.Transactional;
 import java.util.List;
 
 
@@ -21,15 +21,15 @@ public class GalleryServiceImpl implements GalleryService {
     }
 
     @Override
-    @Transactional
+    @Transactional(readOnly = true)
     public List<GalleryEntity> findAll() {
         return this.galleryDao.findAll();
     }
 
     @Override
-    @Transactional
+    @Transactional(readOnly = true)
     public GalleryEntity find(Long id) {
-        return this.galleryDao.find(id);
+        return this.galleryDao.findById(id).get();
     }
 
 }

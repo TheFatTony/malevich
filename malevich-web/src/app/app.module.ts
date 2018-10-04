@@ -15,7 +15,7 @@ import {TranslateLoader, TranslateModule} from "@ngx-translate/core";
 import {TranslateHttpLoader} from "@ngx-translate/http-loader";
 import {AlertComponent} from "./_directives/alert/alert.component";
 import {Globals} from "./globals";
-import {AlertService, FileService, LoginService} from "./_services";
+import {AlertService, FileService, AuthService} from "./_services";
 import {AuthGuard} from "./_guards/auth.guard";
 import {AdminGuard} from "./_guards/admin.guard";
 import {ErrorInterceptor, JwtInterceptor} from "./_helpers";
@@ -27,9 +27,29 @@ import {RegisterComponent} from './auth/register/register.component';
 import {ResetComponent} from './auth/reset/reset.component';
 import {TraderProfileComponent} from './profile/trader-profile/trader-profile.component';
 
-import {ArtworksModule} from "./artworks/artworks.module";
-import {GalleriesModule} from "./galleries/galleries.module";
-import {ArtistsModule} from "./artists/artists.module";
+import {ArtworksListComponent} from './artworks/artworks-list/artworks-list.component';
+import {FiltersComponent as ArtworksListFiltersComponent} from './artworks/artworks-list/filters/filters.component';
+import {GridComponent as ArtworksListGridComponent} from './artworks/artworks-list/grid/grid.component';
+import {ListComponent as ArtworksListListComponent} from './artworks/artworks-list/list/list.component';
+
+import {GalleriesListComponent} from "./galleries/galleries-list/galleries-list.component";
+import {FiltersComponent as GalleriesListFiltersComponent} from "./galleries/galleries-list/filters/filters.component";
+import {GridComponent as GalleriesListGridComponent} from "./galleries/galleries-list/grid/grid.component";
+import {ListComponent as GalleriesListListComponent} from "./galleries/galleries-list/list/list.component";
+
+import {ArtistsListComponent} from "./artists/artists-list/artists-list.component";
+import {FiltersComponent as ArtistsListFiltersComponent} from './artists/artists-list/filters/filters.component';
+import {GridComponent as ArtistsListGridComponent} from './artists/artists-list/grid/grid.component';
+import {ListComponent as ArtistsListListComponent} from './artists/artists-list/list/list.component';
+import { ArtworksDetailComponent } from './artworks/artworks-detail/artworks-detail.component';
+import { GalleriesDetailComponent } from './galleries/galleries-detail/galleries-detail.component';
+import { ArtistsDetailComponent } from './artists/artists-detail/artists-detail.component';
+import { SecurityComponent } from './profile/trader-profile/security/security.component';
+import { AddressesComponent } from './profile/trader-profile/addresses/addresses.component';
+import { WalletComponent } from './profile/trader-profile/wallet/wallet.component';
+import { WishlistComponent } from './profile/trader-profile/wishlist/wishlist.component';
+import { PaymentComponent } from './profile/trader-profile/payment/payment.component';
+import { NotificationsComponent } from './profile/trader-profile/notifications/notifications.component';
 
 export function createTranslateLoader(http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
@@ -48,7 +68,28 @@ export function createTranslateLoader(http: HttpClient) {
     LoginComponent,
     RegisterComponent,
     ResetComponent,
-    TraderProfileComponent
+    TraderProfileComponent,
+    ArtworksListComponent,
+    ArtworksListFiltersComponent,
+    ArtworksListGridComponent,
+    ArtworksListListComponent,
+    GalleriesListComponent,
+    GalleriesListFiltersComponent,
+    GalleriesListGridComponent,
+    GalleriesListListComponent,
+    ArtistsListComponent,
+    ArtistsListFiltersComponent,
+    ArtistsListGridComponent,
+    ArtistsListListComponent,
+    ArtworksDetailComponent,
+    GalleriesDetailComponent,
+    ArtistsDetailComponent,
+    SecurityComponent,
+    AddressesComponent,
+    WalletComponent,
+    WishlistComponent,
+    PaymentComponent,
+    NotificationsComponent
   ],
   imports: [
     BrowserModule,
@@ -65,12 +106,9 @@ export function createTranslateLoader(http: HttpClient) {
     HttpClientModule,
     AppRoutingModule,
     NgxPaginationModule,
-    AdminModule,
-    ArtworksModule,
-    GalleriesModule,
-    ArtistsModule
+    AdminModule
   ],
-  providers: [Globals, LoginService, FileService, AlertService, AuthGuard, AdminGuard,
+  providers: [Globals, FileService, AlertService, AuthGuard, AdminGuard,
     {provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true},
     {provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true}],
   bootstrap: [AppComponent]

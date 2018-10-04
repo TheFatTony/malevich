@@ -3,19 +3,19 @@
   <div class="container">
     <div class="d-sm-flex text-center">
       <div class="align-self-center">
-        <h1 class="h3 mb-0">{{'INDEX.ARTHUNTER_MENU_ITEM' | translate}}</h1>
-      </div>
-
-      <div class="align-self-center ml-auto">
         <ul class="u-list-inline">
           <li class="list-inline-item g-mr-5">
-            <a class="u-link-v5 g-color-text" href="!#/main-page">{{'INDEX.MAIN_MENU_ITEM' | translate}}</a>
+            <a class="u-link-v5 g-color-text" routerLink="/main-page">{{'INDEX.MAIN_MENU_ITEM' | translate}}</a>
             <i class="g-color-gray-light-v2 g-ml-5 fa fa-angle-right"></i>
           </li>
           <li class="list-inline-item g-color-primary">
             <span>{{'INDEX.ARTHUNTER_MENU_ITEM' | translate}}</span>
           </li>
         </ul>
+      </div>
+
+      <div class="align-self-center ml-auto">
+        <h1 class="h3 mb-0">{{'INDEX.ARTHUNTER_MENU_ITEM' | translate}}</h1>
       </div>
     </div>
   </div>
@@ -95,8 +95,8 @@
         <!-- End Filters -->
 
         <!-- Products -->
-        <app-artworks-artworks-list-grid [artworks]="artworks" *ngIf="showGrid"></app-artworks-artworks-list-grid>
-        <app-artworks-artworks-list-list [artworks]="artworks" *ngIf="!showGrid"></app-artworks-artworks-list-list>
+        <app-artworks-list-grid [artworks]="artworks" *ngIf="showGrid"></app-artworks-list-grid>
+        <app-artworks-list-list [artworks]="artworks" *ngIf="!showGrid"></app-artworks-list-list>
         <!-- End Products -->
 
         <hr class="g-mb-60">
@@ -150,7 +150,7 @@
     <!-- Filters -->
     <div class="col-md-3 order-md-1 g-brd-right--lg g-brd-gray-light-v4 g-pt-40">
       <div class="g-pr-15--lg g-pt-60">
-        <app-artworks-artworks-list-filters></app-artworks-artworks-list-filters>
+        <app-artworks-list-filters></app-artworks-list-filters>
       </div>
     </div>
     <!-- End Filters -->

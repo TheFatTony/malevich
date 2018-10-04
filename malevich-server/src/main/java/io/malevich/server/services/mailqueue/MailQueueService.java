@@ -13,7 +13,7 @@ public interface MailQueueService {
 
     MailQueueEntity find(Long id);
 
-    MailQueueEntity create(MailQueueEntity mailQueue);
+    void create(MailQueueEntity mailQueue);
 
     void delete(Long id);
 

@@ -87,10 +87,10 @@
   <div class="row">
     <div class="col-8">
       <span class="d-block g-color-text g-font-size-13 mb-1">{{'TRADER_PROFILE.SECURITY.LABEL.DATE_OF_BIRTH' | translate}}</span>
-      <span *ngIf="!isEditing" class="d-block">{{trader.dateOfBirth | date: 'MM/dd/yyyy'}}</span>
-      <input *ngIf="isEditing"
-             class="form-control g-color-black g-bg-white g-bg-white--focus g-brd-gray-light-v3 rounded"
-             type="date" [ngModel]="trader.dateOfBirth | date: 'MM/dd/yyyy'" (ngModelChange)="trader.dateOfBirth = $event">
+      <span *ngIf="!isEditing" class="d-block">{{trader.dateOfBirth | date: 'dd/MM/yyyy'}}</span>
+      <input id="datepickerDefault" [hidden]="!isEditing"
+             class="form-control u-datepicker-v1 g-color-black g-bg-white g-bg-white--focus g-brd-gray-light-v3 rounded"
+             type="text" [ngModel]="trader.dateOfBirth | date: 'dd/MM/yyyy'" (ngModelChange)="trader.dateOfBirth = $event">
     </div>
 
     <!--<div class="col-4 text-right">-->

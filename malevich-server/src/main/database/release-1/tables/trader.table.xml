@@ -15,7 +15,7 @@
 				<constraints nullable="false"/>
 			</column>
 			<column name="mobile" type="varchar(50)"/>
-			<column name="date_of_birth" type="date">
+			<column name="date_of_birth" type="timestamp">
 				<constraints nullable="false"/>
 			</column>
 			<column name="gender" type="char(1)">

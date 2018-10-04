@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.sql.Timestamp;
 import java.util.Date;
 import java.util.List;
 
@@ -17,8 +18,8 @@ public class TraderDto {
 
     private String mobile;
 
-    @JsonFormat(pattern = "MM/dd/yyyy")
-    private Date dateOfBirth;
+    @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss")
+    private Timestamp dateOfBirth;
 
     private char gender;
 

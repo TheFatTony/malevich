@@ -1,12 +1,9 @@
 package io.malevich.server.transfer;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.sql.Timestamp;
-import java.util.Date;
-import java.util.List;
+import java.sql.Date;
 
 @Getter
 @Setter
@@ -18,8 +15,7 @@ public class TraderDto {
 
     private String mobile;
 
-    @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss")
-    private Timestamp dateOfBirth;
+    private Date dateOfBirth;
 
     private char gender;
 

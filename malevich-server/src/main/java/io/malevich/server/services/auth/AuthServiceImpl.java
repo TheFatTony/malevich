@@ -8,6 +8,7 @@ import io.malevich.server.entity.UserEntity;
 import io.malevich.server.rest.util.JWTUtil;
 import io.malevich.server.transfer.AccessTokenDto;
 import io.malevich.server.transfer.LoginFormDto;
+import io.malevich.server.transfer.RegisterTokenDto;
 import io.malevich.server.transfer.UserDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -90,6 +91,11 @@ public class AuthServiceImpl implements AuthService {
                 new UsernamePasswordAuthenticationToken(loginFormDto.getUsername(), loginFormDto.getPassword());
         Authentication authentication = this.authenticationManager.authenticate(authenticationToken);
         return new AccessTokenDto(this.createAccessToken((UserEntity) authentication.getPrincipal()).getToken());
+    }
+
+    @Override
+    public RegisterTokenDto register(String userName) {
+        return null;
     }
 
 

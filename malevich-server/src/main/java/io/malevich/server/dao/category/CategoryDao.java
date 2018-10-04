@@ -11,6 +11,6 @@ import java.util.List;
 public interface CategoryDao extends JpaRepository<CategoryEntity, Long> {
 
 
-    @Cacheable(value = "CategoryDao.findAll")
+    @Cacheable(value = "custom")
     List<CategoryEntity> findAll();
 }

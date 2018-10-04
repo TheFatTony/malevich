@@ -7,8 +7,8 @@ import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
 
 import javax.persistence.*;
+import java.sql.Date;
 import java.sql.Timestamp;
-import java.util.Date;
 
 @javax.persistence.Entity
 @Table(name = "trader")
@@ -39,7 +39,7 @@ public class TraderEntity implements Entity {
     @Getter
     @Setter
     @Column(name = "date_of_birth")
-    private Timestamp dateOfBirth;
+    private Date dateOfBirth;
 
     @Getter
     @Setter

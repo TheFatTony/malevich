@@ -29,6 +29,7 @@ public class TraderEntity implements Entity {
     @Setter
     @Fetch(FetchMode.JOIN)
     @OneToOne
+    @JoinColumn(updatable = false)
     private UserEntity user;
 
     @Getter

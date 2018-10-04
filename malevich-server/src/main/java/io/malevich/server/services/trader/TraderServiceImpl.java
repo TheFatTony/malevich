@@ -15,7 +15,6 @@ public class TraderServiceImpl implements TraderService {
     @Autowired
     private TraderDao traderDao;
 
-
     protected TraderServiceImpl() {
     }
 
@@ -31,4 +30,10 @@ public class TraderServiceImpl implements TraderService {
 
     @Override
     public TraderEntity findByUserName(String name) { return traderDao.findByUserName(name).get(); }
+
+    @Override
+    @Transactional
+    public TraderEntity update(TraderEntity trader) {
+        return traderDao.save(trader);
+    }
 }

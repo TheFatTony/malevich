@@ -33,6 +33,11 @@ export class SecurityComponent implements OnInit, AfterViewInit {
     this.isEditing = !this.isEditing;
   }
 
+  update() : void {
+    this.traderService.update(this.trader);
+    this.switchMode();
+  }
+
   getCurrentTrader(): void {
     this.traderService
       .getTrader()

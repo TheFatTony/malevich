@@ -43,6 +43,7 @@
       },
       "BUTTON": {
         "EDIT_PROFILE": "Edit",
+        "UPDATE": "Update",
         "CHANGE_PASSWORD": "Change"
       }
     }

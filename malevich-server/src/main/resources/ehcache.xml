@@ -20,7 +20,7 @@
         <persistence strategy="localTempSwap"/>
     </cache>
 
-    <cache name="CategoryDao.findAll"
+    <cache name="custom"
            maxElementsInMemory="10000" eternal="false" timeToIdleSeconds="600"
            timeToLiveSeconds="3600" overflowToDisk="true"/>
 

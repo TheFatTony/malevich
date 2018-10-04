@@ -7,10 +7,7 @@ import io.malevich.server.transfer.LoginFormDto;
 import io.malevich.server.transfer.UserDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 
 @RestController
@@ -31,6 +28,12 @@ public class AuthResource {
     @RequestMapping(value = "/authenticate", method = RequestMethod.POST)
     public AccessTokenDto authenticate(@RequestBody LoginFormDto loginFormDto) {
         return authService.authenticate(loginFormDto);
+    }
+
+
+    @RequestMapping(value = "/register", method = RequestMethod.POST)
+    public String register(@RequestParam("id") int id) {
+        return "!!!!";
     }
 
 

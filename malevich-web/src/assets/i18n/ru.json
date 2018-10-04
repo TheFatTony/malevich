@@ -43,6 +43,7 @@
       },
       "BUTTON": {
         "EDIT_PROFILE": "Изменить",
+        "UPDATE": "Обновить",
         "CHANGE_PASSWORD": "Сменить пароль"
       }
     }

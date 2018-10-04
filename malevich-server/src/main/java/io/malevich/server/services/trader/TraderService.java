@@ -14,4 +14,6 @@ public interface TraderService {
     TraderEntity find(Long id);
 
     TraderEntity findByUserName(String name);
+
+    TraderEntity update(TraderEntity trader);
 }

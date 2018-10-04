@@ -6,9 +6,9 @@
     <changeSet author="thefattony" id="user_type-data">
         <sql endDelimiter="\nGO" splitStatements="true" stripComments="true">
             insert into user
-                (id, name, password, activity_flag)
+                (id, name, password, user_type_id, activity_flag)
             values
-                (-1, 'admin@malevich.io', '$2a$10$oNlBb1jO25.hx3WdcUS0aefcmVhqvrlVIXg/Opg.zdDpDYTNG7TBS', true);
+                (-1, 'admin@malevich.io', '$2a$10$oNlBb1jO25.hx3WdcUS0aefcmVhqvrlVIXg/Opg.zdDpDYTNG7TBS', null, true);
         </sql>
     </changeSet>
 

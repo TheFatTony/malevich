@@ -11,8 +11,6 @@ import {TraderService} from "../../../_services/trader.service";
 export class SecurityComponent implements OnInit, AfterViewInit {
 
   isEditing: boolean = false;
-
-  currentView: string = 'Security';
   trader: TraderDto;
 
   constructor(public translate: TranslateService, private traderService: TraderService) {
@@ -22,12 +20,21 @@ export class SecurityComponent implements OnInit, AfterViewInit {
     this.getCurrentTrader();
   }
 
-  ngAfterViewChecked(): void {
-
+  ngAfterViewInit(): void {
+    $['HSCore'].components.HSMaskedInput.init('[data-mask]');
+    $['HSCore'].components.HSModalWindow.init('[data-modal-target]');
+    $['HSCore'].components.HSDatepicker.init('#datepickerDefault');
   }
 
   switchMode() {
     this.isEditing = !this.isEditing;
+  }
+
+  update() : void {
+    this.trader.mobile = $('#mobile').val().toString();
+    this.trader.dateOfBirth = new Date($('#datepickerDefault').val().toString().split('.').reverse().join('-'));
+    this.traderService.update(this.trader);
+    this.switchMode();
   }
 
   getCurrentTrader(): void {

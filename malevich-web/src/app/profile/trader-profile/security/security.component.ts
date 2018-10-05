@@ -22,20 +22,12 @@ export class SecurityComponent implements OnInit, AfterViewInit {
     this.getCurrentTrader();
   }
 
-  ngAfterViewInit(): void {
-    $['HSCore'].components.HSMaskedInput.init('[data-mask]');
-    $['HSCore'].components.HSModalWindow.init('[data-modal-target]');
-    $['HSCore'].components.HSDatepicker.init('#datepickerDefault');
+  ngAfterViewChecked(): void {
 
   }
 
   switchMode() {
     this.isEditing = !this.isEditing;
-  }
-
-  update() : void {
-    this.traderService.update(this.trader);
-    this.switchMode();
   }
 
   getCurrentTrader(): void {

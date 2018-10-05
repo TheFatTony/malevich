@@ -50,8 +50,6 @@ import { WalletComponent } from './profile/trader-profile/wallet/wallet.componen
 import { WishlistComponent } from './profile/trader-profile/wishlist/wishlist.component';
 import { PaymentComponent } from './profile/trader-profile/payment/payment.component';
 import { NotificationsComponent } from './profile/trader-profile/notifications/notifications.component';
-import { ViewComponent } from './profile/trader-profile/security/view/view.component';
-import { EditComponent } from './profile/trader-profile/security/edit/edit.component';
 
 export function createTranslateLoader(http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
@@ -91,9 +89,7 @@ export function createTranslateLoader(http: HttpClient) {
     WalletComponent,
     WishlistComponent,
     PaymentComponent,
-    NotificationsComponent,
-    ViewComponent,
-    EditComponent
+    NotificationsComponent
   ],
   imports: [
     BrowserModule,

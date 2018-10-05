@@ -22,7 +22,7 @@ public class TraderEntity implements Entity {
     @Getter
     @Setter
     @Fetch(FetchMode.JOIN)
-    @OneToOne(cascade = CascadeType.REFRESH)
+    @OneToOne(cascade = CascadeType.MERGE)
     private PersonEntity person;
 
     @Getter

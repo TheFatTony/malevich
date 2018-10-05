@@ -27,7 +27,7 @@ mvn resources:resources liquibase:dropAll liquibase:update
 **MySQL:** 
 
 docker volume create mysql_data && docker run -d -p 3306:3306 \
--v mysql_data -v /tmp/conf/mysql/my.cnf:/etc/mysql/my.cnf \
+-v mysql_data -v /tmp/conf/mysql/my.cnf:/etc/mysql/my.cnf --name mysql \
 --restart=unless-stopped --env="MYSQL_ROOT_PASSWORD=Orion123" mysql:5.7.23
 
 **Tomcat**
@@ -36,7 +36,7 @@ docker volume create tomcat_data && docker run -d -p 8080:8080 --restart=unless-
 -v /tmp/conf/tomcat/webapps:/usr/local/tomcat/webapps \
 -v /tmp/conf/tomcat/conf:/usr/local/tomcat/conf \
 -v /tmp/conf/tomcat/logs:/usr/local/tomcat/logs \
--v tomcat_data tomcat:jre9-slim
+-v tomcat_data --name tomcat tomcat:jre9-slim
 
 **Hyperledger Composer**
 

@@ -37,6 +37,12 @@ public class TraderEntity implements Entity {
 
     @Getter
     @Setter
+    @Fetch(FetchMode.JOIN)
+    @ManyToOne
+    private GenderEntity gender;
+
+    @Getter
+    @Setter
     @Column(name = "date_of_birth")
     private Date dateOfBirth;
 

@@ -17,7 +17,7 @@ public class TraderDto {
 
     private Date dateOfBirth;
 
-    private char gender;
+    private GenderDto gender;
 
     private FileDto thumbnail;
 

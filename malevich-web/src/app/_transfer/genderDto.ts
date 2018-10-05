@@ -4,5 +4,5 @@ import {OrganizationDto} from "./organizationDto";
 export class GenderDto {
   id: string;
   name: string;
-  descriptionMl: Map<string, string>;
+  nameMl: Map<string, string>;
 }

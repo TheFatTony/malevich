@@ -49,6 +49,7 @@ public class TraderResource {
         return convertToDto(trader);
     }*/
 
+    @Transactional
     @RequestMapping(value = "/update", method = RequestMethod.PUT)
     public ResponseEntity<Void> update(@RequestBody TraderDto trader){
         TraderEntity traderEntity = getCurrentTrader();

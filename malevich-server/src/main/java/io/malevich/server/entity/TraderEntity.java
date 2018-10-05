@@ -22,14 +22,13 @@ public class TraderEntity implements Entity {
     @Getter
     @Setter
     @Fetch(FetchMode.JOIN)
-    @OneToOne
+    @OneToOne(cascade = CascadeType.REFRESH)
     private PersonEntity person;
 
     @Getter
     @Setter
     @Fetch(FetchMode.JOIN)
-    @OneToOne
-    @JoinColumn(updatable = false)
+    @OneToOne(cascade = CascadeType.DETACH)
     private UserEntity user;
 
     @Getter

@@ -32,6 +32,7 @@
         "FIRST_NAME": "First Name:",
         "LAST_NAME": "Last Name:",
         "EMAIL": "Email:",
+        "GENDER": "Gender:",
         "MOBILE": "Mobile Phone Number:",
         "PASSWORD": "Password:",
         "DATE_OF_BIRTH": "Date Of Birth:"

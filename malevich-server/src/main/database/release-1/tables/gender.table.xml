@@ -8,10 +8,9 @@
             <column name="id" type="char(1)">
                 <constraints nullable="false"/>
             </column>
-            <column name="gender_name" type="varchar(400)">
+            <column name="name" type="varchar(400)">
                 <constraints nullable="false"/>
             </column>
-            <column name="description" type="clob"/>
         </createTable>
         <modifySql dbms="mysql">
             <replace replace="clob" with="longtext"/>
@@ -20,7 +19,7 @@
 
     <changeSet author="thefattony" id="gender-table-ml" dbms="mysql">
         <addColumn tableName="gender">
-            <column name="gender_name_ml" type="json"/>
+            <column name="name_ml" type="json"/>
         </addColumn>
     </changeSet>
 

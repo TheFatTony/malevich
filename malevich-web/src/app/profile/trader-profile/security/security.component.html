@@ -70,6 +70,21 @@
   <div class="row">
     <div class="col-8">
       <span
+        class="d-block g-color-text g-font-size-13 mb-1">{{'TRADER_PROFILE.SECURITY.LABEL.COUNTRY' | translate}}</span>
+      <span *ngIf="!isEditing" class="d-block">{{trader.country.nameMl[translate.currentLang]}}</span>
+      <select [hidden]="!isEditing" [(ngModel)]="trader.country" class="form-control form-control-md rounded-0 g-mb-25">
+        <option [value]="trader.country" selected="selected">{{trader.country.nameMl[translate.currentLang]}}
+        </option>
+        <option *ngFor="let c of countries" [ngValue]="c">{{c.nameMl[translate.currentLang]}}</option>
+      </select>
+    </div>
+  </div>
+
+  <hr class="g-brd-gray-light-v4 g-my-20">
+
+  <div class="row">
+    <div class="col-8">
+      <span
         class="d-block g-color-text g-font-size-13 mb-1">{{'TRADER_PROFILE.SECURITY.LABEL.MOBILE' | translate}}</span>
       <span *ngIf="!isEditing" class="d-block">{{trader.mobile}}</span>
       <input id="mobile" [hidden]="!isEditing"
@@ -131,14 +146,14 @@
       {{'TRADER_PROFILE.SECURITY.BUTTON.UPDATE' | translate}}</a>
   </div>
 
-<!--
-  <div class="col-1">
-    <a [hidden]="!isEditing"
-       (click)="switchMode()"
-       class="btn u-btn-primary g-font-size-12 text-uppercase g-py-12 g-px-25">
-      {{'TRADER_PROFILE.SECURITY.BUTTON.CANCEL' | translate}}</a>
-  </div>
--->
+  <!--
+    <div class="col-1">
+      <a [hidden]="!isEditing"
+         (click)="switchMode()"
+         class="btn u-btn-primary g-font-size-12 text-uppercase g-py-12 g-px-25">
+        {{'TRADER_PROFILE.SECURITY.BUTTON.CANCEL' | translate}}</a>
+    </div>
+  -->
 
 </div>
 

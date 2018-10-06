@@ -21,6 +21,9 @@
 			<column name="gender_id" type="char(1)">
 				<constraints nullable="false"/>
 			</column>
+			<column name="country_id" type="char(2)">
+				<constraints nullable="false"/>
+			</column>
 			<column name="thumbnail_id" type="bigint">
 				<constraints nullable="false"/>
 			</column>

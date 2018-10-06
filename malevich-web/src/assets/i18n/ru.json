@@ -33,6 +33,7 @@
         "LAST_NAME": "Фамилия:",
         "EMAIL": "E-mail:",
         "GENDER": "Пол:",
+        "COUNTRY": "Страна:",
         "MOBILE": "Номер мобильного телефона:",
         "PASSWORD": "Пароль:",
         "DATE_OF_BIRTH": "Дата рождения"

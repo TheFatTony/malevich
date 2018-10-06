@@ -3,7 +3,6 @@ import {catchError, first, map} from "rxjs/operators";
 import {HttpClient, HttpErrorResponse} from "@angular/common/http";
 import {TraderDto} from "../_transfer/traderDto";
 import {environment} from "../../environments/environment";
-import { Observable, throwError as observableThrowError } from 'rxjs';
 import {AlertService} from "./alert.service";
 
 @Injectable({

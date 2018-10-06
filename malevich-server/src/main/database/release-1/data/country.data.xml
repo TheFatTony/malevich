@@ -5,7 +5,7 @@
 
     <changeSet author="thefattony" id="country-data" dbms="mysql">
         <sql endDelimiter="\nGO" splitStatements="true" stripComments="true">
-            INSERT INTO country (id, country_name, country_name_ml)
+            INSERT INTO country (id, name, name_ml)
             VALUES ('AU', 'Australia', JSON_OBJECT('en', 'Australia', 'ru', 'Австралия')),
             ('AT', 'Austria', JSON_OBJECT('en', 'Austria', 'ru', 'Австрия')),
             ('AZ', 'Azerbaijan', JSON_OBJECT('en', 'Azerbaijan', 'ru', 'Азербайджан')),

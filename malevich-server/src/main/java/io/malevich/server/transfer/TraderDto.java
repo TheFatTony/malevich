@@ -19,6 +19,8 @@ public class TraderDto {
 
     private GenderDto gender;
 
+    private CountryDto country;
+
     private FileDto thumbnail;
 
 }

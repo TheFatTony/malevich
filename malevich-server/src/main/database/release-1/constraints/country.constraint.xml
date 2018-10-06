@@ -4,7 +4,7 @@
                    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.6.xsd">
 
     <changeSet author="thefattony" id="country-country_name-uc">
-        <addUniqueConstraint columnNames="country_name" constraintName="country_country_name_uc" tableName="country"/>
+        <addUniqueConstraint columnNames="name" constraintName="country_name_uc" tableName="country"/>
     </changeSet>
 
 </databaseChangeLog>

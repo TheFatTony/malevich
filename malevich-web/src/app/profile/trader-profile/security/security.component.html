@@ -87,7 +87,7 @@
       <span
         class="d-block g-color-text g-font-size-13 mb-1">{{'TRADER_PROFILE.SECURITY.LABEL.MOBILE' | translate}}</span>
       <span *ngIf="!isEditing" class="d-block">{{trader.mobile}}</span>
-      <input id="mobile" [hidden]="!isEditing"
+      <input #someinput id="mobile" [hidden]="!isEditing"
              class="form-control g-color-black g-bg-white g-bg-white--focus g-brd-gray-light-v3 rounded"
              type="text" [(ngModel)]="trader.mobile"
              placeholder="+X (XXX) XXX-XXXX" data-mask="+9 (999) 999-9999">

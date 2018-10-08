@@ -51,7 +51,7 @@ public class MailQueueServiceImpl implements MailQueueService {
     }
 
     @Override
-    @Transactional(readOnly = true)
+    @Transactional
     public void sendAllMail() {
         for (MailQueueEntity item : this.findAll()) {
             MimeMessage message = mailSender.createMimeMessage();

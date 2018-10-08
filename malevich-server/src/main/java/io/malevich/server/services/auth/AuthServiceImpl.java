@@ -2,15 +2,19 @@ package io.malevich.server.services.auth;
 
 
 import io.malevich.server.dao.accesstoken.AccessTokenDao;
+import io.malevich.server.dao.registertoken.RegisterTokenDao;
 import io.malevich.server.dao.user.UserDao;
-import io.malevich.server.entity.AccessTokenEntity;
-import io.malevich.server.entity.UserEntity;
+import io.malevich.server.dao.usertype.UserTypeDao;
+import io.malevich.server.entity.*;
 import io.malevich.server.rest.util.JWTUtil;
+import io.malevich.server.services.mailqueue.MailQueueService;
 import io.malevich.server.transfer.AccessTokenDto;
 import io.malevich.server.transfer.LoginFormDto;
-import io.malevich.server.transfer.RegisterTokenDto;
 import io.malevich.server.transfer.UserDto;
+import org.apache.velocity.VelocityContext;
+import org.apache.velocity.app.VelocityEngine;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.MessageSource;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -20,8 +24,11 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.io.StringWriter;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
+import java.util.UUID;
 
 @Service
 public class AuthServiceImpl implements AuthService {
@@ -30,7 +37,13 @@ public class AuthServiceImpl implements AuthService {
     private UserDao userDao;
 
     @Autowired
+    private UserTypeDao userTypeDao;
+
+    @Autowired
     private AccessTokenDao accessTokenDao;
+
+    @Autowired
+    private RegisterTokenDao registerTokenDao;
 
     @Autowired
     private JWTUtil jwtUtil;
@@ -38,6 +51,15 @@ public class AuthServiceImpl implements AuthService {
     @Autowired
     private AuthenticationManager authenticationManager;
 
+    @Autowired
+    private MailQueueService mailQueueService;
+
+
+    @Autowired
+    private VelocityEngine velocityEngine;
+
+    @Autowired
+    private MessageSource messageSource;
 
     protected AuthServiceImpl() {
     }
@@ -94,8 +116,26 @@ public class AuthServiceImpl implements AuthService {
     }
 
     @Override
-    public RegisterTokenDto register(String userName) {
-        return null;
+    @Transactional
+    public RegisterTokenEntity register(String lang, String userName) {
+        UserTypeEntity traderUser = userTypeDao.getOne(2L);
+
+        RegisterTokenEntity entity = new RegisterTokenEntity();
+        entity.setUserName(userName);
+        entity.setUserType(traderUser);
+        entity.setToken(UUID.randomUUID().toString());
+        entity.setEffectiveDate(new java.sql.Timestamp(System.currentTimeMillis()));
+        entity = registerTokenDao.save(entity);
+
+
+        VelocityContext context = new VelocityContext();
+        context.put("link", "http://localhost:4200/#/auth/register?token=" + entity.getToken());
+
+        StringWriter stringWriter = new StringWriter();
+        velocityEngine.mergeTemplate("templates/mail/user_activation_link_template_"+ lang+ ".vm", "UTF-8", context, stringWriter);
+        mailQueueService.create(new MailQueueEntity(entity.getUserName(), messageSource.getMessage("registration.confirm", null, new Locale(lang)), stringWriter.toString()));
+
+        return entity;
     }
 
 

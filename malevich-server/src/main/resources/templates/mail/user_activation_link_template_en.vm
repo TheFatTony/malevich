@@ -1,0 +1,7 @@
+<html>
+<body>
+<h3>Hello user!</h3>
+<p>Welcome to malevich.io.</p>
+<p>This is an activation link for your account <a href="$link">$link</a></p>
+</body>
+</html>

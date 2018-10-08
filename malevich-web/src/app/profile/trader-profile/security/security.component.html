@@ -72,7 +72,11 @@
       <span
         class="d-block g-color-text g-font-size-13 mb-1">{{'TRADER_PROFILE.SECURITY.LABEL.COUNTRY' | translate}}</span>
       <span *ngIf="!isEditing" class="d-block">{{trader.country.nameMl[translate.currentLang]}}</span>
-      <select [hidden]="!isEditing" [(ngModel)]="trader.country" class="form-control form-control-md rounded-0 g-mb-25">
+      <select [hidden]="!isEditing" [(ngModel)]="trader.country"
+              class="js-custom-select u-select-v1 g-brd-gray-light-v3 g-color-gray-dark-v5 rounded g-py-12"
+              data-placeholder="Country"
+              data-open-icon="fa fa-angle-down"
+              data-close-icon="fa fa-angle-up">
         <option [value]="trader.country" selected="selected">{{trader.country.nameMl[translate.currentLang]}}
         </option>
         <option *ngFor="let c of countries" [ngValue]="c">{{c.nameMl[translate.currentLang]}}</option>

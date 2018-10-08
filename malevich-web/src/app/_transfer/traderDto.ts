@@ -11,5 +11,5 @@ export class TraderDto {
   dateOfBirth: Date;
   gender: GenderDto;
   country: CountryDto;
-  thumbnail: FileDto
+  thumbnail: FileDto;
 }

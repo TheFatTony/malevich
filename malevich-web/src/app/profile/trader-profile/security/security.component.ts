@@ -1,4 +1,4 @@
-import {AfterViewInit, Component, OnInit} from '@angular/core';
+import {AfterViewInit, Component, ElementRef, OnInit, ViewChild} from '@angular/core';
 import {TraderDto} from "../../../_transfer/traderDto";
 import {TranslateService} from "@ngx-translate/core";
 import {TraderService} from "../../../_services/trader.service";
@@ -14,7 +14,9 @@ export class SecurityComponent implements OnInit, AfterViewInit {
 
   isEditing: boolean = false;
   trader: TraderDto;
-  countries: CountryDto[]
+  countries: CountryDto[];
+
+  @ViewChild ('someinput') someinput: ElementRef;
 
   constructor(public translate: TranslateService,
               private traderService: TraderService,
@@ -30,6 +32,14 @@ export class SecurityComponent implements OnInit, AfterViewInit {
     $['HSCore'].components.HSMaskedInput.init('[data-mask]');
     $['HSCore'].components.HSModalWindow.init('[data-modal-target]');
     $['HSCore'].components.HSDatepicker.init('#datepickerDefault');
+    $(this.someinput.nativeElement).on('change', (e) => {
+      console.log('Change made -- ngAfterViewInit');
+      this.onChange();
+    });
+  }
+
+  onChange(): void{
+    console.log('Change made -- onChange');
   }
 
   switchMode() {

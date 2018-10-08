@@ -45,6 +45,12 @@ public class ArtistEntity implements Entity {
     @Getter
     @Setter
     @Convert(converter = JpaConverterJson.class)
+    @Column(name = "full_name_ml")
+    private Map<String, String> fullNameMl;
+
+    @Getter
+    @Setter
+    @Convert(converter = JpaConverterJson.class)
     @Column(name = "description_ml")
     private Map<String, String> descriptionMl;
 

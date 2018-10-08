@@ -48,5 +48,10 @@
                  path="src/main/database/test_data/008_artwork.sql"/>
     </changeSet>
 
+    <changeSet author="toolstik" id="009_trader">
+        <sqlFile endDelimiter="\nGO" splitStatements="false" stripComments="false"
+                 path="src/main/database/test_data/009_trader.sql"/>
+    </changeSet>
+
 </databaseChangeLog>
 

@@ -25,5 +25,30 @@
     "FILTERS_PAGE" : "Page",
     "FILTERS_PAGE_OF" : "of",
     "FILTERS_FILTER" : "Filter"
+  },
+  "TRADER_PROFILE" : {
+    "SECURITY": {
+      "LABEL": {
+        "FIRST_NAME": "First Name:",
+        "LAST_NAME": "Last Name:",
+        "EMAIL": "Email:",
+        "GENDER": "Gender:",
+        "COUNTRY": "Country:",
+        "MOBILE": "Mobile Phone Number:",
+        "PASSWORD": "Password:",
+        "DATE_OF_BIRTH": "Date Of Birth:"
+      },
+      "PLACEHOLDER": {
+        "FIRST_NAME": "First name",
+        "LAST_NAME": "Last name",
+        "EMAIL": "Email"
+      },
+      "BUTTON": {
+        "EDIT_PROFILE": "Edit",
+        "UPDATE": "Update",
+        "CANCEL": "Cancel",
+        "CHANGE_PASSWORD": "Change"
+      }
+    }
   }
 }

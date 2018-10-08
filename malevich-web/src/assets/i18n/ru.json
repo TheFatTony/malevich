@@ -15,15 +15,40 @@
     "ADMIN_MENU_ITEM": "Админ"
   },
   "GRID": {
-    "FILTERS_SHOW" : "Показывать",
-    "FILTERS_SHOW_ALL" : "Все",
-    "FILTERS_SORT_BY" : "Сортировать по",
-    "FILTERS_SORT_BS" : "Бестселлер",
-    "FILTERS_SORT_TR" : "Полулярные",
-    "FILTERS_SORT_PLTH" : "Цена по возрастанию",
-    "FILTERS_SORT_PHTL" : "Цена по убыванию",
-    "FILTERS_PAGE" : "Страница",
-    "FILTERS_PAGE_OF" : "из",
-    "FILTERS_FILTER" : "Фильтровать"
+    "FILTERS_SHOW": "Показывать",
+    "FILTERS_SHOW_ALL": "Все",
+    "FILTERS_SORT_BY": "Сортировать по",
+    "FILTERS_SORT_BS": "Бестселлер",
+    "FILTERS_SORT_TR": "Полулярные",
+    "FILTERS_SORT_PLTH": "Цена по возрастанию",
+    "FILTERS_SORT_PHTL": "Цена по убыванию",
+    "FILTERS_PAGE": "Страница",
+    "FILTERS_PAGE_OF": "из",
+    "FILTERS_FILTER": "Фильтровать"
+  },
+  "TRADER_PROFILE": {
+    "SECURITY": {
+      "LABEL": {
+        "FIRST_NAME": "Имя:",
+        "LAST_NAME": "Фамилия:",
+        "EMAIL": "E-mail:",
+        "GENDER": "Пол:",
+        "COUNTRY": "Страна:",
+        "MOBILE": "Номер мобильного телефона:",
+        "PASSWORD": "Пароль:",
+        "DATE_OF_BIRTH": "Дата рождения"
+      },
+      "PLACEHOLDER": {
+        "FIRST_NAME": "Имя",
+        "LAST_NAME": "Фамилия",
+        "EMAIL": "Email"
+      },
+      "BUTTON": {
+        "EDIT_PROFILE": "Изменить",
+        "UPDATE": "Обновить",
+        "CANCEL": "Отменить",
+        "CHANGE_PASSWORD": "Сменить пароль"
+      }
+    }
   }
 }

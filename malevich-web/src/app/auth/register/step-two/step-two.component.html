@@ -1,3 +1,132 @@
-<p>
-  step-two works!
-</p>
+<!-- Login & Security -->
+<!-- Info -->
+<div class="g-brd-around g-brd-gray-light-v4 rounded g-pa-30 g-mb-30">
+
+  <div class="row">
+
+    <span
+      class="d-block g-color-text g-font-size-13 mb-1">{{'TRADER_PROFILE.SECURITY.LABEL.FIRST_NAME' | translate}}</span>
+    <input class="form-control g-color-black g-bg-white g-bg-white--focus g-brd-gray-light-v3 rounded"
+           type="text" [(ngModel)]="trader.person.firstName"
+           placeholder="{{'TRADER_PROFILE.SECURITY.PLACEHOLDER.FIRST_NAME' | translate}}">
+
+  </div>
+
+  <hr class="g-brd-gray-light-v4 g-my-20">
+
+  <div class="row">
+
+      <span
+        class="d-block g-color-text g-font-size-13 mb-1">{{'TRADER_PROFILE.SECURITY.LABEL.LAST_NAME' | translate}}</span>
+
+    <input class="form-control g-color-black g-bg-white g-bg-white--focus g-brd-gray-light-v3 rounded"
+           type="text" [(ngModel)]="trader.person.lastName"
+           placeholder="{{'TRADER_PROFILE.SECURITY.PLACEHOLDER.LAST_NAME' | translate}}">
+
+
+    <!--<div class="col-4 text-right">-->
+    <!--<a-->
+    <!--class="btn g-brd-around g-brd-gray-light-v3 g-color-gray-dark-v3 g-bg-gray-light-v5 g-bg-gray-light-v4&#45;&#45;hover g-font-size-13 rounded g-px-18 g-py-7"-->
+    <!--href="#!">Edit</a>-->
+    <!--</div>-->
+  </div>
+
+  <hr class="g-brd-gray-light-v4 g-my-20">
+
+  <div class="row">
+
+      <span
+        class="d-block g-color-text g-font-size-13 mb-1">{{'TRADER_PROFILE.SECURITY.LABEL.GENDER' | translate}}</span>
+    <!--<span class="d-block">{{trader.gender.nameMl[translate.currentLang]}}</span>-->
+    <select [(ngModel)]="trader.gender"
+            class="js-custom-select u-select-v1 g-brd-gray-light-v3 g-color-gray-dark-v5 rounded g-py-12"
+            data-placeholder="Country"
+            data-open-icon="fa fa-angle-down"
+            data-close-icon="fa fa-angle-up"
+            style="width: 100%;">
+      <option *ngFor="let g of genders" [ngValue]="g">{{g.nameMl[translate.currentLang]}}</option>
+    </select>
+
+  </div>
+
+  <hr class="g-brd-gray-light-v4 g-my-20">
+
+  <div class="row">
+      <span
+        class="d-block g-color-text g-font-size-13 mb-1">{{'TRADER_PROFILE.SECURITY.LABEL.COUNTRY' | translate}}</span>
+    <select [(ngModel)]="trader.country"
+            class="js-custom-select u-select-v1 g-brd-gray-light-v3 g-color-gray-dark-v5 rounded g-py-12"
+            data-placeholder="Country"
+            data-open-icon="fa fa-angle-down"
+            data-close-icon="fa fa-angle-up"
+            style="width: 100%;">
+      <option *ngFor="let c of countries" [ngValue]="c">{{c.nameMl[translate.currentLang]}}</option>
+    </select>
+  </div>
+
+  <hr class="g-brd-gray-light-v4 g-my-20">
+
+  <div class="row">
+      <span
+        class="d-block g-color-text g-font-size-13 mb-1">{{'TRADER_PROFILE.SECURITY.LABEL.MOBILE' | translate}}</span>
+    <input #mobileInput id="mobile"
+           class="form-control g-color-black g-bg-white g-bg-white--focus g-brd-gray-light-v3 rounded"
+           type="text" [(ngModel)]="trader.mobile"
+           placeholder="+X (XXX) XXX-XXXX" data-mask="+9 (999) 999-9999">
+
+    <!--<div class="col-4 text-right">-->
+    <!--<a-->
+    <!--class="btn g-brd-around g-brd-gray-light-v3 g-color-gray-dark-v3 g-bg-gray-light-v5 g-bg-gray-light-v4&#45;&#45;hover g-font-size-13 rounded g-px-18 g-py-7"-->
+    <!--href="#!">Edit</a>-->
+    <!--</div>-->
+  </div>
+
+  <hr class="g-brd-gray-light-v4 g-my-20">
+
+  <div class="row">
+    <span
+      class="d-block g-color-text g-font-size-13 mb-1">{{'TRADER_PROFILE.SECURITY.LABEL.PASSWORD' | translate}}</span>
+    <input class="form-control g-color-black g-bg-white g-bg-white--focus g-brd-gray-light-v3 rounded g-mb-20"
+           type="password" [(ngModel)]="trader.user.password"
+           placeholder="{{'TRADER_PROFILE.SECURITY.PLACEHOLDER.PASSWORD' | translate}}">
+    <input class="form-control g-color-black g-bg-white g-bg-white--focus g-brd-gray-light-v3 rounded"
+           type="password"
+           placeholder="{{'TRADER_PROFILE.SECURITY.PLACEHOLDER.CONFIRM_PASSWORD' | translate}}">
+  </div>
+
+  <hr class="g-brd-gray-light-v4 g-my-20">
+
+  <div class="row">
+    <span
+      class="d-block g-color-text g-font-size-13 mb-1">{{'TRADER_PROFILE.SECURITY.LABEL.DATE_OF_BIRTH' | translate}}</span>
+    <div class="input-group g-brd-primary--focus">
+      <input #dateOfBirthInput id="datepickerDefault"
+             class="form-control form-control-md u-datepicker-v1 g-brd-right-none rounded-0"
+             type="text" [ngModel]="trader.dateOfBirth | date"
+             placeholder="{{'TRADER_PROFILE.SECURITY.PLACEHOLDER.DATE_OF_BIRTH' | translate}}">
+      <div class="input-group-append">
+        <span class="input-group-text rounded-0 g-color-gray-dark-v5"><i class="icon-calendar"></i></span>
+      </div>
+
+    </div>
+
+    <!--<div class="col-4 text-right">-->
+    <!--<a-->
+    <!--class="btn g-brd-around g-brd-gray-light-v3 g-color-gray-dark-v3 g-bg-gray-light-v5 g-bg-gray-light-v4&#45;&#45;hover g-font-size-13 rounded g-px-18 g-py-7"-->
+    <!--href="#!">Edit</a>-->
+    <!--</div>-->
+  </div>
+
+</div>
+<!-- End Info -->
+
+<div class="row">
+
+  <button (click)="submit()"
+          class="btn btn-block u-btn-primary g-font-size-12 text-uppercase g-py-12 g-px-25">
+    {{'TRADER_PROFILE.SECURITY.BUTTON.SUBMIT' | translate}}
+  </button>
+
+</div>
+
+<!-- End Login & Security -->

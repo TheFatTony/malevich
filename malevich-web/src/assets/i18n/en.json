@@ -39,14 +39,18 @@
         "DATE_OF_BIRTH": "Date Of Birth:"
       },
       "PLACEHOLDER": {
-        "FIRST_NAME": "First name",
-        "LAST_NAME": "Last name",
-        "EMAIL": "Email"
+        "FIRST_NAME": "First Name",
+        "LAST_NAME": "Last Name",
+        "EMAIL": "Email",
+        "DATE_OF_BIRTH": "Date Of Birth",
+        "PASSWORD": "Password",
+        "CONFIRM_PASSWORD": "Confirm Password"
       },
       "BUTTON": {
         "EDIT_PROFILE": "Edit",
         "UPDATE": "Update",
         "CANCEL": "Cancel",
+        "SUBMIT": "Submit",
         "CHANGE_PASSWORD": "Change"
       }
     }

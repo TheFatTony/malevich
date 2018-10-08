@@ -3,14 +3,55 @@
 <div class="g-brd-around g-brd-gray-light-v4 rounded g-pa-30 g-mb-30">
   <div class="row">
     <div class="col-8">
-      <span class="d-block g-color-text g-font-size-13 mb-1">Name:</span>
-      <span class="d-block">James</span>
     </div>
 
     <div class="col-4 text-right">
-      <a
-        class="btn g-brd-around g-brd-gray-light-v3 g-color-gray-dark-v3 g-bg-gray-light-v5 g-bg-gray-light-v4--hover g-font-size-13 rounded g-px-18 g-py-7"
-        href="#!">Edit</a>
+      <a *ngIf="!isEditing"
+         class="btn g-brd-around g-brd-gray-light-v3 g-color-gray-dark-v3 g-bg-gray-light-v5 g-bg-gray-light-v4--hover g-font-size-13 rounded g-px-18 g-py-7"
+         (click)="switchMode()">{{'TRADER_PROFILE.SECURITY.BUTTON.EDIT_PROFILE' | translate}}</a>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-8">
+      <span
+        class="d-block g-color-text g-font-size-13 mb-1">{{'TRADER_PROFILE.SECURITY.LABEL.FIRST_NAME' | translate}}</span>
+      <span *ngIf="!isEditing" class="d-block">{{trader.person.firstName}}</span>
+      <input *ngIf="isEditing"
+             class="form-control g-color-black g-bg-white g-bg-white--focus g-brd-gray-light-v3 rounded"
+             type="text" [(ngModel)]="trader.person.firstName"
+             placeholder="{{'TRADER_PROFILE.SECURITY.PLACEHOLDER.FIRST_NAME' | translate}}">
+    </div>
+
+  </div>
+
+  <hr class="g-brd-gray-light-v4 g-my-20">
+
+  <div class="row">
+    <div class="col-8">
+      <span
+        class="d-block g-color-text g-font-size-13 mb-1">{{'TRADER_PROFILE.SECURITY.LABEL.LAST_NAME' | translate}}</span>
+      <span *ngIf="!isEditing" class="d-block">{{trader.person.lastName}}</span>
+      <input *ngIf="isEditing"
+             class="form-control g-color-black g-bg-white g-bg-white--focus g-brd-gray-light-v3 rounded"
+             type="text" [(ngModel)]="trader.person.lastName"
+             placeholder="{{'TRADER_PROFILE.SECURITY.PLACEHOLDER.LAST_NAME' | translate}}">
+    </div>
+
+    <!--<div class="col-4 text-right">-->
+    <!--<a-->
+    <!--class="btn g-brd-around g-brd-gray-light-v3 g-color-gray-dark-v3 g-bg-gray-light-v5 g-bg-gray-light-v4&#45;&#45;hover g-font-size-13 rounded g-px-18 g-py-7"-->
+    <!--href="#!">Edit</a>-->
+    <!--</div>-->
+  </div>
+
+  <hr class="g-brd-gray-light-v4 g-my-20">
+
+  <div class="row">
+    <div class="col-8">
+      <span
+        class="d-block g-color-text g-font-size-13 mb-1">{{'TRADER_PROFILE.SECURITY.LABEL.EMAIL' | translate}}</span>
+      <span class="d-block">{{trader.user.name}}</span>
     </div>
   </div>
 
@@ -18,14 +59,9 @@
 
   <div class="row">
     <div class="col-8">
-      <span class="d-block g-color-text g-font-size-13 mb-1">Last Name:</span>
-      <span class="d-block">Collins</span>
-    </div>
-
-    <div class="col-4 text-right">
-      <a
-        class="btn g-brd-around g-brd-gray-light-v3 g-color-gray-dark-v3 g-bg-gray-light-v5 g-bg-gray-light-v4--hover g-font-size-13 rounded g-px-18 g-py-7"
-        href="#!">Edit</a>
+      <span
+        class="d-block g-color-text g-font-size-13 mb-1">{{'TRADER_PROFILE.SECURITY.LABEL.GENDER' | translate}}</span>
+      <span class="d-block">{{trader.gender.nameMl[translate.currentLang]}}</span>
     </div>
   </div>
 
@@ -33,29 +69,18 @@
 
   <div class="row">
     <div class="col-8">
-      <span class="d-block g-color-text g-font-size-13 mb-1">Email:</span>
-      <span class="d-block">james@gmail.com</span>
-    </div>
-
-    <div class="col-4 text-right">
-      <a
-        class="btn g-brd-around g-brd-gray-light-v3 g-color-gray-dark-v3 g-bg-gray-light-v5 g-bg-gray-light-v4--hover g-font-size-13 rounded g-px-18 g-py-7"
-        href="#!">Edit</a>
-    </div>
-  </div>
-
-  <hr class="g-brd-gray-light-v4 g-my-20">
-
-  <div class="row">
-    <div class="col-8">
-      <span class="d-block g-color-text g-font-size-13 mb-1">Mobile Phone Number:</span>
-      <span class="d-block">+(01) 222 333 444</span>
-    </div>
-
-    <div class="col-4 text-right">
-      <a
-        class="btn g-brd-around g-brd-gray-light-v3 g-color-gray-dark-v3 g-bg-gray-light-v5 g-bg-gray-light-v4--hover g-font-size-13 rounded g-px-18 g-py-7"
-        href="#!">Edit</a>
+      <span
+        class="d-block g-color-text g-font-size-13 mb-1">{{'TRADER_PROFILE.SECURITY.LABEL.COUNTRY' | translate}}</span>
+      <span *ngIf="!isEditing" class="d-block">{{trader.country.nameMl[translate.currentLang]}}</span>
+      <select [hidden]="!isEditing" [(ngModel)]="trader.country"
+              class="js-custom-select u-select-v1 g-brd-gray-light-v3 g-color-gray-dark-v5 rounded g-py-12"
+              data-placeholder="Country"
+              data-open-icon="fa fa-angle-down"
+              data-close-icon="fa fa-angle-up">
+        <option [value]="trader.country" selected="selected">{{trader.country.nameMl[translate.currentLang]}}
+        </option>
+        <option *ngFor="let c of countries" [ngValue]="c">{{c.nameMl[translate.currentLang]}}</option>
+      </select>
     </div>
   </div>
 
@@ -63,14 +88,36 @@
 
   <div class="row">
     <div class="col-8">
-      <span class="d-block g-color-text g-font-size-13 mb-1">Password:</span>
+      <span
+        class="d-block g-color-text g-font-size-13 mb-1">{{'TRADER_PROFILE.SECURITY.LABEL.MOBILE' | translate}}</span>
+      <span *ngIf="!isEditing" class="d-block">{{trader.mobile}}</span>
+      <input #someinput id="mobile" [hidden]="!isEditing"
+             class="form-control g-color-black g-bg-white g-bg-white--focus g-brd-gray-light-v3 rounded"
+             type="text" [(ngModel)]="trader.mobile"
+             placeholder="+X (XXX) XXX-XXXX" data-mask="+9 (999) 999-9999">
+    </div>
+
+    <!--<div class="col-4 text-right">-->
+    <!--<a-->
+    <!--class="btn g-brd-around g-brd-gray-light-v3 g-color-gray-dark-v3 g-bg-gray-light-v5 g-bg-gray-light-v4&#45;&#45;hover g-font-size-13 rounded g-px-18 g-py-7"-->
+    <!--href="#!">Edit</a>-->
+    <!--</div>-->
+  </div>
+
+  <hr class="g-brd-gray-light-v4 g-my-20">
+
+  <div class="row">
+    <div class="col-8">
+      <span
+        class="d-block g-color-text g-font-size-13 mb-1">{{'TRADER_PROFILE.SECURITY.LABEL.PASSWORD' | translate}}</span>
       <span class="d-block">*******</span>
     </div>
 
-    <div class="col-4 text-right">
+    <div *ngIf="!isEditing" class="col-4 text-right">
       <a
         class="btn g-brd-around g-brd-gray-light-v3 g-color-gray-dark-v3 g-bg-gray-light-v5 g-bg-gray-light-v4--hover g-font-size-13 rounded g-px-18 g-py-7"
-        href="#!">Edit</a>
+        href="#modal1" data-modal-target="#modal1" data-modal-effect="fadein">{{'TRADER_PROFILE.SECURITY.BUTTON.CHANGE_PASSWORD'
+        | translate}}</a>
     </div>
   </div>
 
@@ -78,18 +125,62 @@
 
   <div class="row">
     <div class="col-8">
-      <span class="d-block g-color-text g-font-size-13 mb-1">Advanced Security Settings:</span>
-      <span class="d-block">Manage how and when you receive security codes</span>
+      <span class="d-block g-color-text g-font-size-13 mb-1">{{'TRADER_PROFILE.SECURITY.LABEL.DATE_OF_BIRTH' | translate}}</span>
+      <span *ngIf="!isEditing" class="d-block">{{trader.dateOfBirth | date: 'dd.MM.yyyy':'+0300'}}</span>
+      <input id="datepickerDefault" [hidden]="!isEditing"
+             class="form-control u-datepicker-v1 g-color-black g-bg-white g-bg-white--focus g-brd-gray-light-v3 rounded"
+             type="text" [ngModel]="trader.dateOfBirth | date: 'dd.MM.yyyy':'+0300'">
     </div>
 
-    <div class="col-4 text-right">
-      <a
-        class="btn g-brd-around g-brd-gray-light-v3 g-color-gray-dark-v3 g-bg-gray-light-v5 g-bg-gray-light-v4--hover g-font-size-13 rounded g-px-18 g-py-7"
-        href="#!">Edit</a>
-    </div>
+    <!--<div class="col-4 text-right">-->
+    <!--<a-->
+    <!--class="btn g-brd-around g-brd-gray-light-v3 g-color-gray-dark-v3 g-bg-gray-light-v5 g-bg-gray-light-v4&#45;&#45;hover g-font-size-13 rounded g-px-18 g-py-7"-->
+    <!--href="#!">Edit</a>-->
+    <!--</div>-->
   </div>
+
 </div>
 <!-- End Info -->
 
-<button class="btn u-btn-primary g-font-size-12 text-uppercase g-py-12 g-px-25" type="submit">Update</button>
+<div class="row">
+  <div class="col-2">
+    <a [hidden]="!isEditing"
+       (click)="update()"
+       class="btn u-btn-primary g-font-size-12 text-uppercase g-py-12 g-px-25">
+      {{'TRADER_PROFILE.SECURITY.BUTTON.UPDATE' | translate}}</a>
+  </div>
+
+  <!--
+    <div class="col-1">
+      <a [hidden]="!isEditing"
+         (click)="switchMode()"
+         class="btn u-btn-primary g-font-size-12 text-uppercase g-py-12 g-px-25">
+        {{'TRADER_PROFILE.SECURITY.BUTTON.CANCEL' | translate}}</a>
+    </div>
+  -->
+
+</div>
+
 <!-- End Login & Security -->
+
+
+<!-- Demo modal window -->
+<div id="modal1" class="text-left g-max-width-600 g-bg-white g-overflow-y-auto g-pa-20" style="display: none;">
+  <button type="button" class="close" onclick="Custombox.modal.close();">
+    <i class="hs-icon hs-icon-close"></i>
+  </button>
+  <h4 class="g-mb-20">Modal title</h4>
+
+  <input class="form-control g-color-black g-bg-white g-bg-white--focus g-brd-gray-light-v3 rounded"
+         type="text" [(ngModel)]="trader.person.lastName" placeholder="Last name">
+
+  <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's
+    standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a
+    type
+    specimen book.</p>
+  <p>It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially
+    unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and
+    more
+    recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p>
+</div>
+<!-- End Demo modal window -->

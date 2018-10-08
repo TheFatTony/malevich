@@ -1,31 +1,34 @@
 package io.malevich.server.entity;
 
-import io.malevich.server.entity.utils.JpaConverterJson;
 import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
-import java.util.Map;
 
 @javax.persistence.Entity
 @Table(name = "person")
 public class PersonEntity implements Entity {
 
-  @Getter
-  @Setter
-  @Id
-  @GeneratedValue(strategy = GenerationType.IDENTITY)
-  private Long id;
+    @Getter
+    @Setter
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
-  @Getter
-  @Setter
-  @Column(name = "full_name")
-  private String fullName;
+    @Getter
+    @Setter
+    @Column(name = "first_name")
+    private String firstName;
 
-  @Getter
-  @Setter
-  @Convert(converter = JpaConverterJson.class)
-  @Column(name = "full_name_ml")
-  private Map<String, String> fullNameMl;
+    @Getter
+    @Setter
+    @Column(name = "last_name")
+    private String lastName;
 
+    @Transient
+    private String fullName;
+
+    public String getFullName() {
+        return firstName + " " + fullName;
+    }
 }

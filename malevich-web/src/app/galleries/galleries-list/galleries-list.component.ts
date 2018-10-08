@@ -5,7 +5,7 @@ import {TranslateService} from "@ngx-translate/core";
 import {GalleryService} from "../../_services/gallery.service";
 
 @Component({
-  selector: 'app-galleries-galleries-list',
+  selector: 'app-galleries-list',
   templateUrl: './galleries-list.component.html',
   styleUrls: ['./galleries-list.component.css']
 })

@@ -1,7 +1,7 @@
 import {AfterViewInit, Component} from '@angular/core';
 import {TranslateService} from "@ngx-translate/core";
 import {Globals} from "./globals";
-import {LoginService} from "./_services";
+import {AuthService} from "./_services";
 
 @Component({
   selector: 'app-root',
@@ -11,7 +11,7 @@ import {LoginService} from "./_services";
 export class AppComponent implements AfterViewInit{
   title = 'malevich-web';
 
-  constructor(public translate: TranslateService, public globals: Globals, private loginService: LoginService) {
+  constructor(public translate: TranslateService, public globals: Globals, private loginService: AuthService) {
     translate.addLangs(['en', 'ru']);
     translate.setDefaultLang('en');
 
@@ -24,14 +24,7 @@ export class AppComponent implements AfterViewInit{
       translate.use(lang);
     }
 
-
-    if (localStorage.getItem('currentUser')) {
-      this.globals.isAuthorised = true;
-      loginService.refreshToken();
-      if (!localStorage.getItem('user')) {
-        loginService.logout();
-      }
-    }
+    loginService.refreshToken();
   }
 
   ngAfterViewInit(): void {

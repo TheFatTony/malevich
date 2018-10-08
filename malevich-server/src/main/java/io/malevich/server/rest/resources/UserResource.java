@@ -8,6 +8,7 @@ import io.malevich.server.transfer.LoginFormDto;
 import io.malevich.server.transfer.UserDto;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -33,50 +34,16 @@ public class UserResource {
     private UserService userService;
 
     @Autowired
-    private AuthenticationManager authenticationManager;
-
-
-    @Autowired
     private ModelMapper modelMapper;
 
 
-    //    @PreAuthorize("hasRole('USER')")
-    @RequestMapping(method = RequestMethod.GET)
-    public UserDto getUser() {
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        Object principal = authentication.getPrincipal();
-        UserDetails userDetails = null;
-        try {
-            userDetails = (UserDetails) principal;
-        } catch (ClassCastException e) {
-            return null;
-        }
-        return new UserDto(userDetails.getUsername(), null, this.createRoleMap(userDetails));
-    }
-
-    @RequestMapping(value = "/authenticate", method = RequestMethod.POST)
-    public AccessTokenDto authenticate(@RequestBody LoginFormDto loginFormDto) {
-        UsernamePasswordAuthenticationToken authenticationToken =
-                new UsernamePasswordAuthenticationToken(loginFormDto.getUsername(), loginFormDto.getPassword());
-        Authentication authentication = this.authenticationManager.authenticate(authenticationToken);
-        return new AccessTokenDto(this.userService.createAccessToken((UserEntity) authentication.getPrincipal()).getToken());
-    }
-
-    //    @PreAuthorize("hasRole('ADMIN')")
+    @PreAuthorize("hasRole('ADMIN')")
     @RequestMapping(value = "/list", method = RequestMethod.GET)
     public List<UserDto> list() {
         List<UserEntity> allEntries = this.userService.findAll();
         return allEntries.stream().map(allEntry -> convertToDto(allEntry)).collect(Collectors.toList());
     }
 
-
-    private List<String> createRoleMap(UserDetails userDetails) {
-        List<String> roles = new ArrayList<String>();
-        for (GrantedAuthority authority : userDetails.getAuthorities()) {
-            roles.add(authority.getAuthority());
-        }
-        return roles;
-    }
 
     private UserDto convertToDto(UserEntity entity) {
         UserDto dto = modelMapper.map(entity, UserDto.class);

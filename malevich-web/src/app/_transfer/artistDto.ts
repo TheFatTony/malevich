@@ -6,5 +6,6 @@ export class ArtistDto {
   person: PersonDto;
   description: string;
   thumbnail: FileDto;
+  image: FileDto;
   descriptionMl: Map<string, string>;
 }

@@ -4,7 +4,7 @@ import {CategoryDto} from "../../../_transfer";
 import {TranslateService} from "@ngx-translate/core";
 
 @Component({
-  selector: 'app-artworks-artworks-list-filters',
+  selector: 'app-artworks-list-filters',
   templateUrl: './filters.component.html',
   styleUrls: ['./filters.component.css']
 })

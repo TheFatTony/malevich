@@ -5,8 +5,8 @@ import io.malevich.server.dao.category.CategoryDao;
 import io.malevich.server.entity.CategoryEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
-import javax.transaction.Transactional;
 import java.util.List;
 
 
@@ -21,15 +21,15 @@ public class CategoryServiceImpl implements CategoryService {
     }
 
     @Override
-    @Transactional
+    @Transactional(readOnly = true)
     public List<CategoryEntity> findAll() {
         return this.categoryDao.findAll();
     }
 
     @Override
-    @Transactional
+    @Transactional(readOnly = true)
     public CategoryEntity find(Long id) {
-        return this.categoryDao.find(id);
+        return this.categoryDao.findById(id).get();
     }
 
 }

@@ -5,7 +5,7 @@ import {TranslateService} from "@ngx-translate/core";
 import {ArtistService} from "../../_services/artist.service";
 
 @Component({
-  selector: 'app-artists-artists-list',
+  selector: 'app-artists-list',
   templateUrl: './artists-list.component.html',
   styleUrls: ['./artists-list.component.css']
 })

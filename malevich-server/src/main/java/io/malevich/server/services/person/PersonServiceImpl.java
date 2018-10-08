@@ -5,8 +5,8 @@ import io.malevich.server.dao.person.PersonDao;
 import io.malevich.server.entity.PersonEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
-import javax.transaction.Transactional;
 import java.util.List;
 
 
@@ -21,15 +21,15 @@ public class PersonServiceImpl implements PersonService {
     }
 
     @Override
-    @Transactional
+    @Transactional(readOnly = true)
     public List<PersonEntity> findAll() {
         return this.personDao.findAll();
     }
 
     @Override
-    @Transactional
+    @Transactional(readOnly = true)
     public PersonEntity find(Long id) {
-        return this.personDao.find(id);
+        return this.personDao.findById(id).get();
     }
 
 }

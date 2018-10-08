@@ -1,15 +1,11 @@
 package io.malevich.server.dao.mailqueue;
 
-import io.malevich.server.dao.Dao;
 import io.malevich.server.entity.MailQueueEntity;
-import org.springframework.stereotype.Component;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
 
-import java.util.List;
+@Repository
+public interface MailQueueDao extends JpaRepository<MailQueueEntity, Long> {
 
-@Component
-public interface MailQueueDao extends Dao<MailQueueEntity, Long> {
 
-    List<MailQueueEntity> findAll();
-
-    MailQueueEntity find(Long id);
 }

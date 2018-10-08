@@ -4,41 +4,30 @@ package io.malevich.server.transfer;
 import lombok.Getter;
 import lombok.Setter;
 
+import javax.xml.bind.annotation.XmlRootElement;
 import java.util.Map;
 
-
+@Getter
+@Setter
+@XmlRootElement(name = "artwork")
 public class ArtworkDto {
 
-    @Getter
-    @Setter
     private long id;
 
-    @Getter
-    @Setter
-    private String title;
+    private String artwork;
 
-    @Getter
-    @Setter
     private String description;
 
-    @Getter
-    @Setter
     private double price;
 
-    @Getter
-    @Setter
     private CategoryDto category;
 
-    @Getter
-    @Setter
     private FileDto thumbnail;
 
-    @Getter
-    @Setter
+    private FileDto image;
+
     private Map<String, String> titleMl;
 
-    @Getter
-    @Setter
     private Map<String, String> descriptionMl;
 
 }

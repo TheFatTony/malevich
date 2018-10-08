@@ -3,6 +3,7 @@
                    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
                    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.6.xsd">
 
+    <include relativeToChangelogFile="true" file="indexes/user_type.index.xml"/>
     <include relativeToChangelogFile="true" file="indexes/user.index.xml"/>
     <include relativeToChangelogFile="true" file="indexes/access_token.index.xml"/>
     <include relativeToChangelogFile="true" file="indexes/user_roles.index.xml"/>

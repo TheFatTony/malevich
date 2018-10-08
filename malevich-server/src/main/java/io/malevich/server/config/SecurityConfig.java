@@ -3,7 +3,7 @@ package io.malevich.server.config;
 import io.malevich.server.rest.filter.JWTAuthenticationFilter;
 import io.malevich.server.rest.filter.JWTAuthorizationFilter;
 import io.malevich.server.rest.util.JWTUtil;
-import io.malevich.server.services.user.UserService;
+import io.malevich.server.services.auth.AuthService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -28,7 +28,7 @@ import java.util.Arrays;
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Autowired
-    private UserService userService;
+    private AuthService authService;
 
     @Autowired
     private JWTUtil jwtUtil;
@@ -62,7 +62,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers(PUBLIC_MATCHERS).permitAll()
                 .anyRequest().authenticated();
         http.addFilter(new JWTAuthenticationFilter(authenticationManager(), jwtUtil));
-        http.addFilter(new JWTAuthorizationFilter(authenticationManager(), jwtUtil, userService));
+        http.addFilter(new JWTAuthorizationFilter(authenticationManager(), jwtUtil, authService));
         http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
         http.headers().contentSecurityPolicy("Access-Control-Allow-Origin: *");
 
@@ -73,7 +73,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     public void configure(AuthenticationManagerBuilder auth) throws Exception {
-        auth.userDetailsService(userService).passwordEncoder(bCryptPasswordEncoder());
+        auth.userDetailsService(authService).passwordEncoder(bCryptPasswordEncoder());
     }
 
     @Bean(name = "authenticationManager")

@@ -5,22 +5,15 @@ import lombok.Setter;
 
 import java.util.List;
 
-
+@Getter
+@Setter
 public class UserDto {
 
 
-    @Getter
-    @Setter
     private String name;
 
-
-    @Getter
-    @Setter
     private String password;
 
-
-    @Getter
-    @Setter
     private List<String> roles;
 
     public UserDto() {

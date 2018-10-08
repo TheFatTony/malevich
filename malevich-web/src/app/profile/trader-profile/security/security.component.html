@@ -144,10 +144,10 @@
 
 <div class="row">
   <div class="col-2">
-    <a [hidden]="!isEditing"
+    <button [hidden]="!isEditing"
        (click)="update()"
-       class="btn u-btn-primary g-font-size-12 text-uppercase g-py-12 g-px-25">
-      {{'TRADER_PROFILE.SECURITY.BUTTON.UPDATE' | translate}}</a>
+       class="btn btn-block u-btn-primary g-font-size-12 text-uppercase g-py-12 g-px-25">
+      {{'TRADER_PROFILE.SECURITY.BUTTON.UPDATE' | translate}}</button>
   </div>
 
   <!--

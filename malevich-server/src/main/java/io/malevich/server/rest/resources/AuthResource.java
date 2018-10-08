@@ -1,11 +1,15 @@
 package io.malevich.server.rest.resources;
 
 
+import io.malevich.server.entity.RegisterTokenEntity;
+import io.malevich.server.entity.UserTypeEntity;
 import io.malevich.server.services.auth.AuthService;
 import io.malevich.server.transfer.AccessTokenDto;
 import io.malevich.server.transfer.LoginFormDto;
+import io.malevich.server.transfer.RegisterFormDto;
 import io.malevich.server.transfer.UserDto;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
@@ -30,10 +34,10 @@ public class AuthResource {
         return authService.authenticate(loginFormDto);
     }
 
-
     @RequestMapping(value = "/register", method = RequestMethod.POST)
-    public String register(@RequestParam("id") int id) {
-        return "!!!!";
+    public ResponseEntity<String> register(@RequestBody RegisterFormDto registerFormDto) {
+        authService.register(registerFormDto.getLang(), registerFormDto.getEmail());
+        return ResponseEntity.ok().body("registred");
     }
 
 

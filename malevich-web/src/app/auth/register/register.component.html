@@ -6,50 +6,8 @@
           <h1 class="h4 g-color-black g-font-weight-400">Create New Account</h1>
         </header>
 
-        <!-- Form -->
-        <form class="g-py-15">
-
-          <div class="g-mb-20">
-            <input
-              class="form-control g-color-black g-bg-white g-bg-white--focus g-brd-gray-light-v3 rounded g-py-15 g-px-15"
-              type="text" placeholder="Email address">
-          </div>
-
-          <!--<div class="form-group g-mb-20">
-            <select class="js-custom-select u-select-v1 g-brd-gray-light-v3 g-color-gray-dark-v5 rounded g-py-12" style="width: 100%;"
-                    data-placeholder="Account type"
-                    data-open-icon="fa fa-angle-down"
-                    data-close-icon="fa fa-angle-up">
-              <option></option>
-              <option value="First Option">Trader</option>
-              <option value="Second Option">Gallery</option>
-            </select>
-          </div>-->
-
-          <div class="mb-1">
-            <label class="form-check-inline u-check g-color-gray-dark-v5 g-font-size-13 g-pl-25 mb-2">
-              <input class="g-hidden-xs-up g-pos-abs g-top-0 g-left-0" type="checkbox">
-              <span class="d-block u-check-icon-checkbox-v6 g-absolute-centered--y g-left-0">
-                      <i class="fa" data-check-icon=""></i>
-                    </span>
-              I accept the <a href="#modal1" data-modal-target="#modal1" data-modal-effect="fadein">Terms and Conditions</a>
-            </label>
-          </div>
-
-          <div class="mb-3">
-            <label class="form-check-inline u-check g-color-gray-dark-v5 g-font-size-13 g-pl-25 mb-2">
-              <input class="g-hidden-xs-up g-pos-abs g-top-0 g-left-0" type="checkbox">
-              <span class="d-block u-check-icon-checkbox-v6 g-absolute-centered--y g-left-0">
-                      <i class="fa" data-check-icon=""></i>
-                    </span>
-              Subscribe to our newsletter
-            </label>
-          </div>
-
-          <button class="btn btn-block u-btn-primary g-font-size-12 text-uppercase g-py-12 g-px-25" type="button">Signup
-          </button>
-        </form>
-        <!-- End Form -->
+        <app-auth-register-step-one *ngIf="!isSecondStep"></app-auth-register-step-one>
+        <app-auth-register-step-two *ngIf="isSecondStep"></app-auth-register-step-two>
       </div>
 
       <div class="text-center">

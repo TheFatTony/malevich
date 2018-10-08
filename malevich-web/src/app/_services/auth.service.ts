@@ -48,4 +48,12 @@ export class AuthService {
     this.globals.isAuthorised = false;
   }
 
+
+  register(lang: string, email: string) {
+    return this.http.post<any>(this.url + '/register', {lang: lang, email: email})
+      .pipe(map(data => {
+        return data;
+      }));
+  }
+
 }

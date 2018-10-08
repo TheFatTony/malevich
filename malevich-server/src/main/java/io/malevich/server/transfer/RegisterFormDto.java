@@ -7,8 +7,7 @@ import lombok.Setter;
 @Setter
 public class RegisterFormDto {
 
-    private String username;
-
-    private UserTypeDto userType;
+    private String lang;
+    private String email;
 
 }

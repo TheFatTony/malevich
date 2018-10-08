@@ -1,4 +1,4 @@
-import {AfterViewInit, Component, ElementRef, OnInit, ViewChild} from '@angular/core';
+import {AfterViewInit, Component, ElementRef, Inject, LOCALE_ID, OnInit, ViewChild} from '@angular/core';
 import {TraderDto} from "../../../_transfer/traderDto";
 import {TranslateService} from "@ngx-translate/core";
 import {TraderService} from "../../../_services/trader.service";
@@ -16,7 +16,10 @@ export class SecurityComponent implements OnInit, AfterViewInit {
   trader: TraderDto;
   countries: CountryDto[];
 
-  @ViewChild ('someinput') someinput: ElementRef;
+  @Inject(LOCALE_ID) public locale: string
+
+  @ViewChild ('mobileInput') mobileInput: ElementRef;
+  @ViewChild ('dateOfBirthInput') dateOfBirthInput: ElementRef;
 
   constructor(public translate: TranslateService,
               private traderService: TraderService,
@@ -24,22 +27,23 @@ export class SecurityComponent implements OnInit, AfterViewInit {
   }
 
   ngOnInit() {
-    this.getCurrentTrader();
     this.getCountries();
+    this.getCurrentTrader();
   }
 
   ngAfterViewInit(): void {
     $['HSCore'].components.HSMaskedInput.init('[data-mask]');
     $['HSCore'].components.HSModalWindow.init('[data-modal-target]');
     $['HSCore'].components.HSDatepicker.init('#datepickerDefault');
-    $(this.someinput.nativeElement).on('change', (e) => {
-      console.log('Change made -- ngAfterViewInit');
-      this.onChange();
-    });
-  }
 
-  onChange(): void{
-    console.log('Change made -- onChange');
+    $(this.mobileInput.nativeElement).on('change', (e) => {
+      this.trader.mobile = e.target.value;
+    });
+
+    $(this.dateOfBirthInput.nativeElement).on('change', (e) => {
+      console.log(typeof e.target.constructor.name);
+      this.trader.dateOfBirth = e.target.value;
+    });
   }
 
   switchMode() {

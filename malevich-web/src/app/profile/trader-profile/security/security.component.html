@@ -91,7 +91,7 @@
       <span
         class="d-block g-color-text g-font-size-13 mb-1">{{'TRADER_PROFILE.SECURITY.LABEL.MOBILE' | translate}}</span>
       <span *ngIf="!isEditing" class="d-block">{{trader.mobile}}</span>
-      <input #someinput id="mobile" [hidden]="!isEditing"
+      <input #mobileInput id="mobile" [hidden]="!isEditing"
              class="form-control g-color-black g-bg-white g-bg-white--focus g-brd-gray-light-v3 rounded"
              type="text" [(ngModel)]="trader.mobile"
              placeholder="+X (XXX) XXX-XXXX" data-mask="+9 (999) 999-9999">
@@ -127,9 +127,15 @@
     <div class="col-8">
       <span class="d-block g-color-text g-font-size-13 mb-1">{{'TRADER_PROFILE.SECURITY.LABEL.DATE_OF_BIRTH' | translate}}</span>
       <span *ngIf="!isEditing" class="d-block">{{trader.dateOfBirth | date: 'dd.MM.yyyy':'+0300'}}</span>
-      <input id="datepickerDefault" [hidden]="!isEditing"
-             class="form-control u-datepicker-v1 g-color-black g-bg-white g-bg-white--focus g-brd-gray-light-v3 rounded"
-             type="text" [ngModel]="trader.dateOfBirth | date: 'dd.MM.yyyy':'+0300'">
+      <div [hidden]="!isEditing" class="input-group g-brd-primary--focus">
+        <input #dateOfBirthInput id="datepickerDefault"
+               class="form-control form-control-md u-datepicker-v1 g-brd-right-none rounded-0"
+               type="text" [ngModel]="trader.dateOfBirth | date">
+        <div class="input-group-append">
+          <span class="input-group-text rounded-0 g-color-gray-dark-v5"><i class="icon-calendar"></i></span>
+        </div>
+      </div>
+
     </div>
 
     <!--<div class="col-4 text-right">-->
@@ -145,9 +151,10 @@
 <div class="row">
   <div class="col-2">
     <button [hidden]="!isEditing"
-       (click)="update()"
-       class="btn btn-block u-btn-primary g-font-size-12 text-uppercase g-py-12 g-px-25">
-      {{'TRADER_PROFILE.SECURITY.BUTTON.UPDATE' | translate}}</button>
+            (click)="update()"
+            class="btn btn-block u-btn-primary g-font-size-12 text-uppercase g-py-12 g-px-25">
+      {{'TRADER_PROFILE.SECURITY.BUTTON.UPDATE' | translate}}
+    </button>
   </div>
 
   <!--

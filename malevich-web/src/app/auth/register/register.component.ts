@@ -1,6 +1,9 @@
 import {AfterViewInit, Component, OnInit} from '@angular/core';
 import {InvolvementService} from "../../_services/involvement.service";
 import {InvolvementDto} from "../../_transfer";
+import {AlertService, AuthService} from "../../_services";
+import {TranslateService} from "@ngx-translate/core";
+import {ActivatedRoute} from "@angular/router";
 
 @Component({
   selector: 'app-auth-register',
@@ -10,16 +13,28 @@ import {InvolvementDto} from "../../_transfer";
 export class RegisterComponent implements OnInit, AfterViewInit {
 
   involvements: InvolvementDto;
+  isSecondStep = false;
+  activationCode: string;
 
-  constructor(private involvementService: InvolvementService) {
+  constructor(private involvementService: InvolvementService,
+              private alertService: AlertService,
+              public translate: TranslateService,
+              private authService: AuthService,
+              private route: ActivatedRoute) {
   }
 
   ngOnInit() {
     this.getInvolvementCounters();
+
+    this.activationCode = this.route.snapshot.queryParams['token'];
+    console.info("this.activationCode = " + this.activationCode);
+    if (this.activationCode != undefined) {
+      this.isSecondStep = true;
+    }
   }
 
   ngAfterViewInit(): void {
-    $['HSCore'].components.HSSelect.init('.js-custom-select');
+    // $['HSCore'].components.HSSelect.init('.js-custom-select');
     var counters = $['HSCore'].components.HSCounter.init('[class*="js-counter"]');
     $['HSCore'].components.HSModalWindow.init('[data-modal-target]');
   }

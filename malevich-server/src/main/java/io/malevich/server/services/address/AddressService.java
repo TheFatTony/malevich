@@ -1,4 +1,4 @@
-package io.malevich.server.services.address.country;
+package io.malevich.server.services.address;
 
 
 import io.malevich.server.entity.AddressEntity;

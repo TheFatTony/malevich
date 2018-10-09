@@ -21,6 +21,7 @@ public class AddressEntity implements Entity {
     @Getter
     @Setter
     @Fetch(FetchMode.JOIN)
+    @ManyToOne
     private TraderEntity trader;
 
     @Getter
@@ -33,10 +34,16 @@ public class AddressEntity implements Entity {
 
     @Getter
     @Setter
+    private String state;
+
+    @Getter
+    @Setter
     private String city;
 
     @Getter
     @Setter
+    @Fetch(FetchMode.JOIN)
+    @ManyToOne
     private CountryEntity country;
 
 }

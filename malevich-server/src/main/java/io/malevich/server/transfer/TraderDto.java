@@ -9,6 +9,8 @@ import java.sql.Date;
 @Setter
 public class TraderDto {
 
+    private long id;
+
     private PersonDto person;
 
     private UserDto user;

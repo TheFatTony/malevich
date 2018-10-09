@@ -11,6 +11,7 @@ public class AddressDto {
     private TraderDto trader;
     private String street;
     private String postalCode;
+    private String state;
     private String city;
     private CountryDto country;
 

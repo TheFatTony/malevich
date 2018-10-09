@@ -12,5 +12,6 @@
     <include relativeToChangelogFile="true" file="constraints/trader.constraint.xml"/>
     <include relativeToChangelogFile="true" file="constraints/category.constraint.xml"/>
     <include relativeToChangelogFile="true" file="constraints/artwork.constraint.xml"/>
+    <include relativeToChangelogFile="true" file="constraints/address.constraint.xml"/>
 
 </databaseChangeLog>

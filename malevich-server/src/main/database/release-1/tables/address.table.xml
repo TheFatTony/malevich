@@ -15,6 +15,9 @@
 			<column name="postal_code" type="varchar(50)">
 				<constraints nullable="false"/>
 			</column>
+			<column name="state" type="varchar(100)">
+				<constraints nullable="false"/>
+			</column>
 			<column name="city" type="varchar(100)">
 				<constraints nullable="false"/>
 			</column>

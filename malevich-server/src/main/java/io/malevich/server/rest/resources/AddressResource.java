@@ -1,10 +1,8 @@
 package io.malevich.server.rest.resources;
 
 import io.malevich.server.entity.AddressEntity;
-import io.malevich.server.entity.CountryEntity;
-import io.malevich.server.services.address.country.AddressService;
+import io.malevich.server.services.address.AddressService;
 import io.malevich.server.transfer.AddressDto;
-import io.malevich.server.transfer.CountryDto;
 import io.malevich.server.transfer.FileDto;
 import org.modelmapper.ModelMapper;
 import org.slf4j.Logger;

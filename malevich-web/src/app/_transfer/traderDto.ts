@@ -5,6 +5,7 @@ import {GenderDto} from "./genderDto";
 import {CountryDto} from "./countryDto";
 
 export class TraderDto {
+  id: number;
   person: PersonDto;
   user: UserDto;
   mobile: string;

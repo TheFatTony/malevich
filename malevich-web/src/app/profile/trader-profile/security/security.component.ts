@@ -1,4 +1,4 @@
-import {AfterViewInit, Component, ElementRef, Inject, LOCALE_ID, OnInit, ViewChild} from '@angular/core';
+import {AfterViewInit, Component, ElementRef, Inject, Input, LOCALE_ID, OnInit, ViewChild} from '@angular/core';
 import {TraderDto} from "../../../_transfer/traderDto";
 import {TranslateService} from "@ngx-translate/core";
 import {TraderService} from "../../../_services/trader.service";
@@ -13,7 +13,7 @@ import {CountryService} from "../../../_services/country.service";
 export class SecurityComponent implements OnInit, AfterViewInit {
 
   isEditing: boolean = false;
-  trader: TraderDto;
+  @Input() trader: TraderDto;
   countries: CountryDto[];
 
   @Inject(LOCALE_ID) public locale: string
@@ -28,7 +28,6 @@ export class SecurityComponent implements OnInit, AfterViewInit {
 
   ngOnInit() {
     this.getCountries();
-    this.getCurrentTrader();
   }
 
   ngAfterViewInit(): void {
@@ -55,14 +54,6 @@ export class SecurityComponent implements OnInit, AfterViewInit {
     this.trader.dateOfBirth = new Date($('#datepickerDefault').val().toString().split('.').reverse().join('-'));
     this.traderService.update(this.trader);
     this.switchMode();
-  }
-
-  getCurrentTrader(): void {
-    this.traderService
-      .getTrader()
-      .subscribe(
-        data => (this.trader = data)
-      );
   }
 
   getCountries(): void {

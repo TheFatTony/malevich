@@ -4,6 +4,7 @@ import {TranslateService} from "@ngx-translate/core";
 import {TraderService} from "../../../_services/trader.service";
 import {CountryDto} from "../../../_transfer/countryDto";
 import {CountryService} from "../../../_services/country.service";
+import {AddressService} from "../../../_services/address.service";
 
 @Component({
   selector: 'app-profile-trader-security',
@@ -12,7 +13,12 @@ import {CountryService} from "../../../_services/country.service";
 })
 export class SecurityComponent implements OnInit, AfterViewInit {
 
-  isEditing: boolean = false;
+  creation: boolean = false;
+  accountEditing: boolean = false;
+  tier0Editing: boolean = false;
+  tier1Editing: boolean = false;
+
+
   @Input() trader: TraderDto;
   countries: CountryDto[];
 
@@ -23,7 +29,8 @@ export class SecurityComponent implements OnInit, AfterViewInit {
 
   constructor(public translate: TranslateService,
               private traderService: TraderService,
-              private countryService: CountryService) {
+              private countryService: CountryService,
+              private addressService: AddressService) {
   }
 
   ngOnInit() {
@@ -45,15 +52,37 @@ export class SecurityComponent implements OnInit, AfterViewInit {
     });
   }
 
-  switchMode() {
-    this.isEditing = !this.isEditing;
+  switchAccountMode() {
+    this.accountEditing = !this.accountEditing;
   }
 
-  update() : void {
+  switchTier0Mode() {
+    this.tier0Editing = !this.tier0Editing;
+  }
+
+  switchTier1Mode() {
+    this.tier1Editing = !this.tier1Editing;
+  }
+
+  private update(){
+    this.traderService.update(this.trader);
+  }
+
+  updateAccount() : void {
+    this.update();
+    this.switchAccountMode();
+  }
+
+  updateTier0() : void {
     this.trader.mobile = $('#mobile').val().toString();
     this.trader.dateOfBirth = new Date($('#datepickerDefault').val().toString().split('.').reverse().join('-'));
-    this.traderService.update(this.trader);
-    this.switchMode();
+    this.update();
+    this.switchTier0Mode();
+  }
+
+  updateTier1() : void {
+    this.update();
+    this.switchTier1Mode()
   }
 
   getCountries(): void {

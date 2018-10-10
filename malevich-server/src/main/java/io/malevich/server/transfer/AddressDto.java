@@ -8,7 +8,6 @@ import lombok.Setter;
 public class AddressDto {
 
     private long id;
-    private TraderDto trader;
     private String street;
     private String postalCode;
     private String state;

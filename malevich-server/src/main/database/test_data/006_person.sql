@@ -11,4 +11,4 @@ VALUES (1, 'Artist 1', 'Artist'),
        (10, 'Artist 10', 'Artist'),
        (11, 'Artist 11', 'Artist'),
        (12, 'Artist 12', 'Artist'),
-       (13, 'Trader 1', 'Trader');
+       (13, 'John', 'Snow');

@@ -34,14 +34,30 @@
         "EMAIL": "E-mail:",
         "GENDER": "Пол:",
         "COUNTRY": "Страна:",
+        "TITLE": "Обращение:",
         "MOBILE": "Номер мобильного телефона:",
         "PASSWORD": "Пароль:",
-        "DATE_OF_BIRTH": "Дата рождения"
+        "DATE_OF_BIRTH": "Дата рождения",
+        "ADDRESS":{
+          "COUNTRY": "Страна:",
+          "STATE": "Область/Край:",
+          "CITY": "Город:",
+          "ZIP": "Почтовый индекс:",
+          "STREET": "Адрес:"
+        }
       },
       "PLACEHOLDER": {
         "FIRST_NAME": "Имя",
         "LAST_NAME": "Фамилия",
-        "EMAIL": "Email"
+        "TITLE": "Как мы можем к вам обращаться?",
+        "EMAIL": "Email",
+        "ADDRESS":{
+          "COUNTRY": "Страна",
+          "STATE": "Область, край, АО и пр.",
+          "City": "Годод",
+          "ZIP": "Почтовый индекс",
+          "STREET": "Адрес, например: ул. Тверская 5, кв. 10"
+        }
       },
       "BUTTON": {
         "EDIT_PROFILE": "Изменить",

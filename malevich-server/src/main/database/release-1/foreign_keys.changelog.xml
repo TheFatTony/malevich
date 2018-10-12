@@ -12,5 +12,6 @@
     <include relativeToChangelogFile="true" file="foreign_keys/trader.foreign_key.xml"/>
     <include relativeToChangelogFile="true" file="foreign_keys/category.foreign_key.xml"/>
     <include relativeToChangelogFile="true" file="foreign_keys/artwork.foreign_key.xml"/>
+    <include relativeToChangelogFile="true" file="foreign_keys/address.foreign_key.xml"/>
 
 </databaseChangeLog>

@@ -1,23 +1,77 @@
 <!-- Login & Security -->
-<!-- Info -->
+<!-- Account Info -->
 <div class="g-brd-around g-brd-gray-light-v4 rounded g-pa-30 g-mb-30">
+
+  <h1 class="h4 g-color-black g-font-weight-400 text-center mb-4">Account
+    <a [hidden]="accountEditing" class="u-icon-v1 g-font-size-16 g-text-underline--none--hover"
+       title="{{'TRADER_PROFILE.SECURITY.BUTTON.EDIT_PROFILE' | translate}}"
+       data-toggle="tooltip"
+       data-placement="top"
+       href="javascript:void(0);"
+       (click)="switchAccountMode()">
+      <span class="u-icon-v1"><i class="icon-finance-023 u-line-icon-pro"></i></span>
+    </a>
+  </h1>
+
   <div class="row">
     <div class="col-8">
-    </div>
-
-    <div class="col-4 text-right">
-      <a *ngIf="!isEditing"
-         class="btn g-brd-around g-brd-gray-light-v3 g-color-gray-dark-v3 g-bg-gray-light-v5 g-bg-gray-light-v4--hover g-font-size-13 rounded g-px-18 g-py-7"
-         (click)="switchMode()">{{'TRADER_PROFILE.SECURITY.BUTTON.EDIT_PROFILE' | translate}}</a>
+      <span
+        class="d-block g-color-text g-font-size-13 mb-1">{{'TRADER_PROFILE.SECURITY.LABEL.EMAIL' | translate}}</span>
+      <span class="d-block">{{trader.user.name}}</span>
     </div>
   </div>
+
+  <hr class="g-brd-gray-light-v4 g-my-20">
+
+  <div class="row">
+    <div class="col-8">
+      <span
+        class="d-block g-color-text g-font-size-13 mb-1">{{'TRADER_PROFILE.SECURITY.LABEL.PASSWORD' | translate}}</span>
+      <span class="d-block">*******</span>
+    </div>
+
+    <div *ngIf="!accountEditing" class="col-4 text-right">
+      <a
+        class="btn g-brd-around g-brd-gray-light-v3 g-color-gray-dark-v3 g-bg-gray-light-v5 g-bg-gray-light-v4--hover g-font-size-13 rounded g-px-18 g-py-7"
+        href="#modal1" data-modal-target="#modal1" data-modal-effect="fadein">{{'TRADER_PROFILE.SECURITY.BUTTON.CHANGE_PASSWORD'
+        | translate}}</a>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-3">
+      <button [hidden]="!accountEditing"
+              (click)="updateAccount()"
+              class="btn btn-block u-btn-primary g-font-size-12 text-uppercase g-py-12 g-px-25 mt-4">
+        {{'TRADER_PROFILE.SECURITY.BUTTON.UPDATE' | translate}}
+      </button>
+    </div>
+
+  </div>
+
+</div>
+<!-- End Account Info -->
+
+<!-- Tier 0 -->
+<div class="g-brd-around g-brd-gray-light-v4 rounded g-pa-30 g-mb-30">
+
+  <h1 class="h4 g-color-black g-font-weight-400 text-center mb-4">Tier 0
+    <a [hidden]="tier0Editing" class="u-icon-v1 g-font-size-16 g-text-underline--none--hover"
+       title="{{'TRADER_PROFILE.SECURITY.BUTTON.EDIT_PROFILE' | translate}}"
+       data-toggle="tooltip"
+       data-placement="top"
+       href="javascript:void(0);"
+       (click)="switchTier0Mode()">
+      <span class="u-icon-v1"><i class="icon-finance-023 u-line-icon-pro"></i></span>
+    </a>
+  </h1>
 
   <div class="row">
     <div class="col-8">
       <span
         class="d-block g-color-text g-font-size-13 mb-1">{{'TRADER_PROFILE.SECURITY.LABEL.FIRST_NAME' | translate}}</span>
-      <span *ngIf="!isEditing" class="d-block">{{trader.person.firstName}}</span>
-      <input *ngIf="isEditing"
+      <span *ngIf="!tier0Editing" class="d-block">{{trader.person.firstName}}</span>
+      <input *ngIf="tier0Editing"
              class="form-control g-color-black g-bg-white g-bg-white--focus g-brd-gray-light-v3 rounded"
              type="text" [(ngModel)]="trader.person.firstName"
              placeholder="{{'TRADER_PROFILE.SECURITY.PLACEHOLDER.FIRST_NAME' | translate}}">
@@ -31,18 +85,13 @@
     <div class="col-8">
       <span
         class="d-block g-color-text g-font-size-13 mb-1">{{'TRADER_PROFILE.SECURITY.LABEL.LAST_NAME' | translate}}</span>
-      <span *ngIf="!isEditing" class="d-block">{{trader.person.lastName}}</span>
-      <input *ngIf="isEditing"
+      <span *ngIf="!tier0Editing" class="d-block">{{trader.person.lastName}}</span>
+      <input *ngIf="tier0Editing"
              class="form-control g-color-black g-bg-white g-bg-white--focus g-brd-gray-light-v3 rounded"
              type="text" [(ngModel)]="trader.person.lastName"
              placeholder="{{'TRADER_PROFILE.SECURITY.PLACEHOLDER.LAST_NAME' | translate}}">
     </div>
 
-    <!--<div class="col-4 text-right">-->
-    <!--<a-->
-    <!--class="btn g-brd-around g-brd-gray-light-v3 g-color-gray-dark-v3 g-bg-gray-light-v5 g-bg-gray-light-v4&#45;&#45;hover g-font-size-13 rounded g-px-18 g-py-7"-->
-    <!--href="#!">Edit</a>-->
-    <!--</div>-->
   </div>
 
   <hr class="g-brd-gray-light-v4 g-my-20">
@@ -50,8 +99,30 @@
   <div class="row">
     <div class="col-8">
       <span
-        class="d-block g-color-text g-font-size-13 mb-1">{{'TRADER_PROFILE.SECURITY.LABEL.EMAIL' | translate}}</span>
-      <span class="d-block">{{trader.user.name}}</span>
+        class="d-block g-color-text g-font-size-13 mb-1">{{'TRADER_PROFILE.SECURITY.LABEL.TITLE' | translate}}</span>
+      <span *ngIf="!tier0Editing" class="d-block">{{trader.title}}</span>
+      <input *ngIf="tier0Editing"
+             class="form-control g-color-black g-bg-white g-bg-white--focus g-brd-gray-light-v3 rounded"
+             type="text" [(ngModel)]="trader.title"
+             placeholder="{{'TRADER_PROFILE.SECURITY.PLACEHOLDER.TITLE' | translate}}">
+    </div>
+
+  </div>
+
+  <hr class="g-brd-gray-light-v4 g-my-20">
+
+  <div class="row">
+    <div class="col-8">
+      <span class="d-block g-color-text g-font-size-13 mb-1">{{'TRADER_PROFILE.SECURITY.LABEL.DATE_OF_BIRTH' | translate}}</span>
+      <span *ngIf="!tier0Editing" class="d-block">{{trader.dateOfBirth | date: 'dd.MM.yyyy':'+0300'}}</span>
+      <div [hidden]="!tier0Editing" class="input-group g-brd-primary--focus">
+        <input #dateOfBirthInput id="datepickerDefault"
+               class="form-control form-control-md u-datepicker-v1 g-brd-right-none rounded-0"
+               type="text" [ngModel]="trader.dateOfBirth | date">
+        <div class="input-group-append">
+          <span class="input-group-text rounded-0 g-color-gray-dark-v5"><i class="icon-calendar"></i></span>
+        </div>
+      </div>
     </div>
   </div>
 
@@ -71,9 +142,9 @@
     <div class="col-8">
       <span
         class="d-block g-color-text g-font-size-13 mb-1">{{'TRADER_PROFILE.SECURITY.LABEL.COUNTRY' | translate}}</span>
-      <span *ngIf="!isEditing" class="d-block">{{trader.country.nameMl[translate.currentLang]}}</span>
-      <select [hidden]="!isEditing" [(ngModel)]="trader.country"
-              class="js-custom-select u-select-v1 g-brd-gray-light-v3 g-color-gray-dark-v5 rounded g-py-12"
+      <span *ngIf="!tier0Editing" class="d-block">{{trader.country.nameMl[translate.currentLang]}}</span>
+      <select [hidden]="!tier0Editing" [(ngModel)]="trader.country"
+              class="js-custom-select u-select-v1 g-color-black g-bg-white g-bg-white--focus g-brd-gray-light-v3 rounded g-py-12"
               data-placeholder="Country"
               data-open-icon="fa fa-angle-down"
               data-close-icon="fa fa-angle-up">
@@ -90,83 +161,159 @@
     <div class="col-8">
       <span
         class="d-block g-color-text g-font-size-13 mb-1">{{'TRADER_PROFILE.SECURITY.LABEL.MOBILE' | translate}}</span>
-      <span *ngIf="!isEditing" class="d-block">{{trader.mobile}}</span>
-      <input #mobileInput id="mobile" [hidden]="!isEditing"
+      <span *ngIf="!tier0Editing" class="d-block">{{trader.mobile}}</span>
+      <input #mobileInput id="mobile" [hidden]="!tier0Editing"
              class="form-control g-color-black g-bg-white g-bg-white--focus g-brd-gray-light-v3 rounded"
              type="text" [(ngModel)]="trader.mobile"
              placeholder="+X (XXX) XXX-XXXX" data-mask="+9 (999) 999-9999">
     </div>
-
-    <!--<div class="col-4 text-right">-->
-    <!--<a-->
-    <!--class="btn g-brd-around g-brd-gray-light-v3 g-color-gray-dark-v3 g-bg-gray-light-v5 g-bg-gray-light-v4&#45;&#45;hover g-font-size-13 rounded g-px-18 g-py-7"-->
-    <!--href="#!">Edit</a>-->
-    <!--</div>-->
   </div>
 
-  <hr class="g-brd-gray-light-v4 g-my-20">
-
   <div class="row">
-    <div class="col-8">
-      <span
-        class="d-block g-color-text g-font-size-13 mb-1">{{'TRADER_PROFILE.SECURITY.LABEL.PASSWORD' | translate}}</span>
-      <span class="d-block">*******</span>
+    <div class="col-3">
+      <button [hidden]="!tier0Editing"
+              (click)="updateTier0()"
+              class="btn btn-block u-btn-primary g-font-size-12 text-uppercase g-py-12 g-px-25 mt-4">
+        {{'TRADER_PROFILE.SECURITY.BUTTON.UPDATE' | translate}}
+      </button>
     </div>
 
-    <div *ngIf="!isEditing" class="col-4 text-right">
-      <a
-        class="btn g-brd-around g-brd-gray-light-v3 g-color-gray-dark-v3 g-bg-gray-light-v5 g-bg-gray-light-v4--hover g-font-size-13 rounded g-px-18 g-py-7"
-        href="#modal1" data-modal-target="#modal1" data-modal-effect="fadein">{{'TRADER_PROFILE.SECURITY.BUTTON.CHANGE_PASSWORD'
-        | translate}}</a>
+  </div>
+
+</div>
+<!-- End Tier 0 -->
+
+<!-- Tier 1 -->
+<div class="g-brd-around g-brd-gray-light-v4 rounded g-pa-30 g-mb-30">
+
+  <h1 class="h4 g-color-black g-font-weight-400 text-center mb-4">Tier 1
+    <a [hidden]="tier1Editing" class="u-icon-v1 g-font-size-16 g-text-underline--none--hover"
+       title="{{'TRADER_PROFILE.SECURITY.BUTTON.EDIT_PROFILE' | translate}}"
+       data-toggle="tooltip"
+       data-placement="top"
+       href="javascript:void(0);"
+       (click)="switchTier1Mode()">
+      <span class="u-icon-v1"><i class="icon-finance-023 u-line-icon-pro"></i></span>
+    </a>
+  </h1>
+
+  <div *ngIf="!tier1Editing">
+    <div class="row">
+      <div class="col-8">
+
+        <!-- Address -->
+
+        <span class="d-block g-color-text g-font-size-13 mb-1">Address:</span>
+
+        <address class="media">
+          <span class="d-block">
+            {{trader.address.street}}
+            <br>
+            {{trader.address.state}} {{trader.address.postalCode}}
+            <br>
+            {{trader.address.city}}
+            <br>
+            {{trader.address.country.nameMl[translate.currentLang]}}
+          </span>
+
+        </address>
+        <!-- End Address -->
+      </div>
     </div>
   </div>
 
-  <hr class="g-brd-gray-light-v4 g-my-20">
+  <div [hidden]="!tier1Editing">
 
-  <div class="row">
-    <div class="col-8">
-      <span class="d-block g-color-text g-font-size-13 mb-1">{{'TRADER_PROFILE.SECURITY.LABEL.DATE_OF_BIRTH' | translate}}</span>
-      <span *ngIf="!isEditing" class="d-block">{{trader.dateOfBirth | date: 'dd.MM.yyyy':'+0300'}}</span>
-      <div [hidden]="!isEditing" class="input-group g-brd-primary--focus">
-        <input #dateOfBirthInput id="datepickerDefault"
-               class="form-control form-control-md u-datepicker-v1 g-brd-right-none rounded-0"
-               type="text" [ngModel]="trader.dateOfBirth | date">
-        <div class="input-group-append">
-          <span class="input-group-text rounded-0 g-color-gray-dark-v5"><i class="icon-calendar"></i></span>
-        </div>
+    <div class="row">
+      <div class="col-8">
+        <span
+          class="d-block g-color-text g-font-size-13 mb-1">{{'TRADER_PROFILE.SECURITY.LABEL.ADDRESS.COUNTRY' | translate}}</span>
+        <select [(ngModel)]="trader.address.country"
+                class="js-custom-select u-select-v1 g-color-black g-bg-white g-bg-white--focus g-brd-gray-light-v3 rounded g-py-12"
+                data-placeholder="Country"
+                data-open-icon="fa fa-angle-down"
+                data-close-icon="fa fa-angle-up">
+          <option [value]="trader.address.country" selected="selected">
+            {{trader.address.country.nameMl[translate.currentLang]}}
+          </option>
+          <option *ngFor="let c of countries" [ngValue]="c">{{c.nameMl[translate.currentLang]}}</option>
+        </select>
+      </div>
+    </div>
+
+    <hr class="g-brd-gray-light-v4 g-my-20">
+
+    <div class="row">
+      <div class="col-8">
+        <span
+          class="d-block g-color-text g-font-size-13 mb-1">{{'TRADER_PROFILE.SECURITY.LABEL.ADDRESS.STATE' | translate}}</span>
+        <input class="form-control g-color-black g-bg-white g-bg-white--focus g-brd-gray-light-v3 rounded"
+               type="text" [(ngModel)]="trader.address.state"
+               placeholder="{{'TRADER_PROFILE.SECURITY.PLACEHOLDER.ADDRESS.STATE' | translate}}">
       </div>
 
     </div>
 
-    <!--<div class="col-4 text-right">-->
-    <!--<a-->
-    <!--class="btn g-brd-around g-brd-gray-light-v3 g-color-gray-dark-v3 g-bg-gray-light-v5 g-bg-gray-light-v4&#45;&#45;hover g-font-size-13 rounded g-px-18 g-py-7"-->
-    <!--href="#!">Edit</a>-->
-    <!--</div>-->
-  </div>
+    <hr class="g-brd-gray-light-v4 g-my-20">
 
-</div>
-<!-- End Info -->
+    <div class="row">
+      <div class="col-8">
+          <span
+            class="d-block g-color-text g-font-size-13 mb-1">{{'TRADER_PROFILE.SECURITY.LABEL.ADDRESS.CITY' | translate}}</span>
+        <input class="form-control g-color-black g-bg-white g-bg-white--focus g-brd-gray-light-v3 rounded"
+               type="text" [(ngModel)]="trader.address.city"
+               placeholder="{{'TRADER_PROFILE.SECURITY.PLACEHOLDER.ADDRESS.CITY' | translate}}">
+      </div>
 
-<div class="row">
-  <div class="col-2">
-    <button [hidden]="!isEditing"
-            (click)="update()"
-            class="btn btn-block u-btn-primary g-font-size-12 text-uppercase g-py-12 g-px-25">
-      {{'TRADER_PROFILE.SECURITY.BUTTON.UPDATE' | translate}}
-    </button>
-  </div>
-
-  <!--
-    <div class="col-1">
-      <a [hidden]="!isEditing"
-         (click)="switchMode()"
-         class="btn u-btn-primary g-font-size-12 text-uppercase g-py-12 g-px-25">
-        {{'TRADER_PROFILE.SECURITY.BUTTON.CANCEL' | translate}}</a>
     </div>
-  -->
+
+    <hr class="g-brd-gray-light-v4 g-my-20">
+
+    <div class="row">
+      <div class="col-8">
+          <span
+            class="d-block g-color-text g-font-size-13 mb-1">{{'TRADER_PROFILE.SECURITY.LABEL.ADDRESS.ZIP' | translate}}</span>
+        <input class="form-control g-color-black g-bg-white g-bg-white--focus g-brd-gray-light-v3 rounded"
+               type="text" [(ngModel)]="trader.address.postalCode"
+               placeholder="{{'TRADER_PROFILE.SECURITY.PLACEHOLDER.ADDRESS.ZIP' | translate}}">
+      </div>
+
+    </div>
+
+    <hr class="g-brd-gray-light-v4 g-my-20">
+
+    <div class="row">
+      <div class="col-8">
+          <span
+            class="d-block g-color-text g-font-size-13 mb-1">{{'TRADER_PROFILE.SECURITY.LABEL.ADDRESS.STREET' | translate}}</span>
+        <input class="form-control g-color-black g-bg-white g-bg-white--focus g-brd-gray-light-v3 rounded"
+               type="text" [(ngModel)]="trader.address.street"
+               placeholder="{{'TRADER_PROFILE.SECURITY.PLACEHOLDER.ADDRESS.STREET' | translate}}">
+      </div>
+
+    </div>
+
+  </div>
+
+  <div class="row">
+    <div class="col-3">
+      <button [hidden]="!tier1Editing"
+              (click)="updateTier1()"
+              class="btn btn-block u-btn-primary g-font-size-12 text-uppercase g-py-12 g-px-25 mt-4">
+        {{'TRADER_PROFILE.SECURITY.BUTTON.UPDATE' | translate}}
+      </button>
+    </div>
+
+  </div>
 
 </div>
+<!-- End Tier 1 -->
+
+<!-- Tier 1 -->
+<div class="g-brd-around g-brd-gray-light-v4 rounded g-pa-30 g-mb-30">
+  <h1 class="h4 g-color-black g-font-weight-400 text-center mb-4">Tier 2</h1>
+</div>
+<!-- End Tier 2 -->
 
 <!-- End Login & Security -->
 

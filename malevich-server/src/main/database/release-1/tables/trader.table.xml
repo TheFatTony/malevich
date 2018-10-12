@@ -1,42 +1,50 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
-				   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-				   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.6.xsd">
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.6.xsd">
 
-	<changeSet author="thefattony" id="trader-table">
-		<createTable tableName="trader">
-			<column name="id" type="bigint">
-				<constraints nullable="false"/>
-			</column>
-			<column name="person_id" type="bigint">
-				<constraints nullable="false"/>
-			</column>
-			<column name="user_id" type="bigint">
-				<constraints nullable="false"/>
-			</column>
-			<column name="mobile" type="varchar(50)"/>
-			<column name="date_of_birth" type="date">
-				<constraints nullable="false"/>
-			</column>
-			<column name="gender_id" type="char(1)">
-				<constraints nullable="false"/>
-			</column>
-			<column name="country_id" type="char(2)">
-				<constraints nullable="false"/>
-			</column>
-			<column name="thumbnail_id" type="bigint"/>
-		</createTable>
-		<modifySql dbms="mysql">
-			<replace replace="clob" with="longtext"/>
-		</modifySql>
-	</changeSet>
+    <changeSet author="thefattony" id="trader-table">
+        <createTable tableName="trader">
+            <column name="id" type="bigint">
+                <constraints nullable="false"/>
+            </column>
+            <column name="person_id" type="bigint">
+                <constraints nullable="false"/>
+            </column>
+            <column name="user_id" type="bigint">
+                <constraints nullable="false"/>
+            </column>
+            <column name="title" type="varchar(100)">
+                <constraints nullable="true"/>
+            </column>
+            <column name="date_of_birth" type="date">
+                <constraints nullable="true"/>
+            </column>
+            <column name="gender_id" type="char(1)">
+                <constraints nullable="true"/>
+            </column>
+            <column name="mobile" type="varchar(50)"/>
+            <column name="country_id" type="char(2)">
+                <constraints nullable="true"/>
+            </column>
+            <column name="address_id" type="bigint">
+                <constraints nullable="true"/>
+            </column>
+            <column name="thumbnail_id" type="bigint">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+        <modifySql dbms="mysql">
+            <replace replace="clob" with="longtext"/>
+        </modifySql>
+    </changeSet>
 
-	<changeSet author="thefattony" id="trader-pk">
-		<addPrimaryKey columnNames="id" constraintName="trader_pk" tableName="trader"/>
-	</changeSet>
+    <changeSet author="thefattony" id="trader-pk">
+        <addPrimaryKey columnNames="id" constraintName="trader_pk" tableName="trader"/>
+    </changeSet>
 
-	<changeSet author="thefattony" id="trader-id-aa" dbms="mysql">
-		<addAutoIncrement columnDataType="bigint" columnName="id" tableName="trader"/>
-	</changeSet>
+    <changeSet author="thefattony" id="trader-id-aa" dbms="mysql">
+        <addAutoIncrement columnDataType="bigint" columnName="id" tableName="trader"/>
+    </changeSet>
 
 </databaseChangeLog>

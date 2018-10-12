@@ -3,7 +3,6 @@ package io.malevich.server.services.address;
 
 import io.malevich.server.entity.AddressEntity;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -15,4 +14,6 @@ public interface AddressService {
     AddressEntity find(Long id);
 
     List<AddressEntity> findByTraderId(Long traderId);
+
+    AddressEntity create(AddressEntity addressEntity);
 }

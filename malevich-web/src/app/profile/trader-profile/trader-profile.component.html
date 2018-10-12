@@ -101,8 +101,8 @@
     <!-- End Profile Settings -->
 
     <div class="col-lg-9 g-mb-50">
-      <app-profile-trader-security [trader]="trader" *ngIf="currentView == 'Security'"></app-profile-trader-security>
-      <app-profile-trader-addresses [trader]="trader" *ngIf="currentView == 'Addresses'"></app-profile-trader-addresses>
+      <app-profile-trader-security [trader]="trader" [countries]="countries" *ngIf="currentView == 'Security'"></app-profile-trader-security>
+      <app-profile-trader-addresses [trader]="trader" [countries]="countries" *ngIf="currentView == 'Addresses'"></app-profile-trader-addresses>
       <app-profile-trader-notifications *ngIf="currentView == 'Notifications'"></app-profile-trader-notifications>
       <app-profile-trader-payment *ngIf="currentView == 'Payment'"></app-profile-trader-payment>
       <app-profile-trader-wallet *ngIf="currentView == 'Wallet'"></app-profile-trader-wallet>

@@ -140,8 +140,7 @@
   <div class="col-md-6 g-mb-30" *ngFor="let address of addresses">
     <!-- Addresses -->
     <div class="g-brd-around g-brd-gray-light-v4 rounded g-pa-30">
-      <div class="g-mb-50">
-        <span class="d-block g-color-gray-dark-v3 g-font-weight-600 mb-2">{{trader.person.firstName}} {{trader.person.lastName}}</span>
+      <div class="g-mb-2">
 
         <!-- Address -->
         <address class="media">
@@ -164,20 +163,20 @@
 
         <!--&lt;!&ndash; Phone &ndash;&gt;-->
         <!--<div class="media">-->
-          <!--<div class="d-flex mr-3">-->
-            <!--<span class="u-icon-v1 g-color-gray-dark-v4"><i class="icon-electronics-005 u-line-icon-pro"></i></span>-->
-          <!--</div>-->
-          <!--<div class="media-body g-color-text">-->
-            <!--+(01) 503­-914­-6317-->
-          <!--</div>-->
+        <!--<div class="d-flex mr-3">-->
+        <!--<span class="u-icon-v1 g-color-gray-dark-v4"><i class="icon-electronics-005 u-line-icon-pro"></i></span>-->
+        <!--</div>-->
+        <!--<div class="media-body g-color-text">-->
+        <!--+(01) 503­-914­-6317-->
+        <!--</div>-->
         <!--</div>-->
         <!--&lt;!&ndash; End Phone &ndash;&gt;-->
       </div>
 
       <!-- Edit/Delete -->
-      <ul class="d-flex align-items-center list-inline mb-0">
+      <!--<ul class="d-flex align-items-center list-inline mb-0">
         <li class="list-inline-item">
-          <a class="u-icon-v1 g-font-size-16 g-text-underline--none--hover" href="#!" title="Edit"
+          <a class="u-icon-v1 g-font-size-16 g-text-underline&#45;&#45;none&#45;&#45;hover" href="#!" title="Edit"
              data-toggle="tooltip"
              data-placement="top">
             <i class="icon-finance-023 u-line-icon-pro"></i>
@@ -185,7 +184,7 @@
         </li>
         <li class="list-inline-item g-width-1 g-height-16 g-bg-gray-light-v2 g-pr-1 ml-2 mr-3"></li>
         <li class="list-inline-item">
-          <a class="u-icon-v1 g-font-size-16 g-text-underline--none--hover" href="#!" title="Delete"
+          <a class="u-icon-v1 g-font-size-16 g-text-underline&#45;&#45;none&#45;&#45;hover" href="#!" title="Delete"
              data-toggle="tooltip"
              data-placement="top">
             <i class="icon-hotel-restaurant-214 u-line-icon-pro"></i>
@@ -195,13 +194,13 @@
         <li class="list-inline-item">
           <label class="form-check-inline u-check d-block u-link-v5 g-color-text g-pl-30 mb-0">
             <input class="g-hidden-xs-up g-pos-abs g-top-0 g-left-0" type="checkbox">
-            <span class="d-block u-check-icon-checkbox-v4 g-absolute-centered--y g-left-0">
-                          <!--<i class="fa" data-check-icon="&#xf00c"></i>-->
+            <span class="d-block u-check-icon-checkbox-v4 g-absolute-centered&#45;&#45;y g-left-0">
+                          &lt;!&ndash;<i class="fa" data-check-icon="&#xf00c"></i>&ndash;&gt;
                         </span>
             Set as Default
           </label>
         </li>
-      </ul>
+      </ul>-->
       <!-- End Edit/Delete -->
     </div>
     <!-- End Addresses -->
@@ -212,35 +211,76 @@
 <div class="g-brd-around g-brd-gray-light-v4 rounded g-pa-30 g-mb-30">
   <h3 class="h5 mb-3">Add Address</h3>
 
-  <form>
-    <div class="row">
-      <div class="col-sm-6 form-group g-mb-20">
-        <label class="g-color-text g-font-size-13">Country</label>
-        <input class="form-control g-brd-gray-light-v4 g-brd-primary--focus g-color-text rounded g-py-13 g-px-15"
-               type="text" placeholder="Country">
-      </div>
-
-      <div class="col-sm-6 form-group g-mb-20">
-        <label class="g-color-text g-font-size-13">City</label>
-        <input class="form-control g-brd-gray-light-v4 g-brd-primary--focus g-color-text rounded g-py-13 g-px-15"
-               type="text" placeholder="City">
-      </div>
-
-      <div class="col-sm-6 form-group g-mb-20">
-        <label class="g-color-text g-font-size-13">Zip Code</label>
-        <input class="form-control g-brd-gray-light-v4 g-brd-primary--focus g-color-text rounded g-py-13 g-px-15"
-               type="text" placeholder="Zip Code">
-      </div>
-
-      <div class="col-sm-6 form-group g-mb-20">
-        <label class="g-color-text g-font-size-13">Address</label>
-        <input class="form-control g-brd-gray-light-v4 g-brd-primary--focus g-color-text rounded g-py-13 g-px-15"
-               type="text" placeholder="Address">
-      </div>
+  <div class="row">
+    <div class="col-8">
+        <span
+          class="d-block g-color-text g-font-size-13 mb-1">{{'TRADER_PROFILE.ADDRESSES.LABEL.COUNTRY' | translate}}</span>
+      <select [(ngModel)]="newAddress.country"
+              class="js-custom-select u-select-v1 g-color-black g-bg-white g-bg-white--focus g-brd-gray-light-v3 rounded g-py-12"
+              data-placeholder="Country"
+              data-open-icon="fa fa-angle-down"
+              data-close-icon="fa fa-angle-up">
+        <option *ngFor="let c of countries" [ngValue]="c">{{c.nameMl[translate.currentLang]}}</option>
+      </select>
     </div>
-  </form>
+  </div>
+
+  <hr class="g-brd-gray-light-v4 g-my-20">
+
+  <div class="row">
+    <div class="col-8">
+        <span
+          class="d-block g-color-text g-font-size-13 mb-1">{{'TRADER_PROFILE.ADDRESSES.LABEL.STATE' | translate}}</span>
+      <input class="form-control g-color-black g-bg-white g-bg-white--focus g-brd-gray-light-v3 rounded"
+             type="text" [(ngModel)]="newAddress.state"
+             placeholder="{{'TRADER_PROFILE.ADDRESSES.PLACEHOLDER.STATE' | translate}}">
+    </div>
+
+  </div>
+
+  <hr class="g-brd-gray-light-v4 g-my-20">
+
+  <div class="row">
+    <div class="col-8">
+          <span
+            class="d-block g-color-text g-font-size-13 mb-1">{{'TRADER_PROFILE.ADDRESSES.LABEL.CITY' | translate}}</span>
+      <input class="form-control g-color-black g-bg-white g-bg-white--focus g-brd-gray-light-v3 rounded"
+             type="text" [(ngModel)]="newAddress.city"
+             placeholder="{{'TRADER_PROFILE.ADDRESSES.PLACEHOLDER.CITY' | translate}}">
+    </div>
+
+  </div>
+
+  <hr class="g-brd-gray-light-v4 g-my-20">
+
+  <div class="row">
+    <div class="col-8">
+          <span
+            class="d-block g-color-text g-font-size-13 mb-1">{{'TRADER_PROFILE.ADDRESSES.LABEL.ZIP' | translate}}</span>
+      <input class="form-control g-color-black g-bg-white g-bg-white--focus g-brd-gray-light-v3 rounded"
+             type="text" [(ngModel)]="newAddress.postalCode"
+             placeholder="{{'TRADER_PROFILE.ADDRESSES.PLACEHOLDER.ZIP' | translate}}">
+    </div>
+
+  </div>
+
+  <hr class="g-brd-gray-light-v4 g-my-20">
+
+  <div class="row">
+    <div class="col-8">
+          <span
+            class="d-block g-color-text g-font-size-13 mb-1">{{'TRADER_PROFILE.ADDRESSES.LABEL.STREET' | translate}}</span>
+      <input class="form-control g-color-black g-bg-white g-bg-white--focus g-brd-gray-light-v3 rounded"
+             type="text" [(ngModel)]="newAddress.street"
+             placeholder="{{'TRADER_PROFILE.ADDRESSES.PLACEHOLDER.STREET' | translate}}">
+    </div>
+
+  </div>
+
 </div>
 <!-- End Contact Form -->
 
-<button class="btn u-btn-primary g-font-size-12 text-uppercase g-py-12 g-px-25" type="submit">Add Address</button>
+<button class="btn u-btn-primary g-font-size-12 text-uppercase g-py-12 g-px-25"
+        (click)="addAddress()"
+        type="submit">Add Address</button>
 <!-- Addresses -->

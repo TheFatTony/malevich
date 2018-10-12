@@ -52,15 +52,15 @@
               Login &amp; Security
             </a>
           </li>
-          <li class="g-py-3">
+   <!--       <li class="g-py-3">
             <a
-              class="d-block align-middle u-link-v5 g-color-text g-color-primary--hover g-bg-gray-light-v5--hover rounded g-pa-3"
+              class="d-block align-middle u-link-v5 g-color-text g-color-primary&#45;&#45;hover g-bg-gray-light-v5&#45;&#45;hover rounded g-pa-3"
               (click)="currentView = 'Addresses'" href="javascript:void(0)">
               <span class="u-icon-v1 g-color-gray-dark-v5 mr-2"><i
                 class="icon-real-estate-027 u-line-icon-pro"></i></span>
               Addresses
             </a>
-          </li>
+          </li>-->
           <li class="g-pb-3">
             <a
               class="d-block align-middle u-link-v5 g-color-text g-color-primary--hover g-bg-gray-light-v5--hover g-color-primary--parent-active g-bg-gray-light-v5--active rounded g-pa-3"
@@ -101,8 +101,8 @@
     <!-- End Profile Settings -->
 
     <div class="col-lg-9 g-mb-50">
-      <app-profile-trader-security *ngIf="currentView == 'Security'"></app-profile-trader-security>
-      <app-profile-trader-addresses *ngIf="currentView == 'Addresses'"></app-profile-trader-addresses>
+      <app-profile-trader-security [trader]="trader" *ngIf="currentView == 'Security'"></app-profile-trader-security>
+      <!--<app-profile-trader-addresses [trader]="trader" *ngIf="currentView == 'Addresses'"></app-profile-trader-addresses>-->
       <app-profile-trader-notifications *ngIf="currentView == 'Notifications'"></app-profile-trader-notifications>
       <app-profile-trader-payment *ngIf="currentView == 'Payment'"></app-profile-trader-payment>
       <app-profile-trader-wallet *ngIf="currentView == 'Wallet'"></app-profile-trader-wallet>

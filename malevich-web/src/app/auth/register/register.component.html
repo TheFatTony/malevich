@@ -7,7 +7,7 @@
         </header>
 
         <app-auth-register-step-one *ngIf="!isSecondStep"></app-auth-register-step-one>
-        <app-auth-register-step-two *ngIf="isSecondStep"></app-auth-register-step-two>
+        <app-auth-register-step-two [activationCode]="activationCode" *ngIf="isSecondStep"></app-auth-register-step-two>
       </div>
 
       <div class="text-center">

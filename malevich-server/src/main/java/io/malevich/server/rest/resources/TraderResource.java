@@ -25,21 +25,11 @@ public class TraderResource {
     @Autowired
     private ModelMapper modelMapper;
 
-
-    private TraderEntity getCurrentTrader() {
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        Object principal = authentication.getPrincipal();
-        UserDetails userDetails = (UserDetails) principal;
-        String username = userDetails.getUsername();
-        TraderEntity traderEntity = traderService.findByUserName(username);
-        return traderEntity;
-    }
-
     @Transactional
     /*@PreAuthorize("hasRole('USER')")*/ //todo hasRole('TRADER')
     @RequestMapping(value = "/current", method = RequestMethod.GET)
     public TraderDto getTrader() {
-        TraderEntity traderEntity = this.getCurrentTrader();
+        TraderEntity traderEntity = traderService.getCurrentTrader();
         return convertToDto(traderEntity);
     }
 
@@ -52,12 +42,16 @@ public class TraderResource {
     @Transactional
     @RequestMapping(value = "/update", method = RequestMethod.PUT)
     public ResponseEntity<Void> update(@RequestBody TraderDto trader){
-        TraderEntity traderEntity = getCurrentTrader();
         TraderEntity newTraderEntity = convertToEntity(trader);
-        newTraderEntity.setId(traderEntity.getId());
-        newTraderEntity.getUser().setId(traderEntity.getUser().getId());
-        newTraderEntity.getPerson().setId(traderEntity.getPerson().getId());
         this.traderService.update(newTraderEntity);
+        return ResponseEntity.ok().build();
+    }
+
+    @Transactional
+    @RequestMapping(value = "/insert/{token}", method = RequestMethod.POST)
+    public ResponseEntity<TraderDto> insert(@RequestBody TraderDto trader, @PathVariable("token") String token){
+        TraderEntity traderEntity = convertToEntity(trader);
+        traderEntity = this.traderService.insert(traderEntity, token);
         return ResponseEntity.ok().build();
     }
 

@@ -6,8 +6,8 @@ import javax.persistence.*;
 
 
 @javax.persistence.Entity
-@Table(name = "orders")
-public class OrdersEntity implements Entity {
+@Table(name = "transactions")
+public class TransactionEntity implements Entity {
 
 
   @Getter
@@ -23,8 +23,8 @@ public class OrdersEntity implements Entity {
 
   @Getter
   @Setter
-  @Column(name = "artwork_id")
-  private long artworkId;
+  @Column(name = "effective_date")
+  private java.sql.Timestamp effectiveDate;
 
   @Getter
   @Setter
@@ -33,8 +33,13 @@ public class OrdersEntity implements Entity {
 
   @Getter
   @Setter
-  @Column(name = "trade_type_id")
-  private String tradeTypeId;
+  @Column(name = "counterparty_id")
+  private long counterpartyId;
+
+  @Getter
+  @Setter
+  @Column(name = "artwork_id")
+  private long artworkId;
 
   @Getter
   @Setter
@@ -43,12 +48,7 @@ public class OrdersEntity implements Entity {
 
   @Getter
   @Setter
-  @Column(name = "effective_date")
-  private java.sql.Timestamp effectiveDate;
-
-  @Getter
-  @Setter
-  @Column(name = "transaction_id")
-  private long transactionId;
+  @Column(name = "quantity")
+  private long quantity;
 
 }

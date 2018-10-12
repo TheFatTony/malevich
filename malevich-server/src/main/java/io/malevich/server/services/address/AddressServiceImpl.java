@@ -32,7 +32,7 @@ public class AddressServiceImpl implements AddressService {
     @Override
     @Transactional(readOnly = true)
     public List<AddressEntity> findByTraderId(Long traderId) {
-        return null;/* this.addressDao.findByTreaderId(traderId);*/
+        return this.addressDao.findByTreaderId(traderId);
     }
 
 }

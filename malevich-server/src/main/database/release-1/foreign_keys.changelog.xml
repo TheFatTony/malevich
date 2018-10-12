@@ -13,5 +13,12 @@
     <include relativeToChangelogFile="true" file="foreign_keys/category.foreign_key.xml"/>
     <include relativeToChangelogFile="true" file="foreign_keys/artwork.foreign_key.xml"/>
     <include relativeToChangelogFile="true" file="foreign_keys/address.foreign_key.xml"/>
+    <include relativeToChangelogFile="true" file="foreign_keys/transaction_type.foreign_key.xml"/>
+    <include relativeToChangelogFile="true" file="foreign_keys/order_type.foreign_key.xml"/>
+    <include relativeToChangelogFile="true" file="foreign_keys/trade_type.foreign_key.xml"/>
+    <include relativeToChangelogFile="true" file="foreign_keys/counterparty_type.foreign_key.xml"/>
+    <include relativeToChangelogFile="true" file="foreign_keys/counterparty.foreign_key.xml"/>
+    <include relativeToChangelogFile="true" file="foreign_keys/orders.foreign_key.xml"/>
+    <include relativeToChangelogFile="true" file="foreign_keys/transactions.foreign_key.xml"/>
 
 </databaseChangeLog>

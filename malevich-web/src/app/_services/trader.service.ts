@@ -25,6 +25,10 @@ export class TraderService {
     return this.putTrader(trader);
   }
 
+  create(trader: TraderDto, activationCode: string) {
+    return this.postTrader(trader, activationCode);
+  }
+
   // Update existing
   private putTrader(trader: TraderDto) {
     const headers = new Headers();
@@ -34,6 +38,21 @@ export class TraderService {
 
     return this.http
       .put<TraderDto>(url, trader)
+      .pipe(first())
+      .subscribe(
+        data => data,
+        error => this.alertService.error(error)
+      );
+  }
+
+  private postTrader(trader: TraderDto, activationCode: string){
+    const headers = new Headers();
+    headers.append('Content-Type', 'application/json');
+
+    const url = this.url + '/insert/' + activationCode;
+
+    return this.http
+      .post<TraderDto>(url, trader)
       .pipe(first())
       .subscribe(
         data => data,

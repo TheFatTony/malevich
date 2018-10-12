@@ -34,17 +34,9 @@
         "EMAIL": "Email:",
         "GENDER": "Gender:",
         "COUNTRY": "Country:",
-        "TITLE": "Title:",
         "MOBILE": "Mobile Phone Number:",
         "PASSWORD": "Password:",
-        "DATE_OF_BIRTH": "Date Of Birth:",
-        "ADDRESS":{
-          "COUNTRY": "Country:",
-          "STATE": "State/Province:",
-          "CITY": "City:",
-          "ZIP": "ZIP/PostalCode:",
-          "STREET": "Address:"
-        }
+        "DATE_OF_BIRTH": "Date Of Birth:"
       },
       "PLACEHOLDER": {
         "FIRST_NAME": "First name",
@@ -64,7 +56,7 @@
         "EDIT_PROFILE": "Edit",
         "UPDATE": "Update",
         "CANCEL": "Cancel",
-        "CHANGE_PASSWORD": "Change Password"
+        "CHANGE_PASSWORD": "Change"
       }
     }
   }

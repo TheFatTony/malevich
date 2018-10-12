@@ -3,6 +3,7 @@ import {TraderDto} from "./traderDto";
 
 export class AddressDto {
   id: number;
+  trader: TraderDto;
   street: string;
   postalCode: string;
   state: string;

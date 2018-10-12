@@ -32,10 +32,5 @@
                                  constraintName="trader_country_fk"
                                  referencedColumnNames="id" referencedTableName="country"/>
     </changeSet>
-
-    <changeSet author="toolstik" id="trader-address-fk">
-        <addForeignKeyConstraint baseColumnNames="address_id" baseTableName="trader"
-                                 constraintName="trader_address_fk"
-                                 referencedColumnNames="id" referencedTableName="address"/>
-    </changeSet>
+    
 </databaseChangeLog>

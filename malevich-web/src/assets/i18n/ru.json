@@ -38,6 +38,8 @@
         "MOBILE": "Номер мобильного телефона:",
         "PASSWORD": "Пароль:",
         "DATE_OF_BIRTH": "Дата рождения",
+        "PASSWORD": "Пароль",
+        "CONFIRM_PASSWORD": "Подтверждение пароля",
         "ADDRESS":{
           "COUNTRY": "Страна:",
           "STATE": "Область/Край:",
@@ -51,6 +53,8 @@
         "LAST_NAME": "Фамилия",
         "TITLE": "Как мы можем к вам обращаться?",
         "EMAIL": "Email",
+        "PASSWORD": "Пароль",
+        "CONFIRM_PASSWORD": "Подтверждение пароля",
         "ADDRESS":{
           "COUNTRY": "Страна",
           "STATE": "Область, край, АО и пр.",

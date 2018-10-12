@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.6.xsd">
+
+    <changeSet author="thefattony" id="trade_type-data" dbms="mysql">
+        <sql endDelimiter="\nGO" splitStatements="true" stripComments="true">
+            INSERT INTO trade_type (id, name, name_ml)
+            VALUES ('GTD_', 'Good till date', JSON_OBJECT('en', 'Good till date', 'ru', 'Good till date')),
+                   ('GTC_', 'Good till cancel', JSON_OBJECT('en', 'Good till cancel', 'ru', 'Good till cancel')),
+                   ('GTT0', 'Good till end of the day', JSON_OBJECT('en', 'Good till end of the day', 'ru', 'Good till end of the day'));
+        </sql>
+    </changeSet>
+
+</databaseChangeLog>

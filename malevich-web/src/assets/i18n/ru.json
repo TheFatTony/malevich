@@ -41,12 +41,16 @@
       "PLACEHOLDER": {
         "FIRST_NAME": "Имя",
         "LAST_NAME": "Фамилия",
-        "EMAIL": "Email"
+        "EMAIL": "Email",
+        "DATE_OF_BIRTH": "Дата рождения",
+        "PASSWORD": "Пароль",
+        "CONFIRM_PASSWORD": "Подтверждение пароля"
       },
       "BUTTON": {
         "EDIT_PROFILE": "Изменить",
         "UPDATE": "Обновить",
         "CANCEL": "Отменить",
+        "SUBMIT": "Применить",
         "CHANGE_PASSWORD": "Сменить пароль"
       }
     }

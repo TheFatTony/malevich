@@ -1,7 +1,6 @@
 package io.malevich.server.services.trader;
 
 import io.malevich.server.entity.TraderEntity;
-import io.malevich.server.entity.UserEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -16,4 +15,8 @@ public interface TraderService {
     TraderEntity findByUserName(String name);
 
     TraderEntity update(TraderEntity trader);
+
+    TraderEntity insert(TraderEntity trader, String token);
+
+    TraderEntity getCurrentTrader();
 }

@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {AfterViewInit, Component, Input, OnInit} from '@angular/core';
 import {TranslateService} from "@ngx-translate/core";
 import {AddressService} from "../../../_services/address.service";
 import {TraderDto} from "../../../_transfer/traderDto";
@@ -10,7 +10,7 @@ import {CountryDto} from "../../../_transfer/countryDto";
   templateUrl: './addresses.component.html',
   styleUrls: ['./addresses.component.css']
 })
-export class AddressesComponent implements OnInit {
+export class AddressesComponent implements OnInit, AfterViewInit {
 
   @Input() trader: TraderDto;
   @Input() countries: CountryDto[];
@@ -23,6 +23,10 @@ export class AddressesComponent implements OnInit {
   }
 
   ngOnInit() {
+
+  }
+
+  ngAfterViewInit(): void {
     this.getAddresses();
   }
 

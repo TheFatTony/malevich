@@ -3,7 +3,6 @@ import {TraderDto} from "../../../_transfer/traderDto";
 import {TranslateService} from "@ngx-translate/core";
 import {TraderService} from "../../../_services/trader.service";
 import {CountryDto} from "../../../_transfer/countryDto";
-import {CountryService} from "../../../_services/country.service";
 
 @Component({
   selector: 'app-profile-trader-security',
@@ -14,7 +13,7 @@ export class SecurityComponent implements OnInit, AfterViewInit {
 
   isEditing: boolean = false;
   @Input() trader: TraderDto;
-  countries: CountryDto[];
+  @Input() countries: CountryDto[];
 
   @Inject(LOCALE_ID) public locale: string
 
@@ -22,12 +21,11 @@ export class SecurityComponent implements OnInit, AfterViewInit {
   @ViewChild ('dateOfBirthInput') dateOfBirthInput: ElementRef;
 
   constructor(public translate: TranslateService,
-              private traderService: TraderService,
-              private countryService: CountryService) {
+              private traderService: TraderService) {
   }
 
   ngOnInit() {
-    this.getCountries();
+
   }
 
   ngAfterViewInit(): void {
@@ -54,14 +52,6 @@ export class SecurityComponent implements OnInit, AfterViewInit {
     this.trader.dateOfBirth = new Date($('#datepickerDefault').val().toString().split('.').reverse().join('-'));
     this.traderService.update(this.trader);
     this.switchMode();
-  }
-
-  getCountries(): void {
-    this.countryService
-      .getCountries()
-      .subscribe(
-        data => (this.countries = data)
-      );
   }
 
 }

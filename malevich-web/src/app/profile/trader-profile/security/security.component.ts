@@ -15,7 +15,7 @@ export class SecurityComponent implements OnInit, AfterViewInit {
   @Input() trader: TraderDto;
   @Input() countries: CountryDto[];
 
-  @Inject(LOCALE_ID) public locale: string
+  @Inject(LOCALE_ID) public locale: string;
 
   @ViewChild ('mobileInput') mobileInput: ElementRef;
   @ViewChild ('dateOfBirthInput') dateOfBirthInput: ElementRef;

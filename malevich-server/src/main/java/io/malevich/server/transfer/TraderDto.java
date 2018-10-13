@@ -13,8 +13,6 @@ public class TraderDto {
 
     private PersonDto person;
 
-    private String title;
-
     private UserDto user;
 
     private String mobile;
@@ -24,8 +22,6 @@ public class TraderDto {
     private GenderDto gender;
 
     private CountryDto country;
-
-    private AddressDto address;
 
     private FileDto thumbnail;
 

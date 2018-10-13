@@ -11,7 +11,7 @@ import java.util.List;
 @Repository
 public interface AddressDao extends JpaRepository<AddressEntity, Long> {
 
-//    @Query("select i from AddressEntity i where i.trader.id = :traderId")
-//    List<AddressEntity> findByTreaderId(@Param("traderId") long traderId);
+    @Query("select i from AddressEntity i where i.trader.id = :traderId")
+    List<AddressEntity> findByTreaderId(@Param("traderId") long traderId);
 
 }

@@ -9,7 +9,7 @@ import {AuthService} from "./_services";
   styleUrls: ['./app.component.css']
 })
 export class AppComponent implements AfterViewInit{
-  title = 'malevich-web';
+  title = 'Malevich.io';
 
   constructor(public translate: TranslateService, public globals: Globals, private loginService: AuthService) {
     translate.addLangs(['en', 'ru']);

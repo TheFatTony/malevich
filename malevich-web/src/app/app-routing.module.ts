@@ -22,6 +22,9 @@ import {ArtistsListComponent} from "./artists/artists-list/artists-list.componen
 import {ArtistsDetailComponent} from "./artists/artists-detail/artists-detail.component";
 import {AuthGuard} from "./_guards/auth.guard";
 
+import {ViewComponent as GalleryProfileSecurityView} from './profile/gallery-profile/view/view.component';
+import {EditComponent as GalleryProfileSecurityEdit} from './profile/gallery-profile/edit/edit.component';
+
 const routes: Routes = [
   {path: '', redirectTo: '/main-page', pathMatch: 'full'},
   {path: 'main-page', component: MainPageComponent},
@@ -36,6 +39,12 @@ const routes: Routes = [
   {path: 'profile/trader', component: TraderProfileComponent, canActivate: [AuthGuard]},
   {path: 'profile/trader/:view', component: TraderProfileComponent, canActivate: [AuthGuard]},
 
+  {
+    path: 'profile/gallery', canActivate: [AuthGuard], children: [
+      {path: 'view', component: GalleryProfileSecurityView, canActivate: [AuthGuard]},
+      {path: 'edit', component: GalleryProfileSecurityEdit, canActivate: [AuthGuard]}
+    ]
+  },
   {path: 'artworks/artworks-list', component: ArtworksListComponent},
   {path: 'artworks/artworks-detail/:id', component: ArtworksDetailComponent},
   {path: 'galleries/galleries-list', component: GalleriesListComponent},

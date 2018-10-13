@@ -55,6 +55,8 @@ import { StepTwoComponent } from './auth/register/step-two/step-two.component';
 import { NavigationComponent } from './profile/gallery-profile/navigation/navigation.component';
 import { ViewComponent as GalleryProfileSecurityView } from './profile/gallery-profile/view/view.component';
 import { EditComponent as GalleryProfileSecurityEdit} from './profile/gallery-profile/edit/edit.component';
+import { ViewComponent as GalleryProfileAddressesView } from './profile/gallery-profile/addresses/view/view.component';
+import { EditComponent as GalleryProfileAddressesEdit} from './profile/gallery-profile/addresses/edit/edit.component';
 
 export function createTranslateLoader(http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
@@ -99,7 +101,9 @@ export function createTranslateLoader(http: HttpClient) {
     StepTwoComponent,
     NavigationComponent,
     GalleryProfileSecurityView,
-    GalleryProfileSecurityEdit
+    GalleryProfileSecurityEdit,
+    GalleryProfileAddressesView,
+    GalleryProfileAddressesEdit
   ],
   imports: [
     BrowserModule,

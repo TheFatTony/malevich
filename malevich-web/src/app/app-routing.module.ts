@@ -24,6 +24,8 @@ import {AuthGuard} from "./_guards/auth.guard";
 
 import {ViewComponent as GalleryProfileSecurityView} from './profile/gallery-profile/view/view.component';
 import {EditComponent as GalleryProfileSecurityEdit} from './profile/gallery-profile/edit/edit.component';
+import { ViewComponent as GalleryProfileAddressesView } from './profile/gallery-profile/addresses/view/view.component';
+import { EditComponent as GalleryProfileAddressesEdit} from './profile/gallery-profile/addresses/edit/edit.component';
 
 const routes: Routes = [
   {path: '', redirectTo: '/main-page', pathMatch: 'full'},
@@ -42,7 +44,9 @@ const routes: Routes = [
   {
     path: 'profile/gallery', canActivate: [AuthGuard], children: [
       {path: 'view', component: GalleryProfileSecurityView, canActivate: [AuthGuard]},
-      {path: 'edit', component: GalleryProfileSecurityEdit, canActivate: [AuthGuard]}
+      {path: 'edit', component: GalleryProfileSecurityEdit, canActivate: [AuthGuard]},
+      {path: 'addresses/view', component: GalleryProfileAddressesView, canActivate: [AuthGuard]},
+      {path: 'addresses/edit', component: GalleryProfileAddressesEdit, canActivate: [AuthGuard]},
     ]
   },
   {path: 'artworks/artworks-list', component: ArtworksListComponent},

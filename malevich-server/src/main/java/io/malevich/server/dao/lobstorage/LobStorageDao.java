@@ -18,7 +18,7 @@ public interface LobStorageDao extends JpaRepository<LobStorageEntity, Long> {
     @Query("select lse from LobStorageEntity lse join fetch lse.file")
     List<LobStorageEntity> findAll();
 
-    @Cacheable(value = "custom")
+    @Cacheable(value = "LobStorageDao.findByFileId")
     @Query("select lse from LobStorageEntity lse join fetch lse.file where lse.file.id = :fileId")
     LobStorageEntity findByFileId(@Param("fileId") Long fileId);
 }

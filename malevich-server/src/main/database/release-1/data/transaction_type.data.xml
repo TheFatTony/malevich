@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.6.xsd">
+
+    <changeSet author="thefattony" id="transaction_type-data" dbms="mysql">
+        <sql endDelimiter="\nGO" splitStatements="true" stripComments="true">
+            INSERT INTO transaction_type (id, name, name_ml)
+            VALUES ('0001', 'Add Balance', JSON_OBJECT('en', 'Add Balance', 'ru', 'Add Balance')),
+                   ('0002', 'Create Artwork', JSON_OBJECT('en', 'Create Artwork', 'ru', 'Create Artwork')),
+                   ('0003', 'Bid', JSON_OBJECT('en', 'Bid', 'ru', 'Bid')),
+                   ('0004', 'Ask', JSON_OBJECT('en', 'Ask', 'ru', 'Ask')),
+                   ('0005', 'Buy/Sell', JSON_OBJECT('en', 'Buy/Sell', 'ru', 'Buy/Sell'));
+        </sql>
+    </changeSet>
+
+</databaseChangeLog>

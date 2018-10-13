@@ -15,7 +15,7 @@ export class SecurityComponent implements OnInit, AfterViewInit {
   @Input() trader: TraderDto;
   @Input() countries: CountryDto[];
 
-  @Inject(LOCALE_ID) public locale: string
+  @Inject(LOCALE_ID) public locale: string;
 
   @ViewChild ('mobileInput') mobileInput: ElementRef;
   @ViewChild ('dateOfBirthInput') dateOfBirthInput: ElementRef;
@@ -32,6 +32,7 @@ export class SecurityComponent implements OnInit, AfterViewInit {
     $['HSCore'].components.HSMaskedInput.init('[data-mask]');
     $['HSCore'].components.HSModalWindow.init('[data-modal-target]');
     $['HSCore'].components.HSDatepicker.init('#datepickerDefault');
+    $['HSCore'].components.HSSelect.init('.js-custom-select');
 
     $(this.mobileInput.nativeElement).on('change', (e) => {
       this.trader.mobile = e.target.value;

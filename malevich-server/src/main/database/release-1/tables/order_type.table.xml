@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.6.xsd">
+
+    <changeSet author="thefattony" id="order_type-table">
+        <createTable tableName="order_type">
+            <column name="id" type="char(3)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="name" type="varchar(400)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+    <changeSet author="thefattony" id="order_type-table-ml" dbms="mysql">
+        <addColumn tableName="order_type">
+            <column name="name_ml" type="json"/>
+        </addColumn>
+    </changeSet>
+
+    <changeSet author="thefattony" id="order_type-pk">
+        <addPrimaryKey columnNames="id" constraintName="order_type_pk" tableName="order_type"/>
+    </changeSet>
+
+</databaseChangeLog>

@@ -1,14 +1,14 @@
 package io.malevich.server.services.trader;
 
 
-import io.malevich.server.dao.person.PersonDao;
-import io.malevich.server.dao.registertoken.RegisterTokenDao;
 import io.malevich.server.dao.trader.TraderDao;
-import io.malevich.server.dao.user.UserDao;
 import io.malevich.server.entity.PersonEntity;
 import io.malevich.server.entity.RegisterTokenEntity;
 import io.malevich.server.entity.TraderEntity;
 import io.malevich.server.entity.UserEntity;
+import io.malevich.server.services.person.PersonService;
+import io.malevich.server.services.registertoken.RegisterTokenService;
+import io.malevich.server.services.user.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -23,19 +23,19 @@ import java.util.List;
 public class TraderServiceImpl implements TraderService {
 
     @Autowired
+    private BCryptPasswordEncoder bCryptPasswordEncoder;
+
+    @Autowired
     private TraderDao traderDao;
 
     @Autowired
-    private UserDao userDao;
+    private UserService userService;
 
     @Autowired
-    private PersonDao personDao;
+    private PersonService personService;
 
     @Autowired
-    private RegisterTokenDao registerTokenDao;
-
-    @Autowired
-    BCryptPasswordEncoder bCryptPasswordEncoder;
+    private RegisterTokenService registerTokenService;
 
     protected TraderServiceImpl() {
     }
@@ -48,10 +48,14 @@ public class TraderServiceImpl implements TraderService {
 
     @Override
     @Transactional(readOnly = true)
-    public TraderEntity find(Long id) { return traderDao.findById(id).get(); }
+    public TraderEntity find(Long id) {
+        return traderDao.findById(id).get();
+    }
 
     @Override
-    public TraderEntity findByUserName(String name) { return traderDao.findByUserName(name).get(); }
+    public TraderEntity findByUserName(String name) {
+        return traderDao.findByUserName(name).get();
+    }
 
     @Override
     @Transactional
@@ -66,16 +70,16 @@ public class TraderServiceImpl implements TraderService {
     @Override
     @Transactional
     public TraderEntity insert(TraderEntity trader, String token) {
-        RegisterTokenEntity registerTokenEntity = this.registerTokenDao.findByToken(token).get();
+        RegisterTokenEntity registerTokenEntity = this.registerTokenService.findByToken(token).get();
         trader.getUser().setName(registerTokenEntity.getUserName());
         trader.getUser().setPassword(bCryptPasswordEncoder.encode(trader.getUser().getPassword()));
         trader.getUser().setActivityFlag(true);
-        UserEntity user = this.userDao.save(trader.getUser());
+        UserEntity user = this.userService.save(trader.getUser());
         trader.setUser(user);
-        PersonEntity person = this.personDao.save(trader.getPerson());
+        PersonEntity person = this.personService.save(trader.getPerson());
         trader.setPerson(person);
         TraderEntity newTrader = traderDao.save(trader);
-        registerTokenDao.delete(registerTokenEntity);
+        registerTokenService.delete(registerTokenEntity);
         return newTrader;
     }
 

@@ -1,5 +1,8 @@
-package com.sample;
+package io.malevich.server.rest.resources;
 
+import io.malevich.server.entity.TransactionEntity;
+import io.malevich.server.services.transaction.TransactionService;
+import io.malevich.server.transfer.TransactionsDto;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -7,19 +10,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.modelmapper.ModelMapper;
 import java.util.stream.Collectors;
 import java.util.List;
-import java.util.List;
-import java.util.List;
-import java.util.List;
-import java.util.List;
-import java.util.List;
 
 
 @RestController
-@RequestMapping(value = "/categories")
-public class TransactionsResource {
+@RequestMapping(value = "/transactions")
+public class TransactionResource {
 
   @Autowired
-  private TransactionsService service;
+  private TransactionService transactionService;
 
   @Autowired
   private ModelMapper modelMapper;
@@ -27,16 +25,16 @@ public class TransactionsResource {
 
   @RequestMapping(value = "/list", method = RequestMethod.GET)
   public List<TransactionsDto> list() {
-  List<TransactionsEntity> allEntries = this.service.findAll();
+  List<TransactionEntity> allEntries = this.transactionService.findAll();
     return allEntries.stream().map(allEntry -> convertToDto(allEntry)).collect(Collectors.toList());
   }
 
-  private TransactionsDto convertToDto(TransactionsEntity entity) {
+  private TransactionsDto convertToDto(TransactionEntity entity) {
     return modelMapper.map(entity, TransactionsDto.class);
   }
 
-  private TransactionsEntity convertToEntity(TransactionsDto dto) {
-    return modelMapper.map(dto, TransactionsEntity.class);
+  private TransactionEntity convertToEntity(TransactionsDto dto) {
+    return modelMapper.map(dto, TransactionEntity.class);
   }
 
 }

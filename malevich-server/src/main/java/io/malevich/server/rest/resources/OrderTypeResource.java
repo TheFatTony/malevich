@@ -18,7 +18,7 @@ import java.util.List;
 
 
 @RestController
-@RequestMapping(value = "/categories")
+@RequestMapping(value = "/ordertype")
 public class OrderTypeResource {
 
   @Autowired

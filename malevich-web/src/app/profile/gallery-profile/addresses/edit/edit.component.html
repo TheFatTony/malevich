@@ -1,0 +1,77 @@
+<section class="g-brd-bottom g-brd-gray-light-v4 g-py-30">
+  <div class="container">
+    <div class="d-sm-flex text-center">
+      <div class="align-self-center">
+        <ul class="u-list-inline">
+          <li class="list-inline-item g-mr-5">
+            <a class="u-link-v5 g-color-text" routerLink="/main-page">{{'INDEX.MAIN_MENU_ITEM' | translate}}</a>
+            <i class="g-color-gray-light-v2 g-ml-5 fa fa-angle-right"></i>
+          </li>
+          <li class="list-inline-item g-mr-5">
+            <a class="u-link-v5 g-color-text" routerLink="/profile/gallery/view">Your Profile</a>
+            <i class="g-color-gray-light-v2 g-ml-5 fa fa-angle-right"></i>
+          </li>
+          <li class="list-inline-item g-mr-5">
+            <a class="u-link-v5 g-color-text" routerLink="/profile/gallery/addresses/view">Addresses</a>
+            <i class="g-color-gray-light-v2 g-ml-5 fa fa-angle-right"></i>
+          </li>
+          <li class="list-inline-item g-color-primary">
+            <span>Edit Addresses</span>
+          </li>
+        </ul>
+      </div>
+
+      <div class="align-self-center ml-auto">
+        <h1 class="h3 mb-0">Edit Addresses</h1>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="container g-pt-70 g-pb-30">
+  <div class="row">
+    <!-- Profile Settings -->
+    <div class="col-lg-3 g-mb-50">
+      <app-profile-gallery-navigation></app-profile-gallery-navigation>
+    </div>
+    <!-- End Profile Settings -->
+
+
+    <!-- Login & Security -->
+    <div class="col-lg-9 g-mb-50">
+
+      <!-- Contact Form -->
+      <div class="g-brd-around g-brd-gray-light-v4 rounded g-pa-30 g-mb-30">
+        <h3 class="h5 mb-3">Add Address</h3>
+
+        <form>
+          <div class="row">
+            <div class="col-sm-6 form-group g-mb-20">
+              <label class="g-color-text g-font-size-13">Country</label>
+              <input class="form-control g-brd-gray-light-v4 g-brd-primary--focus g-color-text rounded g-py-13 g-px-15" type="text" placeholder="Country">
+            </div>
+
+            <div class="col-sm-6 form-group g-mb-20">
+              <label class="g-color-text g-font-size-13">City</label>
+              <input class="form-control g-brd-gray-light-v4 g-brd-primary--focus g-color-text rounded g-py-13 g-px-15" type="text" placeholder="City">
+            </div>
+
+            <div class="col-sm-6 form-group g-mb-20">
+              <label class="g-color-text g-font-size-13">Zip Code</label>
+              <input class="form-control g-brd-gray-light-v4 g-brd-primary--focus g-color-text rounded g-py-13 g-px-15" type="text" placeholder="Zip Code">
+            </div>
+
+            <div class="col-sm-6 form-group g-mb-20">
+              <label class="g-color-text g-font-size-13">Address</label>
+              <input class="form-control g-brd-gray-light-v4 g-brd-primary--focus g-color-text rounded g-py-13 g-px-15" type="text" placeholder="Address">
+            </div>
+          </div>
+        </form>
+      </div>
+      <!-- End Contact Form -->
+
+      <button class="btn u-btn-primary g-font-size-12 text-uppercase g-py-12 g-px-25" type="submit">Add Address</button>
+    </div>
+    <!-- End Login & Security -->
+  </div>
+</div>

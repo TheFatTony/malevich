@@ -12,4 +12,6 @@ public interface PersonService {
     List<PersonEntity> findAll();
 
     PersonEntity find(Long id);
+
+    PersonEntity save(PersonEntity personEntity);
 }

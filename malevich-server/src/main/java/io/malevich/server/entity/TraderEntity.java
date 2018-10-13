@@ -37,10 +37,6 @@ public class TraderEntity implements Entity {
 
     @Getter
     @Setter
-    private String title;
-
-    @Getter
-    @Setter
     @Fetch(FetchMode.JOIN)
     @ManyToOne
     private GenderEntity gender;
@@ -50,12 +46,6 @@ public class TraderEntity implements Entity {
     @Fetch(FetchMode.JOIN)
     @ManyToOne
     private CountryEntity country;
-
-    @Getter
-    @Setter
-    @Fetch(FetchMode.JOIN)
-    @ManyToOne(cascade = CascadeType.ALL)
-    private AddressEntity address;
 
     @Getter
     @Setter

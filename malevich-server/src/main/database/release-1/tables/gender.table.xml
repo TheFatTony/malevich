@@ -12,9 +12,6 @@
                 <constraints nullable="false"/>
             </column>
         </createTable>
-        <modifySql dbms="mysql">
-            <replace replace="clob" with="longtext"/>
-        </modifySql>
     </changeSet>
 
     <changeSet author="thefattony" id="gender-table-ml" dbms="mysql">

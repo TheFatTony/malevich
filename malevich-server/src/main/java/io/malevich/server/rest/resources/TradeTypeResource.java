@@ -13,7 +13,7 @@ import java.util.List;
 
 
 @RestController
-@RequestMapping(value = "/categories")
+@RequestMapping(value = "/tradetype")
 public class TradeTypeResource {
 
   @Autowired

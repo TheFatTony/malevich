@@ -12,7 +12,8 @@ public class TradeTypeEntity implements Entity {
 
   @Getter
   @Setter
-  @Column(name = "id")
+  @Id
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
   private String id;
 
   @Getter

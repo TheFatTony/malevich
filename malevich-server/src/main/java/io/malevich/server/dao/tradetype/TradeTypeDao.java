@@ -7,7 +7,7 @@ import java.util.List;
 
 
 @Repository
-public interface TradeTypeDao extends JpaRepository<TradeTypeEntity, Long> {
+public interface TradeTypeDao extends JpaRepository<TradeTypeEntity, String> {
 
   List<TradeTypeEntity> findAll();
 

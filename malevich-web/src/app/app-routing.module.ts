@@ -31,7 +31,11 @@ const routes: Routes = [
   {path: 'auth/login', component: LoginComponent},
   {path: 'auth/register', component: RegisterComponent},
   {path: 'auth/reset', component: ResetComponent},
+
+  {path: 'profile/trader/security', redirectTo: 'profile/trader', canActivate: [AuthGuard]},
   {path: 'profile/trader', component: TraderProfileComponent, canActivate: [AuthGuard]},
+  {path: 'profile/trader/:view', component: TraderProfileComponent, canActivate: [AuthGuard]},
+
   {path: 'artworks/artworks-list', component: ArtworksListComponent},
   {path: 'artworks/artworks-detail/:id', component: ArtworksDetailComponent},
   {path: 'galleries/galleries-list', component: GalleriesListComponent},

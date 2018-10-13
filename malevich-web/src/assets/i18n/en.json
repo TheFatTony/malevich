@@ -15,18 +15,18 @@
     "ADMIN_MENU_ITEM": "Admin"
   },
   "GRID": {
-    "FILTERS_SHOW" : "Show",
-    "FILTERS_SHOW_ALL" : "All",
-    "FILTERS_SORT_BY" : "Sort By",
-    "FILTERS_SORT_BS" : "Bestseller",
-    "FILTERS_SORT_TR" : "Trending",
-    "FILTERS_SORT_PLTH" : "Price low to high",
-    "FILTERS_SORT_PHTL" : "Price high to low",
-    "FILTERS_PAGE" : "Page",
-    "FILTERS_PAGE_OF" : "of",
-    "FILTERS_FILTER" : "Filter"
+    "FILTERS_SHOW": "Show",
+    "FILTERS_SHOW_ALL": "All",
+    "FILTERS_SORT_BY": "Sort By",
+    "FILTERS_SORT_BS": "Bestseller",
+    "FILTERS_SORT_TR": "Trending",
+    "FILTERS_SORT_PLTH": "Price low to high",
+    "FILTERS_SORT_PHTL": "Price high to low",
+    "FILTERS_PAGE": "Page",
+    "FILTERS_PAGE_OF": "of",
+    "FILTERS_FILTER": "Filter"
   },
-  "TRADER_PROFILE" : {
+  "TRADER_PROFILE": {
     "SECURITY": {
       "LABEL": {
         "FIRST_NAME": "First Name:",
@@ -37,34 +37,36 @@
         "TITLE": "Title:",
         "MOBILE": "Mobile Phone Number:",
         "PASSWORD": "Password:",
-        "DATE_OF_BIRTH": "Date Of Birth:",
-        "ADDRESS":{
-          "COUNTRY": "Country:",
-          "STATE": "State/Province:",
-          "CITY": "City:",
-          "ZIP": "ZIP/PostalCode:",
-          "STREET": "Address:"
-        }
+        "DATE_OF_BIRTH": "Date Of Birth:"
       },
       "PLACEHOLDER": {
         "FIRST_NAME": "First name",
         "LAST_NAME": "Last name",
         "EMAIL": "Email",
         "PASSWORD": "Password",
-        "CONFIRM_PASSWORD": "Confirm Password",
-        "ADDRESS":{
-          "COUNTRY": "Country",
-          "STATE": "State, Province etc.",
-          "City": "City",
-          "ZIP": "ZIP or Postal Code",
-          "STREET": "Address"
-        }
+        "CONFIRM_PASSWORD": "Confirm Password"
       },
       "BUTTON": {
         "EDIT_PROFILE": "Edit",
         "UPDATE": "Update",
         "CANCEL": "Cancel",
         "CHANGE_PASSWORD": "Change Password"
+      }
+    },
+    "ADDRESSES": {
+      "LABEL": {
+        "COUNTRY": "Country:",
+        "STATE": "State/Province:",
+        "CITY": "City:",
+        "ZIP": "ZIP/PostalCode:",
+        "STREET": "Address:"
+      },
+      "PLACEHOLDER": {
+        "COUNTRY": "Country",
+        "STATE": "State, Province etc.",
+        "CITY": "City",
+        "ZIP": "ZIP or Postal Code",
+        "STREET": "Address"
       }
     }
   }

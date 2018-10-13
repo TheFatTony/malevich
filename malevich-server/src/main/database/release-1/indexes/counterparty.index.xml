@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.6.xsd">
+
+    <changeSet author="thefattony" id="counterparty-type_id-index">
+        <createIndex indexName="counterparty_type_id_idx" tableName="counterparty" unique="true">
+            <column name="type_id"/>
+            <column name="trader_id"/>
+            <column name="gallery_id"/>
+        </createIndex>
+    </changeSet>
+
+</databaseChangeLog>

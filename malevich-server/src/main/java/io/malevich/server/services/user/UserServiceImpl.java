@@ -24,4 +24,10 @@ public class UserServiceImpl implements UserService {
     public List<UserEntity> findAll() {
         return userDao.findAll();
     }
+
+    @Override
+    @Transactional
+    public UserEntity save(UserEntity userEntity) {
+        return userDao.save(userEntity);
+    }
 }

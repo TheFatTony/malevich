@@ -13,5 +13,12 @@
     <include relativeToChangelogFile="true" file="tables/category.table.xml"/>
     <include relativeToChangelogFile="true" file="tables/artwork.table.xml"/>
     <include relativeToChangelogFile="true" file="tables/address.table.xml"/>
+    <include relativeToChangelogFile="true" file="tables/transaction_type.table.xml"/>
+    <include relativeToChangelogFile="true" file="tables/order_type.table.xml"/>
+    <include relativeToChangelogFile="true" file="tables/trade_type.table.xml"/>
+    <include relativeToChangelogFile="true" file="tables/counterparty_type.table.xml"/>
+    <include relativeToChangelogFile="true" file="tables/counterparty.table.xml"/>
+    <include relativeToChangelogFile="true" file="tables/orders.table.xml"/>
+    <include relativeToChangelogFile="true" file="tables/transactions.table.xml"/>
 
 </databaseChangeLog>

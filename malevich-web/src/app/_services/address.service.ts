@@ -21,5 +21,20 @@ export class AddressService {
       .get<AddressDto[]>(this.url + '/trader/' + traderId)
       .pipe(map(data => data));
   }
-}
 
+  create(address: AddressDto) {
+    const headers = new Headers();
+    headers.append('Content-Type', 'application/json');
+
+    const url = this.url + '/insert';
+
+    return this.http
+      .post<AddressDto>(url, address)
+      .pipe(first())
+      .subscribe(
+        data => data,
+        error => this.alertService.error(error)
+      );
+  }
+
+}

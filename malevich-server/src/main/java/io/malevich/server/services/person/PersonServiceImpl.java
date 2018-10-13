@@ -32,4 +32,10 @@ public class PersonServiceImpl implements PersonService {
         return this.personDao.findById(id).get();
     }
 
+    @Override
+    @Transactional
+    public PersonEntity save(PersonEntity personEntity) {
+        return personDao.save(personEntity);
+    }
+
 }

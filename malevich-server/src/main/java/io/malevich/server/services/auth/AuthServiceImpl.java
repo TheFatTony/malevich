@@ -1,13 +1,13 @@
 package io.malevich.server.services.auth;
 
 
-import io.malevich.server.dao.accesstoken.AccessTokenDao;
-import io.malevich.server.dao.registertoken.RegisterTokenDao;
 import io.malevich.server.dao.user.UserDao;
-import io.malevich.server.dao.usertype.UserTypeDao;
 import io.malevich.server.entity.*;
 import io.malevich.server.rest.util.JWTUtil;
+import io.malevich.server.services.accesstoken.AccessTokenService;
 import io.malevich.server.services.mailqueue.MailQueueService;
+import io.malevich.server.services.registertoken.RegisterTokenService;
+import io.malevich.server.services.usertype.UserTypeService;
 import io.malevich.server.transfer.AccessTokenDto;
 import io.malevich.server.transfer.LoginFormDto;
 import io.malevich.server.transfer.UserDto;
@@ -37,13 +37,13 @@ public class AuthServiceImpl implements AuthService {
     private UserDao userDao;
 
     @Autowired
-    private UserTypeDao userTypeDao;
+    private UserTypeService userTypeService;
 
     @Autowired
-    private AccessTokenDao accessTokenDao;
+    private AccessTokenService accessTokenService;
 
     @Autowired
-    private RegisterTokenDao registerTokenDao;
+    private RegisterTokenService registerTokenService;
 
     @Autowired
     private JWTUtil jwtUtil;
@@ -53,7 +53,6 @@ public class AuthServiceImpl implements AuthService {
 
     @Autowired
     private MailQueueService mailQueueService;
-
 
     @Autowired
     private VelocityEngine velocityEngine;
@@ -72,14 +71,14 @@ public class AuthServiceImpl implements AuthService {
 
     @Transactional
     public UserEntity findUserByAccessToken(String accessTokenString) {
-        AccessTokenEntity accessTokenEntity = this.accessTokenDao.findByToken(accessTokenString);
+        AccessTokenEntity accessTokenEntity = this.accessTokenService.findByToken(accessTokenString);
 
         if (null == accessTokenEntity) {
             return null;
         }
 
         if (accessTokenEntity.isExpired()) {
-            this.accessTokenDao.delete(accessTokenEntity);
+            this.accessTokenService.delete(accessTokenEntity);
             return null;
         }
 
@@ -118,21 +117,21 @@ public class AuthServiceImpl implements AuthService {
     @Override
     @Transactional
     public RegisterTokenEntity register(String lang, String userName) {
-        UserTypeEntity traderUser = userTypeDao.getOne(2L);
+        UserTypeEntity traderUser = userTypeService.getOne(2L);
 
         RegisterTokenEntity entity = new RegisterTokenEntity();
         entity.setUserName(userName);
         entity.setUserType(traderUser);
         entity.setToken(UUID.randomUUID().toString());
         entity.setEffectiveDate(new java.sql.Timestamp(System.currentTimeMillis()));
-        entity = registerTokenDao.save(entity);
+        entity = registerTokenService.save(entity);
 
 
         VelocityContext context = new VelocityContext();
         context.put("link", "http://localhost:4200/#/auth/register?token=" + entity.getToken());
 
         StringWriter stringWriter = new StringWriter();
-        velocityEngine.mergeTemplate("templates/mail/user_activation_link_template_"+ lang+ ".vm", "UTF-8", context, stringWriter);
+        velocityEngine.mergeTemplate("templates/mail/user_activation_link_template_" + lang + ".vm", "UTF-8", context, stringWriter);
         mailQueueService.create(new MailQueueEntity(entity.getUserName(), messageSource.getMessage("registration.confirm", null, new Locale(lang)), stringWriter.toString()));
 
         return entity;

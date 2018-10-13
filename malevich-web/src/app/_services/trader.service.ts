@@ -1,11 +1,9 @@
 import {Injectable} from '@angular/core';
-import {catchError, first, map} from "rxjs/operators";
-import {HttpClient, HttpErrorResponse} from "@angular/common/http";
+import {first} from "rxjs/operators";
+import {HttpClient} from "@angular/common/http";
 import {TraderDto} from "../_transfer/traderDto";
 import {environment} from "../../environments/environment";
 import {AlertService} from "./alert.service";
-import {combineLatest} from "rxjs-compat/operator/combineLatest";
-import {async} from "rxjs/internal/scheduler/async";
 
 @Injectable({
   providedIn: 'root'

@@ -1,6 +1,5 @@
 package io.malevich.server.dao.country;
 
-import io.malevich.server.entity.CategoryEntity;
 import io.malevich.server.entity.CountryEntity;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.jpa.repository.JpaRepository;

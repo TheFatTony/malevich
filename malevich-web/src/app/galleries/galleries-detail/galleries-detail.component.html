@@ -13,7 +13,7 @@
             <i class="g-color-gray-light-v2 g-ml-5 fa fa-angle-right"></i>
           </li>
           <li class="list-inline-item g-color-primary">
-            <span>{{gallery.organization.legalNameMl[translate.currentLang]}}</span>
+            <span>{{gallery?.organization.legalNameMl[translate.currentLang]}}</span>
           </li>
         </ul>
       </div>
@@ -31,19 +31,19 @@
     <div class="col-lg-9 order-lg-2 g-mb-70">
       <!-- Agent Info -->
       <div class="mb-4">
-        <h2>{{gallery.organization.legalNameMl[translate.currentLang]}}</h2>
+        <h2>{{gallery?.organization.legalNameMl[translate.currentLang]}}</h2>
         <ul class="list-inline g-color-text g-font-weight-600">
-          <li class="list-inline-item">{{gallery.organization.locationMl[translate.currentLang]}}</li>
+          <li class="list-inline-item">{{gallery?.organization.locationMl[translate.currentLang]}}</li>
         </ul>
       </div>
-      <p class="g-line-height-2">{{gallery.descriptionMl[translate.currentLang]}}</p>
+      <p class="g-line-height-2">{{gallery?.descriptionMl[translate.currentLang]}}</p>
       <!-- End Agent Info -->
 
       <hr class="g-brd-gray-light-v3 g-my-50">
     </div>
 
     <div class="col-md-5 col-lg-3 order-lg-1 g-mb-70">
-      <img class="img-fluid w-100 g-mb-30" src="{{url}}{{gallery.image.url}}" alt="Image Description">
+      <img class="img-fluid w-100 g-mb-30" src="{{url}}{{gallery?.image.url}}" alt="Image Description">
 
     </div>
   </div>

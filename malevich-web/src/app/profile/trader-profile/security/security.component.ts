@@ -32,6 +32,7 @@ export class SecurityComponent implements OnInit, AfterViewInit {
     $['HSCore'].components.HSMaskedInput.init('[data-mask]');
     $['HSCore'].components.HSModalWindow.init('[data-modal-target]');
     $['HSCore'].components.HSDatepicker.init('#datepickerDefault');
+    $['HSCore'].components.HSSelect.init('.js-custom-select');
 
     $(this.mobileInput.nativeElement).on('change', (e) => {
       this.trader.mobile = e.target.value;

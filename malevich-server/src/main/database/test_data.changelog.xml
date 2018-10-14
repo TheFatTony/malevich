@@ -48,14 +48,24 @@
                  path="src/main/database/test_data/008_artwork.sql"/>
     </changeSet>
 
-    <changeSet author="toolstik" id="009_trader">
+    <changeSet author="toolstik" id="009_trader-data">
         <sqlFile endDelimiter="\nGO" splitStatements="false" stripComments="false"
                  path="src/main/database/test_data/009_trader.sql"/>
     </changeSet>
 
-    <changeSet author="toolstik" id="010_address">
+    <changeSet author="toolstik" id="010_address-data">
         <sqlFile endDelimiter="\nGO" splitStatements="false" stripComments="false"
                  path="src/main/database/test_data/010_address.sql"/>
+    </changeSet>
+
+    <changeSet author="thefattony" id="011_trader_address-data">
+        <sqlFile endDelimiter="\nGO" splitStatements="false" stripComments="false"
+                 path="src/main/database/test_data/011_trader_address.sql"/>
+    </changeSet>
+
+    <changeSet author="thefattony" id="012_gallery_address-data">
+        <sqlFile endDelimiter="\nGO" splitStatements="false" stripComments="false"
+                 path="src/main/database/test_data/012_gallery_address.sql"/>
     </changeSet>
 
 </databaseChangeLog>

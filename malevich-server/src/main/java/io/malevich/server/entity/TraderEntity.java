@@ -8,6 +8,7 @@ import org.hibernate.annotations.FetchMode;
 
 import javax.persistence.*;
 import java.util.Date;
+import java.util.List;
 
 @javax.persistence.Entity
 @Table(name = "trader")
@@ -57,5 +58,13 @@ public class TraderEntity implements Entity {
     @Fetch(FetchMode.JOIN)
     @ManyToOne
     private FileEntity thumbnail;
+
+    @Getter
+    @Setter
+    @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    @JoinTable(name = "trader_address",
+            joinColumns = @JoinColumn(name = "trader_id"),
+            inverseJoinColumns = @JoinColumn(name = "address_id"))
+    private List<AddressEntity> addresses;
 
 }

@@ -20,12 +20,6 @@ public class AddressEntity implements Entity {
 
     @Getter
     @Setter
-    @Fetch(FetchMode.JOIN)
-    @ManyToOne
-    private TraderEntity trader;
-
-    @Getter
-    @Setter
     private String street;
 
     @Getter

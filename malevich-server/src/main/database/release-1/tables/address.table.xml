@@ -8,9 +8,6 @@
 			<column name="id" type="bigint">
 				<constraints nullable="false"/>
 			</column>
-			<column name="trader_id" type="bigint">
-				<constraints nullable="false"/>
-			</column>
 			<column name="street" type="varchar(500)"/>
 			<column name="postal_code" type="varchar(50)">
 				<constraints nullable="false"/>

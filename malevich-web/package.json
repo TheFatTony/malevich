@@ -35,6 +35,7 @@
     "jquery-ui": "^1.12.1",
     "jquery.maskedinput": "^1.4.1",
     "jqwidgets-scripts": "^6.0.6",
+    "ngx-loading": "^3.0.1",
     "ngx-pagination": "^3.2.0",
     "popper.js": "^1.14.4",
     "rxjs": "6.2.2",

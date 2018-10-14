@@ -1,7 +1,8 @@
-import {AfterViewInit, Component} from '@angular/core';
+import {AfterViewInit, Component, TemplateRef, ViewChild} from '@angular/core';
 import {TranslateService} from "@ngx-translate/core";
 import {Globals} from "./globals";
 import {AuthService} from "./_services";
+import {LoadingService} from "./_services/loading.service";
 
 @Component({
   selector: 'app-root',
@@ -11,7 +12,7 @@ import {AuthService} from "./_services";
 export class AppComponent implements AfterViewInit{
   title = 'Malevich.io';
 
-  constructor(public translate: TranslateService, public globals: Globals, private loginService: AuthService) {
+  constructor(public translate: TranslateService, public globals: Globals, private loginService: AuthService, public loadingService: LoadingService) {
     translate.addLangs(['en', 'ru']);
     translate.setDefaultLang('en');
 

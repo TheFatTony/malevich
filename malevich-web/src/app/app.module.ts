@@ -57,6 +57,8 @@ import { ViewComponent as GalleryProfileSecurityView } from './profile/gallery-p
 import { EditComponent as GalleryProfileSecurityEdit} from './profile/gallery-profile/edit/edit.component';
 import { ViewComponent as GalleryProfileAddressesView } from './profile/gallery-profile/addresses/view/view.component';
 import { EditComponent as GalleryProfileAddressesEdit} from './profile/gallery-profile/addresses/edit/edit.component';
+import {NgxLoadingModule} from "ngx-loading";
+import { LoadingComponent } from './_directives/loading/loading.component';
 
 export function createTranslateLoader(http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
@@ -103,7 +105,8 @@ export function createTranslateLoader(http: HttpClient) {
     GalleryProfileSecurityView,
     GalleryProfileSecurityEdit,
     GalleryProfileAddressesView,
-    GalleryProfileAddressesEdit
+    GalleryProfileAddressesEdit,
+    LoadingComponent
   ],
   imports: [
     BrowserModule,
@@ -115,6 +118,7 @@ export function createTranslateLoader(http: HttpClient) {
         deps: [HttpClient]
       }
     }),
+    NgxLoadingModule.forRoot({}),
     FormsModule,
     ReactiveFormsModule,
     HttpClientModule,

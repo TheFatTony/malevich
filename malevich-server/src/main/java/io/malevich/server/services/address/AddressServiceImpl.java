@@ -3,7 +3,6 @@ package io.malevich.server.services.address;
 
 import io.malevich.server.dao.address.AddressDao;
 import io.malevich.server.entity.AddressEntity;
-import io.malevich.server.entity.TraderEntity;
 import io.malevich.server.services.trader.TraderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -34,18 +33,20 @@ public class AddressServiceImpl implements AddressService {
         return this.addressDao.findById(id).get();
     }
 
-    @Override
-    @Transactional(readOnly = true)
-    public List<AddressEntity> findByTraderId(Long traderId) {
-        return this.addressDao.findByTreaderId(traderId);
-    }
+//    @Override
+//    @Transactional(readOnly = true)
+//    public List<AddressEntity> findByTraderId(Long traderId) {
+//        return this.addressDao.findByTreaderId(traderId);
+//    }
 
-    @Override
-    @Transactional
-    public AddressEntity create(AddressEntity addressEntity) {
-        TraderEntity trader = traderService.getCurrentTrader();
-        addressEntity.setTrader(trader);
-        return this.addressDao.save(addressEntity);
-    }
+
+//    @Override
+//    @Transactional
+//    public AddressEntity create(AddressEntity addressEntity) {
+        // TODO restore
+        //  TraderEntity trader = traderService.getCurrentTrader();
+        //  addressEntity.setTrader(trader);
+//        return this.addressDao.save(addressEntity);
+//    }
 
 }

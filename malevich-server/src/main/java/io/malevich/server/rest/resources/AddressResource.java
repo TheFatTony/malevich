@@ -27,19 +27,19 @@ public class AddressResource {
     @Autowired
     private ModelMapper modelMapper;
 
-    @RequestMapping(value = "/trader/{id}", method = RequestMethod.GET)
-    public List<AddressDto> findByTrader(@PathVariable(value = "id") long traderId) {
-        this.logger.info("list()");
-        List<AddressEntity> allEntries = this.addressService.findByTraderId(traderId);
-        return allEntries.stream().map(allEntry -> convertToDto(allEntry)).collect(Collectors.toList());
-    }
+//    @RequestMapping(value = "/trader/{id}", method = RequestMethod.GET)
+//    public List<AddressDto> findByTrader(@PathVariable(value = "id") long traderId) {
+//        this.logger.info("list()");
+//        List<AddressEntity> allEntries = this.addressService.findByTraderId(traderId);
+//        return allEntries.stream().map(allEntry -> convertToDto(allEntry)).collect(Collectors.toList());
+//    }
 
-    @RequestMapping(value = "/insert", method = RequestMethod.POST)
-    public ResponseEntity<AddressEntity> insert(@RequestBody AddressDto addressDto){
-        AddressEntity addressEntity = convertToEntity(addressDto);
-        addressEntity = this.addressService.create(addressEntity);
-        return ResponseEntity.ok().build();
-    }
+//    @RequestMapping(value = "/insert", method = RequestMethod.POST)
+//    public ResponseEntity<AddressEntity> insert(@RequestBody AddressDto addressDto){
+//        AddressEntity addressEntity = convertToEntity(addressDto);
+//        addressEntity = this.addressService.create(addressEntity);
+//        return ResponseEntity.ok().build();
+//    }
 
     private AddressDto convertToDto(AddressEntity files) {
         AddressDto filesDto = modelMapper.map(files, AddressDto.class);

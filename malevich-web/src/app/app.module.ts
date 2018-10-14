@@ -52,13 +52,18 @@ import { PaymentComponent } from './profile/trader-profile/payment/payment.compo
 import { NotificationsComponent } from './profile/trader-profile/notifications/notifications.component';
 import { StepOneComponent } from './auth/register/step-one/step-one.component';
 import { StepTwoComponent } from './auth/register/step-two/step-two.component';
-import { NavigationComponent } from './profile/gallery-profile/navigation/navigation.component';
+import { NavigationComponent as GalleryProfileNavigation } from './profile/gallery-profile/navigation/navigation.component';
 import { ViewComponent as GalleryProfileSecurityView } from './profile/gallery-profile/view/view.component';
 import { EditComponent as GalleryProfileSecurityEdit} from './profile/gallery-profile/edit/edit.component';
 import { ViewComponent as GalleryProfileAddressesView } from './profile/gallery-profile/addresses/view/view.component';
 import { EditComponent as GalleryProfileAddressesEdit} from './profile/gallery-profile/addresses/edit/edit.component';
 import {NgxLoadingModule} from "ngx-loading";
 import { LoadingComponent } from './_directives/loading/loading.component';
+import { NavigationComponent as TraderProfileNavigation } from './profile/trader-profile/navigation/navigation.component';
+import { ViewComponent as TraderProfileSecurityView } from './profile/trader-profile/view/view.component';
+import { EditComponent as TraderProfileSecurityEdit} from './profile/trader-profile/edit/edit.component';
+// import { ViewComponent as TraderProfileAddressesView } from './profile/trader-profile/addresses/view/view.component';
+// import { EditComponent as TraderProfileAddressesEdit} from './profile/trader-profile/addresses/edit/edit.component';
 
 export function createTranslateLoader(http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
@@ -101,12 +106,17 @@ export function createTranslateLoader(http: HttpClient) {
     NotificationsComponent,
     StepOneComponent,
     StepTwoComponent,
-    NavigationComponent,
+    GalleryProfileNavigation,
     GalleryProfileSecurityView,
     GalleryProfileSecurityEdit,
     GalleryProfileAddressesView,
     GalleryProfileAddressesEdit,
-    LoadingComponent
+    LoadingComponent,
+    TraderProfileNavigation,
+    TraderProfileSecurityView,
+    TraderProfileSecurityEdit,
+    // TraderProfileAddressesView,
+    // TraderProfileAddressesEdit,
   ],
   imports: [
     BrowserModule,

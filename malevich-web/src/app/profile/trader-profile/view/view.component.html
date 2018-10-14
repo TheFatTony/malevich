@@ -1,0 +1,148 @@
+<section class="g-brd-bottom g-brd-gray-light-v4 g-py-30">
+  <div class="container">
+    <div class="d-sm-flex text-center">
+      <div class="align-self-center">
+        <ul class="u-list-inline">
+          <li class="list-inline-item g-mr-5">
+            <a class="u-link-v5 g-color-text" routerLink="/main-page">{{'INDEX.MAIN_MENU_ITEM' | translate}}</a>
+            <i class="g-color-gray-light-v2 g-ml-5 fa fa-angle-right"></i>
+          </li>
+          <li class="list-inline-item g-color-primary">
+            <span>Your Profile</span>
+          </li>
+        </ul>
+      </div>
+
+      <div class="align-self-center ml-auto">
+        <h1 class="h3 mb-0">Your Profile</h1>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="container g-pt-70 g-pb-30">
+  <div class="row">
+    <!-- Profile Settings -->
+    <div class="col-lg-3 g-mb-50">
+      <app-profile-trader></app-profile-trader>
+    </div>
+    <!-- End Profile Settings -->
+
+    <div class="col-lg-9 g-mb-50">
+      <div class="g-brd-around g-brd-gray-light-v4 rounded g-pa-30 g-mb-30">
+        <div class="row">
+          <div class="col-8">
+          </div>
+
+          <div class="col-4 text-right">
+            <a *ngIf="!isEditing"
+               class="btn g-brd-around g-brd-gray-light-v3 g-color-gray-dark-v3 g-bg-gray-light-v5 g-bg-gray-light-v4--hover g-font-size-13 rounded g-px-18 g-py-7"
+               (click)="switchMode()">{{'TRADER_PROFILE.SECURITY.BUTTON.EDIT_PROFILE' | translate}}</a>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-8">
+            <span
+              class="d-block g-color-text g-font-size-13 mb-1">{{'TRADER_PROFILE.SECURITY.LABEL.FIRST_NAME' | translate}}</span>
+            <span class="d-block">{{trader?.person.firstName}}</span>
+          </div>
+
+        </div>
+
+        <hr class="g-brd-gray-light-v4 g-my-20">
+
+        <div class="row">
+          <div class="col-8">
+            <span
+              class="d-block g-color-text g-font-size-13 mb-1">{{'TRADER_PROFILE.SECURITY.LABEL.LAST_NAME' | translate}}</span>
+            <span class="d-block">{{trader?.person.lastName}}</span>
+          </div>
+
+        </div>
+
+        <hr class="g-brd-gray-light-v4 g-my-20">
+
+        <div class="row">
+          <div class="col-8">
+            <span
+              class="d-block g-color-text g-font-size-13 mb-1">{{'TRADER_PROFILE.SECURITY.LABEL.EMAIL' | translate}}</span>
+            <span class="d-block">{{trader?.user.name}}</span>
+          </div>
+        </div>
+
+        <hr class="g-brd-gray-light-v4 g-my-20">
+
+        <div class="row">
+          <div class="col-8">
+      <span
+        class="d-block g-color-text g-font-size-13 mb-1">{{'TRADER_PROFILE.SECURITY.LABEL.GENDER' | translate}}</span>
+            <span class="d-block">{{trader?.gender.nameMl[translate.currentLang]}}</span>
+          </div>
+        </div>
+
+        <hr class="g-brd-gray-light-v4 g-my-20">
+
+        <div class="row">
+          <div class="col-8">
+            <span
+              class="d-block g-color-text g-font-size-13 mb-1">{{'TRADER_PROFILE.SECURITY.LABEL.COUNTRY' | translate}}</span>
+            <span class="d-block">{{trader?.country.nameMl[translate.currentLang]}}</span>
+          </div>
+        </div>
+
+        <hr class="g-brd-gray-light-v4 g-my-20">
+
+        <div class="row">
+          <div class="col-8">
+            <span
+              class="d-block g-color-text g-font-size-13 mb-1">{{'TRADER_PROFILE.SECURITY.LABEL.MOBILE' | translate}}</span>
+            <span class="d-block">{{trader?.mobile}}</span>
+          </div>
+
+        </div>
+
+        <hr class="g-brd-gray-light-v4 g-my-20">
+
+        <div class="row">
+          <div class="col-8">
+      <span
+        class="d-block g-color-text g-font-size-13 mb-1">{{'TRADER_PROFILE.SECURITY.LABEL.PASSWORD' | translate}}</span>
+            <span class="d-block">*******</span>
+          </div>
+
+          <div *ngIf="!isEditing" class="col-4 text-right">
+            <a
+              class="btn g-brd-around g-brd-gray-light-v3 g-color-gray-dark-v3 g-bg-gray-light-v5 g-bg-gray-light-v4--hover g-font-size-13 rounded g-px-18 g-py-7"
+              href="#modal1" data-modal-target="#modal1" data-modal-effect="fadein">{{'TRADER_PROFILE.SECURITY.BUTTON.CHANGE_PASSWORD'
+              | translate}}</a>
+          </div>
+        </div>
+
+        <hr class="g-brd-gray-light-v4 g-my-20">
+
+        <div class="row">
+          <div class="col-8">
+            <span class="d-block g-color-text g-font-size-13 mb-1">{{'TRADER_PROFILE.SECURITY.LABEL.DATE_OF_BIRTH' | translate}}</span>
+            <span class="d-block">{{trader?.dateOfBirth | date: 'dd.MM.yyyy':'+0300'}}</span>
+          </div>
+        </div>
+
+      </div>
+      <!-- End Info -->
+
+      <div class="row">
+        <div class="col-2">
+          <a routerLink="/profile/trader/edit"
+                  class="btn btn-block u-btn-primary g-font-size-12 text-uppercase g-py-12 g-px-25">
+            {{'TRADER_PROFILE.SECURITY.BUTTON.UPDATE' | translate}}
+          </a>
+        </div>
+
+      </div>
+
+      <!-- End Login & Security -->
+    </div>
+
+  </div>
+</div>

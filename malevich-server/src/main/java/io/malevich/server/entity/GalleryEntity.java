@@ -7,6 +7,7 @@ import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
 
 import javax.persistence.*;
+import java.util.List;
 import java.util.Map;
 
 @javax.persistence.Entity
@@ -24,6 +25,12 @@ public class GalleryEntity implements Entity {
     @Fetch(FetchMode.JOIN)
     @OneToOne
     private OrganizationEntity organization;
+
+    @Getter
+    @Setter
+    @Fetch(FetchMode.JOIN)
+    @OneToOne(cascade = CascadeType.DETACH)
+    private UserEntity user;
 
     @Getter
     @Setter
@@ -47,6 +54,14 @@ public class GalleryEntity implements Entity {
     @Convert(converter = JpaConverterJson.class)
     @Column(name = "description_ml")
     private Map<String, String> descriptionMl;
+
+    @Getter
+    @Setter
+    @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    @JoinTable(name = "gallery_address",
+            joinColumns = @JoinColumn(name = "trader_id"),
+            inverseJoinColumns = @JoinColumn(name = "address_id"))
+    private List<AddressEntity> addresses;
 
 
 }

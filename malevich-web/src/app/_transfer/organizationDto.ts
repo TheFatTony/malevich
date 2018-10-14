@@ -1,7 +1,6 @@
 export class OrganizationDto {
   id: number;
   legalName: string;
-  location: string;
+  phoneNumber: string;
   legalNameMl: Map<string, string>;
-  locationMl: Map<string, string>;
 }

@@ -49,14 +49,13 @@ import { AddressesComponent } from './profile/trader-profile/addresses/addresses
 import { WalletComponent } from './profile/trader-profile/wallet/wallet.component';
 import { WishlistComponent } from './profile/trader-profile/wishlist/wishlist.component';
 import { PaymentComponent } from './profile/trader-profile/payment/payment.component';
-import { NotificationsComponent } from './profile/trader-profile/notifications/notifications.component';
+import {NotificationsComponent} from "./profile/trader-profile/notifications/notifications.component";
 import { StepOneComponent } from './auth/register/step-one/step-one.component';
 import { StepTwoComponent } from './auth/register/step-two/step-two.component';
-import { NavigationComponent } from './profile/gallery-profile/navigation/navigation.component';
+import { NavigationComponent as GalleryProfileNavigationComponent} from './profile/gallery-profile/navigation/navigation.component';
 import { ViewComponent as GalleryProfileSecurityView } from './profile/gallery-profile/view/view.component';
 import { EditComponent as GalleryProfileSecurityEdit} from './profile/gallery-profile/edit/edit.component';
-import { ViewComponent as GalleryProfileAddressesView } from './profile/gallery-profile/addresses/view/view.component';
-import { EditComponent as GalleryProfileAddressesEdit} from './profile/gallery-profile/addresses/edit/edit.component';
+import { ViewComponent as GalleryProfileNotificationsComponent} from './profile/gallery-profile/notifications/view/view.component';
 import {NgxLoadingModule} from "ngx-loading";
 import { LoadingComponent } from './_directives/loading/loading.component';
 
@@ -98,14 +97,13 @@ export function createTranslateLoader(http: HttpClient) {
     WalletComponent,
     WishlistComponent,
     PaymentComponent,
-    NotificationsComponent,
+    GalleryProfileNotificationsComponent,
     StepOneComponent,
     StepTwoComponent,
-    NavigationComponent,
+    GalleryProfileNavigationComponent,
     GalleryProfileSecurityView,
     GalleryProfileSecurityEdit,
-    GalleryProfileAddressesView,
-    GalleryProfileAddressesEdit,
+    NotificationsComponent,
     LoadingComponent
   ],
   imports: [

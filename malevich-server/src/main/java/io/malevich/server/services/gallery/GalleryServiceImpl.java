@@ -4,6 +4,9 @@ package io.malevich.server.services.gallery;
 import io.malevich.server.dao.gallery.GalleryDao;
 import io.malevich.server.entity.GalleryEntity;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -30,6 +33,23 @@ public class GalleryServiceImpl implements GalleryService {
     @Transactional(readOnly = true)
     public GalleryEntity find(Long id) {
         return this.galleryDao.findById(id).get();
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public GalleryEntity findByUserName(String name) {
+        return galleryDao.findByUserName(name).get();
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public GalleryEntity getCurrent() {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        Object principal = authentication.getPrincipal();
+        UserDetails userDetails = (UserDetails) principal;
+        String username = userDetails.getUsername();
+        GalleryEntity galleryEntity = findByUserName(username);
+        return galleryEntity;
     }
 
 }

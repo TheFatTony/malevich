@@ -24,8 +24,9 @@ import {AuthGuard} from "./_guards/auth.guard";
 
 import {ViewComponent as GalleryProfileSecurityView} from './profile/gallery-profile/view/view.component';
 import {EditComponent as GalleryProfileSecurityEdit} from './profile/gallery-profile/edit/edit.component';
-import { ViewComponent as GalleryProfileAddressesView } from './profile/gallery-profile/addresses/view/view.component';
-import { EditComponent as GalleryProfileAddressesEdit} from './profile/gallery-profile/addresses/edit/edit.component';
+import {ViewComponent as GalleryProfileAddressesView} from './profile/gallery-profile/addresses/view/view.component';
+import {EditComponent as GalleryProfileAddressesEdit} from './profile/gallery-profile/addresses/edit/edit.component';
+import {ViewComponent} from "./profile/trader-profile/view/view.component";
 
 const routes: Routes = [
   {path: '', redirectTo: '/main-page', pathMatch: 'full'},
@@ -37,9 +38,18 @@ const routes: Routes = [
   {path: 'auth/register', component: RegisterComponent},
   {path: 'auth/reset', component: ResetComponent},
 
-  {path: 'profile/trader/security', redirectTo: 'profile/trader', canActivate: [AuthGuard]},
-  {path: 'profile/trader', component: TraderProfileComponent, canActivate: [AuthGuard]},
-  {path: 'profile/trader/:view', component: TraderProfileComponent, canActivate: [AuthGuard]},
+  // {path: 'profile/trader/security', redirectTo: 'profile/trader', canActivate: [AuthGuard]},
+  // {path: 'profile/trader', component: TraderProfileComponent, canActivate: [AuthGuard]},
+  // {path: 'profile/trader/:view', component: TraderProfileComponent, canActivate: [AuthGuard]},
+
+  {
+    path: 'profile/trader', canActivate: [AuthGuard], children: [
+      {path: 'view', component: ViewComponent, canActivate: [AuthGuard]},
+      {path: 'edit', component: GalleryProfileSecurityEdit, canActivate: [AuthGuard]},
+      {path: 'addresses/view', component: GalleryProfileAddressesView, canActivate: [AuthGuard]},
+      {path: 'addresses/edit', component: GalleryProfileAddressesEdit, canActivate: [AuthGuard]},
+    ]
+  },
 
   {
     path: 'profile/gallery', canActivate: [AuthGuard], children: [

@@ -142,12 +142,88 @@
           </div>
         </div>
 
+        <div *ngIf="trader?.addresses[0] as address">
+
+          <hr class="g-brd-gray-light-v4 g-my-20">
+
+          <div class="row">
+            <div class="col-8">
+              <span
+                class="d-block g-color-text g-font-size-13 mb-1">{{'TRADER_PROFILE.SECURITY.LABEL.ADDRESS.COUNTRY' | translate}}</span>
+              <select [(ngModel)]="address.country"
+                      class="js-custom-select u-select-v1 g-color-black g-bg-white g-bg-white--focus g-brd-gray-light-v3 rounded g-py-12"
+                      data-placeholder="Country"
+                      data-open-icon="fa fa-angle-down"
+                      data-close-icon="fa fa-angle-up">
+                <option [value]="address.country" selected="selected">
+                  {{address.country.nameMl[translate.currentLang]}}
+                </option>
+                <option *ngFor="let c of countries" [ngValue]="c">{{c.nameMl[translate.currentLang]}}</option>
+              </select>
+            </div>
+          </div>
+
+          <hr class="g-brd-gray-light-v4 g-my-20">
+
+          <div class="row">
+            <div class="col-8">
+              <span
+                class="d-block g-color-text g-font-size-13 mb-1">{{'TRADER_PROFILE.SECURITY.LABEL.ADDRESS.STATE' | translate}}</span>
+              <input class="form-control g-color-black g-bg-white g-bg-white--focus g-brd-gray-light-v3 rounded"
+                     type="text" [(ngModel)]="address.state"
+                     placeholder="{{'TRADER_PROFILE.SECURITY.PLACEHOLDER.ADDRESS.STATE' | translate}}">
+            </div>
+
+          </div>
+
+          <hr class="g-brd-gray-light-v4 g-my-20">
+
+          <div class="row">
+            <div class="col-8">
+              <span
+                class="d-block g-color-text g-font-size-13 mb-1">{{'TRADER_PROFILE.SECURITY.LABEL.ADDRESS.CITY' | translate}}</span>
+              <input class="form-control g-color-black g-bg-white g-bg-white--focus g-brd-gray-light-v3 rounded"
+                     type="text" [(ngModel)]="address.city"
+                     placeholder="{{'TRADER_PROFILE.SECURITY.PLACEHOLDER.ADDRESS.CITY' | translate}}">
+            </div>
+
+          </div>
+
+          <hr class="g-brd-gray-light-v4 g-my-20">
+
+          <div class="row">
+            <div class="col-8">
+              <span
+                class="d-block g-color-text g-font-size-13 mb-1">{{'TRADER_PROFILE.SECURITY.LABEL.ADDRESS.ZIP' | translate}}</span>
+              <input class="form-control g-color-black g-bg-white g-bg-white--focus g-brd-gray-light-v3 rounded"
+                     type="text" [(ngModel)]="address.postalCode"
+                     placeholder="{{'TRADER_PROFILE.SECURITY.PLACEHOLDER.ADDRESS.ZIP' | translate}}">
+            </div>
+
+          </div>
+
+          <hr class="g-brd-gray-light-v4 g-my-20">
+
+          <div class="row">
+            <div class="col-8">
+              <span
+                class="d-block g-color-text g-font-size-13 mb-1">{{'TRADER_PROFILE.SECURITY.LABEL.ADDRESS.STREET' | translate}}</span>
+              <input class="form-control g-color-black g-bg-white g-bg-white--focus g-brd-gray-light-v3 rounded"
+                     type="text" [(ngModel)]="address.street"
+                     placeholder="{{'TRADER_PROFILE.SECURITY.PLACEHOLDER.ADDRESS.STREET' | translate}}">
+            </div>
+
+          </div>
+
+        </div>
+
       </div>
       <!-- End Info -->
 
       <div class="row">
         <div class="col-3">
           <a (click)="update()"
+             href="javascript:void(0);"
              class="btn btn-block u-btn-primary g-font-size-12 text-uppercase g-py-12 g-px-25">
             {{'TRADER_PROFILE.SECURITY.BUTTON.UPDATE' | translate}}
           </a>
@@ -155,7 +231,7 @@
 
         <div class="col-3">
           <a routerLink="/profile/trader/view"
-             class="btn u-btn-primary g-font-size-12 text-uppercase g-py-12 g-px-25">
+             class="btn btn-block u-btn-primary g-font-size-12 text-uppercase g-py-12 g-px-25">
             {{'TRADER_PROFILE.SECURITY.BUTTON.CANCEL' | translate}}</a>
         </div>
 

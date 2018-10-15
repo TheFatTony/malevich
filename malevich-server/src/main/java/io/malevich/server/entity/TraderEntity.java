@@ -61,7 +61,7 @@ public class TraderEntity implements Entity {
 
     @Getter
     @Setter
-    @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE}, fetch = FetchType.EAGER)
     @JoinTable(name = "trader_address",
             joinColumns = @JoinColumn(name = "trader_id"),
             inverseJoinColumns = @JoinColumn(name = "address_id"))

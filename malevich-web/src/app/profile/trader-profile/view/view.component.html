@@ -35,9 +35,10 @@
           </div>
 
           <div class="col-4 text-right">
-            <a class="btn g-brd-around g-brd-gray-light-v3 g-color-gray-dark-v3 g-bg-gray-light-v5 g-bg-gray-light-v4--hover g-font-size-13 rounded g-px-18 g-py-7"
-               routerLink="/profile/trader/edit"
-               (click)="switchMode()">{{'TRADER_PROFILE.SECURITY.BUTTON.EDIT_PROFILE' | translate}}</a>
+            <a
+              class="btn g-brd-around g-brd-gray-light-v3 g-color-gray-dark-v3 g-bg-gray-light-v5 g-bg-gray-light-v4--hover g-font-size-13 rounded g-px-18 g-py-7"
+              routerLink="/profile/trader/edit"
+              (click)="switchMode()">{{'TRADER_PROFILE.SECURITY.BUTTON.EDIT_PROFILE' | translate}}</a>
           </div>
         </div>
 
@@ -106,12 +107,12 @@
 
         <div class="row">
           <div class="col-8">
-      <span
-        class="d-block g-color-text g-font-size-13 mb-1">{{'TRADER_PROFILE.SECURITY.LABEL.PASSWORD' | translate}}</span>
+            <span
+              class="d-block g-color-text g-font-size-13 mb-1">{{'TRADER_PROFILE.SECURITY.LABEL.PASSWORD' | translate}}</span>
             <span class="d-block">*******</span>
           </div>
 
-          <div *ngIf="!isEditing" class="col-4 text-right">
+          <div class="col-4 text-right">
             <a
               class="btn g-brd-around g-brd-gray-light-v3 g-color-gray-dark-v3 g-bg-gray-light-v5 g-bg-gray-light-v4--hover g-font-size-13 rounded g-px-18 g-py-7"
               href="#modal1" data-modal-target="#modal1" data-modal-effect="fadein">{{'TRADER_PROFILE.SECURITY.BUTTON.CHANGE_PASSWORD'
@@ -128,13 +129,32 @@
           </div>
         </div>
 
+        <hr class="g-brd-gray-light-v4 g-my-20">
+
+        <!-- Address -->
+        <div class="row" *ngIf="trader?.addresses[0] as address">
+          <div class="col-12">
+            <span class="d-block g-color-text g-font-size-13 mb-1">{{'TRADER_PROFILE.SECURITY.LABEL.ADDRESS' | translate}}</span>
+            <span class="d-block">
+                {{address.street}}
+                <br>
+                {{address.state}} {{address.postalCode}}
+                <br>
+                {{address.city}}
+                <br>
+                {{address.country.nameMl[translate.currentLang]}}
+              </span>
+          </div>
+        </div>
+        <!-- End Address -->
+
       </div>
       <!-- End Info -->
 
       <div class="row">
         <div class="col-2">
           <a routerLink="/profile/trader/edit"
-                  class="btn btn-block u-btn-primary g-font-size-12 text-uppercase g-py-12 g-px-25">
+             class="btn btn-block u-btn-primary g-font-size-12 text-uppercase g-py-12 g-px-25">
             {{'TRADER_PROFILE.SECURITY.BUTTON.UPDATE' | translate}}
           </a>
         </div>

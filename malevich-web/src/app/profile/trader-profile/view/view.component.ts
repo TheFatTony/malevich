@@ -1,9 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import {TraderDto} from "../../../_transfer/traderDto";
 import {CountryDto} from "../../../_transfer/countryDto";
-import {ActivatedRoute, Params} from "@angular/router";
 import {TraderService} from "../../../_services/trader.service";
-import {CountryService} from "../../../_services/country.service";
+import {TranslateService} from "@ngx-translate/core";
 
 @Component({
   selector: 'app-profile-trader-security-view',
@@ -12,24 +11,15 @@ import {CountryService} from "../../../_services/country.service";
 })
 export class ViewComponent implements OnInit {
 
-  currentView: string = 'security';
-
   trader: TraderDto;
   countries: CountryDto[];
 
-  constructor(private route: ActivatedRoute,
-              private traderService: TraderService,
-              private countryService: CountryService) {
-    this.route.params.forEach((params: Params) => {
-      if(params['view']) {
-        this.currentView = params['view'];
-      }
-    });
+  constructor(public translate: TranslateService,
+              private traderService: TraderService) {
   }
 
   ngOnInit() {
     this.getCurrentTrader();
-    this.getCountries();
   }
 
   ngAfterViewInit(): void {
@@ -40,14 +30,6 @@ export class ViewComponent implements OnInit {
       .getTrader()
       .subscribe(
         data => (this.trader = data)
-      );
-  }
-
-  getCountries(): void {
-    this.countryService
-      .getCountries()
-      .subscribe(
-        data => (this.countries = data)
       );
   }
 

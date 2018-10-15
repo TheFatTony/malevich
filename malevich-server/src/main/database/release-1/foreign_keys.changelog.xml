@@ -11,6 +11,8 @@
     <include relativeToChangelogFile="true" file="foreign_keys/artist.foreign_key.xml"/>
     <include relativeToChangelogFile="true" file="foreign_keys/trader.foreign_key.xml"/>
     <include relativeToChangelogFile="true" file="foreign_keys/category.foreign_key.xml"/>
+    <include relativeToChangelogFile="true" file="foreign_keys/trader_address.foreign_key.xml"/>
+    <include relativeToChangelogFile="true" file="foreign_keys/gallery_address.foreign_key.xml"/>
     <include relativeToChangelogFile="true" file="foreign_keys/artwork.foreign_key.xml"/>
     <include relativeToChangelogFile="true" file="foreign_keys/address.foreign_key.xml"/>
     <include relativeToChangelogFile="true" file="foreign_keys/transaction_type.foreign_key.xml"/>

@@ -4,6 +4,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.sql.Date;
+import java.util.List;
 
 @Getter
 @Setter
@@ -24,5 +25,7 @@ public class TraderDto {
     private CountryDto country;
 
     private FileDto thumbnail;
+
+    private List<AddressDto> addresses;
 
 }

@@ -2,12 +2,6 @@
 <databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
                    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
                    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.6.xsd">
-    
-    <changeSet author="toolstik" id="address-trader-fk">
-        <addForeignKeyConstraint baseColumnNames="trader_id" baseTableName="address"
-                                 constraintName="address_trader_fk"
-                                 referencedColumnNames="id" referencedTableName="trader"/>
-    </changeSet>
 
     <changeSet author="toolstik" id="address-country-fk">
         <addForeignKeyConstraint baseColumnNames="country_id" baseTableName="address"

@@ -64,6 +64,10 @@ p {
   color: #e44235 !important;
 }
 
+.g-color-primary--active.active {
+  color: #e44235 !important;
+}
+
 .u-block-hover:hover .g-color-primary--hover, .g-color-primary--hover:hover {
   color: #e44235 !important;
 }

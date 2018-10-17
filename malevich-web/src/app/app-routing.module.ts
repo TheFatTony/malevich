@@ -13,7 +13,6 @@ import {ContactComponent} from "./main/contact/contact.component";
 import {LoginComponent} from "./auth/login/login.component";
 import {RegisterComponent} from "./auth/register/register.component";
 import {ResetComponent} from "./auth/reset/reset.component";
-import {TraderProfileComponent} from "./profile/trader-profile/trader-profile.component";
 import {ArtworksListComponent} from "./artworks/artworks-list/artworks-list.component";
 import {ArtworksDetailComponent} from "./artworks/artworks-detail/artworks-detail.component";
 import {GalleriesListComponent} from "./galleries/galleries-list/galleries-list.component";
@@ -24,8 +23,14 @@ import {AuthGuard} from "./_guards/auth.guard";
 
 import {ViewComponent as GalleryProfileSecurityView} from './profile/gallery-profile/view/view.component';
 import {EditComponent as GalleryProfileSecurityEdit} from './profile/gallery-profile/edit/edit.component';
-import { ViewComponent as GalleryProfileAddressesView } from './profile/gallery-profile/addresses/view/view.component';
-import { EditComponent as GalleryProfileAddressesEdit} from './profile/gallery-profile/addresses/edit/edit.component';
+import {ViewComponent as GalleryProfileAddressesView} from './profile/gallery-profile/addresses/view/view.component';
+import {EditComponent as GalleryProfileAddressesEdit} from './profile/gallery-profile/addresses/edit/edit.component';
+import {ViewComponent as TraderProfileSecurityView} from "./profile/trader-profile/view/view.component";
+import {EditComponent as TraderProfileSecurityEdit} from "./profile/trader-profile/edit/edit.component";
+import {PaymentComponent} from "./profile/trader-profile/payment/payment.component";
+import {WalletComponent} from "./profile/trader-profile/wallet/wallet.component";
+import {WishlistComponent} from "./profile/trader-profile/wishlist/wishlist.component";
+import {NotificationsComponent} from "./profile/trader-profile/notifications/notifications.component";
 
 const routes: Routes = [
   {path: '', redirectTo: '/main-page', pathMatch: 'full'},
@@ -37,9 +42,20 @@ const routes: Routes = [
   {path: 'auth/register', component: RegisterComponent},
   {path: 'auth/reset', component: ResetComponent},
 
-  {path: 'profile/trader/security', redirectTo: 'profile/trader', canActivate: [AuthGuard]},
-  {path: 'profile/trader', component: TraderProfileComponent, canActivate: [AuthGuard]},
-  {path: 'profile/trader/:view', component: TraderProfileComponent, canActivate: [AuthGuard]},
+  // {path: 'profile/trader/security', redirectTo: 'profile/trader', canActivate: [AuthGuard]},
+  // {path: 'profile/trader', component: TraderProfileComponent, canActivate: [AuthGuard]},
+  // {path: 'profile/trader/:view', component: TraderProfileComponent, canActivate: [AuthGuard]},
+
+  {
+    path: 'profile/trader', canActivate: [AuthGuard], children: [
+      {path: 'view', component: TraderProfileSecurityView, canActivate: [AuthGuard]},
+      {path: 'edit', component: TraderProfileSecurityEdit, canActivate: [AuthGuard]},
+      {path: 'payment', component: PaymentComponent, canActivate: [AuthGuard]},
+      {path: 'wallet', component: WalletComponent, canActivate: [AuthGuard]},
+      {path: 'wishlist', component: WishlistComponent, canActivate: [AuthGuard]},
+      {path: 'notifications', component: NotificationsComponent, canActivate: [AuthGuard]},
+    ]
+  },
 
   {
     path: 'profile/gallery', canActivate: [AuthGuard], children: [

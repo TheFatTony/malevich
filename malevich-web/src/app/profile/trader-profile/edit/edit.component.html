@@ -40,7 +40,7 @@
             <span
               class="d-block g-color-text g-font-size-13 mb-1">{{'TRADER_PROFILE.SECURITY.LABEL.FIRST_NAME' | translate}}</span>
             <input class="form-control g-color-black g-bg-white g-bg-white--focus g-brd-gray-light-v3 rounded"
-                   type="text" [(ngModel)]="trader.person.firstName"
+                   type="text" [(ngModel)]="trader?.person.firstName"
                    placeholder="{{'TRADER_PROFILE.SECURITY.PLACEHOLDER.FIRST_NAME' | translate}}">
           </div>
         </div>
@@ -52,7 +52,7 @@
             <span
               class="d-block g-color-text g-font-size-13 mb-1">{{'TRADER_PROFILE.SECURITY.LABEL.LAST_NAME' | translate}}</span>
             <input class="form-control g-color-black g-bg-white g-bg-white--focus g-brd-gray-light-v3 rounded"
-                   type="text" [(ngModel)]="trader.person.lastName"
+                   type="text" [(ngModel)]="trader?.person.lastName"
                    placeholder="{{'TRADER_PROFILE.SECURITY.PLACEHOLDER.LAST_NAME' | translate}}">
           </div>
         </div>
@@ -79,16 +79,15 @@
 
         <hr class="g-brd-gray-light-v4 g-my-20">
 
-        <div class="row">
+        <div class="row" *ngIf="countries">
           <div class="col-8">
             <span
               class="d-block g-color-text g-font-size-13 mb-1">{{'TRADER_PROFILE.SECURITY.LABEL.COUNTRY' | translate}}</span>
-            <select [(ngModel)]="trader.country" style="width: 100%;"
-                    class="js-custom-select u-select-v1 g-brd-gray-light-v3 g-color-gray-dark-v5 rounded g-py-12"
-                    data-placeholder="Country"
+            <select [ngModel]="trader?.country" (ngModelChange)="trader.country=$event" style="width: 100%;"
+                    class="js-custom-select u-select-v1 g-color-black g-bg-white g-bg-white--focus g-brd-gray-light-v3 rounded g-py-12"
                     data-open-icon="fa fa-angle-down"
                     data-close-icon="fa fa-angle-up">
-              <option [value]="trader?.country" selected="selected">{{trader?.country.nameMl[translate.currentLang]}}
+              <option [value]="trader.country" selected>{{trader?.country.nameMl[translate.currentLang]}}
               </option>
               <option *ngFor="let c of countries" [ngValue]="c">{{c.nameMl[translate.currentLang]}}</option>
             </select>
@@ -103,7 +102,7 @@
               class="d-block g-color-text g-font-size-13 mb-1">{{'TRADER_PROFILE.SECURITY.LABEL.MOBILE' | translate}}</span>
             <input #mobileInput id="mobile"
                    class="form-control g-color-black g-bg-white g-bg-white--focus g-brd-gray-light-v3 rounded"
-                   type="text" [(ngModel)]="trader.mobile"
+                   type="text" [ngModel]="trader?.mobile" (ngModelChange)="trader.mobile=$event"
                    placeholder="+X (XXX) XXX-XXXX" data-mask="+9 (999) 999-9999">
           </div>
         </div>
@@ -133,7 +132,7 @@
             <div class="input-group g-brd-primary--focus">
               <input #dateOfBirthInput id="datepickerDefault"
                      class="form-control form-control-md u-datepicker-v1 g-brd-right-none rounded-0"
-                     type="text" [ngModel]="trader.dateOfBirth | date">
+                     type="text" [ngModel]="trader?.dateOfBirth | date">
               <div class="input-group-append">
                 <span class="input-group-text rounded-0 g-color-gray-dark-v5"><i class="icon-calendar"></i></span>
               </div>
@@ -142,7 +141,7 @@
           </div>
         </div>
 
-        <div *ngIf="trader?.addresses[0] as address">
+        <div *ngIf="countries && trader?.addresses[0] as address">
 
           <hr class="g-brd-gray-light-v4 g-my-20">
 
@@ -152,9 +151,9 @@
                 class="d-block g-color-text g-font-size-13 mb-1">{{'TRADER_PROFILE.SECURITY.LABEL.ADDRESS.COUNTRY' | translate}}</span>
               <select [(ngModel)]="address.country"
                       class="js-custom-select u-select-v1 g-color-black g-bg-white g-bg-white--focus g-brd-gray-light-v3 rounded g-py-12"
-                      data-placeholder="Country"
                       data-open-icon="fa fa-angle-down"
-                      data-close-icon="fa fa-angle-up">
+                      data-close-icon="fa fa-angle-up"
+                      style="width: 100%">
                 <option [value]="address.country" selected="selected">
                   {{address.country.nameMl[translate.currentLang]}}
                 </option>

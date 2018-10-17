@@ -32930,7 +32930,7 @@ svg.g-transition--linear polygon {
 
 /* Primary Colors */
 .g-color-primary {
-  color: #3bb18f !important;
+  color: #3bb18f;
 }
 
 .u-block-hover:hover .g-color-primary--hover, .g-color-primary--hover:hover {

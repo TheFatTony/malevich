@@ -4,6 +4,7 @@ import {CountryDto} from "../../../_transfer/countryDto";
 import {TranslateService} from "@ngx-translate/core";
 import {TraderService} from "../../../_services/trader.service";
 import {CountryService} from "../../../_services/country.service";
+import {Observable} from "rxjs";
 
 @Component({
   selector: 'trader-profile-security-edit',
@@ -32,10 +33,10 @@ export class EditComponent implements OnInit, AfterViewInit {
   }
 
   ngAfterViewInit(): void {
+    $['HSCore'].components.HSSelect.init('.js-custom-select');
     $['HSCore'].components.HSMaskedInput.init('[data-mask]');
     $['HSCore'].components.HSModalWindow.init('[data-modal-target]');
     $['HSCore'].components.HSDatepicker.init('#datepickerDefault');
-    $['HSCore'].components.HSSelect.init('.js-custom-select');
 
     $(this.mobileInput.nativeElement).on('change', (e) => {
       this.trader.mobile = e.target.value;

@@ -3,6 +3,7 @@ package io.malevich.server.services.gallery;
 
 import io.malevich.server.dao.gallery.GalleryDao;
 import io.malevich.server.entity.GalleryEntity;
+import io.malevich.server.entity.TraderEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -53,6 +54,19 @@ public class GalleryServiceImpl implements GalleryService {
         String username = userDetails.getUsername();
         GalleryEntity galleryEntity = findByUserName(username);
         return galleryEntity;
+    }
+
+    @Override
+    @Transactional
+    public GalleryEntity update(GalleryEntity newEntity) {
+        GalleryEntity traderEntity = getCurrent();
+        traderEntity.setAddresses(newEntity.getAddresses());
+        traderEntity.setDescription(newEntity.getDescription());
+        traderEntity.setDescriptionMl(newEntity.getDescriptionMl());
+        traderEntity.setOrganization(newEntity.getOrganization());
+        traderEntity.setImage(newEntity.getImage());
+        traderEntity.setThumbnail(newEntity.getThumbnail());
+        return galleryDao.save(traderEntity);
     }
 
 }

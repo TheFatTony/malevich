@@ -70,5 +70,10 @@
         "CHANGE_PASSWORD": "Сменить пароль"
       }
     }
+  },
+  "GALLERY_PROFILE": {
+    "TITLE": "Ваш профиль",
+    "NOTIFICATIONS": "Оповещения",
+    "EDIT_PROFILE": "Обновить Ваш профиль"
   }
 }

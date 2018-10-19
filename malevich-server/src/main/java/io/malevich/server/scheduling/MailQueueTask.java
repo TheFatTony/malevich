@@ -13,7 +13,7 @@ public class MailQueueTask {
     private MailQueueService mailQueueService;
 
 
-//    @Scheduled(initialDelay = 2000, fixedRate = 10000)
+    @Scheduled(initialDelay = 2000, fixedRate = 10000)
     public void reportCurrentTime() {
         mailQueueService.sendAllMail();
     }

@@ -14,6 +14,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.web.authentication.preauth.PreAuthenticatedCredentialsNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -88,6 +89,10 @@ public class TraderServiceImpl implements TraderService {
     public TraderEntity getCurrentTrader() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         Object principal = authentication.getPrincipal();
+
+        if (!(principal instanceof UserDetails))
+            throw new PreAuthenticatedCredentialsNotFoundException(null);
+
         UserDetails userDetails = (UserDetails) principal;
         String username = userDetails.getUsername();
         TraderEntity traderEntity = findByUserName(username);

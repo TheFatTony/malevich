@@ -1,18 +1,21 @@
 package io.malevich.server.services.auth;
 
 
-import io.malevich.server.dao.user.UserDao;
 import io.malevich.server.entity.*;
 import io.malevich.server.rest.util.JWTUtil;
 import io.malevich.server.services.accesstoken.AccessTokenService;
 import io.malevich.server.services.mailqueue.MailQueueService;
 import io.malevich.server.services.registertoken.RegisterTokenService;
+import io.malevich.server.services.resetpasswordtoken.ResetPasswordTokenService;
+import io.malevich.server.services.user.UserService;
 import io.malevich.server.services.usertype.UserTypeService;
 import io.malevich.server.transfer.AccessTokenDto;
 import io.malevich.server.transfer.LoginFormDto;
+import io.malevich.server.transfer.ResetPasswordTokenDto;
 import io.malevich.server.transfer.UserDto;
 import org.apache.velocity.VelocityContext;
 import org.apache.velocity.app.VelocityEngine;
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -34,7 +37,7 @@ import java.util.UUID;
 public class AuthServiceImpl implements AuthService {
 
     @Autowired
-    private UserDao userDao;
+    private UserService userService;
 
     @Autowired
     private UserTypeService userTypeService;
@@ -44,6 +47,9 @@ public class AuthServiceImpl implements AuthService {
 
     @Autowired
     private RegisterTokenService registerTokenService;
+
+    @Autowired
+    private ResetPasswordTokenService resetPasswordTokenService;
 
     @Autowired
     private JWTUtil jwtUtil;
@@ -66,7 +72,7 @@ public class AuthServiceImpl implements AuthService {
     @Override
     @Transactional(readOnly = true)
     public UserDetails loadUserByUsername(String username) {
-        return this.userDao.findByName(username);
+        return this.userService.findByName(username);
     }
 
     @Transactional
@@ -137,6 +143,27 @@ public class AuthServiceImpl implements AuthService {
         return entity;
     }
 
+    @Override
+    @Transactional
+    public ResetPasswordTokenEntity reset(String lang, String userName) {
+        UserEntity user = userService.findByName(userName);
+        ResetPasswordTokenEntity entity = new ResetPasswordTokenEntity();
+        entity.setUser(user);
+        entity.setToken(UUID.randomUUID().toString());
+        entity.setEffectiveDate(new java.sql.Timestamp(System.currentTimeMillis()));
+        entity = resetPasswordTokenService.save(entity);
+
+        VelocityContext context = new VelocityContext();
+        context.put("link", "http://localhost:4200/#/auth/reset?token=" + entity.getToken());
+        context.put("email", user.getName());
+
+        StringWriter stringWriter = new StringWriter();
+        velocityEngine.mergeTemplate("templates/mail/user_reset_password_link_template_" + lang + ".vm", "UTF-8", context, stringWriter);
+        mailQueueService.create(new MailQueueEntity(entity.getUser().getUsername(), messageSource.getMessage("registration.confirm", null, new Locale(lang)), stringWriter.toString()));
+
+        return entity;
+    }
+
 
     private List<String> createRoleMap(UserDetails userDetails) {
         List<String> roles = new ArrayList<String>();
@@ -145,4 +172,5 @@ public class AuthServiceImpl implements AuthService {
         }
         return roles;
     }
+
 }

@@ -36,7 +36,6 @@
         "COUNTRY": "Страна:",
         "TITLE": "Обращение:",
         "MOBILE": "Номер мобильного телефона:",
-        "PASSWORD": "Пароль:",
         "DATE_OF_BIRTH": "Дата рождения",
         "PASSWORD": "Пароль",
         "CONFIRM_PASSWORD": "Подтверждение пароля",
@@ -55,6 +54,7 @@
         "EMAIL": "Email",
         "PASSWORD": "Пароль",
         "CONFIRM_PASSWORD": "Подтверждение пароля",
+        "DATE_OF_BIRTH": "Дата рождения",
         "ADDRESS": {
           "COUNTRY": "Страна",
           "STATE": "Область, край, АО и пр.",
@@ -65,6 +65,7 @@
       },
       "BUTTON": {
         "EDIT_PROFILE": "Изменить",
+        "SUBMIT": "Сохранить",
         "UPDATE": "Обновить",
         "CANCEL": "Отменить",
         "CHANGE_PASSWORD": "Сменить пароль"

@@ -11,5 +11,6 @@
     <include relativeToChangelogFile="true" file="tables/files.table.xml"/>
     <include relativeToChangelogFile="true" file="tables/lob_storage.table.xml"/>
     <include relativeToChangelogFile="true" file="tables/mail_queue.table.xml"/>
+    <include relativeToChangelogFile="true" file="tables/reset_password_token.table.xml"/>
 
 </databaseChangeLog>

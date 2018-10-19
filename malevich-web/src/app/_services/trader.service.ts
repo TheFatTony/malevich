@@ -1,5 +1,4 @@
 import {Injectable} from '@angular/core';
-import {first} from "rxjs/operators";
 import {HttpClient} from "@angular/common/http";
 import {TraderDto} from "../_transfer/traderDto";
 import {environment} from "../../environments/environment";
@@ -18,8 +17,7 @@ export class TraderService {
 
   getTrader() {
     return this.http
-      .get<TraderDto>(this.url + '/current')
-      .pipe(first());
+      .get<TraderDto>(this.url + '/current');
   }
 
   update(trader: TraderDto) {
@@ -32,14 +30,10 @@ export class TraderService {
 
   // Update existing
   private putTrader(trader: TraderDto) {
-    const headers = new Headers();
-    headers.append('Content-Type', 'application/json');
-
     const url = this.url + '/update';
 
     return this.http
       .put<TraderDto>(url, trader)
-      .pipe(first())
       .subscribe(
         data => data,
         error => this.alertService.error(error)
@@ -47,14 +41,10 @@ export class TraderService {
   }
 
   private postTrader(trader: TraderDto, activationCode: string) {
-    const headers = new Headers();
-    headers.append('Content-Type', 'application/json');
-
     const url = this.url + '/insert/' + activationCode;
 
     return this.http
       .post<TraderDto>(url, trader)
-      .pipe(first())
       .subscribe(
         data => data,
         error => this.alertService.error(error)

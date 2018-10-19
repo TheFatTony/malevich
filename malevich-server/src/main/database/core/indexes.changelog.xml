@@ -11,5 +11,6 @@
     <include relativeToChangelogFile="true" file="indexes/files.index.xml"/>
     <include relativeToChangelogFile="true" file="indexes/lob_storage.index.xml"/>
     <include relativeToChangelogFile="true" file="indexes/mail_queue.index.xml"/>
+    <include relativeToChangelogFile="true" file="indexes/reset_password_token.index.xml"/>
 
 </databaseChangeLog>

@@ -23,7 +23,7 @@ public class GalleryEntity implements Entity {
     @Getter
     @Setter
     @Fetch(FetchMode.JOIN)
-    @OneToOne
+    @OneToOne(cascade = CascadeType.MERGE)
     private OrganizationEntity organization;
 
     @Getter
@@ -34,13 +34,13 @@ public class GalleryEntity implements Entity {
     @Getter
     @Setter
     @Fetch(FetchMode.JOIN)
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.MERGE)
     private FileEntity thumbnail;
 
     @Getter
     @Setter
     @Fetch(FetchMode.JOIN)
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.MERGE)
     private FileEntity image;
 
     @Getter

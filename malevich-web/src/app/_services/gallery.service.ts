@@ -33,4 +33,13 @@ export class GalleryService {
       .pipe(map(data => data));
   }
 
+  updateGallery(gallery: GalleryDto) {
+    return this.http
+      .post<GalleryDto>(this.url + '/update', gallery)
+      .pipe(map(data => {
+          return data;
+        })
+      );
+  }
+
 }

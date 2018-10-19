@@ -16,4 +16,6 @@ public interface GalleryService {
     GalleryEntity findByUserName(String name);
 
     GalleryEntity getCurrent();
+
+    GalleryEntity update(GalleryEntity newEntity);
 }

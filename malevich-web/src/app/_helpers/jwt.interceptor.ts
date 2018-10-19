@@ -14,8 +14,15 @@ export class JwtInterceptor implements HttpInterceptor {
 
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
 
-    console.info("intercept");
+    console.info(`intercept ${request.url}`);
     this.showLoader();
+
+    // if we already have a content-type, do not
+    // set it, but if we don't have one, set it to
+    // default --> json
+    if (!request.headers.has('Content-Type')) {
+      request = request.clone({ headers: request.headers.set('Content-Type', 'application/json') });
+    }
 
     const currentUser = JSON.parse(localStorage.getItem('currentUser'));
     if (currentUser && currentUser.token) {

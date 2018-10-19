@@ -1,6 +1,7 @@
 package io.malevich.server.services.auth;
 
 import io.malevich.server.entity.RegisterTokenEntity;
+import io.malevich.server.entity.ResetPasswordTokenEntity;
 import io.malevich.server.transfer.AccessTokenDto;
 import io.malevich.server.transfer.LoginFormDto;
 import io.malevich.server.transfer.UserDto;
@@ -14,4 +15,6 @@ public interface AuthService extends UserDetailsService {
     AccessTokenDto authenticate(LoginFormDto loginFormDto);
 
     RegisterTokenEntity register(String lang, String userName);
+
+    ResetPasswordTokenEntity reset(String lang, String userName);
 }

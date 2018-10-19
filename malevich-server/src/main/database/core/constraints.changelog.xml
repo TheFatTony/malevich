@@ -11,5 +11,6 @@
     <include relativeToChangelogFile="true" file="constraints/files.constraint.xml"/>
     <include relativeToChangelogFile="true" file="constraints/lob_storage.constraint.xml"/>
     <include relativeToChangelogFile="true" file="constraints/mail_queue.constraint.xml"/>
+    <include relativeToChangelogFile="true" file="constraints/reset_password_token.constraint.xml"/>
 
 </databaseChangeLog>

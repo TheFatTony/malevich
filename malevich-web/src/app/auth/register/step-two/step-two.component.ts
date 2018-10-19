@@ -7,6 +7,7 @@ import {CountryService} from "../../../_services/country.service";
 import {PersonDto, UserDto} from "../../../_transfer";
 import {GenderDto} from "../../../_transfer/genderDto";
 import {GenderService} from "../../../_services/gender.service";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-auth-register-step-two',
@@ -26,7 +27,8 @@ export class StepTwoComponent implements OnInit {
   @ViewChild('mobileInput') mobileInput: ElementRef;
   @ViewChild('dateOfBirthInput') dateOfBirthInput: ElementRef;
 
-  constructor(public translate: TranslateService,
+  constructor(private router: Router,
+              public translate: TranslateService,
               private traderService: TraderService,
               private countryService: CountryService,
               private genderService: GenderService) {
@@ -61,6 +63,7 @@ export class StepTwoComponent implements OnInit {
     this.trader.mobile = $('#mobile').val().toString();
     this.trader.dateOfBirth = new Date($('#datepickerDefault').val().toString().split('.').reverse().join('-'));
     this.traderService.create(this.trader, this.activationCode);
+    this.router.navigate(['/profile/trader/view']);
   }
 
   getCountries(): void {

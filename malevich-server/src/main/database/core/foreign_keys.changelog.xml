@@ -11,5 +11,6 @@
     <include relativeToChangelogFile="true" file="foreign_keys/files.foreign_key.xml"/>
     <include relativeToChangelogFile="true" file="foreign_keys/lob_storage.foreign_key.xml"/>
     <include relativeToChangelogFile="true" file="foreign_keys/mail_queue.foreign_key.xml"/>
+    <include relativeToChangelogFile="true" file="foreign_keys/reset_password_token.foreign_key.xml"/>
 
 </databaseChangeLog>

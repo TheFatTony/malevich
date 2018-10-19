@@ -56,4 +56,11 @@ export class AuthService {
       }));
   }
 
+  reset(lang: string, email: string) {
+    return this.http.post<any>(this.url + '/reset', {lang: lang, email: email})
+      .pipe(map(data => {
+        return data;
+      }));
+  }
+
 }

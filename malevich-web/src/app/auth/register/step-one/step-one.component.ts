@@ -3,6 +3,7 @@ import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {first} from "rxjs/operators";
 import {TranslateService} from "@ngx-translate/core";
 import {AlertService, AuthService} from "../../../_services";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-auth-register-step-one',
@@ -14,7 +15,8 @@ export class StepOneComponent implements OnInit {
 
   loginForm: FormGroup;
 
-  constructor(private formBuilder: FormBuilder,
+  constructor(private router: Router,
+              private formBuilder: FormBuilder,
               public translate: TranslateService,
               private authService: AuthService,
               private alertService: AlertService) {
@@ -35,13 +37,13 @@ export class StepOneComponent implements OnInit {
       .pipe(first())
       .subscribe(
         data => {
-          console.info("!!!!!!!!!!!!!! success !!!!!!!!!!!!");
           this.alertService.success(data);
         },
         error => {
-          console.info("!!!!!!!!!!!!!! error !!!!!!!!!!!!");
           this.alertService.error(error);
         });
+
+    this.router.navigate(['/main-page']);
   }
 
 }

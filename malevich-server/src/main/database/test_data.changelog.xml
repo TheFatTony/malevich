@@ -33,6 +33,11 @@
                  path="src/main/database/test_data/005_gallery.sql"/>
     </changeSet>
 
+    <changeSet author="thefattony" id="005_gallery_user-data">
+        <sqlFile endDelimiter="\nGO" splitStatements="false" stripComments="false"
+                 path="src/main/database/test_data/005_gallery_user.sql"/>
+    </changeSet>
+
     <changeSet author="thefattony" id="006_person-data">
         <sqlFile endDelimiter="\nGO" splitStatements="false" stripComments="false"
                  path="src/main/database/test_data/006_person.sql"/>

@@ -3,10 +3,13 @@ package io.malevich.server.rest.resources;
 import io.malevich.server.entity.GalleryEntity;
 import io.malevich.server.services.gallery.GalleryService;
 import io.malevich.server.transfer.GalleryDto;
+import lombok.extern.java.Log;
+import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -15,12 +18,11 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 import java.util.stream.Collectors;
 
-
+@Slf4j
 @RestController
 @RequestMapping(value = "/galleries")
 public class GalleryResource {
 
-    private Logger logger = LoggerFactory.getLogger(this.getClass());
 
     @Autowired
     private GalleryService galleryService;
@@ -29,18 +31,23 @@ public class GalleryResource {
     private ModelMapper modelMapper;
 
 
-    //    @PreAuthorize("hasRole('USER')")
     @RequestMapping(value = "/list", method = RequestMethod.GET)
     public List<GalleryDto> list() {
-        this.logger.info("list()");
         List<GalleryEntity> allEntries = this.galleryService.findAll();
         return allEntries.stream().map(allEntry -> convertToDto(allEntry)).collect(Collectors.toList());
     }
 
     @RequestMapping(value = "/item/{id}", method = RequestMethod.GET)
     public GalleryDto item(@PathVariable("id") long id) {
-        this.logger.info("item()");
         GalleryEntity allEntry = this.galleryService.find(id);
+        return convertToDto(allEntry);
+    }
+
+    @PreAuthorize("hasRole('USER')")
+    @RequestMapping(value = "/current", method = RequestMethod.GET)
+    public GalleryDto current() {
+        log.info("happy");
+        GalleryEntity allEntry = this.galleryService.getCurrent();
         return convertToDto(allEntry);
     }
 

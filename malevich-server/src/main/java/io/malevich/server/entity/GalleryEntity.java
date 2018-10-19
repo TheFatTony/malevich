@@ -28,12 +28,6 @@ public class GalleryEntity implements Entity {
 
     @Getter
     @Setter
-    @Fetch(FetchMode.JOIN)
-    @OneToOne(cascade = CascadeType.DETACH)
-    private UserEntity user;
-
-    @Getter
-    @Setter
     @Column(name = "description")
     private String description;
 
@@ -57,11 +51,19 @@ public class GalleryEntity implements Entity {
 
     @Getter
     @Setter
-    @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE}, fetch = FetchType.EAGER)
     @JoinTable(name = "gallery_address",
-            joinColumns = @JoinColumn(name = "trader_id"),
+            joinColumns = @JoinColumn(name = "gallery_id"),
             inverseJoinColumns = @JoinColumn(name = "address_id"))
     private List<AddressEntity> addresses;
+
+    @Getter
+    @Setter
+    @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    @JoinTable(name = "gallery_user",
+            joinColumns = @JoinColumn(name = "gallery_id"),
+            inverseJoinColumns = @JoinColumn(name = "user_id"))
+    private List<UserEntity> users;
 
 
 }

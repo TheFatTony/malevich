@@ -15,10 +15,4 @@
                                  referencedColumnNames="id" referencedTableName="files"/>
     </changeSet>
 
-    <changeSet author="toolstik" id="gallery-user-fk">
-        <addForeignKeyConstraint baseColumnNames="user_id" baseTableName="gallery"
-                                 constraintName="gallery_user_fk"
-                                 referencedColumnNames="id" referencedTableName="user"/>
-    </changeSet>
-
 </databaseChangeLog>

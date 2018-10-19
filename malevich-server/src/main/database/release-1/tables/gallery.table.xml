@@ -11,9 +11,6 @@
 			<column name="organization_id" type="bigint">
 				<constraints nullable="false"/>
 			</column>
-			<column name="user_id" type="bigint">
-				<constraints nullable="false"/>
-			</column>
 			<column name="description" type="clob"/>
 			<column name="thumbnail_id" type="bigint">
 				<constraints nullable="false"/>

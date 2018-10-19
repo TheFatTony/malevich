@@ -38,7 +38,7 @@ public class GalleryServiceImpl implements GalleryService {
     @Override
     @Transactional(readOnly = true)
     public GalleryEntity findByUserName(String name) {
-        return galleryDao.findByUserName(name).get();
+        return galleryDao.findByUsers_Name(name).get();
     }
 
     @Override
@@ -46,7 +46,10 @@ public class GalleryServiceImpl implements GalleryService {
     public GalleryEntity getCurrent() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         Object principal = authentication.getPrincipal();
-        UserDetails userDetails = (UserDetails) principal;
+        UserDetails userDetails = null;
+        if (principal instanceof UserDetails) {
+            userDetails = (UserDetails) principal;
+        } else return null;
         String username = userDetails.getUsername();
         GalleryEntity galleryEntity = findByUserName(username);
         return galleryEntity;

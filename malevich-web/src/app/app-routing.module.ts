@@ -23,8 +23,6 @@ import {AuthGuard} from "./_guards/auth.guard";
 
 import {ViewComponent as GalleryProfileSecurityView} from './profile/gallery-profile/view/view.component';
 import {EditComponent as GalleryProfileSecurityEdit} from './profile/gallery-profile/edit/edit.component';
-import {ViewComponent as GalleryProfileAddressesView} from './profile/gallery-profile/addresses/view/view.component';
-import {EditComponent as GalleryProfileAddressesEdit} from './profile/gallery-profile/addresses/edit/edit.component';
 import {ViewComponent as TraderProfileSecurityView} from "./profile/trader-profile/view/view.component";
 import {EditComponent as TraderProfileSecurityEdit} from "./profile/trader-profile/edit/edit.component";
 import {PaymentComponent} from "./profile/trader-profile/payment/payment.component";

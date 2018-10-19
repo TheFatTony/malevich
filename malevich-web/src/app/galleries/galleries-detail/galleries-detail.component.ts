@@ -29,12 +29,9 @@ export class GalleriesDetailComponent implements OnInit {
     this.getGallery();
   }
 
-  ngAfterViewInit(): void {
-  }
-
   getGallery(): void {
     this.galleryService
-      .getGallery(this.id)
+      .getGalleryById(this.id)
       .subscribe(
         data => (this.gallery = data)
       );

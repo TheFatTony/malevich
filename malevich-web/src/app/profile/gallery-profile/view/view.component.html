@@ -38,7 +38,7 @@
         <div class="row">
           <div class="col-12">
             <span class="d-block g-color-text g-font-size-13 mb-1">Legal Name:</span>
-            <span class="d-block">Lorem Ipsum</span>
+            <span class="d-block">{{gallery?.organization.legalName}}</span>
           </div>
         </div>
 
@@ -47,7 +47,7 @@
         <div class="row">
           <div class="col-12">
             <span class="d-block g-color-text g-font-size-13 mb-1">Location:</span>
-            <span class="d-block">Lorem Ipsum</span>
+            <span class="d-block">{{gallery?.addresses[0].street}} {{gallery?.addresses[0].state}} {{gallery?.addresses[0].postalCode}} {{gallery?.addresses[0].city}} {{gallery?.addresses[0].country.nameMl[translate.currentLang]}}</span>
           </div>
         </div>
 
@@ -56,7 +56,7 @@
         <div class="row">
           <div class="col-12">
             <span class="d-block g-color-text g-font-size-13 mb-1">Description:</span>
-            <span class="d-block">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</span>
+            <span class="d-block">{{gallery?.description}}</span>
           </div>
         </div>
 

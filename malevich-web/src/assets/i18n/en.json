@@ -67,5 +67,22 @@
         "CHANGE_PASSWORD": "Change Password"
       }
     }
+  },
+  "GALLERY_PROFILE": {
+    "TITLE": "Your Profile",
+    "NOTIFICATIONS": "Notifications",
+    "EDIT_PROFILE": "Edit Your Profile",
+    "SECURITY": {
+        "LEGAL_NAME": "Legal Name",
+        "PHONE_NUMBER": "Phone Number",
+        "LOCATION": "Location",
+        "DESCRIPTION": "Description",
+        "LEGAL_NAME_EN": "Legal Name - English",
+        "LEGAL_NAME_RU": "Legal Name - Russian",
+        "PHONE_NUMBER": "Phone Number",
+        "DESCRIPTION": "Description",
+        "DESCRIPTION_EN": "Description - English",
+        "DESCRIPTION_RU": "Description - Russian"
+    }
   }
 }

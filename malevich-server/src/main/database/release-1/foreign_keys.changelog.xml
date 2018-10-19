@@ -7,6 +7,7 @@
     <include relativeToChangelogFile="true" file="foreign_keys/country.foreign_key.xml"/>
     <include relativeToChangelogFile="true" file="foreign_keys/organization.foreign_key.xml"/>
     <include relativeToChangelogFile="true" file="foreign_keys/gallery.foreign_key.xml"/>
+    <include relativeToChangelogFile="true" file="foreign_keys/gallery_user.foreign_key.xml"/>
     <include relativeToChangelogFile="true" file="foreign_keys/person.foreign_key.xml"/>
     <include relativeToChangelogFile="true" file="foreign_keys/artist.foreign_key.xml"/>
     <include relativeToChangelogFile="true" file="foreign_keys/trader.foreign_key.xml"/>

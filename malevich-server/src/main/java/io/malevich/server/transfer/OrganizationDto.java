@@ -13,10 +13,8 @@ public class OrganizationDto {
 
     private String legalName;
 
-    private String location;
+    private String phoneNumber;
 
     private Map<String, String> legalNameMl;
-
-    private Map<String, String> locationMl;
 
 }

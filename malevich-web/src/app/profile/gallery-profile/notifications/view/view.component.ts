@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
 @Component({
-  selector: 'app-profile-gallery-addresses-view',
+  selector: 'app-profile-gallery-view',
   templateUrl: './view.component.html',
   styleUrls: ['./view.component.css']
 })

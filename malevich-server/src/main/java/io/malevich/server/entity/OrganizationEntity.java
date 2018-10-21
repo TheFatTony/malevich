@@ -24,19 +24,13 @@ public class OrganizationEntity implements Entity {
 
     @Getter
     @Setter
-    @Column(name = "location")
-    private String location;
+    @Column(name = "phone_number")
+    private String phoneNumber;
 
     @Getter
     @Setter
     @Convert(converter = JpaConverterJson.class)
     @Column(name = "legal_name_ml")
     private Map<String, String> legalNameMl;
-
-    @Getter
-    @Setter
-    @Convert(converter = JpaConverterJson.class)
-    @Column(name = "location_ml")
-    private Map<String, String> locationMl;
 
 }

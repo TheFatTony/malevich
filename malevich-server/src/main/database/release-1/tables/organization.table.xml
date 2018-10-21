@@ -11,16 +11,13 @@
             <column name="legal_name" type="varchar(1000)">
                 <constraints nullable="false"/>
             </column>
-            <column name="location" type="varchar(4000)">
-                <constraints nullable="false"/>
-            </column>
+            <column name="phone_number" type="varchar(4000)"/>
         </createTable>
     </changeSet>
 
     <changeSet author="thefattony" id="organization-table-ml" dbms="mysql">
         <addColumn tableName="organization">
             <column name="legal_name_ml" type="json"/>
-            <column name="location_ml" type="json"/>
         </addColumn>
     </changeSet>
 

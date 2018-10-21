@@ -21,10 +21,25 @@ export class GalleryService {
       .pipe(map(data => data));
   }
 
-  getGallery(id: number): Observable<GalleryDto> {
+  getGalleryById(id: number): Observable<GalleryDto> {
     return this.http
       .get<GalleryDto>(this.url + '/item/' + id)
       .pipe(map(data => data));
+  }
+
+  getGallery(): Observable<GalleryDto> {
+    return this.http
+      .get<GalleryDto>(this.url + '/current')
+      .pipe(map(data => data));
+  }
+
+  updateGallery(gallery: GalleryDto) {
+    return this.http
+      .post<GalleryDto>(this.url + '/update', gallery)
+      .pipe(map(data => {
+          return data;
+        })
+      );
   }
 
 }

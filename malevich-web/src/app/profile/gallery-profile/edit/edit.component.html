@@ -8,17 +8,17 @@
             <i class="g-color-gray-light-v2 g-ml-5 fa fa-angle-right"></i>
           </li>
           <li class="list-inline-item g-mr-5">
-            <a class="u-link-v5 g-color-text" routerLink="/profile/gallery/view">Your Profile</a>
+            <a class="u-link-v5 g-color-text" routerLink="/profile/gallery/view">{{'GALLERY_PROFILE.TITLE' | translate}}</a>
             <i class="g-color-gray-light-v2 g-ml-5 fa fa-angle-right"></i>
           </li>
           <li class="list-inline-item g-color-primary">
-            <span>Edit Your Profile</span>
+            <span>{{'GALLERY_PROFILE.EDIT_PROFILE' | translate}}</span>
           </li>
         </ul>
       </div>
 
       <div class="align-self-center ml-auto">
-        <h1 class="h3 mb-0">Edit Your Profile</h1>
+        <h1 class="h3 mb-0">{{'GALLERY_PROFILE.EDIT_PROFILE' | translate}}</h1>
       </div>
     </div>
   </div>
@@ -41,8 +41,8 @@
 
         <div class="row">
           <div class="col-12">
-            <span class="d-block g-color-text g-font-size-13 mb-1">Legal Name:</span>
-            <input class="form-control g-color-black g-bg-white g-bg-white--focus g-brd-gray-light-v3 rounded g-py-15 g-px-15" type="text" placeholder="">
+            <span class="d-block g-color-text g-font-size-13 mb-1">{{'GALLERY_PROFILE.SECURITY.LEGAL_NAME_EN' | translate}}:</span>
+            <input class="form-control g-color-black g-bg-white g-bg-white--focus g-brd-gray-light-v3 rounded g-py-15 g-px-15" type="text" placeholder="" [(ngModel)]="gallery?.organization.legalNameMl['en']">
           </div>
         </div>
 
@@ -50,8 +50,8 @@
 
         <div class="row">
           <div class="col-12">
-            <span class="d-block g-color-text g-font-size-13 mb-1">Location:</span>
-            <input class="form-control g-color-black g-bg-white g-bg-white--focus g-brd-gray-light-v3 rounded g-py-15 g-px-15" type="text" placeholder="">
+            <span class="d-block g-color-text g-font-size-13 mb-1">{{'GALLERY_PROFILE.SECURITY.LEGAL_NAME_RU' | translate}}:</span>
+            <input class="form-control g-color-black g-bg-white g-bg-white--focus g-brd-gray-light-v3 rounded g-py-15 g-px-15" type="text" placeholder="" [(ngModel)]="gallery?.organization.legalNameMl['ru']">
           </div>
         </div>
 
@@ -59,16 +59,113 @@
 
         <div class="row">
           <div class="col-12">
-            <span class="d-block g-color-text g-font-size-13 mb-1">Description:</span>
-            <input class="form-control g-color-black g-bg-white g-bg-white--focus g-brd-gray-light-v3 rounded g-py-15 g-px-15" type="text" placeholder="">
+            <span
+              class="d-block g-color-text g-font-size-13 mb-1">{{'GALLERY_PROFILE.SECURITY.PHONE_NUMBER' | translate}}:</span>
+            <input #mobileInput id="mobile"
+                   class="form-control g-color-black g-bg-white g-bg-white--focus g-brd-gray-light-v3 rounded"
+                   type="text" [(ngModel)]="gallery?.organization.phoneNumber"
+                   placeholder="+X (XXX) XXX-XXXX" data-mask="+9 (999) 999-9999">
           </div>
+        </div>
+
+        <hr class="g-brd-gray-light-v4 g-my-20">
+
+        <div class="row">
+          <div class="col-12">
+            <span class="d-block g-color-text g-font-size-13 mb-1">{{'GALLERY_PROFILE.SECURITY.DESCRIPTION_EN' | translate}}:</span>
+            <input class="form-control g-color-black g-bg-white g-bg-white--focus g-brd-gray-light-v3 rounded g-py-15 g-px-15" type="text" placeholder="" [(ngModel)]="gallery?.descriptionMl['en']">
+          </div>
+        </div>
+
+        <hr class="g-brd-gray-light-v4 g-my-20">
+
+        <div class="row">
+          <div class="col-12">
+            <span class="d-block g-color-text g-font-size-13 mb-1">{{'GALLERY_PROFILE.SECURITY.DESCRIPTION_RU' | translate}}:</span>
+            <input class="form-control g-color-black g-bg-white g-bg-white--focus g-brd-gray-light-v3 rounded g-py-15 g-px-15" type="text" placeholder="" [(ngModel)]="gallery?.descriptionMl['ru']">
+          </div>
+        </div>
+
+        <div *ngIf="countries && gallery?.addresses[0] as address">
+
+          <hr class="g-brd-gray-light-v4 g-my-20">
+
+          <div class="row">
+            <div class="col-12">
+              <span
+                class="d-block g-color-text g-font-size-13 mb-1">{{'TRADER_PROFILE.SECURITY.LABEL.ADDRESS.COUNTRY' | translate}}</span>
+              <select [(ngModel)]="address.country"
+                      class="js-custom-select u-select-v1 g-color-black g-bg-white g-bg-white--focus g-brd-gray-light-v3 rounded g-py-12"
+                      data-open-icon="fa fa-angle-down"
+                      data-close-icon="fa fa-angle-up"
+                      style="width: 100%">
+                <option [value]="address.country" selected="selected">
+                  {{address.country.nameMl[translate.currentLang]}}
+                </option>
+                <option *ngFor="let c of countries" [ngValue]="c">{{c.nameMl[translate.currentLang]}}</option>
+              </select>
+            </div>
+          </div>
+
+          <hr class="g-brd-gray-light-v4 g-my-20">
+
+          <div class="row">
+            <div class="col-12">
+              <span
+                class="d-block g-color-text g-font-size-13 mb-1">{{'TRADER_PROFILE.SECURITY.LABEL.ADDRESS.STATE' | translate}}</span>
+              <input class="form-control g-color-black g-bg-white g-bg-white--focus g-brd-gray-light-v3 rounded"
+                     type="text" [(ngModel)]="address.state"
+                     placeholder="{{'TRADER_PROFILE.SECURITY.PLACEHOLDER.ADDRESS.STATE' | translate}}">
+            </div>
+
+          </div>
+
+          <hr class="g-brd-gray-light-v4 g-my-20">
+
+          <div class="row">
+            <div class="col-12">
+              <span
+                class="d-block g-color-text g-font-size-13 mb-1">{{'TRADER_PROFILE.SECURITY.LABEL.ADDRESS.CITY' | translate}}</span>
+              <input class="form-control g-color-black g-bg-white g-bg-white--focus g-brd-gray-light-v3 rounded"
+                     type="text" [(ngModel)]="address.city"
+                     placeholder="{{'TRADER_PROFILE.SECURITY.PLACEHOLDER.ADDRESS.CITY' | translate}}">
+            </div>
+
+          </div>
+
+          <hr class="g-brd-gray-light-v4 g-my-20">
+
+          <div class="row">
+            <div class="col-12">
+              <span
+                class="d-block g-color-text g-font-size-13 mb-1">{{'TRADER_PROFILE.SECURITY.LABEL.ADDRESS.ZIP' | translate}}</span>
+              <input class="form-control g-color-black g-bg-white g-bg-white--focus g-brd-gray-light-v3 rounded"
+                     type="text" [(ngModel)]="address.postalCode"
+                     placeholder="{{'TRADER_PROFILE.SECURITY.PLACEHOLDER.ADDRESS.ZIP' | translate}}">
+            </div>
+
+          </div>
+
+          <hr class="g-brd-gray-light-v4 g-my-20">
+
+          <div class="row">
+            <div class="col-12">
+              <span
+                class="d-block g-color-text g-font-size-13 mb-1">{{'TRADER_PROFILE.SECURITY.LABEL.ADDRESS.STREET' | translate}}</span>
+              <input class="form-control g-color-black g-bg-white g-bg-white--focus g-brd-gray-light-v3 rounded"
+                     type="text" [(ngModel)]="address.street"
+                     placeholder="{{'TRADER_PROFILE.SECURITY.PLACEHOLDER.ADDRESS.STREET' | translate}}">
+            </div>
+
+          </div>
+
         </div>
 
       </div>
       <!-- End Info -->
 
-      <button class="btn u-btn-primary g-font-size-12 text-uppercase g-py-12 g-px-25 g-mr-20" type="submit">Update</button>
-      <button class="btn u-btn-primary g-font-size-12 text-uppercase g-py-12 g-px-25" type="button">Cancel</button>
+      <button class="btn u-btn-primary g-font-size-12 text-uppercase g-py-12 g-px-25 g-mr-20" type="submit" (click)="update()">{{'TRADER_PROFILE.SECURITY.BUTTON.UPDATE' | translate}}</button>
+      <button class="btn u-btn-primary g-font-size-12 text-uppercase g-py-12 g-px-25" type="button" (click)="cancel()">{{'TRADER_PROFILE.SECURITY.BUTTON.CANCEL' | translate}}</button>
     </div>
     <!-- End Login & Security -->
   </div>

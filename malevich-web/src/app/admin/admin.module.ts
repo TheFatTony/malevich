@@ -76,10 +76,10 @@ import {
   ValidatorModule,
   WindowModule
 } from './_modules';
-import { UserListComponent } from './user/user-list/user-list.component';
+import {UserListComponent} from './user/user-list/user-list.component';
 import {AdminComponent} from './admin.component';
 import {AdminRoutingModule} from './admin-routing.module';
-import { FilesListComponent } from './files/files-list/files-list.component';
+import {FilesListComponent} from './files/files-list/files-list.component';
 import {UsersService} from './_services/users.service';
 
 @NgModule({

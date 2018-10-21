@@ -42,16 +42,15 @@ public class AuthResource {
     }
 
     @RequestMapping(value = "/reset", method = RequestMethod.POST)
-    public ResponseEntity<String> register(@RequestBody ResetPasswordFormDto resetFormDto) {
+    public ResponseEntity<String> reset(@RequestBody ResetPasswordFormDto resetFormDto) {
         authService.reset(resetFormDto.getLang(), resetFormDto.getEmail());
         return ResponseEntity.ok().body("reset");
     }
 
-    private ResetPasswordTokenDto convertToDto(ResetPasswordTokenEntity entity) {
-        return modelMapper.map(entity, ResetPasswordTokenDto.class);
+    @RequestMapping(value = "/reset/newpassword", method = RequestMethod.POST)
+    public ResponseEntity<String> reset(@RequestBody ResetPasswordTokenDto resetDto) {
+        authService.setNewPassword(resetDto.getToken(), resetDto.getPassword());
+        return ResponseEntity.ok().body("password set");
     }
 
-    private ResetPasswordTokenEntity convertToEntity(ResetPasswordTokenDto dto) {
-        return modelMapper.map(dto, ResetPasswordTokenEntity.class);
-    }
 }

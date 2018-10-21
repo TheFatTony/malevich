@@ -8,13 +8,8 @@ import lombok.Setter;
 @Setter
 public class ResetPasswordTokenDto {
 
-
-  private long id;
-
   private String token;
 
-  private long userId;
-
-  private java.sql.Timestamp effectiveDate;
+  private String password;
 
 }

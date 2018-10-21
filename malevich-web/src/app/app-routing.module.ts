@@ -41,10 +41,6 @@ const routes: Routes = [
   {path: 'auth/register', component: RegisterComponent},
   {path: 'auth/reset', component: ResetComponent},
 
-  // {path: 'profile/trader/security', redirectTo: 'profile/trader', canActivate: [AuthGuard]},
-  // {path: 'profile/trader', component: TraderProfileComponent, canActivate: [AuthGuard]},
-  // {path: 'profile/trader/:view', component: TraderProfileComponent, canActivate: [AuthGuard]},
-
   {
     path: 'profile/trader', canActivate: [AuthGuard], children: [
       {path: 'view', component: TraderProfileSecurityView, canActivate: [AuthGuard]},

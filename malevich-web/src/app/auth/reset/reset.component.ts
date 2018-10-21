@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {Router} from "@angular/router";
+import {ActivatedRoute, Router} from "@angular/router";
 import {TranslateService} from "@ngx-translate/core";
 import {AlertService, AuthService} from "../../_services";
 
@@ -10,27 +10,18 @@ import {AlertService, AuthService} from "../../_services";
 })
 export class ResetComponent implements OnInit {
 
-  email: string;
+  isSecondStep = false;
+  activationCode: string;
 
-  constructor(private router: Router,
-              public translate: TranslateService,
-              private authService: AuthService,
+  constructor(private route: ActivatedRoute,
               private alertService: AlertService) { }
 
   ngOnInit() {
-  }
-
-  onSubmit() {
-    this.authService.reset(this.translate.currentLang, this.email)
-      .subscribe(
-        data => {
-          this.alertService.success(data);
-        },
-        error => {
-          this.alertService.error(error);
-        });
-
-    this.router.navigate(['/main-page']);
+    this.activationCode = this.route.snapshot.queryParams['token'];
+    console.info("this.activationCode = " + this.activationCode);
+    if (this.activationCode != undefined) {
+      this.isSecondStep = true;
+    }
   }
 
 }

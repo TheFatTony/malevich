@@ -1,0 +1,40 @@
+<section class="container g-py-100">
+  <div class="row justify-content-center">
+    <div class="col-sm-9 col-md-7 col-lg-5">
+      <div class="g-brd-around g-brd-gray-light-v3 g-bg-white rounded g-px-30 g-py-50 mb-4">
+        <header class="text-center mb-4">
+          <h1 class="h4 g-color-black g-font-weight-400">Forgot Password?</h1>
+          <p>Enter your e-mail address to reset your password.</p>
+        </header>
+
+        <!-- Form -->
+        <div class="g-py-15">
+          <div class="mb-4">
+            <div class="input-group g-rounded-left-5">
+                    <span class="input-group-prepend g-width-45 g-brd-gray-light-v3 g-color-gray-dark-v5">
+                      <span class="input-group-text justify-content-center w-100 g-bg-transparent g-brd-gray-light-v3">
+                        <i class="icon-finance-067 u-line-icon-pro"></i>
+                      </span>
+                    </span>
+              <input class="form-control g-color-black g-bg-white g-bg-white--focus g-brd-gray-light-v3 g-rounded-left-0 g-rounded-right-5 g-py-15 g-px-15"
+                     [(ngModel)]="email"
+                     type="email"
+                     placeholder="Email Address">
+            </div>
+          </div>
+
+          <button class="btn btn-block u-btn-primary g-font-size-12 text-uppercase g-py-15 g-px-25"
+                  type="button"
+                  (click)="onSubmit()">Reset Password</button>
+        </div>
+        <!-- End Form -->
+      </div>
+
+      <!-- <div class="row justify-content-between mb-5">
+         <div class="col align-self-center text-center">
+           <p class="g-font-size-13">Have not recieved an email? <a href="page-login-1.html">Click here</a></p>
+         </div>
+       </div>-->
+    </div>
+  </div>
+</section>

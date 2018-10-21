@@ -63,4 +63,11 @@ export class AuthService {
       }));
   }
 
+  setNewPassword(token: string, password: string) {
+    return this.http.post<any>(this.url + '/reset/newpassword', {token: token, password: password})
+      .pipe(map(data => {
+        return data;
+      }));
+  }
+
 }

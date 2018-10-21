@@ -24,6 +24,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -65,6 +66,9 @@ public class AuthServiceImpl implements AuthService {
 
     @Autowired
     private MessageSource messageSource;
+
+    @Autowired
+    private BCryptPasswordEncoder bCryptPasswordEncoder;
 
     protected AuthServiceImpl() {
     }
@@ -159,11 +163,23 @@ public class AuthServiceImpl implements AuthService {
 
         StringWriter stringWriter = new StringWriter();
         velocityEngine.mergeTemplate("templates/mail/user_reset_password_link_template_" + lang + ".vm", "UTF-8", context, stringWriter);
-        mailQueueService.create(new MailQueueEntity(entity.getUser().getUsername(), messageSource.getMessage("registration.confirm", null, new Locale(lang)), stringWriter.toString()));
+        mailQueueService.create(new MailQueueEntity(entity.getUser().getUsername(), messageSource.getMessage("reset.password.confirm", null, new Locale(lang)), stringWriter.toString()));
 
         return entity;
     }
 
+    @Override
+    @Transactional
+    public UserEntity setNewPassword(String token, String password){
+        ResetPasswordTokenEntity tokenEntity = resetPasswordTokenService.findByToken(token).get();
+
+        UserEntity userEntity = tokenEntity.getUser();
+        userEntity.setPassword(bCryptPasswordEncoder.encode(password));
+        userEntity = userService.save(userEntity);
+        resetPasswordTokenService.delete(tokenEntity);
+
+        return userEntity;
+    }
 
     private List<String> createRoleMap(UserDetails userDetails) {
         List<String> roles = new ArrayList<String>();

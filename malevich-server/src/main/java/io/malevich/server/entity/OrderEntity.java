@@ -13,43 +13,44 @@ import javax.persistence.*;
 public class OrderEntity implements Entity {
 
 
-  @Getter
-  @Setter
-  @Id
-  @GeneratedValue(strategy = GenerationType.IDENTITY)
-  private Long id;
+    @Getter
+    @Setter
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
-  @Getter
-  @Setter
-  @Column(name = "type_id")
-  private String typeId;
+    @Getter
+    @Setter
+    @Fetch(FetchMode.JOIN)
+    @ManyToOne(cascade = CascadeType.MERGE)
+    private OrderEntity type;
 
-  @Getter
-  @Setter
-  @Fetch(FetchMode.JOIN)
-  @ManyToOne(cascade = CascadeType.MERGE)
-  private ArtworkStockEntity artworkStock;
+    @Getter
+    @Setter
+    @Fetch(FetchMode.JOIN)
+    @ManyToOne(cascade = CascadeType.MERGE)
+    private ArtworkStockEntity artworkStock;
 
-  @Getter
-  @Setter
-  @Fetch(FetchMode.JOIN)
-  @ManyToOne(cascade = CascadeType.MERGE)
-  private CounterpartyEntity party;
+    @Getter
+    @Setter
+    @Fetch(FetchMode.JOIN)
+    @ManyToOne(cascade = CascadeType.MERGE)
+    private CounterpartyEntity party;
 
-  @Getter
-  @Setter
-  @Fetch(FetchMode.JOIN)
-  @ManyToOne(cascade = CascadeType.MERGE)
-  private TradeTypeEntity tradeType;
+    @Getter
+    @Setter
+    @Fetch(FetchMode.JOIN)
+    @ManyToOne(cascade = CascadeType.MERGE)
+    private TradeTypeEntity tradeType;
 
-  @Getter
-  @Setter
-  @Column(name = "amount")
-  private double amount;
+    @Getter
+    @Setter
+    @Column(name = "amount")
+    private double amount;
 
-  @Getter
-  @Setter
-  @Column(name = "effective_date")
-  private java.sql.Timestamp effectiveDate;
+    @Getter
+    @Setter
+    @Column(name = "effective_date")
+    private java.sql.Timestamp effectiveDate;
 
 }

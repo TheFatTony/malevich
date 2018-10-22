@@ -49,7 +49,7 @@ public class GalleryResource {
         return convertToDto(allEntry);
     }
 
-    @PreAuthorize("hasRole('TRADER')")
+    @PreAuthorize("hasRole('GALLERY')")
     @RequestMapping(value = "/update", method = RequestMethod.POST)
     public ResponseEntity<Void> update(@RequestBody GalleryDto gallery){
         GalleryEntity newEntity = convertToEntity(gallery);

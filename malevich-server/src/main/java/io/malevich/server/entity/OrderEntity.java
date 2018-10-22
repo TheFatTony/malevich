@@ -2,6 +2,9 @@ package io.malevich.server.entity;
 
 import lombok.Getter;
 import lombok.Setter;
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
+
 import javax.persistence.*;
 
 
@@ -14,7 +17,7 @@ public class OrderEntity implements Entity {
   @Setter
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
-  private long id;
+  private Long id;
 
   @Getter
   @Setter
@@ -23,18 +26,21 @@ public class OrderEntity implements Entity {
 
   @Getter
   @Setter
-  @Column(name = "artwork_id")
-  private long artworkId;
+  @Fetch(FetchMode.JOIN)
+  @ManyToOne(cascade = CascadeType.MERGE)
+  private ArtworkStockEntity artworkStock;
 
   @Getter
   @Setter
-  @Column(name = "party_id")
-  private long partyId;
+  @Fetch(FetchMode.JOIN)
+  @ManyToOne(cascade = CascadeType.MERGE)
+  private CounterpartyEntity party;
 
   @Getter
   @Setter
-  @Column(name = "trade_type_id")
-  private String tradeTypeId;
+  @Fetch(FetchMode.JOIN)
+  @ManyToOne(cascade = CascadeType.MERGE)
+  private TradeTypeEntity tradeType;
 
   @Getter
   @Setter
@@ -45,10 +51,5 @@ public class OrderEntity implements Entity {
   @Setter
   @Column(name = "effective_date")
   private java.sql.Timestamp effectiveDate;
-
-  @Getter
-  @Setter
-  @Column(name = "transaction_id")
-  private long transactionId;
 
 }

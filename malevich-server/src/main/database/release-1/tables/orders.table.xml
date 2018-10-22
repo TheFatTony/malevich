@@ -26,7 +26,6 @@
             <column name="effective_date" type="timestamp">
                 <constraints nullable="false"/>
             </column>
-            <column name="transaction_id" type="bigint"/>
         </createTable>
     </changeSet>
 

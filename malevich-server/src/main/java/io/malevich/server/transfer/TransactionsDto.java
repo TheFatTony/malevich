@@ -8,21 +8,20 @@ import lombok.Setter;
 @Setter
 public class TransactionsDto {
 
-
   private long id;
 
-  private String typeId;
+  private TransactionTypeDto type;
 
   private java.sql.Timestamp effectiveDate;
 
-  private long partyId;
+  private CounterpartyDto party;
 
-  private long counterpartyId;
+  private CounterpartyDto counterparty;
 
-  private long artworkId;
+  private ArtworkStockDto artworkStock;
 
   private double amount;
 
-  private long quantity;
+  private int quantity;
 
 }

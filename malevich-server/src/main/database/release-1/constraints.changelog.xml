@@ -16,6 +16,7 @@
     <include relativeToChangelogFile="true" file="constraints/gallery_address.constraint.xml"/>
     <include relativeToChangelogFile="true" file="constraints/artwork.constraint.xml"/>
     <include relativeToChangelogFile="true" file="constraints/address.constraint.xml"/>
+    <include relativeToChangelogFile="true" file="constraints/artwork_stock.constraint.xml"/>
     <include relativeToChangelogFile="true" file="constraints/transaction_type.constraint.xml"/>
     <include relativeToChangelogFile="true" file="constraints/order_type.constraint.xml"/>
     <include relativeToChangelogFile="true" file="constraints/trade_type.constraint.xml"/>

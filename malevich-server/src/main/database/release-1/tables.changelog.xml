@@ -16,6 +16,7 @@
     <include relativeToChangelogFile="true" file="tables/gallery_address.table.xml"/>
     <include relativeToChangelogFile="true" file="tables/artwork.table.xml"/>
     <include relativeToChangelogFile="true" file="tables/address.table.xml"/>
+    <include relativeToChangelogFile="true" file="tables/artwork_stock.table.xml"/>
     <include relativeToChangelogFile="true" file="tables/transaction_type.table.xml"/>
     <include relativeToChangelogFile="true" file="tables/order_type.table.xml"/>
     <include relativeToChangelogFile="true" file="tables/trade_type.table.xml"/>

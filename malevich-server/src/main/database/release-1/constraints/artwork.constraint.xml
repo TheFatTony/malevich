@@ -7,6 +7,12 @@
         <addUniqueConstraint columnNames="title" constraintName="artwork_title_uc" tableName="artwork"/>
     </changeSet>
 
+    <changeSet author="thefattony" id="artwork-artist-fk">
+        <addForeignKeyConstraint baseColumnNames="artist_id" baseTableName="artwork"
+                                 constraintName="artwork_artist_fk"
+                                 referencedColumnNames="id" referencedTableName="artist"/>
+    </changeSet>
+
     <changeSet author="thefattony" id="artwork-category-fk">
         <addForeignKeyConstraint baseColumnNames="category_id" baseTableName="artwork"
                                  constraintName="artwork_category_fk"

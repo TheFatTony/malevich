@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.6.xsd">
+
+    <changeSet author="thefattony" id="artwork_stock-artwork-fk">
+        <addForeignKeyConstraint baseColumnNames="artwork_id" baseTableName="artwork_stock"
+                                 constraintName="artwork_stock_artwork_fk"
+                                 referencedColumnNames="id" referencedTableName="artwork"/>
+    </changeSet>
+
+    <changeSet author="thefattony" id="artwork_stock-gallery-fk">
+        <addForeignKeyConstraint baseColumnNames="gallery_id" baseTableName="artwork_stock"
+                                 constraintName="artwork_stock_gallery_fk"
+                                 referencedColumnNames="id" referencedTableName="gallery"/>
+    </changeSet>
+
+</databaseChangeLog>

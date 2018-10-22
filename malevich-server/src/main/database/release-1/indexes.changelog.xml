@@ -16,6 +16,7 @@
     <include relativeToChangelogFile="true" file="indexes/gallery_address.index.xml"/>
     <include relativeToChangelogFile="true" file="indexes/artwork.index.xml"/>
     <include relativeToChangelogFile="true" file="indexes/address.index.xml"/>
+    <include relativeToChangelogFile="true" file="indexes/artwork_stock.index.xml"/>
     <include relativeToChangelogFile="true" file="indexes/transaction_type.index.xml"/>
     <include relativeToChangelogFile="true" file="indexes/order_type.index.xml"/>
     <include relativeToChangelogFile="true" file="indexes/trade_type.index.xml"/>

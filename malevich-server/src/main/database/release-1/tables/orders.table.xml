@@ -11,7 +11,7 @@
             <column name="type_id" type="char(3)">
                 <constraints nullable="false"/>
             </column>
-            <column name="artwork_id" type="bigint">
+            <column name="artwork_stock_id" type="bigint">
                 <constraints nullable="false"/>
             </column>
             <column name="party_id" type="bigint">

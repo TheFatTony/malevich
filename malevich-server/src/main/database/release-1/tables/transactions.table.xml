@@ -20,7 +20,7 @@
             <column name="counterparty_id" type="bigint">
                 <constraints nullable="false"/>
             </column>
-            <column name="artwork_id" type="bigint"/>
+            <column name="artwork_stock_id" type="bigint"/>
             <column name="amount" type="double"/>
             <column name="quantity" type="int"/>
         </createTable>

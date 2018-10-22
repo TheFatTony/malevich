@@ -3,4 +3,16 @@
                    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
                    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.6.xsd">
 
+    <changeSet author="thefattony" id="user_roles-user-fk">
+        <addForeignKeyConstraint baseColumnNames="user_id" baseTableName="user_roles"
+                                 constraintName="user_roles_user_fk"
+                                 referencedColumnNames="id" referencedTableName="user"/>
+    </changeSet>
+
+    <changeSet author="thefattony" id="user_roles-role-fk">
+        <addForeignKeyConstraint baseColumnNames="roles" baseTableName="user_roles"
+                                 constraintName="user_roles_role_fk"
+                                 referencedColumnNames="id" referencedTableName="roles"/>
+    </changeSet>
+
 </databaseChangeLog>

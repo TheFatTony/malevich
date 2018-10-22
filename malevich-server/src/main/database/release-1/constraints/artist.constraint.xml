@@ -7,4 +7,16 @@
         <addUniqueConstraint columnNames="person_id" constraintName="artist_person_id_uc" tableName="artist"/>
     </changeSet>
 
+    <changeSet author="thefattony" id="artist-person-fk">
+        <addForeignKeyConstraint baseColumnNames="person_id" baseTableName="artist"
+                                 constraintName="artist_person_fk"
+                                 referencedColumnNames="id" referencedTableName="person"/>
+    </changeSet>
+
+    <changeSet author="thefattony" id="artist-files-fk">
+        <addForeignKeyConstraint baseColumnNames="thumbnail_id" baseTableName="artist"
+                                 constraintName="artist_files_fk"
+                                 referencedColumnNames="id" referencedTableName="files"/>
+    </changeSet>
+
 </databaseChangeLog>

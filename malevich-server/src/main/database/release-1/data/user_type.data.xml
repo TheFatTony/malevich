@@ -3,10 +3,14 @@
                    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
                    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.6.xsd">
 
-    <changeSet author="thefattony" id="access_token-user-fk">
-        <addForeignKeyConstraint baseColumnNames="user_id" baseTableName="access_token"
-                                 constraintName="access_token_user_fk"
-                                 referencedColumnNames="id" referencedTableName="user"/>
+    <changeSet author="thefattony" id="user_type-data">
+        <sql endDelimiter="\nGO" splitStatements="true" stripComments="true">
+            insert into user_type (id, type_name, description)
+            values (0, 'Admin', ''),
+                   (1, 'User', ''),
+                   (2, 'Gallery', ''),
+                   (3, 'Trader', '');
+        </sql>
     </changeSet>
 
 </databaseChangeLog>

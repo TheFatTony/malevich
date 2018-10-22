@@ -7,4 +7,10 @@
         <addUniqueConstraint columnNames="name" constraintName="user_name_uc" tableName="user"/>
     </changeSet>
 
+    <changeSet author="thefattony" id="user-user_type-fk">
+        <addForeignKeyConstraint baseColumnNames="user_type_id" baseTableName="user"
+                                 constraintName="user_user_type_fk"
+                                 referencedColumnNames="id" referencedTableName="user_type"/>
+    </changeSet>
+
 </databaseChangeLog>

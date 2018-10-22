@@ -3,6 +3,7 @@ import {TranslateService} from "@ngx-translate/core";
 import {Globals} from "../../globals";
 import {AuthService} from "../../_services";
 import {Router} from "@angular/router";
+import {UserDto} from "../../_transfer";
 
 @Component({
   selector: 'app-main-header',
@@ -11,7 +12,7 @@ import {Router} from "@angular/router";
 })
 export class MainHeaderComponent implements OnInit, AfterViewInit {
 
-
+  user: UserDto;
   constructor(
               public router: Router,
               public translate: TranslateService,
@@ -20,6 +21,7 @@ export class MainHeaderComponent implements OnInit, AfterViewInit {
   }
 
   ngOnInit() {
+    this.user = this.loginService.getCurrentUser();
   }
 
   ngAfterViewInit(): void {
@@ -46,6 +48,7 @@ export class MainHeaderComponent implements OnInit, AfterViewInit {
   }
 
   doLogout() {
+    this.user = null;
     this.loginService.logout();
     this.router.navigate(['/']);
   }

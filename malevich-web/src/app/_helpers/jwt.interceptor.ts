@@ -3,13 +3,15 @@ import {HttpEvent, HttpHandler, HttpInterceptor, HttpRequest, HttpResponse} from
 import {Observable} from 'rxjs';
 import {tap} from "rxjs/operators";
 import {LoadingService} from "../_services/loading.service";
+import {AlertService} from "../_services";
 
 @Injectable()
 export class JwtInterceptor implements HttpInterceptor {
 
   private requestsCount: number = 0;
 
-  constructor(private loadingService: LoadingService) {
+  constructor(private loadingService: LoadingService,
+              private alertService: AlertService) {
   }
 
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
@@ -39,6 +41,7 @@ export class JwtInterceptor implements HttpInterceptor {
         }
       },
       (err: any) => {
+        this.alertService.error(err);
         this.hideLoader();
       }));
   }

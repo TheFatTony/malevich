@@ -23,6 +23,7 @@ import {AuthGuard} from "./_guards/auth.guard";
 
 import {ViewComponent as GalleryProfileSecurityViewComponent} from './profile/gallery-profile/view/view.component';
 import {EditComponent as GalleryProfileSecurityEditComponent} from './profile/gallery-profile/edit/edit.component';
+import {ArtworkStockComponent as GalleryProfileArtworkStockComponent} from './profile/gallery-profile/artwork-stock/artwork-stock.component';
 import {ViewComponent as TraderProfileSecurityViewComponent} from "./profile/trader-profile/view/view.component";
 import {EditComponent as TraderProfileSecurityEditComponent} from "./profile/trader-profile/edit/edit.component";
 import { OrdersComponent as GalleryProfileOrdersComponent} from './profile/gallery-profile/orders/orders.component';
@@ -63,7 +64,7 @@ const routes: Routes = [
       {path: 'edit', component: GalleryProfileSecurityEditComponent, canActivate: [AuthGuard]},
       {path: 'notifications', component: GalleryProfileNotificationsComponent, canActivate: [AuthGuard]},
       {path: 'orders/list', component: GalleryProfileOrdersComponent, canActivate: [AuthGuard]},
-
+      {path: 'artworkstok', component: GalleryProfileArtworkStockComponent, canActivate: [AuthGuard]}
     ]
   },
   {path: 'artworks/artworks-list', component: ArtworksListComponent},

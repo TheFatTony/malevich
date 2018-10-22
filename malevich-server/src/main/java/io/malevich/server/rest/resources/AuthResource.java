@@ -1,17 +1,13 @@
 package io.malevich.server.rest.resources;
 
 
-import io.malevich.server.entity.ResetPasswordTokenEntity;
 import io.malevich.server.services.auth.AuthService;
 import io.malevich.server.transfer.*;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 
 @RestController
@@ -41,15 +37,27 @@ public class AuthResource {
         return ResponseEntity.ok().body("registered");
     }
 
+    @RequestMapping(value = "/register/{token}", method = RequestMethod.POST)
+    public ResponseEntity<String> register(
+            @RequestBody PasswordDto resetDto,
+            @PathVariable("token") String token
+    ) {
+        authService.register2(token, resetDto.getPassword());
+        return ResponseEntity.ok().body("password set");
+    }
+
     @RequestMapping(value = "/reset", method = RequestMethod.POST)
     public ResponseEntity<String> reset(@RequestBody ResetPasswordFormDto resetFormDto) {
         authService.reset(resetFormDto.getLang(), resetFormDto.getEmail());
         return ResponseEntity.ok().body("reset");
     }
 
-    @RequestMapping(value = "/reset/newpassword", method = RequestMethod.POST)
-    public ResponseEntity<String> reset(@RequestBody ResetPasswordTokenDto resetDto) {
-        authService.setNewPassword(resetDto.getToken(), resetDto.getPassword());
+    @RequestMapping(value = "/reset/{token}", method = RequestMethod.POST)
+    public ResponseEntity<String> reset(
+            @RequestBody PasswordDto resetDto,
+            @PathVariable("token") String token
+    ) {
+        authService.setNewPassword(token, resetDto.getPassword());
         return ResponseEntity.ok().body("password set");
     }
 

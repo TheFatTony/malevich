@@ -18,6 +18,8 @@ public interface AuthService extends UserDetailsService {
 
     RegisterTokenEntity register(String lang, String userName);
 
+    UserEntity register2(String token, String password);
+
     ResetPasswordTokenEntity reset(String lang, String userName);
 
     UserEntity setNewPassword(String token, String password);

@@ -2,6 +2,7 @@ package io.malevich.server.services.auth;
 
 
 import io.malevich.server.entity.*;
+import io.malevich.server.entity.enums.Role;
 import io.malevich.server.rest.util.JWTUtil;
 import io.malevich.server.services.accesstoken.AccessTokenService;
 import io.malevich.server.services.mailqueue.MailQueueService;
@@ -11,11 +12,9 @@ import io.malevich.server.services.user.UserService;
 import io.malevich.server.services.usertype.UserTypeService;
 import io.malevich.server.transfer.AccessTokenDto;
 import io.malevich.server.transfer.LoginFormDto;
-import io.malevich.server.transfer.ResetPasswordTokenDto;
 import io.malevich.server.transfer.UserDto;
 import org.apache.velocity.VelocityContext;
 import org.apache.velocity.app.VelocityEngine;
-import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -29,10 +28,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.io.StringWriter;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Locale;
-import java.util.UUID;
+import java.util.*;
 
 @Service
 public class AuthServiceImpl implements AuthService {
@@ -145,6 +141,23 @@ public class AuthServiceImpl implements AuthService {
         mailQueueService.create(new MailQueueEntity(entity.getUserName(), messageSource.getMessage("registration.confirm", null, new Locale(lang)), stringWriter.toString()));
 
         return entity;
+    }
+
+
+    @Override
+    @Transactional
+    public UserEntity register2(String token, String password){
+        RegisterTokenEntity registerTokenEntity = this.registerTokenService.findByToken(token).get();
+
+        UserEntity user = new UserEntity(
+                registerTokenEntity.getUserName(),
+                bCryptPasswordEncoder.encode(password),
+                new HashSet<>(Arrays.asList(Role.USER, Role.TRADER)),
+                true);
+
+        user = this.userService.save(user);
+        registerTokenService.delete(registerTokenEntity);
+        return user;
     }
 
     @Override

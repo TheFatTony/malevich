@@ -42,6 +42,10 @@ export class AuthService {
     });
   }
 
+  getCurrentUser() {
+    return JSON.parse(localStorage.getItem('user'));
+  }
+
   logout() {
     localStorage.removeItem('currentUser');
     localStorage.removeItem('user');

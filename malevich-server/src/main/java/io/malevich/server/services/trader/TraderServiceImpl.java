@@ -6,6 +6,7 @@ import io.malevich.server.entity.PersonEntity;
 import io.malevich.server.entity.RegisterTokenEntity;
 import io.malevich.server.entity.TraderEntity;
 import io.malevich.server.entity.UserEntity;
+import io.malevich.server.entity.enums.Role;
 import io.malevich.server.services.person.PersonService;
 import io.malevich.server.services.registertoken.RegisterTokenService;
 import io.malevich.server.services.user.UserService;
@@ -18,6 +19,8 @@ import org.springframework.security.web.authentication.preauth.PreAuthenticatedC
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Arrays;
+import java.util.HashSet;
 import java.util.List;
 
 @Service
@@ -75,6 +78,7 @@ public class TraderServiceImpl implements TraderService {
         trader.getUser().setName(registerTokenEntity.getUserName());
         trader.getUser().setPassword(bCryptPasswordEncoder.encode(trader.getUser().getPassword()));
         trader.getUser().setActivityFlag(true);
+        trader.getUser().setRoles(new HashSet<>(Arrays.asList(Role.USER, Role.TRADER)));
         UserEntity user = this.userService.save(trader.getUser());
         trader.setUser(user);
         PersonEntity person = this.personService.save(trader.getPerson());

@@ -2,11 +2,8 @@ package io.malevich.server.services.trader;
 
 
 import io.malevich.server.dao.trader.TraderDao;
-import io.malevich.server.entity.PersonEntity;
-import io.malevich.server.entity.RegisterTokenEntity;
 import io.malevich.server.entity.TraderEntity;
 import io.malevich.server.entity.UserEntity;
-import io.malevich.server.entity.enums.Role;
 import io.malevich.server.services.person.PersonService;
 import io.malevich.server.services.registertoken.RegisterTokenService;
 import io.malevich.server.services.user.UserService;
@@ -19,27 +16,16 @@ import org.springframework.security.web.authentication.preauth.PreAuthenticatedC
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.Arrays;
-import java.util.HashSet;
 import java.util.List;
 
 @Service
 public class TraderServiceImpl implements TraderService {
 
     @Autowired
-    private BCryptPasswordEncoder bCryptPasswordEncoder;
-
-    @Autowired
     private TraderDao traderDao;
 
     @Autowired
     private UserService userService;
-
-    @Autowired
-    private PersonService personService;
-
-    @Autowired
-    private RegisterTokenService registerTokenService;
 
     protected TraderServiceImpl() {
     }
@@ -58,39 +44,29 @@ public class TraderServiceImpl implements TraderService {
 
     @Override
     public TraderEntity findByUserName(String name) {
-        return traderDao.findByUserName(name).get();
+        return traderDao.findByUserName(name).orElse(null);
     }
 
     @Override
     @Transactional
     public TraderEntity update(TraderEntity trader) {
         TraderEntity traderEntity = getCurrentTrader();
-        trader.setId(traderEntity.getId());
-        trader.getUser().setId(traderEntity.getUser().getId());
-        trader.getPerson().setId(traderEntity.getPerson().getId());
+
+        if (traderEntity != null) {
+            trader.setId(traderEntity.getId());
+            trader.getUser().setId(traderEntity.getUser().getId());
+
+            if (traderEntity.getPerson() != null)
+                trader.getPerson().setId(traderEntity.getPerson().getId());
+        }
+        else{
+            UserEntity user = userService.findByName(getUserName());
+            trader.getUser().setId(user.getId());
+        }
         return traderDao.save(trader);
     }
 
-    @Override
-    @Transactional
-    public TraderEntity insert(TraderEntity trader, String token) {
-        RegisterTokenEntity registerTokenEntity = this.registerTokenService.findByToken(token).get();
-        trader.getUser().setName(registerTokenEntity.getUserName());
-        trader.getUser().setPassword(bCryptPasswordEncoder.encode(trader.getUser().getPassword()));
-        trader.getUser().setActivityFlag(true);
-        trader.getUser().setRoles(new HashSet<>(Arrays.asList(Role.USER, Role.TRADER)));
-        UserEntity user = this.userService.save(trader.getUser());
-        trader.setUser(user);
-        PersonEntity person = this.personService.save(trader.getPerson());
-        trader.setPerson(person);
-        TraderEntity newTrader = traderDao.save(trader);
-        registerTokenService.delete(registerTokenEntity);
-        return newTrader;
-    }
-
-    @Override
-    @Transactional(readOnly = true)
-    public TraderEntity getCurrentTrader() {
+    private String getUserName(){
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         Object principal = authentication.getPrincipal();
 
@@ -98,7 +74,13 @@ public class TraderServiceImpl implements TraderService {
             throw new PreAuthenticatedCredentialsNotFoundException(null);
 
         UserDetails userDetails = (UserDetails) principal;
-        String username = userDetails.getUsername();
+        return userDetails.getUsername();
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public TraderEntity getCurrentTrader() {
+        String username = getUserName();
         TraderEntity traderEntity = findByUserName(username);
         return traderEntity;
     }

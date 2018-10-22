@@ -17,11 +17,11 @@ export class MainHeaderComponent implements OnInit, AfterViewInit {
               public router: Router,
               public translate: TranslateService,
               public globals: Globals,
-              public loginService: AuthService) {
+              public authService: AuthService) {
   }
 
   ngOnInit() {
-    this.user = this.loginService.getCurrentUser();
+    this.user = this.authService.getCurrentUser();
   }
 
   ngAfterViewInit(): void {
@@ -49,7 +49,7 @@ export class MainHeaderComponent implements OnInit, AfterViewInit {
 
   doLogout() {
     this.user = null;
-    this.loginService.logout();
+    this.authService.logout();
     this.router.navigate(['/']);
   }
 

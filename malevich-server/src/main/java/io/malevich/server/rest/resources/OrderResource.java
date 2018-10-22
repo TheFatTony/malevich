@@ -23,9 +23,9 @@ public class OrderResource {
   private ModelMapper modelMapper;
 
 
-  @RequestMapping(value = "/list", method = RequestMethod.GET)
+  @RequestMapping(value = "/getPlacedOrders", method = RequestMethod.GET)
   public List<OrderDto> list() {
-  List<OrderEntity> allEntries = this.orderService.findAll();
+  List<OrderEntity> allEntries = this.orderService.getPlacedOrders();
     return allEntries.stream().map(allEntry -> convertToDto(allEntry)).collect(Collectors.toList());
   }
 

@@ -23,7 +23,7 @@ public class OrderEntity implements Entity {
     @Setter
     @Fetch(FetchMode.JOIN)
     @ManyToOne(cascade = CascadeType.MERGE)
-    private OrderEntity type;
+    private OrderTypeEntity type;
 
     @Getter
     @Setter

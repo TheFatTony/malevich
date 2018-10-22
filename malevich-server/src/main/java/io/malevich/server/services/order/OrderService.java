@@ -10,4 +10,5 @@ public interface OrderService {
 
   List<OrderEntity> findAll();
 
+    List<OrderEntity> getPlacedOrders();
 }

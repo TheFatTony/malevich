@@ -44,7 +44,8 @@
               "src/assets/vendor/revolution-slider/revolution/css/navigation.css",
               "src/assets/vendor/revolution-slider/revolution-addons/typewriter/css/typewriter.css",
               "node_modules/jqwidgets-scripts/jqwidgets/styles/jqx.base.css",
-              "node_modules/jqwidgets-scripts/jqwidgets/styles/jqx.bootstrap.css",
+              "node_modules/jqwidgets-scripts/jqwidgets/styles/jqx.metro.css",
+              "node_modules/jqwidgets-scripts/jqwidgets/styles/jqx.metrodark.css",
               "src/assets/e-commerce/css/styles.e-commerce.css",
               "src/assets/malevich/css/malevich.css"
             ],

@@ -73,5 +73,10 @@
                  path="src/main/database/test_data/012_gallery_address.sql"/>
     </changeSet>
 
+    <changeSet author="thefattony" id="013_counterparty-data">
+        <sqlFile endDelimiter="\nGO" splitStatements="false" stripComments="false"
+                 path="src/main/database/test_data/013_counterparty.sql"/>
+    </changeSet>
+
 </databaseChangeLog>
 

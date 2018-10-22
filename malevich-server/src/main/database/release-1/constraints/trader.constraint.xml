@@ -7,4 +7,35 @@
         <addUniqueConstraint columnNames="mobile" constraintName="trader_mobile_uc" tableName="trader"/>
     </changeSet>
 
+    <changeSet author="thefattony" id="trader-person-fk">
+        <addForeignKeyConstraint baseColumnNames="person_id" baseTableName="trader"
+                                 constraintName="trader_person_fk"
+                                 referencedColumnNames="id" referencedTableName="person"/>
+    </changeSet>
+
+    <changeSet author="thefattony" id="trader-files-fk">
+        <addForeignKeyConstraint baseColumnNames="thumbnail_id" baseTableName="trader"
+                                 constraintName="trader_files_fk"
+                                 referencedColumnNames="id" referencedTableName="files"/>
+    </changeSet>
+
+    <changeSet author="toolstik" id="trader-gender-fk">
+        <addForeignKeyConstraint baseColumnNames="gender_id" baseTableName="trader"
+                                 constraintName="trader_gender_fk"
+                                 referencedColumnNames="id" referencedTableName="gender"/>
+    </changeSet>
+
+    <changeSet author="toolstik" id="trader-user-fk">
+        <addForeignKeyConstraint baseColumnNames="user_id" baseTableName="trader"
+                                 constraintName="trader_user_fk"
+                                 referencedColumnNames="id" referencedTableName="user"/>
+    </changeSet>
+
+    <changeSet author="toolstik" id="trader-country-fk">
+        <addForeignKeyConstraint baseColumnNames="country_id" baseTableName="trader"
+                                 constraintName="trader_country_fk"
+                                 referencedColumnNames="id" referencedTableName="country"/>
+    </changeSet>
+
+
 </databaseChangeLog>

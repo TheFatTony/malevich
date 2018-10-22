@@ -25,7 +25,7 @@ public class TraderResource {
     @Autowired
     private ModelMapper modelMapper;
 
-    /*@PreAuthorize("hasRole('USER')")*/ //todo hasRole('TRADER')
+    @PreAuthorize("hasRole('TRADER')")
     @RequestMapping(value = "/current", method = RequestMethod.GET)
     public TraderDto getTrader() {
         TraderEntity traderEntity = traderService.getCurrentTrader();
@@ -38,6 +38,7 @@ public class TraderResource {
         return convertToDto(trader);
     }*/
 
+    @PreAuthorize("hasRole('TRADER')")
     @RequestMapping(value = "/update", method = RequestMethod.PUT)
     public ResponseEntity<Void> update(@RequestBody TraderDto trader){
         TraderEntity newTraderEntity = convertToEntity(trader);
@@ -45,6 +46,7 @@ public class TraderResource {
         return ResponseEntity.ok().build();
     }
 
+    @PreAuthorize("hasRole('TRADER')")
     @RequestMapping(value = "/insert/{token}", method = RequestMethod.POST)
     public ResponseEntity<TraderDto> insert(@RequestBody TraderDto trader, @PathVariable("token") String token){
         TraderEntity traderEntity = convertToEntity(trader);

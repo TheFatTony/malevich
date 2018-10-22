@@ -1,5 +1,7 @@
 package io.malevich.server.transfer;
 
+import io.malevich.server.entity.CounterpartyEntity;
+import io.malevich.server.entity.TradeTypeEntity;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -11,18 +13,16 @@ public class OrderDto {
 
   private long id;
 
-  private String typeId;
+  private OrderTypeDto type;
 
-  private long artworkId;
+  private ArtworkStockDto artworkStock;
 
-  private long partyId;
+  private CounterpartyDto party;
 
-  private String tradeTypeId;
+  private TradeTypeDto tradeType;
 
   private double amount;
 
   private java.sql.Timestamp effectiveDate;
-
-  private long transactionId;
 
 }

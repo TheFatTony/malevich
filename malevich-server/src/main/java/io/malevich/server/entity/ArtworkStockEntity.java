@@ -22,7 +22,7 @@ public class ArtworkStockEntity implements Entity {
     @Getter
     @Setter
     @Fetch(FetchMode.JOIN)
-    @ManyToOne()
+    @OneToOne()
     private ArtworkEntity artwork;
 
     @Getter

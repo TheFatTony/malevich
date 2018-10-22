@@ -138,6 +138,7 @@ import {
   ValidatorModule,
   WindowModule
 } from './admin/_modules';
+import { OrdersComponent } from './profile/gallery-profile/orders/orders.component';
 
 export function createTranslateLoader(http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
@@ -190,6 +191,7 @@ export function createTranslateLoader(http: HttpClient) {
     TraderProfileNavigation,
     TraderProfileSecurityView,
     TraderProfileSecurityEdit,
+    OrdersComponent
     // TraderProfileAddressesView,
     // TraderProfileAddressesEdit,
   ],

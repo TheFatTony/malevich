@@ -83,5 +83,10 @@
                  path="src/main/database/test_data/013_counterparty.sql"/>
     </changeSet>
 
+    <changeSet author="thefattony" id="014_orders-data">
+        <sqlFile endDelimiter="\nGO" splitStatements="false" stripComments="false"
+                 path="src/main/database/test_data/014_orders.sql"/>
+    </changeSet>
+
 </databaseChangeLog>
 

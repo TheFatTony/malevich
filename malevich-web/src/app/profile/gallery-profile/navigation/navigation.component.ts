@@ -13,7 +13,7 @@ export class NavigationComponent implements OnInit {
 
   gallery: GalleryDto;
 
-  private url = environment.baseUrl;
+  public url = environment.baseUrl;
 
   constructor(public translate: TranslateService,
               private galleryService: GalleryService) { }

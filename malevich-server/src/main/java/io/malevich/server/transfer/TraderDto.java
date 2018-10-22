@@ -10,7 +10,7 @@ import java.util.List;
 @Setter
 public class TraderDto {
 
-    private long id;
+    private Long id;
 
     private PersonDto person;
 

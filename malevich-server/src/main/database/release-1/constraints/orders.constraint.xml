@@ -9,10 +9,10 @@
                                  referencedColumnNames="id" referencedTableName="order_type"/>
     </changeSet>
 
-    <changeSet author="thefattony" id="orders-artwork_id-fk">
-        <addForeignKeyConstraint baseColumnNames="artwork_id" baseTableName="orders"
-                                 constraintName="orders_artwork_fk"
-                                 referencedColumnNames="id" referencedTableName="artwork"/>
+    <changeSet author="thefattony" id="orders-artwork_stock-fk">
+        <addForeignKeyConstraint baseColumnNames="artwork_stock_id" baseTableName="orders"
+                                 constraintName="orders_artwork_stock_fk"
+                                 referencedColumnNames="id" referencedTableName="artwork_stock"/>
     </changeSet>
 
     <changeSet author="thefattony" id="orders-party_id-fk">

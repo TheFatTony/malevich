@@ -9,9 +9,9 @@
         </createIndex>
     </changeSet>
 
-    <changeSet author="thefattony" id="orders-artwork_id-index">
-        <createIndex indexName="orders_artwork_id_idx" tableName="orders" unique="false">
-            <column name="artwork_id"/>
+    <changeSet author="thefattony" id="orders-artwork_stock_id-index">
+        <createIndex indexName="orders_artwork_stock_id_idx" tableName="orders" unique="false">
+            <column name="artwork_stock_id"/>
         </createIndex>
     </changeSet>
 

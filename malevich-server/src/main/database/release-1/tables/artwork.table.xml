@@ -14,7 +14,10 @@
             <column name="description" type="clob">
                 <constraints nullable="false"/>
             </column>
-            <column name="price" type="double">
+            <column name="estimated_price" type="double">
+                <constraints nullable="false"/>
+            </column>
+            <column name="artist_id" type="bigint">
                 <constraints nullable="false"/>
             </column>
             <column name="category_id" type="bigint">

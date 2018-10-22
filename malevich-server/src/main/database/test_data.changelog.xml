@@ -63,6 +63,11 @@
                  path="src/main/database/test_data/010_address.sql"/>
     </changeSet>
 
+    <changeSet author="thefattony" id="011_artwork_stock-data">
+        <sqlFile endDelimiter="\nGO" splitStatements="false" stripComments="false"
+                 path="src/main/database/test_data/011_artwork_stock.sql"/>
+    </changeSet>
+
     <changeSet author="thefattony" id="011_trader_address-data">
         <sqlFile endDelimiter="\nGO" splitStatements="false" stripComments="false"
                  path="src/main/database/test_data/011_trader_address.sql"/>

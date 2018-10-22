@@ -1,8 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {ArtworkDto} from "../../_transfer";
 import {environment} from "../../../environments/environment";
 import {TranslateService} from "@ngx-translate/core";
-import {ArtworkService} from "../../_services/artwork.service";
+import {ArtworkStockService} from "../../_services/artwork-stock.service";
+import {ArtworkStockDto} from "../../_transfer/artworkStockDto";
 
 @Component({
   selector: 'app-artworks-list',
@@ -12,25 +13,25 @@ import {ArtworkService} from "../../_services/artwork.service";
 export class ArtworksListComponent implements OnInit {
 
   showGrid: boolean = true;
-  artworks: ArtworkDto[];
+  artworkStocks: ArtworkStockDto[];
 
   private url = environment.baseUrl;
 
-  constructor(public translate: TranslateService, private artworkService: ArtworkService) {
+  constructor(public translate: TranslateService, private artworkStockService: ArtworkStockService) {
   }
 
   ngOnInit() {
-    this.getArtworks();
+    this.getArtworkStock();
   }
 
   ngAfterViewInit(): void {
   }
 
-  getArtworks(): void {
-    this.artworkService
-      .getArtworks()
+  getArtworkStock(): void {
+    this.artworkStockService
+      .getArtworkStock()
       .subscribe(
-        data => (this.artworks = data)
+        data => (this.artworkStocks = data)
       );
   }
 

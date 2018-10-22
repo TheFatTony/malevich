@@ -9,7 +9,7 @@ import {environment} from "../../../../environments/environment";
 })
 export class GridComponent implements OnInit {
 
-  @Input() artworks;
+  @Input() artworkStocks;
 
   private url = environment.baseUrl;
 

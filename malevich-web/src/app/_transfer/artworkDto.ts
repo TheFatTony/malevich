@@ -5,7 +5,7 @@ export class ArtworkDto {
   id: number;
   title: string;
   description: string;
-  price: number;
+  estimatedPrice: number;
   category: CategoryDto;
   thumbnail: FileDto;
   image: FileDto;

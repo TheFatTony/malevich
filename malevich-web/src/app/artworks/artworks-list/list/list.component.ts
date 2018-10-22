@@ -9,7 +9,7 @@ import {environment} from "../../../../environments/environment";
 })
 export class ListComponent implements OnInit {
 
-  @Input() artworks;
+  @Input() artworkStocks;
 
   private url = environment.baseUrl;
 

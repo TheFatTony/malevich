@@ -33,8 +33,8 @@ public class ArtworkEntity implements Entity {
 
     @Getter
     @Setter
-    @Column(name = "price")
-    private double price;
+    @Column(name = "estimated_price")
+    private double estimatedPrice;
 
     @Getter
     @Setter

@@ -18,7 +18,7 @@ public class ArtworkDto {
 
     private String description;
 
-    private double price;
+    private double estimatedPrice;
 
     private CategoryDto category;
 

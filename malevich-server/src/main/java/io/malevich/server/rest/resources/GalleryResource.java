@@ -41,7 +41,7 @@ public class GalleryResource {
         return convertToDto(allEntry);
     }
 
-    @PreAuthorize("hasRole('USER')")
+    @PreAuthorize("hasRole('GALLERY')")
     @RequestMapping(value = "/current", method = RequestMethod.GET)
     public GalleryDto current() {
         log.info("happy");
@@ -49,7 +49,7 @@ public class GalleryResource {
         return convertToDto(allEntry);
     }
 
-    @PreAuthorize("hasRole('USER')")
+    @PreAuthorize("hasRole('TRADER')")
     @RequestMapping(value = "/update", method = RequestMethod.POST)
     public ResponseEntity<Void> update(@RequestBody GalleryDto gallery){
         GalleryEntity newEntity = convertToEntity(gallery);

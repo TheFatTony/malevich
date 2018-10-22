@@ -8,7 +8,7 @@
             <column name="user_id" type="bigint">
                 <constraints nullable="false"/>
             </column>
-            <column name="roles" type="int">
+            <column name="roles" type="bigint">
                 <constraints nullable="false"/>
             </column>
         </createTable>

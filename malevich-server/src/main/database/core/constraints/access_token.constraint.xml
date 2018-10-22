@@ -7,4 +7,10 @@
         <addUniqueConstraint columnNames="token" constraintName="access_token_token_uc" tableName="access_token"/>
     </changeSet>
 
+    <changeSet author="thefattony" id="access_token-user-fk">
+        <addForeignKeyConstraint baseColumnNames="user_id" baseTableName="access_token"
+                                 constraintName="access_token_user_fk"
+                                 referencedColumnNames="id" referencedTableName="user"/>
+    </changeSet>
+
 </databaseChangeLog>

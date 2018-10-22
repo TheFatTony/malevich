@@ -6,7 +6,6 @@
     <include relativeToChangelogFile="true" file="core/tables.changelog.xml"/>
     <include relativeToChangelogFile="true" file="core/constraints.changelog.xml"/>
     <include relativeToChangelogFile="true" file="core/indexes.changelog.xml"/>
-    <include relativeToChangelogFile="true" file="core/foreign_keys.changelog.xml"/>
     <include relativeToChangelogFile="true" file="core/data.changelog.xml"/>
 
 </databaseChangeLog>

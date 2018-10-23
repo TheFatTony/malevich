@@ -2,6 +2,9 @@ package io.malevich.server.entity;
 
 import lombok.Getter;
 import lombok.Setter;
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
+
 import javax.persistence.*;
 
 
@@ -14,12 +17,13 @@ public class TransactionEntity implements Entity {
   @Setter
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
-  private long id;
+  private Long id;
 
   @Getter
   @Setter
-  @Column(name = "type_id")
-  private String typeId;
+  @Fetch(FetchMode.JOIN)
+  @ManyToOne(cascade = CascadeType.MERGE)
+  private TransactionTypeEntity type;
 
   @Getter
   @Setter
@@ -28,18 +32,21 @@ public class TransactionEntity implements Entity {
 
   @Getter
   @Setter
-  @Column(name = "party_id")
-  private long partyId;
+  @Fetch(FetchMode.JOIN)
+  @ManyToOne(cascade = CascadeType.MERGE)
+  private CounterpartyEntity party;
 
   @Getter
   @Setter
-  @Column(name = "counterparty_id")
-  private long counterpartyId;
+  @Fetch(FetchMode.JOIN)
+  @ManyToOne(cascade = CascadeType.MERGE)
+  private CounterpartyEntity counterparty;
 
   @Getter
   @Setter
-  @Column(name = "artwork_id")
-  private long artworkId;
+  @Fetch(FetchMode.JOIN)
+  @ManyToOne(cascade = CascadeType.MERGE)
+  private ArtworkStockEntity artworkStock;
 
   @Getter
   @Setter

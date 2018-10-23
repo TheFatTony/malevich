@@ -12,7 +12,10 @@ import {LoadingService} from "./_services/loading.service";
 export class AppComponent implements AfterViewInit{
   title = 'Malevich.io';
 
-  constructor(public translate: TranslateService, public globals: Globals, private loginService: AuthService, public loadingService: LoadingService) {
+  constructor(public translate: TranslateService,
+              public globals: Globals,
+              private loginService: AuthService,
+              public loadingService: LoadingService) {
     translate.addLangs(['en', 'ru']);
     translate.setDefaultLang('en');
 

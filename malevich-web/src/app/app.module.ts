@@ -138,6 +138,8 @@ import {
   ValidatorModule,
   WindowModule
 } from './admin/_modules';
+import { OrdersComponent } from './profile/gallery-profile/orders/orders.component';
+import { ArtworkStockComponent } from './profile/gallery-profile/artwork-stock/artwork-stock.component';
 
 export function createTranslateLoader(http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
@@ -191,7 +193,11 @@ export function createTranslateLoader(http: HttpClient) {
     TraderProfileSecurityView,
     TraderProfileSecurityEdit,
     ResetStepOneComponent,
-    ResetStepTwoComponent
+    ResetStepTwoComponent,
+    OrdersComponent,
+    ArtworkStockComponent
+    // TraderProfileAddressesView,
+    // TraderProfileAddressesEdit,
   ],
   imports: [
     BrowserModule,

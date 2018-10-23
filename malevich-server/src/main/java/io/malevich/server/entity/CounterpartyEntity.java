@@ -2,6 +2,9 @@ package io.malevich.server.entity;
 
 import lombok.Getter;
 import lombok.Setter;
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
+
 import javax.persistence.*;
 
 
@@ -9,26 +12,28 @@ import javax.persistence.*;
 @Table(name = "counterparty")
 public class CounterpartyEntity implements Entity {
 
-
   @Getter
   @Setter
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
-  private long id;
+  private Long id;
 
   @Getter
   @Setter
-  @Column(name = "type_id")
-  private String typeId;
+  @Fetch(FetchMode.JOIN)
+  @ManyToOne(cascade = CascadeType.MERGE)
+  private CounterpartyTypeEntity type;
 
   @Getter
   @Setter
-  @Column(name = "trader_id")
-  private long traderId;
+  @Fetch(FetchMode.JOIN)
+  @OneToOne(cascade = CascadeType.MERGE)
+  private TraderEntity trader;
 
   @Getter
   @Setter
-  @Column(name = "gallery_id")
-  private long galleryId;
+  @Fetch(FetchMode.JOIN)
+  @OneToOne(cascade = CascadeType.MERGE)
+  private GalleryEntity gallery;
 
 }

@@ -9,20 +9,18 @@ import lombok.Setter;
 public class OrderDto {
 
 
-  private long id;
+    private long id;
 
-  private String typeId;
+    private OrderTypeDto type;
 
-  private long artworkId;
+    private ArtworkStockDto artworkStock;
 
-  private long partyId;
+    private CounterpartyDto party;
 
-  private String tradeTypeId;
+    private TradeTypeDto tradeType;
 
-  private double amount;
+    private double amount;
 
-  private java.sql.Timestamp effectiveDate;
-
-  private long transactionId;
+    private java.sql.Timestamp effectiveDate;
 
 }

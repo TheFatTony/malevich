@@ -11,8 +11,11 @@ import {jqxGridComponent} from 'jqwidgets-scripts/jqwidgets-ts/angular_jqxgrid';
 export class FilesListComponent implements OnInit {
   @ViewChild('myGrid') myGrid: jqxGridComponent;
   files: FileDto[];
-  constructor( private fileService: FileService) { }
 
+
+  constructor( private fileService: FileService) {
+    $.jqx.theme = 'metrodark';
+  }
 
   getFiles(): void {
     this.fileService

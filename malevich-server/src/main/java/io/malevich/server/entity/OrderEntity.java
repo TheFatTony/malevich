@@ -2,6 +2,9 @@ package io.malevich.server.entity;
 
 import lombok.Getter;
 import lombok.Setter;
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
+
 import javax.persistence.*;
 
 
@@ -10,45 +13,44 @@ import javax.persistence.*;
 public class OrderEntity implements Entity {
 
 
-  @Getter
-  @Setter
-  @Id
-  @GeneratedValue(strategy = GenerationType.IDENTITY)
-  private long id;
+    @Getter
+    @Setter
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
-  @Getter
-  @Setter
-  @Column(name = "type_id")
-  private String typeId;
+    @Getter
+    @Setter
+    @Fetch(FetchMode.JOIN)
+    @ManyToOne(cascade = CascadeType.MERGE)
+    private OrderTypeEntity type;
 
-  @Getter
-  @Setter
-  @Column(name = "artwork_id")
-  private long artworkId;
+    @Getter
+    @Setter
+    @Fetch(FetchMode.JOIN)
+    @ManyToOne(cascade = CascadeType.MERGE)
+    private ArtworkStockEntity artworkStock;
 
-  @Getter
-  @Setter
-  @Column(name = "party_id")
-  private long partyId;
+    @Getter
+    @Setter
+    @Fetch(FetchMode.JOIN)
+    @ManyToOne(cascade = CascadeType.MERGE)
+    private CounterpartyEntity party;
 
-  @Getter
-  @Setter
-  @Column(name = "trade_type_id")
-  private String tradeTypeId;
+    @Getter
+    @Setter
+    @Fetch(FetchMode.JOIN)
+    @ManyToOne(cascade = CascadeType.MERGE)
+    private TradeTypeEntity tradeType;
 
-  @Getter
-  @Setter
-  @Column(name = "amount")
-  private double amount;
+    @Getter
+    @Setter
+    @Column(name = "amount")
+    private double amount;
 
-  @Getter
-  @Setter
-  @Column(name = "effective_date")
-  private java.sql.Timestamp effectiveDate;
-
-  @Getter
-  @Setter
-  @Column(name = "transaction_id")
-  private long transactionId;
+    @Getter
+    @Setter
+    @Column(name = "effective_date")
+    private java.sql.Timestamp effectiveDate;
 
 }

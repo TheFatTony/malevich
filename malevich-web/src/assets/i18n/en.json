@@ -52,6 +52,7 @@
         "EMAIL": "Email",
         "PASSWORD": "Password",
         "CONFIRM_PASSWORD": "Confirm Password",
+        "DATE_OF_BIRTH": "Date Of Birth:",
         "ADDRESS": {
           "COUNTRY": "Country",
           "STATE": "State, Province etc.",
@@ -62,6 +63,7 @@
       },
       "BUTTON": {
         "EDIT_PROFILE": "Edit",
+        "SUBMIT": "Submit",
         "UPDATE": "Update",
         "CANCEL": "Cancel",
         "CHANGE_PASSWORD": "Change Password"

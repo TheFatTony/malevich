@@ -30,4 +30,10 @@ public class UserServiceImpl implements UserService {
     public UserEntity save(UserEntity userEntity) {
         return userDao.save(userEntity);
     }
+
+    @Override
+    @Transactional
+    public UserEntity findByName(String name) {
+        return userDao.findByName(name);
+    }
 }

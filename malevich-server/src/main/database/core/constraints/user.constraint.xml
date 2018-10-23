@@ -3,6 +3,10 @@
                    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
                    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.6.xsd">
 
+    <changeSet author="toolstik" id="user-name-uc">
+        <addUniqueConstraint columnNames="name" constraintName="user_name_uc" tableName="user"/>
+    </changeSet>
+
     <changeSet author="thefattony" id="user-user_type-fk">
         <addForeignKeyConstraint baseColumnNames="user_type_id" baseTableName="user"
                                  constraintName="user_user_type_fk"

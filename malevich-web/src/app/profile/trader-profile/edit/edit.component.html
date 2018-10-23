@@ -69,11 +69,18 @@
 
         <hr class="g-brd-gray-light-v4 g-my-20">
 
-        <div class="row">
+        <div class="row" *ngIf="genders">
           <div class="col-8">
             <span
               class="d-block g-color-text g-font-size-13 mb-1">{{'TRADER_PROFILE.SECURITY.LABEL.GENDER' | translate}}</span>
-            <span class="d-block">{{trader?.gender.nameMl[translate.currentLang]}}</span>
+            <select [ngModel]="trader?.gender" (ngModelChange)="trader.gender=$event" style="width: 100%;"
+                    class="js-custom-select u-select-v1 g-brd-gray-light-v3 g-color-gray-dark-v5 rounded g-py-12"
+                    data-open-icon="fa fa-angle-down"
+                    data-close-icon="fa fa-angle-up">
+              <option *ngIf="trader.gender" [value]="trader.gender" selected>{{trader?.gender.nameMl[translate.currentLang]}}
+              </option>
+              <option *ngFor="let g of genders" [ngValue]="g">{{g.nameMl[translate.currentLang]}}</option>
+            </select>
           </div>
         </div>
 
@@ -84,10 +91,10 @@
             <span
               class="d-block g-color-text g-font-size-13 mb-1">{{'TRADER_PROFILE.SECURITY.LABEL.COUNTRY' | translate}}</span>
             <select [ngModel]="trader?.country" (ngModelChange)="trader.country=$event" style="width: 100%;"
-                    class="js-custom-select u-select-v1 g-color-black g-bg-white g-bg-white--focus g-brd-gray-light-v3 rounded g-py-12"
+                    class="js-custom-select u-select-v1 g-brd-gray-light-v3 g-color-gray-dark-v5 rounded g-py-12"
                     data-open-icon="fa fa-angle-down"
                     data-close-icon="fa fa-angle-up">
-              <option [value]="trader.country" selected>{{trader?.country.nameMl[translate.currentLang]}}
+              <option *ngIf="trader.country" [value]="trader.country" selected>{{trader?.country.nameMl[translate.currentLang]}}
               </option>
               <option *ngFor="let c of countries" [ngValue]="c">{{c.nameMl[translate.currentLang]}}</option>
             </select>
@@ -150,11 +157,11 @@
               <span
                 class="d-block g-color-text g-font-size-13 mb-1">{{'TRADER_PROFILE.SECURITY.LABEL.ADDRESS.COUNTRY' | translate}}</span>
               <select [(ngModel)]="address.country"
-                      class="js-custom-select u-select-v1 g-color-black g-bg-white g-bg-white--focus g-brd-gray-light-v3 rounded g-py-12"
+                      class="js-custom-select u-select-v1 g-brd-gray-light-v3 g-color-gray-dark-v5 rounded g-py-12"
                       data-open-icon="fa fa-angle-down"
                       data-close-icon="fa fa-angle-up"
                       style="width: 100%">
-                <option [value]="address.country" selected="selected">
+                <option *ngIf="address.country" [value]="address.country" selected="selected">
                   {{address.country.nameMl[translate.currentLang]}}
                 </option>
                 <option *ngFor="let c of countries" [ngValue]="c">{{c.nameMl[translate.currentLang]}}</option>

@@ -21,11 +21,11 @@ public class CountersServiceImpl implements CountersService {
             "from\n" +
             "    (select 'galleries' property, count(*) value_ from gallery\n" +
             "    union\n" +
-            "    select 'members' property, count(*) value_ from user u join user_roles ur on u.id = ur.user_id where ur.roles = 3\n" +
+            "    select 'members' property, count(*) value_ from user\n" +
             "    union\n" +
             "    select 'artworks' property, count(*) value_ from artwork\n" +
             "    union\n" +
-            "    select 'art_value' property, sum(price) value_ from artwork) z";
+            "    select 'art_value' property, sum(estimated_price) value_ from artwork) z";
 
     private static RowMapper<InvolvementEntity> involvementRowMapper = new RowMapper<InvolvementEntity>() {
         @Override

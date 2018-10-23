@@ -1,5 +1,5 @@
 export class OrderTypeDto {
-  id: string;
+  id: number;
   name: string;
   nameMl: Map<string, string>;
 }

@@ -17,7 +17,9 @@ export class DashboardComponent implements OnInit {
       'New videos, take a look at YouTube.com'
     ];
 
-  constructor() { }
+  constructor() {
+    $.jqx.theme = 'metrodark';
+  }
 
   ngOnInit() {
   }

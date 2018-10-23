@@ -15,7 +15,9 @@ export class ArtworkStockComponent implements OnInit {
 
   public url = environment.baseUrl;
 
-  constructor(private artworkStockService: ArtworkStockService, public translate: TranslateService) { }
+  constructor(private artworkStockService: ArtworkStockService, public translate: TranslateService) {
+    $.jqx.theme = 'malevich';
+  }
 
   ngOnInit() {
     this.getArtworkStock();

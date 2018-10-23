@@ -25,6 +25,9 @@
   </div>
 </section>
 
+
+
+
 <div class="container g-pt-70 g-pb-30">
   <div class="row">
     <!-- Profile Settings -->
@@ -32,48 +35,34 @@
       <app-profile-gallery-navigation></app-profile-gallery-navigation>
     </div>
     <!-- End Profile Settings -->
+    <div class="col-lg-9 g-mb-50">
+      <jqxPanel #myPanel [width]="'100%'" [height]="'620px'">
+        <jqxGrid #myGrid
+                 [width]="'100%'" [height]="'100%'" [pageable]="true"
+                 [sortable]="true" [columnsresize]="true" [pagermode]="'simple'"
+                 [showtoolbar]="true">
+          <tr>
+            <th>Artwork</th>
+            <th>Price</th>
+            <th>Category</th>
+          </tr>
+          <tr *ngFor="let artworkStock of artworkStocks">
+            <td>
+              {{artworkStock?.artwork.titleMl[translate.currentLang]}}
+            </td>
+            <td>
+              ${{artworkStock?.artwork.estimatedPrice}}
+            </td>
+            <td>
+              {{artworkStock?.artwork.category.categoryNameMl[translate.currentLang]}}
+            </td>
+          </tr>
+        </jqxGrid>
+      </jqxPanel>
 
+    </div>
 
     <!-- Login & Security -->
-    <div class="col-lg-9 g-mb-50">
-      <!-- Products Block -->
-      <div class="rounded g-brd-around g-brd-gray-light-v4 g-overflow-x-scroll g-overflow-x-visible--lg g-pa-30">
-        <table class="text-center w-100">
-          <thead class="h6 g-brd-bottom g-brd-gray-light-v4 g-color-black text-uppercase">
-          <tr>
-            <th class="g-font-weight-500 text-left g-pb-20">Artwork</th>
-            <th class="g-font-weight-500 g-width-130 g-pb-20">Artist</th>
-            <th class="g-font-weight-500 g-width-130 g-pb-20">Price</th>
-            <th></th>
-          </tr>
-          </thead>
-
-          <tbody>
-          <!-- Item-->
-          <tr class="g-brd-bottom g-brd-gray-light-v4" *ngFor="let artworkStock of artworkStocks">
-            <td class="text-left g-py-25">
-              <img class="d-inline-block g-width-100 mr-4" src="{{url}}{{artworkStock?.artwork.thumbnail.url}}" alt="Image Description">
-              <div class="d-inline-block align-middle">
-                <h4 class="h6 g-color-black">{{artworkStock?.artwork.titleMl[translate.currentLang]}}</h4>
-                <ul class="list-unstyled g-color-gray-dark-v4 g-font-size-12 g-line-height-1_6 mb-0">
-                  <li>Category: Canvas</li>
-                </ul>
-              </div>
-            </td>
-            <td class="g-color-gray-dark-v2 g-font-size-13">xxxxxx</td>
-            <td class="g-color-gray-dark-v2 g-font-size-13">xxxxxx</td>
-            <td class="text-right g-color-black">
-              <span class="g-color-gray-dark-v4 g-color-black--hover g-cursor-pointer">
-                        <i class="mt-auto fa fa-trash"></i>
-                      </span>
-            </td>
-          </tr>
-          <!-- End Item-->
-          </tbody>
-        </table>
-      </div>
-      <!-- End Products Block -->
-    </div>
     <!-- End Login & Security -->
   </div>
 </div>

@@ -48,4 +48,9 @@ public class OrderServiceImpl implements OrderService {
         return this.orderDao.findAllPlacedTraderOrders(galleryEntity.getId());
     }
 
+    @Override
+    public OrderEntity insert(OrderEntity newOrderEntity) {
+        return orderDao.save(newOrderEntity);
+    }
+
 }

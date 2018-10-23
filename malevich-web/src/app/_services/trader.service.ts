@@ -11,8 +11,7 @@ export class TraderService {
 
   private url = environment.baseUrl + 'traders';
 
-  constructor(private http: HttpClient,
-              private alertService: AlertService) {
+  constructor(private http: HttpClient) {
   }
 
   getTrader() {
@@ -35,8 +34,7 @@ export class TraderService {
     return this.http
       .put<TraderDto>(url, trader)
       .subscribe(
-        data => data,
-        error => this.alertService.error(error)
+        data => data
       );
   }
 
@@ -46,8 +44,7 @@ export class TraderService {
     return this.http
       .post<TraderDto>(url, trader)
       .subscribe(
-        data => data,
-        error => this.alertService.error(error)
+        data => data
       );
   }
 }

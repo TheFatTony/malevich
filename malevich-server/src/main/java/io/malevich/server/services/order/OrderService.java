@@ -11,4 +11,6 @@ public interface OrderService {
   List<OrderEntity> findAll();
 
     List<OrderEntity> getPlacedOrders();
+
+  OrderEntity insert(OrderEntity newOrderEntity);
 }

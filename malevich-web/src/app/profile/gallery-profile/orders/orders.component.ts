@@ -4,6 +4,13 @@ import {OrderService} from "../../../_services/order.service";
 import {TranslateService} from "@ngx-translate/core";
 import {jqxGridComponent} from 'jqwidgets-scripts/jqwidgets-ts/angular_jqxgrid';
 import {jqxWindowComponent} from 'jqwidgets-scripts/jqwidgets-ts/angular_jqxwindow';
+import {ArtworkDto} from "../../../_transfer";
+import {ArtworkStockDto} from "../../../_transfer/artworkStockDto";
+import {ArtworkStockService} from "../../../_services/artwork-stock.service";
+import {TradeTypeService} from "../../../_services/trade-type.service";
+import {TradeTypeDto} from "../../../_transfer/tradeTypeDto";
+import {OrderTypeDto} from "../../../_transfer/orderTypeDto";
+import {OrderTypeService} from "../../../_services/order-type.service";
 
 @Component({
   selector: 'app-profile-gallery-orders',
@@ -24,14 +31,24 @@ export class OrdersComponent implements OnInit {
     ];
 
   orders: OrderDto[];
-  newOrder: OrderDto;
+  public newOrder: OrderDto;
 
-  constructor(private orderService: OrderService, public translateService: TranslateService) {
+  artworkStocks: ArtworkStockDto[];
+
+  tradeTypes: TradeTypeDto[];
+
+  constructor(private artworkStockService: ArtworkStockService,
+              private orderService: OrderService,
+              public translateService: TranslateService,
+              private tradeTypeService: TradeTypeService,
+              private orderTypeService: OrderTypeService) {
     $.jqx.theme = 'malevich';
   }
 
   ngOnInit() {
     this.getPlacedOrders();
+    this.getArtworkStock();
+    this.getTradeTypes();
   }
 
   ngAfterViewInit(): void {
@@ -45,13 +62,33 @@ export class OrdersComponent implements OnInit {
       );
   }
 
+  getArtworkStock(): void {
+    this.artworkStockService
+      .getArtworkStock()
+      .subscribe(
+        data => (this.artworkStocks = data)
+      );
+  }
+
+  getTradeTypes(): void {
+    this.tradeTypeService
+      .getTradeTypes()
+      .subscribe(
+        data => (this.tradeTypes = data)
+      );
+  }
+
   openWindow() {
     this.newOrder = new OrderDto();
+    this.newOrder.artworkStock = new ArtworkStockDto();
+    this.newOrder.tradeType = new TradeTypeDto();
     this.myWindow.open();
     this.myWindow.move(460, 260);
   }
 
   sendButton() {
+    console.info(this.newOrder);
+    this.orderService.insertOrder(this.newOrder).subscribe();
 
   }
 }

@@ -13,6 +13,7 @@ export class UserListComponent implements OnInit {
   users: UserDto[];
 
   constructor(private usersService: UsersService) {
+    $.jqx.theme = 'metrodark';
   }
 
   getUsers(): void {

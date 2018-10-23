@@ -1,5 +1,5 @@
 export class TradeTypeDto {
-  id: string;
+  id: number;
   name: string;
   nameMl: Map<string, string>;
 }

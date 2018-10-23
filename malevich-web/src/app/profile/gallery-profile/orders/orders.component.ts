@@ -3,6 +3,7 @@ import {OrderDto} from "../../../_transfer/orderDto";
 import {OrderService} from "../../../_services/order.service";
 import {TranslateService} from "@ngx-translate/core";
 import {jqxGridComponent} from 'jqwidgets-scripts/jqwidgets-ts/angular_jqxgrid';
+import {jqxWindowComponent} from 'jqwidgets-scripts/jqwidgets-ts/angular_jqxwindow';
 
 @Component({
   selector: 'app-profile-gallery-orders',
@@ -11,6 +12,7 @@ import {jqxGridComponent} from 'jqwidgets-scripts/jqwidgets-ts/angular_jqxgrid';
 })
 export class OrdersComponent implements OnInit {
   @ViewChild('myGrid') myGrid: jqxGridComponent;
+  @ViewChild('myWindow') myWindow: jqxWindowComponent;
 
   public columns =
     [
@@ -22,6 +24,7 @@ export class OrdersComponent implements OnInit {
     ];
 
   orders: OrderDto[];
+  newOrder: OrderDto;
 
   constructor(private orderService: OrderService, public translateService: TranslateService) {
     $.jqx.theme = 'malevich';
@@ -32,29 +35,6 @@ export class OrdersComponent implements OnInit {
   }
 
   ngAfterViewInit(): void {
-    this.createButtons();
-  }
-
-  createButtonsContainers(statusbar: any): void {
-    let buttonsContainer = document.createElement('div');
-    buttonsContainer.style.cssText = 'overflow: hidden; position: relative; margin: 5px; height: 60px;';
-    let addButtonContainer = document.createElement('div');
-    addButtonContainer.id = 'addButton';
-    addButtonContainer.style.cssText = 'float: left; margin-left: 5px;';
-    buttonsContainer.appendChild(addButtonContainer);
-    statusbar[0].appendChild(buttonsContainer);
-  }
-
-  createButtons(): void {
-    let addButtonOptions = {
-      width: 100, height: 25, value: 'Put Order',
-      imgSrc: 'https://www.jqwidgets.com/angular/images/add.png',
-      imgPosition: 'center', textPosition: 'center',
-      textImageRelation: 'imageBeforeText'
-    }
-    let addButton = jqwidgets.createInstance('#addButton', 'jqxButton', addButtonOptions);
-    addButton.addEventHandler('click', (event: any): void => {
-    });
   }
 
   getPlacedOrders(): void {
@@ -65,4 +45,13 @@ export class OrdersComponent implements OnInit {
       );
   }
 
+  openWindow() {
+    this.newOrder = new OrderDto();
+    this.myWindow.open();
+    this.myWindow.move(460, 260);
+  }
+
+  sendButton() {
+
+  }
 }

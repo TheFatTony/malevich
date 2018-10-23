@@ -5,6 +5,8 @@ import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
 
 import javax.persistence.*;
 import java.util.List;
@@ -51,7 +53,8 @@ public class GalleryEntity implements Entity {
 
     @Getter
     @Setter
-    @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE}, fetch = FetchType.EAGER)
+    @LazyCollection(LazyCollectionOption.FALSE)
+    @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     @JoinTable(name = "gallery_address",
             joinColumns = @JoinColumn(name = "gallery_id"),
             inverseJoinColumns = @JoinColumn(name = "address_id"))
@@ -59,6 +62,7 @@ public class GalleryEntity implements Entity {
 
     @Getter
     @Setter
+    @LazyCollection(LazyCollectionOption.FALSE)
     @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     @JoinTable(name = "gallery_user",
             joinColumns = @JoinColumn(name = "gallery_id"),

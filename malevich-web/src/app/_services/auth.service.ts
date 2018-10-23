@@ -42,7 +42,7 @@ export class AuthService {
     });
   }
 
-  getCurrentUser() {
+  getCurrentUser() : UserDto {
     return JSON.parse(localStorage.getItem('user'));
   }
 
@@ -52,12 +52,21 @@ export class AuthService {
     this.globals.isAuthorised = false;
   }
 
-
   register(lang: string, email: string) {
-    return this.http.post<any>(this.url + '/register', {lang: lang, email: email})
-      .pipe(map(data => {
-        return data;
-      }));
+    return this.http.post<any>(this.url + '/register', {lang: lang, email: email});
+  }
+
+  /// set password
+  register2(token: string, password: string) {
+    return this.http.post<any>(this.url + `/register/${token}`, {password: password});
+  }
+
+  reset(lang: string, email: string) {
+    return this.http.post<any>(this.url + '/reset', {lang: lang, email: email});
+  }
+
+  setNewPassword(token: string, password: string) {
+    return this.http.post<any>(this.url + `/register/${token}`, {password: password});
   }
 
 }

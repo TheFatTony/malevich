@@ -4,7 +4,12 @@ import {CountryDto} from "../../../_transfer/countryDto";
 import {TranslateService} from "@ngx-translate/core";
 import {TraderService} from "../../../_services/trader.service";
 import {CountryService} from "../../../_services/country.service";
-import {Observable} from "rxjs";
+import {AuthService} from "../../../_services";
+import {AddressDto} from "../../../_transfer/addressDto";
+import {PersonDto} from "../../../_transfer";
+import {GenderDto} from "../../../_transfer/genderDto";
+import {GenderService} from "../../../_services/gender.service";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'trader-profile-security-edit',
@@ -13,23 +18,31 @@ import {Observable} from "rxjs";
 })
 export class EditComponent implements OnInit, AfterViewInit {
 
-  isEditing: boolean = false;
   trader: TraderDto;
   countries: CountryDto[];
+  genders: GenderDto[];
 
   @Inject(LOCALE_ID) public locale: string;
 
   @ViewChild ('mobileInput') mobileInput: ElementRef;
   @ViewChild ('dateOfBirthInput') dateOfBirthInput: ElementRef;
 
-  constructor(public translate: TranslateService,
+  constructor(private router: Router,
+              public translate: TranslateService,
               private traderService: TraderService,
-              private countryService: CountryService) {
+              private countryService: CountryService,
+              private genderService: GenderService,
+              private authService: AuthService) {
+    this.trader = new TraderDto();
+    this.trader.user = this.authService.getCurrentUser();
+    this.trader.addresses = [new AddressDto()];
+    this.trader.person = new PersonDto();
   }
 
   ngOnInit() {
     this.getCurrentTrader();
     this.getCountries();
+    this.getGenders();
   }
 
   ngAfterViewInit(): void {
@@ -52,7 +65,10 @@ export class EditComponent implements OnInit, AfterViewInit {
     this.traderService
       .getTrader()
       .subscribe(
-        data => (this.trader = data)
+        data => {
+          if (data)
+            this.trader = data;
+        }
       );
   }
 
@@ -64,15 +80,19 @@ export class EditComponent implements OnInit, AfterViewInit {
       );
   }
 
-  switchMode() {
-    this.isEditing = !this.isEditing;
+  getGenders(): void {
+    this.genderService
+      .getGenders()
+      .subscribe(
+        data => (this.genders = data)
+      );
   }
 
   update() : void {
     this.trader.mobile = $('#mobile').val().toString();
     this.trader.dateOfBirth = new Date($('#datepickerDefault').val().toString().split('.').reverse().join('-'));
     this.traderService.update(this.trader);
-    this.switchMode();
+    this.router.navigate(['/profile/trader/view'])
   }
 
 }

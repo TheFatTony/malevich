@@ -29,28 +29,16 @@ public class TraderResource {
     @RequestMapping(value = "/current", method = RequestMethod.GET)
     public TraderDto getTrader() {
         TraderEntity traderEntity = traderService.getCurrentTrader();
+        if (traderEntity == null)
+            return null;
         return convertToDto(traderEntity);
     }
 
-/*    @RequestMapping(value = "/item/{id}", method = RequestMethod.GET)
-    public TraderDto item(@PathVariable("id") long id) {
-        TraderEntity trader = this.traderService.find(id);
-        return convertToDto(trader);
-    }*/
-
     @PreAuthorize("hasRole('TRADER')")
     @RequestMapping(value = "/update", method = RequestMethod.PUT)
-    public ResponseEntity<Void> update(@RequestBody TraderDto trader){
+    public ResponseEntity<Void> update(@RequestBody TraderDto trader) {
         TraderEntity newTraderEntity = convertToEntity(trader);
         this.traderService.update(newTraderEntity);
-        return ResponseEntity.ok().build();
-    }
-
-    @PreAuthorize("hasRole('TRADER')")
-    @RequestMapping(value = "/insert/{token}", method = RequestMethod.POST)
-    public ResponseEntity<TraderDto> insert(@RequestBody TraderDto trader, @PathVariable("token") String token){
-        TraderEntity traderEntity = convertToEntity(trader);
-        traderEntity = this.traderService.insert(traderEntity, token);
         return ResponseEntity.ok().build();
     }
 

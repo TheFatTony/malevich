@@ -16,7 +16,5 @@ public interface TraderService {
 
     TraderEntity update(TraderEntity trader);
 
-    TraderEntity insert(TraderEntity trader, String token);
-
     TraderEntity getCurrentTrader();
 }

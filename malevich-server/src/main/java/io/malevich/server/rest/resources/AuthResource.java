@@ -1,13 +1,9 @@
 package io.malevich.server.rest.resources;
 
 
-import io.malevich.server.entity.RegisterTokenEntity;
-import io.malevich.server.entity.UserTypeEntity;
 import io.malevich.server.services.auth.AuthService;
-import io.malevich.server.transfer.AccessTokenDto;
-import io.malevich.server.transfer.LoginFormDto;
-import io.malevich.server.transfer.RegisterFormDto;
-import io.malevich.server.transfer.UserDto;
+import io.malevich.server.transfer.*;
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -18,10 +14,11 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping(value = "/auth")
 public class AuthResource {
 
-
     @Autowired
     private AuthService authService;
 
+    @Autowired
+    private ModelMapper modelMapper;
 
     @PreAuthorize("hasRole('USER')")
     @RequestMapping(method = RequestMethod.GET)
@@ -37,8 +34,31 @@ public class AuthResource {
     @RequestMapping(value = "/register", method = RequestMethod.POST)
     public ResponseEntity<String> register(@RequestBody RegisterFormDto registerFormDto) {
         authService.register(registerFormDto.getLang(), registerFormDto.getEmail());
-        return ResponseEntity.ok().body("registred");
+        return ResponseEntity.ok().body("registered");
     }
 
+    @RequestMapping(value = "/register/{token}", method = RequestMethod.POST)
+    public ResponseEntity<String> register(
+            @RequestBody PasswordDto resetDto,
+            @PathVariable("token") String token
+    ) {
+        authService.register2(token, resetDto.getPassword());
+        return ResponseEntity.ok().body("password set");
+    }
+
+    @RequestMapping(value = "/reset", method = RequestMethod.POST)
+    public ResponseEntity<String> reset(@RequestBody ResetPasswordFormDto resetFormDto) {
+        authService.reset(resetFormDto.getLang(), resetFormDto.getEmail());
+        return ResponseEntity.ok().body("reset");
+    }
+
+    @RequestMapping(value = "/reset/{token}", method = RequestMethod.POST)
+    public ResponseEntity<String> reset(
+            @RequestBody PasswordDto resetDto,
+            @PathVariable("token") String token
+    ) {
+        authService.setNewPassword(token, resetDto.getPassword());
+        return ResponseEntity.ok().body("password set");
+    }
 
 }

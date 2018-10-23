@@ -16,6 +16,7 @@ import io.malevich.server.transfer.UserDto;
 import org.apache.velocity.VelocityContext;
 import org.apache.velocity.app.VelocityEngine;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.MessageSource;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -65,6 +66,9 @@ public class AuthServiceImpl implements AuthService {
 
     @Autowired
     private BCryptPasswordEncoder bCryptPasswordEncoder;
+
+    @Value( "${malevich.client.url}" )
+    private String clientUrl;
 
     protected AuthServiceImpl() {
     }
@@ -134,7 +138,7 @@ public class AuthServiceImpl implements AuthService {
 
 
         VelocityContext context = new VelocityContext();
-        context.put("link", "http://localhost:4200/#/auth/register?token=" + entity.getToken());
+        context.put("link", clientUrl + "/#/auth/register?token=" + entity.getToken());
 
         StringWriter stringWriter = new StringWriter();
         velocityEngine.mergeTemplate("templates/mail/user_activation_link_template_" + lang + ".vm", "UTF-8", context, stringWriter);
@@ -171,7 +175,7 @@ public class AuthServiceImpl implements AuthService {
         entity = resetPasswordTokenService.save(entity);
 
         VelocityContext context = new VelocityContext();
-        context.put("link", "http://localhost:4200/#/auth/reset?token=" + entity.getToken());
+        context.put("link", clientUrl +"/#/auth/reset?token=" + entity.getToken());
         context.put("email", user.getName());
 
         StringWriter stringWriter = new StringWriter();

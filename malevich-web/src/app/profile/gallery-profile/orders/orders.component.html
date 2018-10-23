@@ -33,7 +33,9 @@
     </div>
     <!-- End Profile Settings -->
     <div class="col-lg-9 g-mb-50">
-      <button class="btn u-btn-primary g-font-size-12 text-uppercase g-py-12 g-px-25" type="button" (click)="openWindow()">Place a bet</button>
+      <button class="btn u-btn-primary g-font-size-12 text-uppercase g-py-12 g-px-25" type="button"
+              (click)="openWindow()">Place a bet
+      </button>
       <jqxGrid #myGrid
                [width]="'100%'" [height]="'320px'" class="g-mt-5 g-mb-15"
                [sortable]="true" [columnsresize]="true" [columns]="columns">
@@ -116,34 +118,45 @@
   <div>Place a bet</div>
   <div style="overflow: hidden">
     <jqxValidator #myValidator [animationDuration]="0" [hintType]="'label'">
-      <form id='form'>
-        <table class="register-table">
-          <tbody>
-          <tr>
-            <td>Artwork:</td>
-            <td><jqxInput class="userInput text-input" [width]="235" [height]="34"></jqxInput></td>
-          </tr>
-          <tr>
-            <td>Amount:</td>
-            <td><jqxInput class="userInput text-input" [width]="235" [height]="34"></jqxInput></td>
-          </tr>
-          <tr>
-            <td>Trade Type:</td>
-            <td><jqxInput class="userInput text-input" [width]="235" [height]="34"></jqxInput></td>
-          </tr>
-          <tr>
-            <td colspan="2" style="padding-left: 20px;">
-              <jqxButton #SendButton
-                         (onClick)="sendButton()"
-                         style="text-align: center; margin-left: 8em;"
-                         [width]="60" [height]="25">
-                Send
-              </jqxButton>
-            </td>
-          </tr>
-          </tbody>
-        </table>
-      </form>
+      <table class="register-table" *ngIf="newOrder">
+        <tbody>
+        <tr>
+          <td>Artwork:</td>
+          <td>
+            <jqxComboBox [source]="artworkStocks" [width]="235" [height]="34"
+                         [ngModel]="newOrder.artworkStock"
+                         (ngModelChange)="newOrder.artworkStock=$event">
+            </jqxComboBox>
+          </td>
+        </tr>
+        <tr>
+          <td>Amount:</td>
+          <td>
+            <jqxNumberInput class="text-input" [width]="235" [height]="34" [ngModel]="newOrder.amount"
+                            (ngModelChange)="newOrder.amount=$event"></jqxNumberInput>
+          </td>
+        </tr>
+        <tr>
+          <td>Trade Type:</td>
+          <td>
+            <jqxComboBox [source]="tradeTypes" [width]="235" [height]="34"
+                         [ngModel]="newOrder.tradeType"
+                         (ngModelChange)="newOrder.tradeType=$event">
+            </jqxComboBox>
+          </td>
+        </tr>
+        <tr>
+          <td colspan="2" style="padding-left: 20px;">
+            <jqxButton #SendButton
+                       (onClick)="sendButton()"
+                       style="text-align: center; margin-left: 8em;"
+                       [width]="60" [height]="25">
+              Send
+            </jqxButton>
+          </td>
+        </tr>
+        </tbody>
+      </table>
     </jqxValidator>
   </div>
 </jqxWindow>

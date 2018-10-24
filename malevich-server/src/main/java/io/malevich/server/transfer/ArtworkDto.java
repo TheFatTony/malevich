@@ -22,6 +22,8 @@ public class ArtworkDto {
 
     private CategoryDto category;
 
+    private ArtistDto artist;
+
     private FileDto thumbnail;
 
     private FileDto image;

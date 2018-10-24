@@ -45,6 +45,12 @@ public class ArtworkEntity implements Entity {
     @Getter
     @Setter
     @Fetch(FetchMode.JOIN)
+    @ManyToOne
+    private ArtistEntity artist;
+
+    @Getter
+    @Setter
+    @Fetch(FetchMode.JOIN)
     @ManyToOne()
     private FileEntity thumbnail;
 

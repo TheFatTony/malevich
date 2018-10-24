@@ -1,8 +1,15 @@
-import {Component, OnInit, ViewChild} from '@angular/core';
+import {Component, HostListener, OnInit, ViewChild} from '@angular/core';
 import {OrderDto} from "../../../_transfer/orderDto";
 import {OrderService} from "../../../_services/order.service";
 import {TranslateService} from "@ngx-translate/core";
 import {jqxGridComponent} from 'jqwidgets-scripts/jqwidgets-ts/angular_jqxgrid';
+import {jqxWindowComponent} from 'jqwidgets-scripts/jqwidgets-ts/angular_jqxwindow';
+import {ArtworkStockDto} from "../../../_transfer/artworkStockDto";
+import {ArtworkStockService} from "../../../_services/artwork-stock.service";
+import {TradeTypeService} from "../../../_services/trade-type.service";
+import {TradeTypeDto} from "../../../_transfer/tradeTypeDto";
+import {OrderTypeService} from "../../../_services/order-type.service";
+import {environment} from "../../../../environments/environment";
 
 @Component({
   selector: 'app-profile-gallery-orders',
@@ -11,50 +18,54 @@ import {jqxGridComponent} from 'jqwidgets-scripts/jqwidgets-ts/angular_jqxgrid';
 })
 export class OrdersComponent implements OnInit {
   @ViewChild('myGrid') myGrid: jqxGridComponent;
+  @ViewChild('myWindow') myWindow: jqxWindowComponent;
 
-  public columns =
-    [
-      { text: 'Date', datafield: 'Date', columntype: 'textbox', width: '20%' },
-      { text: 'Amount', datafield: 'Amount',columntype: 'textbox', width: '20%' },
-      { text: 'Artwork', datafield: 'Artwork',columntype: 'textbox', width: '20%' },
-      { text: 'Trade Type', datafield: 'Trade Type',columntype: 'textbox', width: '20%' },
-      { text: 'Type', datafield: 'Type',columntype: 'textbox', width: '20%' }
-    ];
+  // public columns =
+  //   [
+  //     {text: 'Date', datafield: 'Date', columntype: 'textbox', width: '20%'},
+  //     {text: 'Amount', datafield: 'Amount', columntype: 'textbox', width: '20%'},
+  //     {text: 'Artwork', datafield: 'Artwork', columntype: 'textbox', width: '20%'},
+  //     {text: 'Trade Type', datafield: 'Trade Type', columntype: 'textbox', width: '20%'},
+  //     {text: 'Type', datafield: 'Type', columntype: 'textbox', width: '20%'}
+  //   ];
 
   orders: OrderDto[];
+  public newOrder: OrderDto;
 
-  constructor(private orderService: OrderService, public translateService: TranslateService) {
+  artworkStocks: ArtworkStockDto[];
+
+  tradeTypes: TradeTypeDto[];
+
+  x: number;
+  y: number;
+
+  public url = environment.baseUrl;
+
+  constructor(private artworkStockService: ArtworkStockService,
+              private orderService: OrderService,
+              public translateService: TranslateService,
+              private tradeTypeService: TradeTypeService,
+              private orderTypeService: OrderTypeService) {
     $.jqx.theme = 'malevich';
   }
 
+
+  renderer = (index: number, label: string, value: any): string => {
+    let datarecord = this.artworkStocks[index];
+    let table = '<table style="min-width: 50px;"><tr><td style="width: 100px;" rowspan="2">' +
+      '<img class="img-fluid" src="https://via.placeholder.com/50x50/img8.jpg" alt="Image Description">' +
+      '</td><td>' + '<span class="d-block g-color-gray-dark-v4">'+ datarecord.artwork.titleMl[this.translateService.currentLang] + '</span>' + '</td></tr><tr><td>' +
+      '<span class="d-block g-color-lightred">'+datarecord.artwork.category.categoryNameMl[this.translateService.currentLang]+'</span>' + '</td></tr></table>';
+    return table;
+  };
+
   ngOnInit() {
     this.getPlacedOrders();
+    this.getArtworkStock();
+    this.getTradeTypes();
   }
 
   ngAfterViewInit(): void {
-    this.createButtons();
-  }
-
-  createButtonsContainers(statusbar: any): void {
-    let buttonsContainer = document.createElement('div');
-    buttonsContainer.style.cssText = 'overflow: hidden; position: relative; margin: 5px; height: 60px;';
-    let addButtonContainer = document.createElement('div');
-    addButtonContainer.id = 'addButton';
-    addButtonContainer.style.cssText = 'float: left; margin-left: 5px;';
-    buttonsContainer.appendChild(addButtonContainer);
-    statusbar[0].appendChild(buttonsContainer);
-  }
-
-  createButtons(): void {
-    let addButtonOptions = {
-      width: 100, height: 25, value: 'Put Order',
-      imgSrc: 'https://www.jqwidgets.com/angular/images/add.png',
-      imgPosition: 'center', textPosition: 'center',
-      textImageRelation: 'imageBeforeText'
-    }
-    let addButton = jqwidgets.createInstance('#addButton', 'jqxButton', addButtonOptions);
-    addButton.addEventHandler('click', (event: any): void => {
-    });
   }
 
   getPlacedOrders(): void {
@@ -63,6 +74,48 @@ export class OrdersComponent implements OnInit {
       .subscribe(
         data => (this.orders = data)
       );
+  }
+
+  getArtworkStock(): void {
+    this.artworkStockService
+      .getArtworkStock()
+      .subscribe(
+        data => (this.artworkStocks = data)
+      );
+  }
+
+  getTradeTypes(): void {
+    this.tradeTypeService
+      .getTradeTypes()
+      .subscribe(
+        data => (this.tradeTypes = data)
+      );
+  }
+
+  openWindow() {
+    this.newOrder = new OrderDto();
+    this.newOrder.artworkStock = new ArtworkStockDto();
+    this.newOrder.tradeType = new TradeTypeDto();
+    this.myWindow.open();
+    this.myWindow.move(this.x, this.y);
+  }
+
+  sendButton() {
+    console.info(this.newOrder);
+    // @ts-ignore
+    this.newOrder.artworkStock = this.artworkStocks[this.newOrder.artworkStock];
+    // @ts-ignore
+    this.newOrder.tradeType = this.tradeTypes[this.newOrder.tradeType];
+    console.info(this.newOrder);
+
+    this.orderService.insertOrder(this.newOrder).subscribe();
+
+  }
+
+  @HostListener('mousedown', ['$event'])
+  mouseHandling(event) {
+    this.x = event.pageX;
+    this.y = event.pageY;
   }
 
 }

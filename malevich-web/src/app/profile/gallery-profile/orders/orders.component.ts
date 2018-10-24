@@ -9,6 +9,7 @@ import {ArtworkStockService} from "../../../_services/artwork-stock.service";
 import {TradeTypeService} from "../../../_services/trade-type.service";
 import {TradeTypeDto} from "../../../_transfer/tradeTypeDto";
 import {OrderTypeService} from "../../../_services/order-type.service";
+import {environment} from "../../../../environments/environment";
 
 @Component({
   selector: 'app-profile-gallery-orders',
@@ -38,6 +39,8 @@ export class OrdersComponent implements OnInit {
   x: number;
   y: number;
 
+  public url = environment.baseUrl;
+
   constructor(private artworkStockService: ArtworkStockService,
               private orderService: OrderService,
               public translateService: TranslateService,
@@ -45,6 +48,16 @@ export class OrdersComponent implements OnInit {
               private orderTypeService: OrderTypeService) {
     $.jqx.theme = 'malevich';
   }
+
+
+  renderer = (index: number, label: string, value: any): string => {
+    let datarecord = this.artworkStocks[index];
+    let table = '<table style="min-width: 50px;"><tr><td style="width: 100px;" rowspan="2">' +
+      '<img class="img-fluid" src="https://via.placeholder.com/50x50/img8.jpg" alt="Image Description">' +
+      '</td><td>' + '<span class="d-block g-color-gray-dark-v4">'+ datarecord.artwork.titleMl[this.translateService.currentLang] + '</span>' + '</td></tr><tr><td>' +
+      '<span class="d-block g-color-lightred">'+datarecord.artwork.category.categoryNameMl[this.translateService.currentLang]+'</span>' + '</td></tr></table>';
+    return table;
+  };
 
   ngOnInit() {
     this.getPlacedOrders();

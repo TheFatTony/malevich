@@ -129,7 +129,7 @@
           <td>
             <jqxComboBox [source]="artworkStocks" [width]="235" [height]="34"
                          [displayMember]="'id'" [valueMember]="'id'" [ngModel]="newOrder.artworkStock"
-                         (ngModelChange)="newOrder.artworkStock=$event">
+                         (ngModelChange)="newOrder.artworkStock=$event" [renderer]="renderer">
             </jqxComboBox>
           </td>
         </tr>

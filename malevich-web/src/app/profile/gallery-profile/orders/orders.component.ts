@@ -20,14 +20,14 @@ export class OrdersComponent implements OnInit {
   @ViewChild('myGrid') myGrid: jqxGridComponent;
   @ViewChild('myWindow') myWindow: jqxWindowComponent;
 
-  public columns =
-    [
-      {text: 'Date', datafield: 'Date', columntype: 'textbox', width: '20%'},
-      {text: 'Amount', datafield: 'Amount', columntype: 'textbox', width: '20%'},
-      {text: 'Artwork', datafield: 'Artwork', columntype: 'textbox', width: '20%'},
-      {text: 'Trade Type', datafield: 'Trade Type', columntype: 'textbox', width: '20%'},
-      {text: 'Type', datafield: 'Type', columntype: 'textbox', width: '20%'}
-    ];
+  // public columns =
+  //   [
+  //     {text: 'Date', datafield: 'Date', columntype: 'textbox', width: '20%'},
+  //     {text: 'Amount', datafield: 'Amount', columntype: 'textbox', width: '20%'},
+  //     {text: 'Artwork', datafield: 'Artwork', columntype: 'textbox', width: '20%'},
+  //     {text: 'Trade Type', datafield: 'Trade Type', columntype: 'textbox', width: '20%'},
+  //     {text: 'Type', datafield: 'Type', columntype: 'textbox', width: '20%'}
+  //   ];
 
   orders: OrderDto[];
   public newOrder: OrderDto;

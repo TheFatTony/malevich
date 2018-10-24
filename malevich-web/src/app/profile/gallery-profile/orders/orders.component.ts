@@ -1,15 +1,13 @@
-import {Component, OnInit, ViewChild} from '@angular/core';
+import {Component, HostListener, OnInit, ViewChild} from '@angular/core';
 import {OrderDto} from "../../../_transfer/orderDto";
 import {OrderService} from "../../../_services/order.service";
 import {TranslateService} from "@ngx-translate/core";
 import {jqxGridComponent} from 'jqwidgets-scripts/jqwidgets-ts/angular_jqxgrid';
 import {jqxWindowComponent} from 'jqwidgets-scripts/jqwidgets-ts/angular_jqxwindow';
-import {ArtworkDto} from "../../../_transfer";
 import {ArtworkStockDto} from "../../../_transfer/artworkStockDto";
 import {ArtworkStockService} from "../../../_services/artwork-stock.service";
 import {TradeTypeService} from "../../../_services/trade-type.service";
 import {TradeTypeDto} from "../../../_transfer/tradeTypeDto";
-import {OrderTypeDto} from "../../../_transfer/orderTypeDto";
 import {OrderTypeService} from "../../../_services/order-type.service";
 
 @Component({
@@ -23,11 +21,11 @@ export class OrdersComponent implements OnInit {
 
   public columns =
     [
-      { text: 'Date', datafield: 'Date', columntype: 'textbox', width: '20%' },
-      { text: 'Amount', datafield: 'Amount',columntype: 'textbox', width: '20%' },
-      { text: 'Artwork', datafield: 'Artwork',columntype: 'textbox', width: '20%' },
-      { text: 'Trade Type', datafield: 'Trade Type',columntype: 'textbox', width: '20%' },
-      { text: 'Type', datafield: 'Type',columntype: 'textbox', width: '20%' }
+      {text: 'Date', datafield: 'Date', columntype: 'textbox', width: '20%'},
+      {text: 'Amount', datafield: 'Amount', columntype: 'textbox', width: '20%'},
+      {text: 'Artwork', datafield: 'Artwork', columntype: 'textbox', width: '20%'},
+      {text: 'Trade Type', datafield: 'Trade Type', columntype: 'textbox', width: '20%'},
+      {text: 'Type', datafield: 'Type', columntype: 'textbox', width: '20%'}
     ];
 
   orders: OrderDto[];
@@ -36,6 +34,9 @@ export class OrdersComponent implements OnInit {
   artworkStocks: ArtworkStockDto[];
 
   tradeTypes: TradeTypeDto[];
+
+  x: number;
+  y: number;
 
   constructor(private artworkStockService: ArtworkStockService,
               private orderService: OrderService,
@@ -83,12 +84,23 @@ export class OrdersComponent implements OnInit {
     this.newOrder.artworkStock = new ArtworkStockDto();
     this.newOrder.tradeType = new TradeTypeDto();
     this.myWindow.open();
-    this.myWindow.move(460, 260);
+    this.myWindow.move(this.x, this.y);
   }
 
   sendButton() {
     console.info(this.newOrder);
+    this.newOrder.artworkStock = this.artworkStocks[this.newOrder.artworkStock];
+    this.newOrder.tradeType = this.tradeTypes[this.newOrder.tradeType];
+    console.info(this.newOrder);
+
     this.orderService.insertOrder(this.newOrder).subscribe();
 
   }
+
+  @HostListener('mousedown', ['$event'])
+  mouseHandling(event) {
+    this.x = event.pageX;
+    this.y = event.pageY;
+  }
+
 }

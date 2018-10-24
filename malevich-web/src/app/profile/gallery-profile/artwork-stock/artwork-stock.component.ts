@@ -99,9 +99,8 @@ export class ArtworkStockComponent implements OnInit {
 
   addButton() {
     console.info(this.addArtworkStock);
-
-    // this.orderService.insertOrder(this.newOrder).subscribe();
-
+    this.artworkStockService.addArtworkStock(this.addArtworkStock)
+      .subscribe(data => (this.getArtworkStock()));
   }
 
   onAddArtworkSelect(event: any) {

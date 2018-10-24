@@ -19,4 +19,10 @@ export class ArtworkStockService {
       .get<ArtworkStockDto[]>(this.url + '/list')
       .pipe(map(data => data));
   }
+
+  addArtworkStock(artworkStock: ArtworkStockDto) {
+    return this.http
+      .post<ArtworkStockDto>(this.url + '/add', artworkStock);
+  }
+
 }

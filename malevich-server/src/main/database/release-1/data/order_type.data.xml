@@ -7,7 +7,7 @@
         <sql endDelimiter="\nGO" splitStatements="true" stripComments="true">
             INSERT INTO order_type (id, name, name_ml)
             VALUES ('BID', 'Bid', JSON_OBJECT('en', 'Bid', 'ru', 'Bid')),
-                   ('Ask', 'Ask', JSON_OBJECT('en', 'Ask', 'ru', 'Ask'));
+                   ('ASK', 'Ask', JSON_OBJECT('en', 'Ask', 'ru', 'Ask'));
         </sql>
     </changeSet>
 

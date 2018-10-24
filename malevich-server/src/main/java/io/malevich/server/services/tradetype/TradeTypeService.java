@@ -3,11 +3,14 @@ package io.malevich.server.services.tradetype;
 import io.malevich.server.entity.TradeTypeEntity;
 import org.springframework.stereotype.Service;
 import java.util.List;
+import java.util.Optional;
 
 
 @Service
 public interface TradeTypeService {
 
   List<TradeTypeEntity> findAll();
+
+  Optional<TradeTypeEntity> findById(String id);
 
 }

@@ -1,8 +1,13 @@
 package io.malevich.server.rest.resources;
 
 import io.malevich.server.entity.OrderEntity;
+import io.malevich.server.entity.TraderEntity;
 import io.malevich.server.services.order.OrderService;
 import io.malevich.server.transfer.OrderDto;
+import io.malevich.server.transfer.TraderDto;
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -28,6 +33,14 @@ public class OrderResource {
   List<OrderEntity> allEntries = this.orderService.getPlacedOrders();
     return allEntries.stream().map(allEntry -> convertToDto(allEntry)).collect(Collectors.toList());
   }
+
+    @PreAuthorize("hasRole('GALLERY')")
+    @RequestMapping(value = "/insert", method = RequestMethod.POST)
+    public ResponseEntity<Void> insert(@RequestBody OrderDto trader) {
+        OrderEntity newTraderEntity = convertToEntity(trader);
+        this.orderService.insert(newTraderEntity);
+        return ResponseEntity.ok().build();
+    }
 
   private OrderDto convertToDto(OrderEntity entity) {
     return modelMapper.map(entity, OrderDto.class);

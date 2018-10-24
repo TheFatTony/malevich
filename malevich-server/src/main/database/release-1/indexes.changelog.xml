@@ -24,5 +24,6 @@
     <include relativeToChangelogFile="true" file="indexes/counterparty.index.xml"/>
     <include relativeToChangelogFile="true" file="indexes/orders.index.xml"/>
     <include relativeToChangelogFile="true" file="indexes/transactions.index.xml"/>
+    <include relativeToChangelogFile="true" file="indexes/account_state.index.xml"/>
 
 </databaseChangeLog>

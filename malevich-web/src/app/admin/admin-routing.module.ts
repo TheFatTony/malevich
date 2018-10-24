@@ -6,6 +6,7 @@ import {FilesListComponent} from './files/files-list/files-list.component';
 // import {AdminComponent} from './admin.component';
 import { TransactionsListComponent } from './cms/transactions/transactions-list/transactions-list.component';
 import { AccountStateListComponent } from './cms/account-state/account-state-list/account-state-list.component';
+import { OrdersListComponent } from './cms/orders/orders-list/orders-list.component';
 
 
 
@@ -17,6 +18,7 @@ export const routes: Routes = [
   {path: 'cms/files/list', component: FilesListComponent},
   {path: 'cms/transactions/list', component: TransactionsListComponent},
   {path: 'cms/account-state/list', component: AccountStateListComponent},
+  {path: 'cms/orders/list', component: OrdersListComponent}
 ];
 
 @NgModule({

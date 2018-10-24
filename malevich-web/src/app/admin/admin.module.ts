@@ -83,6 +83,7 @@ import {FilesListComponent} from './files/files-list/files-list.component';
 import {UsersService} from './_services/users.service';
 import { TransactionsListComponent } from './cms/transactions/transactions-list/transactions-list.component';
 import { AccountStateListComponent } from './cms/account-state/account-state-list/account-state-list.component';
+import { OrdersListComponent } from './cms/orders/orders-list/orders-list.component';
 
 @NgModule({
   imports: [
@@ -167,7 +168,8 @@ import { AccountStateListComponent } from './cms/account-state/account-state-lis
     UserListComponent,
     FilesListComponent,
     TransactionsListComponent,
-    AccountStateListComponent],
+    AccountStateListComponent,
+    OrdersListComponent],
   providers: [UsersService]
 })
 export class AdminModule {

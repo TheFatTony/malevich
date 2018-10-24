@@ -24,6 +24,7 @@ public class AccountStateResource {
   @Autowired
   private ModelMapper modelMapper;
 
+  @PreAuthorize("hasRole('ADMIN')")
   @RequestMapping(value = "/list", method = RequestMethod.GET)
   public List<AccountStateDto> list() {
   List<AccountStateEntity> allEntries = this.accountStateService.findAll();

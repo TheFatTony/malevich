@@ -10,9 +10,15 @@ import {GalleryDto} from "../_transfer";
 })
 export class OrderService {
 
-  private url = environment.baseUrl + 'order';
+  private url = environment.baseUrl + 'orders';
 
   constructor(private http: HttpClient) {
+  }
+
+  getOrders() {
+    return this.http
+      .get<OrderDto[]>(this.url + '/list')
+      .pipe(map(data => data));
   }
 
   getPlacedOrders() {

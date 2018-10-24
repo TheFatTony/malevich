@@ -3,6 +3,8 @@ package io.malevich.server.transfer;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.Map;
+
 
 @Getter
 @Setter
@@ -13,6 +15,6 @@ public class TradeTypeDto {
 
   private String name;
 
-  private String nameMl;
+  private Map<String, String> nameMl;
 
 }

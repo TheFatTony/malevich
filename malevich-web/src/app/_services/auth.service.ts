@@ -66,7 +66,7 @@ export class AuthService {
   }
 
   setNewPassword(token: string, password: string) {
-    return this.http.post<any>(this.url + `/register/${token}`, {password: password});
+    return this.http.post<any>(this.url + `/reset/${token}`, {password: password});
   }
 
 }

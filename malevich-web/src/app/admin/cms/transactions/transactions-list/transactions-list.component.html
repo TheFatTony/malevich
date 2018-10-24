@@ -1,0 +1,51 @@
+<jqxGrid #myGrid
+         [width]="'100%'" [height]="'100%'" [pageable]="true" [sortable]="true" [columnsresize]="true" [pagermode]="'simple'">
+  <tr>
+    <th>Id</th>
+    <th>Date</th>
+    <th>Type</th>
+    <th>Party</th>
+    <th>Counterparty</th>
+    <th>Artwork</th>
+    <th>Amount</th>
+    <th>Quantity</th>
+  </tr>
+  <tr *ngFor="let transaction of transactions">
+    <td>
+      {{transaction?.id}}
+    </td>
+    <td>
+      {{transaction?.effectiveDate}}
+    </td>
+    <td>
+      {{transaction?.type.nameMl[translate.currentLang]}}
+    </td>
+    <td *ngIf="transaction?.party.gallery">
+      {{transaction?.party.gallery?.organization.legalNameMl[translate.currentLang]}}
+    </td>
+    <td *ngIf="transaction?.party.trader">
+      {{transaction?.party.trader?.person.fullName}}
+    </td>
+    <td *ngIf="transaction?.party.id === 1">
+      Malevich
+    </td>
+    <td *ngIf="transaction?.counterparty.gallery">
+      {{transaction?.counterparty.gallery?.organization.legalNameMl[translate.currentLang]}}
+    </td>
+    <td *ngIf="transaction?.counterparty.trader">
+      {{transaction?.counterparty.trader?.person.fullName}}
+    </td>
+    <td *ngIf="transaction?.counterparty.id === 1">
+      Malevich
+    </td>
+    <td>
+      {{transaction?.artworkStock.artwork.titleMl[translate.currentLang]}}
+    </td>
+    <td>
+      {{transaction?.amount}}
+    </td>
+    <td>
+      {{transaction?.quantity}}
+    </td>
+  </tr>
+</jqxGrid>

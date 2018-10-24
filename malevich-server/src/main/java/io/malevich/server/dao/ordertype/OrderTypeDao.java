@@ -7,7 +7,7 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
-public interface OrderTypeDao extends JpaRepository<OrderTypeEntity, Long> {
+public interface OrderTypeDao extends JpaRepository<OrderTypeEntity, String> {
 
     List<OrderTypeEntity> findAll();
 }

@@ -83,9 +83,14 @@
                  path="src/main/database/test_data/013_counterparty.sql"/>
     </changeSet>
 
-    <changeSet author="thefattony" id="014_orders-data">
+    <changeSet author="thefattony" id="014_transactions-data" context="test-transactions">
         <sqlFile endDelimiter="\nGO" splitStatements="false" stripComments="false"
-                 path="src/main/database/test_data/014_orders.sql"/>
+                 path="src/main/database/test_data/014_transactions.sql"/>
+    </changeSet>
+
+    <changeSet author="thefattony" id="015_account_state-data" context="test-transactions">
+        <sqlFile endDelimiter="\nGO" splitStatements="false" stripComments="false"
+                 path="src/main/database/test_data/015_account_state.sql"/>
     </changeSet>
 
 </databaseChangeLog>

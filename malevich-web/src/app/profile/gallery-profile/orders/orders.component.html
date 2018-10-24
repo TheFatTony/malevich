@@ -51,7 +51,7 @@
           </tr>
           <tr *ngFor="let order of orders">
             <td>
-              {{order?.effectiveDate | date: 'dd.MM.yyyy: hh:mm:ss'}}
+              {{order?.effectiveDate | date: 'dd.MM.yyyy'}}
             </td>
             <td>
               {{order?.amount}}

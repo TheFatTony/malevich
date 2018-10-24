@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.6.xsd">
+
+    <changeSet author="thefattony" id="account_state-table">
+        <createTable tableName="account_state">
+            <column name="id" type="bigint">
+                <constraints nullable="false"/>
+            </column>
+            <column name="party_id" type="bigint">
+                <constraints nullable="false"/>
+            </column>
+            <column name="artwork_stock_id" type="bigint"/>
+            <column name="quantity" type="bigint">
+                <constraints nullable="false"/>
+            </column>
+            <column name="amount" type="double">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+    <changeSet author="thefattony" id="account_state-pk">
+        <addPrimaryKey columnNames="id" constraintName="account_state_pk" tableName="account_state"/>
+    </changeSet>
+
+    <changeSet author="thefattony" id="account_state-id-aa" dbms="mysql">
+        <addAutoIncrement columnDataType="bigint" columnName="id" tableName="account_state"/>
+    </changeSet>
+
+</databaseChangeLog>

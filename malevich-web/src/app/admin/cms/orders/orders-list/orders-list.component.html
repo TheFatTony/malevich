@@ -1,0 +1,46 @@
+<jqxGrid #myGrid
+         [width]="'100%'" [height]="'100%'" [pageable]="true" [sortable]="true" [columnsresize]="true"
+         [pagermode]="'simple'">
+  <tr>
+    <th>Id</th>
+    <th>Date</th>
+    <th>Type</th>
+    <th>Party</th>
+    <th>Artwork</th>
+    <th>Trade Type</th>
+    <th>Amount</th>
+    <th>Quantity</th>
+  </tr>
+  <tr *ngFor="let order of orders">
+    <td>
+      {{order?.id}}
+    </td>
+    <td>
+      {{order?.effectiveDate}}
+    </td>
+    <td>
+      {{order?.type.nameMl[translate.currentLang]}}
+    </td>
+    <td *ngIf="order?.party.gallery">
+      {{order?.party.gallery?.organization.legalNameMl[translate.currentLang]}}
+    </td>
+    <td *ngIf="order?.party.trader">
+      {{order?.party.trader?.person.fullName}}
+    </td>
+    <td *ngIf="order?.party.id === 1">
+      Malevich
+    </td>
+    <td>
+      {{order?.artworkStock.artwork.titleMl[translate.currentLang]}}
+    </td>
+    <td>
+      {{order?.tradeType.nameMl[translate.currentLang]}}
+    </td>
+    <td>
+      {{order?.amount}}
+    </td>
+    <td>
+      {{order?.quantity}}
+    </td>
+  </tr>
+</jqxGrid>

@@ -10,4 +10,6 @@ public interface CounterpartyService {
 
   List<CounterpartyEntity> findAll();
 
+  CounterpartyEntity findCounterpartyEntitiesByGalleryId(Long galleryId);
+
 }

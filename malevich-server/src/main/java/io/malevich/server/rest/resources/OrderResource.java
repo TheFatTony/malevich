@@ -18,7 +18,7 @@ import java.util.List;
 
 
 @RestController
-@RequestMapping(value = "/order")
+@RequestMapping(value = "/orders")
 public class OrderResource {
 
   @Autowired
@@ -28,8 +28,15 @@ public class OrderResource {
   private ModelMapper modelMapper;
 
 
-  @RequestMapping(value = "/getPlacedOrders", method = RequestMethod.GET)
+  @PreAuthorize("hasRole('ADMIN')")
+  @RequestMapping(value = "/list", method = RequestMethod.GET)
   public List<OrderDto> list() {
+    List<OrderEntity> allEntries = this.orderService.findAll();
+    return allEntries.stream().map(allEntry -> convertToDto(allEntry)).collect(Collectors.toList());
+  }
+
+  @RequestMapping(value = "/getPlacedOrders", method = RequestMethod.GET)
+  public List<OrderDto> getPlacedOrders() {
   List<OrderEntity> allEntries = this.orderService.getPlacedOrders();
     return allEntries.stream().map(allEntry -> convertToDto(allEntry)).collect(Collectors.toList());
   }

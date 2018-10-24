@@ -9,8 +9,8 @@ import javax.persistence.*;
 
 
 @javax.persistence.Entity
-@Table(name = "transactions")
-public class TransactionEntity implements Entity {
+@Table(name = "account_state")
+public class AccountStateEntity implements Entity {
 
 
   @Getter
@@ -23,24 +23,7 @@ public class TransactionEntity implements Entity {
   @Setter
   @Fetch(FetchMode.JOIN)
   @ManyToOne(cascade = CascadeType.MERGE)
-  private TransactionTypeEntity type;
-
-  @Getter
-  @Setter
-  @Column(name = "effective_date")
-  private java.sql.Timestamp effectiveDate;
-
-  @Getter
-  @Setter
-  @Fetch(FetchMode.JOIN)
-  @ManyToOne(cascade = CascadeType.MERGE)
   private CounterpartyEntity party;
-
-  @Getter
-  @Setter
-  @Fetch(FetchMode.JOIN)
-  @ManyToOne(cascade = CascadeType.MERGE)
-  private CounterpartyEntity counterparty;
 
   @Getter
   @Setter
@@ -50,12 +33,12 @@ public class TransactionEntity implements Entity {
 
   @Getter
   @Setter
-  @Column(name = "amount")
-  private Double amount;
+  @Column(name = "quantity")
+  private Long quantity;
 
   @Getter
   @Setter
-  @Column(name = "quantity")
-  private Long quantity;
+  @Column(name = "amount")
+  private Double amount;
 
 }

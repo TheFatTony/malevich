@@ -3,6 +3,7 @@ package io.malevich.server.rest.resources;
 import io.malevich.server.entity.TransactionEntity;
 import io.malevich.server.services.transaction.TransactionService;
 import io.malevich.server.transfer.TransactionsDto;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -22,7 +23,7 @@ public class TransactionResource {
   @Autowired
   private ModelMapper modelMapper;
 
-
+  @PreAuthorize("hasRole('ADMIN')")
   @RequestMapping(value = "/list", method = RequestMethod.GET)
   public List<TransactionsDto> list() {
   List<TransactionEntity> allEntries = this.transactionService.findAll();

@@ -24,5 +24,6 @@
     <include relativeToChangelogFile="true" file="tables/counterparty.table.xml"/>
     <include relativeToChangelogFile="true" file="tables/orders.table.xml"/>
     <include relativeToChangelogFile="true" file="tables/transactions.table.xml"/>
+    <include relativeToChangelogFile="true" file="tables/account_state.table.xml"/>
 
 </databaseChangeLog>

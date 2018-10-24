@@ -94,8 +94,6 @@ export class OrdersComponent implements OnInit {
 
   openWindow() {
     this.newOrder = new OrderDto();
-    this.newOrder.artworkStock = new ArtworkStockDto();
-    this.newOrder.tradeType = new TradeTypeDto();
     this.myWindow.open();
     this.myWindow.move(this.x, this.y);
   }
@@ -103,12 +101,13 @@ export class OrdersComponent implements OnInit {
   sendButton() {
     console.info(this.newOrder);
     // @ts-ignore
-    this.newOrder.artworkStock = this.artworkStocks[this.newOrder.artworkStock];
+    this.newOrder.artworkStock = this.artworkStocks[this.newOrder.artworkStock]
     // @ts-ignore
     this.newOrder.tradeType = this.tradeTypes[this.newOrder.tradeType];
     console.info(this.newOrder);
 
-    this.orderService.insertOrder(this.newOrder).subscribe();
+    this.myWindow.close();
+    this.orderService.insertOrder(this.newOrder).subscribe(() => {this.getPlacedOrders();});
 
   }
 

@@ -1,0 +1,29 @@
+<jqxGrid #myGrid
+         [width]="'100%'" [height]="'100%'" [pageable]="true" [sortable]="true" [columnsresize]="true" [pagermode]="'simple'">
+  <tr>
+    <th>Countreparty</th>
+    <th>Artwork</th>
+    <th>Amount</th>
+    <th>Quantity</th>
+  </tr>
+  <tr *ngFor="let accountState of accountStates">
+    <td *ngIf="accountState?.party.gallery">
+      {{accountState?.party.gallery?.organization.legalNameMl[translate.currentLang]}}
+    </td>
+    <td *ngIf="accountState?.party.trader">
+      {{accountState?.party.trader?.person.fullName}}
+    </td>
+    <td *ngIf="accountState?.party.id === 1">
+      Malevich
+    </td>
+    <td>
+      {{accountState?.artworkStock.artwork.titleMl[translate.currentLang]}}
+    </td>
+    <td>
+      {{accountState?.amount}}
+    </td>
+    <td>
+      {{accountState?.quantity}}
+    </td>
+  </tr>
+</jqxGrid>

@@ -1,4 +1,4 @@
-package com.sample;
+package io.malevich.server.rest.resources;
 
 import io.malevich.server.entity.AccountStateEntity;
 import io.malevich.server.services.accountstate.AccountStateService;
@@ -15,19 +15,18 @@ import java.util.stream.Collectors;
 
 
 @RestController
-@RequestMapping(value = "/accountstate")
+@RequestMapping(value = "/accountstates")
 public class AccountStateResource {
 
   @Autowired
-  private AccountStateService service;
+  private AccountStateService accountStateService;
 
   @Autowired
   private ModelMapper modelMapper;
 
-  @PreAuthorize("hasRole('ADMIN')")
   @RequestMapping(value = "/list", method = RequestMethod.GET)
   public List<AccountStateDto> list() {
-  List<AccountStateEntity> allEntries = this.service.findAll();
+  List<AccountStateEntity> allEntries = this.accountStateService.findAll();
     return allEntries.stream().map(allEntry -> convertToDto(allEntry)).collect(Collectors.toList());
   }
 

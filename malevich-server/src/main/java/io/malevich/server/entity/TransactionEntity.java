@@ -51,11 +51,11 @@ public class TransactionEntity implements Entity {
   @Getter
   @Setter
   @Column(name = "amount")
-  private double amount;
+  private Double amount;
 
   @Getter
   @Setter
   @Column(name = "quantity")
-  private long quantity;
+  private Long quantity;
 
 }

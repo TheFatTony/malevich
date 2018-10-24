@@ -81,6 +81,9 @@ import {AdminComponent} from './admin.component';
 import {AdminRoutingModule} from './admin-routing.module';
 import {FilesListComponent} from './files/files-list/files-list.component';
 import {UsersService} from './_services/users.service';
+import { TransactionsListComponent } from './cms/transactions/transactions-list/transactions-list.component';
+import { AccountStateListComponent } from './cms/account-state/account-state-list/account-state-list.component';
+import { OrdersListComponent } from './cms/orders/orders-list/orders-list.component';
 
 @NgModule({
   imports: [
@@ -163,7 +166,10 @@ import {UsersService} from './_services/users.service';
     MainMenuComponent,
     DashboardComponent,
     UserListComponent,
-    FilesListComponent],
+    FilesListComponent,
+    TransactionsListComponent,
+    AccountStateListComponent,
+    OrdersListComponent],
   providers: [UsersService]
 })
 export class AdminModule {

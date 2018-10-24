@@ -89,7 +89,9 @@ export class OrdersComponent implements OnInit {
 
   sendButton() {
     console.info(this.newOrder);
+    // @ts-ignore
     this.newOrder.artworkStock = this.artworkStocks[this.newOrder.artworkStock];
+    // @ts-ignore
     this.newOrder.tradeType = this.tradeTypes[this.newOrder.tradeType];
     console.info(this.newOrder);
 

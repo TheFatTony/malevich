@@ -37,8 +37,12 @@
 
       <div class="row g-mb-2">
         <div class="col-2">
-          <a (click)="openAddWindow()"
+<!--          <a (click)="openAddWindow()"
              href="javascript:void(0);"
+             class="btn btn-block u-btn-primary g-font-size-12 text-uppercase g-py-12 g-px-5">
+            {{'TRADER_PROFILE.SECURITY.BUTTON.UPDATE' | translate}}
+          </a>-->
+          <a routerLink="/profile/gallery/artworkstok/add"
              class="btn btn-block u-btn-primary g-font-size-12 text-uppercase g-py-12 g-px-5">
             {{'TRADER_PROFILE.SECURITY.BUTTON.UPDATE' | translate}}
           </a>
@@ -54,7 +58,9 @@
 
       <jqxGrid #myGrid
                [width]="'100%'" [height]="'100%'" class="g-mt-5 g-mb-15"
-               [sortable]="true" [columnsresize]="true">
+               [sortable]="true" [columnsresize]="true"
+               [filterable]="true"
+               [autoshowfiltericon]="true"      >
         <tr>
           <th>Title</th>
           <th>Artist</th>

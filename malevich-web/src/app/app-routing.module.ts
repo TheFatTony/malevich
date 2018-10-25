@@ -32,6 +32,7 @@ import {WalletComponent} from "./profile/trader-profile/wallet/wallet.component"
 import {WishlistComponent} from "./profile/trader-profile/wishlist/wishlist.component";
 import {NotificationsComponent} from "./profile/trader-profile/notifications/notifications.component";
 import {ViewComponent as GalleryProfileNotificationsComponent} from './profile/gallery-profile/notifications/view/view.component';
+import {AddComponent as GalleryProfileArtworkStockAddComponent} from "./profile/gallery-profile/artwork-stock/add/add.component";
 
 const routes: Routes = [
   {path: '', redirectTo: '/main-page', pathMatch: 'full'},
@@ -60,7 +61,8 @@ const routes: Routes = [
       {path: 'edit', component: GalleryProfileSecurityEditComponent, canActivate: [AuthGuard]},
       {path: 'notifications', component: GalleryProfileNotificationsComponent, canActivate: [AuthGuard]},
       {path: 'orders/list', component: GalleryProfileOrdersComponent, canActivate: [AuthGuard]},
-      {path: 'artworkstok', component: GalleryProfileArtworkStockComponent, canActivate: [AuthGuard]}
+      {path: 'artworkstok', component: GalleryProfileArtworkStockComponent, canActivate: [AuthGuard]},
+      {path: 'artworkstok/add', component: GalleryProfileArtworkStockAddComponent, canActivate: [AuthGuard]}
     ]
   },
   {path: 'artworks/artworks-list', component: ArtworksListComponent},
@@ -78,5 +80,6 @@ const routes: Routes = [
   imports: [RouterModule.forRoot(routes, {useHash: true})],
   exports: [RouterModule]
 })
+
 export class AppRoutingModule {
 }

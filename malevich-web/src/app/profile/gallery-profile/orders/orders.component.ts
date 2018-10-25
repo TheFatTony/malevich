@@ -10,6 +10,8 @@ import {TradeTypeService} from "../../../_services/trade-type.service";
 import {TradeTypeDto} from "../../../_transfer/tradeTypeDto";
 import {OrderTypeService} from "../../../_services/order-type.service";
 import {environment} from "../../../../environments/environment";
+import {jqxValidatorComponent} from '../../../../../node_modules/jqwidgets-scripts/jqwidgets-ts/angular_jqxvalidator';
+import {of} from "rxjs";
 
 @Component({
   selector: 'app-profile-gallery-orders',
@@ -19,15 +21,7 @@ import {environment} from "../../../../environments/environment";
 export class OrdersComponent implements OnInit {
   @ViewChild('myGrid') myGrid: jqxGridComponent;
   @ViewChild('myWindow') myWindow: jqxWindowComponent;
-
-  // public columns =
-  //   [
-  //     {text: 'Date', datafield: 'Date', columntype: 'textbox', width: '20%'},
-  //     {text: 'Amount', datafield: 'Amount', columntype: 'textbox', width: '20%'},
-  //     {text: 'Artwork', datafield: 'Artwork', columntype: 'textbox', width: '20%'},
-  //     {text: 'Trade Type', datafield: 'Trade Type', columntype: 'textbox', width: '20%'},
-  //     {text: 'Type', datafield: 'Type', columntype: 'textbox', width: '20%'}
-  //   ];
+  @ViewChild('myValidator') myValidator: jqxValidatorComponent;
 
   orders: OrderDto[];
   public newOrder: OrderDto;
@@ -43,7 +37,35 @@ export class OrdersComponent implements OnInit {
 
   public artworkStocksComboBox: any[];
 
-  today: number = Date.now();
+  rules =
+    [
+      {
+        input: '.artworkStockInput',
+        message: 'Field is required!',
+        action: 'keyup, blur',
+        rule: (input: any, commit: any): any => {
+          if (this.newOrder) {
+            if (this.newOrder.artworkStock !== null) {
+              return true;
+            }
+          }
+          return false;
+        }
+      },
+      {
+        input: '.amountInput',
+        message: 'Field is required!',
+        action: 'keyup, blur',
+        rule: (input: any, commit: any): any => {
+          if (this.newOrder) {
+            if (this.newOrder.amount != null) {
+              return true;
+            }
+          }
+          return false;
+        }
+      }
+    ];
 
   constructor(private artworkStockService: ArtworkStockService,
               private orderService: OrderService,
@@ -103,11 +125,8 @@ export class OrdersComponent implements OnInit {
   }
 
   sendButton() {
-    console.info(this.newOrder);
-    this.myWindow.close();
-    this.orderService.insertOrder(this.newOrder).subscribe(() => {
-      this.getPlacedOrders();
-    });
+    this.myValidator.validate();
+
 
   }
 
@@ -117,4 +136,10 @@ export class OrdersComponent implements OnInit {
     this.y = event.pageY;
   }
 
+  ValidationSuccess($event: any) {
+    this.myWindow.close();
+    this.orderService.insertOrder(this.newOrder).subscribe(() => {
+      this.getPlacedOrders();
+    });
+  }
 }

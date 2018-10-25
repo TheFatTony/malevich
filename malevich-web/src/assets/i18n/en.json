@@ -85,6 +85,11 @@
         "DESCRIPTION": "Description",
         "DESCRIPTION_EN": "Description - English",
         "DESCRIPTION_RU": "Description - Russian"
+    },
+    "ARTWORKS":{
+      "ADD":{
+        "TITLE": "Add artwork"
+      }
     }
   }
 }

@@ -10,4 +10,6 @@ public interface ArtworkStockService {
 
   List<ArtworkStockEntity> findAll();
 
+  void add(ArtworkStockEntity artworkStockEntity);
+
 }

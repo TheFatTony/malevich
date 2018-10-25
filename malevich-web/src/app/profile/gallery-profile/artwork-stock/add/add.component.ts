@@ -21,6 +21,8 @@ export class AddComponent implements OnInit {
   artworks: ArtworkDto[];
 
   public addArtwork: ArtworkDto;
+  public selectedArtwork: ArtworkDto;
+  public artworkStock: ArtworkStockDto;
   public addArtWorkComboBoxSource: any[];
 
   constructor(private router: Router,
@@ -33,8 +35,15 @@ export class AddComponent implements OnInit {
 
   ngOnInit() {
     this.getArtworks();
-    this.addArtwork = new ArtworkDto();
-    this.addArtwork.titleMl = new Map<string, string>();
+    //this.addArtwork = this.getDefaultArtWork();
+    // this.addArtwork.titleMl = new Map<string, string>();
+  }
+
+  getDefaultArtWork() {
+    let artwork = new ArtworkDto();
+    // artwork.titleMl = new Map<string, string>();
+    // artwork.descriptionMl = new Map<string, string>();
+    return artwork;
   }
 
   getArtworks(): void {
@@ -46,22 +55,35 @@ export class AddComponent implements OnInit {
           this.addArtWorkComboBoxSource = data.map(artwork => ({
               id: artwork,
               title: artwork.titleMl[this.translate.currentLang],
-              html: '<table style="min-width: 50px;"><tr><td style="width: 100px;" rowspan="2">' +
+              html: '<table style="min-width: 50px; width: 100%"><tr><td style="width: 100px;" rowspan="2">' +
                 '<img class="img-fluid" src="https://via.placeholder.com/50x50/img8.jpg" alt="Image Description">' +
                 '</td><td>' + '<span class="d-block g-color-gray-dark-v4">' + artwork.titleMl[this.translate.currentLang] + '</span>' + '</td></tr><tr><td>' +
                 '<span class="d-block g-color-lightred">' + artwork.category.categoryNameMl[this.translate.currentLang] + '</span>' + '</td></tr></table>'
             })
           );
+          // this.addArtWorkComboBoxSource.unshift(this.getDefaultArtWork());
         }
       );
   }
 
-  addButton() {
+  submit() {
     let addArtworkStock = new ArtworkStockDto();
-    addArtworkStock.artwork = this.addArtwork;
+    addArtworkStock.artwork = this.artworkStock.artwork;
     addArtworkStock.gallery = this.gallery;
     this.artworkStockService.addArtworkStock(addArtworkStock).subscribe();
     this.router.navigate(['/profile/gallery/artworkstok']);
   }
 
+  onArtworkComboBoxChange($event) {
+    this.selectedArtwork = $event;
+    if (this.selectedArtwork) {
+      this.artworkStock = new ArtworkStockDto();
+      this.artworkStock.artwork = this.selectedArtwork;
+      this.addArtWorkComboBox.disabled(true);
+    }
+  }
+
+  cancel() {
+    this.router.navigate(['/profile/gallery/artworkstok']);
+  }
 }

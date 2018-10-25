@@ -41,28 +41,23 @@ export class OrdersComponent implements OnInit {
 
   public url = environment.baseUrl;
 
+  public artworkStocksComboBox: any[];
+
+  today: number = Date.now();
+
   constructor(private artworkStockService: ArtworkStockService,
               private orderService: OrderService,
-              public translateService: TranslateService,
+              public translate: TranslateService,
               private tradeTypeService: TradeTypeService,
               private orderTypeService: OrderTypeService) {
     $.jqx.theme = 'malevich';
   }
 
-
-  renderer = (index: number, label: string, value: any): string => {
-    let datarecord = this.artworkStocks[index];
-    let table = '<table style="min-width: 50px;"><tr><td style="width: 100px;" rowspan="2">' +
-      '<img class="img-fluid" src="https://via.placeholder.com/50x50/img8.jpg" alt="Image Description">' +
-      '</td><td>' + '<span class="d-block g-color-gray-dark-v4">'+ datarecord.artwork.titleMl[this.translateService.currentLang] + '</span>' + '</td></tr><tr><td>' +
-      '<span class="d-block g-color-lightred">'+datarecord.artwork.category.categoryNameMl[this.translateService.currentLang]+'</span>' + '</td></tr></table>';
-    return table;
-  };
-
   ngOnInit() {
     this.getPlacedOrders();
     this.getArtworkStock();
     this.getTradeTypes();
+
   }
 
   ngAfterViewInit(): void {
@@ -80,8 +75,17 @@ export class OrdersComponent implements OnInit {
     this.artworkStockService
       .getArtworkStock()
       .subscribe(
-        data => (this.artworkStocks = data)
-      );
+        data => {
+          this.artworkStocks = data;
+          this.artworkStocksComboBox = data.map(artworkStock => ({
+            id: artworkStock,
+            title: artworkStock.artwork.titleMl[this.translate.currentLang],
+            html: '<table style="min-width: 50px;"><tr><td style="width: 100px;" rowspan="2">' +
+              '<img class="img-fluid" src="https://via.placeholder.com/50x50/img8.jpg" alt="Image Description">' +
+              '</td><td>' + '<span class="d-block g-color-gray-dark-v4">' + artworkStock.artwork.titleMl[this.translate.currentLang] + '</span>' + '</td></tr><tr><td>' +
+              '<span class="d-block g-color-lightred">' + artworkStock.artwork.category.categoryNameMl[this.translate.currentLang] + '</span>' + '</td></tr></table>'
+          }));
+        });
   }
 
   getTradeTypes(): void {
@@ -100,14 +104,10 @@ export class OrdersComponent implements OnInit {
 
   sendButton() {
     console.info(this.newOrder);
-    // @ts-ignore
-    this.newOrder.artworkStock = this.artworkStocks[this.newOrder.artworkStock]
-    // @ts-ignore
-    this.newOrder.tradeType = this.tradeTypes[this.newOrder.tradeType];
-    console.info(this.newOrder);
-
     this.myWindow.close();
-    this.orderService.insertOrder(this.newOrder).subscribe(() => {this.getPlacedOrders();});
+    this.orderService.insertOrder(this.newOrder).subscribe(() => {
+      this.getPlacedOrders();
+    });
 
   }
 

@@ -49,7 +49,8 @@
             <jqxComboBox #addArtWorkComboBox
                          class="g-color-black g-bg-white g-bg-white--focus g-brd-gray-light-v3 rounded"
                          [source]="addArtWorkComboBoxSource"
-                         [ngModel]="selectedArtwork" (ngModelChange)="onArtworkComboBoxChange($event)"
+                         [ngModel]="artwork"
+                         (ngModelChange)="onArtworkComboBoxChange($event)"
                          [displayMember]="'title'"
                          [valueMember]="'id'"
                          [width]="'100%'">
@@ -64,7 +65,8 @@
             <span class="d-block g-color-text g-font-size-13 mb-1">Title:</span>
             <jqxInput
               class="g-color-black g-bg-white g-bg-white--focus g-brd-gray-light-v3 rounded g-py-15 g-px-15"
-              [(ngModel)]="artworkStock?.artwork?.titleMl['en']"
+              [ngModel]="!artwork?.titleMl ? '' : artwork?.titleMl['en']"
+              (ngModelChange)="onTitleEditorChange($event)"
               [width]="'100%'"></jqxInput>
           </div>
         </div>
@@ -76,7 +78,8 @@
             <span class="d-block g-color-text g-font-size-13 mb-1">Description:</span>
             <jqxInput
               class="g-color-black g-bg-white g-bg-white--focus g-brd-gray-light-v3 rounded g-py-15 g-px-15"
-              [(ngModel)]="artworkStock?.artwork?.descriptionMl['en']"
+              [ngModel]="!artwork?.descriptionMl ? '' : artwork?.descriptionMl['en']"
+              (ngModelChange)="onDescriptionEditorChange($event)"
               [width]="'100%'"></jqxInput>
           </div>
         </div>
@@ -85,11 +88,16 @@
 
         <div class="row">
           <div class="col-12">
-            <span class="d-block g-color-text g-font-size-13 mb-1">Description:</span>
-            <jqxInput
-              class="g-color-black g-bg-white g-bg-white--focus g-brd-gray-light-v3 rounded g-py-15 g-px-15"
-              [(ngModel)]="artworkStock?.artwork?.artist.fullNameMl['en']"
-              [width]="'100%'"></jqxInput>
+            <span class="d-block g-color-text g-font-size-13 mb-1">Artist:</span>
+            <jqxComboBox #artistComboBox
+                         class="g-color-black g-bg-white g-bg-white--focus g-brd-gray-light-v3 rounded"
+                         [source]="artists"
+                         [ngModel]="artwork?.artist"
+                         (ngModelChange)="onArtistComboBoxChange($event)"
+                         [displayMember]="'title'"
+                         [valueMember]="'value'"
+                         [width]="'100%'">
+            </jqxComboBox>
           </div>
         </div>
 
@@ -97,11 +105,16 @@
 
         <div class="row">
           <div class="col-12">
-            <span class="d-block g-color-text g-font-size-13 mb-1">Description:</span>
-            <jqxInput
-              class="g-color-black g-bg-white g-bg-white--focus g-brd-gray-light-v3 rounded g-py-15 g-px-15"
-              [(ngModel)]="artworkStock?.artwork?.category.categoryNameMl['en']"
-              [width]="'100%'"></jqxInput>
+            <span class="d-block g-color-text g-font-size-13 mb-1">Category:</span>
+            <jqxComboBox #categoryComboBox
+                         class="g-color-black g-bg-white g-bg-white--focus g-brd-gray-light-v3 rounded"
+                         [source]="categories"
+                         [ngModel]="artwork?.category"
+                         (ngModelChange)="onCategoryComboBoxChange($event)"
+                         [displayMember]="'title'"
+                         [valueMember]="'value'"
+                         [width]="'100%'">
+            </jqxComboBox>
           </div>
         </div>
 

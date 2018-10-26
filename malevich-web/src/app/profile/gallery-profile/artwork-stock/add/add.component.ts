@@ -119,7 +119,7 @@ export class AddComponent implements OnInit {
     this.categoryComboBox.selectIndex(categoryIndex);
 
     // console.info(this.artwork);
-    // this.addArtWorkComboBox.disabled(true);
+    this.addArtWorkComboBox.disabled(true);
   }
 
   cancel() {

@@ -25,4 +25,9 @@ export class ArtworkStockService {
       .post<ArtworkStockDto>(this.url + '/add', artworkStock);
   }
 
+  deleteArtworkStock(id: number) {
+    return this.http
+      .delete<ArtworkStockDto>(this.url + '/delete/' + id);
+  }
+
 }

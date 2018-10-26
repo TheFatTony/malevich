@@ -9,6 +9,7 @@ import {jqxGridComponent} from "jqwidgets-scripts/jqwidgets-ts/angular_jqxgrid";
 import {jqxWindowComponent} from "jqwidgets-scripts/jqwidgets-ts/angular_jqxwindow";
 import {jqxComboBoxComponent} from "jqwidgets-scripts/jqwidgets-ts/angular_jqxcombobox";
 import {GalleryService} from "../../../_services/gallery.service";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-profile-gallery-artwork-stock',
@@ -27,6 +28,8 @@ export class ArtworkStockComponent implements OnInit {
 
   public addArtWorkComboBoxSource: any[];
 
+  selectedRowIndex: number = -1;
+
   x: number;
   y: number;
 
@@ -34,7 +37,8 @@ export class ArtworkStockComponent implements OnInit {
 
   public url = environment.baseUrl;
 
-  constructor(private galleryService: GalleryService,
+  constructor(private router: Router,
+              private galleryService: GalleryService,
               private artworkStockService: ArtworkStockService,
               private artworkService: ArtworkService,
               public translate: TranslateService) {
@@ -116,4 +120,21 @@ export class ArtworkStockComponent implements OnInit {
     this.y = event.pageY;
   }
 
+  onGridRowSelect($event: any) {
+    this.selectedRowIndex = $event.args.rowindex;
+  }
+
+  onAddButtonClick() {
+    this.router.navigate(['/profile/gallery/artworkstok/add'])
+  }
+
+  onUpdateButtonClick() {
+
+  }
+
+  onDeleteButtonClick() {
+    let deleted = this.artworkStocks.splice(this.selectedRowIndex, 1)[0];
+    this.artworkStockService.deleteArtworkStock(deleted.id).subscribe();
+    this.myGrid.refresh();
+  }
 }

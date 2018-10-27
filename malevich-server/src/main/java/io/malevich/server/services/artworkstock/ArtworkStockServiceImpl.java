@@ -5,6 +5,8 @@ import io.malevich.server.entity.ArtworkStockEntity;
 import io.malevich.server.entity.GalleryEntity;
 import io.malevich.server.services.artwork.ArtworkService;
 import io.malevich.server.services.gallery.GalleryService;
+import io.malevich.server.services.order.OrderService;
+import io.malevich.server.services.transaction.TransactionService;
 import org.springframework.stereotype.Service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
@@ -24,6 +26,12 @@ public class ArtworkStockServiceImpl implements ArtworkStockService {
     @Autowired
     private ArtworkService artworkService;
 
+    @Autowired
+    private OrderService orderService;
+
+    @Autowired
+    private TransactionService transactionService;
+
     @Override
     @Transactional(readOnly = true)
     public List<ArtworkStockEntity> findAll() {
@@ -36,7 +44,9 @@ public class ArtworkStockServiceImpl implements ArtworkStockService {
         GalleryEntity gallery = galleryService.getCurrent();
         artworkStockEntity.setGallery(gallery);
         artworkStockEntity.setArtwork(artworkService.save(artworkStockEntity.getArtwork()));
-        this.artworkStockDao.save(artworkStockEntity);
+        artworkStockEntity = this.artworkStockDao.save(artworkStockEntity);
+
+        transactionService.createArtworkStock(artworkStockEntity);
     }
 
     @Override

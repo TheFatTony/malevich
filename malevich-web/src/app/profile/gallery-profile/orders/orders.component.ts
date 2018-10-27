@@ -11,7 +11,6 @@ import {TradeTypeDto} from "../../../_transfer/tradeTypeDto";
 import {OrderTypeService} from "../../../_services/order-type.service";
 import {environment} from "../../../../environments/environment";
 import {jqxValidatorComponent} from '../../../../../node_modules/jqwidgets-scripts/jqwidgets-ts/angular_jqxvalidator';
-import {of} from "rxjs";
 
 @Component({
   selector: 'app-profile-gallery-orders',
@@ -36,6 +35,15 @@ export class OrdersComponent implements OnInit {
   public url = environment.baseUrl;
 
   public artworkStocksComboBox: any[];
+
+  columns: any[] =
+    [
+      {datafield: 'Date', width: '20%', columntype: 'template', type: 'string'},
+      {datafield: 'Amount', width: '20%', columntype: 'template', type: 'string'},
+      {datafield: 'Artwork', width: '20%', columntype: 'template', type: 'string'},
+      {datafield: 'Trade Type', width: '20%', columntype: 'template', type: 'string'},
+      {datafield: 'Type', width: '20%', columntype: 'template', type: 'string'}
+    ];
 
   rules =
     [
@@ -100,13 +108,14 @@ export class OrdersComponent implements OnInit {
         data => {
           this.artworkStocks = data;
           this.artworkStocksComboBox = data.map(artworkStock => ({
-            id: artworkStock,
-            title: artworkStock.artwork.titleMl[this.translate.currentLang],
-            html: '<table style="min-width: 50px;"><tr><td style="width: 100px;" rowspan="2">' +
-              '<img class="img-fluid" src="https://via.placeholder.com/50x50/img8.jpg" alt="Image Description">' +
-              '</td><td>' + '<span class="d-block g-color-gray-dark-v4">' + artworkStock.artwork.titleMl[this.translate.currentLang] + '</span>' + '</td></tr><tr><td>' +
-              '<span class="d-block g-color-lightred">' + artworkStock.artwork.category.categoryNameMl[this.translate.currentLang] + '</span>' + '</td></tr></table>'
-          }));
+              id: artworkStock,
+              title: artworkStock.artwork.titleMl[this.translate.currentLang],
+              html: '<table style="min-width: 50px;"><tr><td style="width: 50px; height: 50px;" rowspan="2">' +
+                '<img class="img-fluid" src="https://via.placeholder.com/50x50/img8.jpg">' +
+                '</td><td>' + '<span class="d-block g-color-gray-dark-v4">' + artworkStock.artwork.titleMl[this.translate.currentLang] + '</span>' + '</td></tr><tr><td>' +
+                '<span class="d-block g-color-lightred">' + artworkStock.artwork.category.categoryNameMl[this.translate.currentLang] + '</span>' + '</td></tr></table>'
+            })
+          );
         });
   }
 
@@ -120,6 +129,8 @@ export class OrdersComponent implements OnInit {
 
   openWindow() {
     this.newOrder = new OrderDto();
+    this.myWindow.width(310);
+    this.myWindow.height(220);
     this.myWindow.open();
     this.myWindow.move(this.x, this.y);
   }
@@ -138,7 +149,7 @@ export class OrdersComponent implements OnInit {
 
   ValidationSuccess($event: any) {
     this.myWindow.close();
-    this.orderService.insertOrder(this.newOrder).subscribe(() => {
+    this.orderService.placeBid(this.newOrder).subscribe(() => {
       this.getPlacedOrders();
     });
   }

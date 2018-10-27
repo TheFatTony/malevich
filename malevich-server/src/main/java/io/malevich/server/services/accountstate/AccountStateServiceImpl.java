@@ -10,6 +10,7 @@ import java.util.List;
 
 
 @Service
+@Transactional(readOnly = true)
 public class AccountStateServiceImpl implements AccountStateService {
 
     @Autowired
@@ -21,5 +22,11 @@ public class AccountStateServiceImpl implements AccountStateService {
     public List<AccountStateEntity> findAll() {
         return this.accountStateDao.findAll();
     }
+
+    @Override
+    public AccountStateEntity findByArtworkStockAndParty(Long artworkStockId, Long counterpartyId) {
+        return accountStateDao.findByArtworkStock_IdAndParty_Id(artworkStockId, counterpartyId);
+    }
+
 
 }

@@ -1,5 +1,5 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
-import {ArtistDto, ArtworkDto, CategoryDto, GalleryDto} from "../../../../_transfer";
+import {ArtworkDto, GalleryDto} from "../../../../_transfer";
 import {ArtworkStockDto} from "../../../../_transfer/artworkStockDto";
 import {GalleryService} from "../../../../_services/gallery.service";
 import {ArtworkStockService} from "../../../../_services/artwork-stock.service";
@@ -62,8 +62,8 @@ export class AddComponent implements OnInit {
           this.addArtWorkComboBoxSource = data.map(artwork => ({
               id: artwork,
               title: artwork.titleMl[this.translate.currentLang],
-              html: '<table style="min-width: 50px; width: 100%"><tr><td style="width: 100px;" rowspan="2">' +
-                '<img class="img-fluid" src="https://via.placeholder.com/50x50/img8.jpg" alt="Image Description">' +
+              html: '<table style="min-width: 50px;"><tr><td style="width: 50px; height: 50px;" rowspan="2">' +
+                '<img class="img-fluid" src="https://via.placeholder.com/50x50/img8.jpg">' +
                 '</td><td>' + '<span class="d-block g-color-gray-dark-v4">' + artwork.titleMl[this.translate.currentLang] + '</span>' + '</td></tr><tr><td>' +
                 '<span class="d-block g-color-lightred">' + artwork.category.categoryNameMl[this.translate.currentLang] + '</span>' + '</td></tr></table>'
             })
@@ -100,8 +100,9 @@ export class AddComponent implements OnInit {
     let addArtworkStock = new ArtworkStockDto();
     addArtworkStock.artwork = this.artwork;
     addArtworkStock.gallery = this.gallery;
-    this.artworkStockService.addArtworkStock(addArtworkStock).subscribe();
-    this.router.navigate(['/profile/gallery/artworkstok']);
+    this.artworkStockService.addArtworkStock(addArtworkStock).subscribe(() => {
+      this.router.navigate(['/profile/gallery/artworkstok']);
+    });
   }
 
   onArtworkComboBoxChange($event) {
@@ -147,7 +148,7 @@ export class AddComponent implements OnInit {
 
     this.artwork.category = $event;
   }
-  
+
   onDescriptionEditorChange($event) {
     if (!$event)
       return;

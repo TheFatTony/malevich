@@ -63,11 +63,6 @@
                  path="src/main/database/test_data/010_address.sql"/>
     </changeSet>
 
-    <changeSet author="thefattony" id="011_artwork_stock-data">
-        <sqlFile endDelimiter="\nGO" splitStatements="false" stripComments="false"
-                 path="src/main/database/test_data/011_artwork_stock.sql"/>
-    </changeSet>
-
     <changeSet author="thefattony" id="011_trader_address-data">
         <sqlFile endDelimiter="\nGO" splitStatements="false" stripComments="false"
                  path="src/main/database/test_data/011_trader_address.sql"/>
@@ -83,15 +78,20 @@
                  path="src/main/database/test_data/013_counterparty.sql"/>
     </changeSet>
 
-    <changeSet author="thefattony" id="014_transactions-data" context="test-transactions">
-        <sqlFile endDelimiter="\nGO" splitStatements="false" stripComments="false"
-                 path="src/main/database/test_data/014_transactions.sql"/>
-    </changeSet>
+    <!--<changeSet author="thefattony" id="014_artwork_stock-data" context="transactions">-->
+        <!--<sqlFile endDelimiter="\nGO" splitStatements="false" stripComments="false"-->
+                 <!--path="src/main/database/test_data/014_artwork_stock.sql"/>-->
+    <!--</changeSet>-->
 
-    <changeSet author="thefattony" id="015_account_state-data" context="test-transactions">
-        <sqlFile endDelimiter="\nGO" splitStatements="false" stripComments="false"
-                 path="src/main/database/test_data/015_account_state.sql"/>
-    </changeSet>
+    <!--<changeSet author="thefattony" id="015_transactions-data" context="transactions">-->
+        <!--<sqlFile endDelimiter="\nGO" splitStatements="false" stripComments="false"-->
+                 <!--path="src/main/database/test_data/015_transactions.sql"/>-->
+    <!--</changeSet>-->
+
+    <!--<changeSet author="thefattony" id="016_account_state-data" context="transactions">-->
+        <!--<sqlFile endDelimiter="\nGO" splitStatements="false" stripComments="false"-->
+                 <!--path="src/main/database/test_data/016_account_state.sql"/>-->
+    <!--</changeSet>-->
 
 </databaseChangeLog>
 

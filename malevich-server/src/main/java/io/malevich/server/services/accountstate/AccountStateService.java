@@ -11,4 +11,6 @@ public interface AccountStateService {
 
     List<AccountStateEntity> findAll();
 
+    AccountStateEntity findByArtworkStockAndParty(Long artworkStockId, Long counterpartyId);
+
 }

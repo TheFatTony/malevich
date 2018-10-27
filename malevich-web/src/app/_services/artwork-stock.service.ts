@@ -14,15 +14,24 @@ export class ArtworkStockService {
   constructor(private http: HttpClient) {
   }
 
-  getArtworkStock() {
+  getArtworkStocks() {
     return this.http
-      .get<ArtworkStockDto[]>(this.url + '/list')
-      .pipe(map(data => data));
+      .get<ArtworkStockDto[]>(this.url + '/list');
+  }
+
+  getArtworkStock(id: number) {
+    return this.http
+      .get<ArtworkStockDto>(this.url + '/item/' + id);
   }
 
   addArtworkStock(artworkStock: ArtworkStockDto) {
     return this.http
       .post<ArtworkStockDto>(this.url + '/add', artworkStock);
+  }
+
+  deleteArtworkStock(id: number) {
+    return this.http
+      .delete<ArtworkStockDto>(this.url + '/delete/' + id);
   }
 
 }

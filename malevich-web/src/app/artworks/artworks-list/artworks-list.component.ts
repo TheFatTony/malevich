@@ -29,7 +29,7 @@ export class ArtworksListComponent implements OnInit {
 
   getArtworkStock(): void {
     this.artworkStockService
-      .getArtworkStock()
+      .getArtworkStocks()
       .subscribe(
         data => (this.artworkStocks = data)
       );

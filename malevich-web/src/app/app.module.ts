@@ -141,6 +141,7 @@ import {
 import { OrdersComponent } from './profile/gallery-profile/orders/orders.component';
 import { ArtworkStockComponent as GalleryProfileArtworkStockComponent } from './profile/gallery-profile/artwork-stock/artwork-stock.component';
 import { AddComponent as GalleryProfileArtworkStockAddComponent } from './profile/gallery-profile/artwork-stock/add/add.component';
+import { EditComponent as GalleryProfileArtworkStockEditComponent } from './profile/gallery-profile/artwork-stock/edit/edit.component';
 
 export function createTranslateLoader(http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
@@ -197,9 +198,8 @@ export function createTranslateLoader(http: HttpClient) {
     ResetStepTwoComponent,
     OrdersComponent,
     GalleryProfileArtworkStockComponent,
-    GalleryProfileArtworkStockAddComponent
-    // TraderProfileAddressesView,
-    // TraderProfileAddressesEdit,
+    GalleryProfileArtworkStockAddComponent,
+    GalleryProfileArtworkStockEditComponent
   ],
   imports: [
     BrowserModule,

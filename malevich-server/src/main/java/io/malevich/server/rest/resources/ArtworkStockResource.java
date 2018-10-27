@@ -4,10 +4,7 @@ import io.malevich.server.entity.ArtworkStockEntity;
 import io.malevich.server.services.artworkstock.ArtworkStockService;
 import io.malevich.server.transfer.ArtworkStockDto;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.modelmapper.ModelMapper;
 
@@ -31,10 +28,22 @@ public class ArtworkStockResource {
         return allEntries.stream().map(allEntry -> convertToDto(allEntry)).collect(Collectors.toList());
     }
 
+    @RequestMapping(value = "/item/{id}", method = RequestMethod.GET)
+    public ArtworkStockDto item(@PathVariable("id") long id) {
+        ArtworkStockEntity allEntry = this.artworkStockService.find(id);
+        return convertToDto(allEntry);
+    }
+
     @RequestMapping(value = "/add", method = RequestMethod.POST)
     public ResponseEntity<Void> add(@RequestBody ArtworkStockDto artworkStockDto) {
         ArtworkStockEntity entity = convertToEntity(artworkStockDto);
         artworkStockService.add(entity);
+        return ResponseEntity.ok().build();
+    }
+
+    @RequestMapping(value = "/delete/{id}", method = RequestMethod.DELETE)
+    public ResponseEntity<Void> add(@PathVariable("id") long id) {
+        artworkStockService.delete(id);
         return ResponseEntity.ok().build();
     }
 

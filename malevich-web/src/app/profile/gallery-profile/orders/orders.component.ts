@@ -95,7 +95,7 @@ export class OrdersComponent implements OnInit {
 
   getArtworkStock(): void {
     this.artworkStockService
-      .getArtworkStock()
+      .getArtworkStocks()
       .subscribe(
         data => {
           this.artworkStocks = data;

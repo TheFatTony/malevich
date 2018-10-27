@@ -84,7 +84,7 @@ export class ArtworkStockComponent implements OnInit {
 
   getArtworkStock(): void {
     this.artworkStockService
-      .getArtworkStock()
+      .getArtworkStocks()
       .subscribe(
         data => {
           this.artworkStocks = data;
@@ -129,7 +129,7 @@ export class ArtworkStockComponent implements OnInit {
   }
 
   onUpdateButtonClick() {
-
+    this.router.navigate(['/profile/gallery/artworkstok/edit/' + this.selectedRowIndex])
   }
 
   onDeleteButtonClick() {

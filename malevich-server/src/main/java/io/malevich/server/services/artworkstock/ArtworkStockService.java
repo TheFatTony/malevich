@@ -14,4 +14,6 @@ public interface ArtworkStockService {
     void add(ArtworkStockEntity artworkStockEntity);
 
     void delete(long id);
+
+    ArtworkStockEntity find(long id);
 }

@@ -28,6 +28,12 @@ public class ArtworkStockResource {
         return allEntries.stream().map(allEntry -> convertToDto(allEntry)).collect(Collectors.toList());
     }
 
+    @RequestMapping(value = "/item/{id}", method = RequestMethod.GET)
+    public ArtworkStockDto item(@PathVariable("id") long id) {
+        ArtworkStockEntity allEntry = this.artworkStockService.find(id);
+        return convertToDto(allEntry);
+    }
+
     @RequestMapping(value = "/add", method = RequestMethod.POST)
     public ResponseEntity<Void> add(@RequestBody ArtworkStockDto artworkStockDto) {
         ArtworkStockEntity entity = convertToEntity(artworkStockDto);

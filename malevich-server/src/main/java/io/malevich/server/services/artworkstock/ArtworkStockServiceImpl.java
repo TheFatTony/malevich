@@ -51,4 +51,10 @@ public class ArtworkStockServiceImpl implements ArtworkStockService {
         artworkStockDao.delete(existing);
     }
 
+    @Override
+    @Transactional(readOnly = true)
+    public ArtworkStockEntity find(long id) {
+        return artworkStockDao.findById(id).get();
+    }
+
 }

@@ -71,11 +71,11 @@
 }
 .jqx-widget-malevich {
   font-size: 12px;
-  font-family: "Open Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+  font-family: "Open Sans", -apple-system, BlinkMacSystemFont, "Open Sans";
 }
-.jqx-widget-content-malevich{font-size: 12px; font-family: "Open Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol"; border-color: #e5e5e5; color: #767676; background-color: #fff;}
-.jqx-widget-header-malevich{font-size: 12px; font-family: "Open Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol"; color: #767676; border-color:#e5e5e5; background-color:#f4f4f4;}
-.jqx-fill-state-normal-malevich{font-size: 12px; font-family: "Open Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol"; border-color: #e5e5e5; color: #767676; background: #ffffff;}
+.jqx-widget-content-malevich{font-size: 12px; font-family: "Open Sans", -apple-system, BlinkMacSystemFont, "Open Sans"; border-color: #e5e5e5; color: #767676; background-color: #fff;}
+.jqx-widget-header-malevich{font-size: 12px; font-family: "Open Sans", -apple-system, BlinkMacSystemFont, "Open Sans"; color: #767676; border-color:#e5e5e5; background-color:#f4f4f4;}
+.jqx-fill-state-normal-malevich{font-size: 12px; font-family: "Open Sans", -apple-system, BlinkMacSystemFont, "Open Sans"; border-color: #e5e5e5; color: #767676; background: #ffffff;}
 .jqx-button-malevich {border-color: #e5e5e5;}
 .jqx-fill-state-hover-malevich{border-color:#dedede; color: #000; background-color:#dedede;
 
@@ -88,7 +88,7 @@
   border-color: #e5e5e5;
 }
 .jqx-scrollbar-state-normal-malevich, .jqx-grid-bottomright-malevich, .jqx-panel-bottomright-malevich, .jqx-listbox-bottomright-malevich{background-color:#f0f0f0;}
-.jqx-widget-malevich .jqx-grid-column-header-malevich, .jqx-grid-cell-malevich, .jqx-widget-malevich .jqx-grid-cell-malevich, .jqx-widget-malevich .jqx-grid-group-cell-malevich, .jqx-grid-group-cell-malevich{font-size: 12px; font-family: "Open Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol"; border-color:#f0f0f0;}
+.jqx-widget-malevich .jqx-grid-column-header-malevich, .jqx-grid-cell-malevich, .jqx-widget-malevich .jqx-grid-cell-malevich, .jqx-widget-malevich .jqx-grid-group-cell-malevich, .jqx-grid-group-cell-malevich{font-size: 12px; font-family: "Open Sans", -apple-system, BlinkMacSystemFont, "Open Sans"; border-color:#f0f0f0;}
 .jqx-tabs-title-selected-bottom-malevich, .jqx-tabs-selection-tracker-bottom-malevich, .jqx-tabs-title-selected-top-malevich, .jqx-tabs-selection-tracker-top-malevich{color: #767676; border-color:#e5e5e5; border-bottom:1px solid #fff; background:#fff}
 .jqx-grid-cell-sort-alt-malevich, .jqx-grid-cell-filter-alt-malevich, .jqx-grid-cell-pinned-malevich, .jqx-grid-cell-alt-malevich, .jqx-grid-cell-sort-malevich{ background-color:#ededed; color: #000;}
 .jqx-menu-vertical-malevich{background: #fff; border-color: #e5e5e5;}
@@ -97,7 +97,7 @@
   background-color: transparent;
   border-color: #e5e5e5;
 }
-.jqx-window-header-malevich, .jqx-input-button-header-malevich, .jqx-calendar-title-header-malevich, .jqx-grid-malevich .jqx-widget-header-malevich, .jqx-grid-header-malevich, .jqx-grid-column-header-malevich {font-size: 12px; font-family: "Open Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol"; border-color: #e5e5e5; color: #767676; background: #f4f4f4;}
+.jqx-window-header-malevich, .jqx-input-button-header-malevich, .jqx-calendar-title-header-malevich, .jqx-grid-malevich .jqx-widget-header-malevich, .jqx-grid-header-malevich, .jqx-grid-column-header-malevich {font-size: 12px; font-family: "Open Sans", -apple-system, BlinkMacSystemFont, "Open Sans"; border-color: #e5e5e5; color: #767676; background: #f4f4f4;}
 .jqx-grid-column-menubutton-malevich {
   background-image: url('../../../../node_modules/jqwidgets-scripts/jqwidgets/styles/images/metro-icon-down.png');
 }

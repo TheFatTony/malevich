@@ -4,8 +4,6 @@ import {ArtistDto} from "./artistDto";
 
 export class ArtworkDto {
   id: number;
-  title: string;
-  description: string;
   estimatedPrice: number;
   category: CategoryDto;
   artist: ArtistDto;

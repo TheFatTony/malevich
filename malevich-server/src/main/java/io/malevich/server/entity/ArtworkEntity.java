@@ -23,16 +23,6 @@ public class ArtworkEntity implements Entity {
 
     @Getter
     @Setter
-    @Column(name = "title")
-    private String title;
-
-    @Getter
-    @Setter
-    @Column(name = "description")
-    private String description;
-
-    @Getter
-    @Setter
     @Column(name = "estimated_price")
     private double estimatedPrice;
 

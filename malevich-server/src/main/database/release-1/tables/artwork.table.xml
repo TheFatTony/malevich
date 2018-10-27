@@ -8,12 +8,6 @@
             <column name="id" type="bigint">
                 <constraints nullable="false"/>
             </column>
-            <column name="title" type="varchar(1000)">
-                <constraints nullable="false"/>
-            </column>
-            <column name="description" type="clob">
-                <constraints nullable="false"/>
-            </column>
             <column name="estimated_price" type="double">
                 <constraints nullable="false"/>
             </column>

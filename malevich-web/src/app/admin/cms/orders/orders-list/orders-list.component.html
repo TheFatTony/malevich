@@ -9,7 +9,6 @@
     <th>Artwork</th>
     <th>Trade Type</th>
     <th>Amount</th>
-    <th>Quantity</th>
   </tr>
   <tr *ngFor="let order of orders">
     <td>
@@ -38,9 +37,6 @@
     </td>
     <td>
       {{order?.amount}}
-    </td>
-    <td>
-      {{order?.quantity}}
     </td>
   </tr>
 </jqxGrid>

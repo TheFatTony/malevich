@@ -14,10 +14,6 @@ public class ArtworkDto {
 
     private long id;
 
-    private String artwork;
-
-    private String description;
-
     private double estimatedPrice;
 
     private CategoryDto category;

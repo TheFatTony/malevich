@@ -34,64 +34,101 @@
     </div>
     <!-- End Profile Settings -->
     <div class="col-lg-9 g-mb-50">
+      <div class="g-brd-around g-brd-gray-light-v4 rounded g-pa-30 g-mb-30">
 
-      <div class="row g-mb-2">
 
-        <div class="col-2">
-          <a href="javascript:void(0);"
-             class="btn btn-block u-btn-primary g-font-size-12 text-uppercase g-py-12 g-px-5"
-             (click)="onAddButtonClick()">
+          <jqxButton [width]="100" [height]="35" (click)="onAddButtonClick()">
             Add
-          </a>
-        </div>
+          </jqxButton>
 
-        <div class="col-2">
-          <a href="javascript:void(0);"
-             class="btn btn-block u-btn-primary g-font-size-12 text-uppercase g-py-12 g-px-5"
-             [class.disabled]="selectedRowIndex >= 0 ? false : true"
-             (click)="onUpdateButtonClick()">
+          <jqxButton [width]="100" [height]="35" [disabled]="selectedRowIndex >= 0 ? false : true"
+                     (click)="onUpdateButtonClick()">
             {{'TRADER_PROFILE.SECURITY.BUTTON.UPDATE' | translate}}
-          </a>
-        </div>
+          </jqxButton>
 
-        <div class="col-2">
-          <a href="javascript:void(0);"
-             class="btn btn-block u-btn-primary g-font-size-12 text-uppercase g-py-12 g-px-5"
-             [class.disabled]="selectedRowIndex >= 0 ? false : true"
-             (click)="onDeleteButtonClick()">
+          <jqxButton [width]="100" [height]="35" [disabled]="selectedRowIndex >= 0 ? false : true"
+                     (click)="onDeleteButtonClick()">
             Delete
-          </a>
-        </div>
+          </jqxButton>
+
+
+        <jqxGrid #myGrid
+                 class="g-mt-5 g-mb-15"
+                 [columns]="columns"
+                 [rowsheight]="50"
+                 (onRowselect)="onGridRowSelect($event)"
+                 [width]="'100%'"
+                 [height]="'320px'"
+                 [sortable]="true"
+                 [columnsresize]="true"
+                 [filterable]="true"
+                 [autoshowfiltericon]="true"
+                 [rowdetails]="true"
+                 [rowdetailstemplate]="rowdetailstemplate">
+          <tr>
+            <th>Image</th>
+            <th>Title</th>
+            <th>Artist</th>
+            <th>Category</th>
+          </tr>
+          <tr *ngFor="let a of artworkStocks">
+            <td></td>
+            <td>
+              {{a.artwork.titleMl[translate.currentLang]}}
+            </td>
+            <td>
+              {{a.artwork.artist.fullNameMl[translate.currentLang]}}
+            </td>
+            <td>
+              {{a.artwork.category.categoryNameMl[translate.currentLang]}}
+            </td>
+          </tr>
+        </jqxGrid>
+
+        <!-- Pagination -->
+        <nav class="g-mb-100" aria-label="Page Navigation">
+          <ul class="list-inline mb-0">
+            <li class="list-inline-item hidden-down">
+              <a
+                class="active u-pagination-v1__item g-width-30 g-height-30 g-brd-gray-light-v3 g-brd-primary--active g-color-white g-bg-primary--active g-font-size-12 rounded-circle g-pa-5"
+                href="#!">1</a>
+            </li>
+            <li class="list-inline-item hidden-down">
+              <a
+                class="u-pagination-v1__item g-width-30 g-height-30 g-color-gray-dark-v5 g-color-primary--hover g-font-size-12 rounded-circle g-pa-5"
+                href="#!">2</a>
+            </li>
+            <li class="list-inline-item g-hidden-xs-down">
+              <a
+                class="u-pagination-v1__item g-width-30 g-height-30 g-color-gray-dark-v5 g-color-primary--hover g-font-size-12 rounded-circle g-pa-5"
+                href="#!">3</a>
+            </li>
+            <li class="list-inline-item hidden-down">
+              <span class="g-width-30 g-height-30 g-color-gray-dark-v5 g-font-size-12 rounded-circle g-pa-5">...</span>
+            </li>
+            <li class="list-inline-item g-hidden-xs-down">
+              <a
+                class="u-pagination-v1__item g-width-30 g-height-30 g-color-gray-dark-v5 g-color-primary--hover g-font-size-12 rounded-circle g-pa-5"
+                href="#!">15</a>
+            </li>
+            <li class="list-inline-item">
+              <a
+                class="u-pagination-v1__item g-width-30 g-height-30 g-brd-gray-light-v3 g-brd-primary--hover g-color-gray-dark-v5 g-color-primary--hover g-font-size-12 rounded-circle g-pa-5 g-ml-15"
+                href="#!" aria-label="Next">
+                      <span aria-hidden="true">
+                        <i class="fa fa-angle-right"></i>
+                      </span>
+                <span class="sr-only">Next</span>
+              </a>
+            </li>
+            <li class="list-inline-item float-right">
+              <span class="u-pagination-v1__item-info g-color-gray-dark-v4 g-font-size-12 g-pa-5">Page 1 of 15</span>
+            </li>
+          </ul>
+        </nav>
+        <!-- End Pagination -->
 
       </div>
-
-      <jqxGrid #myGrid
-               class="g-mt-5 g-mb-15"
-               (onRowselect)="onGridRowSelect($event)"
-               [width]="'100%'"
-               [height]="'100%'"
-               [sortable]="true"
-               [columnsresize]="true"
-               [filterable]="true"
-               [autoshowfiltericon]="true">
-        <tr>
-          <th>Title</th>
-          <th>Artist</th>
-          <th>Category</th>
-        </tr>
-        <tr *ngFor="let a of artworkStocks">
-          <td>
-            {{a.artwork.titleMl[translate.currentLang]}}
-          </td>
-          <td>
-            {{a.artwork.artist.fullNameMl[translate.currentLang]}}
-          </td>
-          <td>
-            {{a.artwork.category.categoryNameMl[translate.currentLang]}}
-          </td>
-        </tr>
-      </jqxGrid>
-
     </div>
 
     <!-- Login & Security -->

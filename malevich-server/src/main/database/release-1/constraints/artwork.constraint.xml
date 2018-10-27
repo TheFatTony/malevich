@@ -3,10 +3,6 @@
                    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
                    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.6.xsd">
 
-    <changeSet author="thefattony" id="artwork-title-uc">
-        <addUniqueConstraint columnNames="title" constraintName="artwork_title_uc" tableName="artwork"/>
-    </changeSet>
-
     <changeSet author="thefattony" id="artwork-artist-fk">
         <addForeignKeyConstraint baseColumnNames="artist_id" baseTableName="artwork"
                                  constraintName="artwork_artist_fk"

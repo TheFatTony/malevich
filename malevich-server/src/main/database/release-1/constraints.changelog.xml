@@ -23,7 +23,7 @@
     <include relativeToChangelogFile="true" file="constraints/counterparty_type.constraint.xml"/>
     <include relativeToChangelogFile="true" file="constraints/payment_method_type.constraint.xml"/>
     <include relativeToChangelogFile="true" file="constraints/payment_method.constraint.xml"/>
-    <include relativeToChangelogFile="true" file="constraints/orders.constraint.xml"/>
+    <include relativeToChangelogFile="true" file="constraints/payments.constraint.xml"/>
     <include relativeToChangelogFile="true" file="constraints/orders.constraint.xml"/>
     <include relativeToChangelogFile="true" file="constraints/transactions.constraint.xml"/>
     <include relativeToChangelogFile="true" file="constraints/account_state.constraint.xml"/>

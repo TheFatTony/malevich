@@ -127,4 +127,57 @@ public class TransactionServiceImpl implements TransactionService {
     }
 
 
+    @Override
+    @Transactional
+    public void addAccountStates(PaymentsEntity paymentsEntity) {
+        CounterpartyEntity malevichEntity = counterpartyService.findById(1L).get();
+        TransactionTypeEntity transactionTypeEntity = transactionTypeService.findById("0001").get();
+
+        TransactionEntity transaction = new TransactionEntity();
+        transaction.setParty(malevichEntity);
+        transaction.setCounterparty(paymentsEntity.getParty());
+        transaction.setArtworkStock(null);
+        transaction.setAmount(-paymentsEntity.getAmount());
+        transaction.setQuantity((long) 0);
+        transaction.setType(transactionTypeEntity);
+
+        transactionDao.save(transaction);
+
+        AccountStateEntity accountState = accountStateDao.findByArtworkStock_IdAndParty_Id(null, malevichEntity.getId());
+        if (accountState == null) {
+            accountState = new AccountStateEntity();
+            accountState.setAmount(-paymentsEntity.getAmount());
+            accountState.setParty(malevichEntity);
+        } else
+            accountState.setAmount(accountState.getAmount() - paymentsEntity.getAmount());
+        accountState.setQuantity((long) 0);
+
+        accountStateDao.save(accountState);
+
+
+        TransactionEntity transactionReverse = new TransactionEntity();
+        transactionReverse.setParty(paymentsEntity.getParty());
+        transactionReverse.setCounterparty(malevichEntity);
+        transactionReverse.setArtworkStock(null);
+        transactionReverse.setAmount(paymentsEntity.getAmount());
+        transactionReverse.setQuantity((long) 0);
+        transactionReverse.setType(transactionTypeEntity);
+
+        transactionDao.save(transactionReverse);
+
+        AccountStateEntity accountStateReverse = accountStateDao.findByArtworkStock_IdAndParty_Id(null, paymentsEntity.getParty().getId());
+        if (accountStateReverse == null) {
+            accountStateReverse = new AccountStateEntity();
+            accountStateReverse.setAmount(paymentsEntity.getAmount());
+            accountStateReverse.setParty(paymentsEntity.getParty());
+        } else
+            accountStateReverse.setAmount(accountStateReverse.getAmount() + paymentsEntity.getAmount());
+
+        accountStateReverse.setQuantity((long) 0);
+
+        accountStateDao.save(accountStateReverse);
+
+    }
+
+
 }

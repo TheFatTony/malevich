@@ -38,8 +38,11 @@
     <td *ngIf="transaction?.counterparty.id === 1">
       Malevich
     </td>
-    <td>
-      {{transaction?.artworkStock.artwork.titleMl[translate.currentLang]}}
+    <td *ngIf="transaction?.artworkStock">
+      {{accountState?.artworkStock?.artwork.titleMl[translate.currentLang]}}
+    </td>
+    <td *ngIf="!transaction?.artworkStock">
+      None
     </td>
     <td>
       {{transaction?.amount}}

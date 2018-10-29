@@ -16,8 +16,11 @@
     <td *ngIf="accountState?.party.id === 1">
       Malevich
     </td>
-    <td>
-      {{accountState?.artworkStock.artwork.titleMl[translate.currentLang]}}
+    <td *ngIf="accountState?.artworkStock">
+      {{accountState?.artworkStock?.artwork.titleMl[translate.currentLang]}}
+    </td>
+    <td *ngIf="!accountState?.artworkStock">
+      None
     </td>
     <td>
       {{accountState?.amount}}

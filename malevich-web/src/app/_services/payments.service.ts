@@ -2,33 +2,26 @@ import {Injectable} from '@angular/core';
 import {environment} from "../../environments/environment";
 import {HttpClient} from "@angular/common/http";
 import {map} from "rxjs/operators";
-import {OrderDto} from "../_transfer/orderDto";
+import {PaymentsDto} from "../_transfer/paymentsDto";
 
 @Injectable({
   providedIn: 'root'
 })
-export class OrderService {
-
-  private url = environment.baseUrl + 'orders';
+export class PaymentsService {
+  private url = environment.baseUrl + 'payments';
 
   constructor(private http: HttpClient) {
   }
 
-  getOrders() {
+  getPayments() {
     return this.http
-      .get<OrderDto[]>(this.url + '/list')
+      .get<PaymentsDto[]>(this.url + '/list')
       .pipe(map(data => data));
   }
 
-  getPlacedOrders() {
+  insert(payments: PaymentsDto) {
     return this.http
-      .get<OrderDto[]>(this.url + '/getPlacedOrders')
-      .pipe(map(data => data));
-  }
-
-  placeBid(order: OrderDto) {
-    return this.http
-      .post<OrderDto>(this.url + '/placeBid', order)
+      .post<PaymentsDto>(this.url + '/insert', payments)
       .pipe(map(data => {
           return data;
         })

@@ -1,0 +1,41 @@
+package io.malevich.server.rest.resources;
+
+import io.malevich.server.entity.PaymentMethodTypeEntity;
+import io.malevich.server.services.paymentmethodtype.PaymentMethodTypeService;
+import io.malevich.server.transfer.PaymentMethodTypeDto;
+import org.modelmapper.ModelMapper;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RestController;
+
+import java.util.List;
+import java.util.stream.Collectors;
+
+
+@RestController
+@RequestMapping(value = "/payment_method_types")
+public class PaymentMethodTypeResource {
+
+    @Autowired
+    private PaymentMethodTypeService paymentMethodTypeService;
+
+    @Autowired
+    private ModelMapper modelMapper;
+
+
+    @RequestMapping(value = "/list", method = RequestMethod.GET)
+    public List<PaymentMethodTypeDto> list() {
+        List<PaymentMethodTypeEntity> allEntries = this.paymentMethodTypeService.findAll();
+        return allEntries.stream().map(allEntry -> convertToDto(allEntry)).collect(Collectors.toList());
+    }
+
+    private PaymentMethodTypeDto convertToDto(PaymentMethodTypeEntity entity) {
+        return modelMapper.map(entity, PaymentMethodTypeDto.class);
+    }
+
+    private PaymentMethodTypeEntity convertToEntity(PaymentMethodTypeDto dto) {
+        return modelMapper.map(dto, PaymentMethodTypeEntity.class);
+    }
+
+}

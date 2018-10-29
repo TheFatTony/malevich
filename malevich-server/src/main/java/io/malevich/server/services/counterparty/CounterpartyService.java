@@ -13,6 +13,8 @@ public interface CounterpartyService {
 
   CounterpartyEntity findCounterpartyEntitiesByGalleryId(Long galleryId);
 
+  CounterpartyEntity findCounterpartyEntitiesByTraderId(Long traderId);
+
   Optional<CounterpartyEntity> findById(Long counterpartyId);
 
 }

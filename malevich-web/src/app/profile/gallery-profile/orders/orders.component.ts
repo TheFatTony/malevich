@@ -139,8 +139,6 @@ export class OrdersComponent implements OnInit {
 
   sendButton() {
     this.myValidator.validate();
-
-
   }
 
   @HostListener('mousedown', ['$event'])

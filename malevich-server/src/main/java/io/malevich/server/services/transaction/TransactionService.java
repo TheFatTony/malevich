@@ -2,6 +2,7 @@ package io.malevich.server.services.transaction;
 
 import io.malevich.server.entity.ArtworkStockEntity;
 import io.malevich.server.entity.OrderEntity;
+import io.malevich.server.entity.PaymentsEntity;
 import io.malevich.server.entity.TransactionEntity;
 import org.springframework.stereotype.Service;
 
@@ -16,5 +17,7 @@ public interface TransactionService {
     void createArtworkStock(ArtworkStockEntity artworkStockEntity);
 
     void placeBid(OrderEntity orderEntity);
+
+    void addAccountStates(PaymentsEntity paymentsEntity);
 
 }

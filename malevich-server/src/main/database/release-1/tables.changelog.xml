@@ -22,6 +22,8 @@
     <include relativeToChangelogFile="true" file="tables/trade_type.table.xml"/>
     <include relativeToChangelogFile="true" file="tables/counterparty_type.table.xml"/>
     <include relativeToChangelogFile="true" file="tables/counterparty.table.xml"/>
+    <include relativeToChangelogFile="true" file="tables/payment_method_type.table.xml"/>
+    <include relativeToChangelogFile="true" file="tables/payment_method.table.xml"/>
     <include relativeToChangelogFile="true" file="tables/orders.table.xml"/>
     <include relativeToChangelogFile="true" file="tables/transactions.table.xml"/>
     <include relativeToChangelogFile="true" file="tables/account_state.table.xml"/>

@@ -96,7 +96,7 @@ public class TransactionServiceImpl implements TransactionService {
         transaction.setParty(malevichEntity);
         transaction.setCounterparty(counterpartyEntity);
         transaction.setArtworkStock(orderEntity.getArtworkStock());
-        transaction.setAmount(-orderEntity.getAmount());
+        transaction.setAmount((double) 0);
         transaction.setQuantity((long) 1);
         transaction.setType(transactionTypeEntity);
 
@@ -113,7 +113,7 @@ public class TransactionServiceImpl implements TransactionService {
         transactionReverse.setParty(counterpartyEntity);
         transactionReverse.setCounterparty(malevichEntity);
         transactionReverse.setArtworkStock(orderEntity.getArtworkStock());
-        transactionReverse.setAmount(orderEntity.getAmount());
+        transactionReverse.setAmount((double) 0);
         transactionReverse.setQuantity((long) -1);
         transactionReverse.setType(transactionTypeEntity);
 

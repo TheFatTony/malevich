@@ -16,7 +16,7 @@
 
 	<changeSet author="thefattony" id="payment_method-table-ml" dbms="mysql">
 		<addColumn tableName="payment_method">
-			<column name="description_ml" type="json"/>
+			<column name="payload" type="json"/>
 		</addColumn>
 	</changeSet>
 

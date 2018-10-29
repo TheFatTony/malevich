@@ -55,6 +55,8 @@
             <th>Artwork</th>
             <th>Trade Type</th>
             <th>Type</th>
+            <th>Best Bid</th>
+            <th>Current Ask</th>
           </tr>
           <tr *ngFor="let order of orders">
             <td>
@@ -71,6 +73,12 @@
             </td>
             <td>
               {{order?.type.nameMl[translate.currentLang]}}
+            </td>
+            <td>
+              {{order?.bestBid}}
+            </td>
+            <td>
+              {{order?.currentAsk}}
             </td>
           </tr>
         </jqxGrid>

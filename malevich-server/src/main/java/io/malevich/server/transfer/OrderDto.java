@@ -1,6 +1,5 @@
 package io.malevich.server.transfer;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -23,5 +22,9 @@ public class OrderDto {
     private double amount;
 
     private java.sql.Timestamp effectiveDate;
+
+    private double bestBid;
+
+    private double currentAsk;
 
 }

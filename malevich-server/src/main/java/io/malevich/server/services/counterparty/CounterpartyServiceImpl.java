@@ -28,7 +28,13 @@ public class CounterpartyServiceImpl implements CounterpartyService {
     return counterpartyDao.findCounterpartyEntitiesByGallery_Id(galleryId);
   }
 
-    @Override
+  @Override
+  @Transactional(readOnly = true)
+  public CounterpartyEntity findCounterpartyEntitiesByTraderId(Long traderId) {
+    return counterpartyDao.findCounterpartyEntitiesByTrader_Id(traderId);
+  }
+
+  @Override
   @Transactional(readOnly = true)
   public Optional<CounterpartyEntity> findById(Long counterpartyId) {
     return counterpartyDao.findById(counterpartyId);

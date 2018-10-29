@@ -46,7 +46,7 @@ public class OrderEntity implements Entity {
     @Getter
     @Setter
     @Column(name = "amount")
-    private double amount;
+    private Double amount;
 
     @Getter
     @Setter

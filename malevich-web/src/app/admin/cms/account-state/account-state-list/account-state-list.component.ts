@@ -14,6 +14,14 @@ export class AccountStateListComponent implements OnInit {
   @ViewChild('myGrid') myGrid: jqxGridComponent;
   accountStates: AccountStateDto[];
 
+  columns: any[] =
+    [
+      {datafield: 'Countreparty', width: '25%', columntype: 'textbox'},
+      {datafield: 'Artwork', width: '25%', columntype: 'textbox'},
+      {datafield: 'Amount', width: '25%', columntype: 'number'},
+      {datafield: 'Quantity', width: '25%', columntype: 'number'}
+    ];
+
   constructor(private accountStateService: AccountStateService, public translate: TranslateService) {
     $.jqx.theme = 'metrodark';
   }

@@ -1,5 +1,5 @@
 <jqxGrid #myGrid
-         [width]="'100%'" [height]="'100%'" [pageable]="true" [sortable]="true" [columnsresize]="true" [pagermode]="'simple'">
+         [width]="'100%'" [height]="'100%'" [pageable]="true" [sortable]="true" [columnsresize]="true" [pagermode]="'simple'" [columns]="columns">
   <tr>
     <th>Countreparty</th>
     <th>Artwork</th>
@@ -16,10 +16,10 @@
     <td *ngIf="accountState?.party.id === 1">
       Malevich
     </td>
-    <td *ngIf="accountState?.artworkStock">
+    <td *ngIf="accountState?.artworkStock?.artwork">
       {{accountState?.artworkStock?.artwork.titleMl[translate.currentLang]}}
     </td>
-    <td *ngIf="!accountState?.artworkStock">
+    <td *ngIf="accountState?.artworkStock?.id == null">
       None
     </td>
     <td>

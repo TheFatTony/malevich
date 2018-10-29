@@ -39,10 +39,12 @@ export class OrdersComponent implements OnInit {
   columns: any[] =
     [
       {datafield: 'Date', width: '20%', columntype: 'template', type: 'string'},
-      {datafield: 'Amount', width: '20%', columntype: 'template', type: 'string'},
-      {datafield: 'Artwork', width: '20%', columntype: 'template', type: 'string'},
-      {datafield: 'Trade Type', width: '20%', columntype: 'template', type: 'string'},
-      {datafield: 'Type', width: '20%', columntype: 'template', type: 'string'}
+      {datafield: 'Amount', width: '15%', columntype: 'template', type: 'string'},
+      {datafield: 'Artwork', width: '25%', columntype: 'template', type: 'string'},
+      {datafield: 'Trade Type', width: '15%', columntype: 'template', type: 'string'},
+      {datafield: 'Type', width: '5%', columntype: 'template', type: 'string'},
+      {datafield: 'Best Bid', width: '10%', columntype: 'template', type: 'string'},
+      {datafield: 'Current Ask', width: '10%', columntype: 'template', type: 'string'}
     ];
 
   rules =

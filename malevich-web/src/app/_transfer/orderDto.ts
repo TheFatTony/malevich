@@ -11,4 +11,6 @@ export class OrderDto {
   tradeType: TradeTypeDto;
   amount: number;
   effectiveDate: Date;
+  bestBid: number;
+  currentAsk: number;
 }

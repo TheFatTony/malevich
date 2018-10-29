@@ -15,6 +15,6 @@ public class PaymentMethodDto {
 
   private PaymentMethodTypeDto type;
 
-  private Map<String, String> payload;
+  private Object payload;
 
 }

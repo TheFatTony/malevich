@@ -14,6 +14,18 @@ export class TransactionsListComponent implements OnInit {
   @ViewChild('myGrid') myGrid: jqxGridComponent;
   transactions: TransactionsDto[];
 
+  columns: any[] =
+    [
+      {datafield: 'Id', width: '25%', columntype: 'number'},
+      {datafield: 'Date', width: '25%', columntype: 'datetimeinput'},
+      {datafield: 'Type', width: '25%', columntype: 'textbox'},
+      {datafield: 'Party', width: '25%', columntype: 'textbox'},
+      {datafield: 'Counterparty', width: '25%', columntype: 'textbox'},
+      {datafield: 'Artwork', width: '25%', columntype: 'textbox'},
+      {datafield: 'Amount', width: '25%', columntype: 'number'},
+      {datafield: 'Quantity', width: '25%', columntype: 'number'}
+    ];
+
   constructor(private transactionsService: TransactionsService, public translate: TranslateService) {
     $.jqx.theme = 'metrodark';
   }

@@ -1,5 +1,5 @@
 <jqxGrid #myGrid
-         [width]="'100%'" [height]="'100%'" [pageable]="true" [sortable]="true" [columnsresize]="true" [pagermode]="'simple'">
+         [width]="'100%'" [height]="'100%'" [pageable]="true" [sortable]="true" [columnsresize]="true" [pagermode]="'simple'" [columns]="columns">
   <tr>
     <th>Id</th>
     <th>Date</th>
@@ -15,7 +15,7 @@
       {{transaction?.id}}
     </td>
     <td>
-      {{transaction?.effectiveDate}}
+      {{transaction?.effectiveDate | date: 'full'}}
     </td>
     <td>
       {{transaction?.type.nameMl[translate.currentLang]}}
@@ -38,14 +38,17 @@
     <td *ngIf="transaction?.counterparty.id === 1">
       Malevich
     </td>
-    <td>
-      {{transaction?.artworkStock.artwork.titleMl[translate.currentLang]}}
+    <td *ngIf="transaction?.artworkStock?.artwork">
+      {{transaction?.artworkStock?.artwork.titleMl[translate.currentLang]}}
+    </td>
+    <td *ngIf="transaction?.artworkStock?.id == null">
+      None
     </td>
     <td>
-      {{transaction?.amount}}
+       {{transaction?.amount}}
     </td>
     <td>
-      {{transaction?.quantity}}
+       {{transaction?.quantity}}
     </td>
   </tr>
 </jqxGrid>

@@ -20,4 +20,5 @@ public interface TransactionService {
 
     void addAccountStates(PaymentsEntity paymentsEntity);
 
+    void placeBid(OrderEntity orderEntity);
 }

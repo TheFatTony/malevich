@@ -26,9 +26,9 @@ export class OrderService {
       .pipe(map(data => data));
   }
 
-  placeBid(order: OrderDto) {
+  placeAsk(order: OrderDto) {
     return this.http
-      .post<OrderDto>(this.url + '/placeBid', order)
+      .post<OrderDto>(this.url + '/placeAsk', order)
       .pipe(map(data => {
           return data;
         })

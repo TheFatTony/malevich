@@ -41,27 +41,27 @@ import {ArtistsListComponent} from "./artists/artists-list/artists-list.componen
 import {FiltersComponent as ArtistsListFiltersComponent} from './artists/artists-list/filters/filters.component';
 import {GridComponent as ArtistsListGridComponent} from './artists/artists-list/grid/grid.component';
 import {ListComponent as ArtistsListListComponent} from './artists/artists-list/list/list.component';
-import { ArtworksDetailComponent } from './artworks/artworks-detail/artworks-detail.component';
-import { GalleriesDetailComponent } from './galleries/galleries-detail/galleries-detail.component';
-import { ArtistsDetailComponent } from './artists/artists-detail/artists-detail.component';
-import { SecurityComponent } from './profile/trader-profile/security/security.component';
-import { AddressesComponent } from './profile/trader-profile/addresses/addresses.component';
-import { WalletComponent } from './profile/trader-profile/wallet/wallet.component';
-import { WishlistComponent } from './profile/trader-profile/wishlist/wishlist.component';
-import { PaymentComponent } from './profile/trader-profile/payment/payment.component';
+import {ArtworksDetailComponent} from './artworks/artworks-detail/artworks-detail.component';
+import {GalleriesDetailComponent} from './galleries/galleries-detail/galleries-detail.component';
+import {ArtistsDetailComponent} from './artists/artists-detail/artists-detail.component';
+import {SecurityComponent} from './profile/trader-profile/security/security.component';
+import {AddressesComponent} from './profile/trader-profile/addresses/addresses.component';
+import {WalletComponent} from './profile/trader-profile/wallet/wallet.component';
+import {WishlistComponent} from './profile/trader-profile/wishlist/wishlist.component';
+import {PaymentComponent} from './profile/trader-profile/payment/payment.component';
 import {NotificationsComponent} from "./profile/trader-profile/notifications/notifications.component";
-import { StepOneComponent as RegisterStepOneComponent } from './auth/register/step-one/step-one.component';
-import { StepTwoComponent as RegisterStepTwoComponent } from './auth/register/step-two/step-two.component';
-import { NavigationComponent as GalleryProfileNavigationComponent} from './profile/gallery-profile/navigation/navigation.component';
-import { NavigationComponent as GalleryProfileNavigation } from './profile/gallery-profile/navigation/navigation.component';
-import { ViewComponent as GalleryProfileSecurityView } from './profile/gallery-profile/view/view.component';
-import { EditComponent as GalleryProfileSecurityEdit} from './profile/gallery-profile/edit/edit.component';
-import { ViewComponent as GalleryProfileNotificationsComponent} from './profile/gallery-profile/notifications/view/view.component';
+import {StepOneComponent as RegisterStepOneComponent} from './auth/register/step-one/step-one.component';
+import {StepTwoComponent as RegisterStepTwoComponent} from './auth/register/step-two/step-two.component';
+import {NavigationComponent as GalleryProfileNavigationComponent} from './profile/gallery-profile/navigation/navigation.component';
+import {NavigationComponent as GalleryProfileNavigation} from './profile/gallery-profile/navigation/navigation.component';
+import {ViewComponent as GalleryProfileSecurityView} from './profile/gallery-profile/view/view.component';
+import {EditComponent as GalleryProfileSecurityEdit} from './profile/gallery-profile/edit/edit.component';
+import {ViewComponent as GalleryProfileNotificationsComponent} from './profile/gallery-profile/notifications/view/view.component';
 import {NgxLoadingModule} from "ngx-loading";
-import { LoadingComponent } from './_directives/loading/loading.component';
-import { NavigationComponent as TraderProfileNavigation } from './profile/trader-profile/navigation/navigation.component';
-import { ViewComponent as TraderProfileSecurityView } from './profile/trader-profile/view/view.component';
-import { EditComponent as TraderProfileSecurityEdit} from './profile/trader-profile/edit/edit.component';
+import {LoadingComponent} from './_directives/loading/loading.component';
+import {NavigationComponent as TraderProfileNavigation} from './profile/trader-profile/navigation/navigation.component';
+import {ViewComponent as TraderProfileSecurityView} from './profile/trader-profile/view/view.component';
+import {EditComponent as TraderProfileSecurityEdit} from './profile/trader-profile/edit/edit.component';
 import {StepOneComponent as ResetStepOneComponent} from "./auth/reset/step-one/step-one.component";
 import {StepTwoComponent as ResetStepTwoComponent} from "./auth/reset/step-two/step-two.component";
 
@@ -138,10 +138,11 @@ import {
   ValidatorModule,
   WindowModule
 } from './admin/_modules';
-import { OrdersComponent } from './profile/gallery-profile/orders/orders.component';
-import { ArtworkStockComponent as GalleryProfileArtworkStockComponent } from './profile/gallery-profile/artwork-stock/artwork-stock.component';
-import { AddComponent as GalleryProfileArtworkStockAddComponent } from './profile/gallery-profile/artwork-stock/add/add.component';
-import { EditComponent as GalleryProfileArtworkStockEditComponent } from './profile/gallery-profile/artwork-stock/edit/edit.component';
+import {OrdersComponent as GalleryProfileOrdersComponent} from './profile/gallery-profile/orders/orders.component';
+import {ArtworkStockComponent as GalleryProfileArtworkStockComponent} from './profile/gallery-profile/artwork-stock/artwork-stock.component';
+import {AddComponent as GalleryProfileArtworkStockAddComponent} from './profile/gallery-profile/artwork-stock/add/add.component';
+import {EditComponent as GalleryProfileArtworkStockEditComponent} from './profile/gallery-profile/artwork-stock/edit/edit.component';
+import {OrdersComponent as TraderProfileOrdersComponent} from "./profile/trader-profile/orders/orders.component";
 
 export function createTranslateLoader(http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
@@ -196,10 +197,11 @@ export function createTranslateLoader(http: HttpClient) {
     TraderProfileSecurityEdit,
     ResetStepOneComponent,
     ResetStepTwoComponent,
-    OrdersComponent,
+    GalleryProfileOrdersComponent,
     GalleryProfileArtworkStockComponent,
     GalleryProfileArtworkStockAddComponent,
-    GalleryProfileArtworkStockEditComponent
+    GalleryProfileArtworkStockEditComponent,
+    TraderProfileOrdersComponent
   ],
   imports: [
     BrowserModule,

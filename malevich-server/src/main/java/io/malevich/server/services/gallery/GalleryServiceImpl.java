@@ -39,7 +39,7 @@ public class GalleryServiceImpl implements GalleryService {
     @Override
     @Transactional(readOnly = true)
     public GalleryEntity findByUserName(String name) {
-        return galleryDao.findByUsers_Name(name).get();
+        return galleryDao.findByUsers_Name(name).orElse(null);
     }
 
     @Override

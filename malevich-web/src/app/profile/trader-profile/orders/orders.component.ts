@@ -13,7 +13,7 @@ import {environment} from "../../../../environments/environment";
 import {jqxValidatorComponent} from '../../../../../node_modules/jqwidgets-scripts/jqwidgets-ts/angular_jqxvalidator';
 
 @Component({
-  selector: 'app-profile-gallery-orders',
+  selector: 'app-profile-trader-orders',
   templateUrl: './orders.component.html',
   styleUrls: ['./orders.component.css']
 })

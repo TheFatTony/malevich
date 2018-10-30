@@ -40,7 +40,7 @@ public class OrderResource {
         return allEntries.stream().map(allEntry -> convertToDto(allEntry)).collect(Collectors.toList());
     }
 
-    @PreAuthorize("hasRole('GALLERY')")
+    @PreAuthorize("hasAnyRole('GALLERY', 'TRADER')")
     @RequestMapping(value = "/placeBid", method = RequestMethod.POST)
     public ResponseEntity<Void> insert(@RequestBody OrderDto trader) {
         OrderEntity newTraderEntity = convertToEntity(trader);

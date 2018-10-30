@@ -41,7 +41,7 @@ export class JwtInterceptor implements HttpInterceptor {
         }
       },
       (err: any) => {
-        this.alertService.error(err);
+        this.alertService.error(`Request to '${request.url}' failed. ` + err);
         this.hideLoader();
       }));
   }

@@ -39,7 +39,7 @@ public class TraderServiceImpl implements TraderService {
     @Override
     @Transactional(readOnly = true)
     public TraderEntity find(Long id) {
-        return traderDao.findById(id).get();
+        return traderDao.findById(id).orElse(null);
     }
 
     @Override

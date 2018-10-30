@@ -1,9 +1,9 @@
 package io.malevich.server.services.order;
 
 import io.malevich.server.dao.order.OrderDao;
-import io.malevich.server.entity.ArtworkStockEntity;
 import io.malevich.server.entity.GalleryEntity;
 import io.malevich.server.entity.OrderEntity;
+import io.malevich.server.entity.TraderEntity;
 import io.malevich.server.services.counterparty.CounterpartyService;
 import io.malevich.server.services.gallery.GalleryService;
 import io.malevich.server.services.ordertype.OrderTypeService;
@@ -18,6 +18,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.sql.Timestamp;
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -61,9 +62,16 @@ public class OrderServiceImpl implements OrderService {
         if (principal instanceof UserDetails) {
             userDetails = (UserDetails) principal;
         } else return null;
+
+        TraderEntity traderEntity = traderService.findByUserName(userDetails.getUsername());
+        if(traderEntity != null)
+            return this.orderDao.findAllPlacedTraderOrders(traderEntity.getId());
+
         GalleryEntity galleryEntity = galleryService.findByUserName(userDetails.getUsername());
-//        TraderEntity traderEntity = traderService.findByUserName(username);
-        return this.orderDao.findAllPlacedTraderOrders(galleryEntity.getId());
+        if(galleryEntity != null)
+            return this.orderDao.findAllPlacedGalleryOrders(galleryEntity.getId());
+
+        return new ArrayList<>();
     }
 
     @Override

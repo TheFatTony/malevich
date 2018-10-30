@@ -16,14 +16,14 @@ export class TransactionsListComponent implements OnInit {
 
   columns: any[] =
     [
-      {datafield: 'Id', width: '25%', columntype: 'number'},
-      {datafield: 'Date', width: '25%', columntype: 'datetimeinput'},
-      {datafield: 'Type', width: '25%', columntype: 'textbox'},
-      {datafield: 'Party', width: '25%', columntype: 'textbox'},
-      {datafield: 'Counterparty', width: '25%', columntype: 'textbox'},
-      {datafield: 'Artwork', width: '25%', columntype: 'textbox'},
-      {datafield: 'Amount', width: '25%', columntype: 'number'},
-      {datafield: 'Quantity', width: '25%', columntype: 'number'}
+      {datafield: 'Id', text: 'Id', width: '25%', columntype: 'number'},
+      {datafield: 'Date', text: 'Date', width: '25%', columntype: 'datetimeinput'},
+      {datafield: 'Type', text: 'Type', width: '25%', columntype: 'textbox'},
+      {datafield: 'Party', text: 'Party', width: '25%', columntype: 'textbox'},
+      {datafield: 'Counterparty', text: 'Counterparty', width: '25%', columntype: 'textbox'},
+      {datafield: 'Artwork', text: 'Artwork', width: '25%', columntype: 'textbox'},
+      {datafield: 'Amount', text: 'Amount', width: '25%', columntype: 'number'},
+      {datafield: 'Quantity', text: 'Quantity', width: '25%', columntype: 'number'}
     ];
 
   constructor(private transactionsService: TransactionsService, public translate: TranslateService) {

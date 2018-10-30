@@ -3,6 +3,7 @@ import {environment} from "../../environments/environment";
 import {HttpClient} from "@angular/common/http";
 import {map} from "rxjs/operators";
 import {AccountStateDto} from "../_transfer/accountStateDto";
+import {ArtworkStockDto} from "../_transfer/artworkStockDto";
 
 @Injectable({
   providedIn: 'root'
@@ -16,14 +17,17 @@ export class AccountStateService {
 
   getAccountStates() {
     return this.http
-      .get<AccountStateDto[]>(this.url + '/list')
-      .pipe(map(data => data));
+      .get<AccountStateDto[]>(this.url + '/list');
   }
 
-  getTraderAccountState() {
+  getTraderWallet() {
     return this.http
-      .get<AccountStateDto>(this.url + '/getTraderAccountState')
-      .pipe(map(data => data));
+      .get<AccountStateDto>(this.url + '/getTraderWallet');
+  }
+
+  getTraderArtworks() {
+    return this.http
+      .get<ArtworkStockDto[]>(this.url + '/getTraderArtworks');
   }
 
 }

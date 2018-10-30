@@ -1,8 +1,8 @@
 package io.malevich.server.services.accountstate;
 
 import io.malevich.server.entity.AccountStateEntity;
+import io.malevich.server.entity.ArtworkStockEntity;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -14,5 +14,7 @@ public interface AccountStateService {
 
     AccountStateEntity findByArtworkStockAndParty(Long artworkStockId, Long counterpartyId);
 
-    AccountStateEntity getTraderAccountState();
+    AccountStateEntity getTraderWallet();
+
+    List<ArtworkStockEntity> getTraderArtworks();
 }

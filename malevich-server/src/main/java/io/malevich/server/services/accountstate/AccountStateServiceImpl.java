@@ -2,6 +2,7 @@ package io.malevich.server.services.accountstate;
 
 import io.malevich.server.dao.accountstate.AccountStateDao;
 import io.malevich.server.entity.AccountStateEntity;
+import io.malevich.server.entity.ArtworkStockEntity;
 import io.malevich.server.entity.CounterpartyEntity;
 import io.malevich.server.entity.TraderEntity;
 import io.malevich.server.services.counterparty.CounterpartyService;
@@ -11,6 +12,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 
 @Service
@@ -41,11 +43,24 @@ public class AccountStateServiceImpl implements AccountStateService {
 
     @Override
     @Transactional(readOnly = true)
-    public AccountStateEntity getTraderAccountState() {
-        TraderEntity traderEntity= traderService.getCurrentTrader();
+    public AccountStateEntity getTraderWallet() {
+        TraderEntity traderEntity = traderService.getCurrentTrader();
         CounterpartyEntity counterpartyEntity = counterpartyService.findCounterpartyEntitiesByTraderId(traderEntity.getId());
 
         return accountStateDao.findByArtworkStock_IdAndParty_Id(null, counterpartyEntity.getId());
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public List<ArtworkStockEntity> getTraderArtworks() {
+        TraderEntity traderEntity = traderService.getCurrentTrader();
+        CounterpartyEntity counterpartyEntity = counterpartyService.findCounterpartyEntitiesByTraderId(traderEntity.getId());
+
+        return accountStateDao.findByParty_Id(counterpartyEntity.getId())
+                .stream()
+                .filter(s -> s.getArtworkStock() != null)
+                .map(s -> s.getArtworkStock())
+                .collect(Collectors.toList());
     }
 
 

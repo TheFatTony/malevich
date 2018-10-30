@@ -35,6 +35,7 @@ import {ViewComponent as GalleryProfileNotificationsComponent} from './profile/g
 import {AddComponent as GalleryProfileArtworkStockAddComponent} from "./profile/gallery-profile/artwork-stock/add/add.component";
 import {EditComponent as GalleryProfileArtworkStockEditComponent} from "./profile/gallery-profile/artwork-stock/edit/edit.component";
 import {OrdersComponent as TraderProfileOrdersComponent} from "./profile/trader-profile/orders/orders.component";
+import {ArtworkStockComponent as TraderProfileArtworkStockComponent} from "./profile/trader-profile/artwork-stock/artwork-stock.component";
 
 const routes: Routes = [
   {path: '', redirectTo: '/main-page', pathMatch: 'full'},
@@ -55,6 +56,7 @@ const routes: Routes = [
       {path: 'wishlist', component: WishlistComponent, canActivate: [AuthGuard]},
       {path: 'notifications', component: NotificationsComponent, canActivate: [AuthGuard]},
       {path: 'orders/list', component: TraderProfileOrdersComponent, canActivate: [AuthGuard]},
+      {path: 'artworkstock', component: TraderProfileArtworkStockComponent, canActivate: [AuthGuard]},
     ]
   },
 

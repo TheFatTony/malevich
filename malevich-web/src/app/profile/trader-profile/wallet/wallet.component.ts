@@ -52,7 +52,7 @@ export class WalletComponent implements OnInit {
 
   getTraderAccountState(): void {
     this.accountStateService
-      .getTraderAccountState()
+      .getTraderWallet()
       .subscribe(
         data => (this.accountState = data)
       );

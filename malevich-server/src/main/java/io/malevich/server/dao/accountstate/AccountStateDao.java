@@ -15,4 +15,6 @@ public interface AccountStateDao extends JpaRepository<AccountStateEntity, Long>
 
     AccountStateEntity findByArtworkStock_IdAndParty_Id(Long artworkStockId, Long counterpartyId);
 
+    List<AccountStateEntity> findByParty_Id(Long counterpartyId);
+
 }

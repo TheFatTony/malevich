@@ -68,7 +68,7 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     @Transactional
-    public void placeBid(OrderEntity orderEntity) {
+    public void placeAsk(OrderEntity orderEntity) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         Object principal = authentication.getPrincipal();
         UserDetails userDetails = null;
@@ -84,11 +84,16 @@ public class OrderServiceImpl implements OrderService {
 
             orderEntity = orderDao.save(orderEntity);
 
-            transactionService.placeBid(orderEntity);
+            transactionService.placeAsk(orderEntity);
 
             // TODO fix this crap
         } else
             System.out.println("!!!!!!!!!!!!");
+    }
+
+    @Override
+    public void placeBid(OrderEntity orderEntity) {
+
     }
 
 

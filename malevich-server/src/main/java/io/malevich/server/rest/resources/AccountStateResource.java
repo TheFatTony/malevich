@@ -1,8 +1,10 @@
 package io.malevich.server.rest.resources;
 
 import io.malevich.server.entity.AccountStateEntity;
+import io.malevich.server.entity.ArtworkStockEntity;
 import io.malevich.server.services.accountstate.AccountStateService;
 import io.malevich.server.transfer.AccountStateDto;
+import io.malevich.server.transfer.ArtworkStockDto;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -33,12 +35,19 @@ public class AccountStateResource {
 
 
     @PreAuthorize("hasRole('TRADER')")
-    @RequestMapping(value = "/getTraderAccountState", method = RequestMethod.GET)
-    public AccountStateDto getTraderAccountState() {
-        AccountStateEntity allEntry = this.accountStateService.getTraderAccountState();
+    @RequestMapping(value = "/getTraderWallet", method = RequestMethod.GET)
+    public AccountStateDto getTraderWallet() {
+        AccountStateEntity allEntry = this.accountStateService.getTraderWallet();
         if (allEntry == null)
             return null;
         return convertToDto(allEntry);
+    }
+
+    @PreAuthorize("hasRole('TRADER')")
+    @RequestMapping(value = "/getTraderArtworks", method = RequestMethod.GET)
+    public List<ArtworkStockDto> getTraderArtworks() {
+        List<ArtworkStockEntity> allEntries = this.accountStateService.getTraderArtworks();
+        return allEntries.stream().map(allEntry -> modelMapper.map(allEntry, ArtworkStockDto.class)).collect(Collectors.toList());
     }
 
 

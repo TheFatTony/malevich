@@ -86,7 +86,7 @@ public class TransactionServiceImpl implements TransactionService {
 
     @Override
     @Transactional
-    public void placeBid(OrderEntity orderEntity) {
+    public void placeAsk(OrderEntity orderEntity) {
         GalleryEntity galleryEntity = galleryService.getCurrent();
         CounterpartyEntity counterpartyEntity = counterpartyService.findCounterpartyEntitiesByGalleryId(galleryEntity.getId());
         CounterpartyEntity malevichEntity = counterpartyService.findById(1L).get();

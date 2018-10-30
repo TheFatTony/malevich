@@ -77,8 +77,8 @@
         <!-- Buttons -->
         <div class="row g-mx-minus-5 g-mb-20">
           <div class="col g-px-5 g-mb-10">
-            <button class="btn btn-block u-btn-primary g-font-size-12 text-uppercase g-py-15 g-px-25" type="button">
-              Add to Cart <i class="align-middle ml-2 icon-finance-100 u-line-icon-pro"></i>
+            <button class="btn btn-block u-btn-primary g-font-size-12 text-uppercase g-py-15 g-px-25" type="button" (click)="openWindow()">
+              Place a bid <i class="align-middle ml-2 icon-finance-100 u-line-icon-pro"></i>
             </button>
           </div>
           <div class="col g-px-5 g-mb-10">
@@ -411,3 +411,30 @@
   </div>
 </div>
 <!-- End Review -->
+
+<jqxWindow #myWindow [autoOpen]="false" [resizable]="false">
+  <div>Place a bid</div>
+  <div style="overflow: hidden" style="width: 100%">
+      <table class="register-table" *ngIf="newOrder" style="width: 100%">
+        <tbody>
+        <tr>Amount:</tr>
+        <tr>
+          <jqxNumberInput
+            class="amountInput form-control g-color-black g-bg-white g-bg-white--focus g-brd-gray-light-v3 rounded"
+            [width]="'100%'" [height]="34" [ngModel]="newOrder?.amount"
+            (ngModelChange)="newOrder.amount=$event"></jqxNumberInput>
+        </tr>
+        <tr>
+          <td colspan="2" style="padding-left: 20px;">
+            <jqxButton #SendButton
+                       (onClick)="sendButton()"
+                       style="text-align: center; margin-left: 8em;"
+                       [width]="60" [height]="25">
+              Send
+            </jqxButton>
+          </td>
+        </tr>
+        </tbody>
+      </table>
+  </div>
+</jqxWindow>

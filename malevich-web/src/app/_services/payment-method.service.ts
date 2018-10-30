@@ -1,7 +1,6 @@
 import {Injectable} from '@angular/core';
 import {environment} from "../../environments/environment";
 import {HttpClient} from "@angular/common/http";
-import {map} from "rxjs/operators";
 import {PaymentMethodDto} from "../_transfer/paymentMethodDto";
 
 @Injectable({
@@ -16,7 +15,6 @@ export class PaymentMethodService {
 
   getPaymentMethods() {
     return this.http
-      .get<PaymentMethodDto[]>(this.url + '/list')
-      .pipe(map(data => data));
+      .get<PaymentMethodDto[]>(this.url + '/list');
   }
 }

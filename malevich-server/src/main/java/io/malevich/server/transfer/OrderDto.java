@@ -23,4 +23,8 @@ public class OrderDto {
 
     private java.sql.Timestamp effectiveDate;
 
+    private double bestBid;
+
+    private double currentAsk;
+
 }

@@ -7,10 +7,7 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -37,6 +34,12 @@ public class OrderResource {
     @RequestMapping(value = "/getPlacedOrders", method = RequestMethod.GET)
     public List<OrderDto> getPlacedOrders() {
         List<OrderEntity> allEntries = this.orderService.getPlacedOrders();
+        return allEntries.stream().map(allEntry -> convertToDto(allEntry)).collect(Collectors.toList());
+    }
+
+    @RequestMapping(value = "/getOrdersByArtworkId/{artworkId}", method = RequestMethod.GET)
+    public List<OrderDto> getOrdersByArtworkId(@PathVariable("artworkId") long artworkId) {
+        List<OrderEntity> allEntries = this.orderService.getOrdersByArtworkId(artworkId);
         return allEntries.stream().map(allEntry -> convertToDto(allEntry)).collect(Collectors.toList());
     }
 

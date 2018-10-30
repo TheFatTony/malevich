@@ -7,6 +7,8 @@ import {jqxWindowComponent} from "jqwidgets-scripts/jqwidgets-ts/angular_jqxwind
 import {OrderService} from "../../_services/order.service";
 import {ArtworkStockDto} from "../../_transfer/artworkStockDto";
 import {ArtworkStockService} from "../../_services/artwork-stock.service";
+import {TradeHistoryService} from "../../_services/trade-history.service";
+import {TradeHistoryDto} from "../../_transfer/tradeHistoryDto";
 
 @Component({
   selector: 'app-artworks-detail',
@@ -21,6 +23,11 @@ export class ArtworksDetailComponent implements OnInit, AfterViewInit {
   id: number;
   public newOrder: OrderDto;
 
+  placedOrders : OrderDto[];
+
+
+  tradeHistory : TradeHistoryDto[];
+
   x: number;
   y: number;
 
@@ -29,7 +36,8 @@ export class ArtworksDetailComponent implements OnInit, AfterViewInit {
   constructor(private orderService: OrderService,
               private route: ActivatedRoute,
               public translate: TranslateService,
-              private artworkStockService: ArtworkStockService) {
+              private artworkStockService: ArtworkStockService,
+              private tradeHistoryService: TradeHistoryService) {
   }
 
   ngOnInit() {
@@ -37,10 +45,13 @@ export class ArtworksDetailComponent implements OnInit, AfterViewInit {
       this.id = params['id'];
     });
     this.getArtworkStock();
+    this.getOrdersByArtworkId();
+    this.findAllByArtworkId();
   }
 
   ngAfterViewInit(): void {
     $['HSCore'].helpers.HSRating.init();
+    $['HSCore'].components.HSTabs.init('[role="tablist"]');
   }
 
   getArtworkStock(): void {
@@ -48,6 +59,22 @@ export class ArtworksDetailComponent implements OnInit, AfterViewInit {
       .getArtworkStock(this.id)
       .subscribe(
         data => (this.artworkStock = data)
+      );
+  }
+
+  getOrdersByArtworkId(): void {
+    this.orderService
+      .getOrdersByArtworkId(this.id)
+      .subscribe(
+        data => (this.placedOrders = data)
+      );
+  }
+
+  findAllByArtworkId(): void {
+    this.tradeHistoryService
+      .findAllByArtworkId(this.id)
+      .subscribe(
+        data => (this.tradeHistory = data)
       );
   }
 
@@ -69,6 +96,8 @@ export class ArtworksDetailComponent implements OnInit, AfterViewInit {
     this.myWindow.close();
     this.newOrder.artworkStock = this.artworkStock;
     this.orderService.placeBid(this.newOrder).subscribe(() => {
+      this.getOrdersByArtworkId();
+      this.findAllByArtworkId();
     });
   }
 

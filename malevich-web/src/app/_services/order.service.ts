@@ -43,4 +43,15 @@ export class OrderService {
         })
       );
   }
+
+  getOrdersByArtworkId(artworkId: number) {
+    return this.http
+      .get<OrderDto[]>(this.url + '/getOrdersByArtworkId/' + artworkId)
+      .pipe(map(data => {
+          return data;
+        })
+      );
+  }
+
+
 }

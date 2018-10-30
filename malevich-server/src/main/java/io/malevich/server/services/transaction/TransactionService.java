@@ -16,7 +16,7 @@ public interface TransactionService {
 
     void createArtworkStock(ArtworkStockEntity artworkStockEntity);
 
-    void placeBid(OrderEntity orderEntity);
+    void placeAsk(OrderEntity orderEntity);
 
     void addAccountStates(PaymentsEntity paymentsEntity);
 

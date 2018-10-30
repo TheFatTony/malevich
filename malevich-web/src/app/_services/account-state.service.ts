@@ -19,4 +19,11 @@ export class AccountStateService {
       .get<AccountStateDto[]>(this.url + '/list')
       .pipe(map(data => data));
   }
+
+  getTraderAccountState() {
+    return this.http
+      .get<AccountStateDto>(this.url + '/getTraderAccountState')
+      .pipe(map(data => data));
+  }
+
 }

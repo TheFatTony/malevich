@@ -149,7 +149,7 @@ export class OrdersComponent implements OnInit {
 
   ValidationSuccess($event: any) {
     this.myWindow.close();
-    this.orderService.placeBid(this.newOrder).subscribe(() => {
+    this.orderService.placeAsk(this.newOrder).subscribe(() => {
       this.getPlacedOrders();
     });
   }

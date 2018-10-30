@@ -20,4 +20,10 @@ public interface OrderDao extends JpaRepository<OrderEntity, Long> {
     @Query("select oe from OrderEntity as oe join fetch oe.party as p join p.trader as t where t.id = :trader_id")
     List<OrderEntity> findAllPlacedTraderOrders(@Param("trader_id") Long traderId);
 
+    @Query("select oe from OrderEntity as oe join fetch oe.artworkStock as a join a.artwork as t where t.id = :artwork_id order by oe.effectiveDate")
+    List<OrderEntity> findAllOrdersByArtworkId(@Param("artwork_id") Long artworkId);
+
+    @Query("select oe from OrderEntity as oe join fetch oe.artworkStock where oe.artworkStock.id = :artworkStock_id and oe.type.id = 'ASK' and oe.amount = :amount")
+    OrderEntity findCounterOrder(@Param("artworkStock_id") Long artworkStockId, @Param("amount") Double amount);
+
 }

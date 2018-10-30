@@ -27,9 +27,6 @@ public class ArtworkStockServiceImpl implements ArtworkStockService {
     private ArtworkService artworkService;
 
     @Autowired
-    private OrderService orderService;
-
-    @Autowired
     private TransactionService transactionService;
 
     @Override

@@ -13,6 +13,8 @@ public interface OrderService {
 
     List<OrderEntity> getPlacedOrders();
 
+    List<OrderEntity> getOrdersByArtworkId(Long artworkId);
+
     void placeAsk(OrderEntity orderEntity);
 
     void placeBid(OrderEntity orderEntity);

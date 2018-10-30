@@ -3,10 +3,12 @@ package io.malevich.server.services.order;
 import io.malevich.server.dao.order.OrderDao;
 import io.malevich.server.entity.GalleryEntity;
 import io.malevich.server.entity.OrderEntity;
+import io.malevich.server.entity.TradeHistoryEntity;
 import io.malevich.server.entity.TraderEntity;
 import io.malevich.server.services.counterparty.CounterpartyService;
 import io.malevich.server.services.gallery.GalleryService;
 import io.malevich.server.services.ordertype.OrderTypeService;
+import io.malevich.server.services.tradehistory.TradeHistoryService;
 import io.malevich.server.services.trader.TraderService;
 import io.malevich.server.services.tradetype.TradeTypeService;
 import io.malevich.server.services.transaction.TransactionService;
@@ -46,6 +48,9 @@ public class OrderServiceImpl implements OrderService {
     @Autowired
     private TransactionService transactionService;
 
+    @Autowired
+    private TradeHistoryService tradeHistoryService;
+
 
     @Override
     @Transactional(readOnly = true)
@@ -72,6 +77,12 @@ public class OrderServiceImpl implements OrderService {
             return this.orderDao.findAllPlacedGalleryOrders(galleryEntity.getId());
 
         return new ArrayList<>();
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public List<OrderEntity> getOrdersByArtworkId(Long artworkId) {
+        return orderDao.findAllOrdersByArtworkId(artworkId);
     }
 
     @Override
@@ -117,6 +128,13 @@ public class OrderServiceImpl implements OrderService {
             orderEntity = orderDao.save(orderEntity);
 
             transactionService.placeBid(orderEntity);
+
+            OrderEntity counterOrderEntity = orderDao.findCounterOrder(orderEntity.getArtworkStock().getId(), orderEntity.getAmount());
+            if (counterOrderEntity != null) {
+                TradeHistoryEntity tradeHistoryEntity =  tradeHistoryService.create(counterOrderEntity,orderEntity);
+
+                transactionService.buySell(tradeHistoryEntity);
+            }
 
             // TODO fix this crap
         } else

@@ -5,6 +5,7 @@ import io.malevich.server.dao.transaction.TransactionDao;
 import io.malevich.server.entity.*;
 import io.malevich.server.services.counterparty.CounterpartyService;
 import io.malevich.server.services.gallery.GalleryService;
+import io.malevich.server.services.trader.TraderService;
 import io.malevich.server.services.transactiontype.TransactionTypeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -24,6 +25,9 @@ public class TransactionServiceImpl implements TransactionService {
 
     @Autowired
     private GalleryService galleryService;
+
+    @Autowired
+    private TraderService traderService;
 
     @Autowired
     private CounterpartyService counterpartyService;
@@ -177,6 +181,50 @@ public class TransactionServiceImpl implements TransactionService {
 
         accountStateDao.save(accountStateReverse);
 
+    }
+
+    @Override
+    @Transactional
+    public void placeBid(OrderEntity orderEntity) {
+        TraderEntity traderEntity = traderService.getCurrentTrader();
+        CounterpartyEntity counterpartyEntity = counterpartyService.findCounterpartyEntitiesByTraderId(traderEntity.getId());
+
+
+        CounterpartyEntity malevichEntity = counterpartyService.findById(1L).get();
+        TransactionTypeEntity transactionTypeEntity = transactionTypeService.findById("0003").get();
+
+        TransactionEntity transaction = new TransactionEntity();
+        transaction.setParty(malevichEntity);
+        transaction.setCounterparty(counterpartyEntity);
+        transaction.setArtworkStock(null);
+        transaction.setAmount(-orderEntity.getAmount());
+        transaction.setQuantity((long) 0);
+        transaction.setType(transactionTypeEntity);
+
+        transactionDao.save(transaction);
+
+        AccountStateEntity accountState = accountStateDao.findByArtworkStock_IdAndParty_Id(null, malevichEntity.getId());
+        accountState.setAmount(accountState.getAmount() + orderEntity.getAmount());
+        accountState.setQuantity((long) 0);
+
+        accountStateDao.save(accountState);
+
+
+        TransactionEntity transactionReverse = new TransactionEntity();
+        transactionReverse.setParty(counterpartyEntity);
+        transactionReverse.setCounterparty(malevichEntity);
+        transactionReverse.setArtworkStock(null);
+        transactionReverse.setAmount(orderEntity.getAmount());
+        transactionReverse.setQuantity((long) 0);
+        transactionReverse.setType(transactionTypeEntity);
+
+        transactionDao.save(transactionReverse);
+
+        AccountStateEntity accountStateReverse = accountStateDao.findByArtworkStock_IdAndParty_Id(null, counterpartyEntity.getId());
+        accountStateReverse.setAmount(accountState.getAmount() - orderEntity.getAmount());
+        accountStateReverse.setQuantity((long) 0);
+
+        accountStateDao.save(accountStateReverse);
     }
 
 

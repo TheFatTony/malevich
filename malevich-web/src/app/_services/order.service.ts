@@ -34,4 +34,13 @@ export class OrderService {
         })
       );
   }
+
+  placeBid(order: OrderDto) {
+    return this.http
+      .post<OrderDto>(this.url + '/placeBid', order)
+      .pipe(map(data => {
+          return data;
+        })
+      );
+  }
 }

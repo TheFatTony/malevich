@@ -42,9 +42,17 @@ public class OrderResource {
 
     @PreAuthorize("hasAnyRole('GALLERY', 'TRADER')")
     @RequestMapping(value = "/placeAsk", method = RequestMethod.POST)
-    public ResponseEntity<Void> insert(@RequestBody OrderDto trader) {
+    public ResponseEntity<Void> placeAsk(@RequestBody OrderDto trader) {
         OrderEntity newTraderEntity = convertToEntity(trader);
         this.orderService.placeAsk(newTraderEntity);
+        return ResponseEntity.ok().build();
+    }
+
+    @PreAuthorize("hasRole('TRADER')")
+    @RequestMapping(value = "/placeBid", method = RequestMethod.POST)
+    public ResponseEntity<Void> placeBid(@RequestBody OrderDto trader) {
+        OrderEntity newTraderEntity = convertToEntity(trader);
+        this.orderService.placeBid(newTraderEntity);
         return ResponseEntity.ok().build();
     }
 

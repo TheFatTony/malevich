@@ -1,12 +1,12 @@
 import {AfterViewInit, Component, HostListener, OnInit, ViewChild} from '@angular/core';
-import {ArtworkDto} from "../../_transfer";
 import {environment} from "../../../environments/environment";
 import {TranslateService} from "@ngx-translate/core";
-import {ArtworkService} from "../../_services/artwork.service";
 import {ActivatedRoute, Params} from "@angular/router";
 import {OrderDto} from "../../_transfer/orderDto";
 import {jqxWindowComponent} from "jqwidgets-scripts/jqwidgets-ts/angular_jqxwindow";
 import {OrderService} from "../../_services/order.service";
+import {ArtworkStockDto} from "../../_transfer/artworkStockDto";
+import {ArtworkStockService} from "../../_services/artwork-stock.service";
 
 @Component({
   selector: 'app-artworks-detail',
@@ -17,7 +17,7 @@ export class ArtworksDetailComponent implements OnInit, AfterViewInit {
 
   @ViewChild('myWindow') myWindow: jqxWindowComponent;
 
-  artwork: ArtworkDto;
+  artworkStock: ArtworkStockDto;
   id: number;
   public newOrder: OrderDto;
 
@@ -29,25 +29,25 @@ export class ArtworksDetailComponent implements OnInit, AfterViewInit {
   constructor(private orderService: OrderService,
               private route: ActivatedRoute,
               public translate: TranslateService,
-              private artworkService: ArtworkService) {
+              private artworkStockService: ArtworkStockService) {
   }
 
   ngOnInit() {
     this.route.params.forEach((params: Params) => {
       this.id = params['id'];
     });
-    this.getArtwork();
+    this.getArtworkStock();
   }
 
   ngAfterViewInit(): void {
     $['HSCore'].helpers.HSRating.init();
   }
 
-  getArtwork(): void {
-    this.artworkService
-      .getArtwork(this.id)
+  getArtworkStock(): void {
+    this.artworkStockService
+      .getArtworkStock(this.id)
       .subscribe(
-        data => (this.artwork = data)
+        data => (this.artworkStock = data)
       );
   }
 
@@ -67,6 +67,7 @@ export class ArtworksDetailComponent implements OnInit, AfterViewInit {
 
   sendButton() {
     this.myWindow.close();
+    this.newOrder.artworkStock = this.artworkStock;
     this.orderService.placeBid(this.newOrder).subscribe(() => {
     });
   }

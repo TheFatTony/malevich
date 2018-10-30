@@ -13,7 +13,7 @@
             <i class="g-color-gray-light-v2 g-ml-5 fa fa-angle-right"></i>
           </li>
           <li class="list-inline-item g-color-primary">
-            <span>{{artwork?.titleMl[translate.currentLang]}}</span>
+            <span>{{artworkStock?.artwork?.titleMl[translate.currentLang]}}</span>
           </li>
         </ul>
       </div>
@@ -31,7 +31,7 @@
     <div class="col-lg-7">
       <!-- Carousel -->
       <div class="g-pt-10 g-mb-10">
-        <img class="img-fluid w-100" src="{{url}}{{artwork?.image.url}}" alt="Image Description">
+        <img class="img-fluid w-100" src="{{url}}{{artworkStock?.artwork?.image.url}}" alt="Image Description">
       </div>
       <!-- End Carousel -->
     </div>
@@ -40,15 +40,15 @@
       <div class="g-px-40--lg g-pt-70">
         <!-- Product Info -->
         <div class="g-mb-30">
-          <h1 class="g-font-weight-300 mb-4">{{artwork?.titleMl[translate.currentLang]}}</h1>
-          <p>{{artwork?.descriptionMl[translate.currentLang]}}</p>
+          <h1 class="g-font-weight-300 mb-4">{{artworkStock?.artwork?.titleMl[translate.currentLang]}}</h1>
+          <p>{{artworkStock?.artwork?.descriptionMl[translate.currentLang]}}</p>
         </div>
         <!-- End Product Info -->
 
         <!-- Price -->
         <div class="g-mb-30">
           <h2 class="g-color-gray-dark-v5 g-font-weight-400 g-font-size-12 text-uppercase mb-2">Price</h2>
-          <span class="g-color-black g-font-weight-500 g-font-size-30 mr-2">${{artwork?.estimatedPrice}}</span>
+          <span class="g-color-black g-font-weight-500 g-font-size-30 mr-2">${{artworkStock?.artwork?.estimatedPrice}}</span>
         </div>
         <!-- End Price -->
 

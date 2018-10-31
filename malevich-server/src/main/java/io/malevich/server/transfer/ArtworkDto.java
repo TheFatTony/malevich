@@ -12,9 +12,9 @@ import java.util.Map;
 @XmlRootElement(name = "artwork")
 public class ArtworkDto {
 
-    private long id;
+    private Long id;
 
-    private double estimatedPrice;
+    private Double estimatedPrice;
 
     private CategoryDto category;
 

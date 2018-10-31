@@ -8,7 +8,7 @@ import lombok.Setter;
 @Setter
 public class TransactionsDto {
 
-  private long id;
+  private Long id;
 
   private TransactionTypeDto type;
 
@@ -20,8 +20,8 @@ public class TransactionsDto {
 
   private ArtworkStockDto artworkStock;
 
-  private double amount;
+  private Double amount;
 
-  private int quantity;
+  private Integer quantity;
 
 }

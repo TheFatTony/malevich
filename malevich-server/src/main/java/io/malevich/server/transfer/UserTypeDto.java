@@ -9,7 +9,7 @@ import javax.persistence.*;
 @Setter
 public class UserTypeDto {
 
-    private long id;
+    private Long id;
 
     private String typeName;
 

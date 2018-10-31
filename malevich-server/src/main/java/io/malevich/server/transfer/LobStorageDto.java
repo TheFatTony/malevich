@@ -9,13 +9,13 @@ import lombok.Setter;
 public class LobStorageDto {
 
 
-    private long id;
+    private Long id;
 
-    private long fileId;
+    private Long fileId;
 
     private String content;
 
-    private long fileSize;
+    private Long fileSize;
 
 
 }

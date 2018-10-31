@@ -28,6 +28,7 @@
     <include relativeToChangelogFile="true" file="tables/payments.table.xml"/>
     <include relativeToChangelogFile="true" file="tables/transactions.table.xml"/>
     <include relativeToChangelogFile="true" file="tables/account_state.table.xml"/>
+    <include relativeToChangelogFile="true" file="tables/account_state_arch.table.xml"/>
     <include relativeToChangelogFile="true" file="tables/trade_history.table.xml"/>
 
 </databaseChangeLog>

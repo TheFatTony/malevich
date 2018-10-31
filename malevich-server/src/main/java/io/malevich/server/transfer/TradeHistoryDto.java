@@ -9,7 +9,7 @@ import lombok.Setter;
 public class TradeHistoryDto {
 
 
-  private long id;
+  private Long id;
 
   private ArtworkStockDto artworkStock;
 
@@ -19,8 +19,8 @@ public class TradeHistoryDto {
 
   private OrderDto bidOrder;
 
-  private double amount;
+  private Double amount;
 
-  private long quantity;
+  private Long quantity;
 
 }

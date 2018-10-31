@@ -8,7 +8,7 @@ import lombok.Setter;
 @Setter
 public class CounterpartyDto {
 
-  private long id;
+  private Long id;
 
   private String typeId;
 

@@ -7,7 +7,7 @@ import lombok.Setter;
 @Setter
 public class AddressDto {
 
-    private long id;
+    private Long id;
 
     private String street;
 

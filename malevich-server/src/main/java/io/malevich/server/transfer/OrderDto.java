@@ -9,7 +9,7 @@ import lombok.Setter;
 public class OrderDto {
 
 
-    private long id;
+    private Long id;
 
     private OrderTypeDto type;
 
@@ -19,12 +19,12 @@ public class OrderDto {
 
     private TradeTypeDto tradeType;
 
-    private double amount;
+    private Double amount;
 
     private java.sql.Timestamp effectiveDate;
 
-    private double bestBid;
+    private Double bestBid;
 
-    private double currentAsk;
+    private Double currentAsk;
 
 }

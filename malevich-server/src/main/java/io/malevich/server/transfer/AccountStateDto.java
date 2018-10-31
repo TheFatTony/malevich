@@ -9,14 +9,14 @@ import lombok.Setter;
 public class AccountStateDto {
 
 
-  private long id;
+  private Long id;
 
   private CounterpartyDto party;
 
   private ArtworkStockDto artworkStock;
 
-  private long quantity;
+  private Long quantity;
 
-  private double amount;
+  private Double amount;
 
 }

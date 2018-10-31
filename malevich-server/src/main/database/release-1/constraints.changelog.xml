@@ -27,6 +27,7 @@
     <include relativeToChangelogFile="true" file="constraints/orders.constraint.xml"/>
     <include relativeToChangelogFile="true" file="constraints/transactions.constraint.xml"/>
     <include relativeToChangelogFile="true" file="constraints/account_state.constraint.xml"/>
+    <include relativeToChangelogFile="true" file="constraints/account_state_arch.constraint.xml"/>
     <include relativeToChangelogFile="true" file="constraints/trade_history.constraint.xml"/>
 
 </databaseChangeLog>

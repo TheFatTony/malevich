@@ -26,6 +26,7 @@
             <column name="effective_date" type="timestamp">
                 <constraints nullable="false"/>
             </column>
+            <column name="status" type="varchar(10)"/>
         </createTable>
     </changeSet>
 

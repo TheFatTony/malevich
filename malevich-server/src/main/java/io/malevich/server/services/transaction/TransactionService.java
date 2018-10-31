@@ -19,5 +19,7 @@ public interface TransactionService {
 
     void placeBid(OrderEntity orderEntity);
 
+    void cancelBid(OrderEntity orderEntity);
+
     void buySell(TradeHistoryEntity tradeHistoryEntity);
 }

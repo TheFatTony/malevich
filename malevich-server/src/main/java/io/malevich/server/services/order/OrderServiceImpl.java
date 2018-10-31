@@ -69,11 +69,11 @@ public class OrderServiceImpl implements OrderService {
         } else return null;
 
         TraderEntity traderEntity = traderService.findByUserName(userDetails.getUsername());
-        if(traderEntity != null)
+        if (traderEntity != null)
             return this.orderDao.findAllPlacedTraderOrders(traderEntity.getId());
 
         GalleryEntity galleryEntity = galleryService.findByUserName(userDetails.getUsername());
-        if(galleryEntity != null)
+        if (galleryEntity != null)
             return this.orderDao.findAllPlacedGalleryOrders(galleryEntity.getId());
 
         return new ArrayList<>();
@@ -111,6 +111,7 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
+    @Transactional
     public void placeBid(OrderEntity orderEntity) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         Object principal = authentication.getPrincipal();
@@ -131,9 +132,24 @@ public class OrderServiceImpl implements OrderService {
 
             OrderEntity counterOrderEntity = orderDao.findCounterOrder(orderEntity.getArtworkStock().getId(), orderEntity.getAmount());
             if (counterOrderEntity != null) {
-                TradeHistoryEntity tradeHistoryEntity =  tradeHistoryService.create(counterOrderEntity,orderEntity);
+                TradeHistoryEntity tradeHistoryEntity = tradeHistoryService.create(counterOrderEntity, orderEntity);
+                orderEntity.setStatus("EXECUTED");
+                orderDao.save(orderEntity);
+                counterOrderEntity.setStatus("EXECUTED");
+                orderDao.save(counterOrderEntity);
 
                 transactionService.buySell(tradeHistoryEntity);
+
+                List<OrderEntity> orders = orderDao.findAllOrdersByArtworkId(tradeHistoryEntity.getArtworkStock().getId());
+                for (OrderEntity order : orders) {
+                    if ("BID".equals(order.getType().getId())) {
+                        if (!"EXECUTED".equals(order.getStatus())) {
+                            transactionService.cancelBid(order);
+                            order.setStatus("CANCELED");
+                            orderDao.save(order);
+                        }
+                    }
+                }
             }
 
             // TODO fix this crap

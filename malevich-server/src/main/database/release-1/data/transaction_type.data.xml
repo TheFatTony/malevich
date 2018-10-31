@@ -10,7 +10,8 @@
                    ('0002', 'Create Artwork', JSON_OBJECT('en', 'Create Artwork', 'ru', 'Create Artwork')),
                    ('0003', 'Bid', JSON_OBJECT('en', 'Bid', 'ru', 'Bid')),
                    ('0004', 'Ask', JSON_OBJECT('en', 'Ask', 'ru', 'Ask')),
-                   ('0005', 'Buy/Sell', JSON_OBJECT('en', 'Buy/Sell', 'ru', 'Buy/Sell'));
+                   ('0005', 'Buy/Sell', JSON_OBJECT('en', 'Buy/Sell', 'ru', 'Buy/Sell')),
+                   ('0006', 'Cancel Bid', JSON_OBJECT('en', 'Cancel Bid', 'ru', 'Cancel Bid'));
         </sql>
     </changeSet>
 

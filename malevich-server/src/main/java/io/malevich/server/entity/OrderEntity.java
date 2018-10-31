@@ -56,6 +56,11 @@ public class OrderEntity implements Entity {
 
     @Getter
     @Setter
+    @Column(name = "status")
+    private String status;
+
+    @Getter
+    @Setter
     @Formula(value="(SELECT o.amount\n" +
             "FROM orders o\n" +
             "WHERE o.type_id = 'BID' AND o.artwork_stock_id = artwork_stock_id\n" +

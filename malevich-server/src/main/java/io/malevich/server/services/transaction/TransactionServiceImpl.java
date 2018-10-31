@@ -109,16 +109,16 @@ public class TransactionServiceImpl implements TransactionService {
     @Override
     @Transactional
     public void placeAsk(OrderEntity orderEntity) {
-        GalleryEntity galleryEntity = galleryService.getCurrent();
-        CounterpartyEntity counterpartyEntity = counterpartyService.findCounterpartyEntitiesByGalleryId(galleryEntity.getId());
-        CounterpartyEntity malevichEntity = counterpartyService.findById(1L).get();
-        TransactionTypeEntity transactionTypeEntity = transactionTypeService.findById("0004").get();
-
-
-        createAccountState(malevichEntity, orderEntity.getArtworkStock(), 0D, 1L);
-        createAccountState(counterpartyEntity, orderEntity.getArtworkStock(), 0D, 0L);
-        createTransaction(transactionTypeEntity, counterpartyEntity, malevichEntity, orderEntity.getArtworkStock(), 0D, -1L);
-        createTransaction(transactionTypeEntity, malevichEntity, counterpartyEntity, orderEntity.getArtworkStock(), 0D, 1L);
+//        GalleryEntity galleryEntity = galleryService.getCurrent();
+//        CounterpartyEntity counterpartyEntity = counterpartyService.findCounterpartyEntitiesByGalleryId(galleryEntity.getId());
+//        CounterpartyEntity malevichEntity = counterpartyService.findById(1L).get();
+//        TransactionTypeEntity transactionTypeEntity = transactionTypeService.findById("0004").get();
+//
+//
+//        createAccountState(malevichEntity, orderEntity.getArtworkStock(), 0D, 1L);
+//        createAccountState(counterpartyEntity, orderEntity.getArtworkStock(), 0D, 0L);
+//        createTransaction(transactionTypeEntity, counterpartyEntity, malevichEntity, orderEntity.getArtworkStock(), 0D, -1L);
+//        createTransaction(transactionTypeEntity, malevichEntity, counterpartyEntity, orderEntity.getArtworkStock(), 0D, 1L);
     }
 
 
@@ -146,6 +146,20 @@ public class TransactionServiceImpl implements TransactionService {
         createAccountState(counterpartyEntity, null, -orderEntity.getAmount(), 0L);
         createTransaction(transactionTypeEntity, counterpartyEntity, malevichEntity, null, -orderEntity.getAmount(), 0L);
         createTransaction(transactionTypeEntity, malevichEntity, counterpartyEntity, null, orderEntity.getAmount(), 0L);
+    }
+
+    @Override
+    @Transactional
+    public void cancelBid(OrderEntity orderEntity) {
+        TraderEntity traderEntity = traderService.getCurrentTrader();
+        CounterpartyEntity counterpartyEntity = counterpartyService.findCounterpartyEntitiesByTraderId(traderEntity.getId());
+        CounterpartyEntity malevichEntity = counterpartyService.findById(1L).get();
+        TransactionTypeEntity transactionTypeEntity = transactionTypeService.findById("0006").get();
+
+        createAccountState(malevichEntity, null, -orderEntity.getAmount(), 0L);
+        createAccountState(counterpartyEntity, null, orderEntity.getAmount(), 0L);
+        createTransaction(transactionTypeEntity, counterpartyEntity, malevichEntity, null, orderEntity.getAmount(), 0L);
+        createTransaction(transactionTypeEntity, malevichEntity, counterpartyEntity, null, -orderEntity.getAmount(), 0L);
     }
 
     @Override

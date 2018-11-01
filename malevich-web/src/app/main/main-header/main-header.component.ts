@@ -13,15 +13,20 @@ import {UserDto} from "../../_transfer";
 export class MainHeaderComponent implements OnInit, AfterViewInit {
 
   user: UserDto;
+  isTrader: boolean;
+  isGallery: boolean;
+
   constructor(
-              public router: Router,
-              public translate: TranslateService,
-              public globals: Globals,
-              public authService: AuthService) {
+    public router: Router,
+    public translate: TranslateService,
+    public globals: Globals,
+    public authService: AuthService) {
   }
 
   ngOnInit() {
     this.user = this.authService.getCurrentUser();
+    this.isTrader = this.user.roles.some(value => value == "ROLE_TRADER");
+    this.isGallery = this.user.roles.some(value => value == "ROLE_GALLERY");
   }
 
   ngAfterViewInit(): void {

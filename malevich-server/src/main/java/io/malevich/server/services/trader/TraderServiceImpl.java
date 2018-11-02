@@ -1,17 +1,14 @@
 package io.malevich.server.services.trader;
 
 
-import io.malevich.server.dao.trader.TraderDao;
-import io.malevich.server.entity.TraderEntity;
-import io.malevich.server.entity.UserEntity;
-import io.malevich.server.services.person.PersonService;
-import io.malevich.server.services.registertoken.RegisterTokenService;
+import io.malevich.server.repositories.trader.TraderDao;
+import io.malevich.server.domain.TraderEntity;
+import io.malevich.server.domain.UserEntity;
 import io.malevich.server.services.user.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.authentication.preauth.PreAuthenticatedCredentialsNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -58,15 +55,14 @@ public class TraderServiceImpl implements TraderService {
 
             if (traderEntity.getPerson() != null)
                 trader.getPerson().setId(traderEntity.getPerson().getId());
-        }
-        else{
+        } else {
             UserEntity user = userService.findByName(getUserName());
             trader.getUser().setId(user.getId());
         }
         return traderDao.save(trader);
     }
 
-    private String getUserName(){
+    private String getUserName() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         Object principal = authentication.getPrincipal();
 

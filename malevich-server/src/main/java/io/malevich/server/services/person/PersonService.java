@@ -1,7 +1,7 @@
 package io.malevich.server.services.person;
 
 
-import io.malevich.server.entity.PersonEntity;
+import io.malevich.server.domain.PersonEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.List;

@@ -7,7 +7,8 @@ import {AfterViewInit, Component, OnInit} from '@angular/core';
 })
 export class MainFooterComponent implements OnInit, AfterViewInit {
 
-  constructor() { }
+  constructor() {
+  }
 
   ngOnInit() {
   }

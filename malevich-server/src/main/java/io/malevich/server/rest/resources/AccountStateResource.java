@@ -1,7 +1,7 @@
 package io.malevich.server.rest.resources;
 
-import io.malevich.server.entity.AccountStateEntity;
-import io.malevich.server.entity.ArtworkStockEntity;
+import io.malevich.server.domain.AccountStateEntity;
+import io.malevich.server.domain.ArtworkStockEntity;
 import io.malevich.server.services.accountstate.AccountStateService;
 import io.malevich.server.transfer.AccountStateDto;
 import io.malevich.server.transfer.ArtworkStockDto;

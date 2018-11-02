@@ -42,7 +42,7 @@ export class AuthService {
     });
   }
 
-  getCurrentUser() : UserDto {
+  getCurrentUser(): UserDto {
     return JSON.parse(localStorage.getItem('user'));
   }
 

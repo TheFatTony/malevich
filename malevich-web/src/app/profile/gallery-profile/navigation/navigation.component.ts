@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {GalleryDto} from "../../../_transfer";
 import {GalleryService} from "../../../_services/gallery.service";
 import {TranslateService} from "@ngx-translate/core";
@@ -16,7 +16,8 @@ export class NavigationComponent implements OnInit {
   public url = environment.baseUrl;
 
   constructor(public translate: TranslateService,
-              private galleryService: GalleryService) { }
+              private galleryService: GalleryService) {
+  }
 
   ngOnInit() {
     this.getGallery();

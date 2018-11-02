@@ -1,12 +1,13 @@
-import { NgModule }       from '@angular/core';
-import { CommonModule }   from '@angular/common';
+import {NgModule} from '@angular/core';
+import {CommonModule} from '@angular/common';
 
-import { jqxPivotDesignerComponent } from 'node_modules/jqwidgets-scripts/jqwidgets-ts/angular_jqxpivotdesigner';
+import {jqxPivotDesignerComponent} from 'node_modules/jqwidgets-scripts/jqwidgets-ts/angular_jqxpivotdesigner';
 
 @NgModule({
-    imports: [CommonModule],
-    declarations: [jqxPivotDesignerComponent],
-    exports: [jqxPivotDesignerComponent],
+  imports: [CommonModule],
+  declarations: [jqxPivotDesignerComponent],
+  exports: [jqxPivotDesignerComponent],
 })
-export class PivotDesignerModule { }
+export class PivotDesignerModule {
+}
 

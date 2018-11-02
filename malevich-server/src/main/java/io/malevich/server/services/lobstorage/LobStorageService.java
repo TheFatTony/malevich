@@ -1,6 +1,6 @@
 package io.malevich.server.services.lobstorage;
 
-import io.malevich.server.entity.LobStorageEntity;
+import io.malevich.server.domain.LobStorageEntity;
 import org.springframework.stereotype.Service;
 
 

@@ -1,12 +1,13 @@
-import { NgModule }       from '@angular/core';
-import { CommonModule }   from '@angular/common';
+import {NgModule} from '@angular/core';
+import {CommonModule} from '@angular/common';
 
-import { jqxTabsComponent } from 'node_modules/jqwidgets-scripts/jqwidgets-ts/angular_jqxtabs';
+import {jqxTabsComponent} from 'node_modules/jqwidgets-scripts/jqwidgets-ts/angular_jqxtabs';
 
 @NgModule({
-    imports: [CommonModule],
-    declarations: [jqxTabsComponent],
-    exports: [jqxTabsComponent],
+  imports: [CommonModule],
+  declarations: [jqxTabsComponent],
+  exports: [jqxTabsComponent],
 })
-export class TabsModule { }
+export class TabsModule {
+}
 

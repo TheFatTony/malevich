@@ -1,12 +1,13 @@
-import { NgModule }       from '@angular/core';
-import { CommonModule }   from '@angular/common';
+import {NgModule} from '@angular/core';
+import {CommonModule} from '@angular/common';
 
-import { jqxComboBoxComponent } from 'node_modules/jqwidgets-scripts/jqwidgets-ts/angular_jqxcombobox';
+import {jqxComboBoxComponent} from 'node_modules/jqwidgets-scripts/jqwidgets-ts/angular_jqxcombobox';
 
 @NgModule({
-    imports: [CommonModule],
-    declarations: [jqxComboBoxComponent],
-    exports: [jqxComboBoxComponent],
+  imports: [CommonModule],
+  declarations: [jqxComboBoxComponent],
+  exports: [jqxComboBoxComponent],
 })
-export class ComboBoxModule { }
+export class ComboBoxModule {
+}
 

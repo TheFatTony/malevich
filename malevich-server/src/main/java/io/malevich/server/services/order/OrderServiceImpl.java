@@ -1,10 +1,10 @@
 package io.malevich.server.services.order;
 
-import io.malevich.server.dao.order.OrderDao;
-import io.malevich.server.entity.GalleryEntity;
-import io.malevich.server.entity.OrderEntity;
-import io.malevich.server.entity.TradeHistoryEntity;
-import io.malevich.server.entity.TraderEntity;
+import io.malevich.server.repositories.order.OrderDao;
+import io.malevich.server.domain.GalleryEntity;
+import io.malevich.server.domain.OrderEntity;
+import io.malevich.server.domain.TradeHistoryEntity;
+import io.malevich.server.domain.TraderEntity;
 import io.malevich.server.services.counterparty.CounterpartyService;
 import io.malevich.server.services.gallery.GalleryService;
 import io.malevich.server.services.ordertype.OrderTypeService;

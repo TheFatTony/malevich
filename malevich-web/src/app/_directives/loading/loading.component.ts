@@ -1,4 +1,4 @@
-import {Component, OnInit, TemplateRef} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {LoadingService} from "../../_services/loading.service";
 
 const PrimaryWhite = '#ffffff';
@@ -15,7 +15,8 @@ export class LoadingComponent implements OnInit {
   public secondaryColour = SecondaryGrey;
 
 
-  constructor(public loadingService: LoadingService) { }
+  constructor(public loadingService: LoadingService) {
+  }
 
   ngOnInit() {
   }

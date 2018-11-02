@@ -1,7 +1,6 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {Router} from "@angular/router";
 import {AuthService} from "../../../_services";
-import jqxPasswordInput = jqwidgets.jqxPasswordInput;
 
 @Component({
   selector: 'app-auth-reset-step-two',

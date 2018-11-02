@@ -1,9 +1,9 @@
 package io.malevich.server.services.payments;
 
-import io.malevich.server.dao.payments.PaymentsDao;
-import io.malevich.server.entity.CounterpartyEntity;
-import io.malevich.server.entity.PaymentsEntity;
-import io.malevich.server.entity.TraderEntity;
+import io.malevich.server.repositories.payments.PaymentsDao;
+import io.malevich.server.domain.CounterpartyEntity;
+import io.malevich.server.domain.PaymentsEntity;
+import io.malevich.server.domain.TraderEntity;
 import io.malevich.server.services.counterparty.CounterpartyService;
 import io.malevich.server.services.trader.TraderService;
 import io.malevich.server.services.transaction.TransactionService;

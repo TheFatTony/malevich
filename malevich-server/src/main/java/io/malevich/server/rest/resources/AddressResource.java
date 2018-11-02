@@ -1,18 +1,14 @@
 package io.malevich.server.rest.resources;
 
-import io.malevich.server.entity.AddressEntity;
+import io.malevich.server.domain.AddressEntity;
 import io.malevich.server.services.address.AddressService;
 import io.malevich.server.transfer.AddressDto;
-import io.malevich.server.transfer.FileDto;
 import org.modelmapper.ModelMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
-import java.util.stream.Collectors;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 
 @RestController

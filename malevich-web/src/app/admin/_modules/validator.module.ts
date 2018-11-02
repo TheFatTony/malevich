@@ -1,12 +1,13 @@
-import { NgModule }       from '@angular/core';
-import { CommonModule }   from '@angular/common';
+import {NgModule} from '@angular/core';
+import {CommonModule} from '@angular/common';
 
-import { jqxValidatorComponent } from 'node_modules/jqwidgets-scripts/jqwidgets-ts/angular_jqxvalidator';
+import {jqxValidatorComponent} from 'node_modules/jqwidgets-scripts/jqwidgets-ts/angular_jqxvalidator';
 
 @NgModule({
-    imports: [CommonModule],
-    declarations: [jqxValidatorComponent],
-    exports: [jqxValidatorComponent],
+  imports: [CommonModule],
+  declarations: [jqxValidatorComponent],
+  exports: [jqxValidatorComponent],
 })
-export class ValidatorModule { }
+export class ValidatorModule {
+}
 

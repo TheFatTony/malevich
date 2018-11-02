@@ -1,12 +1,13 @@
-import { NgModule }       from '@angular/core';
-import { CommonModule }   from '@angular/common';
+import {NgModule} from '@angular/core';
+import {CommonModule} from '@angular/common';
 
-import { jqxDragDropComponent } from 'node_modules/jqwidgets-scripts/jqwidgets-ts/angular_jqxdragdrop';
+import {jqxDragDropComponent} from 'node_modules/jqwidgets-scripts/jqwidgets-ts/angular_jqxdragdrop';
 
 @NgModule({
-    imports: [CommonModule],
-    declarations: [jqxDragDropComponent],
-    exports: [jqxDragDropComponent],
+  imports: [CommonModule],
+  declarations: [jqxDragDropComponent],
+  exports: [jqxDragDropComponent],
 })
-export class DragDropModule { }
+export class DragDropModule {
+}
 

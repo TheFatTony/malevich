@@ -1,22 +1,15 @@
 package io.malevich.server.rest.resources;
 
-import io.malevich.server.entity.ArtistEntity;
-import io.malevich.server.entity.InvolvementEntity;
-import io.malevich.server.services.artist.ArtistService;
+import io.malevich.server.domain.InvolvementEntity;
 import io.malevich.server.services.counters.CountersService;
-import io.malevich.server.transfer.ArtistDto;
 import io.malevich.server.transfer.InvolvementDto;
 import org.modelmapper.ModelMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
-
-import java.util.List;
-import java.util.stream.Collectors;
 
 
 @RestController

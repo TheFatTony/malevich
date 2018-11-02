@@ -26,7 +26,7 @@ import {EditComponent as GalleryProfileSecurityEditComponent} from './profile/ga
 import {ArtworkStockComponent as GalleryProfileArtworkStockComponent} from './profile/gallery-profile/artwork-stock/artwork-stock.component';
 import {ViewComponent as TraderProfileSecurityViewComponent} from "./profile/trader-profile/view/view.component";
 import {EditComponent as TraderProfileSecurityEditComponent} from "./profile/trader-profile/edit/edit.component";
-import { OrdersComponent as GalleryProfileOrdersComponent} from './profile/gallery-profile/orders/orders.component';
+import {OrdersComponent as GalleryProfileOrdersComponent} from './profile/gallery-profile/orders/orders.component';
 import {PaymentComponent} from "./profile/trader-profile/payment/payment.component";
 import {WalletComponent} from "./profile/trader-profile/wallet/wallet.component";
 import {WishlistComponent} from "./profile/trader-profile/wishlist/wishlist.component";

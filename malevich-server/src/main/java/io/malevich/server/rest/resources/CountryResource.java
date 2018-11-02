@@ -1,6 +1,6 @@
 package io.malevich.server.rest.resources;
 
-import io.malevich.server.entity.CountryEntity;
+import io.malevich.server.domain.CountryEntity;
 import io.malevich.server.services.country.CountryService;
 import io.malevich.server.transfer.CountryDto;
 import io.malevich.server.transfer.FileDto;
@@ -27,7 +27,7 @@ public class CountryResource {
 
     @Autowired
     private ModelMapper modelMapper;
-    
+
     //    @PreAuthorize("hasRole('ADMIN')")
     @RequestMapping(value = "/list", method = RequestMethod.GET)
     public List<CountryDto> list() {

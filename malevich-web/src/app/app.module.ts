@@ -15,7 +15,7 @@ import {TranslateLoader, TranslateModule} from "@ngx-translate/core";
 import {TranslateHttpLoader} from "@ngx-translate/http-loader";
 import {AlertComponent} from "./_directives/alert/alert.component";
 import {Globals} from "./globals";
-import {AlertService, FileService, AuthService} from "./_services";
+import {AlertService, FileService} from "./_services";
 import {AuthGuard} from "./_guards/auth.guard";
 import {AdminGuard} from "./_guards/admin.guard";
 import {ErrorInterceptor, JwtInterceptor} from "./_helpers";
@@ -52,8 +52,10 @@ import {PaymentComponent} from './profile/trader-profile/payment/payment.compone
 import {NotificationsComponent} from "./profile/trader-profile/notifications/notifications.component";
 import {StepOneComponent as RegisterStepOneComponent} from './auth/register/step-one/step-one.component';
 import {StepTwoComponent as RegisterStepTwoComponent} from './auth/register/step-two/step-two.component';
-import {NavigationComponent as GalleryProfileNavigationComponent} from './profile/gallery-profile/navigation/navigation.component';
-import {NavigationComponent as GalleryProfileNavigation} from './profile/gallery-profile/navigation/navigation.component';
+import {
+  NavigationComponent as GalleryProfileNavigationComponent,
+  NavigationComponent as GalleryProfileNavigation
+} from './profile/gallery-profile/navigation/navigation.component';
 import {ViewComponent as GalleryProfileSecurityView} from './profile/gallery-profile/view/view.component';
 import {EditComponent as GalleryProfileSecurityEdit} from './profile/gallery-profile/edit/edit.component';
 import {ViewComponent as GalleryProfileNotificationsComponent} from './profile/gallery-profile/notifications/view/view.component';

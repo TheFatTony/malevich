@@ -1,6 +1,6 @@
 package io.malevich.server.services.artworkstock;
 
-import io.malevich.server.entity.ArtworkStockEntity;
+import io.malevich.server.domain.ArtworkStockEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.List;

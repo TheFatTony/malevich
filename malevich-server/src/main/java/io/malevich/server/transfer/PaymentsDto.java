@@ -9,12 +9,12 @@ import lombok.Setter;
 public class PaymentsDto {
 
 
-  private Long id;
+    private Long id;
 
-  private java.sql.Timestamp effectiveDate;
+    private java.sql.Timestamp effectiveDate;
 
-  private PaymentMethodDto paymentMethod;
+    private PaymentMethodDto paymentMethod;
 
-  private Double amount;
+    private Double amount;
 
 }

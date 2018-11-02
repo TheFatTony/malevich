@@ -1,10 +1,10 @@
 package io.malevich.server.services.accountstate;
 
-import io.malevich.server.dao.accountstate.AccountStateDao;
-import io.malevich.server.entity.AccountStateEntity;
-import io.malevich.server.entity.ArtworkStockEntity;
-import io.malevich.server.entity.CounterpartyEntity;
-import io.malevich.server.entity.TraderEntity;
+import io.malevich.server.repositories.accountstate.AccountStateDao;
+import io.malevich.server.domain.AccountStateEntity;
+import io.malevich.server.domain.ArtworkStockEntity;
+import io.malevich.server.domain.CounterpartyEntity;
+import io.malevich.server.domain.TraderEntity;
 import io.malevich.server.services.counterparty.CounterpartyService;
 import io.malevich.server.services.trader.TraderService;
 import org.springframework.beans.factory.annotation.Autowired;

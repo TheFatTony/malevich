@@ -9,12 +9,12 @@ import lombok.Setter;
 public class ArtworkStockDto {
 
 
-  private Long id;
+    private Long id;
 
-  private ArtworkDto artwork;
+    private ArtworkDto artwork;
 
-  private GalleryDto gallery;
+    private GalleryDto gallery;
 
-  private Double price;
+    private Double price;
 
 }

@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 
 import javax.servlet.http.HttpServletRequest;
 
-@ControllerAdvice
+@ControllerAdvice(basePackages = "io.malevich.server.rest.resources")
 public class ResourceExceptionHandler {
 
 
@@ -22,7 +22,7 @@ public class ResourceExceptionHandler {
 
 
     @ExceptionHandler(BadCredentialsException.class)
-    public ResponseEntity<StandardError> badCredentialsException(AuthenticationException e, HttpServletRequest request) {
+    public ResponseEntity<StandardError> badCredentialsException(BadCredentialsException e, HttpServletRequest request) {
         StandardError err = new StandardError(System.currentTimeMillis(), HttpStatus.UNAUTHORIZED.value(), "Bad user name and password", e.getMessage(), request.getRequestURI());
         return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(err);
     }

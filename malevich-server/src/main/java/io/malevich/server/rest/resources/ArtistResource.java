@@ -1,6 +1,6 @@
 package io.malevich.server.rest.resources;
 
-import io.malevich.server.entity.ArtistEntity;
+import io.malevich.server.domain.ArtistEntity;
 import io.malevich.server.services.artist.ArtistService;
 import io.malevich.server.transfer.ArtistDto;
 import org.modelmapper.ModelMapper;

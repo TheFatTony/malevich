@@ -1,7 +1,7 @@
 package io.malevich.server.services.organization;
 
 
-import io.malevich.server.entity.OrganizationEntity;
+import io.malevich.server.domain.OrganizationEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.List;

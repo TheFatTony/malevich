@@ -1,9 +1,8 @@
 package io.malevich.server.services.gallery;
 
 
-import io.malevich.server.dao.gallery.GalleryDao;
-import io.malevich.server.entity.GalleryEntity;
-import io.malevich.server.entity.TraderEntity;
+import io.malevich.server.repositories.gallery.GalleryDao;
+import io.malevich.server.domain.GalleryEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;

@@ -1,9 +1,8 @@
 package io.malevich.server.services.artist;
 
 
-import io.malevich.server.dao.artist.ArtistDao;
-import io.malevich.server.dao.organization.OrganizationDao;
-import io.malevich.server.entity.ArtistEntity;
+import io.malevich.server.repositories.artist.ArtistDao;
+import io.malevich.server.domain.ArtistEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

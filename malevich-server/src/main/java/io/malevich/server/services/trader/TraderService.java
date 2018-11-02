@@ -1,6 +1,6 @@
 package io.malevich.server.services.trader;
 
-import io.malevich.server.entity.TraderEntity;
+import io.malevich.server.domain.TraderEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.List;

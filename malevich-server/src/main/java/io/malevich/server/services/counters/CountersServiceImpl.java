@@ -1,7 +1,7 @@
 package io.malevich.server.services.counters;
 
 
-import io.malevich.server.entity.InvolvementEntity;
+import io.malevich.server.domain.InvolvementEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
@@ -44,7 +44,7 @@ public class CountersServiceImpl implements CountersService {
 
     @Override
     public InvolvementEntity getInvolvementCounters() {
-        InvolvementEntity data= jdbcTemplate.queryForObject(SQL_INVOLVEMENT_QUERY, involvementRowMapper);
+        InvolvementEntity data = jdbcTemplate.queryForObject(SQL_INVOLVEMENT_QUERY, involvementRowMapper);
         return data;
     }
 }

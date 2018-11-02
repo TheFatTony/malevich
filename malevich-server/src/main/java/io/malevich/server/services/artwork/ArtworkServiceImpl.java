@@ -1,10 +1,9 @@
 package io.malevich.server.services.artwork;
 
 
-import io.malevich.server.dao.artwork.ArtworkDao;
-import io.malevich.server.entity.ArtworkEntity;
+import io.malevich.server.repositories.artwork.ArtworkDao;
+import io.malevich.server.domain.ArtworkEntity;
 import io.malevich.server.services.file.FileService;
-import io.malevich.server.services.order.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -41,9 +40,9 @@ public class ArtworkServiceImpl implements ArtworkService {
     @Transactional
     public ArtworkEntity save(ArtworkEntity artwork) {
         //TODO remove this stub
-        if(artwork.getThumbnail() == null)
+        if (artwork.getThumbnail() == null)
             artwork.setThumbnail(fileService.find(1L));
-        if(artwork.getImage() == null)
+        if (artwork.getImage() == null)
             artwork.setImage(fileService.find(5L));
         return this.artworkDao.save(artwork);
     }

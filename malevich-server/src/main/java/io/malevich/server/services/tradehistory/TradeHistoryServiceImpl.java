@@ -1,8 +1,8 @@
 package io.malevich.server.services.tradehistory;
 
-import io.malevich.server.dao.tradehistory.TradeHistoryDao;
-import io.malevich.server.entity.OrderEntity;
-import io.malevich.server.entity.TradeHistoryEntity;
+import io.malevich.server.repositories.tradehistory.TradeHistoryDao;
+import io.malevich.server.domain.OrderEntity;
+import io.malevich.server.domain.TradeHistoryEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

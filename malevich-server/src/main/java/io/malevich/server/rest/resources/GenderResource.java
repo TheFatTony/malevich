@@ -1,6 +1,6 @@
 package io.malevich.server.rest.resources;
 
-import io.malevich.server.entity.GenderEntity;
+import io.malevich.server.domain.GenderEntity;
 import io.malevich.server.services.gender.GenderService;
 import io.malevich.server.transfer.FileDto;
 import io.malevich.server.transfer.GenderDto;
@@ -27,7 +27,7 @@ public class GenderResource {
 
     @Autowired
     private ModelMapper modelMapper;
-    
+
     //    @PreAuthorize("hasRole('ADMIN')")
     @RequestMapping(value = "/list", method = RequestMethod.GET)
     public List<GenderDto> list() {

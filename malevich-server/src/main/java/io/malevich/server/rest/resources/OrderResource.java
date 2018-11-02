@@ -1,6 +1,6 @@
 package io.malevich.server.rest.resources;
 
-import io.malevich.server.entity.OrderEntity;
+import io.malevich.server.domain.OrderEntity;
 import io.malevich.server.services.order.OrderService;
 import io.malevich.server.transfer.OrderDto;
 import org.modelmapper.ModelMapper;

@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import {ArtworkDto, GalleryDto} from "../../_transfer";
+import {Component, OnInit} from '@angular/core';
+import {GalleryDto} from "../../_transfer";
 import {environment} from "../../../environments/environment";
 import {ActivatedRoute, Params} from "@angular/router";
 import {TranslateService} from "@ngx-translate/core";

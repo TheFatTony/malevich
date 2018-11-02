@@ -1,6 +1,6 @@
 package io.malevich.server.rest.resources;
 
-import io.malevich.server.entity.TransactionEntity;
+import io.malevich.server.domain.TransactionEntity;
 import io.malevich.server.services.transaction.TransactionService;
 import io.malevich.server.transfer.TransactionsDto;
 import org.modelmapper.ModelMapper;

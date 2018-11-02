@@ -1,13 +1,10 @@
 package io.malevich.server.rest.resources;
 
-import io.malevich.server.entity.GalleryEntity;
+import io.malevich.server.domain.GalleryEntity;
 import io.malevich.server.services.gallery.GalleryService;
 import io.malevich.server.transfer.GalleryDto;
-import lombok.extern.java.Log;
 import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -51,7 +48,7 @@ public class GalleryResource {
 
     @PreAuthorize("hasRole('GALLERY')")
     @RequestMapping(value = "/update", method = RequestMethod.POST)
-    public ResponseEntity<Void> update(@RequestBody GalleryDto gallery){
+    public ResponseEntity<Void> update(@RequestBody GalleryDto gallery) {
         GalleryEntity newEntity = convertToEntity(gallery);
         this.galleryService.update(newEntity);
         return ResponseEntity.ok().build();

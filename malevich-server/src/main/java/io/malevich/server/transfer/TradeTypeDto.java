@@ -11,10 +11,10 @@ import java.util.Map;
 public class TradeTypeDto {
 
 
-  private String id;
+    private String id;
 
-  private String name;
+    private String name;
 
-  private Map<String, String> nameMl;
+    private Map<String, String> nameMl;
 
 }

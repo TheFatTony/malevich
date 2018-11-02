@@ -49,7 +49,9 @@ export class ArtworkStockComponent implements OnInit {
   };
 
   rowdetailstemplate: any = {
-    rowdetails: "<div>{{a.artwork.descriptionMl[translate.currentLang]}}</div>", rowdetailsheight: 50, rowdetailshidden: true
+    rowdetails: "<div>{{a.artwork.descriptionMl[translate.currentLang]}}</div>",
+    rowdetailsheight: 50,
+    rowdetailshidden: true
   };
 
   columns: any[] =

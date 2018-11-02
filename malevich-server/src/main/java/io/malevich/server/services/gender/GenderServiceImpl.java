@@ -1,8 +1,8 @@
 package io.malevich.server.services.gender;
 
 
-import io.malevich.server.dao.gender.GenderDao;
-import io.malevich.server.entity.GenderEntity;
+import io.malevich.server.repositories.gender.GenderDao;
+import io.malevich.server.domain.GenderEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

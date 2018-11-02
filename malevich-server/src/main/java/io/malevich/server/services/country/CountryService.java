@@ -1,7 +1,7 @@
 package io.malevich.server.services.country;
 
 
-import io.malevich.server.entity.CountryEntity;
+import io.malevich.server.domain.CountryEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.List;

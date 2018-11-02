@@ -1,6 +1,4 @@
 import {ArtworkStockDto} from "./artworkStockDto";
-import {CounterpartyDto} from "./counterpartyDto";
-import {TransactionTypeDto} from "./transactionTypeDto";
 import {OrderDto} from "./orderDto";
 
 export class TradeHistoryDto {

@@ -1,4 +1,4 @@
-import {AfterViewInit, Component, ElementRef, OnInit, ViewChild} from '@angular/core';
+import {AfterViewInit, Component, OnInit, ViewChild} from '@angular/core';
 import {TranslateService} from "@ngx-translate/core";
 import {CountryService} from "../../../_services/country.service";
 import {GalleryDto} from "../../../_transfer";
@@ -22,6 +22,7 @@ export class EditComponent implements OnInit, AfterViewInit {
 
   addressCountryComboBox: jqxComboBoxComponent;
   selectedAddressIndex: number;
+
   @ViewChild('addressCountryComboBox2') set content(content: jqxComboBoxComponent) {
     this.addressCountryComboBox = content;
   }

@@ -1,10 +1,10 @@
 package io.malevich.server.rest.resources;
 
 
-import io.malevich.server.dao.accesstoken.AccessTokenDao;
-import io.malevich.server.dao.user.UserDao;
-import io.malevich.server.entity.AccessTokenEntity;
-import io.malevich.server.entity.ArtworkEntity;
+import io.malevich.server.repositories.accesstoken.AccessTokenDao;
+import io.malevich.server.repositories.user.UserDao;
+import io.malevich.server.domain.AccessTokenEntity;
+import io.malevich.server.domain.ArtworkEntity;
 import io.malevich.server.services.artwork.ArtworkService;
 import io.malevich.server.services.mailqueue.MailQueueService;
 import io.malevich.server.transfer.ArtworkDto;
@@ -125,7 +125,7 @@ public class TestResource {
         }
 
         return ResponseEntity.ok().contentType(MediaType.parseMediaType("application/octet-stream")).
-                header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + "fop.pdf"+ "\"").body(out.toByteArray());
+                header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + "fop.pdf" + "\"").body(out.toByteArray());
     }
 
     private ArtworkDto convertToDto(ArtworkEntity files) {

@@ -1,4 +1,4 @@
-import {AfterViewInit, Component, TemplateRef, ViewChild} from '@angular/core';
+import {AfterViewInit, Component} from '@angular/core';
 import {TranslateService} from "@ngx-translate/core";
 import {Globals} from "./globals";
 import {AuthService} from "./_services";
@@ -9,7 +9,7 @@ import {LoadingService} from "./_services/loading.service";
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
-export class AppComponent implements AfterViewInit{
+export class AppComponent implements AfterViewInit {
   title = 'Malevich.io';
 
   constructor(public translate: TranslateService,

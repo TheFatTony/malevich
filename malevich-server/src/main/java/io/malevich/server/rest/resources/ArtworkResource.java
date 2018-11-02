@@ -1,6 +1,6 @@
 package io.malevich.server.rest.resources;
 
-import io.malevich.server.entity.ArtworkEntity;
+import io.malevich.server.domain.ArtworkEntity;
 import io.malevich.server.services.artwork.ArtworkService;
 import io.malevich.server.transfer.ArtworkDto;
 import io.malevich.server.transfer.FileDto;

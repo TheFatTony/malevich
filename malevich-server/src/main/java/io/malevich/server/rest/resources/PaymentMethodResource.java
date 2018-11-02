@@ -1,6 +1,6 @@
 package io.malevich.server.rest.resources;
 
-import io.malevich.server.entity.PaymentMethodEntity;
+import io.malevich.server.domain.PaymentMethodEntity;
 import io.malevich.server.services.paymentmethod.PaymentMethodService;
 import io.malevich.server.transfer.PaymentMethodDto;
 import org.modelmapper.ModelMapper;

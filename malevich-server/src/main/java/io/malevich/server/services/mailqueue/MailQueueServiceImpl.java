@@ -1,8 +1,8 @@
 package io.malevich.server.services.mailqueue;
 
 
-import io.malevich.server.dao.mailqueue.MailQueueDao;
-import io.malevich.server.entity.MailQueueEntity;
+import io.malevich.server.repositories.mailqueue.MailQueueDao;
+import io.malevich.server.domain.MailQueueEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;

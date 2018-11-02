@@ -11,8 +11,8 @@ import java.util.Map;
 public class PaymentMethodTypeDto {
 
 
-  private String id;
+    private String id;
 
-  private Map<String, String> nameMl;
+    private Map<String, String> nameMl;
 
 }

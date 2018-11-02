@@ -1,14 +1,13 @@
 package io.malevich.server.services.artworkstock;
 
-import io.malevich.server.dao.artworkstock.ArtworkStockDao;
-import io.malevich.server.entity.ArtworkStockEntity;
-import io.malevich.server.entity.GalleryEntity;
+import io.malevich.server.repositories.artworkstock.ArtworkStockDao;
+import io.malevich.server.domain.ArtworkStockEntity;
+import io.malevich.server.domain.GalleryEntity;
 import io.malevich.server.services.artwork.ArtworkService;
 import io.malevich.server.services.gallery.GalleryService;
-import io.malevich.server.services.order.OrderService;
 import io.malevich.server.services.transaction.TransactionService;
-import org.springframework.stereotype.Service;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
@@ -52,7 +51,7 @@ public class ArtworkStockServiceImpl implements ArtworkStockService {
         GalleryEntity gallery = galleryService.getCurrent();
         ArtworkStockEntity existing = artworkStockDao.getOne(id);
 
-        if(existing == null || existing.getGallery().getId() != gallery.getId())
+        if (existing == null || existing.getGallery().getId() != gallery.getId())
             return;
 
         artworkStockDao.delete(existing);

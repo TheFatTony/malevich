@@ -4,7 +4,6 @@ import {TraderDto} from "../../_transfer/traderDto";
 import {CountryService} from "../../_services/country.service";
 import {CountryDto} from "../../_transfer/countryDto";
 import {ActivatedRoute, Params} from "@angular/router";
-import {Observable} from "rxjs";
 
 @Component({
   selector: 'app-profile-trader',
@@ -22,7 +21,7 @@ export class TraderProfileComponent implements OnInit, AfterViewInit {
               private traderService: TraderService,
               private countryService: CountryService) {
     this.route.params.forEach((params: Params) => {
-      if(params['view']) {
+      if (params['view']) {
         this.currentView = params['view'];
       }
     });

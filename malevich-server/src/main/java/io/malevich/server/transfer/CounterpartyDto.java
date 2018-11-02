@@ -8,12 +8,12 @@ import lombok.Setter;
 @Setter
 public class CounterpartyDto {
 
-  private Long id;
+    private Long id;
 
-  private String typeId;
+    private String typeId;
 
-  private TraderDto trader;
+    private TraderDto trader;
 
-  private GalleryDto gallery;
+    private GalleryDto gallery;
 
 }

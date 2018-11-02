@@ -1,6 +1,6 @@
 package io.malevich.server.services.transaction;
 
-import io.malevich.server.entity.*;
+import io.malevich.server.domain.*;
 import org.springframework.stereotype.Service;
 
 import java.util.List;

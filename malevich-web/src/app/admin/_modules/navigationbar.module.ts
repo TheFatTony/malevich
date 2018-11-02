@@ -1,12 +1,13 @@
-import { NgModule }       from '@angular/core';
-import { CommonModule }   from '@angular/common';
+import {NgModule} from '@angular/core';
+import {CommonModule} from '@angular/common';
 
-import { jqxNavigationBarComponent } from 'node_modules/jqwidgets-scripts/jqwidgets-ts/angular_jqxnavigationbar';
+import {jqxNavigationBarComponent} from 'node_modules/jqwidgets-scripts/jqwidgets-ts/angular_jqxnavigationbar';
 
 @NgModule({
-    imports: [CommonModule],
-    declarations: [jqxNavigationBarComponent],
-    exports: [jqxNavigationBarComponent],
+  imports: [CommonModule],
+  declarations: [jqxNavigationBarComponent],
+  exports: [jqxNavigationBarComponent],
 })
-export class NavigationBarModule { }
+export class NavigationBarModule {
+}
 

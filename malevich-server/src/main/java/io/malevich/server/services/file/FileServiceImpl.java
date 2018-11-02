@@ -1,8 +1,8 @@
 package io.malevich.server.services.file;
 
 
-import io.malevich.server.dao.file.FileDao;
-import io.malevich.server.entity.FileEntity;
+import io.malevich.server.repositories.file.FileDao;
+import io.malevich.server.domain.FileEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

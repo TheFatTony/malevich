@@ -30,7 +30,7 @@ export class AddressesComponent implements OnInit, AfterViewInit {
     this.getAddresses();
   }
 
-  private initNewAddress(){
+  private initNewAddress() {
     this.newAddress = new AddressDto();
     this.newAddress.country = new CountryDto();
   }

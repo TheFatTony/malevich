@@ -1,7 +1,7 @@
 package io.malevich.server.services.mailqueue;
 
 
-import io.malevich.server.entity.MailQueueEntity;
+import io.malevich.server.domain.MailQueueEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.List;

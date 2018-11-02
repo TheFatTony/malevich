@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import {Injectable} from '@angular/core';
 import {environment} from "../../environments/environment";
 import {CategoryDto} from "../_transfer";
 import {map} from "rxjs/operators";
@@ -11,7 +11,8 @@ export class CategoryService {
 
   private url = environment.baseUrl + 'categories';
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {
+  }
 
   getCategories() {
     return this.http

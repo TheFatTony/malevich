@@ -1,7 +1,7 @@
 package io.malevich.server.services.transactiontype;
 
-import io.malevich.server.dao.transactiontype.TransactionTypeDao;
-import io.malevich.server.entity.TransactionTypeEntity;
+import io.malevich.server.repositories.transactiontype.TransactionTypeDao;
+import io.malevich.server.domain.TransactionTypeEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

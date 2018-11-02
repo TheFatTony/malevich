@@ -1,6 +1,6 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import {async, ComponentFixture, TestBed} from '@angular/core/testing';
 
-import { AccountStateListComponent } from './account-state-list.component';
+import {AccountStateListComponent} from './account-state-list.component';
 
 describe('AccountStateListComponent', () => {
   let component: AccountStateListComponent;
@@ -8,9 +8,9 @@ describe('AccountStateListComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ AccountStateListComponent ]
+      declarations: [AccountStateListComponent]
     })
-    .compileComponents();
+      .compileComponents();
   }));
 
   beforeEach(() => {

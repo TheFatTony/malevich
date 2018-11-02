@@ -1,12 +1,13 @@
-import { NgModule }       from '@angular/core';
-import { CommonModule }   from '@angular/common';
+import {NgModule} from '@angular/core';
+import {CommonModule} from '@angular/common';
 
-import { jqxProgressBarComponent } from 'node_modules/jqwidgets-scripts/jqwidgets-ts/angular_jqxprogressbar';
+import {jqxProgressBarComponent} from 'node_modules/jqwidgets-scripts/jqwidgets-ts/angular_jqxprogressbar';
 
 @NgModule({
-    imports: [CommonModule],
-    declarations: [jqxProgressBarComponent],
-    exports: [jqxProgressBarComponent],
+  imports: [CommonModule],
+  declarations: [jqxProgressBarComponent],
+  exports: [jqxProgressBarComponent],
 })
-export class ProgressBarModule { }
+export class ProgressBarModule {
+}
 

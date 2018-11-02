@@ -1,10 +1,9 @@
 package io.malevich.server.services.auth;
 
 
-import io.malevich.server.entity.*;
-import io.malevich.server.entity.enums.Role;
-import io.malevich.server.rest.util.JWTUtil;
-import io.malevich.server.services.accesstoken.AccessTokenService;
+import io.malevich.server.core.security.JWTUtil;
+import io.malevich.server.domain.*;
+import io.malevich.server.domain.enums.Role;
 import io.malevich.server.services.mailqueue.MailQueueService;
 import io.malevich.server.services.registertoken.RegisterTokenService;
 import io.malevich.server.services.resetpasswordtoken.ResetPasswordTokenService;
@@ -41,9 +40,6 @@ public class AuthServiceImpl implements AuthService {
     private UserTypeService userTypeService;
 
     @Autowired
-    private AccessTokenService accessTokenService;
-
-    @Autowired
     private RegisterTokenService registerTokenService;
 
     @Autowired
@@ -67,33 +63,12 @@ public class AuthServiceImpl implements AuthService {
     @Autowired
     private BCryptPasswordEncoder bCryptPasswordEncoder;
 
-    @Value( "${malevich.client.url}" )
+    @Value("${malevich.client.url}")
     private String clientUrl;
 
     protected AuthServiceImpl() {
     }
 
-    @Override
-    @Transactional(readOnly = true)
-    public UserDetails loadUserByUsername(String username) {
-        return this.userService.findByName(username);
-    }
-
-    @Transactional
-    public UserEntity findUserByAccessToken(String accessTokenString) {
-        AccessTokenEntity accessTokenEntity = this.accessTokenService.findByToken(accessTokenString);
-
-        if (null == accessTokenEntity) {
-            return null;
-        }
-
-        if (accessTokenEntity.isExpired()) {
-            this.accessTokenService.delete(accessTokenEntity);
-            return null;
-        }
-
-        return accessTokenEntity.getUser();
-    }
 
     public AccessTokenEntity createAccessToken(UserEntity user) {
         AccessTokenEntity accessTokenEntity = new AccessTokenEntity(user, jwtUtil.generateToken(user.getUsername()));
@@ -120,6 +95,7 @@ public class AuthServiceImpl implements AuthService {
     public AccessTokenDto authenticate(LoginFormDto loginFormDto) {
         UsernamePasswordAuthenticationToken authenticationToken =
                 new UsernamePasswordAuthenticationToken(loginFormDto.getUsername(), loginFormDto.getPassword());
+
         Authentication authentication = this.authenticationManager.authenticate(authenticationToken);
         return new AccessTokenDto(this.createAccessToken((UserEntity) authentication.getPrincipal()).getToken());
     }
@@ -150,7 +126,7 @@ public class AuthServiceImpl implements AuthService {
 
     @Override
     @Transactional
-    public UserEntity register2(String token, String password){
+    public UserEntity register2(String token, String password) {
         RegisterTokenEntity registerTokenEntity = this.registerTokenService.findByToken(token).get();
 
         UserEntity user = new UserEntity(
@@ -175,7 +151,7 @@ public class AuthServiceImpl implements AuthService {
         entity = resetPasswordTokenService.save(entity);
 
         VelocityContext context = new VelocityContext();
-        context.put("link", clientUrl +"/#/auth/reset?token=" + entity.getToken());
+        context.put("link", clientUrl + "/#/auth/reset?token=" + entity.getToken());
         context.put("email", user.getName());
 
         StringWriter stringWriter = new StringWriter();
@@ -187,7 +163,7 @@ public class AuthServiceImpl implements AuthService {
 
     @Override
     @Transactional
-    public UserEntity setNewPassword(String token, String password){
+    public UserEntity setNewPassword(String token, String password) {
         ResetPasswordTokenEntity tokenEntity = resetPasswordTokenService.findByToken(token).get();
 
         UserEntity userEntity = tokenEntity.getUser();

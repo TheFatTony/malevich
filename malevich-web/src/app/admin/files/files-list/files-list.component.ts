@@ -1,6 +1,6 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
 import {FileService} from '../../../_services';
-import { FileDto } from '../../../_transfer';
+import {FileDto} from '../../../_transfer';
 import {jqxGridComponent} from 'jqwidgets-scripts/jqwidgets-ts/angular_jqxgrid';
 
 @Component({
@@ -13,7 +13,7 @@ export class FilesListComponent implements OnInit {
   files: FileDto[];
 
 
-  constructor( private fileService: FileService) {
+  constructor(private fileService: FileService) {
     $.jqx.theme = 'metrodark';
   }
 

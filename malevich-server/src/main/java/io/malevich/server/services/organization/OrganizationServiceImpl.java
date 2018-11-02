@@ -1,8 +1,8 @@
 package io.malevich.server.services.organization;
 
 
-import io.malevich.server.dao.organization.OrganizationDao;
-import io.malevich.server.entity.OrganizationEntity;
+import io.malevich.server.repositories.organization.OrganizationDao;
+import io.malevich.server.domain.OrganizationEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

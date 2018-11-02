@@ -23,10 +23,10 @@ export class ArtworksDetailComponent implements OnInit, AfterViewInit {
   id: number;
   public newOrder: OrderDto;
 
-  placedOrders : OrderDto[];
+  placedOrders: OrderDto[];
 
 
-  tradeHistory : TradeHistoryDto[];
+  tradeHistory: TradeHistoryDto[];
 
   x: number;
   y: number;

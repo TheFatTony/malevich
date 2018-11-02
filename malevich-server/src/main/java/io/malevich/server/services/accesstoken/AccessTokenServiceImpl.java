@@ -1,7 +1,7 @@
 package io.malevich.server.services.accesstoken;
 
-import io.malevich.server.dao.accesstoken.AccessTokenDao;
-import io.malevich.server.entity.AccessTokenEntity;
+import io.malevich.server.repositories.accesstoken.AccessTokenDao;
+import io.malevich.server.domain.AccessTokenEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

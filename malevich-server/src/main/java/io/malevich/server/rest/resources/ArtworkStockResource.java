@@ -1,12 +1,12 @@
 package io.malevich.server.rest.resources;
 
-import io.malevich.server.entity.ArtworkStockEntity;
+import io.malevich.server.domain.ArtworkStockEntity;
 import io.malevich.server.services.artworkstock.ArtworkStockService;
 import io.malevich.server.transfer.ArtworkStockDto;
+import org.modelmapper.ModelMapper;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.modelmapper.ModelMapper;
 
 import java.util.List;
 import java.util.stream.Collectors;

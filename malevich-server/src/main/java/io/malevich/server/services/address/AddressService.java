@@ -1,7 +1,7 @@
 package io.malevich.server.services.address;
 
 
-import io.malevich.server.entity.AddressEntity;
+import io.malevich.server.domain.AddressEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.List;

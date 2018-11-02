@@ -1,6 +1,6 @@
-import { TestBed, inject } from '@angular/core/testing';
+import {inject, TestBed} from '@angular/core/testing';
 
-import { PaymentMethodTypeService } from './payment-method-type.service';
+import {PaymentMethodTypeService} from './payment-method-type.service';
 
 describe('PaymentMethodTypeService', () => {
   beforeEach(() => {

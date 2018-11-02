@@ -2,7 +2,6 @@ import {Injectable} from '@angular/core';
 import {HttpClient} from "@angular/common/http";
 import {TraderDto} from "../_transfer/traderDto";
 import {environment} from "../../environments/environment";
-import {AlertService} from "./alert.service";
 
 @Injectable({
   providedIn: 'root'

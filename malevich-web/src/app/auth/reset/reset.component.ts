@@ -1,7 +1,6 @@
-import { Component, OnInit } from '@angular/core';
-import {ActivatedRoute, Router} from "@angular/router";
-import {TranslateService} from "@ngx-translate/core";
-import {AlertService, AuthService} from "../../_services";
+import {Component, OnInit} from '@angular/core';
+import {ActivatedRoute} from "@angular/router";
+import {AlertService} from "../../_services";
 
 @Component({
   selector: 'app-auth-reset',
@@ -14,7 +13,8 @@ export class ResetComponent implements OnInit {
   activationCode: string;
 
   constructor(private route: ActivatedRoute,
-              private alertService: AlertService) { }
+              private alertService: AlertService) {
+  }
 
   ngOnInit() {
     this.activationCode = this.route.snapshot.queryParams['token'];

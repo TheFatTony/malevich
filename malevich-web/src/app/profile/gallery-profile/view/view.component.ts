@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {GalleryService} from "../../../_services/gallery.service";
 import {GalleryDto} from "../../../_transfer";
 import {environment} from "../../../../environments/environment";
@@ -16,7 +16,8 @@ export class ViewComponent implements OnInit {
   public url = environment.baseUrl;
 
   constructor(public translate: TranslateService,
-              private galleryService: GalleryService) { }
+              private galleryService: GalleryService) {
+  }
 
   ngOnInit() {
     this.getGallery();

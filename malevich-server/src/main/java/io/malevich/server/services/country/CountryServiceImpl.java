@@ -1,8 +1,8 @@
 package io.malevich.server.services.country;
 
 
-import io.malevich.server.dao.country.CountryDao;
-import io.malevich.server.entity.CountryEntity;
+import io.malevich.server.repositories.country.CountryDao;
+import io.malevich.server.domain.CountryEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

@@ -1,8 +1,8 @@
 package io.malevich.server.services.person;
 
 
-import io.malevich.server.dao.person.PersonDao;
-import io.malevich.server.entity.PersonEntity;
+import io.malevich.server.repositories.person.PersonDao;
+import io.malevich.server.domain.PersonEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

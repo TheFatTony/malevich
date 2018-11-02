@@ -1,8 +1,7 @@
 package io.malevich.server.services.transactiontype;
 
-import io.malevich.server.entity.TransactionTypeEntity;
+import io.malevich.server.domain.TransactionTypeEntity;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;

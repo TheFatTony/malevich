@@ -1,7 +1,7 @@
 package io.malevich.server.services.accountstate;
 
-import io.malevich.server.entity.AccountStateEntity;
-import io.malevich.server.entity.ArtworkStockEntity;
+import io.malevich.server.domain.AccountStateEntity;
+import io.malevich.server.domain.ArtworkStockEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.List;

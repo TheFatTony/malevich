@@ -1,6 +1,6 @@
 package io.malevich.server.services.registertoken;
 
-import io.malevich.server.entity.RegisterTokenEntity;
+import io.malevich.server.domain.RegisterTokenEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.List;

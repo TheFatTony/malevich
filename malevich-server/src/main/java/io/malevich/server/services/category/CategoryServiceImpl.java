@@ -1,8 +1,8 @@
 package io.malevich.server.services.category;
 
 
-import io.malevich.server.dao.category.CategoryDao;
-import io.malevich.server.entity.CategoryEntity;
+import io.malevich.server.repositories.category.CategoryDao;
+import io.malevich.server.domain.CategoryEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

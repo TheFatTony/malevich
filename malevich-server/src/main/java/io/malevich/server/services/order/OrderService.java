@@ -1,6 +1,6 @@
 package io.malevich.server.services.order;
 
-import io.malevich.server.entity.OrderEntity;
+import io.malevich.server.domain.OrderEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.List;

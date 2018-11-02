@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {Router} from "@angular/router";
 import {TranslateService} from "@ngx-translate/core";
 import {AlertService, AuthService} from "../../../_services";
@@ -15,7 +15,8 @@ export class StepOneComponent implements OnInit {
   constructor(private router: Router,
               public translate: TranslateService,
               private authService: AuthService,
-              private alertService: AlertService) { }
+              private alertService: AlertService) {
+  }
 
   ngOnInit() {
   }

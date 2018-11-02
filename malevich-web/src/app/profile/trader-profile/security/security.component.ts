@@ -17,8 +17,8 @@ export class SecurityComponent implements OnInit, AfterViewInit {
 
   @Inject(LOCALE_ID) public locale: string;
 
-  @ViewChild ('mobileInput') mobileInput: ElementRef;
-  @ViewChild ('dateOfBirthInput') dateOfBirthInput: ElementRef;
+  @ViewChild('mobileInput') mobileInput: ElementRef;
+  @ViewChild('dateOfBirthInput') dateOfBirthInput: ElementRef;
 
   constructor(public translate: TranslateService,
               private traderService: TraderService) {
@@ -48,7 +48,7 @@ export class SecurityComponent implements OnInit, AfterViewInit {
     this.isEditing = !this.isEditing;
   }
 
-  update() : void {
+  update(): void {
     this.trader.mobile = $('#mobile').val().toString();
     this.trader.dateOfBirth = new Date($('#datepickerDefault').val().toString().split('.').reverse().join('-'));
     this.traderService.update(this.trader);

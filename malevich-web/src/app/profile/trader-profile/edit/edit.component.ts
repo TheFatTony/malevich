@@ -1,4 +1,4 @@
-import {AfterViewInit, Component, ElementRef, Inject, Input, LOCALE_ID, OnInit, ViewChild} from '@angular/core';
+import {AfterViewInit, Component, Inject, LOCALE_ID, OnInit, ViewChild} from '@angular/core';
 import {TraderDto} from "../../../_transfer/traderDto";
 import {TranslateService} from "@ngx-translate/core";
 import {TraderService} from "../../../_services/trader.service";
@@ -12,7 +12,7 @@ import {Router} from "@angular/router";
 import {jqxComboBoxComponent} from "jqwidgets-scripts/jqwidgets-ts/angular_jqxcombobox";
 import {jqxDateTimeInputComponent} from 'jqwidgets-scripts/jqwidgets-ts/angular_jqxdatetimeinput';
 import {forkJoin} from "rxjs";
-import {first, map, mergeMap} from "rxjs/operators";
+import {map, mergeMap} from "rxjs/operators";
 
 @Component({
   selector: 'trader-profile-security-edit',

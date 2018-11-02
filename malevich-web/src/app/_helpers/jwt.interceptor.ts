@@ -23,7 +23,7 @@ export class JwtInterceptor implements HttpInterceptor {
     // set it, but if we don't have one, set it to
     // default --> json
     if (!request.headers.has('Content-Type')) {
-      request = request.clone({ headers: request.headers.set('Content-Type', 'application/json') });
+      request = request.clone({headers: request.headers.set('Content-Type', 'application/json')});
     }
 
     const currentUser = JSON.parse(localStorage.getItem('currentUser'));

@@ -9,18 +9,18 @@ import lombok.Setter;
 public class TradeHistoryDto {
 
 
-  private Long id;
+    private Long id;
 
-  private ArtworkStockDto artworkStock;
+    private ArtworkStockDto artworkStock;
 
-  private java.sql.Timestamp effectiveDate;
+    private java.sql.Timestamp effectiveDate;
 
-  private OrderDto askOrder;
+    private OrderDto askOrder;
 
-  private OrderDto bidOrder;
+    private OrderDto bidOrder;
 
-  private Double amount;
+    private Double amount;
 
-  private Long quantity;
+    private Long quantity;
 
 }

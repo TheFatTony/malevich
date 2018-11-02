@@ -1,6 +1,6 @@
 package io.malevich.server.rest.resources;
 
-import io.malevich.server.entity.CategoryEntity;
+import io.malevich.server.domain.CategoryEntity;
 import io.malevich.server.services.category.CategoryService;
 import io.malevich.server.transfer.CategoryDto;
 import io.malevich.server.transfer.FileDto;

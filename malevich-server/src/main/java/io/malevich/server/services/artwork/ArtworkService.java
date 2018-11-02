@@ -1,9 +1,8 @@
 package io.malevich.server.services.artwork;
 
 
-import io.malevich.server.entity.ArtworkEntity;
+import io.malevich.server.domain.ArtworkEntity;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 

@@ -1,17 +1,17 @@
-import { Injectable } from '@angular/core';
-import {HttpClient, HttpErrorResponse} from '@angular/common/http';
-import {catchError, map} from 'rxjs/operators';
+import {Injectable} from '@angular/core';
+import {HttpClient} from '@angular/common/http';
+import {map} from 'rxjs/operators';
 
-import { FileDto } from '../_transfer';
+import {FileDto} from '../_transfer';
 import {environment} from '../../environments/environment';
-import {throwError} from 'rxjs';
 
 @Injectable()
 export class FileService {
 
   private url = environment.baseUrl + 'files';
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) {
+  }
 
   getFiles() {
     return this.http

@@ -1,8 +1,8 @@
 package io.malevich.server.services.transaction;
 
-import io.malevich.server.dao.accountstate.AccountStateDao;
-import io.malevich.server.dao.transaction.TransactionDao;
-import io.malevich.server.entity.*;
+import io.malevich.server.repositories.accountstate.AccountStateDao;
+import io.malevich.server.repositories.transaction.TransactionDao;
+import io.malevich.server.domain.*;
 import io.malevich.server.services.counterparty.CounterpartyService;
 import io.malevich.server.services.gallery.GalleryService;
 import io.malevich.server.services.trader.TraderService;

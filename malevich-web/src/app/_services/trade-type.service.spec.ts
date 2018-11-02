@@ -1,6 +1,6 @@
-import { TestBed, inject } from '@angular/core/testing';
+import {inject, TestBed} from '@angular/core/testing';
 
-import { TradeTypeService } from './trade-type.service';
+import {TradeTypeService} from './trade-type.service';
 
 describe('TradeTypeService', () => {
   beforeEach(() => {

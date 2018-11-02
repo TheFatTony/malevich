@@ -1,14 +1,11 @@
 import {Component, HostListener, OnInit, ViewChild} from '@angular/core';
-import {ArtworkStockService} from "../../../_services/artwork-stock.service";
 import {TranslateService} from "@ngx-translate/core";
 import {ArtworkStockDto} from "../../../_transfer/artworkStockDto";
 import {environment} from "../../../../environments/environment";
-import {ArtworkService} from "../../../_services/artwork.service";
 import {ArtworkDto, GalleryDto} from "../../../_transfer";
 import {jqxGridComponent} from "jqwidgets-scripts/jqwidgets-ts/angular_jqxgrid";
 import {jqxWindowComponent} from "jqwidgets-scripts/jqwidgets-ts/angular_jqxwindow";
 import {jqxComboBoxComponent} from "jqwidgets-scripts/jqwidgets-ts/angular_jqxcombobox";
-import {GalleryService} from "../../../_services/gallery.service";
 import {Router} from "@angular/router";
 import {AccountStateService} from "../../../_services/account-state.service";
 
@@ -50,7 +47,9 @@ export class ArtworkStockComponent implements OnInit {
   };
 
   rowdetailstemplate: any = {
-    rowdetails: "<div>{{a.artwork.descriptionMl[translate.currentLang]}}</div>", rowdetailsheight: 50, rowdetailshidden: true
+    rowdetails: "<div>{{a.artwork.descriptionMl[translate.currentLang]}}</div>",
+    rowdetailsheight: 50,
+    rowdetailshidden: true
   };
 
   columns: any[] =

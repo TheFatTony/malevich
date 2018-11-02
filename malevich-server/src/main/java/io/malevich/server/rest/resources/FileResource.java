@@ -1,7 +1,7 @@
 package io.malevich.server.rest.resources;
 
-import io.malevich.server.entity.FileEntity;
-import io.malevich.server.entity.LobStorageEntity;
+import io.malevich.server.domain.FileEntity;
+import io.malevich.server.domain.LobStorageEntity;
 import io.malevich.server.services.file.FileService;
 import io.malevich.server.services.lobstorage.LobStorageService;
 import io.malevich.server.transfer.FileDto;

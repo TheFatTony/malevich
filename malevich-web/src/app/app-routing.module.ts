@@ -36,6 +36,7 @@ import {AddComponent as GalleryProfileArtworkStockAddComponent} from "./profile/
 import {EditComponent as GalleryProfileArtworkStockEditComponent} from "./profile/gallery-profile/artwork-stock/edit/edit.component";
 import {OrdersComponent as TraderProfileOrdersComponent} from "./profile/trader-profile/orders/orders.component";
 import {ArtworkStockComponent as TraderProfileArtworkStockComponent} from "./profile/trader-profile/artwork-stock/artwork-stock.component";
+import {PageNotFoundComponent} from "./page-not-found/page-not-found.component";
 
 const routes: Routes = [
   {path: '', redirectTo: '/main-page', pathMatch: 'full'},
@@ -79,7 +80,8 @@ const routes: Routes = [
   {path: 'artists/artists-detail/:id', component: ArtistsDetailComponent},
   {
     path: 'admin', component: AdminComponent, children: adminRoutes, canActivate: [AdminGuard]
-  }
+  },
+  { path: '**', component: PageNotFoundComponent }
 ];
 
 @NgModule({

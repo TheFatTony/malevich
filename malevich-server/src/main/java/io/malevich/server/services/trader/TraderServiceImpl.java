@@ -5,6 +5,7 @@ import io.malevich.server.repositories.trader.TraderDao;
 import io.malevich.server.domain.TraderEntity;
 import io.malevich.server.domain.UserEntity;
 import io.malevich.server.services.user.UserService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -15,6 +16,8 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
+
+@Slf4j
 @Service
 public class TraderServiceImpl implements TraderService {
 

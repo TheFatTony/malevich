@@ -5,6 +5,7 @@ import io.malevich.server.repositories.user.UserDao;
 import io.malevich.server.domain.AccessTokenEntity;
 import io.malevich.server.domain.UserEntity;
 import io.malevich.server.services.accesstoken.AccessTokenService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -13,6 +14,8 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
+
+@Slf4j
 @Service
 public class UserServiceImpl implements UserService {
 

@@ -12,6 +12,7 @@ import io.malevich.server.services.usertype.UserTypeService;
 import io.malevich.server.transfer.AccessTokenDto;
 import io.malevich.server.transfer.LoginFormDto;
 import io.malevich.server.transfer.UserDto;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.velocity.VelocityContext;
 import org.apache.velocity.app.VelocityEngine;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,6 +31,8 @@ import org.springframework.transaction.annotation.Transactional;
 import java.io.StringWriter;
 import java.util.*;
 
+
+@Slf4j
 @Service
 public class AuthServiceImpl implements AuthService {
 

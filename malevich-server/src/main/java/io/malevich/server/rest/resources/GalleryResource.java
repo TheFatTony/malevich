@@ -6,6 +6,7 @@ import io.malevich.server.transfer.GalleryDto;
 import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
@@ -27,12 +28,16 @@ public class GalleryResource {
 
 
     @RequestMapping(value = "/list", method = RequestMethod.GET)
+    @ResponseStatus(HttpStatus.OK)
+    @ResponseBody
     public List<GalleryDto> list() {
         List<GalleryEntity> allEntries = this.galleryService.findAll();
         return allEntries.stream().map(allEntry -> convertToDto(allEntry)).collect(Collectors.toList());
     }
 
     @RequestMapping(value = "/item/{id}", method = RequestMethod.GET)
+    @ResponseStatus(HttpStatus.OK)
+    @ResponseBody
     public GalleryDto item(@PathVariable("id") long id) {
         GalleryEntity allEntry = this.galleryService.find(id);
         return convertToDto(allEntry);
@@ -40,6 +45,8 @@ public class GalleryResource {
 
     @PreAuthorize("hasRole('GALLERY')")
     @RequestMapping(value = "/current", method = RequestMethod.GET)
+    @ResponseStatus(HttpStatus.OK)
+    @ResponseBody
     public GalleryDto current() {
         log.info("happy");
         GalleryEntity allEntry = this.galleryService.getCurrent();

@@ -3,6 +3,7 @@ package io.malevich.server.services.tradehistory;
 import io.malevich.server.repositories.tradehistory.TradeHistoryDao;
 import io.malevich.server.domain.OrderEntity;
 import io.malevich.server.domain.TradeHistoryEntity;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -11,6 +12,7 @@ import java.sql.Timestamp;
 import java.util.List;
 
 
+@Slf4j
 @Service
 public class TradeHistoryServiceImpl implements TradeHistoryService {
 

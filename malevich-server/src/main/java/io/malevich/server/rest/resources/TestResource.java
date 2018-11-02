@@ -1,10 +1,10 @@
 package io.malevich.server.rest.resources;
 
 
-import io.malevich.server.repositories.accesstoken.AccessTokenDao;
-import io.malevich.server.repositories.user.UserDao;
 import io.malevich.server.domain.AccessTokenEntity;
 import io.malevich.server.domain.ArtworkEntity;
+import io.malevich.server.repositories.accesstoken.AccessTokenDao;
+import io.malevich.server.repositories.user.UserDao;
 import io.malevich.server.services.artwork.ArtworkService;
 import io.malevich.server.services.mailqueue.MailQueueService;
 import io.malevich.server.transfer.ArtworkDto;

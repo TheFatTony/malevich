@@ -4,23 +4,20 @@ import io.malevich.server.domain.CategoryEntity;
 import io.malevich.server.services.category.CategoryService;
 import io.malevich.server.transfer.CategoryDto;
 import io.malevich.server.transfer.FileDto;
+import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
 
+@Slf4j
 @RestController
 @RequestMapping(value = "/categories")
 public class CategoryResource {
-
-    private Logger logger = LoggerFactory.getLogger(this.getClass());
 
     @Autowired
     private CategoryService categoryService;
@@ -31,8 +28,9 @@ public class CategoryResource {
 
     //    @PreAuthorize("hasRole('ADMIN')")
     @RequestMapping(value = "/list", method = RequestMethod.GET)
+    @ResponseStatus(HttpStatus.OK)
+    @ResponseBody
     public List<CategoryDto> list() {
-        this.logger.info("list()");
         List<CategoryEntity> allEntries = this.categoryService.findAll();
         return allEntries.stream().map(allEntry -> convertToDto(allEntry)).collect(Collectors.toList());
     }

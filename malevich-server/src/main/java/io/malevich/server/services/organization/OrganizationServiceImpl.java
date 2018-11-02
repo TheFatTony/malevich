@@ -3,6 +3,7 @@ package io.malevich.server.services.organization;
 
 import io.malevich.server.repositories.organization.OrganizationDao;
 import io.malevich.server.domain.OrganizationEntity;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -10,6 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 
 
+@Slf4j
 @Service
 public class OrganizationServiceImpl implements OrganizationService {
 

@@ -8,9 +8,6 @@
             <column name="id" type="char(1)">
                 <constraints nullable="false"/>
             </column>
-            <column name="name" type="varchar(400)">
-                <constraints nullable="false"/>
-            </column>
         </createTable>
     </changeSet>
 

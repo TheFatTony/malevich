@@ -9,6 +9,5 @@ import java.util.Map;
 @Setter
 public class CountryDto {
     private String id;
-    private String name;
     private Map<String, String> nameMl;
 }

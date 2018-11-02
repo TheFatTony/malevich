@@ -8,9 +8,6 @@
             <column name="id" type="bigint">
                 <constraints nullable="false"/>
             </column>
-            <column name="category_name" type="varchar(400)">
-                <constraints nullable="false"/>
-            </column>
             <column name="description" type="clob"/>
         </createTable>
         <modifySql dbms="mysql">

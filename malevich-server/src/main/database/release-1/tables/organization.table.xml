@@ -8,9 +8,6 @@
             <column name="id" type="bigint">
                 <constraints nullable="false"/>
             </column>
-            <column name="legal_name" type="varchar(1000)">
-                <constraints nullable="false"/>
-            </column>
             <column name="phone_number" type="varchar(4000)"/>
         </createTable>
     </changeSet>

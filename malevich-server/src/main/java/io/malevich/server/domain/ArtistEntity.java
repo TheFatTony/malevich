@@ -30,11 +30,6 @@ public class ArtistEntity implements Entity {
 
     @Getter
     @Setter
-    @Column(name = "description")
-    private String description;
-
-    @Getter
-    @Setter
     @Fetch(FetchMode.JOIN)
     @ManyToOne
     private FileEntity thumbnail;

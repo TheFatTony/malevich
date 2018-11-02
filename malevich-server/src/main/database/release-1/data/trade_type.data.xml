@@ -5,10 +5,10 @@
 
     <changeSet author="thefattony" id="trade_type-data" dbms="mysql">
         <sql endDelimiter="\nGO" splitStatements="true" stripComments="true">
-            INSERT INTO trade_type (id, name, name_ml)
-            VALUES ('GTD_', 'Good till date', JSON_OBJECT('en', 'Good till date', 'ru', 'Good till date')),
-                   ('GTC_', 'Good till cancel', JSON_OBJECT('en', 'Good till cancel', 'ru', 'Good till cancel')),
-                   ('GTT0', 'Good till end of the day', JSON_OBJECT('en', 'Good till end of the day', 'ru', 'Good till end of the day'));
+            INSERT INTO trade_type (id, name_ml)
+            VALUES ('GTD_', JSON_OBJECT('en', 'Good till date', 'ru', 'Good till date')),
+                   ('GTC_', JSON_OBJECT('en', 'Good till cancel', 'ru', 'Good till cancel')),
+                   ('GTT0', JSON_OBJECT('en', 'Good till end of the day', 'ru', 'Good till end of the day'));
         </sql>
     </changeSet>
 

@@ -3,8 +3,4 @@
                    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
                    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.6.xsd">
 
-    <changeSet author="thefattony" id="counterparty_type-name-uc">
-        <addUniqueConstraint columnNames="name" constraintName="counterparty_type_name_uc" tableName="counterparty_type"/>
-    </changeSet>
-
 </databaseChangeLog>

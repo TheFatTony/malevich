@@ -5,10 +5,10 @@
 
     <changeSet author="thefattony" id="counterparty_type-data" dbms="mysql">
         <sql endDelimiter="\nGO" splitStatements="true" stripComments="true">
-            INSERT INTO counterparty_type (id, name, name_ml)
-            VALUES ('T', 'Trader', JSON_OBJECT('en', 'Trader', 'ru', 'Trader')),
-                   ('G', 'Gallery', JSON_OBJECT('en', 'Gallery', 'ru', 'Gallery')),
-                   ('X', 'Malevich', JSON_OBJECT('en', 'Malevich', 'ru', 'Malevich'));
+            INSERT INTO counterparty_type (id, name_ml)
+            VALUES ('T', JSON_OBJECT('en', 'Trader', 'ru', 'Trader')),
+                   ('G', JSON_OBJECT('en', 'Gallery', 'ru', 'Gallery')),
+                   ('X', JSON_OBJECT('en', 'Malevich', 'ru', 'Malevich'));
         </sql>
     </changeSet>
 

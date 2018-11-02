@@ -23,11 +23,6 @@ public class CategoryEntity implements Entity {
 
     @Getter
     @Setter
-    @Column(name = "category_name")
-    private String categoryName;
-
-    @Getter
-    @Setter
     @Column(name = "description")
     private String description;
 

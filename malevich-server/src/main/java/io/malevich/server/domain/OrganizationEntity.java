@@ -22,11 +22,6 @@ public class OrganizationEntity implements Entity {
 
     @Getter
     @Setter
-    @Column(name = "legal_name")
-    private String legalName;
-
-    @Getter
-    @Setter
     @Column(name = "phone_number")
     private String phoneNumber;
 

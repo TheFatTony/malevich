@@ -8,8 +8,9 @@ import java.util.Map;
 @Getter
 @Setter
 public class GenderDto {
+
     private String id;
-    private String name;
+
     private Map<String, String> nameMl;
 }
 

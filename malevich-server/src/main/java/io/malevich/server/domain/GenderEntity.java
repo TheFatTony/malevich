@@ -25,10 +25,6 @@ public class GenderEntity implements Entity {
 
     @Getter
     @Setter
-    private String name;
-
-    @Getter
-    @Setter
     @Convert(converter = JpaConverterJson.class)
     @Column(name = "name_ml")
     private Map<String, String> nameMl;

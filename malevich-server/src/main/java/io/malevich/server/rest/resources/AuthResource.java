@@ -20,9 +20,6 @@ public class AuthResource {
     @Autowired
     private AuthService authService;
 
-    @Autowired
-    private ModelMapper modelMapper;
-
     @PreAuthorize("hasRole('USER')")
     @RequestMapping(method = RequestMethod.GET)
     @ResponseStatus(HttpStatus.OK)
@@ -49,10 +46,7 @@ public class AuthResource {
     @RequestMapping(value = "/register/{token}", method = RequestMethod.POST)
     @ResponseStatus(HttpStatus.OK)
     @ResponseBody
-    public ResponseEntity<String> register(
-            @RequestBody PasswordDto resetDto,
-            @PathVariable("token") String token
-    ) {
+    public ResponseEntity<String> register(@RequestBody PasswordDto resetDto, @PathVariable("token") String token) {
         authService.register2(token, resetDto.getPassword());
         return ResponseEntity.ok().body("password set");
     }

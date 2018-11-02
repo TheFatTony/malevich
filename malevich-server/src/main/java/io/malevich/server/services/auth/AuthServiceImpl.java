@@ -91,11 +91,10 @@ public class AuthServiceImpl implements AuthService {
     }
 
     @Override
-    @Transactional
     public AccessTokenDto authenticate(LoginFormDto loginFormDto) {
         UsernamePasswordAuthenticationToken authenticationToken =
                 new UsernamePasswordAuthenticationToken(loginFormDto.getUsername(), loginFormDto.getPassword());
-
+        SecurityContextHolder.getContext().setAuthentication(authenticationToken);
         Authentication authentication = this.authenticationManager.authenticate(authenticationToken);
         return new AccessTokenDto(this.createAccessToken((UserEntity) authentication.getPrincipal()).getToken());
     }

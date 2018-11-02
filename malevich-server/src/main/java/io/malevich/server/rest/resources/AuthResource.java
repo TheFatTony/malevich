@@ -4,7 +4,6 @@ package io.malevich.server.rest.resources;
 import io.malevich.server.services.auth.AuthService;
 import io.malevich.server.transfer.*;
 import lombok.extern.slf4j.Slf4j;
-import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -60,10 +59,7 @@ public class AuthResource {
     }
 
     @RequestMapping(value = "/reset/{token}", method = RequestMethod.POST)
-    public ResponseEntity<String> reset(
-            @RequestBody PasswordDto resetDto,
-            @PathVariable("token") String token
-    ) {
+    public ResponseEntity<String> reset(@RequestBody PasswordDto resetDto, @PathVariable("token") String token) {
         authService.setNewPassword(token, resetDto.getPassword());
         return ResponseEntity.ok().body("password set");
     }

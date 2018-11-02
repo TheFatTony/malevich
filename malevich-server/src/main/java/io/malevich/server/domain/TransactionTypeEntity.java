@@ -23,11 +23,6 @@ public class TransactionTypeEntity implements Entity {
 
     @Getter
     @Setter
-    @Column(name = "name")
-    private String name;
-
-    @Getter
-    @Setter
     @Convert(converter = JpaConverterJson.class)
     @Column(name = "name_ml")
     private Map<String, String> nameMl;

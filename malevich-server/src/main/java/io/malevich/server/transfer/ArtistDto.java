@@ -14,8 +14,6 @@ public class ArtistDto {
 
     private PersonDto person;
 
-    private String description;
-
     private FileDto thumbnail;
 
     private FileDto image;

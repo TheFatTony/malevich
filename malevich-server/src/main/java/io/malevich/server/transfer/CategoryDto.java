@@ -12,8 +12,6 @@ public class CategoryDto {
 
     private Long id;
 
-    private String categoryName;
-
     private String description;
 
     private Map<String, String> categoryNameMl;

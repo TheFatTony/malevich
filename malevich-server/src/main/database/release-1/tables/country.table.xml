@@ -8,13 +8,7 @@
             <column name="id" type="char(2)">
                 <constraints nullable="false"/>
             </column>
-            <column name="name" type="varchar(400)">
-                <constraints nullable="false"/>
-            </column>
         </createTable>
-        <modifySql dbms="mysql">
-            <replace replace="clob" with="longtext"/>
-        </modifySql>
     </changeSet>
 
     <changeSet author="thefattony" id="country-table-ml" dbms="mysql">

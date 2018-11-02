@@ -13,8 +13,6 @@ public class TradeTypeDto {
 
     private String id;
 
-    private String name;
-
     private Map<String, String> nameMl;
 
 }

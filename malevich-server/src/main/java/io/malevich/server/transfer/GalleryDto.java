@@ -14,8 +14,6 @@ public class GalleryDto {
 
     private OrganizationDto organization;
 
-    private String description;
-
     private FileDto thumbnail;
 
     private FileDto image;

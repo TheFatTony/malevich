@@ -33,11 +33,6 @@ public class GalleryEntity implements Entity {
 
     @Getter
     @Setter
-    @Column(name = "description")
-    private String description;
-
-    @Getter
-    @Setter
     @Fetch(FetchMode.JOIN)
     @ManyToOne(cascade = CascadeType.MERGE)
     private FileEntity thumbnail;

@@ -26,9 +26,6 @@
 			</column>
 			<column name="thumbnail_id" type="bigint"/>
 		</createTable>
-		<modifySql dbms="mysql">
-			<replace replace="clob" with="longtext"/>
-		</modifySql>
 	</changeSet>
 
 	<changeSet author="thefattony" id="trader-pk">

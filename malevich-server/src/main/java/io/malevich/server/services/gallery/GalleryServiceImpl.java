@@ -60,7 +60,6 @@ public class GalleryServiceImpl implements GalleryService {
     public GalleryEntity update(GalleryEntity newEntity) {
         GalleryEntity traderEntity = getCurrent();
         traderEntity.setAddresses(newEntity.getAddresses());
-        traderEntity.setDescription(newEntity.getDescription());
         traderEntity.setDescriptionMl(newEntity.getDescriptionMl());
         traderEntity.setOrganization(newEntity.getOrganization());
         traderEntity.setImage(newEntity.getImage());

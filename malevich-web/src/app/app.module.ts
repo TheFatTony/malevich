@@ -146,6 +146,7 @@ import {AddComponent as GalleryProfileArtworkStockAddComponent} from './profile/
 import {EditComponent as GalleryProfileArtworkStockEditComponent} from './profile/gallery-profile/artwork-stock/edit/edit.component';
 import {OrdersComponent as TraderProfileOrdersComponent} from "./profile/trader-profile/orders/orders.component";
 import {ArtworkStockComponent as TraderProfileArtworkStockComponent} from "./profile/trader-profile/artwork-stock/artwork-stock.component";
+import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 
 export function createTranslateLoader(http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
@@ -205,7 +206,8 @@ export function createTranslateLoader(http: HttpClient) {
     GalleryProfileArtworkStockAddComponent,
     GalleryProfileArtworkStockEditComponent,
     TraderProfileOrdersComponent,
-    TraderProfileArtworkStockComponent
+    TraderProfileArtworkStockComponent,
+    PageNotFoundComponent
   ],
   imports: [
     BrowserModule,

@@ -1,15 +1,18 @@
 import {AfterViewInit, Component, ElementRef, Inject, Input, LOCALE_ID, OnInit, ViewChild} from '@angular/core';
 import {TraderDto} from "../../../_transfer/traderDto";
-import {CountryDto} from "../../../_transfer/countryDto";
 import {TranslateService} from "@ngx-translate/core";
 import {TraderService} from "../../../_services/trader.service";
 import {CountryService} from "../../../_services/country.service";
 import {AuthService} from "../../../_services";
 import {AddressDto} from "../../../_transfer/addressDto";
 import {PersonDto} from "../../../_transfer";
-import {GenderDto} from "../../../_transfer/genderDto";
 import {GenderService} from "../../../_services/gender.service";
 import {Router} from "@angular/router";
+
+import {jqxComboBoxComponent} from "jqwidgets-scripts/jqwidgets-ts/angular_jqxcombobox";
+import {jqxDateTimeInputComponent} from 'jqwidgets-scripts/jqwidgets-ts/angular_jqxdatetimeinput';
+import {forkJoin} from "rxjs";
+import {first, map, mergeMap} from "rxjs/operators";
 
 @Component({
   selector: 'trader-profile-security-edit',
@@ -19,13 +22,15 @@ import {Router} from "@angular/router";
 export class EditComponent implements OnInit, AfterViewInit {
 
   trader: TraderDto;
-  countries: CountryDto[];
-  genders: GenderDto[];
+  countries: any[];
+  genders: any[];
 
   @Inject(LOCALE_ID) public locale: string;
 
-  @ViewChild ('mobileInput') mobileInput: ElementRef;
-  @ViewChild ('dateOfBirthInput') dateOfBirthInput: ElementRef;
+  @ViewChild('genderComboBox') genderComboBox: jqxComboBoxComponent;
+  @ViewChild('countryComboBox') countryComboBox: jqxComboBoxComponent;
+  @ViewChild('addressCountryComboBox') addressCountryComboBox: jqxComboBoxComponent;
+  @ViewChild('dateOfBirthInput') dateOfBirthInput: jqxDateTimeInputComponent;
 
   constructor(private router: Router,
               public translate: TranslateService,
@@ -40,59 +45,56 @@ export class EditComponent implements OnInit, AfterViewInit {
   }
 
   ngOnInit() {
-    this.getCurrentTrader();
-    this.getCountries();
-    this.getGenders();
+    this.initFields();
   }
 
   ngAfterViewInit(): void {
-    $['HSCore'].components.HSSelect.init('.js-custom-select');
-    $['HSCore'].components.HSMaskedInput.init('[data-mask]');
-    $['HSCore'].components.HSModalWindow.init('[data-modal-target]');
-    $['HSCore'].components.HSDatepicker.init('#datepickerDefault');
-
-    $(this.mobileInput.nativeElement).on('change', (e) => {
-      this.trader.mobile = e.target.value;
-    });
-
-    $(this.dateOfBirthInput.nativeElement).on('change', (e) => {
-      console.log(typeof e.target.constructor.name);
-      this.trader.dateOfBirth = e.target.value;
-    });
   }
 
-  getCurrentTrader(): void {
-    this.traderService
-      .getTrader()
-      .subscribe(
-        data => {
-          if (data)
-            this.trader = data;
+  initFields() {
+    // ensure trader is requested after countries and genders
+    forkJoin(this.countryService.getCountries(), this.genderService.getGenders())
+      .pipe(mergeMap(results => {
+        this.countries = results[0].map(i => ({
+          title: i.nameMl[this.translate.currentLang],
+          value: i
+        }));
+
+        this.genders = results[1].map(i => ({
+          title: i.nameMl[this.translate.currentLang],
+          value: i
+        }));
+
+        return this.traderService.getTrader();
+      }))
+      .pipe(map(data => {
+        if (!data)
+          return;
+
+        this.trader = data;
+
+        if (data.gender) {
+          let genderIndex = this.genders.findIndex(value => value.value.id == data.gender.id);
+          this.genderComboBox.selectIndex(genderIndex);
         }
-      );
+
+        if (data.country) {
+          let countryIndex = this.countries.findIndex(value => value.value.id == data.country.id);
+          this.countryComboBox.selectIndex(countryIndex);
+        }
+
+        if (data.addresses && data.addresses.length > 0 && data.addresses[0].country) {
+          let countryIndex = this.countries.findIndex(value => value.value.id == data.addresses[0].country.id);
+          this.addressCountryComboBox.selectIndex(countryIndex);
+        }
+      }))
+      .subscribe();
   }
 
-  getCountries(): void {
-    this.countryService
-      .getCountries()
-      .subscribe(
-        data => (this.countries = data)
-      );
-  }
-
-  getGenders(): void {
-    this.genderService
-      .getGenders()
-      .subscribe(
-        data => (this.genders = data)
-      );
-  }
-
-  update() : void {
-    this.trader.mobile = $('#mobile').val().toString();
-    this.trader.dateOfBirth = new Date($('#datepickerDefault').val().toString().split('.').reverse().join('-'));
+  update(): void {
+    this.trader.dateOfBirth = new Date(this.dateOfBirthInput.getText().split('/').reverse().join('-'));
+    console.info(this.trader);
     this.traderService.update(this.trader);
-    this.router.navigate(['/profile/trader/view'])
+    this.router.navigate(['/profile/trader/view']);
   }
-
 }

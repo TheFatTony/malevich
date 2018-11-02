@@ -7,6 +7,7 @@ import io.malevich.server.domain.UserEntity;
 import io.malevich.server.services.accesstoken.AccessTokenService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -28,7 +29,10 @@ public class UserServiceImpl implements UserService {
     @Override
     @Transactional(readOnly = true)
     public UserDetails loadUserByUsername(String username) {
-        return this.userDao.findByName(username);
+        UserDetails ud = this.userDao.findByName(username);
+        if (ud == null)
+            throw new UsernameNotFoundException("User not found");
+        return ud;
     }
 
     @Transactional

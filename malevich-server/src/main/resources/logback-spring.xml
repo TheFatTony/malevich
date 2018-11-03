@@ -12,7 +12,7 @@
         </layout>
     </appender>
 
-    <springProfile name="local">
+    <springProfile name="dev">
         <root level="info">
             <appender-ref ref="Console" />
         </root>
@@ -22,7 +22,7 @@
         </logger>
     </springProfile>
 
-    <springProfile name="dev">
+    <springProfile name="test">
         <appender name="RollingFile"
                   class="ch.qos.logback.core.rolling.RollingFileAppender">
             <file>${LOGS}/spring-boot-logger.log</file>

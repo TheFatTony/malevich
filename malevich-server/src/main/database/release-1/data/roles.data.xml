@@ -4,7 +4,7 @@
                    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.6.xsd">
 
     <changeSet author="thefattony" id="user_type-data">
-        <sql endDelimiter="\nGO" splitStatements="true" stripComments="true">
+        <sql splitStatements="true" stripComments="true">
             insert into roles (id, role_name)
             values (0, 'Admin'),
                    (1, 'User'),

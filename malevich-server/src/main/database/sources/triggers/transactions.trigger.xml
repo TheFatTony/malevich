@@ -4,24 +4,28 @@
                    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.6.xsd">
 
     <changeSet author="thefattony" id="transactions-update-trigger" runOnChange="true">
-        <sql endDelimiter="$$">
+        <sql endDelimiter="$$" splitStatements="false" stripComments="false">
+            --delimiter $$
             CREATE TRIGGER transactions_u_trg AFTER UPDATE ON transactions
             FOR EACH ROW
             BEGIN
                 SIGNAL SQLSTATE '45000'
                 SET MESSAGE_TEXT = 'update is not permitted';
-            END
+            END$$
+            --delimiter ;
         </sql>
     </changeSet>
 
     <changeSet author="thefattony" id="transactions-delete-trigger" runOnChange="true">
-        <sql endDelimiter="$$">
+        <sql endDelimiter="$$" splitStatements="false" stripComments="false">
+            --delimiter $$
             CREATE TRIGGER transactions_d_trg AFTER DELETE ON transactions
             FOR EACH ROW
             BEGIN
                 SIGNAL SQLSTATE '45000'
                 SET MESSAGE_TEXT = 'delete is not permitted';
-            END
+            END$$
+            --delimiter ;
         </sql>
     </changeSet>
 

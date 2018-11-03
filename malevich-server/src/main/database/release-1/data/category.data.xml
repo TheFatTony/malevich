@@ -4,7 +4,7 @@
                    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.6.xsd">
 
     <changeSet author="thefattony" id="category-data" dbms="mysql">
-        <sql endDelimiter="\nGO" splitStatements="true" stripComments="true">
+        <sql splitStatements="true" stripComments="true">
             INSERT INTO category (id, description, category_name_ml)
             VALUES (1, '', JSON_OBJECT('en', 'Painting', 'ru', 'Картина')),
                    (2, '', JSON_OBJECT('en', 'Sculpture', 'ru', 'Скульптура')),

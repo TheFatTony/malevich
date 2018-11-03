@@ -4,7 +4,7 @@
                    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.6.xsd">
 
     <changeSet author="thefattony" id="order_type-data" dbms="mysql">
-        <sql endDelimiter="\nGO" splitStatements="true" stripComments="true">
+        <sql splitStatements="true" stripComments="true">
             INSERT INTO order_type (id, name_ml)
             VALUES ('BID', JSON_OBJECT('en', 'Bid', 'ru', 'Bid')),
                    ('ASK', JSON_OBJECT('en', 'Ask', 'ru', 'Ask'));

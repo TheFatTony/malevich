@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
 import {HttpClient} from "@angular/common/http";
-import {environment} from "../../environments/environment";
+import {environment} from "../../environments/environment.dev";
 import {first, map} from "rxjs/operators";
 import {AddressDto} from "../_transfer/addressDto";
 import {AlertService} from "./alert.service";

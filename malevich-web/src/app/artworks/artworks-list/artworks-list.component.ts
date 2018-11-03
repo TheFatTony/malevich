@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {environment} from "../../../environments/environment";
+import {environment} from "../../../environments/environment.dev";
 import {TranslateService} from "@ngx-translate/core";
 import {ArtworkStockService} from "../../_services/artwork-stock.service";
 import {ArtworkStockDto} from "../../_transfer/artworkStockDto";

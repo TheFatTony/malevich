@@ -4,7 +4,7 @@
                    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.6.xsd">
 
     <changeSet author="thefattony" id="trade_type-data" dbms="mysql">
-        <sql endDelimiter="\nGO" splitStatements="true" stripComments="true">
+        <sql splitStatements="true" stripComments="true">
             INSERT INTO trade_type (id, name_ml)
             VALUES ('GTD_', JSON_OBJECT('en', 'Good till date', 'ru', 'Good till date')),
                    ('GTC_', JSON_OBJECT('en', 'Good till cancel', 'ru', 'Good till cancel')),

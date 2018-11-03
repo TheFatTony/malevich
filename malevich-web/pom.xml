@@ -4,10 +4,15 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
 
-  <groupId>io.malevich</groupId>
+
   <artifactId>malevich-web</artifactId>
-  <version>0.0.1-SNAPSHOT</version>
   <packaging>war</packaging>
+
+  <parent>
+    <groupId>io.malevich</groupId>
+    <artifactId>malevich</artifactId>
+    <version>1.0-SNAPSHOT</version>
+  </parent>
 
   <name>malevich-web</name>
   <description>Project Angular 2</description>
@@ -45,7 +50,7 @@
               <arguments>
                 <argument>run</argument>
                 <argument>build</argument>
-                <argument>--prod</argument>
+                <argument>-c=${build.profile.id}</argument>
               </arguments>
             </configuration>
             <goals>

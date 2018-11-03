@@ -1,5 +1,5 @@
 import {AfterViewInit, Component, HostListener, OnInit, ViewChild} from '@angular/core';
-import {environment} from "../../../environments/environment";
+import {environment} from "../../../environments/environment.dev";
 import {TranslateService} from "@ngx-translate/core";
 import {ActivatedRoute, Params} from "@angular/router";
 import {OrderDto} from "../../_transfer/orderDto";

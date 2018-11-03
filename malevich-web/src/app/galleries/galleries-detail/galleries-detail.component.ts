@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {GalleryDto} from "../../_transfer";
-import {environment} from "../../../environments/environment";
+import {environment} from "../../../environments/environment.dev";
 import {ActivatedRoute, Params} from "@angular/router";
 import {TranslateService} from "@ngx-translate/core";
 import {GalleryService} from "../../_services/gallery.service";

@@ -2,7 +2,7 @@ import {Component, HostListener, OnInit, ViewChild} from '@angular/core';
 import {ArtworkStockService} from "../../../_services/artwork-stock.service";
 import {TranslateService} from "@ngx-translate/core";
 import {ArtworkStockDto} from "../../../_transfer/artworkStockDto";
-import {environment} from "../../../../environments/environment";
+import {environment} from "../../../../environments/environment.dev";
 import {ArtworkService} from "../../../_services/artwork.service";
 import {ArtworkDto, GalleryDto} from "../../../_transfer";
 import {jqxGridComponent} from "jqwidgets-scripts/jqwidgets-ts/angular_jqxgrid";

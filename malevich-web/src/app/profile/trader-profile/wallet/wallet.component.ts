@@ -29,7 +29,6 @@ export class WalletComponent implements OnInit {
   }
 
   sendButton() {
-    console.info(this.newPayment);
     this.paymentsService.insert(this.newPayment).subscribe(() => {
       this.myWindow.close();
       this.getTraderAccountState();

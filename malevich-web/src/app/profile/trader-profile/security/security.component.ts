@@ -39,7 +39,6 @@ export class SecurityComponent implements OnInit, AfterViewInit {
     });
 
     $(this.dateOfBirthInput.nativeElement).on('change', (e) => {
-      console.log(typeof e.target.constructor.name);
       this.trader.dateOfBirth = e.target.value;
     });
   }

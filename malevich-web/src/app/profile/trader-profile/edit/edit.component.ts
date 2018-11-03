@@ -93,7 +93,6 @@ export class EditComponent implements OnInit, AfterViewInit {
 
   update(): void {
     this.trader.dateOfBirth = new Date(this.dateOfBirthInput.getText().split('/').reverse().join('-'));
-    console.info(this.trader);
     this.traderService.update(this.trader);
     this.router.navigate(['/profile/trader/view']);
   }

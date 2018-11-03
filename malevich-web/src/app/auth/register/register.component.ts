@@ -27,7 +27,6 @@ export class RegisterComponent implements OnInit, AfterViewInit {
     this.getInvolvementCounters();
 
     this.activationCode = this.route.snapshot.queryParams['token'];
-    console.info("this.activationCode = " + this.activationCode);
     if (this.activationCode != undefined) {
       this.isSecondStep = true;
     }

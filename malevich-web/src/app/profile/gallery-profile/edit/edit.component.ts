@@ -61,7 +61,6 @@ export class EditComponent implements OnInit, AfterViewInit {
 
         if (data.addresses && data.addresses.length > 0 && data.addresses[0].country) {
           this.selectedAddressIndex = this.countries.findIndex(value => value.value.id == data.addresses[0].country.id);
-          //console.info(this.addressCountryComboBox);
           //this.addressCountryComboBox.selectIndex(countryIndex);
         }
       }))

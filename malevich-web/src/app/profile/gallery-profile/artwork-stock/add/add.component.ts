@@ -69,7 +69,6 @@ export class AddComponent implements OnInit {
             })
           );
 
-          // console.info(this.addArtWorkComboBoxSource);
         }
       );
   }
@@ -106,8 +105,6 @@ export class AddComponent implements OnInit {
   }
 
   onArtworkComboBoxChange($event) {
-    // console.info($event);
-
     if (!$event)
       return;
 
@@ -119,7 +116,6 @@ export class AddComponent implements OnInit {
     let categoryIndex = this.categories.findIndex(value => value.value.id == this.artwork.category.id);
     this.categoryComboBox.selectIndex(categoryIndex);
 
-    // console.info(this.artwork);
     this.addArtWorkComboBox.disabled(true);
   }
 
@@ -128,8 +124,6 @@ export class AddComponent implements OnInit {
   }
 
   onArtistComboBoxChange($event) {
-    // console.info($event);
-
     if (!$event)
       return;
 

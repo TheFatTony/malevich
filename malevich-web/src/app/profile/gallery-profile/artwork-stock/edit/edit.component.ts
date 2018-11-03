@@ -92,8 +92,6 @@ export class EditComponent implements OnInit {
   }
 
   onArtistComboBoxChange($event) {
-    // console.info($event);
-
     if (!$event)
       return;
 

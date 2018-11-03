@@ -127,7 +127,6 @@ export class ArtworkStockComponent implements OnInit {
   }
 
   addButton() {
-    console.info(this.addArtworkStock);
     this.artworkStockService.addArtworkStock(this.addArtworkStock)
       .subscribe(data => (this.getArtworkStock()));
   }

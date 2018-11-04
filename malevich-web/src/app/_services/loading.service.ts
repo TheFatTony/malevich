@@ -11,12 +11,10 @@ export class LoadingService {
   }
 
   public hide(): void {
-    console.info("this.loading = false;");
     this.loading = false;
   }
 
   public show(): void {
-    console.info("this.loading = true;");
     this.loading = true;
   }
 

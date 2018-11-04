@@ -15,8 +15,6 @@ export class JwtInterceptor implements HttpInterceptor {
   }
 
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-
-    console.info(`intercept ${request.url}`);
     this.showLoader();
 
     // if we already have a content-type, do not

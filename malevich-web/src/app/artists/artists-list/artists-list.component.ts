@@ -1,6 +1,6 @@
 import {AfterViewInit, Component, OnInit} from '@angular/core';
 import {ArtistDto} from "../../_transfer";
-import {environment} from "../../../environments/environment";
+import {environment} from "../../../environments/environment.dev";
 import {TranslateService} from "@ngx-translate/core";
 import {ArtistService} from "../../_services/artist.service";
 

@@ -4,10 +4,14 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 
-	<groupId>io.malevich.server</groupId>
 	<artifactId>malevich-server</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
 	<packaging>war</packaging>
+
+    <parent>
+        <groupId>io.malevich</groupId>
+        <artifactId>malevich</artifactId>
+        <version>1.0-SNAPSHOT</version>
+    </parent>
 
 	<name>malevich-server</name>
 	<description>Malevich Server</description>
@@ -221,35 +225,6 @@
 		</dependency>
 
     </dependencies>
-
-
-	<profiles>
-		<profile>
-			<id>dev</id>
-			<activation>
-				<activeByDefault>false</activeByDefault>
-			</activation>
-			<properties>
-				<build.profile.id>dev</build.profile.id>
-			</properties>
-		</profile>
-		<profile>
-			<id>prod</id>
-			<properties>
-				<activeByDefault>false</activeByDefault>
-				<build.profile.id>prod</build.profile.id>
-			</properties>
-		</profile>
-		<profile>
-			<id>local</id>
-			<activation>
-				<activeByDefault>true</activeByDefault>
-			</activation>
-			<properties>
-				<build.profile.id>local</build.profile.id>
-			</properties>
-		</profile>
-	</profiles>
 
 	<build>
 		<finalName>malevich-srv</finalName>

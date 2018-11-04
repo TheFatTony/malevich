@@ -1,7 +1,7 @@
 import {Component, HostListener, OnInit, ViewChild} from '@angular/core';
 import {TranslateService} from "@ngx-translate/core";
 import {ArtworkStockDto} from "../../../_transfer/artworkStockDto";
-import {environment} from "../../../../environments/environment";
+import {environment} from "../../../../environments/environment.dev";
 import {ArtworkDto, GalleryDto} from "../../../_transfer";
 import {jqxGridComponent} from "jqwidgets-scripts/jqwidgets-ts/angular_jqxgrid";
 import {jqxWindowComponent} from "jqwidgets-scripts/jqwidgets-ts/angular_jqxwindow";
@@ -123,7 +123,6 @@ export class ArtworkStockComponent implements OnInit {
   }
 
   // addButton() {
-  //   console.info(this.addArtworkStock);
   //   this.artworkStockService.addArtworkStock(this.addArtworkStock)
   //     .subscribe(data => (this.getArtworkStock()));
   // }

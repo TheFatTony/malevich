@@ -4,7 +4,7 @@
                    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.6.xsd">
 
     <changeSet author="thefattony" id="country-data" dbms="mysql">
-        <sql endDelimiter="\nGO" splitStatements="true" stripComments="true">
+        <sql splitStatements="true" stripComments="true">
             INSERT INTO country (id, name_ml)
             VALUES ('AU', JSON_OBJECT('en', 'Australia', 'ru', 'Австралия')),
             ('AT', JSON_OBJECT('en', 'Austria', 'ru', 'Австрия')),

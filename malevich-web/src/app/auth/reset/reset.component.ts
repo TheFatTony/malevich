@@ -18,7 +18,6 @@ export class ResetComponent implements OnInit {
 
   ngOnInit() {
     this.activationCode = this.route.snapshot.queryParams['token'];
-    console.info("this.activationCode = " + this.activationCode);
     if (this.activationCode != undefined) {
       this.isSecondStep = true;
     }

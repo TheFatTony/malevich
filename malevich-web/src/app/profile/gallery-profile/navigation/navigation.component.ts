@@ -2,7 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {GalleryDto} from "../../../_transfer";
 import {GalleryService} from "../../../_services/gallery.service";
 import {TranslateService} from "@ngx-translate/core";
-import {environment} from "../../../../environments/environment";
+import {environment} from "../../../../environments/environment.dev";
 
 @Component({
   selector: 'app-profile-gallery-navigation',

@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {environment} from "../../environments/environment";
+import {environment} from "../../environments/environment.dev";
 import {HttpClient} from "@angular/common/http";
 import {AccountStateDto} from "../_transfer/accountStateDto";
 import {ArtworkStockDto} from "../_transfer/artworkStockDto";

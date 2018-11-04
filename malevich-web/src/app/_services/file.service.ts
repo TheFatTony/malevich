@@ -3,7 +3,7 @@ import {HttpClient} from '@angular/common/http';
 import {map} from 'rxjs/operators';
 
 import {FileDto} from '../_transfer';
-import {environment} from '../../environments/environment';
+import {environment} from '../../environments/environment.dev';
 
 @Injectable()
 export class FileService {

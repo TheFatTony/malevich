@@ -1,5 +1,9 @@
 # Malevich
 
+## Profiles explained
+
+dev - local developers enviroment
+
 
 ## Build commands
 

@@ -3,23 +3,23 @@
 
 ## Build commands
 
-**Client:** 
+**web-build-test:** 
 
-mvn resources:resources clean install
+mvn resources:resources clean install -P test
 
-**Server:** 
+**srv-build-test:** 
 
-mvn resources:resources clean package -DskipTests=true
+mvn resources:resources clean install -P test
 
-**Database:** 
+**liquibase:update-test:** 
 
-mvn resources:resources liquibase:dropAll liquibase:update
+mvn resources:resources liquibase:dropAll liquibase:updateSQL -P test
 
 ## Tests
 
 **VM arguments:**
 
--Dspring.profiles.active=local
+-Dspring.profiles.active=dev
 
 
 ## Docker Environment

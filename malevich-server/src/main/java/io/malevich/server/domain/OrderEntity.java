@@ -58,8 +58,9 @@ public class OrderEntity implements Entity {
 
     @Getter
     @Setter
-    @Column(name = "status")
-    private String status;
+    @Fetch(FetchMode.JOIN)
+    @ManyToOne(cascade = CascadeType.MERGE)
+    private OrderStatusEntity status;
 
     @Getter
     @Setter

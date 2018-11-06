@@ -8,11 +8,10 @@ import lombok.Setter;
 import javax.persistence.*;
 import java.util.Map;
 
-
 @EqualsAndHashCode
 @javax.persistence.Entity
-@Table(name = "order_type")
-public class OrderTypeEntity implements Entity {
+@Table(name = "order_status")
+public class OrderStatusEntity implements Entity {
 
     @Getter
     @Setter

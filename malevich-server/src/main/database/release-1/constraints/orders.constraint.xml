@@ -27,4 +27,10 @@
                                  referencedColumnNames="id" referencedTableName="trade_type"/>
     </changeSet>
 
+    <changeSet author="toolstik" id="orders-status_id-fk">
+        <addForeignKeyConstraint baseColumnNames="status_id" baseTableName="orders"
+                                 constraintName="orders_status_fk"
+                                 referencedColumnNames="id" referencedTableName="order_status"/>
+    </changeSet>
+
 </databaseChangeLog>

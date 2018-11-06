@@ -11,6 +11,7 @@
     <include relativeToChangelogFile="true" file="data/category.data.xml"/>
     <include relativeToChangelogFile="true" file="data/transaction_type.data.xml"/>
     <include relativeToChangelogFile="true" file="data/order_type.data.xml"/>
+    <include relativeToChangelogFile="true" file="data/order_status.data.xml"/>
     <include relativeToChangelogFile="true" file="data/trade_type.data.xml"/>
     <include relativeToChangelogFile="true" file="data/counterparty_type.data.xml"/>
 

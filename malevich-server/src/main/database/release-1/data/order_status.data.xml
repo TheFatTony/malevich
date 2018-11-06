@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.6.xsd">
+
+    <changeSet author="thefattony" id="order_type-data" dbms="mysql">
+        <sql splitStatements="true" stripComments="true">
+            INSERT INTO order_status (id, name_ml)
+            VALUES ('OPEN', JSON_OBJECT('en', 'Open', 'ru', 'Открыт')),
+                   ('EXECUTED', JSON_OBJECT('en', 'Executed', 'ru', 'Исполнен')),
+                   ('CANCELED', JSON_OBJECT('en', 'Canceled', 'ru', 'Отменен'));
+        </sql>
+    </changeSet>
+
+</databaseChangeLog>

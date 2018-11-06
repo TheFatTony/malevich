@@ -24,13 +24,11 @@ import java.lang.reflect.Type;
 import java.util.Collections;
 
 public class DTOModelMapper extends RequestResponseBodyMethodProcessor {
-    private static final ModelMapper modelMapper = new ModelMapper();
+    private ModelMapper modelMapper;
 
-    private EntityManager entityManager;
-
-    public DTOModelMapper(ObjectMapper objectMapper, EntityManager entityManager) {
+    public DTOModelMapper(ObjectMapper objectMapper, ModelMapper modelMapper) {
         super(Collections.singletonList(new MappingJackson2HttpMessageConverter(objectMapper)));
-        this.entityManager = entityManager;
+        this.modelMapper = modelMapper;
     }
 
     @Override
@@ -46,14 +44,8 @@ public class DTOModelMapper extends RequestResponseBodyMethodProcessor {
     @Override
     public Object resolveArgument(MethodParameter parameter, ModelAndViewContainer mavContainer, NativeWebRequest webRequest, WebDataBinderFactory binderFactory) throws Exception {
         Object dto = super.resolveArgument(parameter, mavContainer, webRequest, binderFactory);
-        Object id = getEntityId(dto);
-        if (id == null) {
-            return modelMapper.map(dto, parameter.getParameterType());
-        } else {
-            Object persistedObject = entityManager.find(parameter.getParameterType(), id);
-            modelMapper.map(dto, persistedObject);
-            return persistedObject;
-        }
+        return modelMapper.map(dto, parameter.getParameterType());
+
     }
 
     @Override
@@ -67,17 +59,4 @@ public class DTOModelMapper extends RequestResponseBodyMethodProcessor {
         throw new RuntimeException();
     }
 
-    private Object getEntityId(@NotNull Object dto) {
-        for (Field field : dto.getClass().getDeclaredFields()) {
-            if (field.getAnnotation(Id.class) != null) {
-                try {
-                    field.setAccessible(true);
-                    return field.get(dto);
-                } catch (IllegalAccessException e) {
-                    throw new RuntimeException(e);
-                }
-            }
-        }
-        return null;
-    }
 }

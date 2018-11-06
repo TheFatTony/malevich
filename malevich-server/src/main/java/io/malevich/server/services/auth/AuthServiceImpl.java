@@ -90,7 +90,7 @@ public class AuthServiceImpl implements AuthService {
         } catch (ClassCastException e) {
             return null;
         }
-        return new UserDto(userDetails.getUsername(), null, this.createRoleMap(userDetails));
+        return new UserDto(userDetails.getUsername(), this.createRoleMap(userDetails));
     }
 
     @Override

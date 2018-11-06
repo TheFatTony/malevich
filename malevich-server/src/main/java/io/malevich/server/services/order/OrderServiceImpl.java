@@ -83,8 +83,8 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     @Transactional(readOnly = true)
-    public List<OrderEntity> getOrdersByArtworkId(Long artworkId) {
-        return orderDao.findAllOrdersByArtworkId(artworkId);
+    public List<OrderEntity> getOrdersByArtworkStockId(Long artworkId) {
+        return orderDao.findAllOrdersByArtworkStockId(artworkId);
     }
 
     @Override
@@ -145,7 +145,7 @@ public class OrderServiceImpl implements OrderService {
 
                 transactionService.buySell(tradeHistoryEntity);
 
-                List<OrderEntity> orders = orderDao.findAllOrdersByArtworkId(tradeHistoryEntity.getArtworkStock().getId());
+                List<OrderEntity> orders = orderDao.findAllOrdersByArtworkStockId(tradeHistoryEntity.getArtworkStock().getId());
                 for (OrderEntity order : orders) {
                     if ("BID".equals(order.getType().getId())) {
                         if (!"EXECUTED".equals(order.getStatus().getId())) {

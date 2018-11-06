@@ -43,7 +43,7 @@ public class OrderResource {
 
     @RequestMapping(value = "/getOrdersByArtworkId/{artworkId}", method = RequestMethod.GET)
     public List<OrderEntity> getOrdersByArtworkId(@PathVariable("artworkId") long artworkId) {
-        List<OrderEntity> allEntries = this.orderService.getOrdersByArtworkId(artworkId);
+        List<OrderEntity> allEntries = this.orderService.getOrdersByArtworkStockId(artworkId);
         return allEntries;
     }
 

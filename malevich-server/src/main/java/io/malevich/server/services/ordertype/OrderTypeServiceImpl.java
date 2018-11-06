@@ -18,7 +18,6 @@ public class OrderTypeServiceImpl implements OrderTypeService {
     @Autowired
     private OrderTypeDao orderTypeDao;
 
-
     @Override
     @Transactional(readOnly = true)
     public List<OrderTypeEntity> findAll() {

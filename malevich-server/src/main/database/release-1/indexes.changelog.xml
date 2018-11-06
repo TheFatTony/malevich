@@ -19,6 +19,7 @@
     <include relativeToChangelogFile="true" file="indexes/artwork_stock.index.xml"/>
     <include relativeToChangelogFile="true" file="indexes/transaction_type.index.xml"/>
     <include relativeToChangelogFile="true" file="indexes/order_type.index.xml"/>
+    <include relativeToChangelogFile="true" file="indexes/order_status.index.xml"/>
     <include relativeToChangelogFile="true" file="indexes/trade_type.index.xml"/>
     <include relativeToChangelogFile="true" file="indexes/counterparty_type.index.xml"/>
     <include relativeToChangelogFile="true" file="indexes/counterparty.index.xml"/>

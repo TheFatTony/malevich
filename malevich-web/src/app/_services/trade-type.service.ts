@@ -1,7 +1,6 @@
 import {Injectable} from '@angular/core';
 import {environment} from "../../environments/environment.dev";
 import {HttpClient} from "@angular/common/http";
-import {map} from "rxjs/operators";
 import {TradeTypeDto} from "../_transfer/tradeTypeDto";
 
 @Injectable({
@@ -16,8 +15,7 @@ export class TradeTypeService {
 
   getTradeTypes() {
     return this.http
-      .get<TradeTypeDto[]>(this.url + '/list')
-      .pipe(map(data => data));
+      .get<TradeTypeDto[]>(this.url + '/list');
   }
 
 }

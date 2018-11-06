@@ -45,6 +45,8 @@ public class OrderResource {
     }
 
     @RequestMapping(value = "/getOrdersByArtworkId/{artworkId}", method = RequestMethod.GET)
+    @ResponseStatus(HttpStatus.OK)
+    @ResponseBody
     public List<OrderDto> getOrdersByArtworkId(@PathVariable("artworkId") long artworkId) {
         List<OrderEntity> allEntries = this.orderService.getOrdersByArtworkStockId(artworkId);
         return allEntries.stream().map(allEntry -> convertToDto(allEntry)).collect(Collectors.toList());

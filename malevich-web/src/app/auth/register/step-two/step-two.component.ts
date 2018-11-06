@@ -30,9 +30,6 @@ export class StepTwoComponent implements OnInit {
   }
 
   submit(): void {
-    let user = new UserDto();
-    user.password = this.password;
-
     this.authService
       .register2(this.activationCode, this.password)
       .subscribe();

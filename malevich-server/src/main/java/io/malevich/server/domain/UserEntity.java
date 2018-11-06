@@ -1,5 +1,7 @@
 package io.malevich.server.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import io.malevich.server.domain.enums.Role;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -16,6 +18,7 @@ import java.util.Set;
 @EqualsAndHashCode
 @javax.persistence.Entity(name = "user")
 @Table(name = "user")
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class UserEntity implements Entity, UserDetails {
 
     @Getter
@@ -58,7 +61,7 @@ public class UserEntity implements Entity, UserDetails {
         this.activityFlag = activityFlag;
     }
 
-
+    @JsonIgnore
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return this.roles;
     }

@@ -3,7 +3,7 @@
                    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
                    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.6.xsd">
 
-    <changeSet author="thefattony" id="order_type-data" dbms="mysql">
+    <changeSet author="toolstik" id="order_status-data" dbms="mysql">
         <sql splitStatements="true" stripComments="true">
             INSERT INTO order_status (id, name_ml)
             VALUES ('OPEN', JSON_OBJECT('en', 'Open', 'ru', 'Открыт')),

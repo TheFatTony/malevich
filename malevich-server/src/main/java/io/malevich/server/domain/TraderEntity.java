@@ -10,7 +10,7 @@ import org.hibernate.annotations.LazyCollection;
 import org.hibernate.annotations.LazyCollectionOption;
 
 import javax.persistence.*;
-import java.util.Date;
+import java.sql.Timestamp;
 import java.util.List;
 
 
@@ -56,7 +56,7 @@ public class TraderEntity implements Entity {
     @Getter
     @Setter
     @Column(name = "date_of_birth")
-    private Date dateOfBirth;
+    private Timestamp dateOfBirth;
 
     @Getter
     @Setter

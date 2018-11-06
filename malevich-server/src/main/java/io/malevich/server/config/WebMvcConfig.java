@@ -14,21 +14,22 @@ import javax.persistence.EntityManager;
 import java.util.List;
 
 @Configuration
-public class WebMvcConfig extends WebMvcConfigurerAdapter {
+public class WebMvcConfig {
+//    extends WebMvcConfigurerAdapter {
 
-    private ObjectMapper objectMapper;
-
-    private ModelMapper modelMapper;
-
-    @Autowired
-    public WebMvcConfig(ObjectMapper objectMapper, ModelMapper modelMapper) {
-        this.objectMapper = objectMapper;
-        this.modelMapper = modelMapper;
-    }
-
-    @Override
-    public void addArgumentResolvers(List<HandlerMethodArgumentResolver> argumentResolvers) {
-        super.addArgumentResolvers(argumentResolvers);
-        argumentResolvers.add(new DTOModelMapper(objectMapper, modelMapper));
-    }
+//    private ObjectMapper objectMapper;
+//
+//    private ModelMapper modelMapper;
+//
+//    @Autowired
+//    public WebMvcConfig(ObjectMapper objectMapper, ModelMapper modelMapper) {
+//        this.objectMapper = objectMapper;
+//        this.modelMapper = modelMapper;
+//    }
+//
+//    @Override
+//    public void addArgumentResolvers(List<HandlerMethodArgumentResolver> argumentResolvers) {
+//        super.addArgumentResolvers(argumentResolvers);
+//        argumentResolvers.add(new DTOModelMapper(objectMapper, modelMapper));
+//    }
 }

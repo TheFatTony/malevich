@@ -19,7 +19,7 @@ public class TraderDto {
 
     private String mobile;
 
-    @JsonFormat(shape=JsonFormat.Shape.STRING, pattern="yyyy-MM-dd'T'HH:mm:ss.SSS'Z'", timezone="GMT")
+    @JsonFormat(pattern = "dd/MM/yyyy")
     private Timestamp dateOfBirth;
 
     private GenderDto gender;

@@ -7,10 +7,11 @@ import {jqxWindowComponent} from 'jqwidgets-scripts/jqwidgets-ts/angular_jqxwind
 import {ArtworkStockDto} from "../../../_transfer/artworkStockDto";
 import {ArtworkStockService} from "../../../_services/artwork-stock.service";
 import {TradeTypeService} from "../../../_services/trade-type.service";
-import {TradeTypeDto} from "../../../_transfer/tradeTypeDto";
 import {OrderTypeService} from "../../../_services/order-type.service";
 import {environment} from "../../../../environments/environment.dev";
 import {jqxValidatorComponent} from '../../../../../node_modules/jqwidgets-scripts/jqwidgets-ts/angular_jqxvalidator';
+import {jqxDateTimeInputComponent} from '../../../../../node_modules/jqwidgets-scripts/jqwidgets-ts/angular_jqxdatetimeinput';
+import {jqxDropDownListComponent} from '../../../../../node_modules/jqwidgets-scripts/jqwidgets-ts/angular_jqxdropdownlist';
 
 @Component({
   selector: 'app-profile-gallery-orders',
@@ -21,16 +22,20 @@ export class OrdersComponent implements OnInit {
   @ViewChild('myGrid') myGrid: jqxGridComponent;
   @ViewChild('myWindow') myWindow: jqxWindowComponent;
   @ViewChild('myValidator') myValidator: jqxValidatorComponent;
+  @ViewChild('expirationDateInput') expirationDateInput: jqxDateTimeInputComponent;
+  @ViewChild('tradeTypeDropDown') tradeTypeDropDown: jqxDropDownListComponent;
 
   orders: OrderDto[];
   public newOrder: OrderDto;
 
   artworkStocks: ArtworkStockDto[];
 
-  tradeTypes: TradeTypeDto[];
+  tradeTypes: any[];
 
   x: number;
   y: number;
+
+  expirationDateInputHidden: boolean = true;
 
   public url = environment.baseUrl;
 
@@ -125,7 +130,12 @@ export class OrdersComponent implements OnInit {
     this.tradeTypeService
       .getTradeTypes()
       .subscribe(
-        data => (this.tradeTypes = data)
+        data => {
+          this.tradeTypes = data.map(t => ({
+            title: t.nameMl[this.translate.currentLang],
+            value: t
+          }));
+        }
       );
   }
 
@@ -152,5 +162,28 @@ export class OrdersComponent implements OnInit {
     this.orderService.placeAsk(this.newOrder).subscribe(() => {
       this.getPlacedOrders();
     });
+  }
+
+  showExpirationDateInput(show: boolean){
+    this.expirationDateInputHidden = !show;
+  }
+
+  onTradeTypeSelect() {
+    switch (this.tradeTypeDropDown.getSelectedItem().value.id) {
+      case "GTC_":{
+        this.newOrder.expirationDate = null;
+        this.showExpirationDateInput(false);
+        break;
+      }
+      case "GTT0":{
+        this.newOrder.expirationDate = new Date(new Date().getDate());
+        this.showExpirationDateInput(false);
+        break;
+      }
+      case "GTD_":{
+        this.showExpirationDateInput(true);
+        break;
+      }
+    }
   }
 }

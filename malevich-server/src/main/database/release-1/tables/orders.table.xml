@@ -27,6 +27,7 @@
                 <constraints nullable="false"/>
             </column>
             <column name="status" type="varchar(10)"/>
+            <column name="expiration_date" type="timestamp"/>
         </createTable>
     </changeSet>
 

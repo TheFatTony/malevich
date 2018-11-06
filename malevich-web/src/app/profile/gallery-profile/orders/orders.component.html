@@ -154,6 +154,22 @@
             [width]="'100%'" [height]="34" [ngModel]="newOrder?.amount"
             (ngModelChange)="newOrder.amount=$event"></jqxNumberInput>
         </tr>
+        <tr>Expiration:</tr>
+        <tr>
+          <jqxDropDownList #tradeTypeDropDown
+                           [ngModel]="newOrder?.tradeType"
+                           (ngModelChange)="newOrder.tradeType=$event"
+                           [selectedIndex]="0"
+                           [source]="tradeTypes"
+                           [valueMember]="'value'"
+                           [displayMember]="'title'"
+                           (onSelect)="onTradeTypeSelect()"></jqxDropDownList>
+          <jqxDateTimeInput #expirationDateInput
+                            [hidden]="expirationDateInputHidden"
+                            [ngModel]="newOrder?.expirationDate"
+                            (ngModelChange)="newOrder.expirationDate=$event"
+          ></jqxDateTimeInput>
+        </tr>
         <tr>
           <td colspan="2" style="padding-left: 20px;">
             <jqxButton #SendButton

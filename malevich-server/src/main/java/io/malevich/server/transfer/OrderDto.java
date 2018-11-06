@@ -8,7 +8,6 @@ import lombok.Setter;
 @Setter
 public class OrderDto {
 
-
     private Long id;
 
     private OrderTypeDto type;
@@ -26,5 +25,7 @@ public class OrderDto {
     private Double bestBid;
 
     private Double currentAsk;
+
+    private java.sql.Timestamp expirationDate;
 
 }

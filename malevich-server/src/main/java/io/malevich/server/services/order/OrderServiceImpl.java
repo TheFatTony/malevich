@@ -1,12 +1,10 @@
 package io.malevich.server.services.order;
 
+import io.malevich.server.domain.*;
 import io.malevich.server.repositories.order.OrderDao;
-import io.malevich.server.domain.GalleryEntity;
-import io.malevich.server.domain.OrderEntity;
-import io.malevich.server.domain.TradeHistoryEntity;
-import io.malevich.server.domain.TraderEntity;
 import io.malevich.server.services.counterparty.CounterpartyService;
 import io.malevich.server.services.gallery.GalleryService;
+import io.malevich.server.services.orderstatus.OrderStatusService;
 import io.malevich.server.services.ordertype.OrderTypeService;
 import io.malevich.server.services.tradehistory.TradeHistoryService;
 import io.malevich.server.services.trader.TraderService;
@@ -48,11 +46,13 @@ public class OrderServiceImpl implements OrderService {
     private OrderTypeService orderTypeService;
 
     @Autowired
+    private OrderStatusService orderStatusService;
+
+    @Autowired
     private TransactionService transactionService;
 
     @Autowired
     private TradeHistoryService tradeHistoryService;
-
 
     @Override
     @Transactional(readOnly = true)
@@ -102,6 +102,7 @@ public class OrderServiceImpl implements OrderService {
             orderEntity.setParty(counterpartyService.findCounterpartyEntitiesByGalleryId(galleryEntity.getId()));
             orderEntity.setTradeType(tradeTypeService.findById("GTC_").get());
             orderEntity.setType(orderTypeService.findById("ASK").get());
+            orderEntity.setStatus(orderStatusService.findById("OPEN").get());
 
             orderEntity = orderDao.save(orderEntity);
 
@@ -127,6 +128,8 @@ public class OrderServiceImpl implements OrderService {
             orderEntity.setParty(counterpartyService.findCounterpartyEntitiesByTraderId(traderEntity.getId()));
             orderEntity.setTradeType(tradeTypeService.findById("GTC_").get());
             orderEntity.setType(orderTypeService.findById("BID").get());
+            orderEntity.setStatus(orderStatusService.findById("OPEN").get());
+
 
             orderEntity = orderDao.save(orderEntity);
 
@@ -135,9 +138,9 @@ public class OrderServiceImpl implements OrderService {
             OrderEntity counterOrderEntity = orderDao.findCounterOrder(orderEntity.getArtworkStock().getId(), orderEntity.getAmount());
             if (counterOrderEntity != null) {
                 TradeHistoryEntity tradeHistoryEntity = tradeHistoryService.create(counterOrderEntity, orderEntity);
-                orderEntity.setStatus("EXECUTED");
+                orderEntity.setStatus(orderStatusService.findById("EXECUTED").get());
                 orderDao.save(orderEntity);
-                counterOrderEntity.setStatus("EXECUTED");
+                counterOrderEntity.setStatus(orderStatusService.findById("EXECUTED").get());
                 orderDao.save(counterOrderEntity);
 
                 transactionService.buySell(tradeHistoryEntity);
@@ -145,9 +148,9 @@ public class OrderServiceImpl implements OrderService {
                 List<OrderEntity> orders = orderDao.findAllOrdersByArtworkId(tradeHistoryEntity.getArtworkStock().getId());
                 for (OrderEntity order : orders) {
                     if ("BID".equals(order.getType().getId())) {
-                        if (!"EXECUTED".equals(order.getStatus())) {
+                        if (!"EXECUTED".equals(order.getStatus().getId())) {
                             transactionService.cancelBid(order);
-                            order.setStatus("CANCELED");
+                            order.setStatus(orderStatusService.findById("CANCELED").get());
                             orderDao.save(order);
                         }
                     }

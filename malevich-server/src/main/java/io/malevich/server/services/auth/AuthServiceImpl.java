@@ -154,7 +154,7 @@ public class AuthServiceImpl implements AuthService {
 
         VelocityContext context = new VelocityContext();
         context.put("link", clientUrl + "/#/auth/reset?token=" + entity.getToken());
-        context.put("email", user.getName());
+        context.put("email", user.getUsername());
 
         StringWriter stringWriter = new StringWriter();
         velocityEngine.mergeTemplate("templates/mail/user_reset_password_link_template_" + lang + ".vm", "UTF-8", context, stringWriter);

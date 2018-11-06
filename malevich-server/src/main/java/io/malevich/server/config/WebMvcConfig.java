@@ -2,6 +2,7 @@ package io.malevich.server.config;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import io.malevich.server.core.dto.DTOModelMapper;
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Configuration;
@@ -14,19 +15,20 @@ import java.util.List;
 
 @Configuration
 public class WebMvcConfig extends WebMvcConfigurerAdapter {
-    private final ApplicationContext applicationContext;
-    private final EntityManager entityManager;
+
+    private ObjectMapper objectMapper;
+
+    private ModelMapper modelMapper;
 
     @Autowired
-    public WebMvcConfig(ApplicationContext applicationContext, EntityManager entityManager) {
-        this.applicationContext = applicationContext;
-        this.entityManager = entityManager;
+    public WebMvcConfig(ObjectMapper objectMapper, ModelMapper modelMapper) {
+        this.objectMapper = objectMapper;
+        this.modelMapper = modelMapper;
     }
 
     @Override
     public void addArgumentResolvers(List<HandlerMethodArgumentResolver> argumentResolvers) {
         super.addArgumentResolvers(argumentResolvers);
-        ObjectMapper objectMapper = Jackson2ObjectMapperBuilder.json().applicationContext(this.applicationContext).build();
-        argumentResolvers.add(new DTOModelMapper(objectMapper, entityManager));
+        argumentResolvers.add(new DTOModelMapper(objectMapper, modelMapper));
     }
 }

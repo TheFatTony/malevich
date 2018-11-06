@@ -147,7 +147,8 @@
             <div class="g-brd-primary--focus">
               <jqxDateTimeInput #dateOfBirthInput
                                 class="g-color-black g-bg-white g-bg-white--focus g-brd-gray-light-v3 rounded"
-                                [ngModel]='trader.dateOfBirth | date'
+                                [ngModel]='trader.dateOfBirth'
+                                (ngModelChange)="trader.dateOfBirth=$event"
                                 [width]="'100%'">
               </jqxDateTimeInput>
             </div>

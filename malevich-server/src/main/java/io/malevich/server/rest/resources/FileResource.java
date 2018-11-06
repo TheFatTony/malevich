@@ -1,12 +1,12 @@
 package io.malevich.server.rest.resources;
 
-import io.malevich.server.core.dto.DTO;
 import io.malevich.server.domain.FileEntity;
 import io.malevich.server.domain.LobStorageEntity;
 import io.malevich.server.services.file.FileService;
 import io.malevich.server.services.lobstorage.LobStorageService;
 import io.malevich.server.transfer.FileDto;
 import lombok.extern.slf4j.Slf4j;
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.sql.SQLException;
 import java.util.List;
+import java.util.stream.Collectors;
 
 
 @Slf4j
@@ -29,6 +30,9 @@ public class FileResource {
 
     @Autowired
     private LobStorageService lobStorageService;
+
+    @Autowired
+    private ModelMapper modelMapper;
 
 //	@PostMapping("/uploadFile")
 //	public UploadFileResponse uploadFile(@RequestParam("file") MultipartFile file) {
@@ -66,10 +70,19 @@ public class FileResource {
     @RequestMapping(value = "/list", method = RequestMethod.GET)
     @ResponseStatus(HttpStatus.OK)
     @ResponseBody
-    @DTO(FileDto.class)
-    public List<FileEntity> list() {
+    public List<FileDto> list() {
         List<FileEntity> allEntries = this.fileService.findAll();
-        return allEntries;
+        return allEntries.stream().map(allEntry -> convertToDto(allEntry)).collect(Collectors.toList());
+    }
+
+    private FileDto convertToDto(FileEntity files) {
+        FileDto filesDto = modelMapper.map(files, FileDto.class);
+        return filesDto;
+    }
+
+    private FileEntity convertToEntity(FileDto filesDto) {
+        FileEntity files = modelMapper.map(filesDto, FileEntity.class);
+        return files;
     }
 
 }

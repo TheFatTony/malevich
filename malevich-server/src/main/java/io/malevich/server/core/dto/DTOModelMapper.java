@@ -4,10 +4,13 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.sun.istack.NotNull;
 import org.modelmapper.ModelMapper;
 import org.springframework.core.MethodParameter;
+import org.springframework.core.annotation.AnnotatedElementUtils;
 import org.springframework.core.annotation.AnnotationUtils;
 import org.springframework.http.HttpInputMessage;
 import org.springframework.http.converter.HttpMessageNotReadableException;
+import org.springframework.http.converter.HttpMessageNotWritableException;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
+import org.springframework.web.HttpMediaTypeNotAcceptableException;
 import org.springframework.web.HttpMediaTypeNotSupportedException;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.support.WebDataBinderFactory;
@@ -37,8 +40,9 @@ public class DTOModelMapper extends RequestResponseBodyMethodProcessor {
     }
 
     @Override
-    protected void validateIfApplicable(WebDataBinder binder, MethodParameter parameter) {
-        binder.validate();
+    public boolean supportsReturnType(MethodParameter returnType) {
+        return (AnnotatedElementUtils.hasAnnotation(returnType.getContainingClass(), DTO.class) ||
+                returnType.hasMethodAnnotation(DTO.class));
     }
 
     @Override
@@ -49,14 +53,9 @@ public class DTOModelMapper extends RequestResponseBodyMethodProcessor {
     }
 
     @Override
-    protected Object readWithMessageConverters(HttpInputMessage inputMessage, MethodParameter parameter, Type targetType) throws IOException, HttpMediaTypeNotSupportedException, HttpMessageNotReadableException {
-        for (Annotation ann : parameter.getParameterAnnotations()) {
-            DTO dtoType = AnnotationUtils.getAnnotation(ann, DTO.class);
-            if (dtoType != null) {
-                return super.readWithMessageConverters(inputMessage, parameter, dtoType.value());
-            }
-        }
-        throw new RuntimeException();
+    public void handleReturnValue(Object returnValue, MethodParameter returnType, ModelAndViewContainer mavContainer, NativeWebRequest webRequest) throws IOException, HttpMediaTypeNotAcceptableException, HttpMessageNotWritableException {
+        Object dto = modelMapper.map(returnValue, returnType.getParameter().getAnnotatedType().getType());
+        super.handleReturnValue(dto, returnType, mavContainer, webRequest);
     }
 
 }

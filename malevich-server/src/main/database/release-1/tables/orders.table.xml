@@ -26,7 +26,9 @@
             <column name="effective_date" type="timestamp">
                 <constraints nullable="false"/>
             </column>
-            <column name="status" type="varchar(10)"/>
+            <column name="status_id" type="char(10)">
+                <constraints nullable="false"/>
+            </column>
             <column name="expiration_date" type="timestamp"/>
         </createTable>
     </changeSet>

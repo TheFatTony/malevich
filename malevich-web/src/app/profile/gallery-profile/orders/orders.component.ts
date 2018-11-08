@@ -12,6 +12,7 @@ import {environment} from "../../../../environments/environment.dev";
 import {jqxValidatorComponent} from '../../../../../node_modules/jqwidgets-scripts/jqwidgets-ts/angular_jqxvalidator';
 import {jqxDateTimeInputComponent} from '../../../../../node_modules/jqwidgets-scripts/jqwidgets-ts/angular_jqxdatetimeinput';
 import {jqxDropDownListComponent} from '../../../../../node_modules/jqwidgets-scripts/jqwidgets-ts/angular_jqxdropdownlist';
+import {TradeTypeDto} from "../../../_transfer/tradeTypeDto";
 
 @Component({
   selector: 'app-profile-gallery-orders',
@@ -22,7 +23,6 @@ export class OrdersComponent implements OnInit {
   @ViewChild('myGrid') myGrid: jqxGridComponent;
   @ViewChild('myWindow') myWindow: jqxWindowComponent;
   @ViewChild('myValidator') myValidator: jqxValidatorComponent;
-  @ViewChild('expirationDateInput') expirationDateInput: jqxDateTimeInputComponent;
   @ViewChild('tradeTypeDropDown') tradeTypeDropDown: jqxDropDownListComponent;
 
   orders: OrderDto[];
@@ -43,10 +43,11 @@ export class OrdersComponent implements OnInit {
 
   columns: any[] =
     [
-      {datafield: 'Date', width: '20%', columntype: 'textbox'},
-      {datafield: 'Amount', width: '15%', columntype: 'textbox'},
+      {datafield: 'Date', width: '15%', columntype: 'textbox'},
+      {datafield: 'Amount', width: '5%', columntype: 'textbox'},
       {datafield: 'Artwork', width: '25%', columntype: 'textbox'},
       {datafield: 'Trade Type', width: '15%', columntype: 'textbox'},
+      {datafield: 'Expiration Date', width: '15%', columntype: 'textbox'},
       {datafield: 'Type', width: '5%', columntype: 'textbox'},
       {datafield: 'Best Bid', width: '10%', columntype: 'textbox'},
       {datafield: 'Current Ask', width: '10%', columntype: 'textbox'}
@@ -142,7 +143,7 @@ export class OrdersComponent implements OnInit {
   openWindow() {
     this.newOrder = new OrderDto();
     this.myWindow.width(310);
-    this.myWindow.height(220);
+    this.myWindow.height(240);
     this.myWindow.open();
     this.myWindow.move(this.x, this.y);
   }
@@ -168,15 +169,17 @@ export class OrdersComponent implements OnInit {
     this.expirationDateInputHidden = !show;
   }
 
-  onTradeTypeSelect() {
-    switch (this.tradeTypeDropDown.getSelectedItem().value.id) {
+  setTradeType(value:TradeTypeDto){
+    this.newOrder.tradeType = value;
+
+    switch (value.id) {
       case "GTC_":{
         this.newOrder.expirationDate = null;
         this.showExpirationDateInput(false);
         break;
       }
       case "GTT0":{
-        this.newOrder.expirationDate = new Date(new Date().getDate());
+        this.newOrder.expirationDate = new Date();
         this.showExpirationDateInput(false);
         break;
       }
@@ -185,5 +188,9 @@ export class OrdersComponent implements OnInit {
         break;
       }
     }
+  }
+
+  onMyWindowOpen() {
+    this.tradeTypeDropDown.selectIndex(0);
   }
 }

@@ -14,6 +14,9 @@ public interface OrderDao extends JpaRepository<OrderEntity, Long> {
 
     List<OrderEntity> findAll();
 
+    @Query("select oe from OrderEntity as oe where oe.status.id = 'OPEN'")
+    List<OrderEntity> findAllOpen();
+
     @Query("select oe from OrderEntity as oe join fetch oe.party as p join p.gallery as g where g.id = :gallery_id and oe.status.id = 'OPEN'")
     List<OrderEntity> findAllPlacedGalleryOrders(@Param("gallery_id") Long galleryId);
 

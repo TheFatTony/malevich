@@ -20,6 +20,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 
@@ -58,6 +59,12 @@ public class OrderServiceImpl implements OrderService {
     @Transactional(readOnly = true)
     public List<OrderEntity> findAll() {
         return this.orderDao.findAll();
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public List<OrderEntity> findAllOpen() {
+        return this.orderDao.findAllOpen();
     }
 
     @Override
@@ -104,6 +111,9 @@ public class OrderServiceImpl implements OrderService {
             orderEntity.setType(orderTypeService.findById("ASK").get());
             orderEntity.setStatus(orderStatusService.findById("OPEN").get());
 
+            if(orderEntity.getExpirationDate() != null)
+                setEndOfDay(orderEntity.getExpirationDate());
+
             orderEntity = orderDao.save(orderEntity);
 
             transactionService.placeAsk(orderEntity);
@@ -111,6 +121,19 @@ public class OrderServiceImpl implements OrderService {
             // TODO fix this crap
         } else
             System.out.println("!!!!!!!!!!!!");
+    }
+
+    private Timestamp setEndOfDay(Timestamp date){
+        Calendar c=Calendar.getInstance();
+        c.setTimeInMillis(date.getTime());
+        c.set(Calendar.HOUR_OF_DAY, 23);
+        c.set(Calendar.MINUTE, 59);
+        c.set(Calendar.SECOND, 59);
+        c.set(Calendar.MILLISECOND, 0);
+
+        date.setTime(c.getTimeInMillis());
+
+        return date;
     }
 
     @Override
@@ -130,6 +153,8 @@ public class OrderServiceImpl implements OrderService {
             orderEntity.setType(orderTypeService.findById("BID").get());
             orderEntity.setStatus(orderStatusService.findById("OPEN").get());
 
+            if(orderEntity.getExpirationDate() != null)
+                setEndOfDay(orderEntity.getExpirationDate());
 
             orderEntity = orderDao.save(orderEntity);
 
@@ -160,6 +185,28 @@ public class OrderServiceImpl implements OrderService {
             // TODO fix this crap
         } else
             System.out.println("!!!!!!!!!!!!");
+    }
+
+    @Override
+    @Transactional
+    public void cancelOrder(OrderEntity orderEntity)
+    {
+        if("CANCELED".equals(orderEntity.getStatus().getId()))
+            return;
+
+        orderEntity.setStatus(orderStatusService.findById("CANCELED").get());
+        orderDao.save(orderEntity);
+
+        switch(orderEntity.getType().getId()){
+            case "ASK":{
+                transactionService.cancelAsk(orderEntity);
+                break;
+            }
+            case "BID":{
+                transactionService.cancelBid(orderEntity);
+                break;
+            }
+        }
     }
 
 

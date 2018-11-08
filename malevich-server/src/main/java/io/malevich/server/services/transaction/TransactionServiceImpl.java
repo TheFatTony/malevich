@@ -43,7 +43,6 @@ public class TransactionServiceImpl implements TransactionService {
         return this.transactionDao.findAll();
     }
 
-
     private void createTransaction(TransactionTypeEntity transactionType,
                                    CounterpartyEntity party,
                                    CounterpartyEntity counterparty,
@@ -153,8 +152,7 @@ public class TransactionServiceImpl implements TransactionService {
     @Override
     @Transactional
     public void cancelBid(OrderEntity orderEntity) {
-        TraderEntity traderEntity = traderService.getCurrentTrader();
-        CounterpartyEntity counterpartyEntity = counterpartyService.findCounterpartyEntitiesByTraderId(traderEntity.getId());
+        CounterpartyEntity counterpartyEntity = orderEntity.getParty();
         CounterpartyEntity malevichEntity = counterpartyService.findById(1L).get();
         TransactionTypeEntity transactionTypeEntity = transactionTypeService.findById("0006").get();
 
@@ -162,6 +160,22 @@ public class TransactionServiceImpl implements TransactionService {
         createAccountState(counterpartyEntity, null, orderEntity.getAmount(), 0L);
         createTransaction(transactionTypeEntity, counterpartyEntity, malevichEntity, null, orderEntity.getAmount(), 0L);
         createTransaction(transactionTypeEntity, malevichEntity, counterpartyEntity, null, -orderEntity.getAmount(), 0L);
+    }
+
+    @Override
+    @Transactional
+    public void cancelAsk(OrderEntity orderEntity) {
+        CounterpartyEntity counterpartyEntity = orderEntity.getParty();
+        CounterpartyEntity malevichEntity = counterpartyService.findById(1L).get();
+
+        TransactionTypeEntity transactionTypeEntity = transactionTypeService.findById("0007").get();
+
+        ArtworkStockEntity artworkStock = orderEntity.getArtworkStock();
+
+        createAccountState(malevichEntity, artworkStock, 0D, -1L);
+        createAccountState(counterpartyEntity, artworkStock, 0D, 1L);
+        createTransaction(transactionTypeEntity, counterpartyEntity, malevichEntity, artworkStock, 0D, 1L);
+        createTransaction(transactionTypeEntity, malevichEntity, counterpartyEntity, artworkStock, 0D, -1L);
     }
 
     @Override

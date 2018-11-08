@@ -1,5 +1,6 @@
 package io.malevich.server.transfer;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -26,6 +27,7 @@ public class OrderDto {
 
     private Double currentAsk;
 
+    @JsonFormat(pattern = "dd/MM/yyyy")
     private java.sql.Timestamp expirationDate;
 
 }

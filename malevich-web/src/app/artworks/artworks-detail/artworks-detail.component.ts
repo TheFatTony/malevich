@@ -9,6 +9,9 @@ import {ArtworkStockDto} from "../../_transfer/artworkStockDto";
 import {ArtworkStockService} from "../../_services/artwork-stock.service";
 import {TradeHistoryService} from "../../_services/trade-history.service";
 import {TradeHistoryDto} from "../../_transfer/tradeHistoryDto";
+import {TradeTypeService} from "../../_services/trade-type.service";
+import {TradeTypeDto} from "../../_transfer/tradeTypeDto";
+import {jqxDropDownListComponent} from "jqwidgets-scripts/jqwidgets-ts/angular_jqxdropdownlist";
 
 @Component({
   selector: 'app-artworks-detail',
@@ -18,6 +21,7 @@ import {TradeHistoryDto} from "../../_transfer/tradeHistoryDto";
 export class ArtworksDetailComponent implements OnInit, AfterViewInit {
 
   @ViewChild('myWindow') myWindow: jqxWindowComponent;
+  @ViewChild('tradeTypeDropDown') tradeTypeDropDown: jqxDropDownListComponent;
 
   artworkStock: ArtworkStockDto;
   id: number;
@@ -31,13 +35,17 @@ export class ArtworksDetailComponent implements OnInit, AfterViewInit {
   x: number;
   y: number;
 
+  expirationDateInputHidden: boolean = true;
+
   public url = environment.baseUrl;
+  private tradeTypes: any[];
 
   constructor(private orderService: OrderService,
               private route: ActivatedRoute,
               public translate: TranslateService,
               private artworkStockService: ArtworkStockService,
-              private tradeHistoryService: TradeHistoryService) {
+              private tradeHistoryService: TradeHistoryService,
+              private tradeTypeService:TradeTypeService) {
   }
 
   ngOnInit() {
@@ -45,8 +53,9 @@ export class ArtworksDetailComponent implements OnInit, AfterViewInit {
       this.id = params['id'];
     });
     this.getArtworkStock();
+    this.getTradeTypes();
     this.getOrdersByArtworkId();
-    this.findAllByArtworkId();
+    this.getTradeHistoryByArtworkId();
   }
 
   ngAfterViewInit(): void {
@@ -70,11 +79,24 @@ export class ArtworksDetailComponent implements OnInit, AfterViewInit {
       );
   }
 
-  findAllByArtworkId(): void {
+  getTradeHistoryByArtworkId(): void {
     this.tradeHistoryService
       .findAllByArtworkId(this.id)
       .subscribe(
         data => (this.tradeHistory = data)
+      );
+  }
+
+  getTradeTypes(): void {
+    this.tradeTypeService
+      .getTradeTypes()
+      .subscribe(
+        data => {
+          this.tradeTypes = data.map(t => ({
+            title: t.nameMl[this.translate.currentLang],
+            value: t
+          }));
+        }
       );
   }
 
@@ -97,8 +119,39 @@ export class ArtworksDetailComponent implements OnInit, AfterViewInit {
     this.newOrder.artworkStock = this.artworkStock;
     this.orderService.placeBid(this.newOrder).subscribe(() => {
       this.getOrdersByArtworkId();
-      this.findAllByArtworkId();
+      this.getTradeHistoryByArtworkId();
     });
+  }
+
+  showExpirationDateInput(show: boolean){
+    this.expirationDateInputHidden = !show;
+  }
+
+  setTradeType(value:TradeTypeDto){
+    console.info(value);
+
+    this.newOrder.tradeType = value;
+
+    switch (value.id) {
+      case "GTC_":{
+        this.newOrder.expirationDate = null;
+        this.showExpirationDateInput(false);
+        break;
+      }
+      case "GTT0":{
+        this.newOrder.expirationDate = new Date();
+        this.showExpirationDateInput(false);
+        break;
+      }
+      case "GTD_":{
+        this.showExpirationDateInput(true);
+        break;
+      }
+    }
+  }
+
+  onMyWindowOpen() {
+    this.tradeTypeDropDown.selectIndex(0);
   }
 
 }

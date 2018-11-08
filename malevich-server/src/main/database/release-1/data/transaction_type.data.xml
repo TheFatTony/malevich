@@ -11,7 +11,8 @@
                    ('0003', JSON_OBJECT('en', 'Bid', 'ru', 'Bid')),
                    ('0004', JSON_OBJECT('en', 'Ask', 'ru', 'Ask')),
                    ('0005', JSON_OBJECT('en', 'Buy/Sell', 'ru', 'Buy/Sell')),
-                   ('0006', JSON_OBJECT('en', 'Cancel Bid', 'ru', 'Cancel Bid'));
+                   ('0006', JSON_OBJECT('en', 'Cancel Bid', 'ru', 'Cancel Bid')),
+                   ('0007', JSON_OBJECT('en', 'Cancel Ask', 'ru', 'Cancel Ask'));
         </sql>
     </changeSet>
 

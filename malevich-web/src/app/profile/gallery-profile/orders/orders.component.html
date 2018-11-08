@@ -54,6 +54,7 @@
             <th>Amount</th>
             <th>Artwork</th>
             <th>Trade Type</th>
+            <th>Expiration Date</th>
             <th>Type</th>
             <th>Best Bid</th>
             <th>Current Ask</th>
@@ -70,6 +71,9 @@
             </td>
             <td>
               {{order?.tradeType.nameMl[translate.currentLang]}}
+            </td>
+            <td>
+              {{order?.expirationDate | date:'long'}}
             </td>
             <td>
               {{order?.type.nameMl[translate.currentLang]}}
@@ -133,7 +137,7 @@
   </div>
 </div>
 
-<jqxWindow #myWindow [autoOpen]="false" [resizable]="false">
+<jqxWindow #myWindow [autoOpen]="false" [resizable]="false" (onOpen)="onMyWindowOpen()">
   <div>Add ask</div>
   <div style="overflow: hidden" style="width: 100%">
     <jqxValidator #myValidator [rules]="rules" (onValidationSuccess)="ValidationSuccess($event)">
@@ -157,13 +161,12 @@
         <tr>Expiration:</tr>
         <tr>
           <jqxDropDownList #tradeTypeDropDown
-                           [ngModel]="newOrder?.tradeType"
-                           (ngModelChange)="newOrder.tradeType=$event"
-                           [selectedIndex]="0"
                            [source]="tradeTypes"
                            [valueMember]="'value'"
                            [displayMember]="'title'"
-                           (onSelect)="onTradeTypeSelect()"></jqxDropDownList>
+                           [ngModel]="newOrder?.tradeType"
+                           (ngModelChange)="setTradeType($event)"
+                           ></jqxDropDownList>
           <jqxDateTimeInput #expirationDateInput
                             [hidden]="expirationDateInputHidden"
                             [ngModel]="newOrder?.expirationDate"

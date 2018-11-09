@@ -21,8 +21,7 @@ public class OrderExpirationTask {
     private TransactionService transactionService;
 
 
-    @Scheduled(initialDelay = 2000, cron = "0 5 0 1/1 * ? *")
-//    @Scheduled(initialDelay = 2000, fixedRate = 5000)
+    @Scheduled(cron = "0 5 0 1/1 * ? *")
     public void reportCurrentTime() {
         Timestamp now = new Timestamp(System.currentTimeMillis());
 

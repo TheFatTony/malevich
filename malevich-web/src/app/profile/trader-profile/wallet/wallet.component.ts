@@ -13,8 +13,10 @@ import {AccountStateDto} from "../../../_transfer/accountStateDto";
 export class WalletComponent implements OnInit {
 
   @ViewChild('myWindow') myWindow: jqxWindowComponent;
+  @ViewChild('withdrawWindow') withdrawWindow: jqxWindowComponent;
 
   public newPayment: PaymentsDto;
+  public newWithdraw: PaymentsDto;
   public accountState: AccountStateDto;
 
   x: number;
@@ -28,19 +30,34 @@ export class WalletComponent implements OnInit {
     this.getTraderAccountState();
   }
 
-  sendButton() {
+  sendPayment() {
     this.paymentsService.insert(this.newPayment).subscribe(() => {
       this.myWindow.close();
       this.getTraderAccountState();
     });
   }
 
-  openWindow() {
+  sendWithdraw() {
+    this.paymentsService.insert(this.newWithdraw).subscribe(() => {
+      this.withdrawWindow.close();
+      this.getTraderAccountState();
+    });
+  }
+
+  openPaymentWindow() {
     this.newPayment = new PaymentsDto();
     this.myWindow.width(310);
     this.myWindow.height(220);
     this.myWindow.open();
     this.myWindow.move(this.x, this.y);
+  }
+
+  openWithdrawWindow() {
+    this.newWithdraw = new PaymentsDto();
+    this.withdrawWindow.width(310);
+    this.withdrawWindow.height(220);
+    this.withdrawWindow.open();
+    this.withdrawWindow.move(this.x, this.y);
   }
 
   @HostListener('mousedown', ['$event'])

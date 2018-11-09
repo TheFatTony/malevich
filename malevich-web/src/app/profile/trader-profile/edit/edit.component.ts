@@ -39,7 +39,7 @@ export class EditComponent implements OnInit, AfterViewInit {
               private genderService: GenderService,
               private authService: AuthService) {
     this.trader = new TraderDto();
-    this.trader.user = this.authService.getCurrentUser();
+    this.authService.getCurrentUser().subscribe(data => {this.trader.user = data} );
     this.trader.addresses = [new AddressDto()];
     this.trader.person = new PersonDto();
   }

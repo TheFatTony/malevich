@@ -42,8 +42,8 @@ export class AuthService {
     });
   }
 
-  getCurrentUser(): UserDto {
-    return JSON.parse(localStorage.getItem('user'));
+  getCurrentUser() {
+    return this.http.get<UserDto>(this.url);
   }
 
   logout() {

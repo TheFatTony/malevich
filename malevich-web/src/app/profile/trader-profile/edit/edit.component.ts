@@ -12,7 +12,7 @@ import {Router} from "@angular/router";
 import {jqxComboBoxComponent} from "jqwidgets-scripts/jqwidgets-ts/angular_jqxcombobox";
 import {jqxDateTimeInputComponent} from 'jqwidgets-scripts/jqwidgets-ts/angular_jqxdatetimeinput';
 import {forkJoin} from "rxjs";
-import {map, mergeMap} from "rxjs/operators";
+import {distinctUntilChanged, map, mergeMap} from "rxjs/operators";
 
 @Component({
   selector: 'trader-profile-security-edit',
@@ -38,13 +38,13 @@ export class EditComponent implements OnInit, AfterViewInit {
               private countryService: CountryService,
               private genderService: GenderService,
               private authService: AuthService) {
-    this.trader = new TraderDto();
-    this.authService.getCurrentUser().subscribe(data => {this.trader.user = data} );
-    this.trader.addresses = [new AddressDto()];
-    this.trader.person = new PersonDto();
   }
 
   ngOnInit() {
+    this.trader = new TraderDto();
+    this.authService.getCurrentUser().pipe(distinctUntilChanged()).subscribe(data => this.trader.user = data);
+    this.trader.addresses = [new AddressDto()];
+    this.trader.person = new PersonDto();
     this.initFields();
   }
 

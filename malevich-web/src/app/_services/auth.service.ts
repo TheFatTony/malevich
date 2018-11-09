@@ -4,6 +4,7 @@ import {map} from 'rxjs/operators';
 import {environment} from '../../environments/environment.dev';
 import {Globals} from '../globals';
 import {UserDto} from '../_transfer';
+import {Observable, of} from "rxjs";
 
 @Injectable({providedIn: 'root'})
 export class AuthService {
@@ -37,13 +38,15 @@ export class AuthService {
   }
 
   getUser() {
-    this.http.get<UserDto>(this.url).subscribe(user => {
-      localStorage.setItem('user', JSON.stringify(user));
-    });
+    this.http.get<UserDto>(this.url)
+      .subscribe((user: UserDto) => {
+        this.globals.currentUser$.next(user);
+        localStorage.setItem('user', JSON.stringify(user));
+      });
   }
 
-  getCurrentUser() {
-    return this.http.get<UserDto>(this.url);
+  getCurrentUser(): Observable<UserDto> {
+    return this.globals.currentUser$;
   }
 
   logout() {

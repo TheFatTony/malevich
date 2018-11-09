@@ -473,7 +473,7 @@
 </div>
 <!-- End Review -->
 
-<jqxWindow #myWindow [autoOpen]="false" [resizable]="false">
+<jqxWindow #myWindow [autoOpen]="false" [resizable]="false" (onOpen)="onMyWindowOpen()">
   <div>Place a bid</div>
   <div style="overflow: hidden" style="width: 100%">
     <table class="register-table" *ngIf="newOrder" style="width: 100%">
@@ -484,6 +484,21 @@
           class="amountInput form-control g-color-black g-bg-white g-bg-white--focus g-brd-gray-light-v3 rounded"
           [width]="'100%'" [height]="34" [ngModel]="newOrder?.amount"
           (ngModelChange)="newOrder.amount=$event"></jqxNumberInput>
+      </tr>
+      <tr>Expiration:</tr>
+      <tr>
+        <jqxDropDownList #tradeTypeDropDown
+                         [source]="tradeTypes"
+                         [valueMember]="'value'"
+                         [displayMember]="'title'"
+                         [ngModel]="newOrder?.tradeType"
+                         (ngModelChange)="setTradeType($event)"
+        ></jqxDropDownList>
+        <jqxDateTimeInput #expirationDateInput
+                          [hidden]="expirationDateInputHidden"
+                          [ngModel]="newOrder?.expirationDate"
+                          (ngModelChange)="newOrder.expirationDate=$event"
+        ></jqxDateTimeInput>
       </tr>
       <tr>
         <td colspan="2" style="padding-left: 20px;">

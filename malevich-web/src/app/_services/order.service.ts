@@ -16,41 +16,27 @@ export class OrderService {
 
   getOrders() {
     return this.http
-      .get<OrderDto[]>(this.url + '/list')
-      .pipe(map(data => data));
+      .get<OrderDto[]>(this.url + '/list');
   }
 
   getPlacedOrders() {
     return this.http
-      .get<OrderDto[]>(this.url + '/getPlacedOrders')
-      .pipe(map(data => data));
+      .get<OrderDto[]>(this.url + '/getPlacedOrders');
   }
 
   placeAsk(order: OrderDto) {
     return this.http
-      .post<OrderDto>(this.url + '/placeAsk', order)
-      .pipe(map(data => {
-          return data;
-        })
-      );
+      .post<OrderDto>(this.url + '/placeAsk', order);
   }
 
   placeBid(order: OrderDto) {
     return this.http
-      .post<OrderDto>(this.url + '/placeBid', order)
-      .pipe(map(data => {
-          return data;
-        })
-      );
+      .post<OrderDto>(this.url + '/placeBid', order);
   }
 
   getOrdersByArtworkId(artworkId: number) {
     return this.http
-      .get<OrderDto[]>(this.url + '/getOrdersByArtworkId/' + artworkId)
-      .pipe(map(data => {
-          return data;
-        })
-      );
+      .get<OrderDto[]>(this.url + '/getOrdersByArtworkId/' + artworkId);
   }
 
 

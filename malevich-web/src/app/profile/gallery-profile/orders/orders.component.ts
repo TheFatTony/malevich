@@ -7,10 +7,12 @@ import {jqxWindowComponent} from 'jqwidgets-scripts/jqwidgets-ts/angular_jqxwind
 import {ArtworkStockDto} from "../../../_transfer/artworkStockDto";
 import {ArtworkStockService} from "../../../_services/artwork-stock.service";
 import {TradeTypeService} from "../../../_services/trade-type.service";
-import {TradeTypeDto} from "../../../_transfer/tradeTypeDto";
 import {OrderTypeService} from "../../../_services/order-type.service";
 import {environment} from "../../../../environments/environment.dev";
 import {jqxValidatorComponent} from '../../../../../node_modules/jqwidgets-scripts/jqwidgets-ts/angular_jqxvalidator';
+import {jqxDateTimeInputComponent} from '../../../../../node_modules/jqwidgets-scripts/jqwidgets-ts/angular_jqxdatetimeinput';
+import {jqxDropDownListComponent} from '../../../../../node_modules/jqwidgets-scripts/jqwidgets-ts/angular_jqxdropdownlist';
+import {TradeTypeDto} from "../../../_transfer/tradeTypeDto";
 
 @Component({
   selector: 'app-profile-gallery-orders',
@@ -21,16 +23,19 @@ export class OrdersComponent implements OnInit {
   @ViewChild('myGrid') myGrid: jqxGridComponent;
   @ViewChild('myWindow') myWindow: jqxWindowComponent;
   @ViewChild('myValidator') myValidator: jqxValidatorComponent;
+  @ViewChild('tradeTypeDropDown') tradeTypeDropDown: jqxDropDownListComponent;
 
   orders: OrderDto[];
   public newOrder: OrderDto;
 
   artworkStocks: ArtworkStockDto[];
 
-  tradeTypes: TradeTypeDto[];
+  tradeTypes: any[];
 
   x: number;
   y: number;
+
+  expirationDateInputHidden: boolean = true;
 
   public url = environment.baseUrl;
 
@@ -38,10 +43,11 @@ export class OrdersComponent implements OnInit {
 
   columns: any[] =
     [
-      {datafield: 'Date', width: '20%', columntype: 'textbox'},
-      {datafield: 'Amount', width: '15%', columntype: 'textbox'},
+      {datafield: 'Date', width: '15%', columntype: 'textbox'},
+      {datafield: 'Amount', width: '5%', columntype: 'textbox'},
       {datafield: 'Artwork', width: '25%', columntype: 'textbox'},
       {datafield: 'Trade Type', width: '15%', columntype: 'textbox'},
+      {datafield: 'Expiration Date', width: '15%', columntype: 'textbox'},
       {datafield: 'Type', width: '5%', columntype: 'textbox'},
       {datafield: 'Best Bid', width: '10%', columntype: 'textbox'},
       {datafield: 'Current Ask', width: '10%', columntype: 'textbox'}
@@ -125,14 +131,19 @@ export class OrdersComponent implements OnInit {
     this.tradeTypeService
       .getTradeTypes()
       .subscribe(
-        data => (this.tradeTypes = data)
+        data => {
+          this.tradeTypes = data.map(t => ({
+            title: t.nameMl[this.translate.currentLang],
+            value: t
+          }));
+        }
       );
   }
 
   openWindow() {
     this.newOrder = new OrderDto();
     this.myWindow.width(310);
-    this.myWindow.height(220);
+    this.myWindow.height(240);
     this.myWindow.open();
     this.myWindow.move(this.x, this.y);
   }
@@ -152,5 +163,34 @@ export class OrdersComponent implements OnInit {
     this.orderService.placeAsk(this.newOrder).subscribe(() => {
       this.getPlacedOrders();
     });
+  }
+
+  showExpirationDateInput(show: boolean){
+    this.expirationDateInputHidden = !show;
+  }
+
+  setTradeType(value:TradeTypeDto){
+    this.newOrder.tradeType = value;
+
+    switch (value.id) {
+      case "GTC_":{
+        this.newOrder.expirationDate = null;
+        this.showExpirationDateInput(false);
+        break;
+      }
+      case "GTT0":{
+        this.newOrder.expirationDate = new Date();
+        this.showExpirationDateInput(false);
+        break;
+      }
+      case "GTD_":{
+        this.showExpirationDateInput(true);
+        break;
+      }
+    }
+  }
+
+  onMyWindowOpen() {
+    this.tradeTypeDropDown.selectIndex(0);
   }
 }

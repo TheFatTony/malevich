@@ -21,5 +21,7 @@ public interface TransactionService {
 
     void cancelBid(OrderEntity orderEntity);
 
+    void cancelAsk(OrderEntity orderEntity);
+
     void buySell(TradeHistoryEntity tradeHistoryEntity);
 }

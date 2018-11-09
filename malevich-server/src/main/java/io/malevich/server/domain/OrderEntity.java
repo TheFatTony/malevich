@@ -64,9 +64,14 @@ public class OrderEntity implements Entity {
 
     @Getter
     @Setter
+    @Column(name = "expiration_date")
+    private java.sql.Timestamp expirationDate;
+
+    @Getter
+    @Setter
     @Formula(value = "(SELECT o.amount\n" +
             "FROM orders o\n" +
-            "WHERE o.type_id = 'BID' AND o.artwork_stock_id = artwork_stock_id\n" +
+            "WHERE o.type_id = 'BID' AND o.status_id = 'OPEN' AND o.artwork_stock_id = artwork_stock_id\n" +
             "ORDER BY o.amount DESC, o.effective_date ASC\n" +
             "LIMIT 1)")
     private Double bestBid;
@@ -75,7 +80,7 @@ public class OrderEntity implements Entity {
     @Setter
     @Formula(value = "(SELECT o.amount\n" +
             "FROM orders o\n" +
-            "WHERE o.type_id = 'ASK' AND o.artwork_stock_id = artwork_stock_id\n" +
+            "WHERE o.type_id = 'ASK' AND o.status_id = 'OPEN' AND o.artwork_stock_id = artwork_stock_id\n" +
             "ORDER BY o.amount ASC\n" +
             "LIMIT 1)")
     private Double currentAsk;

@@ -56,9 +56,9 @@ public class OrderResource {
     @RequestMapping(value = "/placeAsk", method = RequestMethod.POST)
     @ResponseStatus(HttpStatus.OK)
     @ResponseBody
-    public ResponseEntity<Void> placeAsk(@RequestBody OrderDto trader) {
-        OrderEntity newTraderEntity = convertToEntity(trader);
-        this.orderService.placeAsk(newTraderEntity);
+    public ResponseEntity<Void> placeAsk(@RequestBody OrderDto orderDto) {
+        OrderEntity orderEntity = convertToEntity(orderDto);
+        this.orderService.placeAsk(orderEntity);
         return ResponseEntity.ok().build();
     }
 
@@ -66,9 +66,9 @@ public class OrderResource {
     @RequestMapping(value = "/placeBid", method = RequestMethod.POST)
     @ResponseStatus(HttpStatus.OK)
     @ResponseBody
-    public ResponseEntity<Void> placeBid(@RequestBody OrderDto trader) {
-        OrderEntity newTraderEntity = convertToEntity(trader);
-        this.orderService.placeBid(newTraderEntity);
+    public ResponseEntity<Void> placeBid(@RequestBody OrderDto orderDto) {
+        OrderEntity orderEntity = convertToEntity(orderDto);
+        this.orderService.placeBid(orderEntity);
         return ResponseEntity.ok().build();
     }
 

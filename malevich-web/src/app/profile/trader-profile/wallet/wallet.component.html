@@ -50,13 +50,23 @@
         <!-- End Balance Info -->
 
         <!-- Add Balance -->
-        <div class="g-mb-50">
-          <button
-            class="btn g-brd-around g-brd-gray-light-v3 g-color-gray-dark-v3 g-bg-gray-light-v5 g-bg-gray-light-v4--hover g-font-size-13 rounded g-px-18 g-py-9"
-            type="button" (click)="openWindow()">
-            <i class="align-middle g-font-size-16 mr-2 icon-finance-210 u-line-icon-pro"></i>
-            Add Balance
-          </button>
+        <div class="row g-mb-50">
+          <div class="col-lg-9">
+            <button
+              class="btn g-brd-around g-brd-gray-light-v3 g-color-gray-dark-v3 g-bg-gray-light-v5 g-bg-gray-light-v4--hover g-font-size-13 rounded g-px-18 g-py-9"
+              type="button" (click)="openPaymentWindow()">
+              <i class="align-middle g-font-size-16 mr-2 icon-finance-210 u-line-icon-pro"></i>
+              Add Balance
+            </button>
+          </div>
+          <div class="col-lg-9">
+            <button
+              class="btn g-brd-around g-brd-gray-light-v3 g-color-gray-dark-v3 g-bg-gray-light-v5 g-bg-gray-light-v4--hover g-font-size-13 rounded g-px-18 g-py-9"
+              type="button" (click)="openWithdrawWindow()">
+              <i class="align-middle g-font-size-16 mr-2 icon-finance-210 u-line-icon-pro"></i>
+              Withdraw Balance
+            </button>
+          </div>
         </div>
         <!-- End Add Balance -->
       </div>
@@ -82,7 +92,34 @@
       <tr>
         <td colspan="2" style="padding-left: 20px;">
           <jqxButton #SendButton
-                     (onClick)="sendButton()"
+                     (onClick)="sendPayment()"
+                     style="text-align: center; margin-left: 8em;"
+                     [width]="60" [height]="25">
+            Send
+          </jqxButton>
+        </td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+</jqxWindow>
+
+<jqxWindow #withdrawWindow [autoOpen]="false" [resizable]="false">
+  <div>Add balance</div>
+  <div style="overflow: hidden" style="width: 100%">
+    <table class="register-table" *ngIf="newWithdraw" style="width: 100%">
+      <tbody>
+      <tr>Amount:</tr>
+      <tr>
+        <jqxNumberInput
+          class="amountInput form-control g-color-black g-bg-white g-bg-white--focus g-brd-gray-light-v3 rounded"
+          [width]="'100%'" [height]="34" [ngModel]="-newWithdraw?.amount"
+          (ngModelChange)="newWithdraw.amount=-$event"></jqxNumberInput>
+      </tr>
+      <tr>
+        <td colspan="2" style="padding-left: 20px;">
+          <jqxButton #SendButton
+                     (onClick)="sendWithdraw()"
                      style="text-align: center; margin-left: 8em;"
                      [width]="60" [height]="25">
             Send

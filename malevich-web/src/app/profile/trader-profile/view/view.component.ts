@@ -20,7 +20,7 @@ export class ViewComponent implements OnInit {
   constructor(public translate: TranslateService,
               private authService: AuthService,
               private traderService: TraderService) {
-    this.user = this.authService.getCurrentUser();
+     this.authService.getCurrentUser().subscribe(data => {this.user = data});
   }
 
   ngOnInit() {

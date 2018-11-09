@@ -24,9 +24,9 @@ export class MainHeaderComponent implements OnInit, AfterViewInit {
   }
 
   ngOnInit() {
-    this.user = this.authService.getCurrentUser();
-    this.isTrader = this.user.roles.some(value => value == "ROLE_TRADER");
-    this.isGallery = this.user.roles.some(value => value == "ROLE_GALLERY");
+    this.authService.getCurrentUser().subscribe(data=> {this.user = data;
+      this.isTrader = this.user.roles.some(value => value == "ROLE_TRADER");
+      this.isGallery = this.user.roles.some(value => value == "ROLE_GALLERY");});
   }
 
   ngAfterViewInit(): void {

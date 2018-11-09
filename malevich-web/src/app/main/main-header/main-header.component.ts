@@ -4,6 +4,7 @@ import {Globals} from "../../globals";
 import {AuthService} from "../../_services";
 import {Router} from "@angular/router";
 import {UserDto} from "../../_transfer";
+import {distinctUntilChanged} from "rxjs/operators";
 
 @Component({
   selector: 'app-main-header',
@@ -24,9 +25,11 @@ export class MainHeaderComponent implements OnInit, AfterViewInit {
   }
 
   ngOnInit() {
-    this.authService.getCurrentUser().subscribe(data=> {this.user = data;
+    this.globals.currentUser$.pipe(distinctUntilChanged()).subscribe(data => {
+      this.user = data;
       this.isTrader = this.user.roles.some(value => value == "ROLE_TRADER");
-      this.isGallery = this.user.roles.some(value => value == "ROLE_GALLERY");});
+      this.isGallery = this.user.roles.some(value => value == "ROLE_GALLERY");
+    });
   }
 
   ngAfterViewInit(): void {
@@ -44,7 +47,6 @@ export class MainHeaderComponent implements OnInit, AfterViewInit {
         $(this).find('input[type="search"]').focus();
       }
     });
-
   }
 
   changeLanguage(lang: string) {

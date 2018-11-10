@@ -8,4 +8,6 @@ import org.springframework.stereotype.Service;
 public interface LobStorageService {
 
     LobStorageEntity findByFileId(Long fileId);
+
+    LobStorageEntity save(LobStorageEntity lobStorageEntity);
 }

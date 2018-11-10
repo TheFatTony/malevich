@@ -30,6 +30,6 @@ public class LobStorageEntity implements Entity {
     @Lob
     @Basic(fetch = FetchType.LAZY)
     @Column(name = "content")
-    private Blob content;
+    private byte[] content;
 
 }

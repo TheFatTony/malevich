@@ -1,5 +1,7 @@
 package io.malevich.server.scheduling;
 
+import io.malevich.server.domain.OrderEntity;
+import io.malevich.server.exceptions.AccountStateException;
 import io.malevich.server.services.order.OrderService;
 import io.malevich.server.services.transaction.TransactionService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,18 +19,16 @@ public class OrderExpirationTask {
     @Autowired
     private OrderService orderService;
 
-    @Autowired
-    private TransactionService transactionService;
-
 
     @Scheduled(cron = "0 0 00 * * *")
-    public void reportCurrentTime() {
+    public void reportCurrentTime() throws AccountStateException {
         Timestamp now = new Timestamp(System.currentTimeMillis());
 
-        orderService.findAllOpen()
-                .stream()
-                .filter(order -> order.getExpirationDate() != null &&
-                        order.getExpirationDate().compareTo(now) <= 0)
-                .forEach(order -> orderService.cancelOrder(order));
+        for (OrderEntity order : orderService.findAllOpen()) {
+            if (order.getExpirationDate() != null &&
+                    order.getExpirationDate().compareTo(now) <= 0) {
+                orderService.cancelOrder(order);
+            }
+        }
     }
 }

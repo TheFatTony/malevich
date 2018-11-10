@@ -1,6 +1,7 @@
 package io.malevich.server.services.order;
 
 import io.malevich.server.domain.OrderEntity;
+import io.malevich.server.exceptions.AccountStateException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -17,9 +18,9 @@ public interface OrderService {
 
     List<OrderEntity> getOrdersByArtworkStockId(Long artworkId);
 
-    void placeAsk(OrderEntity orderEntity);
+    void placeAsk(OrderEntity orderEntity) throws AccountStateException;
 
-    void placeBid(OrderEntity orderEntity);
+    void placeBid(OrderEntity orderEntity) throws AccountStateException;
 
-    void cancelOrder(OrderEntity orderEntity);
+    void cancelOrder(OrderEntity orderEntity) throws AccountStateException;
 }

@@ -1,6 +1,7 @@
 package io.malevich.server.services.payments;
 
 import io.malevich.server.domain.PaymentsEntity;
+import io.malevich.server.exceptions.AccountStateException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -11,6 +12,6 @@ public interface PaymentsService {
 
     List<PaymentsEntity> findAll();
 
-    void insert(PaymentsEntity paymentsEntity);
+    void insert(PaymentsEntity paymentsEntity) throws AccountStateException;
 
 }

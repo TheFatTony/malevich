@@ -1,5 +1,6 @@
 package io.malevich.server.services.payments;
 
+import io.malevich.server.exceptions.AccountStateException;
 import io.malevich.server.repositories.payments.PaymentsDao;
 import io.malevich.server.domain.CounterpartyEntity;
 import io.malevich.server.domain.PaymentsEntity;
@@ -40,7 +41,7 @@ public class PaymentsServiceImpl implements PaymentsService {
 
     @Override
     @Transactional
-    public void insert(PaymentsEntity paymentsEntity) {
+    public void insert(PaymentsEntity paymentsEntity) throws AccountStateException {
 
         TraderEntity traderEntity = traderService.getCurrentTrader();
         CounterpartyEntity trader = counterpartyService.findCounterpartyEntitiesByTraderId(traderEntity.getId());
@@ -48,7 +49,7 @@ public class PaymentsServiceImpl implements PaymentsService {
 
         paymentsEntity = paymentsDao.save(paymentsEntity);
 
-        transactionService.addAccountStates(paymentsEntity);
+        transactionService.applyPayment(paymentsEntity);
     }
 
 }

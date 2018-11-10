@@ -55,7 +55,7 @@ public class TransactionServiceImpl implements TransactionService {
         return transactionDao.save(transaction);
     }
 
-    private void insertAccountState(CounterpartyEntity party, ArtworkStockEntity artworkStock, Double amount, Long quantity) throws AccountStateException {
+    private void insertAccountState(CounterpartyEntity party, ArtworkStockEntity artworkStock, Double amount, Long quantity) {
         Long artworkStockId = null;
         if (artworkStock != null)
             artworkStockId = artworkStock.getId();
@@ -94,7 +94,7 @@ public class TransactionServiceImpl implements TransactionService {
                                   CounterpartyEntity counterparty,
                                   ArtworkStockEntity artworkStock,
                                   Double amount,
-                                  Long quantity) throws AccountStateException {
+                                  Long quantity) {
         insertTransaction(transactionType, party, counterparty, artworkStock, amount, quantity);
 
         if (amount != null && amount != 0)
@@ -111,7 +111,7 @@ public class TransactionServiceImpl implements TransactionService {
                                             CounterpartyEntity counterparty,
                                             ArtworkStockEntity artworkStock,
                                             Double amount,
-                                            Long quantity) throws AccountStateException {
+                                            Long quantity) {
         createTransaction(transactionType, party, counterparty, artworkStock, amount, quantity);
         createTransaction(transactionType, counterparty, party, artworkStock, -amount, -quantity);
     }
@@ -133,7 +133,7 @@ public class TransactionServiceImpl implements TransactionService {
 
     @Override
     @Transactional
-    public void applyPayment(PaymentsEntity paymentsEntity) throws AccountStateException {
+    public void applyPayment(PaymentsEntity paymentsEntity) {
         CounterpartyEntity malevichEntity = counterpartyService.getMalevich();
         TransactionTypeEntity transactionTypeEntity = transactionTypeService.findById("0001").get();
 

@@ -12,6 +12,6 @@ public interface PaymentsService {
 
     List<PaymentsEntity> findAll();
 
-    void insert(PaymentsEntity paymentsEntity) throws AccountStateException;
+    void insert(PaymentsEntity paymentsEntity);
 
 }

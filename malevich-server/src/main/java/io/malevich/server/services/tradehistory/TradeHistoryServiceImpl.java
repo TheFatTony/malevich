@@ -34,10 +34,10 @@ public class TradeHistoryServiceImpl implements TradeHistoryService {
 
     @Override
     @Transactional
-    public TradeHistoryEntity create(OrderEntity askOrder, OrderEntity bidOrder) {
+    public TradeHistoryEntity create(OrderEntity askOrder, OrderEntity bidOrder, Double amount) {
         TradeHistoryEntity tradeHistoryEntity = new TradeHistoryEntity();
         tradeHistoryEntity.setQuantity((long) 1);
-        tradeHistoryEntity.setAmount(askOrder.getAmount());
+        tradeHistoryEntity.setAmount(amount);
         tradeHistoryEntity.setArtworkStock(askOrder.getArtworkStock());
         tradeHistoryEntity.setEffectiveDate(new Timestamp(System.currentTimeMillis()));
         tradeHistoryEntity.setAskOrder(askOrder);

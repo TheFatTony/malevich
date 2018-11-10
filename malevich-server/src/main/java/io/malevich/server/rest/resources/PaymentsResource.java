@@ -36,7 +36,7 @@ public class PaymentsResource {
     }
 
     @RequestMapping(value = "/insert", method = RequestMethod.POST)
-    public ResponseEntity<Void> insert(@RequestBody PaymentsDto paymentsDto) throws AccountStateException {
+    public ResponseEntity<Void> insert(@RequestBody PaymentsDto paymentsDto) {
         this.paymentsService.insert(convertToEntity(paymentsDto));
         return ResponseEntity.ok().build();
     }

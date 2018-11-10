@@ -41,7 +41,7 @@ public class PaymentsServiceImpl implements PaymentsService {
 
     @Override
     @Transactional
-    public void insert(PaymentsEntity paymentsEntity) throws AccountStateException {
+    public void insert(PaymentsEntity paymentsEntity) {
 
         TraderEntity traderEntity = traderService.getCurrentTrader();
         CounterpartyEntity trader = counterpartyService.findCounterpartyEntitiesByTraderId(traderEntity.getId());

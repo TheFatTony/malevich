@@ -32,4 +32,9 @@ public class FileServiceImpl implements FileService {
     public List<FileEntity> findAll() {
         return fileDao.findAll();
     }
+
+    @Override
+    public FileEntity save(FileEntity fileEntity) {
+        return fileDao.save(fileEntity);
+    }
 }

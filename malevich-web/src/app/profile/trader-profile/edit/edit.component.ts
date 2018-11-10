@@ -13,6 +13,7 @@ import {jqxComboBoxComponent} from "jqwidgets-scripts/jqwidgets-ts/angular_jqxco
 import {jqxDateTimeInputComponent} from 'jqwidgets-scripts/jqwidgets-ts/angular_jqxdatetimeinput';
 import {forkJoin} from "rxjs";
 import {distinctUntilChanged, map, mergeMap} from "rxjs/operators";
+import {environment} from "../../../../environments/environment.dev";
 
 @Component({
   selector: 'trader-profile-security-edit',
@@ -24,6 +25,8 @@ export class EditComponent implements OnInit, AfterViewInit {
   trader: TraderDto;
   countries: any[];
   genders: any[];
+
+  private url = environment.baseUrl;
 
   @Inject(LOCALE_ID) public locale: string;
 
@@ -95,4 +98,12 @@ export class EditComponent implements OnInit, AfterViewInit {
     this.traderService.update(this.trader);
     this.router.navigate(['/profile/trader/view']);
   }
+
+  onUploadEnd(event: any): void {
+    let args = event.args;
+    let serverResponce = args.response;
+    this.trader.thumbnail = serverResponce;
+  }
+
+
 }

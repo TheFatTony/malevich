@@ -11,7 +11,7 @@
 			<column name="file_id" type="bigint">
 				<constraints nullable="false"/>
 			</column>
-			<column name="content" type="blob"/>
+			<column name="content" type="longblob"/>
 		</createTable>
 		<modifySql dbms="mysql">
 			<replace replace="blob" with="longblob"/>

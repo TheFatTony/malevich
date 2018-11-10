@@ -14,8 +14,11 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.sql.SQLException;
+import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -34,26 +37,40 @@ public class FileResource {
     @Autowired
     private ModelMapper modelMapper;
 
-//	@PostMapping("/uploadFile")
-//	public UploadFileResponse uploadFile(@RequestParam("file") MultipartFile file) {
-//		String fileName = fileService.storeFile(file);
-//
-//		String fileDownloadUri = ServletUriComponentsBuilder.fromCurrentContextPath()
-//				.path("/downloadFile/")
-//				.path(fileName)
-//				.toUriString();
-//
-//		return new UploadFileResponse(fileName, fileDownloadUri,
-//				file.getContentType(), file.getSize());
-//	}
-//
-//	@PostMapping("/uploadFiles")
-//	public List<UploadFileResponse> uploadMultipleFiles(@RequestParam("files") MultipartFile[] files) {
-//		return Arrays.asList(files)
-//				.stream()
-//				.map(file -> uploadFile(file))
-//				.collect(Collectors.toList());
-//	}
+    private FileEntity uploadFileInternal(MultipartFile file) {
+        FileEntity fileEntity = new FileEntity();
+        try {
+            fileEntity.setFileName(file.getOriginalFilename());
+            fileEntity = fileService.save(fileEntity);
+            fileEntity.setUrl("files/downloadFile/" + fileEntity.getId());
+            fileEntity = fileService.save(fileEntity);
+
+            byte[] bytes = file.getBytes();
+            LobStorageEntity lobStorageEntity = new LobStorageEntity();
+            lobStorageEntity.setContent(bytes);
+            lobStorageEntity.setFile(fileEntity);
+            lobStorageService.save(lobStorageEntity);
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return fileEntity;
+    }
+
+
+    @PostMapping("/uploadFile")
+    public ResponseEntity<FileDto> uploadFile(@RequestParam("file") MultipartFile file) {
+        return ResponseEntity.ok().body(convertToDto(uploadFileInternal(file)));
+    }
+
+
+    @PostMapping("/uploadFiles")
+    public ResponseEntity<List<FileDto>> uploadMultipleFiles(@RequestParam("files") MultipartFile[] files) {
+        return ResponseEntity.ok().body(Arrays.asList(files)
+                .stream()
+                .map(file -> convertToDto(uploadFileInternal(file)))
+                .collect(Collectors.toList()));
+    }
 
     @RequestMapping(value = "/downloadFile/{fileId}", method = RequestMethod.GET)
     public ResponseEntity<byte[]> downloadFile(@PathVariable Long fileId) throws SQLException {
@@ -62,7 +79,7 @@ public class FileResource {
         return ResponseEntity.ok()
                 .contentType(MediaType.parseMediaType("application/octet-stream"))
                 .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + resource.getFile().getFileName() + "\"")
-                .body(resource.getContent().getBytes(1, ((int) resource.getContent().length())));
+                .body(resource.getContent());
     }
 
 

@@ -25,4 +25,9 @@ public class LobStorageServiceImpl implements LobStorageService {
     public LobStorageEntity findByFileId(Long fileId) {
         return lobStorageDao.findByFileId(fileId);
     }
+
+    @Override
+    public LobStorageEntity save(LobStorageEntity lobStorageEntity) {
+        return lobStorageDao.save(lobStorageEntity);
+    }
 }

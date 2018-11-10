@@ -1,6 +1,7 @@
 package io.malevich.server.rest.resources;
 
 import io.malevich.server.domain.OrderEntity;
+import io.malevich.server.exceptions.AccountStateException;
 import io.malevich.server.services.order.OrderService;
 import io.malevich.server.transfer.OrderDto;
 import lombok.extern.slf4j.Slf4j;
@@ -56,7 +57,7 @@ public class OrderResource {
     @RequestMapping(value = "/placeAsk", method = RequestMethod.POST)
     @ResponseStatus(HttpStatus.OK)
     @ResponseBody
-    public ResponseEntity<Void> placeAsk(@RequestBody OrderDto orderDto) {
+    public ResponseEntity<Void> placeAsk(@RequestBody OrderDto orderDto) throws AccountStateException {
         OrderEntity orderEntity = convertToEntity(orderDto);
         this.orderService.placeAsk(orderEntity);
         return ResponseEntity.ok().build();
@@ -66,7 +67,7 @@ public class OrderResource {
     @RequestMapping(value = "/placeBid", method = RequestMethod.POST)
     @ResponseStatus(HttpStatus.OK)
     @ResponseBody
-    public ResponseEntity<Void> placeBid(@RequestBody OrderDto orderDto) {
+    public ResponseEntity<Void> placeBid(@RequestBody OrderDto orderDto) throws AccountStateException {
         OrderEntity orderEntity = convertToEntity(orderDto);
         this.orderService.placeBid(orderEntity);
         return ResponseEntity.ok().build();

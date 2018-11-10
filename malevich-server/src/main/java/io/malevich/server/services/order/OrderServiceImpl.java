@@ -1,6 +1,7 @@
 package io.malevich.server.services.order;
 
 import io.malevich.server.domain.*;
+import io.malevich.server.exceptions.AccountStateException;
 import io.malevich.server.repositories.order.OrderDao;
 import io.malevich.server.services.counterparty.CounterpartyService;
 import io.malevich.server.services.gallery.GalleryService;
@@ -10,6 +11,7 @@ import io.malevich.server.services.tradehistory.TradeHistoryService;
 import io.malevich.server.services.trader.TraderService;
 import io.malevich.server.services.tradetype.TradeTypeService;
 import io.malevich.server.services.transaction.TransactionService;
+import io.malevich.server.services.transactiontype.TransactionTypeService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
@@ -22,6 +24,7 @@ import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
+import java.util.stream.Collectors;
 
 
 @Slf4j
@@ -55,6 +58,9 @@ public class OrderServiceImpl implements OrderService {
     @Autowired
     private TradeHistoryService tradeHistoryService;
 
+    @Autowired
+    private TransactionTypeService transactionTypeService;
+
     @Override
     @Transactional(readOnly = true)
     public List<OrderEntity> findAll() {
@@ -64,6 +70,7 @@ public class OrderServiceImpl implements OrderService {
     @Override
     @Transactional(readOnly = true)
     public List<OrderEntity> findAllOpen() {
+        // todo add date param
         return this.orderDao.findAllOpen();
     }
 
@@ -96,35 +103,31 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     @Transactional
-    public void placeAsk(OrderEntity orderEntity) {
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        Object principal = authentication.getPrincipal();
-        UserDetails userDetails = null;
-        if (principal instanceof UserDetails) {
-            userDetails = (UserDetails) principal;
-
-            GalleryEntity galleryEntity = galleryService.findByUserName(userDetails.getUsername());
-
-            orderEntity.setEffectiveDate(new Timestamp(System.currentTimeMillis()));
-            orderEntity.setParty(counterpartyService.findCounterpartyEntitiesByGalleryId(galleryEntity.getId()));
+    public void placeAsk(OrderEntity orderEntity) throws AccountStateException {
+        orderEntity.setEffectiveDate(new Timestamp(System.currentTimeMillis()));
+        orderEntity.setParty(counterpartyService.getCurrent());
+        if (orderEntity.getTradeType() == null)
             orderEntity.setTradeType(tradeTypeService.findById("GTC_").get());
-            orderEntity.setType(orderTypeService.findById("ASK").get());
-            orderEntity.setStatus(orderStatusService.findById("OPEN").get());
+        orderEntity.setType(orderTypeService.findById("ASK").get());
+        orderEntity.setStatus(orderStatusService.findById("OPEN").get());
+        if (orderEntity.getExpirationDate() != null)
+            setEndOfDay(orderEntity.getExpirationDate());
 
-            if(orderEntity.getExpirationDate() != null)
-                setEndOfDay(orderEntity.getExpirationDate());
+        List<OrderEntity> orders = orderDao.findAllOrdersByArtworkStockId(orderEntity.getArtworkStock().getId());
 
-            orderEntity = orderDao.save(orderEntity);
+        orders = cancelClones(orderEntity, orders);
 
-            transactionService.placeAsk(orderEntity);
+        orderEntity = orderDao.save(orderEntity);
 
-            // TODO fix this crap
-        } else
-            System.out.println("!!!!!!!!!!!!");
+        CounterpartyEntity malevich = counterpartyService.getMalevich();
+
+        transactionService.createTransactionAndReverse(transactionTypeService.findById("0004").get(), orderEntity.getParty(), malevich, orderEntity.getArtworkStock(), 0D, -1L);
+
+        tryExecute(orderEntity, orders);
     }
 
-    private Timestamp setEndOfDay(Timestamp date){
-        Calendar c=Calendar.getInstance();
+    private Timestamp setEndOfDay(Timestamp date) {
+        Calendar c = Calendar.getInstance();
         c.setTimeInMillis(date.getTime());
         c.set(Calendar.HOUR_OF_DAY, 23);
         c.set(Calendar.MINUTE, 59);
@@ -138,72 +141,136 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     @Transactional
-    public void placeBid(OrderEntity orderEntity) {
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        Object principal = authentication.getPrincipal();
-        UserDetails userDetails = null;
-        if (principal instanceof UserDetails) {
-            userDetails = (UserDetails) principal;
-
-            TraderEntity traderEntity = traderService.findByUserName(userDetails.getUsername());
-
-            orderEntity.setEffectiveDate(new Timestamp(System.currentTimeMillis()));
-            orderEntity.setParty(counterpartyService.findCounterpartyEntitiesByTraderId(traderEntity.getId()));
+    public void placeBid(OrderEntity orderEntity) throws AccountStateException {
+        orderEntity.setEffectiveDate(new Timestamp(System.currentTimeMillis()));
+        orderEntity.setParty(counterpartyService.getCurrent());
+        if (orderEntity.getTradeType() == null)
             orderEntity.setTradeType(tradeTypeService.findById("GTC_").get());
-            orderEntity.setType(orderTypeService.findById("BID").get());
-            orderEntity.setStatus(orderStatusService.findById("OPEN").get());
+        orderEntity.setType(orderTypeService.findById("BID").get());
+        orderEntity.setStatus(orderStatusService.findById("OPEN").get());
+        if (orderEntity.getExpirationDate() != null)
+            setEndOfDay(orderEntity.getExpirationDate());
 
-            if(orderEntity.getExpirationDate() != null)
-                setEndOfDay(orderEntity.getExpirationDate());
+        List<OrderEntity> orders = orderDao.findAllOrdersByArtworkStockId(orderEntity.getArtworkStock().getId());
 
-            orderEntity = orderDao.save(orderEntity);
+        orders = cancelClones(orderEntity, orders);
 
-            transactionService.placeBid(orderEntity);
+        orderEntity = orderDao.save(orderEntity);
 
-            OrderEntity counterOrderEntity = orderDao.findCounterOrder(orderEntity.getArtworkStock().getId(), orderEntity.getAmount());
-            if (counterOrderEntity != null) {
-                TradeHistoryEntity tradeHistoryEntity = tradeHistoryService.create(counterOrderEntity, orderEntity);
-                orderEntity.setStatus(orderStatusService.findById("EXECUTED").get());
-                orderDao.save(orderEntity);
-                counterOrderEntity.setStatus(orderStatusService.findById("EXECUTED").get());
-                orderDao.save(counterOrderEntity);
+        CounterpartyEntity malevich = counterpartyService.getMalevich();
+        transactionService.createTransactionAndReverse(transactionTypeService.findById("0003").get(), orderEntity.getParty(), malevich, null, -orderEntity.getAmount(), 0L);
 
-                transactionService.buySell(tradeHistoryEntity);
+        tryExecute(orderEntity, orders);
+    }
 
-                List<OrderEntity> orders = orderDao.findAllOrdersByArtworkStockId(tradeHistoryEntity.getArtworkStock().getId());
-                for (OrderEntity order : orders) {
-                    if ("BID".equals(order.getType().getId())) {
-                        if (!"EXECUTED".equals(order.getStatus().getId())) {
-                            transactionService.cancelBid(order);
-                            order.setStatus(orderStatusService.findById("CANCELED").get());
-                            orderDao.save(order);
-                        }
-                    }
-                }
-            }
+    private OrderEntity getBestAsk(List<OrderEntity> screen) {
+        return screen.stream()
+                .filter(o -> "ASK".equals(o.getType().getId()))
+                .sorted((o1, o2) -> {
+                    if (o1.getAmount() != o2.getAmount())
+                        return o1.getAmount().compareTo(o2.getAmount());
 
-            // TODO fix this crap
-        } else
-            System.out.println("!!!!!!!!!!!!");
+                    return o1.getEffectiveDate().compareTo(o2.getEffectiveDate());
+                })
+                .findFirst()
+                .orElse(null);
+    }
+
+    private OrderEntity getBestBid(List<OrderEntity> screen) {
+        return screen.stream()
+                .filter(o -> "BID".equals(o.getType().getId()))
+                .sorted((o1, o2) -> {
+                    if (o1.getAmount() != o2.getAmount())
+                        return -o1.getAmount().compareTo(o2.getAmount());
+
+                    return o1.getEffectiveDate().compareTo(o2.getEffectiveDate());
+                })
+                .findFirst()
+                .orElse(null);
+    }
+
+    private TradeHistoryEntity tryExecute(OrderEntity orderEntity, List<OrderEntity> screen) throws AccountStateException {
+        OrderEntity bestBid = getBestBid(screen);
+        OrderEntity bestAsk = getBestAsk(screen);
+
+        if ("BID".equals(orderEntity.getType().getId())) {
+            if (bestBid != null && orderEntity.getAmount() <= bestBid.getAmount())
+                return null;
+
+            if(bestAsk == null)
+                return null;
+
+            bestBid = orderEntity;
+        } else {
+            if (bestAsk != null && orderEntity.getAmount() >= bestAsk.getAmount())
+                return null;
+
+            if(bestBid == null)
+                return null;
+
+            bestAsk = orderEntity;
+        }
+
+        if (bestBid.getAmount() < bestAsk.getAmount())
+            return null;
+        else {
+            Double tradePrice = bestAsk.getEffectiveDate().compareTo(bestAsk.getEffectiveDate()) < 0
+                    ? bestAsk.getAmount()
+                    : bestBid.getAmount();
+
+            bestBid.setStatus(orderStatusService.findById("EXECUTED").get());
+            bestAsk.setStatus(orderStatusService.findById("EXECUTED").get());
+
+            orderDao.save(bestAsk);
+            orderDao.save(bestBid);
+
+            CounterpartyEntity malevich = counterpartyService.getMalevich();
+
+            //return ask
+            transactionService.createTransactionAndReverse(transactionTypeService.findById("0009").get(), bestAsk.getParty(), malevich, orderEntity.getArtworkStock(), 0D, 1L);
+
+            //return bid
+            transactionService.createTransactionAndReverse(transactionTypeService.findById("0008").get(), bestBid.getParty(), malevich, null, bestBid.getAmount(), 0L);
+
+            //buy-sell
+            transactionService.createTransactionAndReverse(transactionTypeService.findById("0005").get(), bestAsk.getParty(), bestBid.getParty(), orderEntity.getArtworkStock(), tradePrice, -1L);
+
+            //todo create blockchain transaction
+
+            return tradeHistoryService.create(bestAsk, bestBid);
+        }
+    }
+
+    private List<OrderEntity> cancelClones(OrderEntity orderEntity, List<OrderEntity> screen) throws AccountStateException {
+        for (OrderEntity o : screen) {
+            if (o.getParty().getId() == orderEntity.getParty().getId())
+                cancelOrder(o);
+        }
+
+        return screen.stream()
+                .filter(o -> !"CANCELED".equals(orderEntity.getStatus().getId()))
+                .collect(Collectors.toList());
     }
 
     @Override
     @Transactional
-    public void cancelOrder(OrderEntity orderEntity)
-    {
-        if("CANCELED".equals(orderEntity.getStatus().getId()))
+    public void cancelOrder(OrderEntity orderEntity) throws AccountStateException {
+        if ("CANCELED".equals(orderEntity.getStatus().getId()))
             return;
 
         orderEntity.setStatus(orderStatusService.findById("CANCELED").get());
         orderDao.save(orderEntity);
 
-        switch(orderEntity.getType().getId()){
-            case "ASK":{
-                transactionService.cancelAsk(orderEntity);
+        CounterpartyEntity malevich = counterpartyService.getMalevich();
+
+        switch (orderEntity.getType().getId()) {
+            case "ASK": {
+                transactionService.createTransactionAndReverse(transactionTypeService.findById("0007").get(), orderEntity.getParty(), malevich, orderEntity.getArtworkStock(), 0D, 1L);
                 break;
             }
-            case "BID":{
-                transactionService.cancelBid(orderEntity);
+            case "BID": {
+                transactionService.createTransactionAndReverse(transactionTypeService.findById("0006").get(), orderEntity.getParty(), malevich, null, orderEntity.getAmount(), 0L);
+
                 break;
             }
         }

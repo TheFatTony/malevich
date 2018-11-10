@@ -64,11 +64,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http.addFilter(new JWTAuthenticationFilter(authenticationManager(), jwtUtil));
         http.addFilter(new JWTAuthorizationFilter(authenticationManager(), jwtUtil, userService));
         http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
-        http.headers().contentSecurityPolicy("Access-Control-Allow-Origin: *");
-
+        http.headers().frameOptions().disable();
 //        http.csrf().disable();
 //        http.cors().disable();
-//        http.headers().frameOptions().sameOrigin();
     }
 
     @Override

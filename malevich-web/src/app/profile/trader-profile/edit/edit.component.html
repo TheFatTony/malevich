@@ -32,6 +32,7 @@
     </div>
     <!-- End Profile Settings -->
 
+
     <div class="col-lg-9 g-mb-50">
       <div class="g-brd-around g-brd-gray-light-v4 rounded g-pa-30 g-mb-30">
 
@@ -65,8 +66,20 @@
         <div class="row">
           <div class="col-8">
             <span
+              class="d-block g-color-text g-font-size-13 mb-1">{{'TRADER_PROFILE.SECURITY.LABEL.FIRST_NAME' | translate}}</span>
+            <jqxFileUpload
+              [width]="'100%'" [uploadUrl]="url + 'files/uploadFile'" [fileInputName]="'file'" (onUploadEnd)="onUploadEnd($event)" [multipleFilesUpload]="false">
+            </jqxFileUpload>
+          </div>
+        </div>
+
+        <hr class="g-brd-gray-light-v4 g-my-20">
+
+        <div class="row">
+          <div class="col-8">
+            <span
               class="d-block g-color-text g-font-size-13 mb-1">{{'TRADER_PROFILE.SECURITY.LABEL.EMAIL' | translate}}</span>
-            <span class="d-block">{{trader?.user.name}}</span>
+            <span class="d-block">{{trader?.user?.name}}</span>
           </div>
         </div>
 
@@ -181,10 +194,11 @@
             <div class="col-8">
               <span
                 class="d-block g-color-text g-font-size-13 mb-1">{{'TRADER_PROFILE.SECURITY.LABEL.ADDRESS.STATE' | translate}}</span>
-              <jqxInput class="g-color-black g-bg-white g-bg-white--focus g-brd-gray-light-v3 rounded g-py-15 g-px-15"
-                        [(ngModel)]="address.state"
-                        [placeHolder]="'TRADER_PROFILE.SECURITY.PLACEHOLDER.ADDRESS.STATE' | translate"
-                        [width]="'100%'"></jqxInput>
+              <jqxInput
+                class="g-color-black g-bg-white g-bg-white--focus g-brd-gray-light-v3 rounded g-py-15 g-px-15"
+                [(ngModel)]="address.state"
+                [placeHolder]="'TRADER_PROFILE.SECURITY.PLACEHOLDER.ADDRESS.STATE' | translate"
+                [width]="'100%'"></jqxInput>
             </div>
 
           </div>
@@ -195,10 +209,11 @@
             <div class="col-8">
               <span
                 class="d-block g-color-text g-font-size-13 mb-1">{{'TRADER_PROFILE.SECURITY.LABEL.ADDRESS.CITY' | translate}}</span>
-              <jqxInput class="g-color-black g-bg-white g-bg-white--focus g-brd-gray-light-v3 rounded g-py-15 g-px-15"
-                        [(ngModel)]="address.city"
-                        [placeHolder]="'TRADER_PROFILE.SECURITY.PLACEHOLDER.ADDRESS.CITY' | translate"
-                        [width]="'100%'"></jqxInput>
+              <jqxInput
+                class="g-color-black g-bg-white g-bg-white--focus g-brd-gray-light-v3 rounded g-py-15 g-px-15"
+                [(ngModel)]="address.city"
+                [placeHolder]="'TRADER_PROFILE.SECURITY.PLACEHOLDER.ADDRESS.CITY' | translate"
+                [width]="'100%'"></jqxInput>
             </div>
 
           </div>
@@ -209,10 +224,11 @@
             <div class="col-8">
               <span
                 class="d-block g-color-text g-font-size-13 mb-1">{{'TRADER_PROFILE.SECURITY.LABEL.ADDRESS.ZIP' | translate}}</span>
-              <jqxInput class="g-color-black g-bg-white g-bg-white--focus g-brd-gray-light-v3 rounded g-py-15 g-px-15"
-                        [(ngModel)]="address.postalCode"
-                        [placeHolder]="'TRADER_PROFILE.SECURITY.PLACEHOLDER.ADDRESS.ZIP' | translate"
-                        [width]="'100%'"></jqxInput>
+              <jqxInput
+                class="g-color-black g-bg-white g-bg-white--focus g-brd-gray-light-v3 rounded g-py-15 g-px-15"
+                [(ngModel)]="address.postalCode"
+                [placeHolder]="'TRADER_PROFILE.SECURITY.PLACEHOLDER.ADDRESS.ZIP' | translate"
+                [width]="'100%'"></jqxInput>
             </div>
 
           </div>
@@ -223,10 +239,11 @@
             <div class="col-8">
               <span
                 class="d-block g-color-text g-font-size-13 mb-1">{{'TRADER_PROFILE.SECURITY.LABEL.ADDRESS.STREET' | translate}}</span>
-              <jqxInput class="g-color-black g-bg-white g-bg-white--focus g-brd-gray-light-v3 rounded g-py-15 g-px-15"
-                        [(ngModel)]="address.street"
-                        [placeHolder]="'TRADER_PROFILE.SECURITY.PLACEHOLDER.ADDRESS.STREET' | translate"
-                        [width]="'100%'"></jqxInput>
+              <jqxInput
+                class="g-color-black g-bg-white g-bg-white--focus g-brd-gray-light-v3 rounded g-py-15 g-px-15"
+                [(ngModel)]="address.street"
+                [placeHolder]="'TRADER_PROFILE.SECURITY.PLACEHOLDER.ADDRESS.STREET' | translate"
+                [width]="'100%'"></jqxInput>
             </div>
 
           </div>

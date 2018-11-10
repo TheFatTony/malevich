@@ -3,7 +3,7 @@
   <div class="text-center g-pos-rel g-mb-30">
     <div class="g-width-100 g-height-100 mx-auto mb-3">
       <a routerLink="/profile/trader/view">
-        <img class="img-fluid rounded-circle" src="https://via.placeholder.com/100x100/img1.jpg"
+        <img class="img-fluid rounded-circle" src="{{url}}{{trader?.thumbnail?.url}}"
              alt="Image Decor">
       </a>
     </div>
@@ -11,14 +11,6 @@
     <a class="d-block g-font-weight-500" routerLink="/profile/trader/view">{{trader?.person.firstName}}
       {{trader?.person.lastName}}
     </a>
-
-    <span
-      class="u-icon-v3 u-icon-size--xs g-color-white--hover g-bg-primary--hover rounded-circle g-pos-abs g-top-0 g-right-15 g-cursor-pointer"
-      title="Change Profile Picture"
-      data-toggle="tooltip"
-      data-placement="top">
-      <i class="icon-finance-067 u-line-icon-pro"></i>
-    </span>
   </div>
   <!-- End Profile Picture -->
 

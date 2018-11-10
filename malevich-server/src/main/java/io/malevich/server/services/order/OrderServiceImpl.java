@@ -98,12 +98,31 @@ public class OrderServiceImpl implements OrderService {
     @Override
     @Transactional(readOnly = true)
     public List<OrderEntity> getOrdersByArtworkStockId(Long artworkId) {
-        return orderDao.findAllOrdersByArtworkStockId(artworkId);
+        return orderDao.findAllOrdersByArtworkStockId(artworkId)
+                .stream()
+                .sorted((o1, o2) -> {
+                    // ask first
+                    if (!o1.getType().getId().equals(o2.getType().getId()))
+                        return "ASK".equals(o1.getType().getId()) ? -1 : 1;
+
+                    int result = 0;
+
+                    if (!o1.getAmount().equals(o2.getAmount()))
+                        // max amount first
+                        result = -o1.getAmount().compareTo(o2.getAmount());
+                    else
+                        // earlier first
+                        result = o1.getEffectiveDate().compareTo(o2.getEffectiveDate());
+
+                    // invert sort for asks (just in case)
+                    return "ASK".equals(o1.getType().getId()) ? -result : result;
+                })
+                .collect(Collectors.toList());
     }
 
     @Override
     @Transactional
-    public void placeAsk(OrderEntity orderEntity) throws AccountStateException {
+    public void placeAsk(OrderEntity orderEntity) {
         orderEntity.setEffectiveDate(new Timestamp(System.currentTimeMillis()));
         orderEntity.setParty(counterpartyService.getCurrent());
         if (orderEntity.getTradeType() == null)
@@ -140,8 +159,8 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
-    @Transactional
-    public void placeBid(OrderEntity orderEntity) throws AccountStateException {
+    @Transactional()
+    public void placeBid(OrderEntity orderEntity) {
         orderEntity.setEffectiveDate(new Timestamp(System.currentTimeMillis()));
         orderEntity.setParty(counterpartyService.getCurrent());
         if (orderEntity.getTradeType() == null)
@@ -189,7 +208,7 @@ public class OrderServiceImpl implements OrderService {
                 .orElse(null);
     }
 
-    private TradeHistoryEntity tryExecute(OrderEntity orderEntity, List<OrderEntity> screen) throws AccountStateException {
+    private TradeHistoryEntity tryExecute(OrderEntity orderEntity, List<OrderEntity> screen) {
         OrderEntity bestBid = getBestBid(screen);
         OrderEntity bestAsk = getBestAsk(screen);
 
@@ -197,7 +216,7 @@ public class OrderServiceImpl implements OrderService {
             if (bestBid != null && orderEntity.getAmount() <= bestBid.getAmount())
                 return null;
 
-            if(bestAsk == null)
+            if (bestAsk == null)
                 return null;
 
             bestBid = orderEntity;
@@ -205,7 +224,7 @@ public class OrderServiceImpl implements OrderService {
             if (bestAsk != null && orderEntity.getAmount() >= bestAsk.getAmount())
                 return null;
 
-            if(bestBid == null)
+            if (bestBid == null)
                 return null;
 
             bestAsk = orderEntity;
@@ -214,7 +233,8 @@ public class OrderServiceImpl implements OrderService {
         if (bestBid.getAmount() < bestAsk.getAmount())
             return null;
         else {
-            Double tradePrice = bestAsk.getEffectiveDate().compareTo(bestAsk.getEffectiveDate()) < 0
+            // if amounts are not equal, get price from earliest order
+            Double tradePrice = bestAsk.getEffectiveDate().compareTo(bestBid.getEffectiveDate()) < 0
                     ? bestAsk.getAmount()
                     : bestBid.getAmount();
 
@@ -237,11 +257,11 @@ public class OrderServiceImpl implements OrderService {
 
             //todo create blockchain transaction
 
-            return tradeHistoryService.create(bestAsk, bestBid);
+            return tradeHistoryService.create(bestAsk, bestBid, tradePrice);
         }
     }
 
-    private List<OrderEntity> cancelClones(OrderEntity orderEntity, List<OrderEntity> screen) throws AccountStateException {
+    private List<OrderEntity> cancelClones(OrderEntity orderEntity, List<OrderEntity> screen) {
         for (OrderEntity o : screen) {
             if (o.getParty().getId() == orderEntity.getParty().getId())
                 cancelOrder(o);
@@ -254,7 +274,7 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     @Transactional
-    public void cancelOrder(OrderEntity orderEntity) throws AccountStateException {
+    public void cancelOrder(OrderEntity orderEntity) {
         if ("CANCELED".equals(orderEntity.getStatus().getId()))
             return;
 

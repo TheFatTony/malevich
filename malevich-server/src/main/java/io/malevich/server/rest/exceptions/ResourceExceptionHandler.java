@@ -36,8 +36,8 @@ public class ResourceExceptionHandler {
 
     @ExceptionHandler(AccountStateException.class)
     public ResponseEntity<StandardError> accountStateException(AccountStateException e, HttpServletRequest request) {
-        StandardError err = new StandardError(System.currentTimeMillis(), HttpStatus.FORBIDDEN.value(), "Insufficient amount of funds", e.getMessage(), request.getRequestURI());
-        return ResponseEntity.status(HttpStatus.FORBIDDEN).body(err);
+        StandardError err = new StandardError(System.currentTimeMillis(), HttpStatus.INTERNAL_SERVER_ERROR.value(), "Insufficient amount of funds", e.getMessage(), request.getRequestURI());
+        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(err);
     }
 
 

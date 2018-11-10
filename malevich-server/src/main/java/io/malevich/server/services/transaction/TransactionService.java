@@ -17,16 +17,16 @@ public interface TransactionService {
                            CounterpartyEntity counterparty,
                            ArtworkStockEntity artworkStock,
                            Double amount,
-                           Long quantity) throws AccountStateException;
+                           Long quantity);
 
     void createTransactionAndReverse(TransactionTypeEntity transactionType,
                                      CounterpartyEntity party,
                                      CounterpartyEntity counterparty,
                                      ArtworkStockEntity artworkStock,
                                      Double amount,
-                                     Long quantity) throws AccountStateException;
+                                     Long quantity);
 
     void createArtworkStock(ArtworkStockEntity artworkStockEntity);
 
-    void applyPayment(PaymentsEntity paymentsEntity) throws AccountStateException;
+    void applyPayment(PaymentsEntity paymentsEntity);
 }

@@ -57,7 +57,7 @@ public class OrderResource {
     @RequestMapping(value = "/placeAsk", method = RequestMethod.POST)
     @ResponseStatus(HttpStatus.OK)
     @ResponseBody
-    public ResponseEntity<Void> placeAsk(@RequestBody OrderDto orderDto) throws AccountStateException {
+    public ResponseEntity<Void> placeAsk(@RequestBody OrderDto orderDto) {
         OrderEntity orderEntity = convertToEntity(orderDto);
         this.orderService.placeAsk(orderEntity);
         return ResponseEntity.ok().build();
@@ -67,7 +67,7 @@ public class OrderResource {
     @RequestMapping(value = "/placeBid", method = RequestMethod.POST)
     @ResponseStatus(HttpStatus.OK)
     @ResponseBody
-    public ResponseEntity<Void> placeBid(@RequestBody OrderDto orderDto) throws AccountStateException {
+    public ResponseEntity<Void> placeBid(@RequestBody OrderDto orderDto) {
         OrderEntity orderEntity = convertToEntity(orderDto);
         this.orderService.placeBid(orderEntity);
         return ResponseEntity.ok().build();

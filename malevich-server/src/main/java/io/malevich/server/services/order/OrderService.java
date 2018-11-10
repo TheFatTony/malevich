@@ -18,9 +18,9 @@ public interface OrderService {
 
     List<OrderEntity> getOrdersByArtworkStockId(Long artworkId);
 
-    void placeAsk(OrderEntity orderEntity) throws AccountStateException;
+    void placeAsk(OrderEntity orderEntity);
 
-    void placeBid(OrderEntity orderEntity) throws AccountStateException;
+    void placeBid(OrderEntity orderEntity);
 
-    void cancelOrder(OrderEntity orderEntity) throws AccountStateException;
+    void cancelOrder(OrderEntity orderEntity);
 }

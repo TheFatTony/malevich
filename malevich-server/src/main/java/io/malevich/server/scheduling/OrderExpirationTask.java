@@ -21,7 +21,7 @@ public class OrderExpirationTask {
 
 
     @Scheduled(cron = "0 0 00 * * *")
-    public void reportCurrentTime() throws AccountStateException {
+    public void reportCurrentTime() {
         Timestamp now = new Timestamp(System.currentTimeMillis());
 
         for (OrderEntity order : orderService.findAllOpen()) {

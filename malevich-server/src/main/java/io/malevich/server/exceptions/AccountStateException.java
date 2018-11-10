@@ -1,5 +1,5 @@
 package io.malevich.server.exceptions;
 
-public class AccountStateException extends Exception {
+public class AccountStateException extends RuntimeException {
 
 }

@@ -4,6 +4,7 @@ import io.malevich.server.domain.OrderEntity;
 import io.malevich.server.exceptions.AccountStateException;
 import io.malevich.server.services.order.OrderService;
 import io.malevich.server.transfer.OrderDto;
+import io.malevich.server.transfer.OrderPublicDto;
 import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -48,9 +49,9 @@ public class OrderResource {
     @RequestMapping(value = "/getOrdersByArtworkId/{artworkId}", method = RequestMethod.GET)
     @ResponseStatus(HttpStatus.OK)
     @ResponseBody
-    public List<OrderDto> getOrdersByArtworkId(@PathVariable("artworkId") long artworkId) {
+    public List<OrderPublicDto> getOrdersByArtworkId(@PathVariable("artworkId") long artworkId) {
         List<OrderEntity> allEntries = this.orderService.getOrdersByArtworkStockId(artworkId);
-        return allEntries.stream().map(allEntry -> convertToDto(allEntry)).collect(Collectors.toList());
+        return allEntries.stream().map(allEntry -> convertToPublicDto(allEntry)).collect(Collectors.toList());
     }
 
     @PreAuthorize("hasAnyRole('GALLERY', 'TRADER')")
@@ -75,6 +76,10 @@ public class OrderResource {
 
     private OrderDto convertToDto(OrderEntity entity) {
         return modelMapper.map(entity, OrderDto.class);
+    }
+
+    private OrderPublicDto convertToPublicDto(OrderEntity entity) {
+        return modelMapper.map(entity, OrderPublicDto.class);
     }
 
     private OrderEntity convertToEntity(OrderDto dto) {

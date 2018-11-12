@@ -12,6 +12,7 @@ import {TradeHistoryDto} from "../../_transfer/tradeHistoryDto";
 import {TradeTypeService} from "../../_services/trade-type.service";
 import {TradeTypeDto} from "../../_transfer/tradeTypeDto";
 import {jqxDropDownListComponent} from "jqwidgets-scripts/jqwidgets-ts/angular_jqxdropdownlist";
+import {OrderPublicDto} from "../../_transfer/orderPublicDto";
 
 @Component({
   selector: 'app-artworks-detail',
@@ -27,8 +28,7 @@ export class ArtworksDetailComponent implements OnInit, AfterViewInit {
   id: number;
   public newOrder: OrderDto;
 
-  placedOrders: OrderDto[];
-
+  placedOrders: OrderPublicDto[];
 
   tradeHistory: TradeHistoryDto[];
 

@@ -98,24 +98,29 @@ public class OrderServiceImpl implements OrderService {
     @Override
     @Transactional(readOnly = true)
     public List<OrderEntity> getOrdersByArtworkStockId(Long artworkId) {
+        Long currentPartyId = counterpartyService.getCurrent().getId();
         return orderDao.findAllOrdersByArtworkStockId(artworkId)
                 .stream()
-                .sorted((o1, o2) -> {
+                .map(order -> {
+                    order.setIsOwn(currentPartyId.equals(order.getParty().getId()));
+                    return order;
+                })
+                .sorted((order1, order2) -> {
                     // ask first
-                    if (!o1.getType().getId().equals(o2.getType().getId()))
-                        return "ASK".equals(o1.getType().getId()) ? -1 : 1;
+                    if (!order1.getType().getId().equals(order2.getType().getId()))
+                        return "ASK".equals(order1.getType().getId()) ? -1 : 1;
 
                     int result = 0;
 
-                    if (!o1.getAmount().equals(o2.getAmount()))
+                    if (!order1.getAmount().equals(order2.getAmount()))
                         // max amount first
-                        result = -o1.getAmount().compareTo(o2.getAmount());
+                        result = -order1.getAmount().compareTo(order2.getAmount());
                     else
                         // earlier first
-                        result = o1.getEffectiveDate().compareTo(o2.getEffectiveDate());
+                        result = order1.getEffectiveDate().compareTo(order2.getEffectiveDate());
 
                     // invert sort for asks (just in case)
-                    return "ASK".equals(o1.getType().getId()) ? -result : result;
+                    return "ASK".equals(order1.getType().getId()) ? -result : result;
                 })
                 .collect(Collectors.toList());
     }

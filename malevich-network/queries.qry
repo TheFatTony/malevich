@@ -12,30 +12,8 @@
  * limitations under the License.
  */
 
-/**
- * Write your model definitions here
- */
-
-namespace io.malevich.network
-
-participant Counetrparty identified by counetrpartyId {
-  o String counetrpartyId
-  o String systemCode
-}
-
-asset Artwork identified by artworkId {
-  o String artworkId
-  --> Counetrparty owner
-  o String value
-}
-
-transaction BuySellTransaction {
-  --> Artwork asset
-  o String newValue
-}
-
-event BuySellEvent {
-  --> Artwork asset
-  o String oldValue
-  o String newValue
+query selectCommodities {
+  description: "Select all commodities"
+  statement:
+      SELECT io.malevich.network.Counetrparty
 }

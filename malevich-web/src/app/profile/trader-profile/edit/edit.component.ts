@@ -26,7 +26,7 @@ export class EditComponent implements OnInit, AfterViewInit {
   countries: any[];
   genders: any[];
 
-  private url = environment.baseUrl;
+  public url = environment.baseUrl;
 
   @Inject(LOCALE_ID) public locale: string;
 

@@ -139,7 +139,7 @@ Feature: Sample
 
     Scenario: Alice can submit a transaction for her assets
         When I use the identity alice1
-        And I submit the following transaction of type io.malevich.network.SampleTransaction
+        And I submit the following transaction of type io.malevich.network.BuySellTransaction
             | asset | newValue |
             | 1     | 50       |
         Then I should have the following assets of type io.malevich.network.SampleAsset
@@ -151,14 +151,14 @@ Feature: Sample
 
     Scenario: Alice cannot submit a transaction for Bob's assets
         When I use the identity alice1
-        And I submit the following transaction of type io.malevich.network.SampleTransaction
+        And I submit the following transaction of type io.malevich.network.BuySellTransaction
             | asset | newValue |
             | 2     | 50       |
         Then I should get an error matching /does not have .* access to resource/
 
     Scenario: Bob can submit a transaction for his assets
         When I use the identity bob1
-        And I submit the following transaction of type io.malevich.network.SampleTransaction
+        And I submit the following transaction of type io.malevich.network.BuySellTransaction
             | asset | newValue |
             | 2     | 60       |
         Then I should have the following assets of type io.malevich.network.SampleAsset
@@ -170,7 +170,7 @@ Feature: Sample
 
     Scenario: Bob cannot submit a transaction for Alice's assets
         When I use the identity bob1
-        And I submit the following transaction of type io.malevich.network.SampleTransaction
+        And I submit the following transaction of type io.malevich.network.BuySellTransaction
             | asset | newValue |
             | 1     | 60       |
         Then I should get an error matching /does not have .* access to resource/

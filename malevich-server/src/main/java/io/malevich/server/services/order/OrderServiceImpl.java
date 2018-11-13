@@ -1,27 +1,20 @@
 package io.malevich.server.services.order;
 
 import io.malevich.server.domain.*;
-import io.malevich.server.exceptions.AccountStateException;
 import io.malevich.server.repositories.order.OrderDao;
 import io.malevich.server.services.counterparty.CounterpartyService;
-import io.malevich.server.services.gallery.GalleryService;
 import io.malevich.server.services.orderstatus.OrderStatusService;
 import io.malevich.server.services.ordertype.OrderTypeService;
 import io.malevich.server.services.tradehistory.TradeHistoryService;
-import io.malevich.server.services.trader.TraderService;
 import io.malevich.server.services.tradetype.TradeTypeService;
 import io.malevich.server.services.transaction.TransactionService;
 import io.malevich.server.services.transactiontype.TransactionTypeService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.sql.Timestamp;
-import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -34,11 +27,6 @@ public class OrderServiceImpl implements OrderService {
     @Autowired
     private OrderDao orderDao;
 
-    @Autowired
-    private TraderService traderService;
-
-    @Autowired
-    private GalleryService galleryService;
 
     @Autowired
     private CounterpartyService counterpartyService;
@@ -77,22 +65,9 @@ public class OrderServiceImpl implements OrderService {
     @Override
     @Transactional(readOnly = true)
     public List<OrderEntity> getPlacedOrders() {
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        Object principal = authentication.getPrincipal();
-        UserDetails userDetails = null;
-        if (principal instanceof UserDetails) {
-            userDetails = (UserDetails) principal;
-        } else return null;
+        Long currentId = counterpartyService.getCurrent().getId();
 
-        TraderEntity traderEntity = traderService.findByUserName(userDetails.getUsername());
-        if (traderEntity != null)
-            return this.orderDao.findAllPlacedTraderOrders(traderEntity.getId());
-
-        GalleryEntity galleryEntity = galleryService.findByUserName(userDetails.getUsername());
-        if (galleryEntity != null)
-            return this.orderDao.findAllPlacedGalleryOrders(galleryEntity.getId());
-
-        return new ArrayList<>();
+        return orderDao.findAllPlacedOrdersByParty(currentId);
     }
 
     @Override
@@ -108,7 +83,7 @@ public class OrderServiceImpl implements OrderService {
                 .sorted((order1, order2) -> {
                     // ask first
                     if (!order1.getType().getId().equals(order2.getType().getId()))
-                        return "ASK".equals(order1.getType().getId()) ? -1 : 1;
+                        return orderTypeService.getAsk().getId().equals(order1.getType().getId()) ? -1 : 1;
 
                     int result = 0;
 
@@ -120,7 +95,7 @@ public class OrderServiceImpl implements OrderService {
                         result = order1.getEffectiveDate().compareTo(order2.getEffectiveDate());
 
                     // invert sort for asks (just in case)
-                    return "ASK".equals(order1.getType().getId()) ? -result : result;
+                    return orderTypeService.getAsk().getId().equals(order1.getType().getId()) ? -result : result;
                 })
                 .collect(Collectors.toList());
     }
@@ -131,9 +106,9 @@ public class OrderServiceImpl implements OrderService {
         orderEntity.setEffectiveDate(new Timestamp(System.currentTimeMillis()));
         orderEntity.setParty(counterpartyService.getCurrent());
         if (orderEntity.getTradeType() == null)
-            orderEntity.setTradeType(tradeTypeService.findById("GTC_").get());
-        orderEntity.setType(orderTypeService.findById("ASK").get());
-        orderEntity.setStatus(orderStatusService.findById("OPEN").get());
+            orderEntity.setTradeType(tradeTypeService.getGtc());
+        orderEntity.setType(orderTypeService.getAsk());
+        orderEntity.setStatus(orderStatusService.getOpen());
         if (orderEntity.getExpirationDate() != null)
             setEndOfDay(orderEntity.getExpirationDate());
 
@@ -145,7 +120,7 @@ public class OrderServiceImpl implements OrderService {
 
         CounterpartyEntity malevich = counterpartyService.getMalevich();
 
-        transactionService.createTransactionAndReverse(transactionTypeService.findById("0004").get(), orderEntity.getParty(), malevich, orderEntity.getArtworkStock(), 0D, -1L);
+        transactionService.createTransactionAndReverse(transactionTypeService.getAsk(), orderEntity.getParty(), malevich, orderEntity.getArtworkStock(), 0D, -1L);
 
         tryExecute(orderEntity, orders);
     }
@@ -169,9 +144,9 @@ public class OrderServiceImpl implements OrderService {
         orderEntity.setEffectiveDate(new Timestamp(System.currentTimeMillis()));
         orderEntity.setParty(counterpartyService.getCurrent());
         if (orderEntity.getTradeType() == null)
-            orderEntity.setTradeType(tradeTypeService.findById("GTC_").get());
-        orderEntity.setType(orderTypeService.findById("BID").get());
-        orderEntity.setStatus(orderStatusService.findById("OPEN").get());
+            orderEntity.setTradeType(tradeTypeService.getGtc());
+        orderEntity.setType(orderTypeService.getBid());
+        orderEntity.setStatus(orderStatusService.getOpen());
         if (orderEntity.getExpirationDate() != null)
             setEndOfDay(orderEntity.getExpirationDate());
 
@@ -182,14 +157,14 @@ public class OrderServiceImpl implements OrderService {
         orderEntity = orderDao.save(orderEntity);
 
         CounterpartyEntity malevich = counterpartyService.getMalevich();
-        transactionService.createTransactionAndReverse(transactionTypeService.findById("0003").get(), orderEntity.getParty(), malevich, null, -orderEntity.getAmount(), 0L);
+        transactionService.createTransactionAndReverse(transactionTypeService.getBid(), orderEntity.getParty(), malevich, null, -orderEntity.getAmount(), 0L);
 
         tryExecute(orderEntity, orders);
     }
 
     private OrderEntity getBestAsk(List<OrderEntity> screen) {
         return screen.stream()
-                .filter(o -> "ASK".equals(o.getType().getId()))
+                .filter(o -> orderTypeService.getAsk().getId().equals(o.getType().getId()))
                 .sorted((o1, o2) -> {
                     if (o1.getAmount() != o2.getAmount())
                         return o1.getAmount().compareTo(o2.getAmount());
@@ -202,7 +177,7 @@ public class OrderServiceImpl implements OrderService {
 
     private OrderEntity getBestBid(List<OrderEntity> screen) {
         return screen.stream()
-                .filter(o -> "BID".equals(o.getType().getId()))
+                .filter(o -> orderTypeService.getBid().getId().equals(o.getType().getId()))
                 .sorted((o1, o2) -> {
                     if (o1.getAmount() != o2.getAmount())
                         return -o1.getAmount().compareTo(o2.getAmount());
@@ -217,7 +192,7 @@ public class OrderServiceImpl implements OrderService {
         OrderEntity bestBid = getBestBid(screen);
         OrderEntity bestAsk = getBestAsk(screen);
 
-        if ("BID".equals(orderEntity.getType().getId())) {
+        if (orderTypeService.getBid().getId().equals(orderEntity.getType().getId())) {
             if (bestBid != null && orderEntity.getAmount() <= bestBid.getAmount())
                 return null;
 
@@ -243,8 +218,8 @@ public class OrderServiceImpl implements OrderService {
                     ? bestAsk.getAmount()
                     : bestBid.getAmount();
 
-            bestBid.setStatus(orderStatusService.findById("EXECUTED").get());
-            bestAsk.setStatus(orderStatusService.findById("EXECUTED").get());
+            bestBid.setStatus(orderStatusService.getExecuted());
+            bestAsk.setStatus(orderStatusService.getExecuted());
 
             orderDao.save(bestAsk);
             orderDao.save(bestBid);
@@ -252,13 +227,13 @@ public class OrderServiceImpl implements OrderService {
             CounterpartyEntity malevich = counterpartyService.getMalevich();
 
             //return ask
-            transactionService.createTransactionAndReverse(transactionTypeService.findById("0009").get(), bestAsk.getParty(), malevich, orderEntity.getArtworkStock(), 0D, 1L);
+            transactionService.createTransactionAndReverse(transactionTypeService.getReturnAsk(), bestAsk.getParty(), malevich, orderEntity.getArtworkStock(), 0D, 1L);
 
             //return bid
-            transactionService.createTransactionAndReverse(transactionTypeService.findById("0008").get(), bestBid.getParty(), malevich, null, bestBid.getAmount(), 0L);
+            transactionService.createTransactionAndReverse(transactionTypeService.getReturnBid(), bestBid.getParty(), malevich, null, bestBid.getAmount(), 0L);
 
             //buy-sell
-            transactionService.createTransactionAndReverse(transactionTypeService.findById("0005").get(), bestAsk.getParty(), bestBid.getParty(), orderEntity.getArtworkStock(), tradePrice, -1L);
+            transactionService.createTransactionAndReverse(transactionTypeService.getBuySell(), bestAsk.getParty(), bestBid.getParty(), orderEntity.getArtworkStock(), tradePrice, -1L);
 
             //todo create blockchain transaction
 
@@ -273,31 +248,26 @@ public class OrderServiceImpl implements OrderService {
         }
 
         return screen.stream()
-                .filter(o -> !"CANCELED".equals(orderEntity.getStatus().getId()))
+                .filter(o -> !orderStatusService.getCanceled().getId().equals(orderEntity.getStatus().getId()))
                 .collect(Collectors.toList());
     }
 
     @Override
     @Transactional
     public void cancelOrder(OrderEntity orderEntity) {
-        if ("CANCELED".equals(orderEntity.getStatus().getId()))
+        if (orderStatusService.getCanceled().getId().equals(orderEntity.getStatus().getId()))
             return;
 
-        orderEntity.setStatus(orderStatusService.findById("CANCELED").get());
+        orderEntity.setStatus(orderStatusService.getCanceled());
         orderDao.save(orderEntity);
 
         CounterpartyEntity malevich = counterpartyService.getMalevich();
 
-        switch (orderEntity.getType().getId()) {
-            case "ASK": {
-                transactionService.createTransactionAndReverse(transactionTypeService.findById("0007").get(), orderEntity.getParty(), malevich, orderEntity.getArtworkStock(), 0D, 1L);
-                break;
-            }
-            case "BID": {
-                transactionService.createTransactionAndReverse(transactionTypeService.findById("0006").get(), orderEntity.getParty(), malevich, null, orderEntity.getAmount(), 0L);
-
-                break;
-            }
+        if (orderTypeService.getAsk().getId().equals(orderEntity.getType().getId())) {
+            transactionService.createTransactionAndReverse(transactionTypeService.getCancelAsk(), orderEntity.getParty(), malevich, orderEntity.getArtworkStock(), 0D, 1L);
+        }
+        else if (orderTypeService.getBid().getId().equals(orderEntity.getType().getId())) {
+            transactionService.createTransactionAndReverse(transactionTypeService.getCancelBid(), orderEntity.getParty(), malevich, null, orderEntity.getAmount(), 0L);
         }
     }
 

@@ -121,7 +121,7 @@ public class TransactionServiceImpl implements TransactionService {
     public void createArtworkStock(ArtworkStockEntity artworkStockEntity) {
         CounterpartyEntity counterpartyEntity = counterpartyService.getCurrent();
         CounterpartyEntity malevichEntity = counterpartyService.getMalevich();
-        TransactionTypeEntity transactionTypeEntity = transactionTypeService.findById("0002").get();
+        TransactionTypeEntity transactionTypeEntity = transactionTypeService.getCreateArtwork();
 
         try {
             createTransactionAndReverse(transactionTypeEntity, counterpartyEntity, malevichEntity, artworkStockEntity, 0D, 1L);
@@ -135,7 +135,7 @@ public class TransactionServiceImpl implements TransactionService {
     @Transactional
     public void applyPayment(PaymentsEntity paymentsEntity) {
         CounterpartyEntity malevichEntity = counterpartyService.getMalevich();
-        TransactionTypeEntity transactionTypeEntity = transactionTypeService.findById("0001").get();
+        TransactionTypeEntity transactionTypeEntity = transactionTypeService.getAddBalance();
 
         createTransactionAndReverse(transactionTypeEntity, paymentsEntity.getParty(), malevichEntity, null, paymentsEntity.getAmount(), 0L);
     }

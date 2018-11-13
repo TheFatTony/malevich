@@ -24,11 +24,10 @@ public class OrderExpirationTask {
     public void reportCurrentTime() {
         Timestamp now = new Timestamp(System.currentTimeMillis());
 
-        for (OrderEntity order : orderService.findAllOpen()) {
-            if (order.getExpirationDate() != null &&
-                    order.getExpirationDate().compareTo(now) <= 0) {
-                orderService.cancelOrder(order);
-            }
-        }
+        orderService.findAllOpen()
+                .stream()
+                .filter(order -> order.getExpirationDate() != null && order.getExpirationDate().compareTo(now) <= 0)
+                .forEach(order -> orderService.cancelOrder(order)
+        );
     }
 }

@@ -30,8 +30,7 @@ export class EditComponent implements OnInit, AfterViewInit {
   constructor(public translate: TranslateService,
               private galleryService: GalleryService,
               private countryService: CountryService,
-              private router: Router,
-              private alertService: AlertService) {
+              private router: Router) {
   }
 
   ngOnInit() {
@@ -71,9 +70,6 @@ export class EditComponent implements OnInit, AfterViewInit {
     this.galleryService.updateGallery(this.gallery).pipe(first()).subscribe(
       data => {
         this.router.navigate(['/profile/gallery/view']);
-      },
-      error => {
-        this.alertService.error(error);
       });
   }
 

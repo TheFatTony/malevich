@@ -25,7 +25,6 @@ import {ContactComponent} from './main/contact/contact.component';
 import {LoginComponent} from './auth/login/login.component';
 import {RegisterComponent} from './auth/register/register.component';
 import {ResetComponent} from './auth/reset/reset.component';
-import {TraderProfileComponent} from './profile/trader-profile/trader-profile.component';
 
 import {ArtworksListComponent} from './artworks/artworks-list/artworks-list.component';
 import {FiltersComponent as ArtworksListFiltersComponent} from './artworks/artworks-list/filters/filters.component';
@@ -165,7 +164,6 @@ export function createTranslateLoader(http: HttpClient) {
     LoginComponent,
     RegisterComponent,
     ResetComponent,
-    TraderProfileComponent,
     ArtworksListComponent,
     ArtworksListFiltersComponent,
     ArtworksListGridComponent,

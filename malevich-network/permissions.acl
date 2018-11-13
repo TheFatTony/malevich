@@ -17,7 +17,7 @@
  */
 rule EverybodyCanReadEverything {
     description: "Allow all participants read access to all resources"
-    participant: "io.malevich.network.SampleParticipant"
+    participant: "io.malevich.network.Counetrparty"
     operation: READ
     resource: "io.malevich.network.*"
     action: ALLOW
@@ -25,17 +25,17 @@ rule EverybodyCanReadEverything {
 
 rule EverybodyCanSubmitTransactions {
     description: "Allow all participants to submit transactions"
-    participant: "io.malevich.network.SampleParticipant"
+    participant: "io.malevich.network.Counetrparty"
     operation: CREATE
-    resource: "io.malevich.network.SampleTransaction"
+    resource: "io.malevich.network.BuySellTransaction"
     action: ALLOW
 }
 
 rule OwnerHasFullAccessToTheirAssets {
     description: "Allow all participants full access to their assets"
-    participant(p): "io.malevich.network.SampleParticipant"
+    participant(p): "io.malevich.network.Counetrparty"
     operation: ALL
-    resource(r): "io.malevich.network.SampleAsset"
+    resource(r): "io.malevich.network.Artwork"
     condition: (r.owner.getIdentifier() === p.getIdentifier())
     action: ALLOW
 }

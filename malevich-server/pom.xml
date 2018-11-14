@@ -171,6 +171,13 @@
 			<version>1.9.1</version>
 		</dependency>
 
+        <!-- Hyperledger -->
+        <dependency>
+            <groupId>org.hyperledger.fabric-sdk-java</groupId>
+            <artifactId>fabric-sdk-java</artifactId>
+            <version>1.2.0</version>
+        </dependency>
+
         <!-- Test dependencies -->
         <dependency>
             <groupId>org.rnorth.visible-assertions</groupId>

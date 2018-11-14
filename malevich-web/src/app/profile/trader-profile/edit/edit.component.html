@@ -40,10 +40,7 @@
           <div class="col-8">
             <span
               class="d-block g-color-text g-font-size-13 mb-1">{{'TRADER_PROFILE.SECURITY.LABEL.FIRST_NAME' | translate}}</span>
-            <jqxInput class="g-color-black g-bg-white g-bg-white--focus g-brd-gray-light-v3 rounded g-py-15 g-px-15"
-                      type="text" [(ngModel)]="trader?.person.firstName"
-                      [placeHolder]="'TRADER_PROFILE.SECURITY.PLACEHOLDER.FIRST_NAME' | translate"
-                      [width]="'100%'"></jqxInput>
+            <mchInput [(ngModel)]="trader?.person.firstName"></mchInput>
           </div>
         </div>
 

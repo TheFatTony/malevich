@@ -17,7 +17,6 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
-import java.sql.SQLException;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -73,7 +72,7 @@ public class FileResource {
     }
 
     @RequestMapping(value = "/downloadFile/{fileId}", method = RequestMethod.GET)
-    public ResponseEntity<byte[]> downloadFile(@PathVariable Long fileId) throws SQLException {
+    public ResponseEntity<byte[]> downloadFile(@PathVariable Long fileId) {
         LobStorageEntity resource = lobStorageService.findByFileId(fileId);
 
         return ResponseEntity.ok()

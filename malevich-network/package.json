@@ -3,10 +3,10 @@
     "composer": "^0.19.15"
   },
   "name": "malevich-network",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "malevich-network",
   "scripts": {
-    "prepublish": "mkdirp ./dist && composer archive create --sourceType dir --sourceName . -a ./dist/malevich-network.bna",
+    "prepublish": "mkdirp ./target && composer archive create --sourceType dir --sourceName . -a ./target/malevich-network.bna",
     "pretest": "npm run lint",
     "lint": "eslint .",
     "test": "nyc mocha -t 0 test/*.js && cucumber-js"

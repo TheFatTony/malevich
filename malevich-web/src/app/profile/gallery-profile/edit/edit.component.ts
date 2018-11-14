@@ -4,7 +4,6 @@ import {CountryService} from "../../../_services/country.service";
 import {GalleryDto} from "../../../_transfer";
 import {GalleryService} from "../../../_services/gallery.service";
 import {Router} from "@angular/router";
-import {AlertService} from "../../../_services";
 import {first, map, mergeMap} from "rxjs/operators";
 import {forkJoin} from "rxjs";
 import {jqxComboBoxComponent} from "jqwidgets-scripts/jqwidgets-ts/angular_jqxcombobox";

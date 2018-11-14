@@ -37,34 +37,27 @@
       <div class="g-brd-around g-brd-gray-light-v4 rounded g-pa-30 g-mb-30">
 
         <div class="row">
-          <div class="col-8">
+          <div class="col-12">
             <span
               class="d-block g-color-text g-font-size-13 mb-1">{{'TRADER_PROFILE.SECURITY.LABEL.FIRST_NAME' | translate}}</span>
-            <jqxInput class="g-color-black g-bg-white g-bg-white--focus g-brd-gray-light-v3 rounded g-py-15 g-px-15"
-                      type="text" [(ngModel)]="trader?.person.firstName"
-                      [placeHolder]="'TRADER_PROFILE.SECURITY.PLACEHOLDER.FIRST_NAME' | translate"
-                      [width]="'100%'"></jqxInput>
+            <mchInput [(ngModel)]="trader?.person.firstName" [placeHolder]="'TRADER_PROFILE.SECURITY.PLACEHOLDER.FIRST_NAME' | translate"></mchInput>
           </div>
         </div>
 
         <hr class="g-brd-gray-light-v4 g-my-20">
 
         <div class="row">
-          <div class="col-8">
+          <div class="col-12">
             <span
               class="d-block g-color-text g-font-size-13 mb-1">{{'TRADER_PROFILE.SECURITY.LABEL.LAST_NAME' | translate}}</span>
-            <jqxInput class="g-color-black g-bg-white g-bg-white--focus g-brd-gray-light-v3 rounded g-py-15 g-px-15"
-                      type="text"
-                      [(ngModel)]="trader?.person.lastName"
-                      [placeHolder]="'TRADER_PROFILE.SECURITY.PLACEHOLDER.LAST_NAME' | translate"
-                      [width]="'100%'"></jqxInput>
+            <mchInput [(ngModel)]="trader?.person.lastName" [placeHolder]="'TRADER_PROFILE.SECURITY.PLACEHOLDER.LAST_NAME' | translate"></mchInput>
           </div>
         </div>
 
         <hr class="g-brd-gray-light-v4 g-my-20">
 
         <div class="row">
-          <div class="col-8">
+          <div class="col-12">
             <span
               class="d-block g-color-text g-font-size-13 mb-1">{{'TRADER_PROFILE.SECURITY.LABEL.FIRST_NAME' | translate}}</span>
             <jqxFileUpload
@@ -76,7 +69,7 @@
         <hr class="g-brd-gray-light-v4 g-my-20">
 
         <div class="row">
-          <div class="col-8">
+          <div class="col-12">
             <span
               class="d-block g-color-text g-font-size-13 mb-1">{{'TRADER_PROFILE.SECURITY.LABEL.EMAIL' | translate}}</span>
             <span class="d-block">{{trader?.user?.name}}</span>
@@ -86,7 +79,7 @@
         <hr class="g-brd-gray-light-v4 g-my-20">
 
         <div class="row" *ngIf="genders">
-          <div class="col-8">
+          <div class="col-12">
             <span
               class="d-block g-color-text g-font-size-13 mb-1">{{'TRADER_PROFILE.SECURITY.LABEL.GENDER' | translate}}</span>
             <jqxComboBox #genderComboBox
@@ -104,7 +97,7 @@
         <hr class="g-brd-gray-light-v4 g-my-20">
 
         <div class="row">
-          <div class="col-8">
+          <div class="col-12">
             <span
               class="d-block g-color-text g-font-size-13 mb-1">{{'TRADER_PROFILE.SECURITY.LABEL.COUNTRY' | translate}}</span>
             <jqxComboBox #countryComboBox
@@ -122,7 +115,7 @@
         <hr class="g-brd-gray-light-v4 g-my-20">
 
         <div class="row">
-          <div class="col-8">
+          <div class="col-12">
             <span
               class="d-block g-color-text g-font-size-13 mb-1">{{'TRADER_PROFILE.SECURITY.LABEL.MOBILE' | translate}}</span>
             <jqxMaskedInput #mobileInput
@@ -155,7 +148,7 @@
         <hr class="g-brd-gray-light-v4 g-my-20">
 
         <div class="row">
-          <div class="col-8">
+          <div class="col-12">
             <span class="d-block g-color-text g-font-size-13 mb-1">{{'TRADER_PROFILE.SECURITY.LABEL.DATE_OF_BIRTH' | translate}}</span>
             <div class="g-brd-primary--focus">
               <jqxDateTimeInput #dateOfBirthInput
@@ -174,7 +167,7 @@
           <hr class="g-brd-gray-light-v4 g-my-20">
 
           <div class="row">
-            <div class="col-8">
+            <div class="col-12">
               <span
                 class="d-block g-color-text g-font-size-13 mb-1">{{'TRADER_PROFILE.SECURITY.LABEL.ADDRESS.COUNTRY' | translate}}</span>
               <jqxComboBox #addressCountryComboBox
@@ -191,14 +184,10 @@
           <hr class="g-brd-gray-light-v4 g-my-20">
 
           <div class="row">
-            <div class="col-8">
+            <div class="col-12">
               <span
                 class="d-block g-color-text g-font-size-13 mb-1">{{'TRADER_PROFILE.SECURITY.LABEL.ADDRESS.STATE' | translate}}</span>
-              <jqxInput
-                class="g-color-black g-bg-white g-bg-white--focus g-brd-gray-light-v3 rounded g-py-15 g-px-15"
-                [(ngModel)]="address.state"
-                [placeHolder]="'TRADER_PROFILE.SECURITY.PLACEHOLDER.ADDRESS.STATE' | translate"
-                [width]="'100%'"></jqxInput>
+              <mchInput [(ngModel)]="address.state" [placeHolder]="'TRADER_PROFILE.SECURITY.PLACEHOLDER.ADDRESS.STATE' | translate"></mchInput>
             </div>
 
           </div>
@@ -206,14 +195,10 @@
           <hr class="g-brd-gray-light-v4 g-my-20">
 
           <div class="row">
-            <div class="col-8">
+            <div class="col-12">
               <span
                 class="d-block g-color-text g-font-size-13 mb-1">{{'TRADER_PROFILE.SECURITY.LABEL.ADDRESS.CITY' | translate}}</span>
-              <jqxInput
-                class="g-color-black g-bg-white g-bg-white--focus g-brd-gray-light-v3 rounded g-py-15 g-px-15"
-                [(ngModel)]="address.city"
-                [placeHolder]="'TRADER_PROFILE.SECURITY.PLACEHOLDER.ADDRESS.CITY' | translate"
-                [width]="'100%'"></jqxInput>
+              <mchInput [(ngModel)]="address.city" [placeHolder]="'TRADER_PROFILE.SECURITY.PLACEHOLDER.ADDRESS.CITY' | translate"></mchInput>
             </div>
 
           </div>
@@ -221,14 +206,11 @@
           <hr class="g-brd-gray-light-v4 g-my-20">
 
           <div class="row">
-            <div class="col-8">
+            <div class="col-12">
               <span
                 class="d-block g-color-text g-font-size-13 mb-1">{{'TRADER_PROFILE.SECURITY.LABEL.ADDRESS.ZIP' | translate}}</span>
-              <jqxInput
-                class="g-color-black g-bg-white g-bg-white--focus g-brd-gray-light-v3 rounded g-py-15 g-px-15"
-                [(ngModel)]="address.postalCode"
-                [placeHolder]="'TRADER_PROFILE.SECURITY.PLACEHOLDER.ADDRESS.ZIP' | translate"
-                [width]="'100%'"></jqxInput>
+              <mchInput [(ngModel)]="address.postalCode" [placeHolder]="'TRADER_PROFILE.SECURITY.PLACEHOLDER.ADDRESS.ZIP' | translate"></mchInput>
+
             </div>
 
           </div>
@@ -236,14 +218,11 @@
           <hr class="g-brd-gray-light-v4 g-my-20">
 
           <div class="row">
-            <div class="col-8">
+            <div class="col-12">
               <span
                 class="d-block g-color-text g-font-size-13 mb-1">{{'TRADER_PROFILE.SECURITY.LABEL.ADDRESS.STREET' | translate}}</span>
-              <jqxInput
-                class="g-color-black g-bg-white g-bg-white--focus g-brd-gray-light-v3 rounded g-py-15 g-px-15"
-                [(ngModel)]="address.street"
-                [placeHolder]="'TRADER_PROFILE.SECURITY.PLACEHOLDER.ADDRESS.STREET' | translate"
-                [width]="'100%'"></jqxInput>
+              <mchInput [(ngModel)]="address.street" [placeHolder]="'TRADER_PROFILE.SECURITY.PLACEHOLDER.ADDRESS.STREET' | translate"></mchInput>
+
             </div>
 
           </div>

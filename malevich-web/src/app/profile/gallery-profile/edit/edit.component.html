@@ -43,9 +43,8 @@
         <div class="row">
           <div class="col-12">
             <span class="d-block g-color-text g-font-size-13 mb-1">{{'GALLERY_PROFILE.SECURITY.LEGAL_NAME_EN' | translate}}:</span>
-            <jqxInput class="g-color-black g-bg-white g-bg-white--focus g-brd-gray-light-v3 rounded g-py-15 g-px-15"
-                      [(ngModel)]="gallery?.organization.legalNameMl['en']"
-                      [width]="'100%'"></jqxInput>
+            <mchInput [(ngModel)]="gallery?.organization.legalNameMl['en']"></mchInput>
+
           </div>
         </div>
 
@@ -54,9 +53,7 @@
         <div class="row">
           <div class="col-12">
             <span class="d-block g-color-text g-font-size-13 mb-1">{{'GALLERY_PROFILE.SECURITY.LEGAL_NAME_RU' | translate}}:</span>
-            <jqxInput class="g-color-black g-bg-white g-bg-white--focus g-brd-gray-light-v3 rounded g-py-15 g-px-15"
-                      [(ngModel)]="gallery?.organization.legalNameMl['ru']"
-                      [width]="'100%'"></jqxInput>
+            <mchInput [(ngModel)]="gallery?.organization.legalNameMl['ru']"></mchInput>
           </div>
         </div>
 
@@ -80,9 +77,7 @@
         <div class="row">
           <div class="col-12">
             <span class="d-block g-color-text g-font-size-13 mb-1">{{'GALLERY_PROFILE.SECURITY.DESCRIPTION_EN' | translate}}:</span>
-            <jqxInput class="g-color-black g-bg-white g-bg-white--focus g-brd-gray-light-v3 rounded g-py-15 g-px-15"
-                      [(ngModel)]="gallery?.descriptionMl['en']"
-                      [width]="'100%'"></jqxInput>
+            <mchInput [(ngModel)]="gallery?.descriptionMl['en']"></mchInput>
           </div>
         </div>
 
@@ -91,9 +86,7 @@
         <div class="row">
           <div class="col-12">
             <span class="d-block g-color-text g-font-size-13 mb-1">{{'GALLERY_PROFILE.SECURITY.DESCRIPTION_RU' | translate}}:</span>
-            <jqxInput class="g-color-black g-bg-white g-bg-white--focus g-brd-gray-light-v3 rounded g-py-15 g-px-15"
-                      [(ngModel)]="gallery?.descriptionMl['ru']"
-                      [width]="'100%'"></jqxInput>
+            <mchInput [(ngModel)]="gallery?.descriptionMl['ru']"></mchInput>
           </div>
         </div>
 
@@ -123,9 +116,7 @@
             <div class="col-12">
               <span
                 class="d-block g-color-text g-font-size-13 mb-1">{{'TRADER_PROFILE.SECURITY.LABEL.ADDRESS.STATE' | translate}}</span>
-              <jqxInput class="g-color-black g-bg-white g-bg-white--focus g-brd-gray-light-v3 rounded g-py-15 g-px-15"
-                        [(ngModel)]="address.state"
-                        [width]="'100%'"></jqxInput>
+              <mchInput [(ngModel)]="address.state"></mchInput>
             </div>
 
           </div>
@@ -136,9 +127,7 @@
             <div class="col-12">
               <span
                 class="d-block g-color-text g-font-size-13 mb-1">{{'TRADER_PROFILE.SECURITY.LABEL.ADDRESS.CITY' | translate}}</span>
-              <jqxInput class="g-color-black g-bg-white g-bg-white--focus g-brd-gray-light-v3 rounded g-py-15 g-px-15"
-                        [(ngModel)]="address.city"
-                        [width]="'100%'"></jqxInput>
+              <mchInput [(ngModel)]="address.city"></mchInput>
             </div>
 
           </div>
@@ -149,9 +138,8 @@
             <div class="col-12">
               <span
                 class="d-block g-color-text g-font-size-13 mb-1">{{'TRADER_PROFILE.SECURITY.LABEL.ADDRESS.ZIP' | translate}}</span>
-              <jqxInput class="g-color-black g-bg-white g-bg-white--focus g-brd-gray-light-v3 rounded g-py-15 g-px-15"
-                        [(ngModel)]="address.postalCode"
-                        [width]="'100%'"></jqxInput>
+              <mchInput [(ngModel)]="address.postalCode"></mchInput>
+
             </div>
 
           </div>
@@ -162,9 +150,8 @@
             <div class="col-12">
               <span
                 class="d-block g-color-text g-font-size-13 mb-1">{{'TRADER_PROFILE.SECURITY.LABEL.ADDRESS.STREET' | translate}}</span>
-              <jqxInput class="g-color-black g-bg-white g-bg-white--focus g-brd-gray-light-v3 rounded g-py-15 g-px-15"
-                        [(ngModel)]="address.street"
-                        [width]="'100%'"></jqxInput>
+              <mchInput [(ngModel)]="address.street"></mchInput>
+
             </div>
 
           </div>

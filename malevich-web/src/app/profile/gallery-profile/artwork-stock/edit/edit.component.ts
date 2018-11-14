@@ -111,7 +111,7 @@ export class EditComponent implements OnInit {
     this.artwork.category = $event;
   }
 
-  onDescriptionEditorChange($event) {
+  onDescriptionEditorChange($event, lang: string) {
     if (!$event)
       return;
 
@@ -121,10 +121,10 @@ export class EditComponent implements OnInit {
     if (!this.artwork.descriptionMl)
       this.artwork.descriptionMl = new Map<string, string>();
 
-    this.artwork.descriptionMl['en'] = $event
+    this.artwork.descriptionMl[lang] = $event
   }
 
-  onTitleEditorChange($event) {
+  onTitleEditorChange($event, lang: string) {
     if (!$event)
       return;
 
@@ -134,6 +134,6 @@ export class EditComponent implements OnInit {
     if (!this.artwork.titleMl)
       this.artwork.titleMl = new Map<string, string>();
 
-    this.artwork.titleMl['en'] = $event
+    this.artwork.titleMl[lang] = $event
   }
 }

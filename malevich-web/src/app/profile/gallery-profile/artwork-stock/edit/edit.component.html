@@ -46,11 +46,8 @@
         <div class="row">
           <div class="col-12">
             <span class="d-block g-color-text g-font-size-13 mb-1">Title:</span>
-            <jqxInput
-              class="g-color-black g-bg-white g-bg-white--focus g-brd-gray-light-v3 rounded g-py-15 g-px-15"
-              [ngModel]="!artwork?.titleMl ? '' : artwork?.titleMl['en']"
-              (ngModelChange)="onTitleEditorChange($event)"
-              [width]="'100%'"></jqxInput>
+            <mchInput [ngModel]="!artwork?.titleMl ? '' : artwork?.titleMl['en']"
+                      (ngModelChange)="onTitleEditorChange($event, 'en')"></mchInput>
           </div>
         </div>
 
@@ -59,11 +56,8 @@
         <div class="row">
           <div class="col-12">
             <span class="d-block g-color-text g-font-size-13 mb-1">Description:</span>
-            <jqxInput
-              class="g-color-black g-bg-white g-bg-white--focus g-brd-gray-light-v3 rounded g-py-15 g-px-15"
-              [ngModel]="!artwork?.descriptionMl ? '' : artwork?.descriptionMl['en']"
-              (ngModelChange)="onDescriptionEditorChange($event)"
-              [width]="'100%'"></jqxInput>
+            <mchInput [ngModel]="!artwork?.descriptionMl ? '' : artwork?.descriptionMl['en']"
+                      (ngModelChange)="onDescriptionEditorChange($event, 'en')"></mchInput>
           </div>
         </div>
 
@@ -100,7 +94,6 @@
             </jqxComboBox>
           </div>
         </div>
-
 
       </div>
       <!-- End Info -->

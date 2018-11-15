@@ -1,13 +1,15 @@
 package io.malevich.server.services.artworkstock;
 
-import io.malevich.server.repositories.artworkstock.ArtworkStockDao;
 import io.malevich.server.domain.ArtworkStockEntity;
 import io.malevich.server.domain.GalleryEntity;
+import io.malevich.server.repositories.artworkstock.ArtworkStockDao;
 import io.malevich.server.services.artwork.ArtworkService;
 import io.malevich.server.services.gallery.GalleryService;
 import io.malevich.server.services.transaction.TransactionService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -65,4 +67,9 @@ public class ArtworkStockServiceImpl implements ArtworkStockService {
         return artworkStockDao.findById(id).get();
     }
 
+    @Override
+    @Transactional
+    public Page<ArtworkStockEntity> findAll(Pageable pageable) {
+        return artworkStockDao.findAll(pageable);
+    }
 }

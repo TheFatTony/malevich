@@ -5,7 +5,11 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class PageSortableDto extends PageableDto {
+public class PageSortableRequestDto extends PageResponseDto {
+
+    private int page;
+
+    private int size;
 
     private int sort;
 }

@@ -3,7 +3,7 @@ import {environment} from '../../../environments/environment.dev';
 import {TranslateService} from '@ngx-translate/core';
 import {ArtworkStockService} from '../../_services/artwork-stock.service';
 import {ArtworkStockDto} from '../../_transfer/artworkStockDto';
-import {PageSortableDto} from '../../_transfer/pageSortableDto';
+import {PageSortableDto} from '../../_transfer/pageSortableRequestDto';
 
 @Component({
   selector: 'app-artworks-list',

@@ -3,8 +3,8 @@ package io.malevich.server.rest.resources;
 import io.malevich.server.domain.ArtworkStockEntity;
 import io.malevich.server.services.artworkstock.ArtworkStockService;
 import io.malevich.server.transfer.ArtworkStockDto;
-import io.malevich.server.transfer.PageSortableDto;
-import io.malevich.server.transfer.PageableDto;
+import io.malevich.server.transfer.PageSortableRequestDto;
+import io.malevich.server.transfer.PageResponseDto;
 import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -65,9 +65,9 @@ public class ArtworkStockResource {
 
     @PostMapping("/pagination")
     @ResponseStatus(HttpStatus.OK)
-    public PageableDto pagination(@RequestBody PageSortableDto sortableDto) {
+    public PageResponseDto pagination(@RequestBody PageSortableRequestDto sortableDto) {
         Page<ArtworkStockEntity> resultPage = this.artworkStockService.findAll(PageRequest.of(sortableDto.getPage(), sortableDto.getSize(), Sort.by(Sort.Order.by("artwork.titleMl"))));
-        return new PageableDto(resultPage.getContent().stream().map(pageEntry -> convertToDto(pageEntry)).collect(Collectors.toList()), resultPage.getTotalElements(), resultPage.getTotalPages());
+        return new PageResponseDto(resultPage.getContent().stream().map(pageEntry -> convertToDto(pageEntry)).collect(Collectors.toList()), resultPage.getTotalElements(), resultPage.getTotalPages());
     }
 
     private ArtworkStockDto convertToDto(ArtworkStockEntity entity) {

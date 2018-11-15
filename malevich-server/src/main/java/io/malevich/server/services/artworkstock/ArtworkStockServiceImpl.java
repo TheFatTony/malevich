@@ -68,7 +68,7 @@ public class ArtworkStockServiceImpl implements ArtworkStockService {
     }
 
     @Override
-    @Transactional
+    @Transactional(readOnly = true)
     public Page<ArtworkStockEntity> findAll(Pageable pageable) {
         return artworkStockDao.findAll(pageable);
     }

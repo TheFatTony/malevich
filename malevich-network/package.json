@@ -2,14 +2,11 @@
   "engines": {
     "composer": "^0.19.15"
   },
-  "name": "malevich-network",
-  "version": "0.0.2",
-  "description": "malevich-network",
   "scripts": {
-    "prepublish": "mkdirp ./target && composer archive create --sourceType dir --sourceName . -a ./target/malevich-network.bna",
+    "prepublish": "mkdirp ./target && composer archive create --sourceType dir --sourceName src/main/. -a ./target/malevich-network.bna",
     "pretest": "npm run lint",
     "lint": "eslint .",
-    "test": "nyc mocha -t 0 test/*.js && cucumber-js"
+    "test": "nyc mocha -t 0 src/test/*.js && cucumber-js"
   },
   "keywords": [
     "composer",

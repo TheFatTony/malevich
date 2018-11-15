@@ -3,7 +3,7 @@ import {environment} from '../../../environments/environment.dev';
 import {TranslateService} from '@ngx-translate/core';
 import {ArtworkStockService} from '../../_services/artwork-stock.service';
 import {ArtworkStockDto} from '../../_transfer/artworkStockDto';
-import {PageSortableDto} from '../../_transfer/pageSortableRequestDto';
+import {PageSortableRequestDto} from '../../_transfer/pageSortableRequestDto';
 
 @Component({
   selector: 'app-artworks-list',
@@ -14,14 +14,14 @@ export class ArtworksListComponent implements OnInit {
 
   showGrid: boolean = true;
   artworkStocks: ArtworkStockDto[];
-  pageSortable: PageSortableDto;
+  pageSortable: PageSortableRequestDto;
   stockData: any = {};
   currentPage: number = 0;
   size: number = 9;
   private url = environment.baseUrl;
 
   constructor(public translate: TranslateService, private artworkStockService: ArtworkStockService) {
-    this.pageSortable = new PageSortableDto();
+    this.pageSortable = new PageSortableRequestDto();
   }
 
   ngOnInit() {

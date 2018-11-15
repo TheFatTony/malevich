@@ -5,7 +5,7 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class PageSortableRequestDto extends PageResponseDto {
+public class PageSortableRequestDto {
 
     private int page;
 

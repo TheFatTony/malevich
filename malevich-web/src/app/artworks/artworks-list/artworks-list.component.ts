@@ -17,7 +17,7 @@ export class ArtworksListComponent implements OnInit {
   pageSortable: PageSortableRequestDto;
   stockData: any = {};
   currentPage: number = 0;
-  size: number = 2;
+  size: number = 9;
   private url = environment.baseUrl;
 
   constructor(public translate: TranslateService, private artworkStockService: ArtworkStockService) {

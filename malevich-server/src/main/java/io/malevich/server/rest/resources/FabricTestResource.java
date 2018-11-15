@@ -28,17 +28,12 @@ public class FabricTestResource {
 
 
     public void queryBlockChain(HFClient client) throws ProposalException, InvalidArgumentException {
-        // get channel instance from client
         Channel channel = client.getChannel("mychannel");
-        // create chaincode request
         QueryByChaincodeRequest qpr = client.newQueryProposalRequest();
-        // build cc id providing the chaincode name. Version is omitted here.
         ChaincodeID fabcarCCId = ChaincodeID.newBuilder().setName("fabcar").build();
         qpr.setChaincodeID(fabcarCCId);
-        // CC function to be called
         qpr.setFcn("queryAllCars");
         Collection<ProposalResponse> res = channel.queryByChaincode(qpr);
-        // display response
         for (ProposalResponse pres : res) {
             String stringResponse = new String(pres.getChaincodeActionResponsePayload());
             log.info(stringResponse);
@@ -46,14 +41,9 @@ public class FabricTestResource {
     }
 
     public Channel getChannel(HFClient client) throws InvalidArgumentException, TransactionException {
-        // initialize channel
-        // peer name and endpoint in fabcar network
-        Peer peer = client.newPeer("peer0.org1.example.com", "grpc://localhost:7051");
-        // eventhub name and endpoint in fabcar network
-        EventHub eventHub = client.newEventHub("eventhub01", "grpc://localhost:7053");
-        // orderer name and endpoint in fabcar network
-        Orderer orderer = client.newOrderer("orderer.example.com", "grpc://localhost:7050");
-        // channel name in fabcar network
+        Peer peer = client.newPeer("peer0.org1.example.com", "grpc://ec2-52-70-133-135.compute-1.amazonaws.com:7051");
+        EventHub eventHub = client.newEventHub("eventhub01", "grpc://ec2-52-70-133-135.compute-1.amazonaws.com:7053");
+        Orderer orderer = client.newOrderer("orderer.example.com", "grpc://ec2-52-70-133-135.compute-1.amazonaws.com:7050");
         Channel channel = client.newChannel("mychannel");
         channel.addPeer(peer);
         channel.addEventHub(eventHub);
@@ -124,28 +114,21 @@ public class FabricTestResource {
     @RequestMapping(value = "/test", method = RequestMethod.GET)
     @ResponseStatus(HttpStatus.OK)
     @ResponseBody
-    public String test(@PathVariable Long fileId) throws Exception {
-        // create fabric-ca client
+    public String test() throws Exception {
         HFCAClient caClient = getHfCaClient("http://ec2-52-70-133-135.compute-1.amazonaws.com:7054", null);
 
-        // enroll or load admin
         AppUser admin = getAdmin(caClient);
         log.info(admin.toString());
 
-        // register and enroll new user
         AppUser appUser = getUser(caClient, admin, "hfuser");
         log.info(appUser.toString());
 
-        // get HFC client instance
         HFClient client = getHfClient();
-        // set user context
         client.setUserContext(admin);
 
-        // get HFC channel using the client
         Channel channel = getChannel(client);
         log.info("Channel: " + channel.getName());
 
-        // call query blockchain example
         queryBlockChain(client);
 
 

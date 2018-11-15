@@ -71,25 +71,7 @@ export class EditComponent implements OnInit, AfterViewInit {
         return this.traderService.getTrader();
       }))
       .pipe(map(data => {
-        if (!data)
-          return;
-
-        this.trader = data;
-
-        if (data.gender) {
-          let genderIndex = this.genders.findIndex(value => value.value.id == data.gender.id);
-          this.genderComboBox.selectIndex(genderIndex);
-        }
-
-        if (data.country) {
-          let countryIndex = this.countries.findIndex(value => value.value.id == data.country.id);
-          this.countryComboBox.selectIndex(countryIndex);
-        }
-
-        if (data.addresses && data.addresses.length > 0 && data.addresses[0].country) {
-          let countryIndex = this.countries.findIndex(value => value.value.id == data.addresses[0].country.id);
-          this.addressCountryComboBox.selectIndex(countryIndex);
-        }
+         this.trader = data;
       }))
       .subscribe();
   }

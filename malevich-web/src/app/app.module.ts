@@ -149,6 +149,7 @@ import {ArtworkStockComponent as TraderProfileArtworkStockComponent} from "./pro
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import { InputComponent } from './core/components/input.component';
 import {MaskedInputComponent} from "./core/components/masked_input.component";
+import {ComboBoxComponent} from "./core/components/combobox.component";
 
 export function createTranslateLoader(http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
@@ -211,7 +212,8 @@ export function createTranslateLoader(http: HttpClient) {
     TraderProfileArtworkStockComponent,
     PageNotFoundComponent,
     InputComponent,
-    MaskedInputComponent
+    MaskedInputComponent,
+    ComboBoxComponent
   ],
   imports: [
     BrowserModule,

@@ -82,15 +82,13 @@
           <div class="col-12">
             <span
               class="d-block g-color-text g-font-size-13 mb-1">{{'TRADER_PROFILE.SECURITY.LABEL.GENDER' | translate}}</span>
-            <jqxComboBox #genderComboBox
-                         class="g-color-black g-bg-white g-bg-white--focus g-brd-gray-light-v3 rounded"
+            <mchComboBox #genderComboBox
                          [source]="genders"
                          [ngModel]="trader?.gender"
                          (ngModelChange)="trader.gender=$event"
                          [displayMember]="'title'"
-                         [valueMember]="'value'"
-                         [width]="'100%'">
-            </jqxComboBox>
+                         [valueMember]="'value'">
+            </mchComboBox>
           </div>
         </div>
 
@@ -100,15 +98,13 @@
           <div class="col-12">
             <span
               class="d-block g-color-text g-font-size-13 mb-1">{{'TRADER_PROFILE.SECURITY.LABEL.COUNTRY' | translate}}</span>
-            <jqxComboBox #countryComboBox
-                         class="g-color-black g-bg-white g-bg-white--focus g-brd-gray-light-v3 rounded"
+            <mchComboBox #countryComboBox
                          [source]="countries"
                          [ngModel]="trader?.country"
                          (ngModelChange)="trader.country=$event"
                          [displayMember]="'title'"
-                         [valueMember]="'value'"
-                         [width]="'100%'">
-            </jqxComboBox>
+                         [valueMember]="'value'">
+            </mchComboBox>
           </div>
         </div>
 
@@ -167,14 +163,12 @@
             <div class="col-12">
               <span
                 class="d-block g-color-text g-font-size-13 mb-1">{{'TRADER_PROFILE.SECURITY.LABEL.ADDRESS.COUNTRY' | translate}}</span>
-              <jqxComboBox #addressCountryComboBox
-                           class="g-color-black g-bg-white g-bg-white--focus g-brd-gray-light-v3 rounded"
+              <mchComboBox #addressCountryComboBox
                            [source]="countries"
                            [(ngModel)]="address.country"
                            [displayMember]="'title'"
-                           [valueMember]="'value'"
-                           [width]="'100%'">
-              </jqxComboBox>
+                           [valueMember]="'value'">
+              </mchComboBox>
             </div>
           </div>
 

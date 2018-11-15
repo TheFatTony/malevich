@@ -73,7 +73,7 @@
   font-size: 12px;
   font-family: "Open Sans", -apple-system, BlinkMacSystemFont, "Open Sans";
 }
-.jqx-widget-content-malevich{font-size: 12px; font-family: "Open Sans", -apple-system, BlinkMacSystemFont, "Open Sans"; border-color: #e5e5e5; color: #767676; background-color: #fff;}
+.jqx-widget-content-malevich{font-size: 13px; font-family: "Open Sans", -apple-system, BlinkMacSystemFont, "Open Sans"; border-color: #e5e5e5; color: #000000; background-color: #fff;}
 .jqx-widget-header-malevich{font-size: 12px; font-family: "Open Sans", -apple-system, BlinkMacSystemFont, "Open Sans"; color: #767676; border-color:#e5e5e5; background-color:#f4f4f4;}
 .jqx-fill-state-normal-malevich{font-size: 12px; font-family: "Open Sans", -apple-system, BlinkMacSystemFont, "Open Sans"; border-color: #e5e5e5; color: #767676; background: #ffffff;}
 .jqx-button-malevich {border-color: #e5e5e5;}
@@ -804,7 +804,7 @@
 }
 .jqx-combobox-input-malevich
 {
-  color: #767676;
+  color: #000000;
   text-shadow: none;
 }
 .jqx-input-content-malevich

@@ -7,11 +7,7 @@ import java.util.List;
 
 @Getter
 @Setter
-public class PageableDto {
-
-    private int page;
-
-    private int size;
+public class PageResponseDto {
 
     private List<ArtworkStockDto> stockDtoCopies;
 
@@ -19,10 +15,10 @@ public class PageableDto {
 
     private int totalPages;
 
-    PageableDto() {
+    PageResponseDto() {
     }
 
-    public PageableDto(List<ArtworkStockDto> stockDtoCopies, Long totalElements, int totalPages) {
+    public PageResponseDto(List<ArtworkStockDto> stockDtoCopies, Long totalElements, int totalPages) {
         this.stockDtoCopies = stockDtoCopies;
         this.totalElements = totalElements;
         this.totalPages = totalPages;

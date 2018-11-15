@@ -1,3 +1,7 @@
+<style>
+  .my-pagination /deep/ .ngx-pagination .current {background: #e44235 !important; border-radius: 50% !important;}
+  .my-pagination /deep/ .ngx-pagination a:hover, .my-pagination /deep/ .ngx-pagination button:hover{background: transparent; text-decoration: none; color: #e44235;}
+</style>
 <!-- Breadcrumbs -->
 <section class="g-brd-bottom g-brd-gray-light-v4 g-py-30">
   <div class="container">
@@ -129,11 +133,13 @@
                 <span class="sr-only">Next</span>
               </a>
             </li>-->
+
             <li class="list-inline-item float-right">
               <span class="u-pagination-v1__item-info g-color-gray-dark-v4 g-font-size-12 g-pa-5">Page {{stockData.currentPage}} of {{stockData.totalPages}}</span>
             </li>
             <li class="list-inline-item hidden-down">
-              <pagination-controls (pageChange)="getArtworkStockPagination($event-1,2)"
+              <pagination-controls class="my-pagination"
+                                   (pageChange)="getArtworkStockPagination($event-1,2)"
                                    id="server"></pagination-controls>
             </li>
           </ul>

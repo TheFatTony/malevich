@@ -1,6 +1,4 @@
-import {PageResponseDto} from './pageResponseDto';
-
-export class PageSortableRequestDto extends PageResponseDto {
+export class PageSortableRequestDto {
   sort: number;
   page: number;
   size: number;

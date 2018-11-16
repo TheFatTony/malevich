@@ -3,9 +3,14 @@ package io.malevich.server.rest.resources;
 import io.malevich.server.domain.ArtworkStockEntity;
 import io.malevich.server.services.artworkstock.ArtworkStockService;
 import io.malevich.server.transfer.ArtworkStockDto;
+import io.malevich.server.transfer.PageSortableRequestDto;
+import io.malevich.server.transfer.PageResponseDto;
 import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -56,6 +61,13 @@ public class ArtworkStockResource {
     public ResponseEntity<Void> add(@PathVariable("id") long id) {
         artworkStockService.delete(id);
         return ResponseEntity.ok().build();
+    }
+
+    @PostMapping("/pagination")
+    @ResponseStatus(HttpStatus.OK)
+    public PageResponseDto pagination(@RequestBody PageSortableRequestDto sortableDto) {
+        Page<ArtworkStockEntity> resultPage = this.artworkStockService.findAll(PageRequest.of(sortableDto.getPage(), sortableDto.getSize(), Sort.by(Sort.Order.by("artwork.titleMl"))));
+        return new PageResponseDto(resultPage.getContent().stream().map(pageEntry -> convertToDto(pageEntry)).collect(Collectors.toList()), resultPage.getTotalElements(), resultPage.getTotalPages());
     }
 
     private ArtworkStockDto convertToDto(ArtworkStockEntity entity) {

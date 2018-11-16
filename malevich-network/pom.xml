@@ -5,8 +5,8 @@
   <modelVersion>4.0.0</modelVersion>
 
 
-  <artifactId>malevich-web</artifactId>
-  <packaging>war</packaging>
+  <artifactId>malevich-network</artifactId>
+  <packaging>pom</packaging>
 
   <parent>
     <groupId>io.malevich</groupId>
@@ -14,28 +14,18 @@
     <version>1.0-SNAPSHOT</version>
   </parent>
 
-  <name>malevich-web</name>
-  <description>Project Angular 2</description>
+  <name>malevich-network</name>
+  <description>IBM Hyperledger</description>
 
   <properties>
     <node.version>v8.11.3</node.version>
     <yarn.version>v1.9.4</yarn.version>
-    <frontend-maven-plugin.version>1.6</frontend-maven-plugin.version>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-    <java.version>1.8</java.version>
   </properties>
 
-  <dependencies>
-    <dependency>
-      <groupId>com.github.eirslett</groupId>
-      <artifactId>frontend-maven-plugin</artifactId>
-      <version>${frontend-maven-plugin.version}</version>
-    </dependency>
-  </dependencies>
-
   <build>
-    <finalName>malevich-web</finalName>
+    <finalName>malevich-network</finalName>
     <plugins>
       <plugin>
         <groupId>org.codehaus.mojo</groupId>
@@ -45,11 +35,9 @@
             <id>exec-npm</id>
             <phase>process-resources</phase>
             <configuration>
-              <executable>yarn</executable>
+              <executable>npm</executable>
               <arguments>
-                <argument>run</argument>
-                <argument>build</argument>
-                <argument>-c=${build.profile.id}</argument>
+                <argument>install</argument>
               </arguments>
             </configuration>
             <goals>
@@ -57,21 +45,6 @@
             </goals>
           </execution>
         </executions>
-      </plugin>
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-war-plugin</artifactId>
-        <configuration>
-          <webXml>src/WEB-INF/web.xml</webXml>
-        </configuration>
-      </plugin>
-      <plugin>
-        <groupId>org.apache.tomcat.maven</groupId>
-        <artifactId>tomcat7-maven-plugin</artifactId>
-        <configuration>
-          <update>true</update>
-          <path>${project.name}##${project.version}</path>
-        </configuration>
       </plugin>
     </plugins>
   </build>

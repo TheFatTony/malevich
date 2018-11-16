@@ -83,11 +83,10 @@
             <span
               class="d-block g-color-text g-font-size-13 mb-1">{{'TRADER_PROFILE.SECURITY.LABEL.GENDER' | translate}}</span>
             <mchComboBox #genderComboBox
-                         [source]="genders"
+                         [objectSource]="genders"
+                         [displayFunc]="genderDisplayFunc"
                          [ngModel]="trader?.gender"
-                         (ngModelChange)="trader.gender=$event"
-                         [displayMember]="'title'"
-                         [valueMember]="'value'">
+                         (ngModelChange)="trader.gender=$event">
             </mchComboBox>
           </div>
         </div>
@@ -99,11 +98,10 @@
             <span
               class="d-block g-color-text g-font-size-13 mb-1">{{'TRADER_PROFILE.SECURITY.LABEL.COUNTRY' | translate}}</span>
             <mchComboBox #countryComboBox
-                         [source]="countries"
+                         [objectSource]="countries"
+                         [displayFunc]="countryDisplayFunc"
                          [ngModel]="trader?.country"
-                         (ngModelChange)="trader.country=$event"
-                         [displayMember]="'title'"
-                         [valueMember]="'value'">
+                         (ngModelChange)="trader.country=$event">
             </mchComboBox>
           </div>
         </div>
@@ -164,10 +162,9 @@
               <span
                 class="d-block g-color-text g-font-size-13 mb-1">{{'TRADER_PROFILE.SECURITY.LABEL.ADDRESS.COUNTRY' | translate}}</span>
               <mchComboBox #addressCountryComboBox
-                           [source]="countries"
-                           [(ngModel)]="address.country"
-                           [displayMember]="'title'"
-                           [valueMember]="'value'">
+                           [objectSource]="countries"
+                           [displayFunc]="countryDisplayFunc"
+                           [(ngModel)]="address.country">
               </mchComboBox>
             </div>
           </div>

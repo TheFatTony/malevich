@@ -1,15 +1,18 @@
 import {
-  AfterViewInit,
   Component,
   ContentChild,
   ElementRef,
   forwardRef,
-  Input,
-  SimpleChanges,
-  ViewChild
+  Input, SimpleChanges
 } from '@angular/core';
 import {NG_VALUE_ACCESSOR, NgModel} from "@angular/forms";
 import {jqxComboBoxComponent} from "jqwidgets-scripts/jqwidgets-ts/angular_jqxcombobox";
+
+// default equality comparison implementation
+const deepEquals = (a: any, b: any) => {
+  // dummy implementation
+  return JSON.stringify(a) === JSON.stringify(b);
+};
 
 export const CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR: any = {
   provide: NG_VALUE_ACCESSOR,
@@ -27,6 +30,10 @@ export class ComboBoxComponent extends jqxComboBoxComponent {
   @ContentChild(NgModel) ngModel: NgModel;
 
   @Input('auto-select') attrAutoSelect: boolean = true;
+  @Input('objectSource') attrObjectSource: any[];
+  @Input('valueEqualFunc') attrValueEqualFunc: (a: any, b: any) => boolean = deepEquals;
+  @Input('displayFunc') attrDisplayFunc: (item: any) => string = (item: any) => item.toString();
+  @Input('valueFunc') attrValueFunc: (item: any) => any = (item: any) => item;
 
   constructor(containerElement: ElementRef) {
     super(containerElement);
@@ -46,12 +53,30 @@ export class ComboBoxComponent extends jqxComboBoxComponent {
     if (!this.attrAutoSelect || !this.attrSource || !this.ngModel.model)
       return;
 
-    if ( this.getSelectedItem() && this.ngModel.model.id == this.getSelectedItem().value.id)
+    if (this.getSelectedItem() && this.attrValueEqualFunc(this.getSelectedItem().value, this.ngModel.model))
       return;
 
-    let selectIndex = this.attrSource.findIndex(i => i.value.id == this.ngModel.model.id);
+    let selectIndex = this.attrSource.findIndex(i => this.attrValueEqualFunc(i.value, this.ngModel.model));
     this.selectIndex(selectIndex);
   }
 
 
+  ngOnChanges(changes: SimpleChanges): boolean {
+
+    if (changes['attrObjectSource']) {
+      let currentValue: any[] = changes['attrObjectSource'].currentValue;
+
+      if (currentValue) {
+        this.attrSource = currentValue.map(i => ({
+            title: this.attrDisplayFunc(i),
+            value: this.attrValueFunc(i)
+          })
+        );
+        this.displayMember('title');
+        this.valueMember('value');
+      }
+    }
+
+    return super.ngOnChanges(changes);
+  }
 }

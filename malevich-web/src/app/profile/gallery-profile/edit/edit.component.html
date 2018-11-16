@@ -95,15 +95,11 @@
             <div class="col-12">
               <span
                 class="d-block g-color-text g-font-size-13 mb-1">{{'TRADER_PROFILE.SECURITY.LABEL.ADDRESS.COUNTRY' | translate}}</span>
-              <jqxComboBox #addressCountryComboBox2
-                           class="g-color-black g-bg-white g-bg-white--focus g-brd-gray-light-v3 rounded"
-                           [source]="countries"
-                           [(ngModel)]="address.country"
-                           [displayMember]="'title'"
-                           [valueMember]="'value'"
-                           [selectedIndex]="selectedAddressIndex"
-                           [width]="'100%'">
-              </jqxComboBox>
+              <mchComboBox #addressCountryComboBox2
+                           [objectSource]="countries"
+                           [displayFunc]="countryDisplayFunc"
+                           [(ngModel)]="address.country">
+              </mchComboBox>
             </div>
           </div>
 

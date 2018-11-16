@@ -1,5 +1,5 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
-import {ArtworkDto, GalleryDto} from "../../../../_transfer";
+import {ArtistDto, ArtworkDto, CategoryDto, GalleryDto} from "../../../../_transfer";
 import {ArtworkStockDto} from "../../../../_transfer/artworkStockDto";
 import {GalleryService} from "../../../../_services/gallery.service";
 import {ArtworkStockService} from "../../../../_services/artwork-stock.service";
@@ -25,14 +25,26 @@ export class AddComponent implements OnInit {
 
   public artwork: ArtworkDto;
 
-  public addArtWorkComboBoxSource: any[];
-  artists: any[];
-  categories: any[];
+  artworks: ArtworkDto[];
+  artists: ArtistDto[];
+  categories: CategoryDto[];
+
+  artistDisplayFunc = (artist: ArtistDto) => {
+    return artist.fullNameMl[this.translate.currentLang];
+  };
+
+  categoryDisplayFunc = (category: CategoryDto) =>{
+    return category.categoryNameMl[this.translate.currentLang];
+  };
+
+  artworkDisplayFunc = (artwork:ArtworkDto) =>{
+    return artwork.titleMl[this.translate.currentLang];
+  };
 
   constructor(private router: Router,
               private galleryService: GalleryService,
               private artworkStockService: ArtworkStockService,
-              private artworkService: ArtworkService,
+              public artworkService: ArtworkService,
               private artistService: ArtistService,
               private categoryService: CategoryService,
               public translate: TranslateService) {
@@ -41,17 +53,8 @@ export class AddComponent implements OnInit {
 
   ngOnInit() {
     this.getArtworks();
-    //this.artwork = this.getDefaultArtWork();
-    // this.artwork.titleMl = new Map<string, string>();
     this.getArtists();
     this.getCategories();
-  }
-
-  getDefaultArtWork() {
-    let artwork = new ArtworkDto();
-    // artwork.titleMl = new Map<string, string>();
-    // artwork.descriptionMl = new Map<string, string>();
-    return artwork;
   }
 
   getArtworks(): void {
@@ -59,16 +62,7 @@ export class AddComponent implements OnInit {
       .getArtworks()
       .subscribe(
         data => {
-          this.addArtWorkComboBoxSource = data.map(artwork => ({
-              id: artwork,
-              title: artwork.titleMl[this.translate.currentLang],
-              html: '<table style="min-width: 50px;"><tr><td style="width: 50px; height: 50px;" rowspan="2">' +
-                '<img class="img-fluid" src="https://via.placeholder.com/50x50/img8.jpg">' +
-                '</td><td>' + '<span class="d-block g-color-gray-dark-v4">' + artwork.titleMl[this.translate.currentLang] + '</span>' + '</td></tr><tr><td>' +
-                '<span class="d-block g-color-lightred">' + artwork.category.categoryNameMl[this.translate.currentLang] + '</span>' + '</td></tr></table>'
-            })
-          );
-
+          this.artworks = data;
         }
       );
   }
@@ -77,10 +71,7 @@ export class AddComponent implements OnInit {
     this.artistService
       .getArtists()
       .subscribe(data => (
-        this.artists = data.map(i => ({
-          title: i.fullNameMl[this.translate.currentLang],
-          value: i
-        }))
+        this.artists = data
       ));
   }
 
@@ -88,10 +79,7 @@ export class AddComponent implements OnInit {
     this.categoryService
       .getCategories()
       .subscribe(data => (
-        this.categories = data.map(i => ({
-          title: i.categoryNameMl[this.translate.currentLang],
-          value: i
-        }))
+        this.categories = data
       ));
   }
 
@@ -109,13 +97,6 @@ export class AddComponent implements OnInit {
       return;
 
     this.artwork = $event;
-
-    let artistIndex = this.artists.findIndex(value => value.value.id == this.artwork.artist.id);
-    this.artistComboBox.selectIndex(artistIndex);
-
-    let categoryIndex = this.categories.findIndex(value => value.value.id == this.artwork.category.id);
-    this.categoryComboBox.selectIndex(categoryIndex);
-
     this.addArtWorkComboBox.disabled(true);
   }
 

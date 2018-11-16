@@ -2,6 +2,7 @@ import {Injectable} from '@angular/core';
 import {environment} from "../../environments/environment.dev";
 import {HttpClient} from "@angular/common/http";
 import {ArtworkStockDto} from "../_transfer/artworkStockDto";
+import {TranslateService} from '../../../node_modules/@ngx-translate/core';
 
 @Injectable({
   providedIn: 'root'
@@ -10,7 +11,8 @@ export class ArtworkStockService {
 
   private url = environment.baseUrl + 'artworkstock';
 
-  constructor(private http: HttpClient) {
+  constructor(private http: HttpClient,
+              private translate: TranslateService) {
   }
 
   getArtworkStocks() {
@@ -31,6 +33,18 @@ export class ArtworkStockService {
   deleteArtworkStock(id: number) {
     return this.http
       .delete<ArtworkStockDto>(this.url + '/delete/' + id);
+  }
+
+  get comboboxRenderer() {
+    return (index: number, label: string, artworkStock: ArtworkStockDto) => {
+      if (!artworkStock)
+        return '(null)';
+
+      return '<table style="min-width: 50px;"><tr><td style="width: 50px; height: 50px;" rowspan="2">' +
+        '<img class="img-fluid" src="https://via.placeholder.com/50x50/img8.jpg">' +
+        '</td><td>' + '<span class="d-block g-color-gray-dark-v4">' + artworkStock.artwork.titleMl[this.translate.currentLang] + '</span>' + '</td></tr><tr><td>' +
+        '<span class="d-block g-color-lightred">' + artworkStock.artwork.category.categoryNameMl[this.translate.currentLang] + '</span>' + '</td></tr></table>';
+    };
   }
 
 }

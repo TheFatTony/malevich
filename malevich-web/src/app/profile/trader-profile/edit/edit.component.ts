@@ -1,4 +1,4 @@
-import {AfterViewInit, Component, Inject, LOCALE_ID, OnInit, ViewChild} from '@angular/core';
+import {AfterViewInit, Component, Inject, LOCALE_ID, OnInit} from '@angular/core';
 import {TraderDto} from "../../../_transfer/traderDto";
 import {TranslateService} from "@ngx-translate/core";
 import {TraderService} from "../../../_services/trader.service";
@@ -9,11 +9,11 @@ import {PersonDto} from "../../../_transfer";
 import {GenderService} from "../../../_services/gender.service";
 import {Router} from "@angular/router";
 
-import {jqxComboBoxComponent} from "jqwidgets-scripts/jqwidgets-ts/angular_jqxcombobox";
-import {jqxDateTimeInputComponent} from 'jqwidgets-scripts/jqwidgets-ts/angular_jqxdatetimeinput';
 import {forkJoin} from "rxjs";
 import {distinctUntilChanged, map, mergeMap} from "rxjs/operators";
 import {environment} from "../../../../environments/environment.dev";
+import {CountryDto} from "../../../_transfer/countryDto";
+import {GenderDto} from "../../../_transfer/genderDto";
 
 @Component({
   selector: 'trader-profile-security-edit',
@@ -29,11 +29,6 @@ export class EditComponent implements OnInit, AfterViewInit {
   public url = environment.baseUrl;
 
   @Inject(LOCALE_ID) public locale: string;
-
-  @ViewChild('genderComboBox') genderComboBox: jqxComboBoxComponent;
-  @ViewChild('countryComboBox') countryComboBox: jqxComboBoxComponent;
-  @ViewChild('addressCountryComboBox') addressCountryComboBox: jqxComboBoxComponent;
-  @ViewChild('dateOfBirthInput') dateOfBirthInput: jqxDateTimeInputComponent;
 
   constructor(private router: Router,
               public translate: TranslateService,
@@ -58,20 +53,12 @@ export class EditComponent implements OnInit, AfterViewInit {
     // ensure trader is requested after countries and genders
     forkJoin(this.countryService.getCountries(), this.genderService.getGenders())
       .pipe(mergeMap(results => {
-        this.countries = results[0].map(i => ({
-          title: i.nameMl[this.translate.currentLang],
-          value: i
-        }));
-
-        this.genders = results[1].map(i => ({
-          title: i.nameMl[this.translate.currentLang],
-          value: i
-        }));
-
+        this.countries = results[0];
+        this.genders = results[1];
         return this.traderService.getTrader();
       }))
       .pipe(map(data => {
-         this.trader = data;
+        this.trader = data;
       }))
       .subscribe();
   }
@@ -83,9 +70,15 @@ export class EditComponent implements OnInit, AfterViewInit {
 
   onUploadEnd(event: any): void {
     let args = event.args;
-    let serverResponce = args.response;
-    this.trader.thumbnail = serverResponce;
+    let serverResponse = args.response;
+    this.trader.thumbnail = serverResponse;
   }
 
+  countryDisplayFunc = (country: CountryDto) => {
+    return country.nameMl[this.translate.currentLang];
+  }
 
+  genderDisplayFunc = (gender: GenderDto) => {
+    return gender.nameMl[this.translate.currentLang];
+  }
 }

@@ -34,8 +34,6 @@ export class OrdersComponent implements OnInit {
 
   public url = environment.baseUrl;
 
-  public artworkStocksComboBox: any[];
-
   columns: any[] =
     [
       {datafield: 'Date', width: '20%', columntype: 'textbox'},
@@ -77,7 +75,14 @@ export class OrdersComponent implements OnInit {
       }
     ];
 
-  constructor(private artworkStockService: ArtworkStockService,
+  artworkStockDisplayFunc = (artworkStock: ArtworkStockDto) => {
+    if(!artworkStock)
+      return '(null)';
+
+    artworkStock.artwork.titleMl[this.translate.currentLang];
+  };
+
+  constructor(public artworkStockService: ArtworkStockService,
               private orderService: OrderService,
               public translate: TranslateService,
               private tradeTypeService: TradeTypeService,
@@ -109,15 +114,6 @@ export class OrdersComponent implements OnInit {
       .subscribe(
         data => {
           this.artworkStocks = data;
-          this.artworkStocksComboBox = data.map(artworkStock => ({
-              id: artworkStock,
-              title: artworkStock.artwork.titleMl[this.translate.currentLang],
-              html: '<table style="min-width: 50px;"><tr><td style="width: 50px; height: 50px;" rowspan="2">' +
-                '<img class="img-fluid" src="https://via.placeholder.com/50x50/img8.jpg">' +
-                '</td><td>' + '<span class="d-block g-color-gray-dark-v4">' + artworkStock.artwork.titleMl[this.translate.currentLang] + '</span>' + '</td></tr><tr><td>' +
-                '<span class="d-block g-color-lightred">' + artworkStock.artwork.category.categoryNameMl[this.translate.currentLang] + '</span>' + '</td></tr></table>'
-            })
-          );
         });
   }
 

@@ -66,15 +66,12 @@
         <div class="row">
           <div class="col-12">
             <span class="d-block g-color-text g-font-size-13 mb-1">Artist:</span>
-            <jqxComboBox #artistComboBox
-                         class="g-color-black g-bg-white g-bg-white--focus g-brd-gray-light-v3 rounded"
-                         [source]="artists"
+            <mchComboBox #artistComboBox
+                         [objectSource]="artists"
+                         [displayFunc]="artistDisplayFunc"
                          [ngModel]="artwork?.artist"
-                         (ngModelChange)="onArtistComboBoxChange($event)"
-                         [displayMember]="'title'"
-                         [valueMember]="'value'"
-                         [width]="'100%'">
-            </jqxComboBox>
+                         (ngModelChange)="onArtistComboBoxChange($event)">
+            </mchComboBox>
           </div>
         </div>
 
@@ -83,15 +80,12 @@
         <div class="row">
           <div class="col-12">
             <span class="d-block g-color-text g-font-size-13 mb-1">Category:</span>
-            <jqxComboBox #categoryComboBox
-                         class="g-color-black g-bg-white g-bg-white--focus g-brd-gray-light-v3 rounded"
-                         [source]="categories"
+            <mchComboBox #categoryComboBox
+                         [objectSource]="categories"
+                         [displayFunc]="categoryDisplayFunc"
                          [ngModel]="artwork?.category"
-                         (ngModelChange)="onCategoryComboBoxChange($event)"
-                         [displayMember]="'title'"
-                         [valueMember]="'value'"
-                         [width]="'100%'">
-            </jqxComboBox>
+                         (ngModelChange)="onCategoryComboBoxChange($event)">
+            </mchComboBox>
           </div>
         </div>
 

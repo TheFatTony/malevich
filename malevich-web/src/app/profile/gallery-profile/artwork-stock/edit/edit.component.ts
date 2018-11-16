@@ -1,5 +1,5 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
-import {ArtworkDto, GalleryDto} from "../../../../_transfer";
+import {ArtistDto, ArtworkDto, CategoryDto, GalleryDto} from "../../../../_transfer";
 import {ArtworkStockDto} from "../../../../_transfer/artworkStockDto";
 import {GalleryService} from "../../../../_services/gallery.service";
 import {ArtworkStockService} from "../../../../_services/artwork-stock.service";
@@ -26,8 +26,16 @@ export class EditComponent implements OnInit {
   artworkStock: ArtworkStockDto;
   public artwork: ArtworkDto;
 
-  artists: any[];
-  categories: any[];
+  artists: ArtistDto[];
+  categories: CategoryDto[];
+
+  artistDisplayFunc = (artist: ArtistDto) => {
+    return artist.fullNameMl[this.translate.currentLang];
+  };
+
+  categoryDisplayFunc = (category: CategoryDto) =>{
+    return category.categoryNameMl[this.translate.currentLang];
+  };
 
   constructor(private router: Router,
               private route: ActivatedRoute,
@@ -50,12 +58,6 @@ export class EditComponent implements OnInit {
         .subscribe(a => {
           this.artworkStock = a;
           this.artwork = a.artwork;
-
-          let artistIndex = this.artists.findIndex(value => value.value.id == this.artwork.artist.id);
-          this.artistComboBox.selectIndex(artistIndex);
-
-          let categoryIndex = this.categories.findIndex(value => value.value.id == this.artwork.category.id);
-          this.categoryComboBox.selectIndex(categoryIndex);
         })
     });
   }
@@ -64,10 +66,7 @@ export class EditComponent implements OnInit {
     this.artistService
       .getArtists()
       .subscribe(data => (
-        this.artists = data.map(i => ({
-          title: i.fullNameMl[this.translate.currentLang],
-          value: i
-        }))
+        this.artists = data
       ));
   }
 
@@ -75,10 +74,7 @@ export class EditComponent implements OnInit {
     this.categoryService
       .getCategories()
       .subscribe(data => (
-        this.categories = data.map(i => ({
-          title: i.categoryNameMl[this.translate.currentLang],
-          value: i
-        }))
+        this.categories = data
       ));
   }
 

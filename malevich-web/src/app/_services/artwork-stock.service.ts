@@ -1,7 +1,8 @@
 import {Injectable} from '@angular/core';
-import {environment} from "../../environments/environment.dev";
-import {HttpClient} from "@angular/common/http";
-import {ArtworkStockDto} from "../_transfer/artworkStockDto";
+import {environment} from '../../environments/environment.dev';
+import {HttpClient} from '@angular/common/http';
+import {ArtworkStockDto} from '../_transfer/artworkStockDto';
+import {map} from 'rxjs/internal/operators';
 import {TranslateService} from '../../../node_modules/@ngx-translate/core';
 
 @Injectable({
@@ -18,6 +19,10 @@ export class ArtworkStockService {
   getArtworkStocks() {
     return this.http
       .get<ArtworkStockDto[]>(this.url + '/list');
+  }
+
+  getArtworkStocksPagination(pageSortable: any) {
+    return this.http.post(this.url + '/pagination', pageSortable, {observe: 'response'}).pipe(map((response: any) => response));
   }
 
   getArtworkStock(id: number) {

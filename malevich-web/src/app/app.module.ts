@@ -147,8 +147,10 @@ import {EditComponent as GalleryProfileArtworkStockEditComponent} from './profil
 import {OrdersComponent as TraderProfileOrdersComponent} from "./profile/trader-profile/orders/orders.component";
 import {ArtworkStockComponent as TraderProfileArtworkStockComponent} from "./profile/trader-profile/artwork-stock/artwork-stock.component";
 import {PageNotFoundComponent} from './page-not-found/page-not-found.component';
-import {MaskedInputComponent} from "./core/components/masked_input.component";
+import {MaskedInputComponent} from "./core/components/masked-input.component";
 import {ComboBoxComponent} from "./core/components/combobox.component";
+import {TextInputComponent} from "./core/components/text-input.component";
+import {DateTimeInputComponent} from "./core/components/date-time-input.component";
 
 export function createTranslateLoader(http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
@@ -210,8 +212,9 @@ export function createTranslateLoader(http: HttpClient) {
     TraderProfileOrdersComponent,
     TraderProfileArtworkStockComponent,
     PageNotFoundComponent,
-    InputComponent,
+    TextInputComponent,
     MaskedInputComponent,
+    DateTimeInputComponent,
     ComboBoxComponent
   ],
   imports: [

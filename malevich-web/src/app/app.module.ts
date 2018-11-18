@@ -151,6 +151,9 @@ import {MaskedInputComponent} from "./core/components/masked-input.component";
 import {ComboBoxComponent} from "./core/components/combobox.component";
 import {TextInputComponent} from "./core/components/text-input.component";
 import {DateTimeInputComponent} from "./core/components/date-time-input.component";
+import {DropDownListComponent} from "./core/components/dropdownlist.component";
+import {NumberInputComponent} from "./core/components/number-input.component";
+import {ButtonComponent} from "./core/components/button.component";
 
 export function createTranslateLoader(http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
@@ -215,7 +218,10 @@ export function createTranslateLoader(http: HttpClient) {
     TextInputComponent,
     MaskedInputComponent,
     DateTimeInputComponent,
-    ComboBoxComponent
+    ComboBoxComponent,
+    DropDownListComponent,
+    NumberInputComponent,
+    ButtonComponent
   ],
   imports: [
     BrowserModule,

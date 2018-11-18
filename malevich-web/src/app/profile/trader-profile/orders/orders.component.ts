@@ -79,7 +79,7 @@ export class OrdersComponent implements OnInit {
     if(!artworkStock)
       return '(null)';
 
-    artworkStock.artwork.titleMl[this.translate.currentLang];
+    return artworkStock.artwork.titleMl[this.translate.currentLang];
   };
 
   constructor(public artworkStockService: ArtworkStockService,

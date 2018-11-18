@@ -82,12 +82,12 @@
           <div class="col-12">
             <span
               class="d-block g-color-text g-font-size-13 mb-1">{{'TRADER_PROFILE.SECURITY.LABEL.GENDER' | translate}}</span>
-            <mchComboBox #genderComboBox
+            <mchDropDownList #genderComboBox
                          [objectSource]="genders"
                          [displayFunc]="genderDisplayFunc"
                          [ngModel]="trader?.gender"
                          (ngModelChange)="trader.gender=$event">
-            </mchComboBox>
+            </mchDropDownList>
           </div>
         </div>
 
@@ -142,12 +142,10 @@
           <div class="col-12">
             <span class="d-block g-color-text g-font-size-13 mb-1">{{'TRADER_PROFILE.SECURITY.LABEL.DATE_OF_BIRTH' | translate}}</span>
             <div class="g-brd-primary--focus">
-              <jqxDateTimeInput #dateOfBirthInput
-                                class="g-color-black g-bg-white g-bg-white--focus g-brd-gray-light-v3 rounded"
+              <mchDateTimeInput #dateOfBirthInput
                                 [ngModel]='trader.dateOfBirth'
-                                (ngModelChange)="trader.dateOfBirth=$event"
-                                [width]="'100%'">
-              </jqxDateTimeInput>
+                                (ngModelChange)="trader.dateOfBirth=$event">
+              </mchDateTimeInput>
             </div>
 
           </div>

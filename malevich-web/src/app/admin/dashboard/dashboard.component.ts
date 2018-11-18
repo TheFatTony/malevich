@@ -9,8 +9,7 @@ export class DashboardComponent implements OnInit {
 
 
   constructor() {
-    $.jqx.theme = 'metrodark';
-  }
+    }
 
   ngOnInit() {
   }

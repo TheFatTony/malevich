@@ -1,2 +1,8 @@
 from - to
-1FAEFF - e44235
+428BCA - e44235
+357EBD - e45a4e
+0088CC - e44f45
+
+images/ - ../../../../node_modules/jqwidgets-scripts/jqwidgets/styles/images/
+font-family: Helvetica Neue, Helvetica, Arial, sans-serif; - font-family: "Open Sans";
+font-family: Helvetica Neue, Helvetica, Arial, sans-serif; - font-family: "Open Sans";

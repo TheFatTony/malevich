@@ -88,8 +88,7 @@ export class OrdersComponent implements OnInit {
               public translate: TranslateService,
               private tradeTypeService: TradeTypeService,
               private orderTypeService: OrderTypeService) {
-    $.jqx.theme = 'malevich';
-  }
+    }
 
   ngOnInit() {
     this.getPlacedOrders();

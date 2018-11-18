@@ -8,8 +8,7 @@ import {Component, OnInit} from '@angular/core';
 export class MainMenuComponent implements OnInit {
 
   constructor() {
-    $.jqx.theme = 'metrodark';
-  }
+    }
 
   ngOnInit() {
   }

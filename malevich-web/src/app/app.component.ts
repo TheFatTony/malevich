@@ -16,6 +16,7 @@ export class AppComponent implements AfterViewInit {
               public globals: Globals,
               private loginService: AuthService,
               public loadingService: LoadingService) {
+    $.jqx.theme = 'malevich';
     translate.addLangs(['en', 'ru']);
     translate.setDefaultLang('en');
 

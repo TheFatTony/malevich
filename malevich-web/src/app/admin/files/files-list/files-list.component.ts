@@ -14,8 +14,7 @@ export class FilesListComponent implements OnInit {
 
 
   constructor(private fileService: FileService) {
-    $.jqx.theme = 'metrodark';
-  }
+    }
 
   getFiles(): void {
     this.fileService

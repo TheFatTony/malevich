@@ -66,8 +66,7 @@ export class ArtworkStockComponent implements OnInit {
               private artworkStockService: ArtworkStockService,
               private artworkService: ArtworkService,
               public translate: TranslateService) {
-    $.jqx.theme = 'malevich';
-  }
+    }
 
   getArtworkComboBoxSource(array: ArtworkDto[]) {
     return array

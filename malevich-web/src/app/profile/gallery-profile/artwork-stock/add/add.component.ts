@@ -48,8 +48,7 @@ export class AddComponent implements OnInit {
               private artistService: ArtistService,
               private categoryService: CategoryService,
               public translate: TranslateService) {
-    $.jqx.theme = 'malevich';
-  }
+    }
 
   ngOnInit() {
     this.getArtworks();

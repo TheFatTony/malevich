@@ -17,7 +17,6 @@ export class TextInputComponent extends jqxInputComponent {
 
   constructor(containerElement: ElementRef) {
     super(containerElement);
-    this.attrTheme = 'malevich';
     this.attrWidth = '100%';
   }
 }

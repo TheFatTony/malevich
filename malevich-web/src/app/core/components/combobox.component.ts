@@ -37,7 +37,6 @@ export class ComboBoxComponent extends jqxComboBoxComponent {
 
   constructor(containerElement: ElementRef) {
     super(containerElement);
-    this.attrTheme = 'malevich';
     this.attrWidth = '100%';
     this.attrHeight = 48;
   }

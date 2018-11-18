@@ -27,8 +27,7 @@ export class TransactionsListComponent implements OnInit {
     ];
 
   constructor(private transactionsService: TransactionsService, public translate: TranslateService) {
-    $.jqx.theme = 'metrodark';
-  }
+    }
 
   getTransactions(): void {
     this.transactionsService

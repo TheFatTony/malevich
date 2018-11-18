@@ -33,7 +33,6 @@
     "jquery": "^3.2.1",
     "jquery-countdown": "^2.2.0",
     "jquery-migrate": "^3.0.1",
-    "jqwidgets-framework": "^6.1.0",
     "jqwidgets-scripts": "^6.1.0",
     "ngx-loading": "^3.0.1",
     "ngx-pagination": "^3.2.0",

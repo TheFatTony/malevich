@@ -23,8 +23,7 @@ export class WalletComponent implements OnInit {
   y: number;
 
   constructor(private paymentsService: PaymentsService, private accountStateService: AccountStateService) {
-    $.jqx.theme = 'malevich';
-  }
+    }
 
   ngOnInit() {
     this.getTraderAccountState();

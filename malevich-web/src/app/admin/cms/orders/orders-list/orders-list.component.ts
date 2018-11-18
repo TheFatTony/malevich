@@ -15,8 +15,7 @@ export class OrdersListComponent implements OnInit {
   orders: OrderDto[];
 
   constructor(private orderService: OrderService, public translate: TranslateService) {
-    $.jqx.theme = 'metrodark';
-  }
+    }
 
   getOrders(): void {
     this.orderService

@@ -62,8 +62,7 @@ export class ArtworkStockComponent implements OnInit {
   constructor(private router: Router,
               private accountStateService: AccountStateService,
               public translate: TranslateService) {
-    $.jqx.theme = 'malevich';
-  }
+    }
 
   ngOnInit() {
     this.getArtworkStock();

@@ -128,8 +128,6 @@ export class ArtworksDetailComponent implements OnInit, AfterViewInit {
   }
 
   setTradeType(value:TradeTypeDto){
-    console.info(value);
-
     this.newOrder.tradeType = value;
 
     switch (value.id) {

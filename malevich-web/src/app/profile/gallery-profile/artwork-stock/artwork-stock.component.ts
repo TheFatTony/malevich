@@ -19,7 +19,6 @@ import {Router} from "@angular/router";
 export class ArtworkStockComponent implements OnInit {
 
   @ViewChild('myGrid') myGrid: jqxGridComponent;
-  @ViewChild('addWindow') myWindow: jqxWindowComponent;
   @ViewChild('addArtWorkComboBox') addArtWorkComboBox: jqxComboBoxComponent;
 
   gallery: GalleryDto;
@@ -115,15 +114,6 @@ export class ArtworkStockComponent implements OnInit {
           this.artworkStocks = data;
         }
       );
-  }
-
-  openAddWindow() {
-    this.addArtworkStock = new ArtworkStockDto();
-    this.addArtworkStock.gallery = this.gallery;
-    this.addArtworkStock.artwork = new ArtworkDto();
-
-    this.myWindow.open();
-    this.myWindow.move(this.x, this.y);
   }
 
   addButton() {

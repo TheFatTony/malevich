@@ -84,19 +84,19 @@
       <tbody>
       <tr>Amount:</tr>
       <tr>
-        <jqxNumberInput
-          class="amountInput form-control g-color-black g-bg-white g-bg-white--focus g-brd-gray-light-v3 rounded"
-          [width]="'100%'" [height]="34" [ngModel]="newPayment?.amount"
-          (ngModelChange)="newPayment.amount=$event"></jqxNumberInput>
+        <mchNumberInput
+          class="amountInput"
+          [ngModel]="newPayment?.amount"
+          (ngModelChange)="newPayment.amount=$event"></mchNumberInput>
       </tr>
       <tr>
         <td colspan="2" style="padding-left: 20px;">
-          <jqxButton #SendButton
+          <mchButton #SendButton
                      (onClick)="sendPayment()"
                      style="text-align: center; margin-left: 8em;"
                      [width]="60" [height]="25">
             Send
-          </jqxButton>
+          </mchButton>
         </td>
       </tr>
       </tbody>
@@ -111,19 +111,19 @@
       <tbody>
       <tr>Amount:</tr>
       <tr>
-        <jqxNumberInput
-          class="amountInput form-control g-color-black g-bg-white g-bg-white--focus g-brd-gray-light-v3 rounded"
-          [width]="'100%'" [height]="34" [ngModel]="-newWithdraw?.amount"
-          (ngModelChange)="newWithdraw.amount=-$event"></jqxNumberInput>
+        <mchNumberInput
+          class="amountInput"
+          [ngModel]="-newWithdraw?.amount"
+          (ngModelChange)="newWithdraw.amount=-$event"></mchNumberInput>
       </tr>
       <tr>
         <td colspan="2" style="padding-left: 20px;">
-          <jqxButton #SendButton
+          <mchButton #SendButton
                      (onClick)="sendWithdraw()"
                      style="text-align: center; margin-left: 8em;"
                      [width]="60" [height]="25">
             Send
-          </jqxButton>
+          </mchButton>
         </td>
       </tr>
       </tbody>

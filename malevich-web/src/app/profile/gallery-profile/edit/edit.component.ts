@@ -1,4 +1,4 @@
-import {AfterViewInit, Component, OnInit, ViewChild} from '@angular/core';
+import {AfterViewInit, Component, OnInit} from '@angular/core';
 import {TranslateService} from "@ngx-translate/core";
 import {CountryService} from "../../../_services/country.service";
 import {GalleryDto} from "../../../_transfer";
@@ -6,7 +6,7 @@ import {GalleryService} from "../../../_services/gallery.service";
 import {Router} from "@angular/router";
 import {first, map, mergeMap} from "rxjs/operators";
 import {forkJoin} from "rxjs";
-import {jqxComboBoxComponent} from "jqwidgets-scripts/jqwidgets-ts/angular_jqxcombobox";
+import {CountryDto} from "../../../_transfer/countryDto";
 
 @Component({
   selector: 'app-profile-gallery-security-edit',
@@ -16,14 +16,11 @@ import {jqxComboBoxComponent} from "jqwidgets-scripts/jqwidgets-ts/angular_jqxco
 export class EditComponent implements OnInit, AfterViewInit {
 
 
-  countries: any[];
+  countries: CountryDto[];
   gallery: GalleryDto;
 
-  addressCountryComboBox: jqxComboBoxComponent;
-  selectedAddressIndex: number;
-
-  @ViewChild('addressCountryComboBox2') set content(content: jqxComboBoxComponent) {
-    this.addressCountryComboBox = content;
+  countryDisplayFunc = (country: CountryDto) => {
+    return country.nameMl[this.translate.currentLang]
   }
 
   constructor(public translate: TranslateService,
@@ -44,11 +41,7 @@ export class EditComponent implements OnInit, AfterViewInit {
     // ensure gallery is requested after countries
     forkJoin(this.countryService.getCountries())
       .pipe(mergeMap(results => {
-        this.countries = results[0].map(i => ({
-          title: i.nameMl[this.translate.currentLang],
-          value: i
-        }));
-
+        this.countries = results[0];
         return this.galleryService.getGallery();
       }))
       .pipe(map(data => {
@@ -56,11 +49,6 @@ export class EditComponent implements OnInit, AfterViewInit {
           return;
 
         this.gallery = data;
-
-        if (data.addresses && data.addresses.length > 0 && data.addresses[0].country) {
-          this.selectedAddressIndex = this.countries.findIndex(value => value.value.id == data.addresses[0].country.id);
-          //this.addressCountryComboBox.selectIndex(countryIndex);
-        }
       }))
       .subscribe();
   }
@@ -69,7 +57,8 @@ export class EditComponent implements OnInit, AfterViewInit {
     this.galleryService.updateGallery(this.gallery).pipe(first()).subscribe(
       data => {
         this.router.navigate(['/profile/gallery/view']);
-      });
+      }
+    );
   }
 
   cancel(): void {

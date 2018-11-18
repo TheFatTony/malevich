@@ -17,7 +17,6 @@ import {AccountStateService} from "../../../_services/account-state.service";
 export class ArtworkStockComponent implements OnInit {
 
   @ViewChild('myGrid') myGrid: jqxGridComponent;
-  @ViewChild('addWindow') myWindow: jqxWindowComponent;
   @ViewChild('addArtWorkComboBox') addArtWorkComboBox: jqxComboBoxComponent;
 
   gallery: GalleryDto;
@@ -63,45 +62,11 @@ export class ArtworkStockComponent implements OnInit {
   constructor(private router: Router,
               private accountStateService: AccountStateService,
               public translate: TranslateService) {
-    $.jqx.theme = 'malevich';
-  }
-
-  getArtworkComboBoxSource(array: ArtworkDto[]) {
-    return array
-      .map(artwork => ({
-          title: artwork.titleMl[this.translate.currentLang],
-          html: '<table style="min-width: 50px;"><tr><td style="width: 100px;" rowspan="2">' +
-            '<img class="img-fluid" src="https://via.placeholder.com/50x50/img8.jpg" alt="Image Description">' +
-            '</td><td>' + '<span class="d-block g-color-gray-dark-v4">' + artwork.titleMl[this.translate.currentLang] + '</span>' + '</td></tr><tr><td>' +
-            '<span class="d-block g-color-lightred">' + artwork.category.categoryNameMl[this.translate.currentLang] + '</span>' + '</td></tr></table>'
-        })
-      );
-  }
+    }
 
   ngOnInit() {
-    // this.getGallery();
-    // this.getArtworks();
     this.getArtworkStock();
   }
-
-  // getGallery(): void {
-  //   this.galleryService
-  //     .getGallery()
-  //     .subscribe(
-  //       data => (this.gallery = data)
-  //     );
-  // }
-
-  // getArtworks(): void {
-  //   this.artworkService
-  //     .getArtworks()
-  //     .subscribe(
-  //       data => {
-  //         this.artworks = data;
-  //         this.addArtWorkComboBoxSource = this.getArtworkComboBoxSource(data);
-  //       }
-  //     );
-  // }
 
   getArtworkStock(): void {
     this.accountStateService
@@ -112,20 +77,6 @@ export class ArtworkStockComponent implements OnInit {
         }
       );
   }
-
-  openAddWindow() {
-    this.addArtworkStock = new ArtworkStockDto();
-    this.addArtworkStock.gallery = this.gallery;
-    this.addArtworkStock.artwork = new ArtworkDto();
-
-    this.myWindow.open();
-    this.myWindow.move(this.x, this.y);
-  }
-
-  // addButton() {
-  //   this.artworkStockService.addArtworkStock(this.addArtworkStock)
-  //     .subscribe(data => (this.getArtworkStock()));
-  // }
 
   onAddArtworkSelect(event: any) {
     let selectedIndex = this.addArtWorkComboBox.selectedIndex();
@@ -144,17 +95,4 @@ export class ArtworkStockComponent implements OnInit {
     this.selectedRowIndex = $event.args.rowindex;
   }
 
-  // onAddButtonClick() {
-  //   this.router.navigate(['/profile/gallery/artworkstok/add'])
-  // }
-  //
-  // onUpdateButtonClick() {
-  //   this.router.navigate(['/profile/gallery/artworkstok/edit/' + this.selectedRowIndex])
-  // }
-  //
-  // onDeleteButtonClick() {
-  //   let deleted = this.artworkStocks.splice(this.selectedRowIndex, 1)[0];
-  //   this.artworkStockService.deleteArtworkStock(deleted.id).subscribe();
-  //   this.myGrid.refresh();
-  // }
 }

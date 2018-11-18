@@ -38,8 +38,7 @@
               "src/assets/vendor/icon-hs/style.css",
               "src/assets/vendor/malihu-scrollbar/jquery.mCustomScrollbar.css",
               "node_modules/jqwidgets-scripts/jqwidgets/styles/jqx.base.css",
-              "node_modules/jqwidgets-scripts/jqwidgets/styles/jqx.metro.css",
-              "node_modules/jqwidgets-scripts/jqwidgets/styles/jqx.metrodark.css",
+              "node_modules/jqwidgets-scripts/jqwidgets/styles/jqx.bootstrap.css",
               "src/assets/malevich/css/malevich-jqx.css",
               "src/assets/e-commerce/css/styles.e-commerce.css",
               "src/assets/malevich/css/malevich.css"

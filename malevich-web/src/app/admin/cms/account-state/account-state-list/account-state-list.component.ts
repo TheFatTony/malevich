@@ -23,8 +23,7 @@ export class AccountStateListComponent implements OnInit {
     ];
 
   constructor(private accountStateService: AccountStateService, public translate: TranslateService) {
-    $.jqx.theme = 'metrodark';
-  }
+    }
 
   getAccountState(): void {
     this.accountStateService

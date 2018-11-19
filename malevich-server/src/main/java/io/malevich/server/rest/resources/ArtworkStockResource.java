@@ -1,9 +1,10 @@
 package io.malevich.server.rest.resources;
 
 import io.malevich.server.domain.ArtworkStockEntity;
+import io.malevich.server.domain.enums.SortEnum;
 import io.malevich.server.services.artworkstock.ArtworkStockService;
 import io.malevich.server.transfer.ArtworkStockDto;
-import io.malevich.server.transfer.PageSortableRequestDto;
+import io.malevich.server.transfer.FilterDto;
 import io.malevich.server.transfer.PageResponseDto;
 import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
@@ -63,10 +64,10 @@ public class ArtworkStockResource {
         return ResponseEntity.ok().build();
     }
 
-    @PostMapping("/pagination")
+    @PostMapping("/filter")
     @ResponseStatus(HttpStatus.OK)
-    public PageResponseDto pagination(@RequestBody PageSortableRequestDto sortableDto) {
-        Page<ArtworkStockEntity> resultPage = this.artworkStockService.findAll(PageRequest.of(sortableDto.getPage(), sortableDto.getSize(), Sort.by(Sort.Order.by("artwork.titleMl"))));
+    public PageResponseDto filter(@RequestBody FilterDto filterDto) {
+        Page<ArtworkStockEntity> resultPage = this.artworkStockService.filterStocks(PageRequest.of(filterDto.getPage(), filterDto.getSize(), Sort.by(Sort.Order.by(SortEnum.NAME.getValue()))), filterDto);
         return new PageResponseDto(resultPage.getContent().stream().map(pageEntry -> convertToDto(pageEntry)).collect(Collectors.toList()), resultPage.getTotalElements(), resultPage.getTotalPages());
     }
 

@@ -6,6 +6,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
+import java.sql.Timestamp;
 import java.util.List;
 
 
@@ -16,6 +17,9 @@ public interface OrderDao extends JpaRepository<OrderEntity, Long> {
 
     @Query("select oe from OrderEntity as oe where oe.status.id = 'OPEN'")
     List<OrderEntity> findAllOpen();
+
+    @Query("select oe from OrderEntity as oe where oe.status.id = 'OPEN' and oe.expirationDate <= :date")
+    List<OrderEntity> findOldOpen(@Param("date") Timestamp date);
 
     @Query("select oe from OrderEntity as oe where oe.party.id = :party_id and oe.status.id = 'OPEN'")
     List<OrderEntity> findAllPlacedOrdersByParty(@Param("party_id") Long partyId);

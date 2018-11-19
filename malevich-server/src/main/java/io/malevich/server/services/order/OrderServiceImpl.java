@@ -58,8 +58,13 @@ public class OrderServiceImpl implements OrderService {
     @Override
     @Transactional(readOnly = true)
     public List<OrderEntity> findAllOpen() {
-        // todo add date param
         return this.orderDao.findAllOpen();
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public List<OrderEntity> findOldOpen(Timestamp date) {
+        return this.orderDao.findOldOpen(date);
     }
 
     @Override

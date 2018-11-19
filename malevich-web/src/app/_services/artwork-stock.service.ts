@@ -21,8 +21,8 @@ export class ArtworkStockService {
       .get<ArtworkStockDto[]>(this.url + '/list');
   }
 
-  getArtworkStocksPagination(pageSortable: any) {
-    return this.http.post(this.url + '/pagination', pageSortable, {observe: 'response'}).pipe(map((response: any) => response));
+  stocksByFilter(filterDto: any) {
+    return this.http.post(this.url + '/filter', filterDto, {observe: 'response'}).pipe(map((response: any) => response));
   }
 
   getArtworkStock(id: number) {

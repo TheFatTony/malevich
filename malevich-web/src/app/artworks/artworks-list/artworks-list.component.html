@@ -1,7 +1,18 @@
+<!-- Style code for pagination -->
 <style>
-  .my-pagination /deep/ .ngx-pagination .current {background: #e44235 !important; border-radius: 50% !important;}
-  .my-pagination /deep/ .ngx-pagination a:hover, .my-pagination /deep/ .ngx-pagination button:hover{background: transparent; text-decoration: none; color: #e44235;}
+  .my-pagination /deep/ .ngx-pagination .current {
+    background: #e44235 !important;
+    border-radius: 50% !important;
+  }
+
+  .my-pagination /deep/ .ngx-pagination a:hover, .my-pagination /deep/ .ngx-pagination button:hover {
+    background: transparent;
+    text-decoration: none;
+    color: #e44235;
+  }
 </style>
+<!-- End Style code -->
+
 <!-- Breadcrumbs -->
 <section class="g-brd-bottom g-brd-gray-light-v4 g-py-30">
   <div class="container">
@@ -46,14 +57,14 @@
               </button>
               <div class="dropdown-menu rounded-0">
                 <a class="dropdown-item g-color-gray-dark-v4 g-font-weight-300" href="javascript:;"
-                   (click)="getArtworkStockPagination(0,stockData.totalElements)">{{'GRID.FILTERS_SHOW_ALL' |
+                   (click)="setSize(stockData.totalElements)">{{'GRID.FILTERS_SHOW_ALL' |
                   translate}}</a>
                 <a class="dropdown-item g-color-gray-dark-v4 g-font-weight-300" href="javascript:;"
-                   (click)="getArtworkStockPagination(0,9)">9</a>
+                   (click)="setSize(9)">9</a>
                 <a class="dropdown-item g-color-gray-dark-v4 g-font-weight-300" href="javascript:;"
-                   (click)="getArtworkStockPagination(0,18)">18</a>
+                   (click)="setSize(18)">18</a>
                 <a class="dropdown-item g-color-gray-dark-v4 g-font-weight-300" href="javascript:;"
-                   (click)="getArtworkStockPagination(0,27)">27</a>
+                   (click)="setSize(27)">27</a>
               </div>
             </div>
             <!-- End Secondary Button -->
@@ -118,28 +129,13 @@
         <!-- Pagination -->
         <nav class="g-mb-100" aria-label="Page Navigation">
           <ul class="list-inline mb-0">
-            <!--<li class="list-inline-item hidden-down">
-              <a
-                class="active u-pagination-v1__item g-width-30 g-height-30 g-brd-gray-light-v3 g-brd-primary&#45;&#45;active g-color-white g-bg-primary&#45;&#45;active g-font-size-12 rounded-circle g-pa-5"
-                href="#!">1</a>
-            </li>
-            <li class="list-inline-item">
-              <a
-                class="u-pagination-v1__item g-width-30 g-height-30 g-brd-gray-light-v3 g-brd-primary&#45;&#45;hover g-color-gray-dark-v5 g-color-primary&#45;&#45;hover g-font-size-12 rounded-circle g-pa-5 g-ml-15"
-                href="#!" aria-label="Next">
-                      <span aria-hidden="true">
-                        <i class="fa fa-angle-right"></i>
-                      </span>
-                <span class="sr-only">Next</span>
-              </a>
-            </li>-->
 
             <li class="list-inline-item float-right">
               <span class="u-pagination-v1__item-info g-color-gray-dark-v4 g-font-size-12 g-pa-5">Page {{stockData.currentPage}} of {{stockData.totalPages}}</span>
             </li>
             <li class="list-inline-item hidden-down">
               <pagination-controls class="my-pagination"
-                                   (pageChange)="getArtworkStockPagination($event-1,2)"
+                                   (pageChange)="setPage($event-1)"
                                    id="server"></pagination-controls>
             </li>
           </ul>
@@ -152,7 +148,7 @@
     <!-- Filters -->
     <div class="col-md-3 order-md-1 g-brd-right--lg g-brd-gray-light-v4 g-pt-40">
       <div class="g-pr-15--lg g-pt-60">
-        <app-artworks-list-filters></app-artworks-list-filters>
+        <app-artworks-list-filters (onCategoryChange)="holdDataFromFilter($event)"></app-artworks-list-filters>
       </div>
     </div>
     <!-- End Filters -->

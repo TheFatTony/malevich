@@ -2,6 +2,7 @@ package io.malevich.server.services.artworkstock;
 
 import io.malevich.server.domain.ArtworkStockEntity;
 import io.malevich.server.domain.GalleryEntity;
+import io.malevich.server.fabric.services.ComposerService;
 import io.malevich.server.repositories.artworkstock.ArtworkStockDao;
 import io.malevich.server.services.artwork.ArtworkService;
 import io.malevich.server.services.gallery.GalleryService;
@@ -33,6 +34,9 @@ public class ArtworkStockServiceImpl implements ArtworkStockService {
     @Autowired
     private TransactionService transactionService;
 
+    @Autowired
+    private ComposerService composerService;
+
     @Override
     @Transactional(readOnly = true)
     public List<ArtworkStockEntity> findAll() {
@@ -48,6 +52,8 @@ public class ArtworkStockServiceImpl implements ArtworkStockService {
         artworkStockEntity = this.artworkStockDao.save(artworkStockEntity);
 
         transactionService.createArtworkStock(artworkStockEntity);
+
+        composerService.addArtwork(artworkStockEntity);
     }
 
     @Override

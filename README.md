@@ -46,3 +46,6 @@ docker volume create tomcat_data && docker run -d -p 8080:8080 --restart=unless-
 
 docker volume create hyperledger_data && docker run -d -v hyperledger_data -p 9090:8080 \
 --restart=unless-stopped hyperledger/composer-playground
+
+
+**TeamCity**

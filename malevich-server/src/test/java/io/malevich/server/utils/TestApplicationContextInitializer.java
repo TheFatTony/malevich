@@ -17,7 +17,7 @@ public class TestApplicationContextInitializer implements ApplicationContextInit
                 .create()
                 .username("root")
                 .password(AppTest.mysql.getPassword())
-                .url(AppTest.mysql.getJdbcUrl()+"?useSSL=false")
+                .url(AppTest.mysql.getJdbcUrl() + "?useSSL=false")
                 .driverClassName("com.mysql.jdbc.Driver")
                 .build();
 
@@ -29,9 +29,15 @@ public class TestApplicationContextInitializer implements ApplicationContextInit
 
 
         TestPropertyValues values = TestPropertyValues.of(
-                "spring.datasource.url=" + AppTest.mysql.getJdbcUrl()+"?useSSL=false",
+                "spring.datasource.url=" + AppTest.mysql.getJdbcUrl() + "?useSSL=false",
                 "spring.datasource.username=" + AppTest.mysql.getUsername(),
-                "spring.datasource.password=" + AppTest.mysql.getPassword());
+                "spring.datasource.password=" + AppTest.mysql.getPassword(),
+                "malevich.composer.url=http://localhost:3000/api",
+                "malevich.client.url=http://localhost:4200",
+                "spring.datasource.driver-class-name=com.mysql.jdbc.Driver",
+                "spring.datasource.type = org.apache.tomcat.jdbc.pool.DataSource",
+                "spring.jpa.properties.hibernate.dialect=org.hibernate.dialect.MySQL5InnoDBDialect",
+                "spring.jpa.properties.hibernate.id.new_generator_mappings=false");
 
         values.applyTo(applicationContext);
     }

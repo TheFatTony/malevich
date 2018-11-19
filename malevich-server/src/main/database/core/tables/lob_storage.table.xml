@@ -11,10 +11,10 @@
 			<column name="file_id" type="bigint">
 				<constraints nullable="false"/>
 			</column>
-			<column name="content" type="longblob"/>
+			<column name="content" type="blob"/>
 		</createTable>
 		<modifySql dbms="mysql">
-			<replace replace="blob" with="longblob"/>
+			<regExpReplace replace="blob" with="longblob"/>
 		</modifySql>
 	</changeSet>
 

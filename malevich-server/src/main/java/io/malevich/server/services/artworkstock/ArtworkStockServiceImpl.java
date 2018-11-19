@@ -53,7 +53,7 @@ public class ArtworkStockServiceImpl implements ArtworkStockService {
 
         transactionService.createArtworkStock(artworkStockEntity);
 
-        composerService.addArtwork(artworkStockEntity);
+//        composerService.addArtwork(artworkStockEntity);
     }
 
     @Override

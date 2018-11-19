@@ -4,7 +4,8 @@
 
   <ul class="list-unstyled">
     <li class="my-3" *ngFor="let category of categories">
-      <a class="d-block u-link-v5 g-color-gray-dark-v4 g-color-primary--hover" href="#!">{{category.categoryNameMl[translate.currentLang]}}
+      <a class="d-block u-link-v5 g-color-gray-dark-v4 g-color-primary--hover" href="javascript:;"
+         (click)="filterCategory(category.id)">{{category.categoryNameMl[translate.currentLang]}}
         <span class="float-right g-font-size-12">...</span></a>
     </li>
   </ul>

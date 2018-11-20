@@ -13,6 +13,8 @@
 *.ips
 .idea/
 
+log.roo
+
 # Eclipse
 .settings/
 .metadata/

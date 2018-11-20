@@ -1,13 +1,14 @@
-import {Component, HostListener, OnInit, ViewChild} from '@angular/core';
+import {Component, OnInit, ViewChild} from '@angular/core';
 import {TranslateService} from "@ngx-translate/core";
 import {ArtworkStockDto} from "../../../_transfer/artworkStockDto";
 import {environment} from "../../../../environments/environment.dev";
 import {ArtworkDto, GalleryDto} from "../../../_transfer";
 import {jqxGridComponent} from "jqwidgets-scripts/jqwidgets-ts/angular_jqxgrid";
-import {jqxWindowComponent} from "jqwidgets-scripts/jqwidgets-ts/angular_jqxwindow";
 import {jqxComboBoxComponent} from "jqwidgets-scripts/jqwidgets-ts/angular_jqxcombobox";
 import {Router} from "@angular/router";
 import {AccountStateService} from "../../../_services/account-state.service";
+import {OrderDto} from "../../../_transfer/orderDto";
+import {OrderWindowComponent} from "../../../common/components/order-window/order-window.component";
 
 @Component({
   selector: 'app-profile-trader-artwork-stock',
@@ -18,6 +19,7 @@ export class ArtworkStockComponent implements OnInit {
 
   @ViewChild('myGrid') myGrid: jqxGridComponent;
   @ViewChild('addArtWorkComboBox') addArtWorkComboBox: jqxComboBoxComponent;
+  @ViewChild('askWindow') askWindow : OrderWindowComponent
 
   gallery: GalleryDto;
   artworks: ArtworkDto[];
@@ -29,8 +31,6 @@ export class ArtworkStockComponent implements OnInit {
 
   x: number;
   y: number;
-
-  public addArtworkStock: ArtworkStockDto;
 
   public url = environment.baseUrl;
 
@@ -62,7 +62,7 @@ export class ArtworkStockComponent implements OnInit {
   constructor(private router: Router,
               private accountStateService: AccountStateService,
               public translate: TranslateService) {
-    }
+  }
 
   ngOnInit() {
     this.getArtworkStock();
@@ -78,21 +78,21 @@ export class ArtworkStockComponent implements OnInit {
       );
   }
 
-  onAddArtworkSelect(event: any) {
-    let selectedIndex = this.addArtWorkComboBox.selectedIndex();
-    if (selectedIndex == -1)
+  openAskWindow() {
+    if(this.selectedRowIndex < 0)
       return;
-    this.addArtworkStock.artwork = this.artworks[selectedIndex];
-  }
 
-  @HostListener('mousedown', ['$event'])
-  mouseHandling(event) {
-    this.x = event.pageX;
-    this.y = event.pageY;
+    let artwork = this.artworkStocks[this.selectedRowIndex];
+
+    this.askWindow.artworkStock(artwork);
+    this.askWindow.open();
   }
 
   onGridRowSelect($event: any) {
     this.selectedRowIndex = $event.args.rowindex;
   }
 
+  onAskPlaced(order: OrderDto) {
+    this.getArtworkStock();
+  }
 }

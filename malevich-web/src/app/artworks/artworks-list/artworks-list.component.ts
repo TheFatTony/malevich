@@ -4,6 +4,7 @@ import {TranslateService} from '@ngx-translate/core';
 import {ArtworkStockService} from '../../_services/artwork-stock.service';
 import {ArtworkStockDto} from '../../_transfer/artworkStockDto';
 import {PageSortableRequestDto} from '../../_transfer/pageSortableRequestDto';
+import {FilterDto} from '../../_transfer/filterDto';
 
 @Component({
   selector: 'app-artworks-list',
@@ -11,24 +12,30 @@ import {PageSortableRequestDto} from '../../_transfer/pageSortableRequestDto';
   styleUrls: ['./artworks-list.component.css']
 })
 export class ArtworksListComponent implements OnInit {
-
   showGrid: boolean = true;
   artworkStocks: ArtworkStockDto[];
   pageSortable: PageSortableRequestDto;
+  filterDto: FilterDto;
   stockData: any = {};
-  currentPage: number = 0;
-  size: number = 9;
+
   private url = environment.baseUrl;
 
   constructor(public translate: TranslateService, private artworkStockService: ArtworkStockService) {
     this.pageSortable = new PageSortableRequestDto();
+    this.filterDto = new FilterDto();
   }
 
   ngOnInit() {
-    this.getArtworkStockPagination(this.currentPage, this.size);
+    this.filterDto.page = 0;
+    this.filterDto.size = 2;
+    this.stocksByFilter(this.filterDto);
   }
 
   ngAfterViewInit(): void {
+  }
+
+  public holdDataFromFilter(filterDto: any): void {
+    this.filterDto = filterDto;
   }
 
   getArtworkStock(): void {
@@ -39,13 +46,22 @@ export class ArtworksListComponent implements OnInit {
       );
   }
 
-  getArtworkStockPagination(page: number, size: number) {
+  setPage(page: number) {
+    this.filterDto.page = page;
+    this.stocksByFilter(this.filterDto);
+  }
 
-    this.artworkStockService.getArtworkStocksPagination({page: page, size: size}).subscribe(
+  setSize(size: number) {
+    this.filterDto.size = size;
+    this.stocksByFilter(this.filterDto);
+  }
+
+  stocksByFilter(filterDtoObj: any) {
+    this.artworkStockService.stocksByFilter(filterDtoObj).subscribe(
       (data) => {
         this.stockData = data.body;
-        this.stockData.currentPage = page + 1;
-        this.stockData.size = size;
+        this.stockData.currentPage = filterDtoObj.page + 1;
+        this.stockData.size = filterDtoObj.size;
       }
     );
   }

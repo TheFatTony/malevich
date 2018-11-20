@@ -1,6 +1,7 @@
 package io.malevich.server.services.artworkstock;
 
 import io.malevich.server.domain.ArtworkStockEntity;
+import io.malevich.server.transfer.FilterDto;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -19,5 +20,5 @@ public interface ArtworkStockService {
 
     ArtworkStockEntity find(long id);
 
-    Page<ArtworkStockEntity> findAll(Pageable pageable);
+    Page<ArtworkStockEntity> filterStocks(Pageable pageable, FilterDto filterDto);
 }

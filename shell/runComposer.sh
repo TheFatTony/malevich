@@ -41,6 +41,6 @@ docker run -d \
 -v ~/.composer:/home/composer/.composer \
 --network composer_default \
 --name rest -p 3000:3000 \
-hyperledger/composer-rest-server:0.19.5
+hyperledger/composer-rest-server:0.19.18
 
 docker cp ~/.composer/cards/admin@malevich-network

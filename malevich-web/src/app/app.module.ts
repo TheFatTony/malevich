@@ -153,6 +153,7 @@ import {DateTimeInputComponent} from "./core/components/date-time-input.componen
 import {DropDownListComponent} from "./core/components/dropdownlist.component";
 import {NumberInputComponent} from "./core/components/number-input.component";
 import {ButtonComponent} from "./core/components/button.component";
+import { OrderWindowComponent } from './common/components/order-window/order-window.component';
 
 export function createTranslateLoader(http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
@@ -219,7 +220,8 @@ export function createTranslateLoader(http: HttpClient) {
     ComboBoxComponent,
     DropDownListComponent,
     NumberInputComponent,
-    ButtonComponent
+    ButtonComponent,
+    OrderWindowComponent
   ],
   imports: [
     BrowserModule,

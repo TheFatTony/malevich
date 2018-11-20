@@ -142,7 +142,12 @@ export class ArtworkStockComponent implements OnInit {
   }
 
   onUpdateButtonClick() {
-    this.router.navigate(['/profile/gallery/artworkstok/edit/' + this.selectedRowIndex])
+    if(this.selectedRowIndex < 0 )
+      return;
+
+    let artwork = this.artworkStocks[this.selectedRowIndex];
+
+    this.router.navigate(['/profile/gallery/artworkstok/edit/' + artwork.id])
   }
 
   onDeleteButtonClick() {

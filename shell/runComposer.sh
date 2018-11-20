@@ -43,4 +43,8 @@ docker run -d \
 --name rest -p 3000:3000 \
 hyperledger/composer-rest-server:0.19.18
 
-docker cp ~/.composer/cards/admin@malevich-network
+docker run -d -p 8080:8080 \
+-e COMPOSER_CARD=admin@malevich-network \
+-v ~/.composer:/home/composer/.composer \
+--network composer_default \
+hyperledger/composer-playground:0.19.18

@@ -52,20 +52,19 @@
         <!-- Add Balance -->
         <div class="row g-mb-50">
           <div class="col-lg-9">
-            <button
-              class="btn g-brd-around g-brd-gray-light-v3 g-color-gray-dark-v3 g-bg-gray-light-v5 g-bg-gray-light-v4--hover g-font-size-13 rounded g-px-18 g-py-9"
-              type="button" (click)="openPaymentWindow()">
-              <i class="align-middle g-font-size-16 mr-2 icon-finance-210 u-line-icon-pro"></i>
+            <mchButton
+              class="g-brd-around g-brd-gray-light-v3 g-color-gray-dark-v3 g-bg-gray-light-v5 g-bg-gray-light-v4--hover g-font-size-13 rounded g-px-18 g-py-9 g-mr-15"
+              (click)="openPaymentWindow()">
+              <i class="align-middle g-font-size-16 mr-2 icon-finance-053 u-line-icon-pro"></i>
               Add Balance
-            </button>
-          </div>
-          <div class="col-lg-9">
-            <button
-              class="btn g-brd-around g-brd-gray-light-v3 g-color-gray-dark-v3 g-bg-gray-light-v5 g-bg-gray-light-v4--hover g-font-size-13 rounded g-px-18 g-py-9"
-              type="button" (click)="openWithdrawWindow()">
+            </mchButton>
+
+            <mchButton
+              class="g-brd-around g-brd-gray-light-v3 g-color-gray-dark-v3 g-bg-gray-light-v5 g-bg-gray-light-v4--hover g-font-size-13 rounded g-px-18 g-py-9"
+              (click)="openWithdrawWindow()">
               <i class="align-middle g-font-size-16 mr-2 icon-finance-210 u-line-icon-pro"></i>
               Withdraw Balance
-            </button>
+            </mchButton>
           </div>
         </div>
         <!-- End Add Balance -->

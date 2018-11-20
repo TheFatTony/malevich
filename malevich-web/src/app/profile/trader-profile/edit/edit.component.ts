@@ -64,8 +64,8 @@ export class EditComponent implements OnInit, AfterViewInit {
   }
 
   update(): void {
-    this.traderService.update(this.trader);
-    this.router.navigate(['/profile/trader/view']);
+    this.traderService.update(this.trader)
+      .subscribe(data => this.router.navigate(['/profile/trader/view']));
   }
 
   onUploadEnd(event: any): void {

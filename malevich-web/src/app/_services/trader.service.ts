@@ -31,19 +31,13 @@ export class TraderService {
     const url = this.url + '/update';
 
     return this.http
-      .put<TraderDto>(url, trader)
-      .subscribe(
-        data => data
-      );
+      .put<TraderDto>(url, trader);
   }
 
   private postTrader(trader: TraderDto, activationCode: string) {
     const url = this.url + '/insert/' + activationCode;
 
     return this.http
-      .post<TraderDto>(url, trader)
-      .subscribe(
-        data => data
-      );
+      .post<TraderDto>(url, trader);
   }
 }

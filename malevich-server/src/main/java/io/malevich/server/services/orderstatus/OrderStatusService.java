@@ -12,6 +12,9 @@ public interface OrderStatusService {
 
     List<OrderStatusEntity> findAll();
 
-    Optional<OrderStatusEntity> findById(String id);
+    OrderStatusEntity getOpen();
 
+    OrderStatusEntity getExecuted();
+
+    OrderStatusEntity getCanceled();
 }

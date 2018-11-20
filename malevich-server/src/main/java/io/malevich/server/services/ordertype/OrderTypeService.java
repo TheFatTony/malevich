@@ -12,6 +12,8 @@ public interface OrderTypeService {
 
     List<OrderTypeEntity> findAll();
 
-    Optional<OrderTypeEntity> findById(String id);
+    OrderTypeEntity getAsk();
+
+    OrderTypeEntity getBid();
 
 }

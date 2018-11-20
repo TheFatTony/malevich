@@ -2,7 +2,7 @@
   <!-- Profile Picture -->
   <div class="text-center g-pos-rel g-mb-30">
     <div class="g-width-100 g-height-100 mx-auto mb-3">
-      <img class="img-fluid rounded-circle" src="{{url}}{{gallery?.thumbnail.url}}" alt="Image Decor">
+      <img class="img-fluid rounded-circle" *ngIf="gallery?.thumbnail" src="{{url}}{{gallery?.thumbnail?.url}}" alt="Image Decor">
     </div>
 
     <a class="d-block g-font-weight-500" routerLink="/profile/gallery/view">

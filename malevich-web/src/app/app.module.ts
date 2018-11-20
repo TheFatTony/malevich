@@ -25,7 +25,6 @@ import {ContactComponent} from './main/contact/contact.component';
 import {LoginComponent} from './auth/login/login.component';
 import {RegisterComponent} from './auth/register/register.component';
 import {ResetComponent} from './auth/reset/reset.component';
-import {TraderProfileComponent} from './profile/trader-profile/trader-profile.component';
 
 import {ArtworksListComponent} from './artworks/artworks-list/artworks-list.component';
 import {FiltersComponent as ArtworksListFiltersComponent} from './artworks/artworks-list/filters/filters.component';
@@ -154,6 +153,7 @@ import {DateTimeInputComponent} from "./core/components/date-time-input.componen
 import {DropDownListComponent} from "./core/components/dropdownlist.component";
 import {NumberInputComponent} from "./core/components/number-input.component";
 import {ButtonComponent} from "./core/components/button.component";
+import { OrderWindowComponent } from './common/components/order-window/order-window.component';
 
 export function createTranslateLoader(http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
@@ -172,7 +172,6 @@ export function createTranslateLoader(http: HttpClient) {
     LoginComponent,
     RegisterComponent,
     ResetComponent,
-    TraderProfileComponent,
     ArtworksListComponent,
     ArtworksListFiltersComponent,
     ArtworksListGridComponent,
@@ -221,7 +220,8 @@ export function createTranslateLoader(http: HttpClient) {
     ComboBoxComponent,
     DropDownListComponent,
     NumberInputComponent,
-    ButtonComponent
+    ButtonComponent,
+    OrderWindowComponent
   ],
   imports: [
     BrowserModule,

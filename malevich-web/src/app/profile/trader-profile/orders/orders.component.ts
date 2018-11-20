@@ -19,8 +19,10 @@ import {jqxValidatorComponent} from '../../../../../node_modules/jqwidgets-scrip
 })
 export class OrdersComponent implements OnInit {
   @ViewChild('myGrid') myGrid: jqxGridComponent;
-  @ViewChild('myWindow') myWindow: jqxWindowComponent;
-  @ViewChild('myValidator') myValidator: jqxValidatorComponent;
+  @ViewChild('bidWindow') bidWindow: jqxWindowComponent;
+  @ViewChild('bidValidator') bidValidator: jqxValidatorComponent;
+  @ViewChild('askWindow') askWindow: jqxWindowComponent;
+  @ViewChild('askValidator') askValidator: jqxValidatorComponent;
 
   orders: OrderDto[];
   public newOrder: OrderDto;
@@ -45,7 +47,7 @@ export class OrdersComponent implements OnInit {
       {datafield: 'Current Ask', width: '10%', columntype: 'textbox'}
     ];
 
-  rules =
+  bidRules =
     [
       {
         input: '.artworkStockInput',
@@ -124,16 +126,24 @@ export class OrdersComponent implements OnInit {
       );
   }
 
-  openWindow() {
+  openBidWindow() {
     this.newOrder = new OrderDto();
-    this.myWindow.width(310);
-    this.myWindow.height(220);
-    this.myWindow.open();
-    this.myWindow.move(this.x, this.y);
+    this.bidWindow.width(310);
+    this.bidWindow.height(220);
+    this.bidWindow.open();
+    this.bidWindow.move(this.x, this.y);
+  }
+
+  openAskWindow() {
+    this.newOrder = new OrderDto();
+    this.askWindow.width(310);
+    this.askWindow.height(220);
+    this.askWindow.open();
+    this.askWindow.move(this.x, this.y);
   }
 
   sendButton() {
-    this.myValidator.validate();
+    this.bidValidator.validate();
   }
 
   @HostListener('mousedown', ['$event'])
@@ -143,7 +153,7 @@ export class OrdersComponent implements OnInit {
   }
 
   ValidationSuccess($event: any) {
-    this.myWindow.close();
+    this.bidWindow.close();
     this.orderService.placeAsk(this.newOrder).subscribe(() => {
       this.getPlacedOrders();
     });

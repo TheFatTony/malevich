@@ -2,10 +2,12 @@ package io.malevich.server.services.artworkstock;
 
 import io.malevich.server.domain.ArtworkStockEntity;
 import io.malevich.server.domain.GalleryEntity;
+import io.malevich.server.fabric.services.ComposerService;
 import io.malevich.server.repositories.artworkstock.ArtworkStockDao;
 import io.malevich.server.services.artwork.ArtworkService;
 import io.malevich.server.services.gallery.GalleryService;
 import io.malevich.server.services.transaction.TransactionService;
+import io.malevich.server.transfer.FilterDto;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -32,6 +34,9 @@ public class ArtworkStockServiceImpl implements ArtworkStockService {
     @Autowired
     private TransactionService transactionService;
 
+    @Autowired
+    private ComposerService composerService;
+
     @Override
     @Transactional(readOnly = true)
     public List<ArtworkStockEntity> findAll() {
@@ -47,6 +52,8 @@ public class ArtworkStockServiceImpl implements ArtworkStockService {
         artworkStockEntity = this.artworkStockDao.save(artworkStockEntity);
 
         transactionService.createArtworkStock(artworkStockEntity);
+
+//        composerService.addArtwork(artworkStockEntity);
     }
 
     @Override
@@ -69,7 +76,17 @@ public class ArtworkStockServiceImpl implements ArtworkStockService {
 
     @Override
     @Transactional(readOnly = true)
-    public Page<ArtworkStockEntity> findAll(Pageable pageable) {
-        return artworkStockDao.findAll(pageable);
+    public Page<ArtworkStockEntity> filterStocks(Pageable pageable, FilterDto filterDto) {
+        if (filterDto.getMinPrice() != 0 && filterDto.getMaxPrice() != 0 && filterDto.getCategoryId() != 0) {
+            return artworkStockDao.filterByPriceAndCategory(pageable, filterDto.getMinPrice(), filterDto.getMaxPrice(), filterDto.getCategoryId());
+        }
+        if (filterDto.getMinPrice() != 0 && filterDto.getMaxPrice() != 0) {
+            return artworkStockDao.filterByPrice(pageable, filterDto.getMinPrice(), filterDto.getMaxPrice());
+        }
+        if (filterDto.getCategoryId() != 0) {
+            return artworkStockDao.filterByCategory(pageable, filterDto.getCategoryId());
+        } else {
+            return artworkStockDao.findAll(pageable);
+        }
     }
 }

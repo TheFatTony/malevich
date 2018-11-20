@@ -42,10 +42,10 @@ docker volume create tomcat_data && docker run -d -p 80:8080 --restart=unless-st
 -v /tmp/conf/tomcat/logs:/usr/local/tomcat/logs \
 -v tomcat_data --name tomcat tomcat:jre9-slim
 
-**Hyperledger Composer**
+**Hyperledger Composer Playground**
 
 docker volume create hyperledger_data && docker run -d -v hyperledger_data -p 9090:8080 \
 --restart=unless-stopped hyperledger/composer-playground
 
 
-**TeamCity**
+**Hyperledger Composer REST Server**

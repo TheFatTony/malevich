@@ -36,7 +36,7 @@ docker volume create mysql_data && docker run -d -p 3306:3306 \
 
 **Tomcat**
 
-docker volume create tomcat_data && docker run -d -p 8080:8080 --restart=unless-stopped \
+docker volume create tomcat_data && docker run -d -p 80:8080 --restart=unless-stopped \
 -v /tmp/conf/tomcat/webapps:/usr/local/tomcat/webapps \
 -v /tmp/conf/tomcat/conf:/usr/local/tomcat/conf \
 -v /tmp/conf/tomcat/logs:/usr/local/tomcat/logs \

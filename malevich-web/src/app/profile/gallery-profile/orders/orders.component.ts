@@ -10,7 +10,6 @@ import {TradeTypeService} from "../../../_services/trade-type.service";
 import {OrderTypeService} from "../../../_services/order-type.service";
 import {environment} from "../../../../environments/environment.dev";
 import {jqxValidatorComponent} from '../../../../../node_modules/jqwidgets-scripts/jqwidgets-ts/angular_jqxvalidator';
-import {jqxDateTimeInputComponent} from '../../../../../node_modules/jqwidgets-scripts/jqwidgets-ts/angular_jqxdatetimeinput';
 import {jqxDropDownListComponent} from '../../../../../node_modules/jqwidgets-scripts/jqwidgets-ts/angular_jqxdropdownlist';
 import {TradeTypeDto} from "../../../_transfer/tradeTypeDto";
 

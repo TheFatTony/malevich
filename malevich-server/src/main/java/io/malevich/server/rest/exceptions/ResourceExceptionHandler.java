@@ -1,6 +1,7 @@
 package io.malevich.server.rest.exceptions;
 
 
+import io.malevich.server.exceptions.AccountStateException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.BadCredentialsException;
@@ -28,9 +29,15 @@ public class ResourceExceptionHandler {
     }
 
     @ExceptionHandler(UsernameNotFoundException.class)
-    public ResponseEntity<StandardError> badCredentialsException(UsernameNotFoundException e, HttpServletRequest request) {
+    public ResponseEntity<StandardError> usernameNotFoundException(UsernameNotFoundException e, HttpServletRequest request) {
         StandardError err = new StandardError(System.currentTimeMillis(), HttpStatus.UNAUTHORIZED.value(), "User name not found", e.getMessage(), request.getRequestURI());
         return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(err);
+    }
+
+    @ExceptionHandler(AccountStateException.class)
+    public ResponseEntity<StandardError> accountStateException(AccountStateException e, HttpServletRequest request) {
+        StandardError err = new StandardError(System.currentTimeMillis(), HttpStatus.INTERNAL_SERVER_ERROR.value(), "Insufficient amount of funds", e.getMessage(), request.getRequestURI());
+        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(err);
     }
 
 

@@ -6,7 +6,6 @@ import {
   Input, SimpleChanges
 } from '@angular/core';
 import {NG_VALUE_ACCESSOR, NgModel} from "@angular/forms";
-import {jqxComboBoxComponent} from "jqwidgets-scripts/jqwidgets-ts/angular_jqxcombobox";
 import {jqxDropDownListComponent} from "jqwidgets-scripts/jqwidgets-ts/angular_jqxdropdownlist";
 
 // default equality comparison implementation
@@ -42,22 +41,17 @@ export class DropDownListComponent extends jqxDropDownListComponent {
     this.attrHeight = 48;
   }
 
-  ngAfterViewInit() {
-    super.ngAfterViewInit();
-
-    this.syncSelection();
-    this.ngModel.valueChanges.subscribe(() => this.syncSelection());
-  }
-
-  private syncSelection() {
-    if (!this.attrAutoSelect || !this.attrSource || !this.ngModel.model)
+  private updateSelection(value: any) {
+    // console.log(value);
+    // console.log(this.ngModel.value);
+    if (!this.attrAutoSelect || !this.attrSource || !value)
       return;
 
-    if (this.getSelectedItem() && this.attrValueEqualFunc(this.getSelectedItem().value, this.ngModel.model))
+    if (this.getSelectedItem() && this.attrValueEqualFunc(this.getSelectedItem().value, value))
       return;
 
-    let selectIndex = this.attrSource.findIndex(i => this.attrValueEqualFunc(i.value, this.ngModel.model));
-    this.selectIndex(selectIndex);
+    let selectIndex = this.attrSource.findIndex(i => this.attrValueEqualFunc(i.value, value));
+    this.selectedIndex(selectIndex);
   }
 
 
@@ -67,16 +61,27 @@ export class DropDownListComponent extends jqxDropDownListComponent {
       let currentValue: any[] = changes['attrObjectSource'].currentValue;
 
       if (currentValue) {
-        this.attrSource = currentValue.map(i => ({
-            title: this.attrDisplayFunc(i),
-            value: this.attrValueFunc(i)
-          })
-        );
-        this.displayMember('title');
-        this.valueMember('value');
+        this.attrSource =
+          currentValue.map(i => ({
+              title: this.attrDisplayFunc(i),
+              value: this.attrValueFunc(i)
+            })
+          );
+        this.attrDisplayMember = 'title';
+        this.attrValueMember = 'value';
       }
     }
 
     return super.ngOnChanges(changes);
+  }
+
+  registerOnChange(fn: any): void {
+
+    let newFn = (x: any) => {
+      this.updateSelection(x ? x : this.ngModel.value);
+      fn(x);
+    }
+
+    super.registerOnChange(newFn);
   }
 }

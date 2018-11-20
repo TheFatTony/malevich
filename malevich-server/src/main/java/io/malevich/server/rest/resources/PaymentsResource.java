@@ -1,6 +1,7 @@
 package io.malevich.server.rest.resources;
 
 import io.malevich.server.domain.PaymentsEntity;
+import io.malevich.server.exceptions.AccountStateException;
 import io.malevich.server.services.payments.PaymentsService;
 import io.malevich.server.transfer.PaymentsDto;
 import lombok.extern.slf4j.Slf4j;

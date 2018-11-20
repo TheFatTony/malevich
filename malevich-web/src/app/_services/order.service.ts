@@ -3,6 +3,7 @@ import {environment} from "../../environments/environment.dev";
 import {HttpClient} from "@angular/common/http";
 import {map} from "rxjs/operators";
 import {OrderDto} from "../_transfer/orderDto";
+import {OrderPublicDto} from "../_transfer/orderPublicDto";
 
 @Injectable({
   providedIn: 'root'
@@ -36,7 +37,7 @@ export class OrderService {
 
   getOrdersByArtworkId(artworkId: number) {
     return this.http
-      .get<OrderDto[]>(this.url + '/getOrdersByArtworkId/' + artworkId);
+      .get<OrderPublicDto[]>(this.url + '/getOrdersByArtworkId/' + artworkId);
   }
 
 

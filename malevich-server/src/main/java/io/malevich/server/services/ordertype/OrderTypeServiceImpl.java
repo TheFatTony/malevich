@@ -15,8 +15,18 @@ import java.util.Optional;
 @Service
 public class OrderTypeServiceImpl implements OrderTypeService {
 
-    @Autowired
+
+    private final OrderTypeEntity ask;
+    private final OrderTypeEntity bid;
+
     private OrderTypeDao orderTypeDao;
+
+    @Autowired
+    public OrderTypeServiceImpl(OrderTypeDao orderTypeDao){
+        this.orderTypeDao = orderTypeDao;
+        ask = orderTypeDao.findById("ASK").get();
+        bid = orderTypeDao.findById("BID").get();
+    }
 
     @Override
     @Transactional(readOnly = true)
@@ -25,8 +35,13 @@ public class OrderTypeServiceImpl implements OrderTypeService {
     }
 
     @Override
-    public Optional<OrderTypeEntity> findById(String id) {
-        return orderTypeDao.findById(id);
+    public OrderTypeEntity getAsk() {
+        return ask;
+    }
+
+    @Override
+    public OrderTypeEntity getBid() {
+        return bid;
     }
 
 }

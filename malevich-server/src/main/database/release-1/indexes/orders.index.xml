@@ -33,4 +33,10 @@
         </createIndex>
     </changeSet>
 
+    <changeSet author="toolstik" id="orders-expiration_date-index">
+        <createIndex indexName="orders_expiration_date_idx" tableName="orders" unique="false">
+            <column name="expiration_date"/>
+        </createIndex>
+    </changeSet>
+
 </databaseChangeLog>

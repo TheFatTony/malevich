@@ -1,7 +1,11 @@
 package io.malevich.server.services.counterparty;
 
+import io.malevich.server.domain.GalleryEntity;
+import io.malevich.server.domain.TraderEntity;
 import io.malevich.server.repositories.counterparty.CounterpartyDao;
 import io.malevich.server.domain.CounterpartyEntity;
+import io.malevich.server.services.gallery.GalleryService;
+import io.malevich.server.services.trader.TraderService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -18,6 +22,11 @@ public class CounterpartyServiceImpl implements CounterpartyService {
     @Autowired
     private CounterpartyDao counterpartyDao;
 
+    @Autowired
+    private GalleryService galleryService;
+
+    @Autowired
+    private TraderService traderService;
 
     @Override
     @Transactional(readOnly = true)
@@ -41,6 +50,26 @@ public class CounterpartyServiceImpl implements CounterpartyService {
     @Transactional(readOnly = true)
     public Optional<CounterpartyEntity> findById(Long counterpartyId) {
         return counterpartyDao.findById(counterpartyId);
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public CounterpartyEntity getCurrent(){
+        TraderEntity trader = traderService.getCurrentTrader();
+        if(trader != null)
+            return findCounterpartyEntitiesByTraderId(trader.getId());
+
+        GalleryEntity gallery = galleryService.getCurrent();
+        if(gallery != null)
+            return findCounterpartyEntitiesByGalleryId(gallery.getId());
+
+        return null;
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public CounterpartyEntity getMalevich(){
+        return findById(1L).get();
     }
 
 }

@@ -3,7 +3,7 @@
   <div class="text-center g-pos-rel g-mb-30">
     <div class="g-width-100 g-height-100 mx-auto mb-3">
       <a routerLink="/profile/trader/view">
-        <img class="img-fluid rounded-circle" src="{{url}}{{trader?.thumbnail?.url}}"
+        <img class="img-fluid rounded-circle" *ngIf="trader?.thumbnail" src="{{url}}{{trader?.thumbnail?.url}}"
              alt="Image Decor">
       </a>
     </div>

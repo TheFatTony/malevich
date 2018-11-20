@@ -1,0 +1,45 @@
+<jqxWindow #myWindow [autoOpen]="false" [resizable]="false">
+  <div>Add ask</div>
+  <div style="overflow: hidden" style="width: 100%">
+    <jqxValidator #myValidator [rules]="rules" (onValidationSuccess)="validationSuccess($event)">
+      <table class="register-table" *ngIf="newOrder" style="width: 100%">
+        <tbody>
+        <tr>Amount:</tr>
+        <tr>
+          <mchNumberInput
+            class="amountInput"
+            [ngModel]="newOrder?.amount"
+            (ngModelChange)="newOrder.amount=$event"></mchNumberInput>
+        </tr>
+        <tr>Expiration:</tr>
+        <tr>
+          <mchDropDownList #tradeTypeDropDown
+                           [objectSource]="tradeTypes"
+                           [displayFunc]="tradeTypeDisplayFunc"
+                           [(ngModel)]="newOrder.tradeType"
+                           (onSelect)="onTradeTypeSelected($event)"
+          ></mchDropDownList>
+        </tr>
+        <div [hidden]="expirationDateHidden">
+          <tr>Expiration Date:</tr>
+          <tr>
+            <mchDateTimeInput #expirationDateInput
+                              [(ngModel)]="newOrder.expirationDate"
+            ></mchDateTimeInput>
+          </tr>
+        </div>
+        <tr>
+          <td colspan="2" style="padding-left: 20px;">
+            <mchButton #SendButton
+                       (onClick)="sendButton()"
+                       style="text-align: center; margin-left: 8em;"
+                       [width]="60" [height]="25">
+              Send
+            </mchButton>
+          </td>
+        </tr>
+        </tbody>
+      </table>
+    </jqxValidator>
+  </div>
+</jqxWindow>

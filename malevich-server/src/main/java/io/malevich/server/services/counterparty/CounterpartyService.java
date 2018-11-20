@@ -18,4 +18,7 @@ public interface CounterpartyService {
 
     Optional<CounterpartyEntity> findById(Long counterpartyId);
 
+    CounterpartyEntity getCurrent();
+
+    CounterpartyEntity getMalevich();
 }

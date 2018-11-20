@@ -85,4 +85,9 @@ public class OrderEntity implements Entity {
             "LIMIT 1)")
     private Double currentAsk;
 
+    @Getter
+    @Setter
+    @Transient
+    private Boolean isOwn;
+
 }

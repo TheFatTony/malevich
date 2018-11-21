@@ -176,7 +176,7 @@
   </div>
 </jqxWindow>
 
-<jqxWindow #askWindow [autoOpen]="false" [resizable]="false" (onOpen)="onMyWindowOpen()">
+<jqxWindow #askWindow [autoOpen]="false" [resizable]="false">
   <div>Add ask</div>
   <div style="overflow: hidden" style="width: 100%">
     <jqxValidator #askValidator [rules]="bidRules" (onValidationSuccess)="ValidationSuccess($event)">

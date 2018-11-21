@@ -19,5 +19,6 @@ export class ButtonComponent extends jqxButtonComponent {
   constructor(containerElement: ElementRef) {
     super(containerElement);
     this.attrTheme = 'malevich';
+    this.attrHeight = 35;
   }
 }

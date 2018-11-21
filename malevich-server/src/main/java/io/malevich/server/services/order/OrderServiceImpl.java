@@ -1,6 +1,8 @@
 package io.malevich.server.services.order;
 
-import io.malevich.server.domain.*;
+import io.malevich.server.domain.CounterpartyEntity;
+import io.malevich.server.domain.OrderEntity;
+import io.malevich.server.domain.TradeHistoryEntity;
 import io.malevich.server.repositories.order.OrderDao;
 import io.malevich.server.services.counterparty.CounterpartyService;
 import io.malevich.server.services.orderstatus.OrderStatusService;
@@ -270,11 +272,27 @@ public class OrderServiceImpl implements OrderService {
 
         if (orderTypeService.getAsk().getId().equals(orderEntity.getType().getId())) {
             transactionService.createTransactionAndReverse(transactionTypeService.getCancelAsk(), orderEntity.getParty(), malevich, orderEntity.getArtworkStock(), 0D, 1L);
-        }
-        else if (orderTypeService.getBid().getId().equals(orderEntity.getType().getId())) {
+        } else if (orderTypeService.getBid().getId().equals(orderEntity.getType().getId())) {
             transactionService.createTransactionAndReverse(transactionTypeService.getCancelBid(), orderEntity.getParty(), malevich, null, orderEntity.getAmount(), 0L);
         }
     }
 
+    @Override
+    @Transactional
+    public void cancelOwnOrder(OrderEntity orderEntity) {
+        // check if this is my order
+        OrderEntity storedEntity = orderDao.findById(orderEntity.getId()).orElse(null);
 
+        if (storedEntity == null)
+            // throw error???
+            return;
+
+        CounterpartyEntity currentCounterparty = counterpartyService.getCurrent();
+
+        if (!storedEntity.getParty().getId().equals(currentCounterparty.getId()))
+            // throw error???
+            return;
+
+        cancelOrder(storedEntity);
+    }
 }

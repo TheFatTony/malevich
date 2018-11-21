@@ -115,18 +115,6 @@ export class ArtworkStockComponent implements OnInit {
       );
   }
 
-  addButton() {
-    this.artworkStockService.addArtworkStock(this.addArtworkStock)
-      .subscribe(data => (this.getArtworkStock()));
-  }
-
-  onAddArtworkSelect(event: any) {
-    let selectedIndex = this.addArtWorkComboBox.selectedIndex();
-    if (selectedIndex == -1)
-      return;
-    this.addArtworkStock.artwork = this.artworks[selectedIndex];
-  }
-
   @HostListener('mousedown', ['$event'])
   mouseHandling(event) {
     this.x = event.pageX;

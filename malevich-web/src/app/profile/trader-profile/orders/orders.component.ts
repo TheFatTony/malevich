@@ -1,14 +1,11 @@
-import {Component, HostListener, OnInit, ViewChild} from '@angular/core';
+import {Component, OnInit, ViewChild} from '@angular/core';
 import {OrderDto} from "../../../_transfer/orderDto";
 import {OrderService} from "../../../_services/order.service";
 import {TranslateService} from "@ngx-translate/core";
 import {jqxGridComponent} from 'jqwidgets-scripts/jqwidgets-ts/angular_jqxgrid';
 import {jqxWindowComponent} from 'jqwidgets-scripts/jqwidgets-ts/angular_jqxwindow';
-import {ArtworkStockDto} from "../../../_transfer/artworkStockDto";
-import {ArtworkStockService} from "../../../_services/artwork-stock.service";
 import {TradeTypeService} from "../../../_services/trade-type.service";
 import {TradeTypeDto} from "../../../_transfer/tradeTypeDto";
-import {OrderTypeService} from "../../../_services/order-type.service";
 import {environment} from "../../../../environments/environment.dev";
 import {jqxValidatorComponent} from '../../../../../node_modules/jqwidgets-scripts/jqwidgets-ts/angular_jqxvalidator';
 
@@ -25,14 +22,8 @@ export class OrdersComponent implements OnInit {
   @ViewChild('askValidator') askValidator: jqxValidatorComponent;
 
   orders: OrderDto[];
-  public newOrder: OrderDto;
-
-  artworkStocks: ArtworkStockDto[];
-
+  selectedRowIndex: number = -1;
   tradeTypes: TradeTypeDto[];
-
-  x: number;
-  y: number;
 
   public url = environment.baseUrl;
 
@@ -47,55 +38,14 @@ export class OrdersComponent implements OnInit {
       {datafield: 'Current Ask', width: '10%', columntype: 'textbox'}
     ];
 
-  bidRules =
-    [
-      {
-        input: '.artworkStockInput',
-        message: 'Field is required!',
-        action: 'keyup, blur',
-        rule: (input: any, commit: any): any => {
-          if (this.newOrder) {
-            if (this.newOrder.artworkStock !== null) {
-              return true;
-            }
-          }
-          return false;
-        }
-      },
-      {
-        input: '.amountInput',
-        message: 'Field is required!',
-        action: 'keyup, blur',
-        rule: (input: any, commit: any): any => {
-          if (this.newOrder) {
-            if (this.newOrder.amount != null) {
-              return true;
-            }
-          }
-          return false;
-        }
-      }
-    ];
-
-  artworkStockDisplayFunc = (artworkStock: ArtworkStockDto) => {
-    if(!artworkStock)
-      return '(null)';
-
-    return artworkStock.artwork.titleMl[this.translate.currentLang];
-  };
-
-  constructor(public artworkStockService: ArtworkStockService,
-              private orderService: OrderService,
+  constructor(private orderService: OrderService,
               public translate: TranslateService,
-              private tradeTypeService: TradeTypeService,
-              private orderTypeService: OrderTypeService) {
-    }
+              private tradeTypeService: TradeTypeService) {
+  }
 
   ngOnInit() {
     this.getPlacedOrders();
-    this.getArtworkStock();
     this.getTradeTypes();
-
   }
 
   ngAfterViewInit(): void {
@@ -105,17 +55,11 @@ export class OrdersComponent implements OnInit {
     this.orderService
       .getPlacedOrders()
       .subscribe(
-        data => (this.orders = data)
-      );
-  }
-
-  getArtworkStock(): void {
-    this.artworkStockService
-      .getArtworkStocks()
-      .subscribe(
         data => {
-          this.artworkStocks = data;
-        });
+          this.orders = data;
+          console.log(this.orders);
+        }
+      );
   }
 
   getTradeTypes(): void {
@@ -126,36 +70,14 @@ export class OrdersComponent implements OnInit {
       );
   }
 
-  openBidWindow() {
-    this.newOrder = new OrderDto();
-    this.bidWindow.width(310);
-    this.bidWindow.height(220);
-    this.bidWindow.open();
-    this.bidWindow.move(this.x, this.y);
+  onGridRowSelect($event: any) {
+    this.selectedRowIndex = $event.args.rowindex;
   }
 
-  openAskWindow() {
-    this.newOrder = new OrderDto();
-    this.askWindow.width(310);
-    this.askWindow.height(220);
-    this.askWindow.open();
-    this.askWindow.move(this.x, this.y);
-  }
-
-  sendButton() {
-    this.bidValidator.validate();
-  }
-
-  @HostListener('mousedown', ['$event'])
-  mouseHandling(event) {
-    this.x = event.pageX;
-    this.y = event.pageY;
-  }
-
-  ValidationSuccess($event: any) {
-    this.bidWindow.close();
-    this.orderService.placeAsk(this.newOrder).subscribe(() => {
-      this.getPlacedOrders();
-    });
+  onCancelOrderButton() {
+    if (this.selectedRowIndex < 0)
+      return;
+    let order = this.orders.splice(this.selectedRowIndex, 1)[0];
+    this.orderService.cancel(order).subscribe();
   }
 }

@@ -70,7 +70,7 @@ export class OrderWindowComponent implements OnInit, AfterViewInit {
   tradeTypes: TradeTypeDto [];
   tradeTypeDisplayFunc = (type: TradeTypeDto) => type.nameMl[this.translate.currentLang];
   expirationDateHidden: boolean = true;
-  private newOrder: OrderDto = new OrderDto();
+  public newOrder: OrderDto = new OrderDto();
 
   constructor(private orderService: OrderService,
               public translate: TranslateService,

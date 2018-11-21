@@ -37,24 +37,28 @@
     <div class="col-lg-9 g-mb-50">
       <div class="g-brd-around g-brd-gray-light-v4 rounded g-pa-30 g-mb-30">
         <!--<button class="btn u-btn-primary g-font-size-12 text-uppercase g-py-12 g-px-25" type="button"-->
-        <!--(click)="openWindow()">Place a bet-->
+        <!--(click)="openBidWindow()">Place a bet-->
         <!--</button>-->
 
-        <mchButton [width]="100" [height]="35" (click)="openWindow()">
-          Ask add
+        <mchButton [disabled]="selectedRowIndex < 0" (click)="onCancelOrderButton()">
+          Cancel order
         </mchButton>
 
         <jqxGrid #myGrid
-                 [width]="'100%'" [height]="'320px'" class="g-mt-5 g-mb-15"
-                 [sortable]="true" [columnsresize]="true"
-                 [filterable]="true" [autoshowfiltericon]="true"
-                 [columns]="columns">
+                 [width]="'100%'"
+                 [height]="'320px'"
+                 class="g-mt-5 g-mb-15"
+                 [sortable]="true"
+                 [columnsresize]="true"
+                 [filterable]="true"
+                 [autoshowfiltericon]="true"
+                 [columns]="columns"
+                 (onRowselect)="onGridRowSelect($event)">
           <tr>
             <th>Date</th>
             <th>Amount</th>
             <th>Artwork</th>
             <th>Trade Type</th>
-            <th>Expiration Date</th>
             <th>Type</th>
             <th>Best Bid</th>
             <th>Current Ask</th>
@@ -71,9 +75,6 @@
             </td>
             <td>
               {{order?.tradeType.nameMl[translate.currentLang]}}
-            </td>
-            <td>
-              {{order?.expirationDate | date:'long'}}
             </td>
             <td>
               {{order?.type.nameMl[translate.currentLang]}}
@@ -136,55 +137,3 @@
     <!-- End Login & Security -->
   </div>
 </div>
-
-<jqxWindow #myWindow [autoOpen]="false" [resizable]="false">
-  <div>Add ask</div>
-  <div style="overflow: hidden" style="width: 100%">
-    <jqxValidator #myValidator [rules]="rules" (onValidationSuccess)="ValidationSuccess($event)">
-      <table class="register-table" *ngIf="newOrder" style="width: 100%">
-        <tbody>
-        <tr>Artwork:</tr>
-        <tr>
-          <mchComboBox
-            class="artworkStockInput"
-            [source]="artworkStocksComboBox" [valueMember]="'id'" [displayMember]="'title'"
-            [ngModel]="newOrder?.artworkStock" (ngModelChange)="newOrder.artworkStock=$event">
-          </mchComboBox>
-        </tr>
-        <tr>Amount:</tr>
-        <tr>
-          <mchNumberInput
-            class="amountInput"
-            [ngModel]="newOrder?.amount"
-            (ngModelChange)="newOrder.amount=$event"></mchNumberInput>
-        </tr>
-        <tr>Expiration:</tr>
-        <tr>
-          <mchDropDownList #tradeTypeDropDown
-                           [source]="tradeTypes"
-                           [valueMember]="'value'"
-                           [displayMember]="'title'"
-                           [ngModel]="newOrder?.tradeType"
-                           (ngModelChange)="setTradeType($event)"
-                           ></mchDropDownList>
-          <mchDateTimeInput #expirationDateInput
-                            [hidden]="expirationDateInputHidden"
-                            [ngModel]="newOrder?.expirationDate"
-                            (ngModelChange)="newOrder.expirationDate=$event"
-          ></mchDateTimeInput>
-        </tr>
-        <tr>
-          <td colspan="2" style="padding-left: 20px;">
-            <mchButton #SendButton
-                       (onClick)="sendButton()"
-                       style="text-align: center; margin-left: 8em;"
-                       [width]="60" [height]="25">
-              Send
-            </mchButton>
-          </td>
-        </tr>
-        </tbody>
-      </table>
-    </jqxValidator>
-  </div>
-</jqxWindow>

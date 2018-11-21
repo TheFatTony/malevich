@@ -70,7 +70,7 @@ export class ArtworkStockComponent implements OnInit {
 
   getArtworkStock(): void {
     this.accountStateService
-      .getTraderArtworks()
+      .getOwnArtworks()
       .subscribe(
         data => {
           this.artworkStocks = data;

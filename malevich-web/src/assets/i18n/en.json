@@ -27,6 +27,7 @@
     "FILTERS_FILTER": "Filter"
   },
   "TRADER_PROFILE": {
+    "TITLE": "Your Profile",
     "SECURITY": {
       "LABEL": {
         "FIRST_NAME": "First Name:",

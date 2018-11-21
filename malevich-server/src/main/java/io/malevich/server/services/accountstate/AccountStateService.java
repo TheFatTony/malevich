@@ -16,5 +16,5 @@ public interface AccountStateService {
 
     AccountStateEntity getTraderWallet();
 
-    List<ArtworkStockEntity> getTraderArtworks();
+    List<ArtworkStockEntity> getOwnArtworks();
 }

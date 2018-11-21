@@ -3,11 +3,9 @@ import {OrderDto} from "../../../_transfer/orderDto";
 import {OrderService} from "../../../_services/order.service";
 import {TranslateService} from "@ngx-translate/core";
 import {jqxGridComponent} from 'jqwidgets-scripts/jqwidgets-ts/angular_jqxgrid';
-import {jqxWindowComponent} from 'jqwidgets-scripts/jqwidgets-ts/angular_jqxwindow';
 import {TradeTypeService} from "../../../_services/trade-type.service";
 import {TradeTypeDto} from "../../../_transfer/tradeTypeDto";
 import {environment} from "../../../../environments/environment.dev";
-import {jqxValidatorComponent} from '../../../../../node_modules/jqwidgets-scripts/jqwidgets-ts/angular_jqxvalidator';
 
 @Component({
   selector: 'app-profile-trader-orders',
@@ -16,10 +14,6 @@ import {jqxValidatorComponent} from '../../../../../node_modules/jqwidgets-scrip
 })
 export class OrdersComponent implements OnInit {
   @ViewChild('myGrid') myGrid: jqxGridComponent;
-  @ViewChild('bidWindow') bidWindow: jqxWindowComponent;
-  @ViewChild('bidValidator') bidValidator: jqxValidatorComponent;
-  @ViewChild('askWindow') askWindow: jqxWindowComponent;
-  @ViewChild('askValidator') askValidator: jqxValidatorComponent;
 
   orders: OrderDto[];
   selectedRowIndex: number = -1;

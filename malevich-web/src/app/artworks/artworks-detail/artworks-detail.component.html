@@ -481,44 +481,4 @@
 </div>
 <!-- End Review -->
 
-<jqxWindow #myWindow [autoOpen]="false" [resizable]="false" (onOpen)="onMyWindowOpen()">
-  <div>Place a bid</div>
-  <div style="overflow: hidden" style="width: 100%">
-    <table class="register-table" *ngIf="newOrder" style="width: 100%">
-      <tbody>
-      <tr>Amount:</tr>
-      <tr>
-        <mchNumberInput
-          class="amountInput"
-          [ngModel]="newOrder?.amount"
-          (ngModelChange)="newOrder.amount=$event"></mchNumberInput>
-      </tr>
-      <tr>Expiration:</tr>
-      <tr>
-        <mchDropDownList #tradeTypeDropDown
-                         [source]="tradeTypes"
-                         [valueMember]="'value'"
-                         [displayMember]="'title'"
-                         [ngModel]="newOrder?.tradeType"
-                         (ngModelChange)="setTradeType($event)"
-        ></mchDropDownList>
-        <mchDateTimeInput #expirationDateInput
-                          [hidden]="expirationDateInputHidden"
-                          [ngModel]="newOrder?.expirationDate"
-                          (ngModelChange)="newOrder.expirationDate=$event"
-        ></mchDateTimeInput>
-      </tr>
-      <tr>
-        <td colspan="2" style="padding-left: 20px;">
-          <mchButton #SendButton
-                     (onClick)="sendButton()"
-                     style="text-align: center; margin-left: 8em;"
-                     [width]="60" [height]="25">
-            Send
-          </mchButton>
-        </td>
-      </tr>
-      </tbody>
-    </table>
-  </div>
-</jqxWindow>
+<mch-order-window #myWindow [orderType]="'bid'" (onOrderPlaced)="onOrderPlaced($event)"></mch-order-window>

@@ -74,6 +74,16 @@ public class OrderResource {
         return ResponseEntity.ok().build();
     }
 
+    @PreAuthorize("hasAnyRole('GALLERY', 'TRADER')")
+    @RequestMapping(value = "/cancel", method = RequestMethod.POST)
+    @ResponseStatus(HttpStatus.OK)
+    @ResponseBody
+    public ResponseEntity<Void> cancel(@RequestBody OrderDto orderDto) {
+        OrderEntity orderEntity = convertToEntity(orderDto);
+        this.orderService.cancelOwnOrder(orderEntity);
+        return ResponseEntity.ok().build();
+    }
+
     private OrderDto convertToDto(OrderEntity entity) {
         return modelMapper.map(entity, OrderDto.class);
     }

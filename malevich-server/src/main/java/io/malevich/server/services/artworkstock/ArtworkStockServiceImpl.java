@@ -2,8 +2,10 @@ package io.malevich.server.services.artworkstock;
 
 import io.malevich.server.domain.ArtworkStockEntity;
 import io.malevich.server.domain.GalleryEntity;
+import io.malevich.server.domain.TransactionGroupEntity;
 import io.malevich.server.fabric.services.ComposerService;
 import io.malevich.server.repositories.artworkstock.ArtworkStockDao;
+import io.malevich.server.repositories.transactiongroup.TransactionGroupDao;
 import io.malevich.server.services.artwork.ArtworkService;
 import io.malevich.server.services.gallery.GalleryService;
 import io.malevich.server.services.transaction.TransactionService;
@@ -21,6 +23,9 @@ import java.util.List;
 @Slf4j
 @Service
 public class ArtworkStockServiceImpl implements ArtworkStockService {
+
+    @Autowired
+    private TransactionGroupDao transactionGroupDao;
 
     @Autowired
     private ArtworkStockDao artworkStockDao;
@@ -51,7 +56,11 @@ public class ArtworkStockServiceImpl implements ArtworkStockService {
         artworkStockEntity.setArtwork(artworkService.save(artworkStockEntity.getArtwork()));
         artworkStockEntity = this.artworkStockDao.save(artworkStockEntity);
 
-        transactionService.createArtworkStock(artworkStockEntity);
+        TransactionGroupEntity transactionGroupEntity = new TransactionGroupEntity();
+        transactionGroupEntity.setType("NEW_ART");
+        transactionGroupEntity = transactionGroupDao.save(transactionGroupEntity);
+
+        transactionService.createArtworkStock(artworkStockEntity, transactionGroupEntity);
 
 //        composerService.addArtwork(artworkStockEntity);
     }

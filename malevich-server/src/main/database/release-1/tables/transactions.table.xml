@@ -23,6 +23,9 @@
             <column name="artwork_stock_id" type="bigint"/>
             <column name="amount" type="double"/>
             <column name="quantity" type="int"/>
+            <column name="group_id" type="bigint">
+                <constraints nullable="false"/>
+            </column>
         </createTable>
     </changeSet>
 

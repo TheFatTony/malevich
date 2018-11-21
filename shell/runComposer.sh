@@ -36,7 +36,7 @@ composer card import --file networkadmin.card
 docker run -d \
 -e COMPOSER_CARD=admin@malevich-network \
 -e COMPOSER_NAMESPACES="never" \
--e COMPOSER_AUTHENTICATION=true \
+-e COMPOSER_AUTHENTICATION=false \
 -e COMPOSER_MULTIUSER=false \
 -v ~/.composer:/home/composer/.composer \
 --network composer_default \

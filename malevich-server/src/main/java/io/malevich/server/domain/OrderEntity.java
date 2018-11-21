@@ -69,6 +69,12 @@ public class OrderEntity implements Entity {
 
     @Getter
     @Setter
+    @Fetch(FetchMode.JOIN)
+    @ManyToOne(cascade = CascadeType.MERGE)
+    private TransactionGroupEntity transactionGroup;
+
+    @Getter
+    @Setter
     @Formula(value = "(SELECT o.amount\n" +
             "FROM orders o\n" +
             "WHERE o.type_id = 'BID' AND o.status_id = 'OPEN' AND o.artwork_stock_id = artwork_stock_id\n" +

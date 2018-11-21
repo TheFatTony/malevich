@@ -21,4 +21,10 @@
                                  referencedColumnNames="id" referencedTableName="artwork_stock"/>
     </changeSet>
 
+    <changeSet author="toolstik" id="transactions-group_id-fk">
+        <addForeignKeyConstraint baseColumnNames="group_id" baseTableName="transactions"
+                                 constraintName="transactions_transaction_group_id_fk"
+                                 referencedColumnNames="id" referencedTableName="transaction_group"/>
+    </changeSet>
+
 </databaseChangeLog>

@@ -60,4 +60,10 @@ public class TransactionEntity implements Entity {
     @Column(name = "quantity")
     private Long quantity;
 
+    @Getter
+    @Setter
+    @Fetch(FetchMode.JOIN)
+    @ManyToOne(cascade = CascadeType.MERGE)
+    private TransactionGroupEntity group;
+
 }

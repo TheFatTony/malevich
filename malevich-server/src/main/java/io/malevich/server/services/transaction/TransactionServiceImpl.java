@@ -39,6 +39,7 @@ public class TransactionServiceImpl implements TransactionService {
     }
 
     private TransactionEntity insertTransaction(TransactionTypeEntity transactionType,
+                                                TransactionGroupEntity group,
                                                 CounterpartyEntity party,
                                                 CounterpartyEntity counterparty,
                                                 ArtworkStockEntity artworkStock,
@@ -47,6 +48,7 @@ public class TransactionServiceImpl implements TransactionService {
 
         TransactionEntity transaction = new TransactionEntity();
         transaction.setParty(party);
+        transaction.setGroup(group);
         transaction.setCounterparty(counterparty);
         transaction.setArtworkStock(artworkStock);
         transaction.setAmount(amount);
@@ -90,12 +92,13 @@ public class TransactionServiceImpl implements TransactionService {
     @Override
     @Transactional
     public void createTransaction(TransactionTypeEntity transactionType,
+                                  TransactionGroupEntity group,
                                   CounterpartyEntity party,
                                   CounterpartyEntity counterparty,
                                   ArtworkStockEntity artworkStock,
                                   Double amount,
                                   Long quantity) {
-        insertTransaction(transactionType, party, counterparty, artworkStock, amount, quantity);
+        insertTransaction(transactionType, group, party, counterparty, artworkStock, amount, quantity);
 
         if (amount != null && amount != 0)
             insertAccountState(party, null, amount, 0L);
@@ -107,27 +110,24 @@ public class TransactionServiceImpl implements TransactionService {
     @Override
     @Transactional
     public void createTransactionAndReverse(TransactionTypeEntity transactionType,
+                                            TransactionGroupEntity group,
                                             CounterpartyEntity party,
                                             CounterpartyEntity counterparty,
                                             ArtworkStockEntity artworkStock,
                                             Double amount,
                                             Long quantity) {
-        createTransaction(transactionType, party, counterparty, artworkStock, amount, quantity);
-        createTransaction(transactionType, counterparty, party, artworkStock, -amount, -quantity);
+        createTransaction(transactionType, group, party, counterparty, artworkStock, amount, quantity);
+        createTransaction(transactionType, group, counterparty, party, artworkStock, -amount, -quantity);
     }
 
     @Override
     @Transactional
-    public void createArtworkStock(ArtworkStockEntity artworkStockEntity) {
+    public void createArtworkStock(ArtworkStockEntity artworkStockEntity, TransactionGroupEntity transactionGroup) {
         CounterpartyEntity counterpartyEntity = counterpartyService.getCurrent();
         CounterpartyEntity malevichEntity = counterpartyService.getMalevich();
         TransactionTypeEntity transactionTypeEntity = transactionTypeService.getCreateArtwork();
 
-        try {
-            createTransactionAndReverse(transactionTypeEntity, counterpartyEntity, malevichEntity, artworkStockEntity, 0D, 1L);
-        } catch (AccountStateException e) {
-            // this method only increases balance
-        }
+        createTransactionAndReverse(transactionTypeEntity, transactionGroup, counterpartyEntity, malevichEntity, artworkStockEntity, 0D, 1L);
     }
 
 
@@ -137,9 +137,8 @@ public class TransactionServiceImpl implements TransactionService {
         CounterpartyEntity malevichEntity = counterpartyService.getMalevich();
         TransactionTypeEntity transactionTypeEntity = transactionTypeService.getAddBalance();
 
-        createTransactionAndReverse(transactionTypeEntity, paymentsEntity.getParty(), malevichEntity, null, paymentsEntity.getAmount(), 0L);
+        createTransactionAndReverse(transactionTypeEntity, paymentsEntity.getTransactionGroup(), paymentsEntity.getParty(), malevichEntity, null, paymentsEntity.getAmount(), 0L);
     }
-
 
 
 }

@@ -2,7 +2,7 @@
 
 ./downloadFabric.sh
 ./startFabric.sh
-./createPeerAdminCard.sh -h localhost
+./createPeerAdminCard.sh
 
 composer network install --card PeerAdmin@hlfv1 --archiveFile ../malevich-network/target/malevich-network.bna
 composer network start --networkName malevich-network --networkVersion 0.0.1 --networkAdmin admin --networkAdminEnrollSecret adminpw --card PeerAdmin@hlfv1 --file networkadmin.card

@@ -42,4 +42,10 @@ public class PaymentsEntity implements Entity {
     @Column(name = "amount")
     private Double amount;
 
+    @Getter
+    @Setter
+    @Fetch(FetchMode.JOIN)
+    @ManyToOne(cascade = CascadeType.MERGE)
+    private TransactionGroupEntity transactionGroup;
+
 }

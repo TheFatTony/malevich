@@ -3,7 +3,9 @@ package io.malevich.server.services.order;
 import io.malevich.server.domain.CounterpartyEntity;
 import io.malevich.server.domain.OrderEntity;
 import io.malevich.server.domain.TradeHistoryEntity;
+import io.malevich.server.domain.TransactionGroupEntity;
 import io.malevich.server.repositories.order.OrderDao;
+import io.malevich.server.repositories.transactiongroup.TransactionGroupDao;
 import io.malevich.server.services.counterparty.CounterpartyService;
 import io.malevich.server.services.orderstatus.OrderStatusService;
 import io.malevich.server.services.ordertype.OrderTypeService;
@@ -29,6 +31,8 @@ public class OrderServiceImpl implements OrderService {
     @Autowired
     private OrderDao orderDao;
 
+    @Autowired
+    private TransactionGroupDao transactionGroupDao;
 
     @Autowired
     private CounterpartyService counterpartyService;
@@ -123,11 +127,16 @@ public class OrderServiceImpl implements OrderService {
 
         orders = cancelClones(orderEntity, orders);
 
+        TransactionGroupEntity transactionGroupEntity = new TransactionGroupEntity();
+        transactionGroupEntity.setType("ASK");
+        transactionGroupEntity = transactionGroupDao.save(transactionGroupEntity);
+        orderEntity.setTransactionGroup(transactionGroupEntity);
+
         orderEntity = orderDao.save(orderEntity);
 
         CounterpartyEntity malevich = counterpartyService.getMalevich();
 
-        transactionService.createTransactionAndReverse(transactionTypeService.getAsk(), orderEntity.getParty(), malevich, orderEntity.getArtworkStock(), 0D, -1L);
+        transactionService.createTransactionAndReverse(transactionTypeService.getAsk(), orderEntity.getTransactionGroup(), orderEntity.getParty(), malevich, orderEntity.getArtworkStock(), 0D, -1L);
 
         tryExecute(orderEntity, orders);
     }
@@ -161,10 +170,15 @@ public class OrderServiceImpl implements OrderService {
 
         orders = cancelClones(orderEntity, orders);
 
+        TransactionGroupEntity transactionGroupEntity = new TransactionGroupEntity();
+        transactionGroupEntity.setType("BID");
+        transactionGroupEntity = transactionGroupDao.save(transactionGroupEntity);
+        orderEntity.setTransactionGroup(transactionGroupEntity);
+
         orderEntity = orderDao.save(orderEntity);
 
         CounterpartyEntity malevich = counterpartyService.getMalevich();
-        transactionService.createTransactionAndReverse(transactionTypeService.getBid(), orderEntity.getParty(), malevich, null, -orderEntity.getAmount(), 0L);
+        transactionService.createTransactionAndReverse(transactionTypeService.getBid(), orderEntity.getTransactionGroup(), orderEntity.getParty(), malevich, null, -orderEntity.getAmount(), 0L);
 
         tryExecute(orderEntity, orders);
     }
@@ -234,13 +248,14 @@ public class OrderServiceImpl implements OrderService {
             CounterpartyEntity malevich = counterpartyService.getMalevich();
 
             //return ask
-            transactionService.createTransactionAndReverse(transactionTypeService.getReturnAsk(), bestAsk.getParty(), malevich, orderEntity.getArtworkStock(), 0D, 1L);
+            transactionService.createTransactionAndReverse(transactionTypeService.getReturnAsk(), bestAsk.getTransactionGroup(), bestAsk.getParty(), malevich, orderEntity.getArtworkStock(), 0D, 1L);
 
             //return bid
-            transactionService.createTransactionAndReverse(transactionTypeService.getReturnBid(), bestBid.getParty(), malevich, null, bestBid.getAmount(), 0L);
+            transactionService.createTransactionAndReverse(transactionTypeService.getReturnBid(), bestBid.getTransactionGroup(), bestBid.getParty(), malevich, null, bestBid.getAmount(), 0L);
 
             //buy-sell
-            transactionService.createTransactionAndReverse(transactionTypeService.getBuySell(), bestAsk.getParty(), bestBid.getParty(), orderEntity.getArtworkStock(), tradePrice, -1L);
+            transactionService.createTransaction(transactionTypeService.getBuySell(), bestAsk.getTransactionGroup(), bestAsk.getParty(), bestBid.getParty(), orderEntity.getArtworkStock(), tradePrice, -1L);
+            transactionService.createTransaction(transactionTypeService.getBuySell(), bestBid.getTransactionGroup(), bestBid.getParty(), bestAsk.getParty(), orderEntity.getArtworkStock(), -tradePrice, 1L);
 
             //todo create blockchain transaction
 
@@ -271,9 +286,9 @@ public class OrderServiceImpl implements OrderService {
         CounterpartyEntity malevich = counterpartyService.getMalevich();
 
         if (orderTypeService.getAsk().getId().equals(orderEntity.getType().getId())) {
-            transactionService.createTransactionAndReverse(transactionTypeService.getCancelAsk(), orderEntity.getParty(), malevich, orderEntity.getArtworkStock(), 0D, 1L);
+            transactionService.createTransactionAndReverse(transactionTypeService.getCancelAsk(), orderEntity.getTransactionGroup(), orderEntity.getParty(), malevich, orderEntity.getArtworkStock(), 0D, 1L);
         } else if (orderTypeService.getBid().getId().equals(orderEntity.getType().getId())) {
-            transactionService.createTransactionAndReverse(transactionTypeService.getCancelBid(), orderEntity.getParty(), malevich, null, orderEntity.getAmount(), 0L);
+            transactionService.createTransactionAndReverse(transactionTypeService.getCancelBid(), orderEntity.getTransactionGroup(), orderEntity.getParty(), malevich, null, orderEntity.getAmount(), 0L);
         }
     }
 

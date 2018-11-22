@@ -79,11 +79,11 @@ export class StorageEditComponent implements OnInit {
 
   submit() {
     this.artworkStockService.addArtworkStock(this.artworkStock).subscribe();
-    this.router.navigate(['/profile/gallery/artworkstok']);
+    this.router.navigate(['/profile/gallery/storage']);
   }
 
   cancel() {
-    this.router.navigate(['/profile/gallery/artworkstok']);
+    this.router.navigate(['/profile/gallery/storage']);
   }
 
   onArtistComboBoxChange($event) {

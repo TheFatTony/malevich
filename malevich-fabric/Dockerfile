@@ -31,7 +31,7 @@ COPY malevich-network.bna /home/dockremap
 
 WORKDIR /home/dockremap/fabric-dev
 
-EXPOSE 3000 8080
+EXPOSE 3000 9090
 
 # Install the magic wrapper.
 ADD ./wrapdocker /usr/local/bin/wrapdocker

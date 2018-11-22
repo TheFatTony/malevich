@@ -70,9 +70,9 @@ export class EditComponent implements OnInit, AfterViewInit {
 
   onUploadEnd(event: any): void {
     let args = event.args;
-    let serverResponse = args.response.toString()
+    let serverResponse = JSON.parse(args.response.toString()
       .replace('<pre style="word-wrap: break-word; white-space: pre-wrap;">', '')
-      .replace('</pre>', '');
+      .replace('</pre>', ''));
     this.trader.thumbnail = serverResponse;
     console.log(this.trader);
   }

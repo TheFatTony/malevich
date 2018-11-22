@@ -29,4 +29,6 @@ public interface TransactionTypeService {
     TransactionTypeEntity getReturnBid();
 
     TransactionTypeEntity getReturnAsk();
+
+    TransactionTypeEntity getWithdrawBalance();
 }

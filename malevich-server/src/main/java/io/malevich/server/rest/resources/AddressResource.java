@@ -27,8 +27,8 @@ public class AddressResource {
 //        return allEntries.stream().map(allEntry -> convertToDto(allEntry)).collect(Collectors.toList());
 //    }
 
-//    @RequestMapping(value = "/insert", method = RequestMethod.POST)
-//    public ResponseEntity<AddressEntity> insert(@RequestBody AddressDto addressDto){
+//    @RequestMapping(value = "/insertPayment", method = RequestMethod.POST)
+//    public ResponseEntity<AddressEntity> insertPayment(@RequestBody AddressDto addressDto){
 //        AddressEntity addressEntity = convertToEntity(addressDto);
 //        addressEntity = this.addressService.create(addressEntity);
 //        return ResponseEntity.ok().build();

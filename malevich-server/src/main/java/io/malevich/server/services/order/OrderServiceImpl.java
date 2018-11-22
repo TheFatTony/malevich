@@ -1,6 +1,9 @@
 package io.malevich.server.services.order;
 
-import io.malevich.server.domain.*;
+import io.malevich.server.domain.CounterpartyEntity;
+import io.malevich.server.domain.OrderEntity;
+import io.malevich.server.domain.TradeHistoryEntity;
+import io.malevich.server.domain.TransactionGroupEntity;
 import io.malevich.server.repositories.order.OrderDao;
 import io.malevich.server.repositories.transactiongroup.TransactionGroupDao;
 import io.malevich.server.services.counterparty.CounterpartyService;
@@ -289,5 +292,22 @@ public class OrderServiceImpl implements OrderService {
         }
     }
 
+    @Override
+    @Transactional
+    public void cancelOwnOrder(OrderEntity orderEntity) {
+        // check if this is my order
+        OrderEntity storedEntity = orderDao.findById(orderEntity.getId()).orElse(null);
 
+        if (storedEntity == null)
+            // throw error???
+            return;
+
+        CounterpartyEntity currentCounterparty = counterpartyService.getCurrent();
+
+        if (!storedEntity.getParty().getId().equals(currentCounterparty.getId()))
+            // throw error???
+            return;
+
+        cancelOrder(storedEntity);
+    }
 }

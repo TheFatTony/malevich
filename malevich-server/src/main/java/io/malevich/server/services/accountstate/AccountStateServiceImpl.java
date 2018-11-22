@@ -54,13 +54,12 @@ public class AccountStateServiceImpl implements AccountStateService {
 
     @Override
     @Transactional(readOnly = true)
-    public List<ArtworkStockEntity> getTraderArtworks() {
-        TraderEntity traderEntity = traderService.getCurrentTrader();
-        CounterpartyEntity counterpartyEntity = counterpartyService.findCounterpartyEntitiesByTraderId(traderEntity.getId());
+    public List<ArtworkStockEntity> getOwnArtworks() {
+        CounterpartyEntity counterpartyEntity = counterpartyService.getCurrent();
 
         return accountStateDao.findByParty_Id(counterpartyEntity.getId())
                 .stream()
-                .filter(s -> s.getArtworkStock() != null)
+                .filter(s -> s.getArtworkStock() != null && s.getQuantity() > 0)
                 .map(s -> s.getArtworkStock())
                 .collect(Collectors.toList());
     }

@@ -13,17 +13,18 @@
             <i class="g-color-gray-light-v2 g-ml-5 fa fa-angle-right"></i>
           </li>
           <li class="list-inline-item g-color-primary">
-            <span>Orders</span>
+            <span>Stored Artworks</span>
           </li>
         </ul>
       </div>
 
       <div class="align-self-center ml-auto">
-        <h1 class="h3 mb-0">Orders</h1>
+        <h1 class="h3 mb-0">Artworks</h1>
       </div>
     </div>
   </div>
 </section>
+
 
 <div class="container g-pt-70 g-pb-30">
   <div class="row">
@@ -32,61 +33,57 @@
       <app-profile-gallery-navigation></app-profile-gallery-navigation>
     </div>
     <!-- End Profile Settings -->
-
-
     <div class="col-lg-9 g-mb-50">
       <div class="g-brd-around g-brd-gray-light-v4 rounded g-pa-30 g-mb-30">
-        <!--<button class="btn u-btn-primary g-font-size-12 text-uppercase g-py-12 g-px-25" type="button"-->
-        <!--(click)="openBidWindow()">Place a bet-->
-        <!--</button>-->
 
-        <mchButton [disabled]="selectedRowIndex < 0" (click)="onCancelOrderButton()">
-          Cancel order
+        <mchButton [width]="100" [height]="35" (click)="onAddButtonClick()">
+          Add
         </mchButton>
 
+        <mchButton [width]="100" [height]="35" [disabled]="selectedRowIndex >= 0 ? false : true"
+                   (click)="onUpdateButtonClick()">
+          {{'TRADER_PROFILE.SECURITY.BUTTON.UPDATE' | translate}}
+        </mchButton>
+
+        <mchButton [width]="100" [height]="35" [disabled]="selectedRowIndex >= 0 ? false : true"
+                   (click)="onDeleteButtonClick()">
+          Delete
+        </mchButton>
+
+
         <jqxGrid #myGrid
+                 class="g-mt-5 g-mb-15"
+                 [columns]="columns"
+                 [rowsheight]="50"
+                 (onRowselect)="onGridRowSelect($event)"
                  [width]="'100%'"
                  [height]="'320px'"
-                 class="g-mt-5 g-mb-15"
                  [sortable]="true"
                  [columnsresize]="true"
                  [filterable]="true"
                  [autoshowfiltericon]="true"
-                 [columns]="columns"
-                 (onRowselect)="onGridRowSelect($event)">
+                 [rowdetails]="true"
+                 [rowdetailstemplate]="rowdetailstemplate">
           <tr>
-            <th>Date</th>
-            <th>Amount</th>
-            <th>Artwork</th>
-            <th>Trade Type</th>
-            <th>Type</th>
-            <th>Best Bid</th>
-            <th>Current Ask</th>
+            <th>Image</th>
+            <th>Title</th>
+            <th>Artist</th>
+            <th>Category</th>
           </tr>
-          <tr *ngFor="let order of orders">
+          <tr *ngFor="let a of artworkStocks">
+            <td></td>
             <td>
-              {{order?.effectiveDate | date:'long'}}
+              {{a.artwork.titleMl[translate.currentLang]}}
             </td>
             <td>
-              {{order?.amount}}
+              {{a.artwork.artist.fullNameMl[translate.currentLang]}}
             </td>
             <td>
-              {{order?.artworkStock.artwork.titleMl[translate.currentLang]}}
-            </td>
-            <td>
-              {{order?.tradeType.nameMl[translate.currentLang]}}
-            </td>
-            <td>
-              {{order?.type.nameMl[translate.currentLang]}}
-            </td>
-            <td>
-              {{order?.bestBid}}
-            </td>
-            <td>
-              {{order?.currentAsk}}
+              {{a.artwork.category.categoryNameMl[translate.currentLang]}}
             </td>
           </tr>
         </jqxGrid>
+
         <!-- Pagination -->
         <nav class="g-mb-100" aria-label="Page Navigation">
           <ul class="list-inline mb-0">
@@ -129,9 +126,9 @@
           </ul>
         </nav>
         <!-- End Pagination -->
+
       </div>
     </div>
-
 
     <!-- Login & Security -->
     <!-- End Login & Security -->

@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.6.xsd">
+
+    <changeSet author="toolstik" id="payment_type-table">
+        <createTable tableName="payment_type">
+            <column name="id" type="char(3)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+    <changeSet author="toolstik" id="payment_type-table-ml" dbms="mysql">
+        <addColumn tableName="payment_type">
+            <column name="name_ml" type="json"/>
+        </addColumn>
+    </changeSet>
+
+    <changeSet author="toolstik" id="payment_type-pk">
+        <addPrimaryKey columnNames="id" constraintName="payment_type_pk" tableName="payment_type"/>
+    </changeSet>
+
+</databaseChangeLog>

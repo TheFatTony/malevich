@@ -34,48 +34,53 @@ public class TransactionTypeServiceImpl implements TransactionTypeService {
     }
 
     @Override
-    public TransactionTypeEntity getAddBalance(){
+    public TransactionTypeEntity getAddBalance() {
         return values.get("0001");
     }
 
     @Override
-    public TransactionTypeEntity getCreateArtwork(){
+    public TransactionTypeEntity getCreateArtwork() {
         return values.get("0002");
     }
 
     @Override
-    public TransactionTypeEntity getBid(){
+    public TransactionTypeEntity getBid() {
         return values.get("0003");
     }
 
     @Override
-    public TransactionTypeEntity getAsk(){
+    public TransactionTypeEntity getAsk() {
         return values.get("0004");
     }
 
     @Override
-    public TransactionTypeEntity getBuySell(){
+    public TransactionTypeEntity getBuySell() {
         return values.get("0005");
     }
 
     @Override
-    public TransactionTypeEntity getCancelBid(){
+    public TransactionTypeEntity getCancelBid() {
         return values.get("0006");
     }
 
     @Override
-    public TransactionTypeEntity getCancelAsk(){
+    public TransactionTypeEntity getCancelAsk() {
         return values.get("0007");
     }
 
     @Override
-    public TransactionTypeEntity getReturnBid(){
+    public TransactionTypeEntity getReturnBid() {
         return values.get("0008");
     }
 
     @Override
-    public TransactionTypeEntity getReturnAsk(){
+    public TransactionTypeEntity getReturnAsk() {
         return values.get("0009");
+    }
+
+    @Override
+    public TransactionTypeEntity getWithdrawBalance() {
+        return values.get("0010");
     }
 
 }

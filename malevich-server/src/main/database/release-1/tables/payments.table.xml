@@ -18,6 +18,9 @@
 			<column name="amount" type="double">
 				<constraints nullable="false"/>
 			</column>
+			<column name="transaction_group_id" type="bigint">
+				<constraints nullable="false"/>
+			</column>
 		</createTable>
 	</changeSet>
 

@@ -30,6 +30,9 @@
                 <constraints nullable="false"/>
             </column>
             <column name="expiration_date" type="timestamp"/>
+            <column name="transaction_group_id" type="bigint">
+                <constraints nullable="false"/>
+            </column>
         </createTable>
     </changeSet>
 

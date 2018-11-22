@@ -127,7 +127,7 @@ cat << EOF > DevServer_connection.json
     },
     "certificateAuthorities": {
         "ca.org1.example.com": {
-            "url": "http://ca.org1.example.com:7054",
+            "url": "http://${HOST}:7054",
             "caName": "ca.org1.example.com"
         }
     }

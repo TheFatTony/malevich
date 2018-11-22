@@ -41,7 +41,16 @@ export class ComboBoxComponent extends jqxComboBoxComponent {
     this.attrHeight = 48;
   }
 
+
+  ngAfterViewInit(): void {
+    this.ngModel.valueChanges.subscribe(i => this.updateSelection(i));
+
+    super.ngAfterViewInit();
+  }
+
   private updateSelection(value: any) {
+    // console.log(value);
+    // console.log(this.ngModel.value);
     if (!this.attrAutoSelect || !this.attrSource || !value)
       return;
 
@@ -76,9 +85,16 @@ export class ComboBoxComponent extends jqxComboBoxComponent {
   registerOnChange(fn: any): void {
 
     let newFn = (x: any) => {
-      this.updateSelection(x ? x : this.ngModel.value);
+      // do not update truthy to falsy
+      if(this.ngModel.value && !x)
+        return;
+
+      // do not fire event if value not changed
+      if(this.attrValueEqualFunc(this.ngModel.value, x))
+        return;
+
       fn(x);
-    }
+    };
 
     super.registerOnChange(newFn);
   }

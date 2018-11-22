@@ -1,13 +1,11 @@
 package io.malevich.server.services.payments;
 
-import io.malevich.server.domain.TransactionGroupEntity;
-import io.malevich.server.exceptions.AccountStateException;
-import io.malevich.server.repositories.payments.PaymentsDao;
 import io.malevich.server.domain.CounterpartyEntity;
 import io.malevich.server.domain.PaymentsEntity;
 import io.malevich.server.domain.TraderEntity;
+import io.malevich.server.domain.TransactionGroupEntity;
+import io.malevich.server.repositories.payments.PaymentsDao;
 import io.malevich.server.repositories.transactiongroup.TransactionGroupDao;
-import io.malevich.server.services.artwork.ArtworkService;
 import io.malevich.server.services.counterparty.CounterpartyService;
 import io.malevich.server.services.trader.TraderService;
 import io.malevich.server.services.transaction.TransactionService;

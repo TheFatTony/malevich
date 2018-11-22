@@ -27,4 +27,6 @@ public interface OrderService {
     void placeBid(OrderEntity orderEntity);
 
     void cancelOrder(OrderEntity orderEntity);
+
+    void cancelOwnOrder(OrderEntity orderEntity);
 }

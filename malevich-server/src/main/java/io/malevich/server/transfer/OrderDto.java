@@ -11,7 +11,8 @@ import lombok.Setter;
 @Setter
 public class OrderDto {
 
-    @JsonView({View.Admin.class, View.Gallery.class, View.Trader.class})
+    // this annotation breaks field serialization even for authorized users
+//    @JsonView({View.Admin.class, View.Gallery.class, View.Trader.class})
     private Long id;
 
     private OrderTypeDto type;
@@ -24,7 +25,7 @@ public class OrderDto {
 
     private Double amount;
 
-    @JsonView({View.Admin.class})
+//    @JsonView({View.Admin.class})
     private java.sql.Timestamp effectiveDate;
 
     private Double bestBid;

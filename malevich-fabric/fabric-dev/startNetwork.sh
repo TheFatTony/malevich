@@ -10,11 +10,8 @@ if [ ! -e $CONTAINER_ALREADY_STARTED ]; then
     composer network install --card PeerAdmin@hlfv1 --archiveFile ../malevich-network.bna
     composer network start --networkName malevich-network --networkVersion 0.0.1 --networkAdmin admin --networkAdminEnrollSecret adminpw --card PeerAdmin@hlfv1 --file networkadmin.card
     composer card import --file networkadmin.card
-    setsid composer-rest-server -c admin@malevich-network -n "never"
-    setsid composer-playground
+    setsid sh -c 'composer-rest-server -c admin@malevich-network -n "never" & composer-playground'
 else
     echo "-- Not first container startup --"
-    setsid composer-rest-server -c admin@malevich-network -n "never"
-    setsid composer-playground
+    setsid sh -c 'composer-rest-server -c admin@malevich-network -n "never" & composer-playground'
 fi
-

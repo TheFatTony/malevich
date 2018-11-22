@@ -48,4 +48,10 @@ public class PaymentsEntity implements Entity {
     @ManyToOne(cascade = CascadeType.MERGE)
     private TransactionGroupEntity transactionGroup;
 
+    @Getter
+    @Setter
+    @Fetch(FetchMode.JOIN)
+    @ManyToOne(cascade = CascadeType.MERGE)
+    private PaymentTypeEntity paymentType;
+
 }

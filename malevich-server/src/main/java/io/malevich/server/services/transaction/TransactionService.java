@@ -29,5 +29,4 @@ public interface TransactionService {
 
     void createArtworkStock(ArtworkStockEntity artworkStockEntity, TransactionGroupEntity transactionGroup);
 
-    void applyPayment(PaymentsEntity paymentsEntity);
 }

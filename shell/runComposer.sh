@@ -7,6 +7,9 @@ export FABRIC_VERSION=hlfv11
 
 # https://hyperledger.github.io/composer/v0.19/installing/installing-prereqs
 
+# for windows (in cmd)
+# npm install -g --production windows-build-tools
+
 npm install -g composer-cli@0.19
 npm install -g composer-rest-server@0.19
 npm install -g generator-hyperledger-composer@0.19

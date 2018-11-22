@@ -87,7 +87,7 @@ export class StorageAddComponent implements OnInit {
     addArtworkStock.artwork = this.artwork;
     addArtworkStock.gallery = this.gallery;
     this.artworkStockService.addArtworkStock(addArtworkStock).subscribe(() => {
-      this.router.navigate(['/profile/gallery/artworkstok']);
+      this.router.navigate(['/profile/gallery/storage']);
     });
   }
 
@@ -100,7 +100,7 @@ export class StorageAddComponent implements OnInit {
   }
 
   cancel() {
-    this.router.navigate(['/profile/gallery/artworkstok']);
+    this.router.navigate(['/profile/gallery/storage']);
   }
 
   onArtistComboBoxChange($event) {

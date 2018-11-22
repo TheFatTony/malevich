@@ -1,2 +1,2 @@
 #!/usr/bin/env bash
-docker build -t malevich/composer:0.0 .
+docker build -t composer-inception:0.0 .

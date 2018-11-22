@@ -21,4 +21,6 @@ public interface CounterpartyService {
     CounterpartyEntity getCurrent();
 
     CounterpartyEntity getMalevich();
+
+    CounterpartyEntity save(CounterpartyEntity counterpartyEntity);
 }

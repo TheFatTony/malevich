@@ -5,8 +5,6 @@ import io.malevich.server.repositories.accountstate.AccountStateDao;
 import io.malevich.server.repositories.transaction.TransactionDao;
 import io.malevich.server.domain.*;
 import io.malevich.server.services.counterparty.CounterpartyService;
-import io.malevich.server.services.gallery.GalleryService;
-import io.malevich.server.services.trader.TraderService;
 import io.malevich.server.services.transactiontype.TransactionTypeService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -129,16 +127,5 @@ public class TransactionServiceImpl implements TransactionService {
 
         createTransactionAndReverse(transactionTypeEntity, transactionGroup, counterpartyEntity, malevichEntity, artworkStockEntity, 0D, 1L);
     }
-
-
-    @Override
-    @Transactional
-    public void applyPayment(PaymentsEntity paymentsEntity) {
-        CounterpartyEntity malevichEntity = counterpartyService.getMalevich();
-        TransactionTypeEntity transactionTypeEntity = transactionTypeService.getAddBalance();
-
-        createTransactionAndReverse(transactionTypeEntity, paymentsEntity.getTransactionGroup(), paymentsEntity.getParty(), malevichEntity, null, paymentsEntity.getAmount(), 0L);
-    }
-
 
 }

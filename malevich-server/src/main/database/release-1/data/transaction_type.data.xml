@@ -14,7 +14,8 @@
                    ('0006', JSON_OBJECT('en', 'Cancel Bid', 'ru', 'Cancel Bid')),
                    ('0007', JSON_OBJECT('en', 'Cancel Ask', 'ru', 'Cancel Ask')),
                    ('0008', JSON_OBJECT('en', 'Return Bid', 'ru', 'Return Bid')),
-                   ('0009', JSON_OBJECT('en', 'Return Ask', 'ru', 'Return Ask'));
+                   ('0009', JSON_OBJECT('en', 'Return Ask', 'ru', 'Return Ask')),
+                   ('0010', JSON_OBJECT('en', 'Withdraw Balance', 'ru', 'Withdraw Balance'));
         </sql>
     </changeSet>
 

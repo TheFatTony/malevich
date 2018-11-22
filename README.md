@@ -2,7 +2,7 @@
 
 ## Profiles explained
 
-dev - local developers enviroment
+dev - local developers environment
 
 
 ## Build commands
@@ -28,16 +28,18 @@ mvn resources:resources liquibase:dropAll liquibase:updateSQL -P test
 
 ## Docker Environment
 
-**MySQL:** 
+**MySQL:**
+docker run -d -p 3306:3306 --name mysql --restart=unless-stopped \
+--env="MYSQL_ROOT_PASSWORD=Orion123" mysql:5.7.23
 
-docker volume create mysql_data && docker run -d -p 3306:3306 \
--v mysql_data -v /tmp/conf/mysql/my.cnf:/etc/mysql/my.cnf --name mysql \
---restart=unless-stopped --env="MYSQL_ROOT_PASSWORD=Orion123" mysql:5.7.23
+**Hyperledger**
+docker run --name malevich-composer --privileged -d \
+-p 3000:3000 -p 9090:9090 --restart=unless-stopped composer-inception:0.0
 
-**Tomcat**
 
-docker volume create tomcat_data && docker run -d -p 80:8080 --restart=unless-stopped \
--v /tmp/conf/tomcat/webapps:/usr/local/tomcat/webapps \
--v /tmp/conf/tomcat/conf:/usr/local/tomcat/conf \
--v /tmp/conf/tomcat/logs:/usr/local/tomcat/logs \
--v tomcat_data --name tomcat tomcat:jre9-slim
+## URLs
+Angular App: http://localhost:4200
+Spring Boot: http://localhost:8080
+
+Docker Playground: http://localhost:9090
+Docker REST Server: http://localhost:3000/explorer/

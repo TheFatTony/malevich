@@ -1,9 +1,13 @@
 package io.malevich.server.services.trader;
 
 
+import io.malevich.server.domain.CounterpartyEntity;
+import io.malevich.server.domain.CounterpartyTypeEntity;
 import io.malevich.server.repositories.trader.TraderDao;
 import io.malevich.server.domain.TraderEntity;
 import io.malevich.server.domain.UserEntity;
+import io.malevich.server.services.counterparty.CounterpartyService;
+import io.malevich.server.services.counterpartytype.CounterpartyTypeService;
 import io.malevich.server.services.user.UserService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,8 +31,13 @@ public class TraderServiceImpl implements TraderService {
     @Autowired
     private UserService userService;
 
-    protected TraderServiceImpl() {
-    }
+    @Autowired
+    private CounterpartyService counterpartyService;
+
+    @Autowired
+    private CounterpartyTypeService counterpartyTypeService;
+
+
 
     @Override
     @Transactional(readOnly = true)
@@ -62,7 +71,17 @@ public class TraderServiceImpl implements TraderService {
             UserEntity user = userService.findByName(getUserName());
             trader.getUser().setId(user.getId());
         }
-        return traderDao.save(trader);
+
+        traderEntity = traderDao.save(trader);
+
+
+        CounterpartyEntity counterpartyEntity = new CounterpartyEntity();
+        counterpartyEntity.setTrader(traderEntity);
+        counterpartyEntity.setType(counterpartyTypeService.getTraderType());
+        counterpartyService.save(counterpartyEntity);
+
+
+        return traderEntity;
     }
 
     private String getUserName() {

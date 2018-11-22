@@ -72,4 +72,9 @@ public class CounterpartyServiceImpl implements CounterpartyService {
         return findById(1L).get();
     }
 
+    @Override
+    public CounterpartyEntity save(CounterpartyEntity counterpartyEntity) {
+        return counterpartyDao.save(counterpartyEntity);
+    }
+
 }

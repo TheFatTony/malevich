@@ -72,6 +72,7 @@ export class EditComponent implements OnInit, AfterViewInit {
     let args = event.args;
     let serverResponse = args.response;
     this.trader.thumbnail = serverResponse;
+    console.log(this.trader);
   }
 
   countryDisplayFunc = (country: CountryDto) => {

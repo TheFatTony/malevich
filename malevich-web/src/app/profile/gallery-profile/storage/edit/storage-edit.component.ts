@@ -6,16 +6,16 @@ import {ArtworkStockService} from "../../../../_services/artwork-stock.service";
 import {ArtworkService} from "../../../../_services/artwork.service";
 import {TranslateService} from "@ngx-translate/core";
 import {jqxComboBoxComponent} from "jqwidgets-scripts/jqwidgets-ts/angular_jqxcombobox";
-import {Router} from "@angular/router";
+import {ActivatedRoute, Params, Router} from "@angular/router";
 import {ArtistService} from "../../../../_services/artist.service";
 import {CategoryService} from "../../../../_services/category.service";
 
 @Component({
-  selector: 'app-profile-gallery-artwork-stock-add',
-  templateUrl: './add.component.html',
-  styleUrls: ['./add.component.css']
+  selector: 'app-profile-gallery-storage-edit',
+  templateUrl: './storage-edit.component.html',
+  styleUrls: ['./storage-edit.component.css']
 })
-export class AddComponent implements OnInit {
+export class StorageEditComponent implements OnInit {
 
   @ViewChild('addArtWorkComboBox') addArtWorkComboBox: jqxComboBoxComponent;
   @ViewChild('artistComboBox') artistComboBox: jqxComboBoxComponent;
@@ -23,9 +23,9 @@ export class AddComponent implements OnInit {
 
   gallery: GalleryDto;
 
+  artworkStock: ArtworkStockDto;
   public artwork: ArtworkDto;
 
-  artworks: ArtworkDto[];
   artists: ArtistDto[];
   categories: CategoryDto[];
 
@@ -37,33 +37,28 @@ export class AddComponent implements OnInit {
     return category.categoryNameMl[this.translate.currentLang];
   };
 
-  artworkDisplayFunc = (artwork:ArtworkDto) =>{
-    return artwork.titleMl[this.translate.currentLang];
-  };
-
   constructor(private router: Router,
+              private route: ActivatedRoute,
               private galleryService: GalleryService,
               private artworkStockService: ArtworkStockService,
-              public artworkService: ArtworkService,
+              private artworkService: ArtworkService,
               private artistService: ArtistService,
               private categoryService: CategoryService,
               public translate: TranslateService) {
     }
 
   ngOnInit() {
-    this.getArtworks();
     this.getArtists();
     this.getCategories();
-  }
 
-  getArtworks(): void {
-    this.artworkService
-      .getArtworks()
-      .subscribe(
-        data => {
-          this.artworks = data;
-        }
-      );
+    this.route.params.subscribe((params: Params) => {
+      let id = params['id'];
+      this.artworkStockService.getArtworkStock(id)
+        .subscribe(a => {
+          this.artworkStock = a;
+          this.artwork = a.artwork;
+        })
+    });
   }
 
   getArtists() {
@@ -83,20 +78,8 @@ export class AddComponent implements OnInit {
   }
 
   submit() {
-    let addArtworkStock = new ArtworkStockDto();
-    addArtworkStock.artwork = this.artwork;
-    addArtworkStock.gallery = this.gallery;
-    this.artworkStockService.addArtworkStock(addArtworkStock).subscribe(() => {
-      this.router.navigate(['/profile/gallery/artworkstok']);
-    });
-  }
-
-  onArtworkComboBoxChange($event) {
-    if (!$event)
-      return;
-
-    this.artwork = $event;
-    this.addArtWorkComboBox.disabled(true);
+    this.artworkStockService.addArtworkStock(this.artworkStock).subscribe();
+    this.router.navigate(['/profile/gallery/artworkstok']);
   }
 
   cancel() {

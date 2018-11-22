@@ -27,10 +27,12 @@
     "FILTERS_FILTER": "Filter"
   },
   "TRADER_PROFILE": {
+    "TITLE": "Your Profile",
     "SECURITY": {
       "LABEL": {
         "FIRST_NAME": "First Name:",
         "LAST_NAME": "Last Name:",
+        "UPLOAD_AVATAR": "Upload Profile Image:",
         "EMAIL": "Email:",
         "GENDER": "Gender:",
         "COUNTRY": "Country:",
@@ -75,19 +77,18 @@
     "NOTIFICATIONS": "Notifications",
     "EDIT_PROFILE": "Edit Your Profile",
     "SECURITY": {
-        "LEGAL_NAME": "Legal Name",
-        "PHONE_NUMBER": "Phone Number",
-        "LOCATION": "Location",
-        "DESCRIPTION": "Description",
-        "LEGAL_NAME_EN": "Legal Name - English",
-        "LEGAL_NAME_RU": "Legal Name - Russian",
-        "PHONE_NUMBER": "Phone Number",
-        "DESCRIPTION": "Description",
-        "DESCRIPTION_EN": "Description - English",
-        "DESCRIPTION_RU": "Description - Russian"
+      "LEGAL_NAME": "Legal Name",
+      "UPLOAD_AVATAR": "Upload Profile Image:",
+      "LOCATION": "Location",
+      "LEGAL_NAME_EN": "Legal Name - English",
+      "LEGAL_NAME_RU": "Legal Name - Russian",
+      "PHONE_NUMBER": "Phone Number",
+      "DESCRIPTION": "Description",
+      "DESCRIPTION_EN": "Description - English",
+      "DESCRIPTION_RU": "Description - Russian"
     },
-    "ARTWORKS":{
-      "ADD":{
+    "ARTWORKS": {
+      "ADD": {
         "TITLE": "Add artwork"
       }
     }

@@ -1,15 +1,14 @@
-import {Component, HostListener, OnInit, ViewChild} from '@angular/core';
-import {ArtworkStockService} from "../../../_services/artwork-stock.service";
+import {Component, OnInit, ViewChild} from '@angular/core';
 import {TranslateService} from "@ngx-translate/core";
 import {ArtworkStockDto} from "../../../_transfer/artworkStockDto";
 import {environment} from "../../../../environments/environment.dev";
-import {ArtworkService} from "../../../_services/artwork.service";
 import {ArtworkDto, GalleryDto} from "../../../_transfer";
 import {jqxGridComponent} from "jqwidgets-scripts/jqwidgets-ts/angular_jqxgrid";
-import {jqxWindowComponent} from "jqwidgets-scripts/jqwidgets-ts/angular_jqxwindow";
 import {jqxComboBoxComponent} from "jqwidgets-scripts/jqwidgets-ts/angular_jqxcombobox";
-import {GalleryService} from "../../../_services/gallery.service";
 import {Router} from "@angular/router";
+import {AccountStateService} from "../../../_services/account-state.service";
+import {OrderDto} from "../../../_transfer/orderDto";
+import {OrderWindowComponent} from "../../../common/components/order-window/order-window.component";
 
 @Component({
   selector: 'app-profile-gallery-artwork-stock',
@@ -20,19 +19,16 @@ export class ArtworkStockComponent implements OnInit {
 
   @ViewChild('myGrid') myGrid: jqxGridComponent;
   @ViewChild('addArtWorkComboBox') addArtWorkComboBox: jqxComboBoxComponent;
+  @ViewChild('askWindow') askWindow : OrderWindowComponent
 
   gallery: GalleryDto;
   artworks: ArtworkDto[];
   artworkStocks: ArtworkStockDto[];
 
-  public addArtWorkComboBoxSource: any[];
-
   selectedRowIndex: number = -1;
 
   x: number;
   y: number;
-
-  public addArtworkStock: ArtworkStockDto;
 
   public url = environment.baseUrl;
 
@@ -62,52 +58,17 @@ export class ArtworkStockComponent implements OnInit {
     ];
 
   constructor(private router: Router,
-              private galleryService: GalleryService,
-              private artworkStockService: ArtworkStockService,
-              private artworkService: ArtworkService,
+              private accountStateService: AccountStateService,
               public translate: TranslateService) {
-    }
-
-  getArtworkComboBoxSource(array: ArtworkDto[]) {
-    return array
-      .map(artwork => ({
-          title: artwork.titleMl[this.translate.currentLang],
-          html: '<table style="min-width: 50px;"><tr><td style="width: 100px;" rowspan="2">' +
-            '<img class="img-fluid" src="https://via.placeholder.com/50x50/img8.jpg" alt="Image Description">' +
-            '</td><td>' + '<span class="d-block g-color-gray-dark-v4">' + artwork.titleMl[this.translate.currentLang] + '</span>' + '</td></tr><tr><td>' +
-            '<span class="d-block g-color-lightred">' + artwork.category.categoryNameMl[this.translate.currentLang] + '</span>' + '</td></tr></table>'
-        })
-      );
   }
 
   ngOnInit() {
-    this.getGallery();
-    this.getArtworks();
     this.getArtworkStock();
   }
 
-  getGallery(): void {
-    this.galleryService
-      .getGallery()
-      .subscribe(
-        data => (this.gallery = data)
-      );
-  }
-
-  getArtworks(): void {
-    this.artworkService
-      .getArtworks()
-      .subscribe(
-        data => {
-          this.artworks = data;
-          this.addArtWorkComboBoxSource = this.getArtworkComboBoxSource(data);
-        }
-      );
-  }
-
   getArtworkStock(): void {
-    this.artworkStockService
-      .getArtworkStocks()
+    this.accountStateService
+      .getOwnArtworks()
       .subscribe(
         data => {
           this.artworkStocks = data;
@@ -115,44 +76,21 @@ export class ArtworkStockComponent implements OnInit {
       );
   }
 
-  addButton() {
-    this.artworkStockService.addArtworkStock(this.addArtworkStock)
-      .subscribe(data => (this.getArtworkStock()));
-  }
-
-  onAddArtworkSelect(event: any) {
-    let selectedIndex = this.addArtWorkComboBox.selectedIndex();
-    if (selectedIndex == -1)
+  openAskWindow() {
+    if(this.selectedRowIndex < 0)
       return;
-    this.addArtworkStock.artwork = this.artworks[selectedIndex];
-  }
 
-  @HostListener('mousedown', ['$event'])
-  mouseHandling(event) {
-    this.x = event.pageX;
-    this.y = event.pageY;
+    let artwork = this.artworkStocks[this.selectedRowIndex];
+
+    this.askWindow.artworkStock(artwork);
+    this.askWindow.open();
   }
 
   onGridRowSelect($event: any) {
     this.selectedRowIndex = $event.args.rowindex;
   }
 
-  onAddButtonClick() {
-    this.router.navigate(['/profile/gallery/artworkstok/add'])
-  }
-
-  onUpdateButtonClick() {
-    if(this.selectedRowIndex < 0 )
-      return;
-
-    let artwork = this.artworkStocks[this.selectedRowIndex];
-
-    this.router.navigate(['/profile/gallery/artworkstok/edit/' + artwork.id])
-  }
-
-  onDeleteButtonClick() {
-    let deleted = this.artworkStocks.splice(this.selectedRowIndex, 1)[0];
-    this.artworkStockService.deleteArtworkStock(deleted.id).subscribe();
-    this.myGrid.refresh();
+  onAskPlaced(order: OrderDto) {
+    this.getArtworkStock();
   }
 }

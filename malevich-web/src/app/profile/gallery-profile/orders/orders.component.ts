@@ -1,16 +1,10 @@
-import {Component, HostListener, OnInit, ViewChild} from '@angular/core';
+import {Component, OnInit, ViewChild} from '@angular/core';
 import {OrderDto} from "../../../_transfer/orderDto";
 import {OrderService} from "../../../_services/order.service";
 import {TranslateService} from "@ngx-translate/core";
 import {jqxGridComponent} from 'jqwidgets-scripts/jqwidgets-ts/angular_jqxgrid';
-import {jqxWindowComponent} from 'jqwidgets-scripts/jqwidgets-ts/angular_jqxwindow';
-import {ArtworkStockDto} from "../../../_transfer/artworkStockDto";
-import {ArtworkStockService} from "../../../_services/artwork-stock.service";
 import {TradeTypeService} from "../../../_services/trade-type.service";
-import {OrderTypeService} from "../../../_services/order-type.service";
 import {environment} from "../../../../environments/environment.dev";
-import {jqxValidatorComponent} from '../../../../../node_modules/jqwidgets-scripts/jqwidgets-ts/angular_jqxvalidator';
-import {jqxDropDownListComponent} from '../../../../../node_modules/jqwidgets-scripts/jqwidgets-ts/angular_jqxdropdownlist';
 import {TradeTypeDto} from "../../../_transfer/tradeTypeDto";
 
 @Component({
@@ -20,80 +14,32 @@ import {TradeTypeDto} from "../../../_transfer/tradeTypeDto";
 })
 export class OrdersComponent implements OnInit {
   @ViewChild('myGrid') myGrid: jqxGridComponent;
-  @ViewChild('myWindow') myWindow: jqxWindowComponent;
-  @ViewChild('myValidator') myValidator: jqxValidatorComponent;
-  @ViewChild('tradeTypeDropDown') tradeTypeDropDown: jqxDropDownListComponent;
 
   orders: OrderDto[];
-  public newOrder: OrderDto;
-
-  artworkStocks: ArtworkStockDto[];
-
-  tradeTypes: any[];
-
-  x: number;
-  y: number;
-
-  expirationDateInputHidden: boolean = true;
+  selectedRowIndex: number = -1;
+  tradeTypes: TradeTypeDto[];
 
   public url = environment.baseUrl;
 
-  public artworkStocksComboBox: any[];
-
   columns: any[] =
     [
-      {datafield: 'Date', width: '15%', columntype: 'textbox'},
-      {datafield: 'Amount', width: '5%', columntype: 'textbox'},
+      {datafield: 'Date', width: '20%', columntype: 'textbox'},
+      {datafield: 'Amount', width: '15%', columntype: 'textbox'},
       {datafield: 'Artwork', width: '25%', columntype: 'textbox'},
       {datafield: 'Trade Type', width: '15%', columntype: 'textbox'},
-      {datafield: 'Expiration Date', width: '15%', columntype: 'textbox'},
       {datafield: 'Type', width: '5%', columntype: 'textbox'},
       {datafield: 'Best Bid', width: '10%', columntype: 'textbox'},
       {datafield: 'Current Ask', width: '10%', columntype: 'textbox'}
     ];
 
-  rules =
-    [
-      {
-        input: '.artworkStockInput',
-        message: 'Field is required!',
-        action: 'keyup, blur',
-        rule: (input: any, commit: any): any => {
-          if (this.newOrder) {
-            if (this.newOrder.artworkStock !== null) {
-              return true;
-            }
-          }
-          return false;
-        }
-      },
-      {
-        input: '.amountInput',
-        message: 'Field is required!',
-        action: 'keyup, blur',
-        rule: (input: any, commit: any): any => {
-          if (this.newOrder) {
-            if (this.newOrder.amount != null) {
-              return true;
-            }
-          }
-          return false;
-        }
-      }
-    ];
-
-  constructor(private artworkStockService: ArtworkStockService,
-              private orderService: OrderService,
+  constructor(private orderService: OrderService,
               public translate: TranslateService,
-              private tradeTypeService: TradeTypeService,
-              private orderTypeService: OrderTypeService) {
-    }
+              private tradeTypeService: TradeTypeService) {
+  }
 
   ngOnInit() {
     this.getPlacedOrders();
-    this.getArtworkStock();
     this.getTradeTypes();
-
   }
 
   ngAfterViewInit(): void {
@@ -103,92 +49,29 @@ export class OrdersComponent implements OnInit {
     this.orderService
       .getPlacedOrders()
       .subscribe(
-        data => (this.orders = data)
-      );
-  }
-
-  getArtworkStock(): void {
-    this.artworkStockService
-      .getArtworkStocks()
-      .subscribe(
         data => {
-          this.artworkStocks = data;
-          this.artworkStocksComboBox = data.map(artworkStock => ({
-              id: artworkStock,
-              title: artworkStock.artwork.titleMl[this.translate.currentLang],
-              html: '<table style="min-width: 50px;"><tr><td style="width: 50px; height: 50px;" rowspan="2">' +
-                '<img class="img-fluid" src="https://via.placeholder.com/50x50/img8.jpg">' +
-                '</td><td>' + '<span class="d-block g-color-gray-dark-v4">' + artworkStock.artwork.titleMl[this.translate.currentLang] + '</span>' + '</td></tr><tr><td>' +
-                '<span class="d-block g-color-lightred">' + artworkStock.artwork.category.categoryNameMl[this.translate.currentLang] + '</span>' + '</td></tr></table>'
-            })
-          );
-        });
+          this.orders = data;
+          console.log(this.orders);
+        }
+      );
   }
 
   getTradeTypes(): void {
     this.tradeTypeService
       .getTradeTypes()
       .subscribe(
-        data => {
-          this.tradeTypes = data.map(t => ({
-            title: t.nameMl[this.translate.currentLang],
-            value: t
-          }));
-        }
+        data => (this.tradeTypes = data)
       );
   }
 
-  openWindow() {
-    this.newOrder = new OrderDto();
-    this.myWindow.width(310);
-    this.myWindow.height(240);
-    this.myWindow.open();
-    this.myWindow.move(this.x, this.y);
+  onGridRowSelect($event: any) {
+    this.selectedRowIndex = $event.args.rowindex;
   }
 
-  sendButton() {
-    this.myValidator.validate();
-  }
-
-  @HostListener('mousedown', ['$event'])
-  mouseHandling(event) {
-    this.x = event.pageX;
-    this.y = event.pageY;
-  }
-
-  ValidationSuccess($event: any) {
-    this.myWindow.close();
-    this.orderService.placeAsk(this.newOrder).subscribe(() => {
-      this.getPlacedOrders();
-    });
-  }
-
-  showExpirationDateInput(show: boolean){
-    this.expirationDateInputHidden = !show;
-  }
-
-  setTradeType(value:TradeTypeDto){
-    this.newOrder.tradeType = value;
-
-    switch (value.id) {
-      case "GTC_":{
-        this.newOrder.expirationDate = null;
-        this.showExpirationDateInput(false);
-        break;
-      }
-      case "GTT0":{
-        this.newOrder.expirationDate = new Date();
-        this.showExpirationDateInput(false);
-        break;
-      }
-      case "GTD_":{
-        this.showExpirationDateInput(true);
-        break;
-      }
-    }
-  }
-
-  onMyWindowOpen() {
-    this.tradeTypeDropDown.selectIndex(0);
+  onCancelOrderButton() {
+    if (this.selectedRowIndex < 0)
+      return;
+    let order = this.orders.splice(this.selectedRowIndex, 1)[0];
+    this.orderService.cancel(order).subscribe();
   }
 }

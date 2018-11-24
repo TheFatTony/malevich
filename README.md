@@ -1,5 +1,15 @@
 # Malevich
 
+## Git
+
+To avoid EOL issues on Windows
+
+```
+git config --global core.autocrlf true
+rm .git/index
+git reset --hard
+```
+
 ## Profiles explained
 
 dev - local developers environment

@@ -57,18 +57,22 @@ public class FileResource {
     }
 
 
-    @PostMapping("/uploadFile")
-    public ResponseEntity<FileDto> uploadFile(@RequestParam("file") MultipartFile file) {
-        return ResponseEntity.ok().body(convertToDto(uploadFileInternal(file)));
+    @RequestMapping(value = "/uploadFile", method = RequestMethod.POST)
+    @ResponseStatus(HttpStatus.OK)
+    @ResponseBody
+    public FileDto uploadFile(@RequestParam("file") MultipartFile file) {
+        return convertToDto(uploadFileInternal(file));
     }
 
 
-    @PostMapping("/uploadFiles")
-    public ResponseEntity<List<FileDto>> uploadMultipleFiles(@RequestParam("files") MultipartFile[] files) {
-        return ResponseEntity.ok().body(Arrays.asList(files)
+    @RequestMapping(value = "/uploadFiles", method = RequestMethod.POST)
+    @ResponseStatus(HttpStatus.OK)
+    @ResponseBody
+    public List<FileDto> uploadMultipleFiles(@RequestParam("files") MultipartFile[] files) {
+        return Arrays.asList(files)
                 .stream()
                 .map(file -> convertToDto(uploadFileInternal(file)))
-                .collect(Collectors.toList()));
+                .collect(Collectors.toList());
     }
 
     @RequestMapping(value = "/downloadFile/{fileId}", method = RequestMethod.GET)

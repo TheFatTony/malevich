@@ -35,7 +35,7 @@ docker run -d -p 3306:3306 --name mysql --restart=unless-stopped \
 **Hyperledger**
 docker run --name malevich-composer --privileged -d \
 --env="BN_NAME=malevich-network" \
--v /Users/antonalexeyev/Projects/malevich/malevich-network/target/malevich-network.bna:/home/dockremap/malevich-network.bna \
+-v <your path>/malevich/malevich-network/target/malevich-network.bna:/home/dockremap/malevich-network.bna \
 -p 3000:3000 -p 9090:9090 --restart=unless-stopped composer-inception:0.0
 
 

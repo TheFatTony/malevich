@@ -241,11 +241,6 @@
 				<artifactId>maven-war-plugin</artifactId>
 				<configuration>
 					<failOnMissingWebXml>false</failOnMissingWebXml>
-					<webResources>
-						<resource>
-							<directory>../malevich-web/target/malevich-web</directory>
-						</resource>
-					</webResources>
 				</configuration>
 			</plugin>
 			<plugin>

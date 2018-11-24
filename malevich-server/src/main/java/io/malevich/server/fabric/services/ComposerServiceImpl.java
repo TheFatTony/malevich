@@ -1,7 +1,7 @@
 package io.malevich.server.fabric.services;
 
-import io.malevich.server.domain.ArtworkStockEntity;
-import io.malevich.server.fabric.model.Artwork;
+import io.malevich.server.domain.TransactionEntity;
+import io.malevich.server.fabric.model.BuySellTransaction;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -10,6 +10,8 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.HttpStatusCodeException;
+import org.springframework.web.client.RestClientException;
 import org.springframework.web.client.RestTemplate;
 
 
@@ -27,17 +29,27 @@ public class ComposerServiceImpl implements ComposerService {
     private HttpHeaders fabricHeaders;
 
     @Override
-    public void addArtwork(ArtworkStockEntity artworkStockEntity) {
-        Artwork artwork = new Artwork(artworkStockEntity.getId().toString(),
-                "resource:io.malevich.network.Counetrparty#" + artworkStockEntity.getGallery().getId().toString(), "1000");
-        doPost(artwork);
+    public void submitTransction(TransactionEntity transaction) {
+        BuySellTransaction buySellTransaction = new BuySellTransaction(
+                transaction.getId().toString(),
+                transaction.getEffectiveDate().toString(),
+                transaction.getParty().getId().toString(),
+                transaction.getCounterparty().getId().toString(),
+                transaction.getArtworkStock().getId().toString(),
+                transaction.getAmount().toString(),
+                transaction.getQuantity().toString());
+        doPost(buySellTransaction);
 
     }
 
-    private String doPost(Object arg){
-        HttpEntity<Artwork> requestBody = new HttpEntity(arg, fabricHeaders);
-        ResponseEntity<String> res = restTemplate.exchange(composerUrl + "/Artwork", HttpMethod.POST, requestBody, String.class);
-        log.trace(res.getBody());
-        return res.getBody();
+    private void doPost(Object arg) {
+        HttpEntity<BuySellTransaction> requestBody = new HttpEntity(arg, fabricHeaders);
+        try {
+            ResponseEntity<String> res = restTemplate.exchange(composerUrl + "/BuySellTransaction", HttpMethod.POST, requestBody, String.class);
+        } catch (RestClientException e) {
+            String errorResponse=((HttpStatusCodeException)e).getResponseBodyAsString();
+            log.trace(errorResponse);
+            throw e;
+        }
     }
 }

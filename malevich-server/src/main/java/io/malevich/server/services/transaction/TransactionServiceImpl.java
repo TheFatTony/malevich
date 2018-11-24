@@ -1,9 +1,10 @@
 package io.malevich.server.services.transaction;
 
+import io.malevich.server.domain.*;
 import io.malevich.server.exceptions.AccountStateException;
+import io.malevich.server.fabric.services.ComposerService;
 import io.malevich.server.repositories.accountstate.AccountStateDao;
 import io.malevich.server.repositories.transaction.TransactionDao;
-import io.malevich.server.domain.*;
 import io.malevich.server.services.counterparty.CounterpartyService;
 import io.malevich.server.services.transactiontype.TransactionTypeService;
 import lombok.extern.slf4j.Slf4j;
@@ -11,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.sql.Timestamp;
 import java.util.List;
 
 
@@ -30,6 +32,9 @@ public class TransactionServiceImpl implements TransactionService {
     @Autowired
     private TransactionTypeService transactionTypeService;
 
+    @Autowired
+    private ComposerService composerService;
+
     @Override
     @Transactional(readOnly = true)
     public List<TransactionEntity> findAll() {
@@ -46,13 +51,20 @@ public class TransactionServiceImpl implements TransactionService {
 
         TransactionEntity transaction = new TransactionEntity();
         transaction.setParty(party);
+        transaction.setEffectiveDate(new Timestamp(System.currentTimeMillis()));
         transaction.setGroup(group);
         transaction.setCounterparty(counterparty);
         transaction.setArtworkStock(artworkStock);
         transaction.setAmount(amount);
         transaction.setQuantity(quantity);
         transaction.setType(transactionType);
-        return transactionDao.save(transaction);
+        transaction = transactionDao.save(transaction);
+
+
+        if (transaction.getType().equals(transactionTypeService.getBuySell()))
+            composerService.submitTransction(transaction);
+
+        return transaction;
     }
 
     private void insertAccountState(CounterpartyEntity party, ArtworkStockEntity artworkStock, Double amount, Long quantity) {

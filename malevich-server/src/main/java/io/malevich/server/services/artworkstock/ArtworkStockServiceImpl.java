@@ -39,9 +39,6 @@ public class ArtworkStockServiceImpl implements ArtworkStockService {
     @Autowired
     private TransactionService transactionService;
 
-    @Autowired
-    private ComposerService composerService;
-
     @Override
     @Transactional(readOnly = true)
     public List<ArtworkStockEntity> findAll() {
@@ -61,8 +58,6 @@ public class ArtworkStockServiceImpl implements ArtworkStockService {
         transactionGroupEntity = transactionGroupDao.save(transactionGroupEntity);
 
         transactionService.createArtworkStock(artworkStockEntity, transactionGroupEntity);
-
-//        composerService.addArtwork(artworkStockEntity);
     }
 
     @Override

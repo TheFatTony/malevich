@@ -22,6 +22,10 @@ public class ComposerServiceImpl implements ComposerService {
     @Value("${malevich.composer.url}")
     private String composerUrl;
 
+
+    @Value("${malevich.bussines.network.enabled}")
+    private Boolean enabled;
+
     @Autowired
     private RestTemplate restTemplate;
 
@@ -43,6 +47,9 @@ public class ComposerServiceImpl implements ComposerService {
     }
 
     private void doPost(Object arg) {
+        if (!enabled)
+            return;
+
         HttpEntity<BuySellTransaction> requestBody = new HttpEntity(arg, fabricHeaders);
         try {
             ResponseEntity<String> res = restTemplate.exchange(composerUrl + "/BuySellTransaction", HttpMethod.POST, requestBody, String.class);

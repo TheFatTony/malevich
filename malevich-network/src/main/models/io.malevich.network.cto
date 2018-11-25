@@ -18,24 +18,15 @@
 
 namespace io.malevich.network
 
-participant Counetrparty identified by counetrpartyId {
-  o String counetrpartyId
-  o String systemCode
-}
-
-asset Artwork identified by artworkId {
-  o String artworkId
-  --> Counetrparty owner
-  o String value
-}
 
 transaction BuySellTransaction {
-  --> Artwork asset
-  o String newValue
+  o String id
+  o String effectiveDate
+  o String partyId
+  o String counterpartyId
+  o String artworkStockId
+  o String amount
+  o String quantity
 }
 
-event BuySellEvent {
-  --> Artwork asset
-  o String oldValue
-  o String newValue
-}
+

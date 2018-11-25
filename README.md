@@ -45,3 +45,11 @@ Spring Boot: http://localhost:8080
 
 Docker Playground: http://localhost:9090
 Docker REST Server: http://localhost:3000/explorer/
+
+## Run configurations
+
+**web-build-test**
+<p align="center">
+  <img src="readme/img/web-build-test.png">
+</p>
+

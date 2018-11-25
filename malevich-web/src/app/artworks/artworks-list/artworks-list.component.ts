@@ -27,7 +27,7 @@ export class ArtworksListComponent implements OnInit {
 
   ngOnInit() {
     this.filterDto.page = 0;
-    this.filterDto.size = 2;
+    this.filterDto.size = 9;
     this.stocksByFilter(this.filterDto);
   }
 

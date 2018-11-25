@@ -117,12 +117,12 @@ cat << EOF > DevServer_connection.json
     },
     "orderers": {
         "orderer.example.com": {
-            "url": "grpc://orderer.example.com:7050"
+            "url": "grpc://${HOST}:7050"
         }
     },
     "peers": {
         "peer0.org1.example.com": {
-            "url": "grpc://peer0.org1.example.com:7051"
+            "url": "grpc://${HOST}:7051"
         }
     },
     "certificateAuthorities": {

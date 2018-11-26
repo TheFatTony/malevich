@@ -64,7 +64,6 @@ export class HelpTopicComponent implements OnInit, AfterViewInit {
   }
 
   sendButton() {
-    console.log(this.helpTopic);
     this.helpService.addTopic(this.helpTopic).subscribe(
       () => {
         this.getTopics();

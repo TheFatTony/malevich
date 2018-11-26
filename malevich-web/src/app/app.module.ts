@@ -152,6 +152,9 @@ import {OrderWindowComponent} from './common/components/order-window/order-windo
 import {StorageAddComponent} from "./profile/gallery-profile/storage/add/storage-add.component";
 import {StorageEditComponent} from "./profile/gallery-profile/storage/edit/storage-edit.component";
 import {StorageComponent} from "./profile/gallery-profile/storage/storage.component";
+import { MatchToDirective } from './_directives/validators/match-to/match-to.directive';
+import { MultipleOfDirective } from './_directives/validators/multiple-of/multiple-of.directive';
+import { GreaterThanDirective } from './_directives/validators/greater-than/greater-than.directive';
 
 export function createTranslateLoader(http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
@@ -219,7 +222,10 @@ export function createTranslateLoader(http: HttpClient) {
     DropDownListComponent,
     NumberInputComponent,
     ButtonComponent,
-    OrderWindowComponent
+    OrderWindowComponent,
+    MatchToDirective,
+    MultipleOfDirective,
+    GreaterThanDirective
   ],
   imports: [
     BrowserModule,

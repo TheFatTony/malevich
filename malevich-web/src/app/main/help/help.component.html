@@ -71,14 +71,14 @@
                 <span class="g-color-primary g-font-weight-700 g-font-size-16 g-line-height-1_2">{{i+1}}.</span>
                 {{topic.topicNameMl[translate.currentLang]}}
               </div>
-              <div id="accordion-12-1-body-01" class="collapse show" role="tabpanel"
+              <div id="accordion-12-1-body-0{{i+1}}" class="collapse show" role="tabpanel"
                    aria-labelledby="accordion-12-1-heading-01">
                 <div class="u-accordion__body g-color-gray-dark-v4">
                   {{topic.bodyMl[translate.currentLang]}}
                 </div>
               </div>
               <h5 class="g-font-weight-400 g-font-size-13 g-pl-8 mt-3 mb-0">
-                <a class="g-color-primary g-text-underline--none--hover g-pa-10" href="#accordion-12-1-body-01"
+                <a class="g-color-primary g-text-underline--none--hover g-pa-10" href="#accordion-12-1-body-0{{i+1}}"
                    data-toggle="collapse" data-parent="#accordion-12-1" aria-expanded="false"
                    aria-controls="accordion-12-1-body-01">
                         <span class="u-accordion__control-icon">

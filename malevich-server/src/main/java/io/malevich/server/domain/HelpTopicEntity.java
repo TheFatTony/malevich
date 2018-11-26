@@ -25,6 +25,7 @@ public class HelpTopicEntity implements Entity {
 
     @Getter
     @Setter
+    @Convert(converter = JpaConverterJson.class)
     @Column(name = "body_ml")
     private Map<String, String> bodyMl;
 
@@ -32,7 +33,7 @@ public class HelpTopicEntity implements Entity {
     @Setter
     @Convert(converter = JpaConverterJson.class)
     @Column(name = "topic_name_ml")
-    private Map<String, String> categoryNameMl;
+    private Map<String, String> topicNameMl;
 
     @Getter
     @Setter

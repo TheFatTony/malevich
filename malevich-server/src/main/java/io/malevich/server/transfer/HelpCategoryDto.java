@@ -12,9 +12,6 @@ public class HelpCategoryDto {
 
     private Long id;
 
-    private String description;
-
     private Map<String, String> categoryNameMl;
-
 
 }

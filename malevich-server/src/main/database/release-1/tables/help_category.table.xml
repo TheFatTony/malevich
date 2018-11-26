@@ -3,29 +3,25 @@
                    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
                    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.6.xsd">
 
-    <changeSet author="thefattony" id="help_category-table">
+    <changeSet author="harshilmelegant" id="help_category-table">
         <createTable tableName="help_category">
             <column name="id" type="bigint">
                 <constraints nullable="false"/>
             </column>
-            <column name="description" type="clob"/>
         </createTable>
-        <modifySql dbms="mysql">
-            <replace replace="clob" with="longtext"/>
-        </modifySql>
     </changeSet>
 
-    <changeSet author="thefattony" id="help_category-table-ml" dbms="mysql">
+    <changeSet author="harshilmelegant" id="help_category-table-ml" dbms="mysql">
         <addColumn tableName="help_category">
             <column name="help_category_name_ml" type="json"/>
         </addColumn>
     </changeSet>
 
-    <changeSet author="thefattony" id="help_category-pk">
+    <changeSet author="harshilmelegant" id="help_category-pk">
         <addPrimaryKey columnNames="id" constraintName="help_category_pk" tableName="help_category"/>
     </changeSet>
 
-    <changeSet author="thefattony" id="help_category-id-aa" dbms="mysql">
+    <changeSet author="harshilmelegant" id="help_category-id-aa" dbms="mysql">
         <addAutoIncrement columnDataType="bigint" columnName="id" tableName="help_category"/>
     </changeSet>
 

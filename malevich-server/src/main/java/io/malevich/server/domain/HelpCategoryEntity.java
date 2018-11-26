@@ -23,11 +23,6 @@ public class HelpCategoryEntity implements Entity {
 
     @Getter
     @Setter
-    @Column(name = "description")
-    private String description;
-
-    @Getter
-    @Setter
     @Convert(converter = JpaConverterJson.class)
     @Column(name = "help_category_name_ml")
     private Map<String, String> categoryNameMl;

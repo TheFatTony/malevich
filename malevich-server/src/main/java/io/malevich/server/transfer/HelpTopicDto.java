@@ -14,7 +14,7 @@ public class HelpTopicDto {
 
     private Map<String, String> bodyMl;
 
-    private Map<String, String> categoryNameMl;
+    private Map<String, String> topicNameMl;
 
     private HelpCategoryDto helpCategory;
 }

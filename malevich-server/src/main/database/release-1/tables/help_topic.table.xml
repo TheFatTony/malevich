@@ -3,7 +3,7 @@
                    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
                    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.6.xsd">
 
-    <changeSet author="thefattony" id="help_topic-table">
+    <changeSet author="harshilmelegant" id="help_topic-table">
         <createTable tableName="help_topic">
             <column name="id" type="bigint">
                 <constraints nullable="false"/>
@@ -14,7 +14,7 @@
         </createTable>
     </changeSet>
 
-    <changeSet author="thefattony" id="help_topic-table-title-ml" dbms="mysql">
+    <changeSet author="harshilmelegant" id="help_topic-table-title-ml" dbms="mysql">
         <addColumn tableName="help_topic">
             <column name="topic_name_ml" type="json"/>
         </addColumn>
@@ -23,11 +23,11 @@
         </addColumn>
     </changeSet>
 
-    <changeSet author="thefattony" id="help_topic-pk">
+    <changeSet author="harshilmelegant" id="help_topic-pk">
         <addPrimaryKey columnNames="id" constraintName="help_topic_pk" tableName="help_topic"/>
     </changeSet>
 
-    <changeSet author="thefattony" id="help_topic-id-aa" dbms="mysql">
+    <changeSet author="harshilmelegant" id="help_topic-id-aa" dbms="mysql">
         <addAutoIncrement columnDataType="bigint" columnName="id" tableName="help_topic"/>
     </changeSet>
 

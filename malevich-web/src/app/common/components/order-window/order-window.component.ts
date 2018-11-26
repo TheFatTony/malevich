@@ -17,17 +17,9 @@ import {TradeTypeDto} from "../../../_transfer/tradeTypeDto";
 import {OrderDto} from "../../../_transfer/orderDto";
 import {jqxWindowComponent} from "jqwidgets-scripts/jqwidgets-ts/angular_jqxwindow";
 import {jqxValidatorComponent} from "jqwidgets-scripts/jqwidgets-ts/angular_jqxvalidator";
-import {
-  AbstractControl,
-  FormBuilder,
-  FormControl,
-  FormGroup,
-  ValidationErrors,
-  ValidatorFn,
-  Validators
-} from "@angular/forms";
+import {jqxDropDownListComponent} from "jqwidgets-scripts/jqwidgets-ts/angular_jqxdropdownlist";
 import {ValidationService} from "../../../_services/validation.service";
-import {DropDownListComponent} from "../../../core/components/dropdownlist.component";
+import {NgForm} from "@angular/forms";
 
 @Component({
   selector: 'mch-order-window',
@@ -41,13 +33,37 @@ export class OrderWindowComponent implements OnInit, AfterViewInit {
   @Input('orderType') attrOrderType: string;
   @Output() onOrderPlaced = new EventEmitter();
 
-  @ViewChild('divBody') divBody: ElementRef;
   @ViewChild('myWindow') myWindow: jqxWindowComponent;
-  @ViewChild('myValidator') myValidator: jqxValidatorComponent;
-  @ViewChild('tradeTypeDropDown') tradeTypeDropDown: DropDownListComponent;
 
-  myForm: FormGroup;
-
+  rules =
+    [
+      {
+        input: '.artworkStockInput',
+        message: 'Field is required!',
+        action: 'keyup, blur',
+        rule: (input: any, commit: any): any => {
+          if (this.newOrder) {
+            if (this.newOrder.artworkStock !== null) {
+              return true;
+            }
+          }
+          return false;
+        }
+      },
+      {
+        input: '.amountInput',
+        message: 'Field is required!',
+        action: 'keyup, blur',
+        rule: (input: any, commit: any): any => {
+          if (this.newOrder) {
+            if (this.newOrder.amount != null) {
+              return true;
+            }
+          }
+          return false;
+        }
+      }
+    ];
 
   private x: number;
   private y: number;
@@ -57,19 +73,7 @@ export class OrderWindowComponent implements OnInit, AfterViewInit {
   expirationDateHidden: boolean = true;
   public newOrder: OrderDto = new OrderDto();
 
-  private errMsgs: any = {
-    amount: []
-  }
-
-  private translations: any = {
-    amount: {
-      required: 'Order amount is required',
-      value: 'Value should be more than zero',
-    }
-  }
-
-  constructor(private formBuilder: FormBuilder,
-              public validationService: ValidationService,
+  constructor(public validationService: ValidationService,
               private orderService: OrderService,
               public translate: TranslateService,
               private tradeTypeService: TradeTypeService) {
@@ -77,55 +81,10 @@ export class OrderWindowComponent implements OnInit, AfterViewInit {
 
   ngOnInit() {
     this.getTradeTypes();
-
-    this.myForm = this.formBuilder.group({
-      amount: new FormControl(0, [
-        Validators.required,
-        this.amountPositiveValidator,
-        this.amountTenValidator
-      ]),
-      tradeType: new FormControl('', Validators.required),
-      expirationDate: new FormControl('', Validators.required)
-    });
-
-    this.myForm.valueChanges
-      .subscribe(_ => this.checkFormValidity());
-
-
   }
-
-
 
   ngAfterViewInit(): void {
   }
-
-  get controls() {
-    return this.myForm.controls;
-  }
-
-  amountPositiveValidator(control: AbstractControl): ValidationErrors {
-    let value = control.value;
-
-    if (!value || value <= 0)
-      return {positive: "Value should be greater then zero"}
-
-    return null;
-  }
-
-  amountTenValidator(control: AbstractControl): ValidationErrors {
-    let value = control.value;
-
-    if (!value || value % 10 != 0)
-      return {multipleOfTen: "Value should be a multiple of ten"}
-
-    return null;
-  }
-
-  expirationDateSpecifiedValidator(control: AbstractControl): ValidationErrors {
-    console.info(control.value);
-    return null;
-  }
-
 
   getTradeTypes(): void {
     this.tradeTypeService
@@ -135,36 +94,6 @@ export class OrderWindowComponent implements OnInit, AfterViewInit {
           this.tradeTypes = data;
         }
       );
-  }
-
-  validationSuccess($event: any) {
-
-    if (this.orderType().toLocaleLowerCase() == 'ask')
-      this.orderService.placeAsk(this.newOrder).subscribe(() => {
-        this.onOrderPlaced.emit(this.newOrder);
-        this.myWindow.close();
-      });
-
-    if (this.orderType().toLocaleLowerCase() == 'bid')
-      this.orderService.placeBid(this.newOrder).subscribe(() => {
-        this.onOrderPlaced.emit(this.newOrder);
-        this.myWindow.close();
-      });
-  }
-
-  checkFormValidity(data?: any): void {
-    console.log(this.controls);
-
-    for (let k in this.errMsgs) {
-      this.errMsgs[k] = [];
-      if (this.myForm.controls[k].errors && this.myForm.controls[k].dirty) {
-        for (let e in this.myForm.controls[k].errors) {
-          if (this.translations[k][e]) {
-            this.errMsgs[k].push(this.translations[k][e]);
-          }
-        }
-      }
-    }
   }
 
   showExpirationDateInput(show: boolean) {
@@ -203,9 +132,6 @@ export class OrderWindowComponent implements OnInit, AfterViewInit {
     this.newOrder.tradeType = this.tradeTypes[0];
     this.newOrder.amount = 0;
 
-    this.controls.amount.setValue(-1);
-    this.controls.tradeType.setValue(this.tradeTypes[0]);
-
     this.myWindow.width(310);
     this.myWindow.height(240);
     this.myWindow.open();
@@ -216,8 +142,22 @@ export class OrderWindowComponent implements OnInit, AfterViewInit {
     this.myWindow.close();
   }
 
-  sendButton() {
-    this.myValidator.validate();
+  sendButton(form: NgForm) {
+
+    if(form.invalid)
+      return;
+
+    if (this.orderType().toLocaleLowerCase() == 'ask')
+      this.orderService.placeAsk(this.newOrder).subscribe(() => {
+        this.onOrderPlaced.emit(this.newOrder);
+      });
+
+    if (this.orderType().toLocaleLowerCase() == 'bid')
+      this.orderService.placeBid(this.newOrder).subscribe(() => {
+        this.onOrderPlaced.emit(this.newOrder);
+      });
+
+    this.myWindow.close();
   }
 
   artworkStock(arg?: ArtworkStockDto): any {

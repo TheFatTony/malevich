@@ -30,15 +30,23 @@ export class HelpTopicComponent implements OnInit, AfterViewInit {
   ngOnInit() {
     this.helpTopic = new HelpTopicDto();
     this.getTopics();
+    this.getCategories();
   }
 
   ngAfterViewInit(): void {
   }
 
   helpCategoryDisplayFunc = (helpCategory: HelpCategoryDto) => {
-    console.log('help', helpCategory);
     return helpCategory.categoryNameMl[this.translate.currentLang];
   };
+
+  getCategories(): void {
+    this.helpService
+      .getCategories()
+      .subscribe(
+        data => (this.helpCategories = data)
+      );
+  }
 
   getTopics(): void {
     this.helpService
@@ -57,11 +65,11 @@ export class HelpTopicComponent implements OnInit, AfterViewInit {
 
   sendButton() {
     console.log(this.helpTopic);
-    /*this.helpService.addTopic(this.helpTopic).subscribe(
+    this.helpService.addTopic(this.helpTopic).subscribe(
       () => {
         this.getTopics();
       }
-    );*/
+    );
   }
 
   onTitleChange($event, lang: string) {

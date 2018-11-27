@@ -155,6 +155,7 @@ import {StorageComponent} from "./profile/gallery-profile/storage/storage.compon
 import { MatchToDirective } from './_directives/validators/match-to/match-to.directive';
 import { MultipleOfDirective } from './_directives/validators/multiple-of/multiple-of.directive';
 import { GreaterThanDirective } from './_directives/validators/greater-than/greater-than.directive';
+import {ControlErrorsComponent} from "./core/components/control-errors.component";
 
 export function createTranslateLoader(http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
@@ -225,7 +226,8 @@ export function createTranslateLoader(http: HttpClient) {
     OrderWindowComponent,
     MatchToDirective,
     MultipleOfDirective,
-    GreaterThanDirective
+    GreaterThanDirective,
+    ControlErrorsComponent
   ],
   imports: [
     BrowserModule,

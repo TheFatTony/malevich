@@ -69,13 +69,20 @@
                 {{'GRID.FILTERS_SORT_BS' | translate}}
               </button>
               <div class="dropdown-menu rounded-0">
-                <a class="dropdown-item g-color-gray-dark-v4 g-font-weight-300" href="#!">{{'GRID.FILTERS_SORT_BS' |
+                <a class="dropdown-item g-color-gray-dark-v4 g-font-weight-300" href="javascript:;"
+                   (click)="setSort('NAME')">{{'GRID.FILTERS_SORT_NAME' |
                   translate}}</a>
-                <a class="dropdown-item g-color-gray-dark-v4 g-font-weight-300" href="#!">{{'GRID.FILTERS_SORT_TR' |
+                <a class="dropdown-item g-color-gray-dark-v4 g-font-weight-300" href="javascript:;"
+                   (click)="setSort('BS')">{{'GRID.FILTERS_SORT_BS' |
                   translate}}</a>
-                <a class="dropdown-item g-color-gray-dark-v4 g-font-weight-300" href="#!">{{'GRID.FILTERS_SORT_PLTH' |
+                <a class="dropdown-item g-color-gray-dark-v4 g-font-weight-300" href="javascript:;"
+                   (click)="setSort('TR')">{{'GRID.FILTERS_SORT_TR' |
                   translate}}</a>
-                <a class="dropdown-item g-color-gray-dark-v4 g-font-weight-300" href="#!">{{'GRID.FILTERS_SORT_PHTL' |
+                <a class="dropdown-item g-color-gray-dark-v4 g-font-weight-300" href="javascript:;"
+                   (click)="setSort('PLTH')">{{'GRID.FILTERS_SORT_PLTH' |
+                  translate}}</a>
+                <a class="dropdown-item g-color-gray-dark-v4 g-font-weight-300" href="javascript:;"
+                   (click)="setSort('PHTL')">{{'GRID.FILTERS_SORT_PHTL' |
                   translate}}</a>
               </div>
             </div>

@@ -26,10 +26,12 @@ import {jqxDropDownListComponent} from "jqwidgets-scripts/jqwidgets-ts/angular_j
 })
 export class OrderWindowComponent implements OnInit, AfterViewInit {
 
+
   @Input('artworkStock') attrArtWorkStock: ArtworkStockDto;
   @Input('orderType') attrOrderType: string;
   @Output() onOrderPlaced = new EventEmitter();
 
+  @ViewChild('divBody') divBody: ElementRef;
   @ViewChild('myWindow') myWindow: jqxWindowComponent;
   @ViewChild('myValidator') myValidator: jqxValidatorComponent;
   @ViewChild('tradeTypeDropDown') tradeTypeDropDown: jqxDropDownListComponent;
@@ -70,7 +72,7 @@ export class OrderWindowComponent implements OnInit, AfterViewInit {
   tradeTypes: TradeTypeDto [];
   tradeTypeDisplayFunc = (type: TradeTypeDto) => type.nameMl[this.translate.currentLang];
   expirationDateHidden: boolean = true;
-  private newOrder: OrderDto = new OrderDto();
+  public newOrder: OrderDto = new OrderDto();
 
   constructor(private orderService: OrderService,
               public translate: TranslateService,
@@ -96,8 +98,6 @@ export class OrderWindowComponent implements OnInit, AfterViewInit {
 
   validationSuccess($event: any) {
 
-    console.log(this.newOrder);
-
     if (this.orderType().toLocaleLowerCase() == 'ask')
       this.orderService.placeAsk(this.newOrder).subscribe(() => {
         this.onOrderPlaced.emit(this.newOrder);
@@ -113,6 +113,11 @@ export class OrderWindowComponent implements OnInit, AfterViewInit {
 
   showExpirationDateInput(show: boolean) {
     this.expirationDateHidden = !show;
+
+    if(show)
+      this.myWindow.height(300);
+    else
+      this.myWindow.height(240);
   }
 
   onTradeTypeSelected(event: any) {
@@ -134,17 +139,16 @@ export class OrderWindowComponent implements OnInit, AfterViewInit {
         break;
       }
     }
-
   }
 
   open() {
     this.newOrder.artworkStock = this.artworkStock();
     this.newOrder.expirationDate = null;
-    this.tradeTypeDropDown.selectIndex(0);
+    this.newOrder.tradeType = this.tradeTypes[0];
     this.newOrder.amount = 0;
 
     this.myWindow.width(310);
-    this.myWindow.height(260);
+    this.myWindow.height(240);
     this.myWindow.open();
     this.myWindow.move(this.x, this.y);
   }
@@ -178,5 +182,4 @@ export class OrderWindowComponent implements OnInit, AfterViewInit {
     this.x = event.pageX;
     this.y = event.pageY;
   }
-
 }

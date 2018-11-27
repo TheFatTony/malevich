@@ -1,18 +1,18 @@
 package io.malevich.server.services.transaction;
 
+import io.malevich.server.domain.*;
 import io.malevich.server.exceptions.AccountStateException;
+import io.malevich.server.fabric.services.ComposerService;
 import io.malevich.server.repositories.accountstate.AccountStateDao;
 import io.malevich.server.repositories.transaction.TransactionDao;
-import io.malevich.server.domain.*;
 import io.malevich.server.services.counterparty.CounterpartyService;
-import io.malevich.server.services.gallery.GalleryService;
-import io.malevich.server.services.trader.TraderService;
 import io.malevich.server.services.transactiontype.TransactionTypeService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.sql.Timestamp;
 import java.util.List;
 
 
@@ -32,6 +32,9 @@ public class TransactionServiceImpl implements TransactionService {
     @Autowired
     private TransactionTypeService transactionTypeService;
 
+    @Autowired
+    private ComposerService composerService;
+
     @Override
     @Transactional(readOnly = true)
     public List<TransactionEntity> findAll() {
@@ -39,6 +42,7 @@ public class TransactionServiceImpl implements TransactionService {
     }
 
     private TransactionEntity insertTransaction(TransactionTypeEntity transactionType,
+                                                TransactionGroupEntity group,
                                                 CounterpartyEntity party,
                                                 CounterpartyEntity counterparty,
                                                 ArtworkStockEntity artworkStock,
@@ -47,12 +51,20 @@ public class TransactionServiceImpl implements TransactionService {
 
         TransactionEntity transaction = new TransactionEntity();
         transaction.setParty(party);
+        transaction.setEffectiveDate(new Timestamp(System.currentTimeMillis()));
+        transaction.setGroup(group);
         transaction.setCounterparty(counterparty);
         transaction.setArtworkStock(artworkStock);
         transaction.setAmount(amount);
         transaction.setQuantity(quantity);
         transaction.setType(transactionType);
-        return transactionDao.save(transaction);
+        transaction = transactionDao.save(transaction);
+
+
+        if (transaction.getType().equals(transactionTypeService.getBuySell()))
+            composerService.submitTransction(transaction);
+
+        return transaction;
     }
 
     private void insertAccountState(CounterpartyEntity party, ArtworkStockEntity artworkStock, Double amount, Long quantity) {
@@ -90,12 +102,13 @@ public class TransactionServiceImpl implements TransactionService {
     @Override
     @Transactional
     public void createTransaction(TransactionTypeEntity transactionType,
+                                  TransactionGroupEntity group,
                                   CounterpartyEntity party,
                                   CounterpartyEntity counterparty,
                                   ArtworkStockEntity artworkStock,
                                   Double amount,
                                   Long quantity) {
-        insertTransaction(transactionType, party, counterparty, artworkStock, amount, quantity);
+        insertTransaction(transactionType, group, party, counterparty, artworkStock, amount, quantity);
 
         if (amount != null && amount != 0)
             insertAccountState(party, null, amount, 0L);
@@ -107,39 +120,24 @@ public class TransactionServiceImpl implements TransactionService {
     @Override
     @Transactional
     public void createTransactionAndReverse(TransactionTypeEntity transactionType,
+                                            TransactionGroupEntity group,
                                             CounterpartyEntity party,
                                             CounterpartyEntity counterparty,
                                             ArtworkStockEntity artworkStock,
                                             Double amount,
                                             Long quantity) {
-        createTransaction(transactionType, party, counterparty, artworkStock, amount, quantity);
-        createTransaction(transactionType, counterparty, party, artworkStock, -amount, -quantity);
+        createTransaction(transactionType, group, party, counterparty, artworkStock, amount, quantity);
+        createTransaction(transactionType, group, counterparty, party, artworkStock, -amount, -quantity);
     }
 
     @Override
     @Transactional
-    public void createArtworkStock(ArtworkStockEntity artworkStockEntity) {
+    public void createArtworkStock(ArtworkStockEntity artworkStockEntity, TransactionGroupEntity transactionGroup) {
         CounterpartyEntity counterpartyEntity = counterpartyService.getCurrent();
         CounterpartyEntity malevichEntity = counterpartyService.getMalevich();
         TransactionTypeEntity transactionTypeEntity = transactionTypeService.getCreateArtwork();
 
-        try {
-            createTransactionAndReverse(transactionTypeEntity, counterpartyEntity, malevichEntity, artworkStockEntity, 0D, 1L);
-        } catch (AccountStateException e) {
-            // this method only increases balance
-        }
+        createTransactionAndReverse(transactionTypeEntity, transactionGroup, counterpartyEntity, malevichEntity, artworkStockEntity, 0D, 1L);
     }
-
-
-    @Override
-    @Transactional
-    public void applyPayment(PaymentsEntity paymentsEntity) {
-        CounterpartyEntity malevichEntity = counterpartyService.getMalevich();
-        TransactionTypeEntity transactionTypeEntity = transactionTypeService.getAddBalance();
-
-        createTransactionAndReverse(transactionTypeEntity, paymentsEntity.getParty(), malevichEntity, null, paymentsEntity.getAmount(), 0L);
-    }
-
-
 
 }

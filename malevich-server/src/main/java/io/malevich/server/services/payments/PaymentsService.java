@@ -12,6 +12,6 @@ public interface PaymentsService {
 
     List<PaymentsEntity> findAll();
 
-    void insert(PaymentsEntity paymentsEntity);
+    void insertPayment(PaymentsEntity paymentsEntity);
 
 }

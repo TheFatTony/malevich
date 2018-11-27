@@ -1,32 +1,38 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
-				   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-				   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.6.xsd">
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.6.xsd">
 
-	<changeSet author="thefattony" id="payments-table">
-		<createTable tableName="payments">
-			<column name="id" type="bigint">
-				<constraints nullable="false"/>
-			</column>
-			<column name="party_id" type="bigint">
-				<constraints nullable="false"/>
-			</column>
-			<column name="effective_date" type="timestamp">
-				<constraints nullable="false"/>
-			</column>
-			<column name="payment_method_id" type="bigint"/>
-			<column name="amount" type="double">
-				<constraints nullable="false"/>
-			</column>
-		</createTable>
-	</changeSet>
+    <changeSet author="thefattony" id="payments-table">
+        <createTable tableName="payments">
+            <column name="id" type="bigint">
+                <constraints nullable="false"/>
+            </column>
+            <column name="party_id" type="bigint">
+                <constraints nullable="false"/>
+            </column>
+            <column name="effective_date" type="timestamp">
+                <constraints nullable="false"/>
+            </column>
+            <column name="payment_method_id" type="bigint"/>
+            <column name="amount" type="double">
+                <constraints nullable="false"/>
+            </column>
+            <column name="transaction_group_id" type="bigint">
+                <constraints nullable="false"/>
+            </column>
+            <column name="payment_type_id" type="char(3)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
 
-	<changeSet author="thefattony" id="payments-pk">
-		<addPrimaryKey columnNames="id" constraintName="payments_pk" tableName="payments"/>
-	</changeSet>
+    <changeSet author="thefattony" id="payments-pk">
+        <addPrimaryKey columnNames="id" constraintName="payments_pk" tableName="payments"/>
+    </changeSet>
 
-	<changeSet author="thefattony" id="payments-id-aa" dbms="mysql">
-		<addAutoIncrement columnDataType="bigint" columnName="id" tableName="payments"/>
-	</changeSet>
+    <changeSet author="thefattony" id="payments-id-aa" dbms="mysql">
+        <addAutoIncrement columnDataType="bigint" columnName="id" tableName="payments"/>
+    </changeSet>
 
 </databaseChangeLog>

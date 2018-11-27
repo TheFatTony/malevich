@@ -11,5 +11,5 @@ public class PageSortableRequestDto {
 
     private int size;
 
-    private int sort;
+    private String sort;
 }

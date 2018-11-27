@@ -10,22 +10,15 @@
         </div>
         <div class="row">
           <div class="col">
-            <mchNumberInput
-              name="amount"
-              required
-              mchGreaterThan="0"
-              mchMultipleOf="10"
-              #amount="ngModel"
-              [ngModel]="newOrder?.amount"
-              (ngModelChange)="newOrder.amount=$event"></mchNumberInput>
-            <div *ngIf="validationService.isInvalid(amount)"
-                 class="invalid-feedback d-block">
-              <ul>
-                <li *ngFor="let error of validationService.errors(amount)">
-                  {{error}}
-                </li>
-              </ul>
-            </div>
+            <mchNumberInput name="amount"
+                            required
+                            mchGreaterThan="0"
+                            mchMultipleOf="10"
+                            #amount="ngModel"
+                            [ngModel]="newOrder?.amount"
+                            (ngModelChange)="newOrder.amount=$event"
+            ></mchNumberInput>
+            <mchErrors [component]="amount"></mchErrors>
           </div>
         </div>
         <div class="row g-mt-10">
@@ -35,8 +28,7 @@
         </div>
         <div class="row">
           <div class="col">
-            <mchDropDownList #tradeTypeDropDown
-                             name="tradeType"
+            <mchDropDownList name="tradeType"
                              [objectSource]="tradeTypes"
                              [displayFunc]="tradeTypeDisplayFunc"
                              [(ngModel)]="newOrder.tradeType"
@@ -44,19 +36,23 @@
             ></mchDropDownList>
           </div>
         </div>
-        <div class="row g-mt-10" [hidden]="expirationDateHidden">
-          <div class="col">
-            <span>Expiration Date:</span>
+        <ng-container *ngIf="!expirationDateHidden">
+          <div class="row g-mt-10">
+            <div class="col">
+              <span>Expiration Date:</span>
+            </div>
           </div>
-        </div>
-        <div class="row" [hidden]="expirationDateHidden">
-          <div class="col">
-            <mchDateTimeInput #expirationDateInput
-                              name="expirationDate"
-                              [(ngModel)]="newOrder.expirationDate"
-            ></mchDateTimeInput>
+          <div class="row">
+            <div class="col">
+              <mchDateTimeInput name="expirationDate"
+                                required
+                                #expirationDate="ngModel"
+                                [(ngModel)]="newOrder.expirationDate"
+              ></mchDateTimeInput>
+              <mchErrors [component]="expirationDate"></mchErrors>
+            </div>
           </div>
-        </div>
+        </ng-container>
         <div class="row">
           <div class="col text-center">
             <mchButton #SendButton

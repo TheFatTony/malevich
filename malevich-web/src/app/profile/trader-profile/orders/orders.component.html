@@ -40,19 +40,20 @@
         <!--(click)="openBidWindow()">Place a bet-->
         <!--</button>-->
 
-        <mchButton [width]="100" [height]="35" (click)="openAskWindow()">
-          Ask add
+        <mchButton [disabled]="selectedRowIndex < 0" (click)="onCancelOrderButton()">
+          Cancel order
         </mchButton>
 
-        <jqxButton [width]="100" [height]="35" (click)="openBidWindow()">
-          Bid add
-        </jqxButton>
-
         <jqxGrid #myGrid
-                 [width]="'100%'" [height]="'320px'" class="g-mt-5 g-mb-15"
-                 [sortable]="true" [columnsresize]="true"
-                 [filterable]="true" [autoshowfiltericon]="true"
-                 [columns]="columns">
+                 [width]="'100%'"
+                 [height]="'320px'"
+                 class="g-mt-5 g-mb-15"
+                 [sortable]="true"
+                 [columnsresize]="true"
+                 [filterable]="true"
+                 [autoshowfiltericon]="true"
+                 [columns]="columns"
+                 (onRowselect)="onGridRowSelect($event)">
           <tr>
             <th>Date</th>
             <th>Amount</th>
@@ -136,94 +137,3 @@
     <!-- End Login & Security -->
   </div>
 </div>
-
-<jqxWindow #bidWindow [autoOpen]="false" [resizable]="false">
-  <div>Add ask</div>
-  <div style="overflow: hidden" style="width: 100%">
-    <jqxValidator #bidValidator [rules]="bidRules" (onValidationSuccess)="ValidationSuccess($event)">
-      <table class="register-table" *ngIf="newOrder" style="width: 100%">
-        <tbody>
-        <tr>Artwork:</tr>
-        <tr>
-          <mchComboBox class="artworkStockInput"
-                       [objectSource]="artworkStocks"
-                       [displayFunc]="artworkStockDisplayFunc"
-                       [renderer]="artworkStockService.comboboxRenderer"
-                       [ngModel]="newOrder?.artworkStock"
-                       (ngModelChange)="newOrder.artworkStock=$event">
-          </mchComboBox>
-        </tr>
-        <tr>Amount:</tr>
-        <tr>
-          <mchNumberInput
-            class="amountInput"
-            [ngModel]="newOrder?.amount"
-            (ngModelChange)="newOrder.amount=$event"></mchNumberInput>
-        </tr>
-        <tr>
-          <td colspan="2" style="padding-left: 20px;">
-            <mchButton #SendButton
-                       (onClick)="sendButton()"
-                       style="text-align: center; margin-left: 8em;"
-                       [width]="60" [height]="25">
-              Send
-            </mchButton>
-          </td>
-        </tr>
-        </tbody>
-      </table>
-    </jqxValidator>
-  </div>
-</jqxWindow>
-
-<jqxWindow #askWindow [autoOpen]="false" [resizable]="false" (onOpen)="onMyWindowOpen()">
-  <div>Add ask</div>
-  <div style="overflow: hidden" style="width: 100%">
-    <jqxValidator #askValidator [rules]="bidRules" (onValidationSuccess)="ValidationSuccess($event)">
-      <table class="register-table" *ngIf="newOrder" style="width: 100%">
-        <tbody>
-        <tr>Artwork:</tr>
-        <tr>
-          <jqxComboBox
-            class="artworkStockInput form-control g-color-black g-bg-white g-bg-white--focus g-brd-gray-light-v3 rounded"
-            [source]="artworkStocksComboBox" [valueMember]="'id'" [displayMember]="'title'" [width]="'100%'"
-            [height]="34" [ngModel]="newOrder?.artworkStock" (ngModelChange)="newOrder.artworkStock=$event">
-          </jqxComboBox>
-        </tr>
-        <tr>Amount:</tr>
-        <tr>
-          <jqxNumberInput
-            class="amountInput form-control g-color-black g-bg-white g-bg-white--focus g-brd-gray-light-v3 rounded"
-            [width]="'100%'" [height]="34" [ngModel]="newOrder?.amount"
-            (ngModelChange)="newOrder.amount=$event"></jqxNumberInput>
-        </tr>
-        <tr>Expiration:</tr>
-        <tr>
-          <jqxDropDownList #tradeTypeDropDown
-                           [source]="tradeTypes"
-                           [valueMember]="'value'"
-                           [displayMember]="'title'"
-                           [ngModel]="newOrder?.tradeType"
-                           (ngModelChange)="setTradeType($event)"
-          ></jqxDropDownList>
-          <jqxDateTimeInput #expirationDateInput
-                            [hidden]="expirationDateInputHidden"
-                            [ngModel]="newOrder?.expirationDate"
-                            (ngModelChange)="newOrder.expirationDate=$event"
-          ></jqxDateTimeInput>
-        </tr>
-        <tr>
-          <td colspan="2" style="padding-left: 20px;">
-            <jqxButton #SendButton
-                       (onClick)="sendButton()"
-                       style="text-align: center; margin-left: 8em;"
-                       [width]="60" [height]="25">
-              Send
-            </jqxButton>
-          </td>
-        </tr>
-        </tbody>
-      </table>
-    </jqxValidator>
-  </div>
-</jqxWindow>

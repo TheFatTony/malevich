@@ -7,6 +7,7 @@ import {Router} from "@angular/router";
 import {first, map, mergeMap} from "rxjs/operators";
 import {forkJoin} from "rxjs";
 import {CountryDto} from "../../../_transfer/countryDto";
+import {environment} from "../../../../environments/environment.dev";
 
 @Component({
   selector: 'app-profile-gallery-security-edit',
@@ -18,6 +19,8 @@ export class EditComponent implements OnInit, AfterViewInit {
 
   countries: CountryDto[];
   gallery: GalleryDto;
+
+  public url = environment.baseUrl;
 
   countryDisplayFunc = (country: CountryDto) => {
     return country.nameMl[this.translate.currentLang]
@@ -59,6 +62,15 @@ export class EditComponent implements OnInit, AfterViewInit {
         this.router.navigate(['/profile/gallery/view']);
       }
     );
+  }
+
+  onUploadEnd(event: any): void {
+    let args = event.args;
+    let serverResponse = JSON.parse(args.response.toString()
+      .replace('<pre style="word-wrap: break-word; white-space: pre-wrap;">', '')
+      .replace('<pre>', '')
+      .replace('</pre>', ''));
+    this.gallery.thumbnail = serverResponse;
   }
 
   cancel(): void {

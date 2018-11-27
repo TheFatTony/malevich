@@ -51,10 +51,7 @@ import {PaymentComponent} from './profile/trader-profile/payment/payment.compone
 import {NotificationsComponent} from './profile/trader-profile/notifications/notifications.component';
 import {StepOneComponent as RegisterStepOneComponent} from './auth/register/step-one/step-one.component';
 import {StepTwoComponent as RegisterStepTwoComponent} from './auth/register/step-two/step-two.component';
-import {
-  NavigationComponent as GalleryProfileNavigationComponent,
-  NavigationComponent as GalleryProfileNavigation
-} from './profile/gallery-profile/navigation/navigation.component';
+import {NavigationComponent as GalleryProfileNavigationComponent} from './profile/gallery-profile/navigation/navigation.component';
 import {ViewComponent as GalleryProfileSecurityView} from './profile/gallery-profile/view/view.component';
 import {EditComponent as GalleryProfileSecurityEdit} from './profile/gallery-profile/edit/edit.component';
 import {ViewComponent as GalleryProfileNotificationsComponent} from './profile/gallery-profile/notifications/view/view.component';
@@ -140,8 +137,6 @@ import {
 } from './admin/_modules';
 import {OrdersComponent as GalleryProfileOrdersComponent} from './profile/gallery-profile/orders/orders.component';
 import {ArtworkStockComponent as GalleryProfileArtworkStockComponent} from './profile/gallery-profile/artwork-stock/artwork-stock.component';
-import {AddComponent as GalleryProfileArtworkStockAddComponent} from './profile/gallery-profile/artwork-stock/add/add.component';
-import {EditComponent as GalleryProfileArtworkStockEditComponent} from './profile/gallery-profile/artwork-stock/edit/edit.component';
 import {OrdersComponent as TraderProfileOrdersComponent} from './profile/trader-profile/orders/orders.component';
 import {ArtworkStockComponent as TraderProfileArtworkStockComponent} from './profile/trader-profile/artwork-stock/artwork-stock.component';
 import {PageNotFoundComponent} from './page-not-found/page-not-found.component';
@@ -151,6 +146,9 @@ import {DateTimeInputComponent} from './core/components/date-time-input.componen
 import {NumberInputComponent} from './core/components/number-input.component';
 import {OrderWindowComponent} from './common/components/order-window/order-window.component';
 import {SharedModule} from './shared.module';
+import {StorageAddComponent} from './profile/gallery-profile/storage/add/storage-add.component';
+import {StorageEditComponent} from './profile/gallery-profile/storage/edit/storage-edit.component';
+import {StorageComponent} from './profile/gallery-profile/storage/storage.component';
 
 export function createTranslateLoader(http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
@@ -193,7 +191,6 @@ export function createTranslateLoader(http: HttpClient) {
     RegisterStepOneComponent,
     RegisterStepTwoComponent,
     GalleryProfileNavigationComponent,
-    GalleryProfileNavigation,
     GalleryProfileSecurityView,
     GalleryProfileSecurityEdit,
     NotificationsComponent,
@@ -206,8 +203,9 @@ export function createTranslateLoader(http: HttpClient) {
     ResetStepTwoComponent,
     GalleryProfileOrdersComponent,
     GalleryProfileArtworkStockComponent,
-    GalleryProfileArtworkStockAddComponent,
-    GalleryProfileArtworkStockEditComponent,
+    StorageComponent,
+    StorageAddComponent,
+    StorageEditComponent,
     TraderProfileOrdersComponent,
     TraderProfileArtworkStockComponent,
     PageNotFoundComponent,

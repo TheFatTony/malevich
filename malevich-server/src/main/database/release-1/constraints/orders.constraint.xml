@@ -33,4 +33,10 @@
                                  referencedColumnNames="id" referencedTableName="order_status"/>
     </changeSet>
 
+    <changeSet author="toolstik" id="orders-transaction_group_id-fk">
+        <addForeignKeyConstraint baseColumnNames="transaction_group_id" baseTableName="orders"
+                                 constraintName="orders_transaction_group_id_fk"
+                                 referencedColumnNames="id" referencedTableName="transaction_group"/>
+    </changeSet>
+
 </databaseChangeLog>

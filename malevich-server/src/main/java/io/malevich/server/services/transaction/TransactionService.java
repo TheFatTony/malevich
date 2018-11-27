@@ -1,7 +1,6 @@
 package io.malevich.server.services.transaction;
 
 import io.malevich.server.domain.*;
-import io.malevich.server.exceptions.AccountStateException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -13,6 +12,7 @@ public interface TransactionService {
     List<TransactionEntity> findAll();
 
     void createTransaction(TransactionTypeEntity transactionType,
+                           TransactionGroupEntity group,
                            CounterpartyEntity party,
                            CounterpartyEntity counterparty,
                            ArtworkStockEntity artworkStock,
@@ -20,13 +20,13 @@ public interface TransactionService {
                            Long quantity);
 
     void createTransactionAndReverse(TransactionTypeEntity transactionType,
+                                     TransactionGroupEntity group,
                                      CounterpartyEntity party,
                                      CounterpartyEntity counterparty,
                                      ArtworkStockEntity artworkStock,
                                      Double amount,
                                      Long quantity);
 
-    void createArtworkStock(ArtworkStockEntity artworkStockEntity);
+    void createArtworkStock(ArtworkStockEntity artworkStockEntity, TransactionGroupEntity transactionGroup);
 
-    void applyPayment(PaymentsEntity paymentsEntity);
 }

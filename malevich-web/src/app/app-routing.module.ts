@@ -32,11 +32,12 @@ import {WalletComponent} from "./profile/trader-profile/wallet/wallet.component"
 import {WishlistComponent} from "./profile/trader-profile/wishlist/wishlist.component";
 import {NotificationsComponent} from "./profile/trader-profile/notifications/notifications.component";
 import {ViewComponent as GalleryProfileNotificationsComponent} from './profile/gallery-profile/notifications/view/view.component';
-import {AddComponent as GalleryProfileArtworkStockAddComponent} from "./profile/gallery-profile/artwork-stock/add/add.component";
-import {EditComponent as GalleryProfileArtworkStockEditComponent} from "./profile/gallery-profile/artwork-stock/edit/edit.component";
 import {OrdersComponent as TraderProfileOrdersComponent} from "./profile/trader-profile/orders/orders.component";
 import {ArtworkStockComponent as TraderProfileArtworkStockComponent} from "./profile/trader-profile/artwork-stock/artwork-stock.component";
 import {PageNotFoundComponent} from "./page-not-found/page-not-found.component";
+import {StorageAddComponent} from "./profile/gallery-profile/storage/add/storage-add.component";
+import {StorageEditComponent} from "./profile/gallery-profile/storage/edit/storage-edit.component";
+import {StorageComponent} from "./profile/gallery-profile/storage/storage.component";
 
 const routes: Routes = [
   {path: '', redirectTo: '/main-page', pathMatch: 'full'},
@@ -67,9 +68,10 @@ const routes: Routes = [
       {path: 'edit', component: GalleryProfileSecurityEditComponent, canActivate: [AuthGuard]},
       {path: 'notifications', component: GalleryProfileNotificationsComponent, canActivate: [AuthGuard]},
       {path: 'orders/list', component: GalleryProfileOrdersComponent, canActivate: [AuthGuard]},
-      {path: 'artworkstok', component: GalleryProfileArtworkStockComponent, canActivate: [AuthGuard]},
-      {path: 'artworkstok/add', component: GalleryProfileArtworkStockAddComponent, canActivate: [AuthGuard]},
-      {path: 'artworkstok/edit/:id', component: GalleryProfileArtworkStockEditComponent, canActivate: [AuthGuard]}
+      {path: 'artworks/list', component: GalleryProfileArtworkStockComponent, canActivate: [AuthGuard]},
+      {path: 'storage', component: StorageComponent, canActivate: [AuthGuard]},
+      {path: 'storage/add', component: StorageAddComponent, canActivate: [AuthGuard]},
+      {path: 'storage/edit/:id', component: StorageEditComponent, canActivate: [AuthGuard]}
     ]
   },
   {path: 'artworks/artworks-list', component: ArtworksListComponent},
@@ -81,7 +83,7 @@ const routes: Routes = [
   {
     path: 'admin', component: AdminComponent, children: adminRoutes, canActivate: [AdminGuard]
   },
-  { path: '**', component: PageNotFoundComponent }
+  {path: '**', component: PageNotFoundComponent}
 ];
 
 @NgModule({

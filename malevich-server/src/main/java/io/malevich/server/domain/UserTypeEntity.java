@@ -15,7 +15,7 @@ public class UserTypeEntity implements Entity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Getter
     @Setter
-    private long id;
+    private Long id;
 
     @Column(name = "type_name")
     @Getter

@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.6.xsd">
+
+    <changeSet author="thefattony" id="delayed_change-table">
+        <createTable tableName="delayed_change">
+            <column name="id" type="bigint">
+                <constraints nullable="false"/>
+            </column>
+            <column name="type_id" type="char(100)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+    <changeSet author="thefattony" id="delayed_change-table-ml" dbms="mysql">
+        <addColumn tableName="delayed_change">
+            <column name="payload" type="json"/>
+        </addColumn>
+    </changeSet>
+
+    <changeSet author="thefattony" id="delayed_change-pk">
+        <addPrimaryKey columnNames="id" constraintName="delayed_change_pk" tableName="delayed_change"/>
+    </changeSet>
+
+    <changeSet author="thefattony" id="delayed_change-id-aa" dbms="mysql">
+        <addAutoIncrement columnDataType="bigint" columnName="id" tableName="delayed_change"/>
+    </changeSet>
+
+</databaseChangeLog>

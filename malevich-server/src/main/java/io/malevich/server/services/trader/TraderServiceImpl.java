@@ -1,13 +1,11 @@
 package io.malevich.server.services.trader;
 
 
-import io.malevich.server.domain.CounterpartyEntity;
-import io.malevich.server.domain.CounterpartyTypeEntity;
+import io.malevich.server.domain.*;
 import io.malevich.server.repositories.trader.TraderDao;
-import io.malevich.server.domain.TraderEntity;
-import io.malevich.server.domain.UserEntity;
 import io.malevich.server.services.counterparty.CounterpartyService;
 import io.malevich.server.services.counterpartytype.CounterpartyTypeService;
+import io.malevich.server.services.delayedchange.DelayedChangeService;
 import io.malevich.server.services.user.UserService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,6 +35,9 @@ public class TraderServiceImpl implements TraderService {
     @Autowired
     private CounterpartyTypeService counterpartyTypeService;
 
+    @Autowired
+    private DelayedChangeService delayedChangeService;
+
 
 
     @Override
@@ -61,7 +62,10 @@ public class TraderServiceImpl implements TraderService {
     public TraderEntity update(TraderEntity trader) {
         TraderEntity traderEntity = getCurrentTrader();
 
+
+        boolean isNew = false;
         if (traderEntity != null) {
+            isNew = true;
             trader.setId(traderEntity.getId());
             trader.getUser().setId(traderEntity.getUser().getId());
 
@@ -72,16 +76,28 @@ public class TraderServiceImpl implements TraderService {
             trader.getUser().setId(user.getId());
         }
 
-        traderEntity = traderDao.save(trader);
-
-
-        CounterpartyEntity counterpartyEntity = new CounterpartyEntity();
-        counterpartyEntity.setTrader(traderEntity);
-        counterpartyEntity.setType(counterpartyTypeService.getTraderType());
-        counterpartyService.save(counterpartyEntity);
+        if (isNew) {
+            traderEntity = traderDao.save(trader);
+            CounterpartyEntity counterpartyEntity = new CounterpartyEntity();
+            counterpartyEntity.setTrader(traderEntity);
+            counterpartyEntity.setType(counterpartyTypeService.getTraderType());
+            counterpartyService.save(counterpartyEntity);
+        } else {
+            DelayedChangeEntity delayedChangeEntity = new DelayedChangeEntity();
+            delayedChangeEntity.setTypeId("TRADER");
+            delayedChangeEntity.setPayload(traderEntity);
+            delayedChangeService.save(delayedChangeEntity);
+        }
 
 
         return traderEntity;
+    }
+
+
+    @Override
+    @Transactional
+    public TraderEntity save(TraderEntity traderEntity) {
+        return traderDao.save(traderEntity);
     }
 
     private String getUserName() {

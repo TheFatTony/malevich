@@ -33,5 +33,9 @@
     <include relativeToChangelogFile="true" file="indexes/account_state.index.xml"/>
     <include relativeToChangelogFile="true" file="indexes/account_state_arch.index.xml"/>
     <include relativeToChangelogFile="true" file="indexes/trade_history.index.xml"/>
+    <include relativeToChangelogFile="true" file="indexes/help_category.index.xml"/>
+    <include relativeToChangelogFile="true" file="indexes/help_topic.index.xml"/>
+    <include relativeToChangelogFile="true" file="indexes/contact_us.index.xml"/>
+    <include relativeToChangelogFile="true" file="indexes/subscription.index.xml"/>
 
 </databaseChangeLog>

@@ -84,6 +84,9 @@ import {UsersService} from './_services/users.service';
 import {TransactionsListComponent} from './cms/transactions/transactions-list/transactions-list.component';
 import {AccountStateListComponent} from './cms/account-state/account-state-list/account-state-list.component';
 import {OrdersListComponent} from './cms/orders/orders-list/orders-list.component';
+import {HelpCategoryComponent} from './cms/help/help-category/help-category.component';
+import {SharedModule} from '../shared.module';
+import {HelpTopicComponent} from './cms/help/help-topic/help-topic.component';
 
 @NgModule({
   imports: [
@@ -159,7 +162,8 @@ import {OrdersListComponent} from './cms/orders/orders-list/orders-list.componen
     TreeGridModule,
     TreeMapModule,
     ValidatorModule,
-    WindowModule
+    WindowModule,
+    SharedModule
   ],
   declarations: [
     AdminComponent,
@@ -169,7 +173,9 @@ import {OrdersListComponent} from './cms/orders/orders-list/orders-list.componen
     FilesListComponent,
     TransactionsListComponent,
     AccountStateListComponent,
-    OrdersListComponent],
+    OrdersListComponent,
+    HelpCategoryComponent,
+    HelpTopicComponent],
   providers: [UsersService]
 })
 export class AdminModule {

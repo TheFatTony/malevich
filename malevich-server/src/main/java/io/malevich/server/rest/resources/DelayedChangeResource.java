@@ -34,6 +34,16 @@ public class DelayedChangeResource {
         return allEntries.stream().map(allEntry -> convertToDto(allEntry)).collect(Collectors.toList());
     }
 
+    @PreAuthorize("hasRole('ADMIN')")
+    @RequestMapping(value = "/approveChange", method = RequestMethod.POST)
+    @ResponseStatus(HttpStatus.OK)
+    @ResponseBody
+    public void approveChange(@RequestBody DelayedChangeDto delayedChangeDto) {
+        this.delayedChangeService.approveChange(convertToEntity(delayedChangeDto));
+    }
+
+
+
     private DelayedChangeDto convertToDto(DelayedChangeEntity files) {
         DelayedChangeDto filesDto = modelMapper.map(files, DelayedChangeDto.class);
         return filesDto;

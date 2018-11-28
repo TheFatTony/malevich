@@ -1,0 +1,33 @@
+<jqxGrid #myGrid
+         [width]="'100%'" [height]="'100%'" [pageable]="true" [sortable]="true" [columnsresize]="true"
+         [pagermode]="'simple'" [columns]="columns">
+  <tr>
+    <th>Id</th>
+    <th>TypeId</th>
+    <th>View</th>
+    <th>Approve</th>
+  </tr>
+  <tr *ngFor="let delayedChanges of delayedChanges">
+    <td>
+      {{delayedChanges?.id}}
+    </td>
+    <td>
+      {{delayedChanges?.typeId}}
+    </td>
+    <td>
+    </td>
+    <td>
+    </td>
+  </tr>
+</jqxGrid>
+
+
+<jqxWindow #myWindow [width]="720" [height]="480" [resizable]="true" [isModal]="true" [autoOpen]="false"
+           [modalOpacity]="'0.01'">
+  <div>View</div>
+  <div style="overflow: scroll;">
+    <div style="height: auto;">
+      <ngx-json-viewer *ngIf="delayedChange" [json]="delayedChange.payload"></ngx-json-viewer>
+    </div>
+  </div>
+</jqxWindow>

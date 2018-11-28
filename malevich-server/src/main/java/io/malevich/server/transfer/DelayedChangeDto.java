@@ -13,6 +13,6 @@ public class DelayedChangeDto {
 
   private String typeId;
 
-  private String payload;
+  private Object payload;
 
 }

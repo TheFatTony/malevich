@@ -29,6 +29,6 @@ public class DelayedChangeEntity {
     @Setter
     @Convert(converter = JpaConverterJson.class)
     @Column(name = "payload")
-    private Entity payload;
+    private Object payload;
 
 }

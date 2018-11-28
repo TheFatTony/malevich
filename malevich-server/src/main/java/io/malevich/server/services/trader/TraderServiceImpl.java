@@ -65,7 +65,6 @@ public class TraderServiceImpl implements TraderService {
 
         boolean isNew = false;
         if (traderEntity != null) {
-            isNew = true;
             trader.setId(traderEntity.getId());
             trader.getUser().setId(traderEntity.getUser().getId());
 
@@ -74,6 +73,7 @@ public class TraderServiceImpl implements TraderService {
         } else {
             UserEntity user = userService.findByName(getUserName());
             trader.getUser().setId(user.getId());
+            isNew = true;
         }
 
         if (isNew) {
@@ -85,7 +85,7 @@ public class TraderServiceImpl implements TraderService {
         } else {
             DelayedChangeEntity delayedChangeEntity = new DelayedChangeEntity();
             delayedChangeEntity.setTypeId("TRADER");
-            delayedChangeEntity.setPayload(traderEntity);
+            delayedChangeEntity.setPayload(trader);
             delayedChangeService.save(delayedChangeEntity);
         }
 

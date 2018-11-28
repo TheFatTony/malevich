@@ -14,11 +14,9 @@
                             required
                             mchGreaterThan="0"
                             mchMultipleOf="10"
-                            #amount="ngModel"
                             [ngModel]="newOrder?.amount"
                             (ngModelChange)="newOrder.amount=$event"
             ></mchNumberInput>
-            <mchErrors [component]="amount"></mchErrors>
           </div>
         </div>
         <div class="row g-mt-10">
@@ -45,11 +43,9 @@
           <div class="row">
             <div class="col">
               <mchDateTimeInput name="expirationDate"
-                                required
-                                #expirationDate="ngModel"
+                                mchRequired
                                 [(ngModel)]="newOrder.expirationDate"
               ></mchDateTimeInput>
-              <mchErrors [component]="expirationDate"></mchErrors>
             </div>
           </div>
         </ng-container>

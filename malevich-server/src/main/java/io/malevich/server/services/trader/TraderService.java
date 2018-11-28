@@ -17,7 +17,6 @@ public interface TraderService {
 
     TraderEntity update(TraderEntity trader);
 
-    @Transactional
     TraderEntity save(TraderEntity traderEntity);
 
     TraderEntity getCurrentTrader();

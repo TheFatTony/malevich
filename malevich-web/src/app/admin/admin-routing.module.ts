@@ -9,6 +9,7 @@ import {AccountStateListComponent} from './cms/account-state/account-state-list/
 import {OrdersListComponent} from './cms/orders/orders-list/orders-list.component';
 import {HelpCategoryComponent} from './cms/help/help-category/help-category.component';
 import {HelpTopicComponent} from './cms/help/help-topic/help-topic.component';
+import {DelayedChangeComponent} from "./cms/delayed-change/delayed-change.component";
 
 
 export const routes: Routes = [
@@ -21,7 +22,8 @@ export const routes: Routes = [
   {path: 'cms/account-state/list', component: AccountStateListComponent},
   {path: 'cms/orders/list', component: OrdersListComponent},
   {path: 'cms/help-category/categoryList', component: HelpCategoryComponent},
-  {path: 'cms/help-topic/topicList', component: HelpTopicComponent}
+  {path: 'cms/help-topic/topicList', component: HelpTopicComponent},
+  {path: 'cms/delayed-changes', component: DelayedChangeComponent}
 ];
 
 @NgModule({

@@ -36,5 +36,6 @@
     <include relativeToChangelogFile="true" file="constraints/help_topic.constraint.xml"/>
     <include relativeToChangelogFile="true" file="constraints/contact_us.constraint.xml"/>
     <include relativeToChangelogFile="true" file="constraints/subscription.constraint.xml"/>
+    <include relativeToChangelogFile="true" file="constraints/delayed_change.constraint.xml"/>
 
 </databaseChangeLog>

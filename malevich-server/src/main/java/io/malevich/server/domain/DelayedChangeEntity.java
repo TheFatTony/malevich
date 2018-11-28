@@ -1,19 +1,19 @@
 package io.malevich.server.domain;
 
+import io.malevich.server.core.jpa.JpaConverterJson;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
-import org.springframework.statemachine.StateMachineContext;
 
 import javax.persistence.*;
 
 
 @EqualsAndHashCode
 @javax.persistence.Entity
-@Table(name = "reset_password_token")
-public class ResetPasswordTokenEntity implements Entity {
+@Table(name = "delayed_change")
+public class DelayedChangeEntity {
 
 
     @Getter
@@ -24,18 +24,24 @@ public class ResetPasswordTokenEntity implements Entity {
 
     @Getter
     @Setter
-    @Column(name = "token")
-    private String token;
+    @Column(name = "type_id")
+    private String typeId;
+
+    @Getter
+    @Setter
+    @Convert(converter = JpaConverterJson.class)
+    @Column(name = "payload")
+    private Object payload;
+
+    @Getter
+    @Setter
+    @Column(name = "reference_id")
+    private Long referenceId;
 
     @Getter
     @Setter
     @Fetch(FetchMode.JOIN)
-    @ManyToOne()
+    @ManyToOne
     private UserEntity user;
-
-    @Getter
-    @Setter
-    @Column(name = "effective_date")
-    private java.sql.Timestamp effectiveDate;
 
 }

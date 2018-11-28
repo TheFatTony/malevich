@@ -37,5 +37,6 @@
     <include relativeToChangelogFile="true" file="tables/help_topic.table.xml"/>
     <include relativeToChangelogFile="true" file="tables/contact_us.table.xml"/>
     <include relativeToChangelogFile="true" file="tables/subscription.table.xml"/>
+    <include relativeToChangelogFile="true" file="tables/delayed_change.table.xml"/>
 
 </databaseChangeLog>

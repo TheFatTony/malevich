@@ -1,5 +1,5 @@
-import {Component, ElementRef, forwardRef} from '@angular/core';
-import {NG_VALUE_ACCESSOR} from "@angular/forms";
+import {Component, ContentChild, ElementRef, forwardRef, Input} from '@angular/core';
+import {NG_VALUE_ACCESSOR, NgModel} from "@angular/forms";
 import {jqxInputComponent} from "jqwidgets-scripts/jqwidgets-ts/angular_jqxinput";
 
 export const CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR: any = {
@@ -10,10 +10,15 @@ export const CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR: any = {
 
 @Component({
   selector: 'mchInput',
-  template: '<input class="g-color-black g-bg-white g-bg-white--focus g-brd-gray-light-v3 rounded g-py-15 g-px-15" type="text" [(ngModel)]="ngValue">',
+  template: '<input class="g-color-black g-bg-white g-bg-white--focus g-brd-gray-light-v3 rounded g-py-15 g-px-15" type="text" [(ngModel)]="ngValue">' +
+    '<mchErrors *ngIf="showErrors" [component]="myModel"></mchErrors>',
   providers: [CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR]
 })
 export class TextInputComponent extends jqxInputComponent {
+
+  @ContentChild(NgModel) myModel: NgModel;
+
+  @Input() showErrors: boolean = true;
 
   constructor(containerElement: ElementRef) {
     super(containerElement);

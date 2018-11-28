@@ -156,6 +156,8 @@ import { MatchToDirective } from './_directives/validators/match-to/match-to.dir
 import { MultipleOfDirective } from './_directives/validators/multiple-of/multiple-of.directive';
 import { GreaterThanDirective } from './_directives/validators/greater-than/greater-than.directive';
 import {ControlErrorsComponent} from "./core/components/control-errors.component";
+import { RequiredDirective } from './_directives/validators/required/required.directive';
+import { MobileDirective } from './_directives/validators/mobile/mobile.directive';
 
 export function createTranslateLoader(http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
@@ -227,7 +229,9 @@ export function createTranslateLoader(http: HttpClient) {
     MatchToDirective,
     MultipleOfDirective,
     GreaterThanDirective,
-    ControlErrorsComponent
+    ControlErrorsComponent,
+    RequiredDirective,
+    MobileDirective
   ],
   imports: [
     BrowserModule,

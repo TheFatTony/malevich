@@ -87,6 +87,8 @@ import {OrdersListComponent} from './cms/orders/orders-list/orders-list.componen
 import {HelpCategoryComponent} from './cms/help/help-category/help-category.component';
 import {SharedModule} from '../shared.module';
 import {HelpTopicComponent} from './cms/help/help-topic/help-topic.component';
+import { DelayedChangeComponent } from './cms/delayed-change/delayed-change.component';
+import {NgxJsonViewerModule} from "ngx-json-viewer";
 
 @NgModule({
   imports: [
@@ -163,7 +165,8 @@ import {HelpTopicComponent} from './cms/help/help-topic/help-topic.component';
     TreeMapModule,
     ValidatorModule,
     WindowModule,
-    SharedModule
+    SharedModule,
+    NgxJsonViewerModule
   ],
   declarations: [
     AdminComponent,
@@ -175,7 +178,8 @@ import {HelpTopicComponent} from './cms/help/help-topic/help-topic.component';
     AccountStateListComponent,
     OrdersListComponent,
     HelpCategoryComponent,
-    HelpTopicComponent],
+    HelpTopicComponent,
+    DelayedChangeComponent],
   providers: [UsersService]
 })
 export class AdminModule {

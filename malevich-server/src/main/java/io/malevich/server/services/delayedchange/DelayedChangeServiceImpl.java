@@ -1,10 +1,12 @@
 package io.malevich.server.services.delayedchange;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import io.malevich.server.domain.DelayedChangeEntity;
 import io.malevich.server.domain.TraderEntity;
 import io.malevich.server.repositories.delayedchange.DelayedChangeDao;
 import io.malevich.server.services.trader.TraderService;
 import lombok.extern.slf4j.Slf4j;
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -23,6 +25,8 @@ public class DelayedChangeServiceImpl implements DelayedChangeService {
     @Autowired
     private TraderService traderService;
 
+    @Autowired
+    private ModelMapper modelMapper;
 
     @Override
     @Transactional(readOnly = true)
@@ -34,7 +38,10 @@ public class DelayedChangeServiceImpl implements DelayedChangeService {
     @Transactional
     public void approveChange(DelayedChangeEntity delayedChangeEntity) {
         if (delayedChangeEntity.getTypeId().equals("TRADER")) {
-            traderService.save((TraderEntity) delayedChangeEntity.getPayload());
+            TraderEntity traderEntity = new TraderEntity();
+            traderEntity = modelMapper.map(delayedChangeEntity.getPayload(), TraderEntity.class);
+            traderService.save(traderEntity);
+            delayedChangeDao.delete(delayedChangeEntity);
         }
     }
 

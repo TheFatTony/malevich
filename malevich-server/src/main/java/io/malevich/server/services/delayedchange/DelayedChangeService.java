@@ -14,5 +14,9 @@ public interface DelayedChangeService {
 
     void approveChange(DelayedChangeEntity delayedChangeEntity);
 
+    void declineChange(DelayedChangeEntity delayedChangeEntity, String comments);
+
     List<DelayedChangeEntity> findAll();
+
+    DelayedChangeEntity findByTypeIdAndAndReferenceId(String typeId, Long referenceId);
 }

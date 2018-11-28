@@ -39,7 +39,6 @@ public class TraderServiceImpl implements TraderService {
     private DelayedChangeService delayedChangeService;
 
 
-
     @Override
     @Transactional(readOnly = true)
     public List<TraderEntity> findAll() {
@@ -62,16 +61,17 @@ public class TraderServiceImpl implements TraderService {
     public TraderEntity update(TraderEntity trader) {
         TraderEntity traderEntity = getCurrentTrader();
 
-
+        UserEntity user = null;
         boolean isNew = false;
         if (traderEntity != null) {
             trader.setId(traderEntity.getId());
             trader.getUser().setId(traderEntity.getUser().getId());
+            user = traderEntity.getUser();
 
             if (traderEntity.getPerson() != null)
                 trader.getPerson().setId(traderEntity.getPerson().getId());
         } else {
-            UserEntity user = userService.findByName(getUserName());
+            user = userService.findByName(getUserName());
             trader.getUser().setId(user.getId());
             isNew = true;
         }
@@ -86,6 +86,8 @@ public class TraderServiceImpl implements TraderService {
             DelayedChangeEntity delayedChangeEntity = new DelayedChangeEntity();
             delayedChangeEntity.setTypeId("TRADER");
             delayedChangeEntity.setPayload(trader);
+            delayedChangeEntity.setReferenceId(trader.getId());
+            delayedChangeEntity.setUser(user);
             delayedChangeService.save(delayedChangeEntity);
         }
 

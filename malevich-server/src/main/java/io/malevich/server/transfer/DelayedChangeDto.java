@@ -15,4 +15,6 @@ public class DelayedChangeDto {
 
   private Object payload;
 
+  private String comment;
+
 }

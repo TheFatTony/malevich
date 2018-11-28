@@ -14,6 +14,8 @@ export class DelayedChangeComponent implements OnInit {
 
   @ViewChild('myGrid') myGrid: jqxGridComponent;
   @ViewChild('myWindow') myWindow: jqxWindowComponent;
+  @ViewChild('myWindow1') myWindow1: jqxWindowComponent;
+
 
 
   delayedChanges: DelayedChangeDto[];
@@ -21,6 +23,8 @@ export class DelayedChangeComponent implements OnInit {
 
   private x: number;
   private y: number;
+
+  comment: string;
 
   columns: any[] =
     [
@@ -48,10 +52,26 @@ export class DelayedChangeComponent implements OnInit {
             this.getDelayedChanges();
           });
         }
+      },
+      {
+        datafield: 'Decline', width: '5%', columntype: 'button',
+        cellsrenderer: (): string => {
+          return 'Decline';
+        },
+        buttonclick: (row: number): void => {
+          this.delayedChange = this.delayedChanges.find(data => data.id === this.myGrid.getrowdata(row).Id);
+          this.comment = "";
+          this.myWindow1.position({x: this.x, y: this.y});
+          this.myWindow1.open();
+        }
       }
     ];
 
   constructor(private delayedChangeService: DelayedChangeService, public translate: TranslateService) {
+  }
+
+  ngOnInit() {
+    this.getDelayedChanges();
   }
 
   getDelayedChanges(): void {
@@ -62,8 +82,11 @@ export class DelayedChangeComponent implements OnInit {
       );
   }
 
-  ngOnInit() {
-    this.getDelayedChanges();
+  sendButton(): void {
+    this.delayedChange.comment = this.comment;
+    this.delayedChangeService.declineChange(this.delayedChange).subscribe(() => {
+      this.getDelayedChanges();
+    });
   }
 
   @HostListener('mousedown', ['$event'])

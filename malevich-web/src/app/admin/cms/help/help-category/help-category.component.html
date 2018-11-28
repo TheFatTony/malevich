@@ -1,0 +1,49 @@
+<mchButton [width]="100" [height]="35" (click)="openWindow()">
+  Add
+</mchButton>
+
+
+<jqxGrid #myGrid
+         [width]="'100%'" [height]="'100%'" [pageable]="true" [sortable]="true" [columnsresize]="true"
+         [pagermode]="'simple'">
+  <tr>
+    <th>Sr No.</th>
+    <th>Name</th>
+    <th>Action</th>
+  </tr>
+  <tr *ngFor="let category of helpCategory;index as i">
+    <td>
+      {{i+1}}
+    </td>
+    <td>
+      {{category.categoryNameMl[translate.currentLang]}}
+    </td>
+  </tr>
+</jqxGrid>
+
+
+<jqxWindow #myWindow [autoOpen]="false" [resizable]="false" (onOpen)="onMyWindowOpen()">
+  <div>Add</div>
+  <div style="overflow: hidden; width: 100%">
+    <div><label>Category Name[En]:</label>
+      <div>
+        <mchInput [ngModel]="!newHelpCategory?.categoryNameMl ? '' : newHelpCategory?.categoryNameMl['en']"
+                  (ngModelChange)="onNameChange($event, 'en')"></mchInput>
+      </div>
+    </div>
+    <div><label>Category Name[Ru]:</label>
+      <div>
+        <mchInput [ngModel]="!newHelpCategory?.categoryNameMl ? '' : newHelpCategory?.categoryNameMl['ru']"
+                  (ngModelChange)="onNameChange($event, 'ru')"></mchInput>
+      </div>
+    </div>
+    <div>
+      <mchButton #SendButton
+                 (onClick)="sendButton()"
+                 style="text-align: center; margin-left: 8em;"
+                 [width]="60" [height]="25">
+        Send
+      </mchButton>
+    </div>
+  </div>
+</jqxWindow>

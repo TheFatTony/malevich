@@ -86,36 +86,36 @@
   <!-- Contact Form -->
   <div class="row justify-content-center">
     <div class="col-lg-8">
-      <form>
+      <form (submit)="submit()">
         <div class="row">
           <div class="col-md-6 form-group g-mb-20">
             <input
               class="form-control g-color-black g-bg-white g-bg-white--focus g-brd-gray-light-v3 g-brd-primary--hover rounded g-py-13 g-px-15"
-              type="text" placeholder="Name">
+              type="text" placeholder="Name" [(ngModel)]="contactUs.name" name="name">
           </div>
 
           <div class="col-md-6 form-group g-mb-20">
             <input
               class="form-control g-color-black g-bg-white g-bg-white--focus g-brd-gray-light-v3 g-brd-primary--hover rounded g-py-13 g-px-15"
-              type="email" placeholder="Email">
+              type="email" placeholder="Email" [(ngModel)]="contactUs.emailId" name="emailId">
           </div>
 
           <div class="col-md-6 form-group g-mb-20">
             <input
               class="form-control g-color-black g-bg-white g-bg-white--focus g-brd-gray-light-v3 g-brd-primary--hover rounded g-py-13 g-px-15"
-              type="text" placeholder="Subject">
+              type="text" placeholder="Subject" [(ngModel)]="contactUs.subject" name="subject">
           </div>
 
           <div class="col-md-6 form-group g-mb-20">
             <input
               class="form-control g-color-black g-bg-white g-bg-white--focus g-brd-gray-light-v3 g-brd-primary--hover rounded g-py-13 g-px-15"
-              type="tel" placeholder="Phone">
+              type="tel" placeholder="Phone" [(ngModel)]="contactUs.phone" name="phone">
           </div>
 
           <div class="col-md-12 form-group g-mb-40">
             <textarea
               class="form-control g-color-black g-bg-white g-bg-white--focus g-brd-gray-light-v3 g-brd-primary--hover g-resize-none rounded g-py-13 g-px-15"
-              rows="7" placeholder="Message"></textarea>
+              rows="7" placeholder="Message" [(ngModel)]="contactUs.message" name="message"></textarea>
           </div>
         </div>
 

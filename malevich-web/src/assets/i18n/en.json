@@ -22,6 +22,7 @@
     "FILTERS_SORT_TR": "Trending",
     "FILTERS_SORT_PLTH": "Price low to high",
     "FILTERS_SORT_PHTL": "Price high to low",
+    "FILTERS_SORT_NAME": "Name",
     "FILTERS_PAGE": "Page",
     "FILTERS_PAGE_OF": "of",
     "FILTERS_FILTER": "Filter"

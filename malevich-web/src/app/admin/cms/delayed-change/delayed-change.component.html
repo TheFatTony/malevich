@@ -6,6 +6,7 @@
     <th>TypeId</th>
     <th>View</th>
     <th>Approve</th>
+    <th>Decline</th>
   </tr>
   <tr *ngFor="let delayedChanges of delayedChanges">
     <td>
@@ -13,6 +14,8 @@
     </td>
     <td>
       {{delayedChanges?.typeId}}
+    </td>
+    <td>
     </td>
     <td>
     </td>
@@ -28,6 +31,33 @@
   <div style="overflow: scroll;">
     <div style="height: auto;">
       <ngx-json-viewer *ngIf="delayedChange" [json]="delayedChange.payload"></ngx-json-viewer>
+    </div>
+  </div>
+</jqxWindow>
+
+
+<jqxWindow #myWindow1 [width]="400" [height]="180" [resizable]="true" [isModal]="true" [autoOpen]="false"
+           [modalOpacity]="'0.01'">
+  <div>Decline</div>
+  <div style="overflow: hidden;">
+    <div class="row g-mt-10">
+      <div class="col">
+        <span>Comment:</span>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col">
+        <mchInput [(ngModel)]="comment"></mchInput>
+      </div>
+    </div>
+    <div class="row g-mt-10">
+      <div class="col text-center">
+        <mchButton #SendButton
+                   (onClick)="sendButton()"
+                   [width]="60" [height]="25">
+          Send
+        </mchButton>
+      </div>
     </div>
   </div>
 </jqxWindow>

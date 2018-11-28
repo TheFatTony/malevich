@@ -42,7 +42,21 @@ public class DelayedChangeResource {
         this.delayedChangeService.approveChange(convertToEntity(delayedChangeDto));
     }
 
+    @PreAuthorize("hasRole('ADMIN')")
+    @RequestMapping(value = "/declineChange", method = RequestMethod.POST)
+    @ResponseStatus(HttpStatus.OK)
+    @ResponseBody
+    public void declineChange(@RequestBody DelayedChangeDto delayedChangeDto) {
+        this.delayedChangeService.declineChange(convertToEntity(delayedChangeDto), delayedChangeDto.getComment());
+    }
 
+    @RequestMapping(value = "/findByTypeIdAndAndReferenceId/{typeId}/{referenceId}", method = RequestMethod.GET)
+    @ResponseStatus(HttpStatus.OK)
+    @ResponseBody
+    public Boolean findByTypeIdAndAndReferenceId(@PathVariable("typeId") String typeId, @PathVariable("referenceId") Long referenceId) {
+        DelayedChangeEntity allEntry = this.delayedChangeService.findByTypeIdAndAndReferenceId(typeId, referenceId);
+        return (allEntry != null);
+    }
 
     private DelayedChangeDto convertToDto(DelayedChangeEntity files) {
         DelayedChangeDto filesDto = modelMapper.map(files, DelayedChangeDto.class);

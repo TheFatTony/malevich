@@ -86,6 +86,7 @@ export class DelayedChangeComponent implements OnInit {
     this.delayedChange.comment = this.comment;
     this.delayedChangeService.declineChange(this.delayedChange).subscribe(() => {
       this.getDelayedChanges();
+      this.myWindow1.close();
     });
   }
 

@@ -19,7 +19,7 @@ public class AddressEntity implements Entity {
     @Setter
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+    private Long id;
 
     @Getter
     @Setter

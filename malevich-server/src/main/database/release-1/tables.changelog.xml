@@ -33,5 +33,6 @@
     <include relativeToChangelogFile="true" file="tables/account_state.table.xml"/>
     <include relativeToChangelogFile="true" file="tables/account_state_arch.table.xml"/>
     <include relativeToChangelogFile="true" file="tables/trade_history.table.xml"/>
+    <include relativeToChangelogFile="true" file="tables/delayed_change.table.xml"/>
 
 </databaseChangeLog>

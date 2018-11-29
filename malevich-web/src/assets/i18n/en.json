@@ -64,6 +64,11 @@
           "STREET": "Address"
         }
       },
+      "DOCUMENTS": {
+        "ADD": {
+          "TITLE": "Add documents"
+        }
+      },
       "BUTTON": {
         "EDIT_PROFILE": "Edit",
         "SUBMIT": "Submit",
@@ -91,6 +96,11 @@
     "ARTWORKS": {
       "ADD": {
         "TITLE": "Add artwork"
+      }
+    },
+    "DOCUMENTS": {
+      "ADD": {
+        "TITLE": "Add documents"
       }
     }
   }

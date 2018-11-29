@@ -25,7 +25,6 @@ public class ContactUsResource {
     @PostMapping("/save")
     @ResponseStatus(HttpStatus.OK)
     public ResponseEntity<Void> save(@RequestBody ContactUsDto dto) {
-
         this.contactUsService.save(convertToEntity(dto));
         return ResponseEntity.ok().build();
     }

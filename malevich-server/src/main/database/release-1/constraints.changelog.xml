@@ -36,5 +36,9 @@
     <include relativeToChangelogFile="true" file="constraints/help_topic.constraint.xml"/>
     <include relativeToChangelogFile="true" file="constraints/contact_us.constraint.xml"/>
     <include relativeToChangelogFile="true" file="constraints/subscription.constraint.xml"/>
+    <include relativeToChangelogFile="true" file="constraints/document.constraint.xml"/>
+    <include relativeToChangelogFile="true" file="constraints/gallery_document.constraint.xml"/>
+    <include relativeToChangelogFile="true" file="constraints/trader_document.constraint.xml"/>
+    <include relativeToChangelogFile="true" file="constraints/document_type.constraint.xml"/>
 
 </databaseChangeLog>

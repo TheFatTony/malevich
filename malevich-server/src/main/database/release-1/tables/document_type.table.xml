@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.6.xsd">
+
+    <changeSet author="harshilmelegant" id="document_type-table">
+        <createTable tableName="document_type">
+            <column name="id" type="bigint">
+                <constraints nullable="false"/>
+            </column>
+            <column name="document_type_name" type="varchar(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="user_type" type="varchar(255)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+
+    <changeSet author="harshilmelegant" id="document_type-pk">
+        <addPrimaryKey columnNames="id" constraintName="document_type_pk" tableName="document_type"/>
+    </changeSet>
+
+    <changeSet author="harshilmelegant" id="document_type-id-aa" dbms="mysql">
+        <addAutoIncrement columnDataType="bigint" columnName="id" tableName="document_type"/>
+    </changeSet>
+
+</databaseChangeLog>

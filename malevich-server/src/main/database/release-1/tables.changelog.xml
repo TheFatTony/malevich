@@ -37,5 +37,9 @@
     <include relativeToChangelogFile="true" file="tables/help_topic.table.xml"/>
     <include relativeToChangelogFile="true" file="tables/contact_us.table.xml"/>
     <include relativeToChangelogFile="true" file="tables/subscription.table.xml"/>
+    <include relativeToChangelogFile="true" file="tables/document.table.xml"/>
+    <include relativeToChangelogFile="true" file="tables/gallery_document.table.xml"/>
+    <include relativeToChangelogFile="true" file="tables/trader_document.table.xml"/>
+    <include relativeToChangelogFile="true" file="tables/document_type.table.xml"/>
 
 </databaseChangeLog>

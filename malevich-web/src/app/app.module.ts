@@ -149,6 +149,11 @@ import {SharedModule} from './shared.module';
 import {StorageAddComponent} from './profile/gallery-profile/storage/add/storage-add.component';
 import {StorageEditComponent} from './profile/gallery-profile/storage/edit/storage-edit.component';
 import {StorageComponent} from './profile/gallery-profile/storage/storage.component';
+import {DocumentsComponent as GalleryProfileDocumentsComponent} from './profile/gallery-profile/documents/documents.component';
+import {DocumentsComponent as TraderProfileDocumentsComponent} from './profile/trader-profile/documents/documents.component';
+import {DocumentAddComponent as GalleryDocumentAddComponent} from './profile/gallery-profile/documents/add/document-add.component';
+import {DocumentAddComponent as TraderDocumentAddComponent} from './profile/trader-profile/documents/add/document-add.component';
+
 
 export function createTranslateLoader(http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
@@ -213,7 +218,11 @@ export function createTranslateLoader(http: HttpClient) {
     DateTimeInputComponent,
     ComboBoxComponent,
     NumberInputComponent,
-    OrderWindowComponent
+    OrderWindowComponent,
+    GalleryProfileDocumentsComponent,
+    TraderProfileDocumentsComponent,
+    TraderDocumentAddComponent,
+    GalleryDocumentAddComponent
   ],
   imports: [
     BrowserModule,

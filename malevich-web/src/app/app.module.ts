@@ -149,6 +149,14 @@ import {SharedModule} from './shared.module';
 import {StorageAddComponent} from './profile/gallery-profile/storage/add/storage-add.component';
 import {StorageEditComponent} from './profile/gallery-profile/storage/edit/storage-edit.component';
 import {StorageComponent} from './profile/gallery-profile/storage/storage.component';
+import { MatchToDirective } from './_directives/validators/match-to/match-to.directive';
+import { MultipleOfDirective } from './_directives/validators/multiple-of/multiple-of.directive';
+import { GreaterThanDirective } from './_directives/validators/greater-than/greater-than.directive';
+import {ControlErrorsComponent} from "./core/components/control-errors.component";
+import { RequiredDirective } from './_directives/validators/required/required.directive';
+import { MobileDirective } from './_directives/validators/mobile/mobile.directive';
+import { EmailDirective } from './_directives/validators/email/email.directive';
+import { PasswordDirective } from './_directives/validators/password/password.directive';
 
 export function createTranslateLoader(http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
@@ -213,7 +221,15 @@ export function createTranslateLoader(http: HttpClient) {
     DateTimeInputComponent,
     ComboBoxComponent,
     NumberInputComponent,
-    OrderWindowComponent
+    OrderWindowComponent,
+    MatchToDirective,
+    MultipleOfDirective,
+    GreaterThanDirective,
+    ControlErrorsComponent,
+    RequiredDirective,
+    MobileDirective,
+    EmailDirective,
+    PasswordDirective
   ],
   imports: [
     BrowserModule,

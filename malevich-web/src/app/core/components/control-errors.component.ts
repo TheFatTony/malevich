@@ -18,7 +18,7 @@ export const CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR: any = {
   selector: 'mchErrors',
   template: '<div *ngIf="isInvalid"\n' +
     '                 class="invalid-feedback d-block">\n' +
-    '              <ul>\n' +
+    '              <ul class="mb-0">\n' +
     '                <li *ngFor="let error of errors">\n' +
     '                  {{error}}\n' +
     '                </li>\n' +

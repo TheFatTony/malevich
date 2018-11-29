@@ -68,6 +68,10 @@ export class EditComponent implements OnInit, AfterViewInit {
       .subscribe(data => this.router.navigate(['/profile/trader/view']));
   }
 
+  cancel(): void {
+    this.router.navigate(['/profile/trader/view']);
+  }
+
   onUploadEnd(event: any): void {
     let args = event.args;
     let serverResponse = JSON.parse(args.response.toString()

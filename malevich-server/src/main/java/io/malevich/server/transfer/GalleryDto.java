@@ -21,4 +21,5 @@ public class GalleryDto {
     private Map<String, String> descriptionMl;
 
     private List<AddressDto> addresses;
+
 }

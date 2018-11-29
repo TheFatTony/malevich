@@ -158,6 +158,8 @@ import { GreaterThanDirective } from './_directives/validators/greater-than/grea
 import {ControlErrorsComponent} from "./core/components/control-errors.component";
 import { RequiredDirective } from './_directives/validators/required/required.directive';
 import { MobileDirective } from './_directives/validators/mobile/mobile.directive';
+import { EmailDirective } from './_directives/validators/email/email.directive';
+import { PasswordDirective } from './_directives/validators/password/password.directive';
 
 export function createTranslateLoader(http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
@@ -231,7 +233,9 @@ export function createTranslateLoader(http: HttpClient) {
     GreaterThanDirective,
     ControlErrorsComponent,
     RequiredDirective,
-    MobileDirective
+    MobileDirective,
+    EmailDirective,
+    PasswordDirective
   ],
   imports: [
     BrowserModule,

@@ -9,8 +9,6 @@ import {AbstractControl, NG_VALIDATORS, NgModel, ValidationErrors, Validator} fr
 })
 export class RequiredDirective implements Validator {
 
-  @ContentChild(NgModel) ngModel: NgModel;
-
   validate(control: AbstractControl): ValidationErrors | null {
     let value = control.value;
 

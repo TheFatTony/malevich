@@ -11,7 +11,7 @@
         </header>
 
         <!-- Form -->
-        <form [formGroup]="loginForm" class="g-py-15" (ngSubmit)="onSubmit()">
+        <form #f="ngForm" class="g-py-15" (ngSubmit)="onSubmit()">
           <div class="form-group mb-4">
             <div class="input-group g-rounded-left-3">
                     <span class="input-group-prepend g-width-45">
@@ -20,13 +20,16 @@
                         <i class="icon-finance-067 u-line-icon-pro"></i>
                       </span>
                     </span>
-              <input formControlName="username"
+              <input name="username"
+                     mchRequired
+                     mchEmail
+                     #loginInput="ngModel"
                      class="form-control g-color-black g-bg-white g-bg-white--focus g-brd-gray-light-v3 g-rounded-left-0 g-rounded-right-3 g-py-15 g-px-15"
-                     type="email" placeholder="Email Adress">
+                     type="email"
+                     placeholder="Email Adress"
+                     [(ngModel)]="login">
             </div>
-            <div *ngIf="submitted && f.username.errors" class="invalid-feedback">
-              <div *ngIf="f.username.errors.required">Username is required</div>
-            </div>
+            <mchErrors [component]="loginInput"></mchErrors>
           </div>
 
           <div class="form-group mb-4">
@@ -37,13 +40,15 @@
                         <i class="icon-media-094 u-line-icon-pro"></i>
                       </span>
                     </span>
-              <input formControlName="password"
+              <input name="password"
+                     mchRequired
+                     #passwordInput="ngModel"
                      class="form-control g-color-black g-bg-white g-bg-white--focus g-brd-gray-light-v3 g-rounded-left-0 g-rounded-right-3 g-py-15 g-px-15"
-                     type="password" placeholder="Password">
+                     type="password"
+                     placeholder="Password"
+                     [(ngModel)]="password">
             </div>
-            <div *ngIf="submitted && f.password.errors" class="invalid-feedback">
-              <div *ngIf="f.password.errors.required">Password is required</div>
-            </div>
+            <mchErrors [component]="passwordInput"></mchErrors>
           </div>
 
           <div class="row justify-content-between mb-5">
@@ -62,9 +67,11 @@
           </div>
 
           <div class="form-group mb-5">
-            <button class="btn btn-block u-btn-primary g-font-size-12 text-uppercase g-py-12 g-px-25" type="submit">
+            <mchButton class="btn btn-block u-btn-primary g-font-size-12 text-uppercase g-py-12 g-px-25"
+                       [submitForm]="f"
+                       [height]="40">
               Login
-            </button>
+            </mchButton>
           </div>
 
         </form>

@@ -9,8 +9,6 @@ import {AbstractControl, NG_VALIDATORS, NgModel, ValidationErrors, Validator, Va
 })
 export class MobileDirective implements Validator {
 
-  @ContentChild(NgModel) ngModel: NgModel;
-
   private patternValidator = Validators.pattern(/\+\d{1,3} \(\d{3}\) \d{3}-\d{4}/);
 
   validate(control: AbstractControl): ValidationErrors | null {

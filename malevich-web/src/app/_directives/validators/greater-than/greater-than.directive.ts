@@ -15,7 +15,7 @@ export class GreaterThanDirective implements Validator {
   validate(c: AbstractControl): ValidationErrors | null {
     let v = c.value;
 
-    if (!v) return null;
+    if (v == null) return null;
 
     if (v > this.greaterThan)
       return null;

@@ -1,5 +1,12 @@
-import {Component, forwardRef, Input} from '@angular/core';
-import {AbstractControl, AbstractControlDirective, NG_VALUE_ACCESSOR} from "@angular/forms";
+import {Component, forwardRef, Input, OnInit} from '@angular/core';
+import {
+  AbstractControl,
+  AbstractControlDirective,
+  FormControl,
+  FormGroup,
+  NG_VALUE_ACCESSOR,
+  NgForm
+} from "@angular/forms";
 
 export const CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR: any = {
   provide: NG_VALUE_ACCESSOR,
@@ -9,27 +16,32 @@ export const CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR: any = {
 
 @Component({
   selector: 'mchErrors',
-  template: '<div *ngIf="isInvalid(parentComponent)"\n' +
+  template: '<div *ngIf="isInvalid"\n' +
     '                 class="invalid-feedback d-block">\n' +
     '              <ul>\n' +
-    '                <li *ngFor="let error of errors(parentComponent)">\n' +
+    '                <li *ngFor="let error of errors">\n' +
     '                  {{error}}\n' +
     '                </li>\n' +
     '              </ul>\n' +
     '            </div>',
   providers: [CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR]
 })
-export class ControlErrorsComponent {
+export class ControlErrorsComponent implements OnInit {
 
-  @Input('component') parentComponent:AbstractControl;
+  @Input('component') thisComponent: AbstractControlDirective;
 
-  isInvalid(obj: any): boolean {
-    let control = this.getControl(obj);
+  ngOnInit(): void {
+  }
+
+  get isInvalid(): boolean {
+    let control = this.getControl(this.thisComponent);
     return control && control.errors && this.hasAnyProperty(control.errors) && (control.touched || control.dirty);
   }
 
-  errors(obj: any): string[] {
-    let control = this.getControl(obj);
+  get errors(): string[] {
+    let control = this.getControl(this.thisComponent);
+    if (!control || !control.errors)
+      return [];
     return Object.values(control.errors);
   }
 
@@ -48,4 +60,6 @@ export class ControlErrorsComponent {
       return true;
     return false;
   }
+
+
 }

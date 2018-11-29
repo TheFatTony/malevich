@@ -16,6 +16,7 @@ import {TradeTypeService} from "../../../_services/trade-type.service";
 import {TradeTypeDto} from "../../../_transfer/tradeTypeDto";
 import {OrderDto} from "../../../_transfer/orderDto";
 import {jqxWindowComponent} from "jqwidgets-scripts/jqwidgets-ts/angular_jqxwindow";
+import {AbstractControl, FormControl, FormControlDirective, FormGroup, NgForm, NgModel} from "@angular/forms";
 
 @Component({
   selector: 'mch-order-window',
@@ -71,7 +72,7 @@ export class OrderWindowComponent implements OnInit, AfterViewInit {
   }
 
   onTradeTypeSelected(event: any) {
-    if(!event.args.item)
+    if (!event.args.item)
       return;
 
     switch (event.args.item.value.id) {
@@ -112,10 +113,7 @@ export class OrderWindowComponent implements OnInit, AfterViewInit {
     this.myWindow.close();
   }
 
-  sendButton(form: any) {
-    if(form.invalid)
-      return;
-
+  onFormSubmit() {
     if (this.orderType().toLocaleLowerCase() == 'ask')
       this.orderService.placeAsk(this.newOrder).subscribe(() => {
         this.onOrderPlaced.emit(this.newOrder);

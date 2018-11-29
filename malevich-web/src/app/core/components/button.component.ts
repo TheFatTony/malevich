@@ -19,7 +19,7 @@ export class ButtonComponent extends jqxButtonComponent {
 
   constructor(containerElement: ElementRef) {
     super(containerElement);
-    // this.attrHeight = 35;
+    this.attrHeight = 35;
   }
 
   private touchAllFormFields(formGroup: FormGroup) {

@@ -249,9 +249,11 @@
           </div>
 
           <div class="col-3">
-            <a routerLink="/profile/trader/view"
-               class="btn btn-block u-btn-primary g-font-size-12 text-uppercase g-py-12 g-px-25">
-              {{'TRADER_PROFILE.SECURITY.BUTTON.CANCEL' | translate}}</a>
+            <mchButton
+              class="btn btn-block u-btn-primary h-100 g-font-size-12 text-uppercase g-py-12 g-px-25"
+              (onClick)="cancel()"
+            >{{'TRADER_PROFILE.SECURITY.BUTTON.CANCEL' | translate}}
+            </mchButton>
           </div>
 
         </div>

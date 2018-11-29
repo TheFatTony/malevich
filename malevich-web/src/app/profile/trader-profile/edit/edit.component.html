@@ -34,135 +34,82 @@
 
 
     <div class="col-lg-9 g-mb-50">
-      <div class="g-brd-around g-brd-gray-light-v4 rounded g-pa-30 g-mb-30">
+      <form #f="ngForm" (ngSubmit)="update()" novalidate>
+        <div class="g-brd-around g-brd-gray-light-v4 rounded g-pa-30 g-mb-30">
 
-        <div class="row">
-          <div class="col-12">
+          <div class="row">
+            <div class="col-12">
             <span
               class="d-block g-color-text g-font-size-13 mb-1">{{'TRADER_PROFILE.SECURITY.LABEL.FIRST_NAME' | translate}}</span>
-            <mchInput [(ngModel)]="trader?.person.firstName" [placeHolder]="'TRADER_PROFILE.SECURITY.PLACEHOLDER.FIRST_NAME' | translate"></mchInput>
-          </div>
-        </div>
-
-        <hr class="g-brd-gray-light-v4 g-my-20">
-
-        <div class="row">
-          <div class="col-12">
-            <span
-              class="d-block g-color-text g-font-size-13 mb-1">{{'TRADER_PROFILE.SECURITY.LABEL.LAST_NAME' | translate}}</span>
-            <mchInput [(ngModel)]="trader?.person.lastName" [placeHolder]="'TRADER_PROFILE.SECURITY.PLACEHOLDER.LAST_NAME' | translate"></mchInput>
-          </div>
-        </div>
-
-        <hr class="g-brd-gray-light-v4 g-my-20">
-
-        <div class="row">
-          <div class="col-12">
-            <span
-              class="d-block g-color-text g-font-size-13 mb-1">{{'TRADER_PROFILE.SECURITY.LABEL.UPLOAD_AVATAR' | translate}}</span>
-            <jqxFileUpload
-              [width]="'100%'" [uploadUrl]="url + 'files/uploadFile'" [fileInputName]="'file'" (onUploadEnd)="onUploadEnd($event)" [multipleFilesUpload]="false">
-            </jqxFileUpload>
-          </div>
-        </div>
-
-        <hr class="g-brd-gray-light-v4 g-my-20">
-
-        <div class="row">
-          <div class="col-12">
-            <span
-              class="d-block g-color-text g-font-size-13 mb-1">{{'TRADER_PROFILE.SECURITY.LABEL.EMAIL' | translate}}</span>
-            <span class="d-block">{{trader?.user?.name}}</span>
-          </div>
-        </div>
-
-        <hr class="g-brd-gray-light-v4 g-my-20">
-
-        <div class="row" *ngIf="genders">
-          <div class="col-12">
-            <span
-              class="d-block g-color-text g-font-size-13 mb-1">{{'TRADER_PROFILE.SECURITY.LABEL.GENDER' | translate}}</span>
-            <mchDropDownList #genderComboBox
-                         [objectSource]="genders"
-                         [displayFunc]="genderDisplayFunc"
-                         [ngModel]="trader?.gender"
-                         (ngModelChange)="trader.gender=$event">
-            </mchDropDownList>
-          </div>
-        </div>
-
-        <hr class="g-brd-gray-light-v4 g-my-20">
-
-        <div class="row">
-          <div class="col-12">
-            <span
-              class="d-block g-color-text g-font-size-13 mb-1">{{'TRADER_PROFILE.SECURITY.LABEL.COUNTRY' | translate}}</span>
-            <mchComboBox #countryComboBox
-                         [objectSource]="countries"
-                         [displayFunc]="countryDisplayFunc"
-                         [ngModel]="trader?.country"
-                         (ngModelChange)="trader.country=$event">
-            </mchComboBox>
-          </div>
-        </div>
-
-        <hr class="g-brd-gray-light-v4 g-my-20">
-
-        <div class="row">
-          <div class="col-12">
-            <span
-              class="d-block g-color-text g-font-size-13 mb-1">{{'TRADER_PROFILE.SECURITY.LABEL.MOBILE' | translate}}</span>
-            <mchMaskedInput [ngModel]="trader?.mobile"
-                            (ngModelChange)="trader.mobile=$event"
-                            [mask]="'+# (###) ###-####'">
-            </mchMaskedInput>
-          </div>
-        </div>
-
-        <hr class="g-brd-gray-light-v4 g-my-20">
-
-        <div class="row">
-          <div class="col-8">
-            <span
-              class="d-block g-color-text g-font-size-13 mb-1">{{'TRADER_PROFILE.SECURITY.LABEL.PASSWORD' | translate}}</span>
-            <span class="d-block">*******</span>
-          </div>
-
-          <div class="col-4 text-right">
-            <a
-              class="btn g-brd-around g-brd-gray-light-v3 g-color-gray-dark-v3 g-bg-gray-light-v5 g-bg-gray-light-v4--hover g-font-size-13 rounded g-px-18 g-py-7"
-              href="#modal1" data-modal-target="#modal1" data-modal-effect="fadein">{{'TRADER_PROFILE.SECURITY.BUTTON.CHANGE_PASSWORD'
-              | translate}}</a>
-          </div>
-        </div>
-
-        <hr class="g-brd-gray-light-v4 g-my-20">
-
-        <div class="row">
-          <div class="col-12">
-            <span class="d-block g-color-text g-font-size-13 mb-1">{{'TRADER_PROFILE.SECURITY.LABEL.DATE_OF_BIRTH' | translate}}</span>
-            <div class="g-brd-primary--focus">
-              <mchDateTimeInput #dateOfBirthInput
-                                [ngModel]='trader?.dateOfBirth'
-                                (ngModelChange)="trader.dateOfBirth=$event">
-              </mchDateTimeInput>
+              <mchInput name="firstName"
+                        mchRequired
+                        [(ngModel)]="trader?.person.firstName"
+                        [placeHolder]="'TRADER_PROFILE.SECURITY.PLACEHOLDER.FIRST_NAME' | translate"></mchInput>
             </div>
-
           </div>
-        </div>
-
-        <div *ngIf="countries && trader?.addresses[0] as address">
 
           <hr class="g-brd-gray-light-v4 g-my-20">
 
           <div class="row">
             <div class="col-12">
-              <span
-                class="d-block g-color-text g-font-size-13 mb-1">{{'TRADER_PROFILE.SECURITY.LABEL.ADDRESS.COUNTRY' | translate}}</span>
-              <mchComboBox #addressCountryComboBox
+            <span
+              class="d-block g-color-text g-font-size-13 mb-1">{{'TRADER_PROFILE.SECURITY.LABEL.LAST_NAME' | translate}}</span>
+              <mchInput name="lastName"
+                        mchRequired
+                        [(ngModel)]="trader?.person.lastName"
+                        [placeHolder]="'TRADER_PROFILE.SECURITY.PLACEHOLDER.LAST_NAME' | translate"></mchInput>
+            </div>
+          </div>
+
+          <hr class="g-brd-gray-light-v4 g-my-20">
+
+          <div class="row">
+            <div class="col-12">
+            <span
+              class="d-block g-color-text g-font-size-13 mb-1">{{'TRADER_PROFILE.SECURITY.LABEL.UPLOAD_AVATAR' | translate}}</span>
+              <jqxFileUpload
+                [width]="'100%'" [uploadUrl]="url + 'files/uploadFile'" [fileInputName]="'file'"
+                (onUploadEnd)="onUploadEnd($event)" [multipleFilesUpload]="false">
+              </jqxFileUpload>
+            </div>
+          </div>
+
+          <hr class="g-brd-gray-light-v4 g-my-20">
+
+          <div class="row">
+            <div class="col-12">
+            <span
+              class="d-block g-color-text g-font-size-13 mb-1">{{'TRADER_PROFILE.SECURITY.LABEL.EMAIL' | translate}}</span>
+              <span class="d-block">{{trader?.user?.name}}</span>
+            </div>
+          </div>
+
+          <hr class="g-brd-gray-light-v4 g-my-20">
+
+          <div class="row" *ngIf="genders">
+            <div class="col-12">
+            <span
+              class="d-block g-color-text g-font-size-13 mb-1">{{'TRADER_PROFILE.SECURITY.LABEL.GENDER' | translate}}</span>
+              <mchDropDownList name="gender"
+                               [objectSource]="genders"
+                               [displayFunc]="genderDisplayFunc"
+                               [ngModel]="trader?.gender"
+                               (ngModelChange)="trader.gender=$event">
+              </mchDropDownList>
+            </div>
+          </div>
+
+          <hr class="g-brd-gray-light-v4 g-my-20">
+
+          <div class="row">
+            <div class="col-12">
+            <span
+              class="d-block g-color-text g-font-size-13 mb-1">{{'TRADER_PROFILE.SECURITY.LABEL.COUNTRY' | translate}}</span>
+              <mchComboBox name="country"
                            [objectSource]="countries"
                            [displayFunc]="countryDisplayFunc"
-                           [(ngModel)]="address.country">
+                           [ngModel]="trader?.country"
+                           (ngModelChange)="trader.country=$event">
               </mchComboBox>
             </div>
           </div>
@@ -171,70 +118,144 @@
 
           <div class="row">
             <div class="col-12">
+            <span
+              class="d-block g-color-text g-font-size-13 mb-1">{{'TRADER_PROFILE.SECURITY.LABEL.MOBILE' | translate}}</span>
+              <mchMaskedInput name="mobile"
+                              mchRequired
+                              mchMobile
+                              [ngModel]="trader?.mobile"
+                              (ngModelChange)="trader.mobile=$event"
+                              [mask]="'+# (###) ###-####'">
+              </mchMaskedInput>
+            </div>
+          </div>
+
+          <hr class="g-brd-gray-light-v4 g-my-20">
+
+          <div class="row">
+            <div class="col-8">
+            <span
+              class="d-block g-color-text g-font-size-13 mb-1">{{'TRADER_PROFILE.SECURITY.LABEL.PASSWORD' | translate}}</span>
+              <span class="d-block">*******</span>
+            </div>
+
+            <div class="col-4 text-right">
+              <a
+                class="btn g-brd-around g-brd-gray-light-v3 g-color-gray-dark-v3 g-bg-gray-light-v5 g-bg-gray-light-v4--hover g-font-size-13 rounded g-px-18 g-py-7"
+                href="#modal1" data-modal-target="#modal1" data-modal-effect="fadein">{{'TRADER_PROFILE.SECURITY.BUTTON.CHANGE_PASSWORD'
+                | translate}}</a>
+            </div>
+          </div>
+
+          <hr class="g-brd-gray-light-v4 g-my-20">
+
+          <div class="row">
+            <div class="col-12">
+              <span class="d-block g-color-text g-font-size-13 mb-1">{{'TRADER_PROFILE.SECURITY.LABEL.DATE_OF_BIRTH' | translate}}</span>
+              <div class="g-brd-primary--focus">
+                <mchDateTimeInput name="dateOfBirth"
+                                  [ngModel]='trader?.dateOfBirth'
+                                  (ngModelChange)="trader.dateOfBirth=$event">
+                </mchDateTimeInput>
+              </div>
+
+            </div>
+          </div>
+
+          <ng-container *ngIf="countries && trader?.addresses[0] as address">
+
+            <hr class="g-brd-gray-light-v4 g-my-20">
+
+            <div class="row">
+              <div class="col-12">
+              <span
+                class="d-block g-color-text g-font-size-13 mb-1">{{'TRADER_PROFILE.SECURITY.LABEL.ADDRESS.COUNTRY' | translate}}</span>
+                <mchComboBox name="addressCountry"
+                             [objectSource]="countries"
+                             [displayFunc]="countryDisplayFunc"
+                             [(ngModel)]="address.country">
+                </mchComboBox>
+              </div>
+            </div>
+
+            <hr class="g-brd-gray-light-v4 g-my-20">
+
+            <div class="row">
+              <div class="col-12">
               <span
                 class="d-block g-color-text g-font-size-13 mb-1">{{'TRADER_PROFILE.SECURITY.LABEL.ADDRESS.STATE' | translate}}</span>
-              <mchInput [(ngModel)]="address.state" [placeHolder]="'TRADER_PROFILE.SECURITY.PLACEHOLDER.ADDRESS.STATE' | translate"></mchInput>
+                <mchInput name="addressState"
+                          mchRequired
+                          [(ngModel)]="address.state"
+                          [placeHolder]="'TRADER_PROFILE.SECURITY.PLACEHOLDER.ADDRESS.STATE' | translate"></mchInput>
+              </div>
+
             </div>
 
-          </div>
+            <hr class="g-brd-gray-light-v4 g-my-20">
 
-          <hr class="g-brd-gray-light-v4 g-my-20">
-
-          <div class="row">
-            <div class="col-12">
+            <div class="row">
+              <div class="col-12">
               <span
                 class="d-block g-color-text g-font-size-13 mb-1">{{'TRADER_PROFILE.SECURITY.LABEL.ADDRESS.CITY' | translate}}</span>
-              <mchInput [(ngModel)]="address.city" [placeHolder]="'TRADER_PROFILE.SECURITY.PLACEHOLDER.ADDRESS.CITY' | translate"></mchInput>
+                <mchInput name="addressCity"
+                          mchRequired
+                          [(ngModel)]="address.city"
+                          [placeHolder]="'TRADER_PROFILE.SECURITY.PLACEHOLDER.ADDRESS.CITY' | translate"></mchInput>
+              </div>
+
             </div>
 
-          </div>
+            <hr class="g-brd-gray-light-v4 g-my-20">
 
-          <hr class="g-brd-gray-light-v4 g-my-20">
-
-          <div class="row">
-            <div class="col-12">
+            <div class="row">
+              <div class="col-12">
               <span
                 class="d-block g-color-text g-font-size-13 mb-1">{{'TRADER_PROFILE.SECURITY.LABEL.ADDRESS.ZIP' | translate}}</span>
-              <mchInput [(ngModel)]="address.postalCode" [placeHolder]="'TRADER_PROFILE.SECURITY.PLACEHOLDER.ADDRESS.ZIP' | translate"></mchInput>
+                <mchInput name="addressPostalCode"
+                          mchRequired
+                          [(ngModel)]="address.postalCode"
+                          [placeHolder]="'TRADER_PROFILE.SECURITY.PLACEHOLDER.ADDRESS.ZIP' | translate"></mchInput>
+              </div>
 
             </div>
 
-          </div>
+            <hr class="g-brd-gray-light-v4 g-my-20">
 
-          <hr class="g-brd-gray-light-v4 g-my-20">
-
-          <div class="row">
-            <div class="col-12">
+            <div class="row">
+              <div class="col-12">
               <span
                 class="d-block g-color-text g-font-size-13 mb-1">{{'TRADER_PROFILE.SECURITY.LABEL.ADDRESS.STREET' | translate}}</span>
-              <mchInput [(ngModel)]="address.street" [placeHolder]="'TRADER_PROFILE.SECURITY.PLACEHOLDER.ADDRESS.STREET' | translate"></mchInput>
+                <mchInput name="addressStreet"
+                          [(ngModel)]="address.street"
+                          [placeHolder]="'TRADER_PROFILE.SECURITY.PLACEHOLDER.ADDRESS.STREET' | translate"></mchInput>
+
+              </div>
 
             </div>
 
+          </ng-container>
+
+        </div>
+        <!-- End Info -->
+
+        <div class="row">
+          <div class="col-3">
+            <mchButton
+              class="btn btn-block u-btn-primary h-100 g-font-size-12 text-uppercase g-py-12 g-px-25"
+              [submitForm]="f"
+            >{{'TRADER_PROFILE.SECURITY.BUTTON.UPDATE' | translate}}
+            </mchButton>
+          </div>
+
+          <div class="col-3">
+            <a routerLink="/profile/trader/view"
+               class="btn btn-block u-btn-primary g-font-size-12 text-uppercase g-py-12 g-px-25">
+              {{'TRADER_PROFILE.SECURITY.BUTTON.CANCEL' | translate}}</a>
           </div>
 
         </div>
-
-      </div>
-      <!-- End Info -->
-
-      <div class="row">
-        <div class="col-3">
-          <a (click)="update()"
-             href="javascript:void(0);"
-             class="btn btn-block u-btn-primary g-font-size-12 text-uppercase g-py-12 g-px-25">
-            {{'TRADER_PROFILE.SECURITY.BUTTON.UPDATE' | translate}}
-          </a>
-        </div>
-
-        <div class="col-3">
-          <a routerLink="/profile/trader/view"
-             class="btn btn-block u-btn-primary g-font-size-12 text-uppercase g-py-12 g-px-25">
-            {{'TRADER_PROFILE.SECURITY.BUTTON.CANCEL' | translate}}</a>
-        </div>
-
-      </div>
-
+      </form>
       <!-- End Login & Security -->
     </div>
 

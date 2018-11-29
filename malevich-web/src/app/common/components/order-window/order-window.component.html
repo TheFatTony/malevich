@@ -12,7 +12,6 @@
           <div class="col">
             <mchNumberInput name="amount"
                             mchRequired
-                            mchGreaterThan="0"
                             mchMultipleOf="10"
                             [ngModel]="newOrder?.amount"
                             (ngModelChange)="newOrder.amount=$event"

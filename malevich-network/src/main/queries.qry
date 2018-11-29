@@ -13,7 +13,7 @@
  */
 
 query selectCommodities {
-  description: "Select all commodities"
+  description: "Select all transaction"
   statement:
-      SELECT io.malevich.network.Counetrparty
+      SELECT io.malevich.network.BuySellTransaction
 }

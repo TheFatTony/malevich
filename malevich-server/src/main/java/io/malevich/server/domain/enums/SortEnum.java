@@ -1,7 +1,7 @@
 package io.malevich.server.domain.enums;
 
 public enum SortEnum {
-    NAME("artwork.titleMl");
+    NAME("NAME"), PHTL("PHTL"), PLTH("PLTH");
 
     private String value;
 

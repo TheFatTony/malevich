@@ -1,5 +1,5 @@
 export class PageSortableRequestDto {
-  sort: number;
+  sort: string;
   page: number;
   size: number;
 }

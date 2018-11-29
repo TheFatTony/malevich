@@ -27,7 +27,8 @@ export class ArtworksListComponent implements OnInit {
 
   ngOnInit() {
     this.filterDto.page = 0;
-    this.filterDto.size = 2;
+    this.filterDto.size = 9;
+    this.filterDto.sort = '';
     this.stocksByFilter(this.filterDto);
   }
 
@@ -48,6 +49,11 @@ export class ArtworksListComponent implements OnInit {
 
   setPage(page: number) {
     this.filterDto.page = page;
+    this.stocksByFilter(this.filterDto);
+  }
+
+  setSort(sort: string) {
+    this.filterDto.sort = sort;
     this.stocksByFilter(this.filterDto);
   }
 

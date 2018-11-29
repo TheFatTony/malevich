@@ -27,8 +27,6 @@ RUN npm install --unsafe-perm -g \
 
 COPY fabric-dev /home/dockremap/fabric-dev
 
-COPY malevich-network.bna /home/dockremap
-
 WORKDIR /home/dockremap/fabric-dev
 
 EXPOSE 3000 9090

@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute} from "@angular/router";
-import {AlertService} from "../../_services";
+import {AlertService} from "yinyang-core";
 
 @Component({
   selector: 'app-auth-reset',

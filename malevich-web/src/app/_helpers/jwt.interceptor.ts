@@ -2,8 +2,7 @@ import {Injectable} from '@angular/core';
 import {HttpEvent, HttpHandler, HttpInterceptor, HttpRequest, HttpResponse} from '@angular/common/http';
 import {Observable} from 'rxjs';
 import {tap} from "rxjs/operators";
-import {LoadingService} from "../_services/loading.service";
-import {AlertService} from "../_services";
+import {AlertService, LoadingService} from "yinyang-core";
 
 @Injectable()
 export class JwtInterceptor implements HttpInterceptor {

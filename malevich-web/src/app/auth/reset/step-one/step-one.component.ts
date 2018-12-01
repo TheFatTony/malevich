@@ -1,7 +1,8 @@
 import {Component, OnInit} from '@angular/core';
 import {Router} from "@angular/router";
 import {TranslateService} from "@ngx-translate/core";
-import {AlertService, AuthService} from "../../../_services";
+import {AuthService} from "../../../_services";
+import {AlertService} from "yinyang-core";
 
 @Component({
   selector: 'app-auth-reset-step-one',

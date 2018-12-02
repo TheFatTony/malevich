@@ -138,24 +138,24 @@ import {ArtworkStockComponent as GalleryProfileArtworkStockComponent} from './pr
 import {OrdersComponent as TraderProfileOrdersComponent} from './profile/trader-profile/orders/orders.component';
 import {ArtworkStockComponent as TraderProfileArtworkStockComponent} from './profile/trader-profile/artwork-stock/artwork-stock.component';
 import {PageNotFoundComponent} from './page-not-found/page-not-found.component';
-import {MaskedInputComponent} from './core/components/masked-input.component';
-import {ComboBoxComponent} from './core/components/combobox.component';
-import {DateTimeInputComponent} from './core/components/date-time-input.component';
-import {NumberInputComponent} from './core/components/number-input.component';
 import {OrderWindowComponent} from './common/components/order-window/order-window.component';
 import {SharedModule} from './shared.module';
 import {StorageAddComponent} from './profile/gallery-profile/storage/add/storage-add.component';
 import {StorageEditComponent} from './profile/gallery-profile/storage/edit/storage-edit.component';
 import {StorageComponent} from './profile/gallery-profile/storage/storage.component';
-import { MatchToDirective } from './_directives/validators/match-to/match-to.directive';
-import { MultipleOfDirective } from './_directives/validators/multiple-of/multiple-of.directive';
-import { GreaterThanDirective } from './_directives/validators/greater-than/greater-than.directive';
-import {ControlErrorsComponent} from "./core/components/control-errors.component";
-import { RequiredDirective } from './_directives/validators/required/required.directive';
-import { MobileDirective } from './_directives/validators/mobile/mobile.directive';
-import { EmailDirective } from './_directives/validators/email/email.directive';
-import { PasswordDirective } from './_directives/validators/password/password.directive';
 import {AlertComponent, AlertService, LoadingComponent} from "yinyang-core";
+import {MaskedInputComponent} from "yinyang-core/lib/components/masked-input.component";
+import {MatchToDirective} from "yinyang-core/lib/_directives/validators/match-to/match-to.directive";
+import {NumberInputComponent} from "yinyang-core/lib/components/number-input.component";
+import {ComboBoxComponent} from "yinyang-core/lib/components/combobox.component";
+import {DateTimeInputComponent} from "yinyang-core/lib/components/date-time-input.component";
+import {MultipleOfDirective} from "yinyang-core/lib/_directives/validators/multiple-of/multiple-of.directive";
+import {GreaterThanDirective} from "yinyang-core/lib/_directives/validators/greater-than/greater-than.directive";
+import {ControlErrorsComponent} from "yinyang-core/lib/components/control-errors.component";
+import {RequiredDirective} from "yinyang-core/lib/_directives/validators/required/required.directive";
+import {MobileDirective} from "yinyang-core/lib/_directives/validators/mobile/mobile.directive";
+import {EmailDirective} from "yinyang-core/lib/_directives/validators/email/email.directive";
+import {PasswordDirective} from "yinyang-core/lib/_directives/validators/password/password.directive";
 
 export function createTranslateLoader(http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
@@ -215,19 +215,23 @@ export function createTranslateLoader(http: HttpClient) {
     TraderProfileOrdersComponent,
     TraderProfileArtworkStockComponent,
     PageNotFoundComponent,
+    OrderWindowComponent,
+
+
     MaskedInputComponent,
     DateTimeInputComponent,
     ComboBoxComponent,
     NumberInputComponent,
-    OrderWindowComponent,
     MatchToDirective,
+
     MultipleOfDirective,
     GreaterThanDirective,
     ControlErrorsComponent,
     RequiredDirective,
     MobileDirective,
     EmailDirective,
-    PasswordDirective
+    PasswordDirective,
+
   ],
   imports: [
     BrowserModule,

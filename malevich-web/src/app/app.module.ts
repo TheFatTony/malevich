@@ -60,6 +60,7 @@ import {ViewComponent as TraderProfileSecurityView} from './profile/trader-profi
 import {EditComponent as TraderProfileSecurityEdit} from './profile/trader-profile/edit/edit.component';
 import {StepOneComponent as ResetStepOneComponent} from './auth/reset/step-one/step-one.component';
 import {StepTwoComponent as ResetStepTwoComponent} from './auth/reset/step-two/step-two.component';
+
 import {OrdersComponent as GalleryProfileOrdersComponent} from './profile/gallery-profile/orders/orders.component';
 import {ArtworkStockComponent as GalleryProfileArtworkStockComponent} from './profile/gallery-profile/artwork-stock/artwork-stock.component';
 import {OrdersComponent as TraderProfileOrdersComponent} from './profile/trader-profile/orders/orders.component';
@@ -69,7 +70,7 @@ import {OrderWindowComponent} from './common/components/order-window/order-windo
 import {StorageAddComponent} from './profile/gallery-profile/storage/add/storage-add.component';
 import {StorageEditComponent} from './profile/gallery-profile/storage/edit/storage-edit.component';
 import {StorageComponent} from './profile/gallery-profile/storage/storage.component';
-import {AlertService, LoadingComponent, YinyangCoreModule} from "yinyang-core";
+import {YinyangCoreModule} from '../../node_modules/yinyang-core';
 
 export function createTranslateLoader(http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
@@ -128,11 +129,12 @@ export function createTranslateLoader(http: HttpClient) {
     TraderProfileArtworkStockComponent,
     PageNotFoundComponent,
     OrderWindowComponent,
+
   ],
   imports: [
     BrowserModule,
     CommonModule,
-    FormsModule,
+    YinyangCoreModule,
     TranslateModule.forRoot({
       loader: {
         provide: TranslateLoader,
@@ -142,13 +144,13 @@ export function createTranslateLoader(http: HttpClient) {
     }),
     NgxLoadingModule.forRoot({}),
     ReactiveFormsModule,
+    FormsModule,
     HttpClientModule,
     AppRoutingModule,
     NgxPaginationModule,
-    AdminModule,
-    YinyangCoreModule,
+    AdminModule
   ],
-  providers: [Globals, FileService, AlertService, AuthGuard, AdminGuard,
+  providers: [Globals, FileService, AuthGuard, AdminGuard,
     {provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true},
     {provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true}],
   bootstrap: [AppComponent]

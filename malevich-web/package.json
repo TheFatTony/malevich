@@ -42,7 +42,7 @@
     "simple-line-icons": "^2.4.1",
     "slick-carousel": "^1.8.1",
     "yarn": "^1.12.3",
-    "yinyang-core": "0.0.1",
+    "yinyang-core": "/usr/local/lib/node_modules/yinyang-core",
     "zone.js": "^0.8.26"
   },
   "devDependencies": {

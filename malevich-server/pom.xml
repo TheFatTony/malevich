@@ -202,6 +202,31 @@
 		</resources>
 		<plugins>
 			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-dependency-plugin</artifactId>
+				<executions>
+					<execution>
+						<id>unpack</id>
+						<phase>generate-sources</phase>
+						<goals>
+							<goal>unpack</goal>
+						</goals>
+						<configuration>
+							<artifactItems>
+								<artifactItem>
+									<groupId>com.yinyang.core</groupId>
+									<artifactId>yinyang-server</artifactId>
+									<version>0.0.1-SNAPSHOT</version>
+									<outputDirectory>src/main/resources</outputDirectory>
+									<includes>database/**/*.xml</includes>
+                                    <excludes>pom.xml</excludes>
+								</artifactItem>
+							</artifactItems>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+			<plugin>
 				<artifactId>maven-compiler-plugin</artifactId>
 				<configuration>
 					<source>${java.version}</source>

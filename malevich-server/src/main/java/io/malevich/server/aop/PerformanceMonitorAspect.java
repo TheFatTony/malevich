@@ -1,6 +1,6 @@
 package io.malevich.server.aop;
 
-import io.malevich.server.core.aop.PerformanceMonitor;
+import com.yinyang.core.server.core.aop.PerformanceMonitor;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;

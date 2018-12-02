@@ -1,8 +1,9 @@
 import {Component, OnInit} from '@angular/core';
-import {AlertService, AuthService} from "../../_services";
+import {AuthService} from "../../_services";
 import {FormBuilder} from "@angular/forms";
 import {ActivatedRoute, Router} from "@angular/router";
 import {first} from "rxjs/operators";
+import {AlertService} from "yinyang-core";
 
 @Component({
   selector: 'app-auth-login',

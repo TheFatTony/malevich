@@ -10,7 +10,8 @@ export const CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR: any = {
 
 @Component({
   selector: 'mchNumberInput',
-  template: '<input class="g-color-black g-bg-white g-bg-white--focus g-brd-gray-light-v3 rounded">',
+  template: '<input class="g-color-black g-bg-white g-bg-white--focus g-brd-gray-light-v3 rounded">' +
+    '<mchErrors *ngIf="showErrors" [component]="myModel"></mchErrors>',
   providers: [CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR]
 })
 export class NumberInputComponent extends jqxNumberInputComponent {

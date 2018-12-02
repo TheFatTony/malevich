@@ -1,9 +1,9 @@
 import {NgModule} from '@angular/core';
-import {ButtonComponent} from './core/components/button.component';
-import {TextInputComponent} from './core/components/text-input.component';
 import {FormsModule} from '@angular/forms';
-import {DropDownListComponent} from './core/components/dropdownlist.component';
 import {DropDownListModule} from './admin/_modules/dropdownlist.module';
+import {ButtonComponent} from "yinyang-core/lib/components/button.component";
+import {TextInputComponent} from "yinyang-core/lib/components/text-input.component";
+import {DropDownListComponent} from "yinyang-core/lib/components/dropdownlist.component";
 
 
 @NgModule({

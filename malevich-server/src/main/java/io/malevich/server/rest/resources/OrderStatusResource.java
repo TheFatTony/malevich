@@ -1,6 +1,5 @@
 package io.malevich.server.rest.resources;
 
-import io.malevich.server.core.dto.DTO;
 import io.malevich.server.domain.OrderStatusEntity;
 import io.malevich.server.services.orderstatus.OrderStatusService;
 import io.malevich.server.transfer.OrderStatusDto;
@@ -11,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.modelmapper.ModelMapper;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Slf4j
 @RestController
@@ -20,13 +20,23 @@ public class OrderStatusResource {
   @Autowired
   private OrderStatusService orderStatusService;
 
+  @Autowired
+  private ModelMapper modelMapper;
+
   @RequestMapping(value = "/list", method = RequestMethod.GET)
   @ResponseStatus(HttpStatus.OK)
   @ResponseBody
-  @DTO(OrderStatusDto.class)
-  public List<OrderStatusEntity> list() {
+  public List<OrderStatusDto> list() {
   List<OrderStatusEntity> allEntries = this.orderStatusService.findAll();
-    return allEntries;
+    return allEntries.stream().map(allEntry -> convertToDto(allEntry)).collect(Collectors.toList());
+  }
+
+  private OrderStatusDto convertToDto(OrderStatusEntity entity) {
+    return modelMapper.map(entity, OrderStatusDto.class);
+  }
+
+  private OrderStatusEntity convertToEntity(OrderStatusDto dto) {
+    return modelMapper.map(dto, OrderStatusEntity.class);
   }
 
 }

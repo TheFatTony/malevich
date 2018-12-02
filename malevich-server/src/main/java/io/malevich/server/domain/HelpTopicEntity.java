@@ -1,7 +1,7 @@
 package io.malevich.server.domain;
 
 
-import io.malevich.server.core.jpa.JpaConverterJson;
+import com.yinyang.core.server.core.jpa.JpaConverterJson;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;

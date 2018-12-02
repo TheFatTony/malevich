@@ -3,9 +3,10 @@ import {TraderDto} from "../../../_transfer/traderDto";
 import {CountryDto} from "../../../_transfer/countryDto";
 import {TraderService} from "../../../_services/trader.service";
 import {TranslateService} from "@ngx-translate/core";
-import {AlertService, AuthService} from "../../../_services";
+import {AuthService} from "../../../_services";
 import {UserDto} from "../../../_transfer";
 import {DelayedChangeService} from "../../../_services/delayed-change.service";
+import {AlertService} from "yinyang-core";
 
 @Component({
   selector: 'app-profile-trader-security-view',

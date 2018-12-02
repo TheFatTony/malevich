@@ -1,8 +1,8 @@
 package io.malevich.server.config;
 
-import io.malevich.server.core.security.JWTAuthenticationFilter;
-import io.malevich.server.core.security.JWTAuthorizationFilter;
-import io.malevich.server.core.security.JWTUtil;
+import com.yinyang.core.server.core.security.JWTAuthenticationFilter;
+import com.yinyang.core.server.core.security.JWTAuthorizationFilter;
+import com.yinyang.core.server.core.security.JWTUtil;
 import io.malevich.server.services.user.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -49,6 +49,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     private static final String[] PUBLIC_MATCHERS_DELETE = {
     };
 
+
+    @Bean
+    public JWTUtil jwtUtil() {
+        return new JWTUtil();
+    }
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {

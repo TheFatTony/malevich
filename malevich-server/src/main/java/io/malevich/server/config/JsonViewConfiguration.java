@@ -1,7 +1,7 @@
 package io.malevich.server.config;
 
 
-import io.malevich.server.core.dto.View;
+import com.yinyang.core.server.core.dto.View;
 import io.malevich.server.domain.enums.Role;
 import org.springframework.core.MethodParameter;
 import org.springframework.http.MediaType;

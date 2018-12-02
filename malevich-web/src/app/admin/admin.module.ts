@@ -16,7 +16,7 @@ import {HelpTopicComponent} from './cms/help/help-topic/help-topic.component';
 import {DelayedChangeComponent} from './cms/delayed-change/delayed-change.component';
 import {NgxJsonViewerModule} from "ngx-json-viewer";
 import {YinyangCoreModule} from '../../../node_modules/yinyang-core';
-import {FormsModule} from "@angular/forms";
+import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 
 @NgModule({
   imports: [
@@ -24,6 +24,8 @@ import {FormsModule} from "@angular/forms";
     CommonModule,
     AdminRoutingModule,
     YinyangCoreModule,
+    ReactiveFormsModule,
+    FormsModule,
     NgxJsonViewerModule
   ],
   declarations: [

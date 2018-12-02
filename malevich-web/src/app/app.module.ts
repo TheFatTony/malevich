@@ -6,7 +6,7 @@ import {MainHeaderComponent} from './main/main-header/main-header.component';
 import {MainFooterComponent} from './main/main-footer/main-footer.component';
 import {MainPageComponent} from './main/main-page/main-page.component';
 import {AppRoutingModule} from './app-routing.module';
-import {ReactiveFormsModule} from '@angular/forms';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {HTTP_INTERCEPTORS, HttpClient, HttpClientModule} from '@angular/common/http';
 import {CommonModule} from '@angular/common';
 import {AdminModule} from './admin/admin.module';
@@ -60,102 +60,16 @@ import {ViewComponent as TraderProfileSecurityView} from './profile/trader-profi
 import {EditComponent as TraderProfileSecurityEdit} from './profile/trader-profile/edit/edit.component';
 import {StepOneComponent as ResetStepOneComponent} from './auth/reset/step-one/step-one.component';
 import {StepTwoComponent as ResetStepTwoComponent} from './auth/reset/step-two/step-two.component';
-
-import {
-  BarGaugeModule,
-  BulletChartModule,
-  ButtonGroupModule,
-  ButtonModule,
-  CalendarModule,
-  ChartModule,
-  CheckBoxModule,
-  ColorPickerModule,
-  ComboBoxModule,
-  ComplexInputModule,
-  DataTableModule,
-  DateTimeInputModule,
-  DockingLayoutModule,
-  DockingModule,
-  DockPanelModule,
-  DragDropModule,
-  DrawModule,
-  DropDownButtonModule,
-  EditorModule,
-  ExpanderModule,
-  FileUploadModule,
-  FormattedInputModule,
-  FormModule,
-  GaugeModule,
-  GridModule,
-  InputModule,
-  KanbanModule,
-  KnobModule,
-  LayoutModule,
-  LinearGaugeModule,
-  LinkButtonModule,
-  ListBoxModule,
-  ListMenuModule,
-  LoaderModule,
-  MaskedInputModule,
-  MenuModule,
-  NavBarModule,
-  NavigationBarModule,
-  NotificationModule,
-  NumberInputModule,
-  PanelModule,
-  PasswordInputModule,
-  PivotDesignerModule,
-  PivotGridModule,
-  PopoverModule,
-  ProgressBarModule,
-  RadioButtonModule,
-  RangeSelectorModule,
-  RatingModule,
-  RepeatButtonModule,
-  ResponsivePanelModule,
-  RibbonModule,
-  SchedulerModule,
-  ScrollBarModule,
-  ScrollViewModule,
-  SliderModule,
-  SortableModule,
-  SplitterModule,
-  SwitchButtonModule,
-  TabsModule,
-  TagCloudModule,
-  TextAreaModule,
-  ToggleButtonModule,
-  ToolBarModule,
-  TooltipModule,
-  TreeGridModule,
-  TreeMapModule,
-  TreeModule,
-  ValidatorModule,
-  WindowModule
-} from './admin/_modules';
 import {OrdersComponent as GalleryProfileOrdersComponent} from './profile/gallery-profile/orders/orders.component';
 import {ArtworkStockComponent as GalleryProfileArtworkStockComponent} from './profile/gallery-profile/artwork-stock/artwork-stock.component';
 import {OrdersComponent as TraderProfileOrdersComponent} from './profile/trader-profile/orders/orders.component';
 import {ArtworkStockComponent as TraderProfileArtworkStockComponent} from './profile/trader-profile/artwork-stock/artwork-stock.component';
 import {PageNotFoundComponent} from './page-not-found/page-not-found.component';
 import {OrderWindowComponent} from './common/components/order-window/order-window.component';
-import {SharedModule} from './shared.module';
 import {StorageAddComponent} from './profile/gallery-profile/storage/add/storage-add.component';
 import {StorageEditComponent} from './profile/gallery-profile/storage/edit/storage-edit.component';
 import {StorageComponent} from './profile/gallery-profile/storage/storage.component';
-import {AlertComponent, AlertService, LoadingComponent} from "yinyang-core";
-import {MaskedInputComponent} from "yinyang-core/lib/components/masked-input.component";
-import {MatchToDirective} from "yinyang-core/lib/_directives/validators/match-to/match-to.directive";
-import {NumberInputComponent} from "yinyang-core/lib/components/number-input.component";
-import {ComboBoxComponent} from "yinyang-core/lib/components/combobox.component";
-import {DateTimeInputComponent} from "yinyang-core/lib/components/date-time-input.component";
-import {MultipleOfDirective} from "yinyang-core/lib/_directives/validators/multiple-of/multiple-of.directive";
-import {GreaterThanDirective} from "yinyang-core/lib/_directives/validators/greater-than/greater-than.directive";
-import {ControlErrorsComponent} from "yinyang-core/lib/components/control-errors.component";
-import {RequiredDirective} from "yinyang-core/lib/_directives/validators/required/required.directive";
-import {MobileDirective} from "yinyang-core/lib/_directives/validators/mobile/mobile.directive";
-import {EmailDirective} from "yinyang-core/lib/_directives/validators/email/email.directive";
-import {PasswordDirective} from "yinyang-core/lib/_directives/validators/password/password.directive";
+import {AlertService, LoadingComponent, YinyangCoreModule} from "yinyang-core";
 
 export function createTranslateLoader(http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
@@ -164,7 +78,6 @@ export function createTranslateLoader(http: HttpClient) {
 @NgModule({
   declarations: [
     AppComponent,
-    AlertComponent,
     MainHeaderComponent,
     MainFooterComponent,
     MainPageComponent,
@@ -201,7 +114,6 @@ export function createTranslateLoader(http: HttpClient) {
     GalleryProfileSecurityView,
     GalleryProfileSecurityEdit,
     NotificationsComponent,
-    LoadingComponent,
     TraderProfileNavigation,
     TraderProfileSecurityView,
     TraderProfileSecurityEdit,
@@ -216,26 +128,11 @@ export function createTranslateLoader(http: HttpClient) {
     TraderProfileArtworkStockComponent,
     PageNotFoundComponent,
     OrderWindowComponent,
-
-
-    MaskedInputComponent,
-    DateTimeInputComponent,
-    ComboBoxComponent,
-    NumberInputComponent,
-    MatchToDirective,
-
-    MultipleOfDirective,
-    GreaterThanDirective,
-    ControlErrorsComponent,
-    RequiredDirective,
-    MobileDirective,
-    EmailDirective,
-    PasswordDirective,
-
   ],
   imports: [
     BrowserModule,
     CommonModule,
+    FormsModule,
     TranslateModule.forRoot({
       loader: {
         provide: TranslateLoader,
@@ -244,84 +141,12 @@ export function createTranslateLoader(http: HttpClient) {
       }
     }),
     NgxLoadingModule.forRoot({}),
-    SharedModule,
     ReactiveFormsModule,
     HttpClientModule,
     AppRoutingModule,
     NgxPaginationModule,
     AdminModule,
-
-
-    BarGaugeModule,
-    BulletChartModule,
-    ButtonGroupModule,
-    ButtonModule,
-    CalendarModule,
-    ChartModule,
-    CheckBoxModule,
-    ColorPickerModule,
-    ComboBoxModule,
-    ComplexInputModule,
-    DataTableModule,
-    DateTimeInputModule,
-    DockingLayoutModule,
-    DockingModule,
-    DockPanelModule,
-    DragDropModule,
-    DrawModule,
-    DropDownButtonModule,
-    EditorModule,
-    ExpanderModule,
-    FileUploadModule,
-    FormattedInputModule,
-    FormModule,
-    GaugeModule,
-    GridModule,
-    InputModule,
-    KanbanModule,
-    KnobModule,
-    LayoutModule,
-    LinearGaugeModule,
-    LinkButtonModule,
-    ListBoxModule,
-    ListMenuModule,
-    LoaderModule,
-    MaskedInputModule,
-    MenuModule,
-    NavBarModule,
-    NavigationBarModule,
-    NotificationModule,
-    NumberInputModule,
-    PanelModule,
-    PasswordInputModule,
-    PivotDesignerModule,
-    PivotGridModule,
-    PopoverModule,
-    ProgressBarModule,
-    RadioButtonModule,
-    RangeSelectorModule,
-    RatingModule,
-    RepeatButtonModule,
-    ResponsivePanelModule,
-    RibbonModule,
-    SchedulerModule,
-    ScrollBarModule,
-    ScrollViewModule,
-    SliderModule,
-    SortableModule,
-    SplitterModule,
-    SwitchButtonModule,
-    TabsModule,
-    TagCloudModule,
-    TextAreaModule,
-    ToggleButtonModule,
-    ToolBarModule,
-    TooltipModule,
-    TreeGridModule,
-    TreeMapModule,
-    TreeModule,
-    ValidatorModule,
-    WindowModule
+    YinyangCoreModule,
   ],
   providers: [Globals, FileService, AlertService, AuthGuard, AdminGuard,
     {provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true},

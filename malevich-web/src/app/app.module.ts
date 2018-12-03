@@ -17,7 +17,7 @@ import {Globals} from './globals';
 import {FileService} from './_services';
 import {AuthGuard} from './_guards/auth.guard';
 import {AdminGuard} from './_guards/admin.guard';
-import {ErrorInterceptor, JwtInterceptor} from './_helpers';
+import {ErrorInterceptor, JwtInterceptor} from '../../node_modules/yinyang-core';
 import {HelpComponent} from './main/help/help.component';
 import {AboutComponent} from './main/about/about.component';
 import {ContactComponent} from './main/contact/contact.component';

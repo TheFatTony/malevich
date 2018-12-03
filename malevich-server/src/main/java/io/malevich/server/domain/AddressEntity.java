@@ -8,6 +8,7 @@ import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 
 
 @EqualsAndHashCode
@@ -23,24 +24,33 @@ public class AddressEntity implements Entity {
 
     @Getter
     @Setter
+    @Column(name = "street")
+    @NotNull
     private String street;
 
     @Getter
     @Setter
+    @Column(name = "postal_code")
+    @NotNull
     private String postalCode;
 
     @Getter
     @Setter
+    @Column(name = "state")
+    @NotNull
     private String state;
 
     @Getter
     @Setter
+    @Column(name = "city")
+    @NotNull
     private String city;
 
     @Getter
     @Setter
     @Fetch(FetchMode.JOIN)
     @ManyToOne
+    @NotNull
     private CountryEntity country;
 
 }

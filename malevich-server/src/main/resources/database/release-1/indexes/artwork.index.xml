@@ -3,9 +3,27 @@
                    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
                    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.6.xsd">
 
+    <changeSet author="thefattony" id="artwork-artist_id-index">
+        <createIndex indexName="artwork_artist_id_idx" tableName="artwork" unique="false">
+            <column name="artist_id"/>
+        </createIndex>
+    </changeSet>
+
     <changeSet author="thefattony" id="artwork-category_id-index">
         <createIndex indexName="artwork_category_id_idx" tableName="artwork" unique="false">
-            <column name="category_id" type="bigint"/>
+            <column name="category_id"/>
+        </createIndex>
+    </changeSet>
+
+    <changeSet author="thefattony" id="artwork-thumbnail_id-index">
+        <createIndex indexName="artwork_thumbnail_id_idx" tableName="artwork" unique="false">
+            <column name="thumbnail_id"/>
+        </createIndex>
+    </changeSet>
+
+    <changeSet author="thefattony" id="artwork-image_id-index">
+        <createIndex indexName="artwork_image_id_idx" tableName="artwork" unique="false">
+            <column name="image_id"/>
         </createIndex>
     </changeSet>
 

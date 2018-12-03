@@ -13,9 +13,15 @@
                                  referencedColumnNames="id" referencedTableName="person"/>
     </changeSet>
 
-    <changeSet author="thefattony" id="artist-files-fk">
+    <changeSet author="thefattony" id="artist-files-thumbnail_id-fk">
         <addForeignKeyConstraint baseColumnNames="thumbnail_id" baseTableName="artist"
-                                 constraintName="artist_files_fk"
+                                 constraintName="artist_thumbnail_id_fk"
+                                 referencedColumnNames="id" referencedTableName="files"/>
+    </changeSet>
+
+    <changeSet author="thefattony" id="artist-files-image_id-fk">
+        <addForeignKeyConstraint baseColumnNames="image_id" baseTableName="artist"
+                                 constraintName="artist_image_id_fk"
                                  referencedColumnNames="id" referencedTableName="files"/>
     </changeSet>
 

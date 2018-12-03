@@ -22,7 +22,9 @@
 
 	<changeSet author="thefattony" id="artist-table-ml" dbms="mysql">
 		<addColumn tableName="artist">
-			<column name="full_name_ml" type="json"/>
+			<column name="full_name_ml" type="json">
+				<constraints nullable="false"/>
+			</column>
 		</addColumn>
 		<addColumn tableName="artist">
 			<column name="description_ml" type="json"/>

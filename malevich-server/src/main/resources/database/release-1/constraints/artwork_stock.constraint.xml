@@ -16,7 +16,7 @@
     </changeSet>
 
     <changeSet author="toolstik" id="artwork_stock-artwork_id-gallery_id-uc">
-        <addUniqueConstraint columnNames="artwork_id,gallery_id" constraintName="artwork_stock_artwork_id_gallery_id_uc" tableName="artwork_stock"/>
+        <addUniqueConstraint columnNames="artwork_id, gallery_id" constraintName="artwork_stock_artwork_id_gallery_id_uc" tableName="artwork_stock"/>
     </changeSet>
 
 </databaseChangeLog>

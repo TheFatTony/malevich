@@ -10,6 +10,7 @@ import javax.persistence.Column;
 import javax.persistence.Convert;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
 import java.util.Map;
 
 @EqualsAndHashCode
@@ -26,6 +27,7 @@ public class CountryEntity implements Entity {
     @Setter
     @Convert(converter = JpaConverterJson.class)
     @Column(name = "name_ml")
+    @NotNull
     private Map<String, String> nameMl;
 
 }

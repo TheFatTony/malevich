@@ -13,7 +13,9 @@
 
     <changeSet author="thefattony" id="trade_type-table-ml" dbms="mysql">
         <addColumn tableName="trade_type">
-            <column name="name_ml" type="json"/>
+            <column name="name_ml" type="json">
+                <constraints nullable="false"/>
+            </column>
         </addColumn>
     </changeSet>
 

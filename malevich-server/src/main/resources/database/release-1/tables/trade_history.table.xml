@@ -20,8 +20,12 @@
             <column name="bid_order_id" type="bigint">
                 <constraints nullable="false"/>
             </column>
-            <column name="amount" type="double"/>
-            <column name="quantity" type="int"/>
+            <column name="amount" type="double">
+                <constraints nullable="false"/>
+            </column>
+            <column name="quantity" type="int">
+                <constraints nullable="false"/>
+            </column>
         </createTable>
     </changeSet>
 

@@ -7,6 +7,7 @@ import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 
 
 @EqualsAndHashCode
@@ -25,29 +26,34 @@ public class TransactionEntity implements Entity {
     @Setter
     @Fetch(FetchMode.JOIN)
     @ManyToOne(cascade = CascadeType.MERGE)
+    @NotNull
     private TransactionTypeEntity type;
 
     @Getter
     @Setter
     @Column(name = "effective_date")
+    @NotNull
     private java.sql.Timestamp effectiveDate;
 
     @Getter
     @Setter
     @Fetch(FetchMode.JOIN)
     @ManyToOne(cascade = CascadeType.MERGE)
+    @NotNull
     private CounterpartyEntity party;
 
     @Getter
     @Setter
     @Fetch(FetchMode.JOIN)
     @ManyToOne(cascade = CascadeType.MERGE)
+    @NotNull
     private CounterpartyEntity counterparty;
 
     @Getter
     @Setter
     @Fetch(FetchMode.JOIN)
     @ManyToOne(cascade = CascadeType.MERGE)
+    @NotNull
     private ArtworkStockEntity artworkStock;
 
     @Getter
@@ -64,6 +70,7 @@ public class TransactionEntity implements Entity {
     @Setter
     @Fetch(FetchMode.JOIN)
     @ManyToOne(cascade = CascadeType.MERGE)
+    @NotNull
     private TransactionGroupEntity group;
 
 }

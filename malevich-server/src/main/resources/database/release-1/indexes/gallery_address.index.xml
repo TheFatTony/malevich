@@ -3,4 +3,11 @@
                    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
                    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.6.xsd">
 
+    <changeSet author="thefattony" id="gallery_address-index">
+        <createIndex indexName="gallery_address_idx" tableName="gallery_address" unique="true">
+            <column name="gallery_id"/>
+            <column name="address_id"/>
+        </createIndex>
+    </changeSet>
+
 </databaseChangeLog>

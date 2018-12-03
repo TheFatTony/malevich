@@ -3,4 +3,16 @@
                    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
                    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.6.xsd">
 
+    <changeSet author="thefattony" id="artwork_stock-artwork_id--index">
+        <createIndex indexName="address_artwork_id_idx" tableName="artwork_stock" unique="false">
+            <column name="artwork_id"/>
+        </createIndex>
+    </changeSet>
+
+    <changeSet author="thefattony" id="artwork_stock-gallery_id-index">
+        <createIndex indexName="address_gallery_id_idx" tableName="artwork_stock" unique="false">
+            <column name="gallery_id"/>
+        </createIndex>
+    </changeSet>
+
 </databaseChangeLog>

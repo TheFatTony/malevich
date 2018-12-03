@@ -16,10 +16,14 @@
 
     <changeSet author="harshilmelegant" id="help_topic-table-title-ml" dbms="mysql">
         <addColumn tableName="help_topic">
-            <column name="topic_name_ml" type="json"/>
+            <column name="topic_name_ml" type="json">
+                <constraints nullable="false"/>
+            </column>
         </addColumn>
         <addColumn tableName="help_topic">
-            <column name="body_ml" type="json"/>
+            <column name="body_ml" type="json">
+                <constraints nullable="false"/>
+            </column>
         </addColumn>
     </changeSet>
 

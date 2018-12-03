@@ -124,6 +124,7 @@ p {
 .u-btn-primary {
   color: #fff;
   background-color: #e44235;
+  border-color: #e44235;
 }
 
 .u-btn-primary:hover, .u-btn-primary.active {

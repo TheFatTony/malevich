@@ -6,19 +6,18 @@ import {MainHeaderComponent} from './main/main-header/main-header.component';
 import {MainFooterComponent} from './main/main-footer/main-footer.component';
 import {MainPageComponent} from './main/main-page/main-page.component';
 import {AppRoutingModule} from './app-routing.module';
-import {ReactiveFormsModule} from '@angular/forms';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {HTTP_INTERCEPTORS, HttpClient, HttpClientModule} from '@angular/common/http';
 import {CommonModule} from '@angular/common';
 import {AdminModule} from './admin/admin.module';
 import {NgxPaginationModule} from 'ngx-pagination';
 import {TranslateLoader, TranslateModule} from '@ngx-translate/core';
 import {TranslateHttpLoader} from '@ngx-translate/http-loader';
-import {AlertComponent} from './_directives/alert/alert.component';
 import {Globals} from './globals';
-import {AlertService, FileService} from './_services';
+import {FileService} from './_services';
 import {AuthGuard} from './_guards/auth.guard';
 import {AdminGuard} from './_guards/admin.guard';
-import {ErrorInterceptor, JwtInterceptor} from './_helpers';
+import {ErrorInterceptor, JwtInterceptor, YinyangCoreModule} from '../../node_modules/yinyang-core';
 import {HelpComponent} from './main/help/help.component';
 import {AboutComponent} from './main/about/about.component';
 import {ContactComponent} from './main/contact/contact.component';
@@ -56,96 +55,18 @@ import {ViewComponent as GalleryProfileSecurityView} from './profile/gallery-pro
 import {EditComponent as GalleryProfileSecurityEdit} from './profile/gallery-profile/edit/edit.component';
 import {ViewComponent as GalleryProfileNotificationsComponent} from './profile/gallery-profile/notifications/view/view.component';
 import {NgxLoadingModule} from 'ngx-loading';
-import {LoadingComponent} from './_directives/loading/loading.component';
 import {NavigationComponent as TraderProfileNavigation} from './profile/trader-profile/navigation/navigation.component';
 import {ViewComponent as TraderProfileSecurityView} from './profile/trader-profile/view/view.component';
 import {EditComponent as TraderProfileSecurityEdit} from './profile/trader-profile/edit/edit.component';
 import {StepOneComponent as ResetStepOneComponent} from './auth/reset/step-one/step-one.component';
 import {StepTwoComponent as ResetStepTwoComponent} from './auth/reset/step-two/step-two.component';
 
-import {
-  BarGaugeModule,
-  BulletChartModule,
-  ButtonGroupModule,
-  ButtonModule,
-  CalendarModule,
-  ChartModule,
-  CheckBoxModule,
-  ColorPickerModule,
-  ComboBoxModule,
-  ComplexInputModule,
-  DataTableModule,
-  DateTimeInputModule,
-  DockingLayoutModule,
-  DockingModule,
-  DockPanelModule,
-  DragDropModule,
-  DrawModule,
-  DropDownButtonModule,
-  EditorModule,
-  ExpanderModule,
-  FileUploadModule,
-  FormattedInputModule,
-  FormModule,
-  GaugeModule,
-  GridModule,
-  InputModule,
-  KanbanModule,
-  KnobModule,
-  LayoutModule,
-  LinearGaugeModule,
-  LinkButtonModule,
-  ListBoxModule,
-  ListMenuModule,
-  LoaderModule,
-  MaskedInputModule,
-  MenuModule,
-  NavBarModule,
-  NavigationBarModule,
-  NotificationModule,
-  NumberInputModule,
-  PanelModule,
-  PasswordInputModule,
-  PivotDesignerModule,
-  PivotGridModule,
-  PopoverModule,
-  ProgressBarModule,
-  RadioButtonModule,
-  RangeSelectorModule,
-  RatingModule,
-  RepeatButtonModule,
-  ResponsivePanelModule,
-  RibbonModule,
-  SchedulerModule,
-  ScrollBarModule,
-  ScrollViewModule,
-  SliderModule,
-  SortableModule,
-  SplitterModule,
-  SwitchButtonModule,
-  TabsModule,
-  TagCloudModule,
-  TextAreaModule,
-  ToggleButtonModule,
-  ToolBarModule,
-  TooltipModule,
-  TreeGridModule,
-  TreeMapModule,
-  TreeModule,
-  ValidatorModule,
-  WindowModule
-} from './admin/_modules';
 import {OrdersComponent as GalleryProfileOrdersComponent} from './profile/gallery-profile/orders/orders.component';
 import {ArtworkStockComponent as GalleryProfileArtworkStockComponent} from './profile/gallery-profile/artwork-stock/artwork-stock.component';
 import {OrdersComponent as TraderProfileOrdersComponent} from './profile/trader-profile/orders/orders.component';
 import {ArtworkStockComponent as TraderProfileArtworkStockComponent} from './profile/trader-profile/artwork-stock/artwork-stock.component';
 import {PageNotFoundComponent} from './page-not-found/page-not-found.component';
-import {MaskedInputComponent} from './core/components/masked-input.component';
-import {ComboBoxComponent} from './core/components/combobox.component';
-import {DateTimeInputComponent} from './core/components/date-time-input.component';
-import {NumberInputComponent} from './core/components/number-input.component';
 import {OrderWindowComponent} from './common/components/order-window/order-window.component';
-import {SharedModule} from './shared.module';
 import {StorageAddComponent} from './profile/gallery-profile/storage/add/storage-add.component';
 import {StorageEditComponent} from './profile/gallery-profile/storage/edit/storage-edit.component';
 import {StorageComponent} from './profile/gallery-profile/storage/storage.component';
@@ -154,7 +75,6 @@ import {DocumentsComponent as TraderProfileDocumentsComponent} from './profile/t
 import {DocumentAddComponent as GalleryDocumentAddComponent} from './profile/gallery-profile/documents/add/document-add.component';
 import {DocumentAddComponent as TraderDocumentAddComponent} from './profile/trader-profile/documents/add/document-add.component';
 
-
 export function createTranslateLoader(http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
 }
@@ -162,7 +82,6 @@ export function createTranslateLoader(http: HttpClient) {
 @NgModule({
   declarations: [
     AppComponent,
-    AlertComponent,
     MainHeaderComponent,
     MainFooterComponent,
     MainPageComponent,
@@ -199,8 +118,6 @@ export function createTranslateLoader(http: HttpClient) {
     GalleryProfileSecurityView,
     GalleryProfileSecurityEdit,
     NotificationsComponent,
-    LoadingComponent,
-    LoadingComponent,
     TraderProfileNavigation,
     TraderProfileSecurityView,
     TraderProfileSecurityEdit,
@@ -222,11 +139,14 @@ export function createTranslateLoader(http: HttpClient) {
     GalleryProfileDocumentsComponent,
     TraderProfileDocumentsComponent,
     TraderDocumentAddComponent,
-    GalleryDocumentAddComponent
+    GalleryDocumentAddComponent,
+    OrderWindowComponent
+
   ],
   imports: [
     BrowserModule,
     CommonModule,
+    YinyangCoreModule,
     TranslateModule.forRoot({
       loader: {
         provide: TranslateLoader,
@@ -235,89 +155,20 @@ export function createTranslateLoader(http: HttpClient) {
       }
     }),
     NgxLoadingModule.forRoot({}),
-    SharedModule,
     ReactiveFormsModule,
+    FormsModule,
     HttpClientModule,
     AppRoutingModule,
     NgxPaginationModule,
-    AdminModule,
-
-
-    BarGaugeModule,
-    BulletChartModule,
-    ButtonGroupModule,
-    ButtonModule,
-    CalendarModule,
-    ChartModule,
-    CheckBoxModule,
-    ColorPickerModule,
-    ComboBoxModule,
-    ComplexInputModule,
-    DataTableModule,
-    DateTimeInputModule,
-    DockingLayoutModule,
-    DockingModule,
-    DockPanelModule,
-    DragDropModule,
-    DrawModule,
-    DropDownButtonModule,
-    EditorModule,
-    ExpanderModule,
-    FileUploadModule,
-    FormattedInputModule,
-    FormModule,
-    GaugeModule,
-    GridModule,
-    InputModule,
-    KanbanModule,
-    KnobModule,
-    LayoutModule,
-    LinearGaugeModule,
-    LinkButtonModule,
-    ListBoxModule,
-    ListMenuModule,
-    LoaderModule,
-    MaskedInputModule,
-    MenuModule,
-    NavBarModule,
-    NavigationBarModule,
-    NotificationModule,
-    NumberInputModule,
-    PanelModule,
-    PasswordInputModule,
-    PivotDesignerModule,
-    PivotGridModule,
-    PopoverModule,
-    ProgressBarModule,
-    RadioButtonModule,
-    RangeSelectorModule,
-    RatingModule,
-    RepeatButtonModule,
-    ResponsivePanelModule,
-    RibbonModule,
-    SchedulerModule,
-    ScrollBarModule,
-    ScrollViewModule,
-    SliderModule,
-    SortableModule,
-    SplitterModule,
-    SwitchButtonModule,
-    TabsModule,
-    TagCloudModule,
-    TextAreaModule,
-    ToggleButtonModule,
-    ToolBarModule,
-    TooltipModule,
-    TreeGridModule,
-    TreeMapModule,
-    TreeModule,
-    ValidatorModule,
-    WindowModule
+    AdminModule
   ],
-  providers: [Globals, FileService, AlertService, AuthGuard, AdminGuard,
-    {provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true},
-    {provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true}],
-  bootstrap: [AppComponent]
+  providers:
+    [Globals, FileService, AuthGuard, AdminGuard,
+      {provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true},
+      {provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true}],
+  bootstrap:
+    [AppComponent]
 })
+
 export class AppModule {
 }

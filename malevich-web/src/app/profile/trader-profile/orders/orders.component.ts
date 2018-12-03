@@ -51,7 +51,6 @@ export class OrdersComponent implements OnInit {
       .subscribe(
         data => {
           this.orders = data;
-          console.log(this.orders);
         }
       );
   }

@@ -1,7 +1,7 @@
 package io.malevich.server.services.auth;
 
 
-import io.malevich.server.core.security.JWTUtil;
+import com.yinyang.core.server.core.security.JWTUtil;
 import io.malevich.server.domain.*;
 import io.malevich.server.domain.enums.Role;
 import io.malevich.server.services.mailqueue.MailQueueService;

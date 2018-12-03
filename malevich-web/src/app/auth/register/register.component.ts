@@ -1,9 +1,10 @@
 import {AfterViewInit, Component, OnInit} from '@angular/core';
 import {InvolvementService} from "../../_services/involvement.service";
 import {InvolvementDto} from "../../_transfer";
-import {AlertService, AuthService} from "../../_services";
+import {AuthService} from "../../_services";
 import {TranslateService} from "@ngx-translate/core";
 import {ActivatedRoute} from "@angular/router";
+import {AlertService} from "yinyang-core";
 
 @Component({
   selector: 'app-auth-register',

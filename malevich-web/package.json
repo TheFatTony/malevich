@@ -34,6 +34,7 @@
     "jquery-countdown": "^2.2.0",
     "jquery-migrate": "^3.0.1",
     "jqwidgets-scripts": "^6.1.0",
+    "ngx-json-viewer": "^2.4.0",
     "ngx-loading": "^3.0.1",
     "ngx-pagination": "^3.2.0",
     "popper.js": "^1.14.4",
@@ -41,6 +42,7 @@
     "simple-line-icons": "^2.4.1",
     "slick-carousel": "^1.8.1",
     "yarn": "^1.12.3",
+    "yinyang-core": "/usr/local/lib/node_modules/yinyang-core",
     "zone.js": "^0.8.26"
   },
   "devDependencies": {

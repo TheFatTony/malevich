@@ -1,6 +1,6 @@
 package io.malevich.server.domain;
 
-import io.malevich.server.core.jpa.JpaConverterJson;
+import com.yinyang.core.server.core.jpa.JpaConverterJson;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
@@ -8,6 +8,7 @@ import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.util.Map;
 
 
@@ -26,24 +27,28 @@ public class ArtistEntity implements Entity {
     @Setter
     @Fetch(FetchMode.JOIN)
     @OneToOne
+    @NotNull
     private PersonEntity person;
 
     @Getter
     @Setter
     @Fetch(FetchMode.JOIN)
     @ManyToOne
+    @NotNull
     private FileEntity thumbnail;
 
     @Getter
     @Setter
     @Fetch(FetchMode.JOIN)
     @ManyToOne
+    @NotNull
     private FileEntity image;
 
     @Getter
     @Setter
     @Convert(converter = JpaConverterJson.class)
     @Column(name = "full_name_ml")
+    @NotNull
     private Map<String, String> fullNameMl;
 
     @Getter

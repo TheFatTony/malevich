@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.6.xsd">
+
+    <changeSet author="thefattony" id="artist-person_id-uc">
+        <addUniqueConstraint columnNames="person_id" constraintName="artist_person_id_uc" tableName="artist"/>
+    </changeSet>
+
+    <changeSet author="thefattony" id="artist-person-fk">
+        <addForeignKeyConstraint baseColumnNames="person_id" baseTableName="artist"
+                                 constraintName="artist_person_fk"
+                                 referencedColumnNames="id" referencedTableName="person"/>
+    </changeSet>
+
+    <changeSet author="thefattony" id="artist-files-thumbnail_id-fk">
+        <addForeignKeyConstraint baseColumnNames="thumbnail_id" baseTableName="artist"
+                                 constraintName="artist_thumbnail_id_fk"
+                                 referencedColumnNames="id" referencedTableName="files"/>
+    </changeSet>
+
+    <changeSet author="thefattony" id="artist-files-image_id-fk">
+        <addForeignKeyConstraint baseColumnNames="image_id" baseTableName="artist"
+                                 constraintName="artist_image_id_fk"
+                                 referencedColumnNames="id" referencedTableName="files"/>
+    </changeSet>
+
+</databaseChangeLog>

@@ -8,6 +8,9 @@ import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
 
 import javax.persistence.*;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 @EqualsAndHashCode
 @javax.persistence.Entity
@@ -23,17 +26,22 @@ public class RegisterTokenEntity implements Entity {
     @Getter
     @Setter
     @Column(name = "token")
+    @NotNull
     private String token;
 
     @Getter
     @Setter
     @Column(name = "user_name")
+    @NotNull
+    @Size(min = 5, message = "Email should be atleast 2 characters")
+    @Email
     private String userName;
 
     @Getter
     @Setter
     @Fetch(FetchMode.JOIN)
     @ManyToOne()
+    @NotNull
     private UserTypeEntity userType;
 
     @Getter

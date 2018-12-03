@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.6.xsd">
+
+    <changeSet author="thefattony" id="trader_address-trader_id-index">
+        <createIndex indexName="trader_address_trader_id_idx" tableName="trader_address" unique="true">
+            <column name="trader_id"/>
+        </createIndex>
+    </changeSet>
+
+    <changeSet author="thefattony" id="trader_address-address_id-index">
+        <createIndex indexName="trader_address_address_id_idx" tableName="trader_address" unique="true">
+            <column name="address_id"/>
+        </createIndex>
+    </changeSet>
+
+</databaseChangeLog>

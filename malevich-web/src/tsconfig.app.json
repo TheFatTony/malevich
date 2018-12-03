@@ -10,6 +10,7 @@
   ],
   "include": [
     "./**/*.ts",
-    "../node_modules/jqwidgets-scripts/**/*.ts"
+    "../node_modules/jqwidgets-scripts/**/*.ts",
+    "../node_modules/yinyang-core/**/*.ts"
   ]
 }

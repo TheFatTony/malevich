@@ -1,8 +1,6 @@
 package io.malevich.server.transfer;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import com.fasterxml.jackson.annotation.JsonView;
-import io.malevich.server.core.dto.View;
 import lombok.Getter;
 import lombok.Setter;
 

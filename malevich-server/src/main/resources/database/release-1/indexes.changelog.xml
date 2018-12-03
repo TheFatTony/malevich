@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.6.xsd">
+
+    <include relativeToChangelogFile="true" file="indexes/gender.index.xml"/>
+    <include relativeToChangelogFile="true" file="indexes/country.index.xml"/>
+    <include relativeToChangelogFile="true" file="indexes/organization.index.xml"/>
+    <include relativeToChangelogFile="true" file="indexes/gallery.index.xml"/>
+    <include relativeToChangelogFile="true" file="indexes/gallery_user.index.xml"/>
+    <include relativeToChangelogFile="true" file="indexes/person.index.xml"/>
+    <include relativeToChangelogFile="true" file="indexes/artist.index.xml"/>
+    <include relativeToChangelogFile="true" file="indexes/trader.index.xml"/>
+    <include relativeToChangelogFile="true" file="indexes/category.index.xml"/>
+    <include relativeToChangelogFile="true" file="indexes/trader_address.index.xml"/>
+    <include relativeToChangelogFile="true" file="indexes/gallery_address.index.xml"/>
+    <include relativeToChangelogFile="true" file="indexes/artwork.index.xml"/>
+    <include relativeToChangelogFile="true" file="indexes/address.index.xml"/>
+    <include relativeToChangelogFile="true" file="indexes/artwork_stock.index.xml"/>
+    <include relativeToChangelogFile="true" file="indexes/transaction_type.index.xml"/>
+    <include relativeToChangelogFile="true" file="indexes/order_type.index.xml"/>
+    <include relativeToChangelogFile="true" file="indexes/payment_type.index.xml"/>
+    <include relativeToChangelogFile="true" file="indexes/order_status.index.xml"/>
+    <include relativeToChangelogFile="true" file="indexes/trade_type.index.xml"/>
+    <include relativeToChangelogFile="true" file="indexes/counterparty_type.index.xml"/>
+    <include relativeToChangelogFile="true" file="indexes/counterparty.index.xml"/>
+    <include relativeToChangelogFile="true" file="indexes/payment_method_type.index.xml"/>
+    <include relativeToChangelogFile="true" file="indexes/payment_method.index.xml"/>
+    <include relativeToChangelogFile="true" file="indexes/transaction_group.index.xml"/>
+    <include relativeToChangelogFile="true" file="indexes/payments.index.xml"/>
+    <include relativeToChangelogFile="true" file="indexes/orders.index.xml"/>
+    <include relativeToChangelogFile="true" file="indexes/transactions.index.xml"/>
+    <include relativeToChangelogFile="true" file="indexes/account_state.index.xml"/>
+    <include relativeToChangelogFile="true" file="indexes/account_state_arch.index.xml"/>
+    <include relativeToChangelogFile="true" file="indexes/trade_history.index.xml"/>
+    <include relativeToChangelogFile="true" file="indexes/help_category.index.xml"/>
+    <include relativeToChangelogFile="true" file="indexes/help_topic.index.xml"/>
+    <include relativeToChangelogFile="true" file="indexes/contact_us.index.xml"/>
+    <include relativeToChangelogFile="true" file="indexes/subscription.index.xml"/>
+    <include relativeToChangelogFile="true" file="indexes/document.index.xml"/>
+    <include relativeToChangelogFile="true" file="indexes/gallery_document.index.xml"/>
+    <include relativeToChangelogFile="true" file="indexes/trader_document.index.xml"/>
+    <include relativeToChangelogFile="true" file="indexes/document_type.index.xml"/>
+    <include relativeToChangelogFile="true" file="indexes/wish_list.index.xml"/>
+    <include relativeToChangelogFile="true" file="indexes/delayed_change.index.xml"/>
+
+</databaseChangeLog>

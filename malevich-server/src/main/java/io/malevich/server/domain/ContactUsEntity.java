@@ -6,6 +6,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 
 
 @EqualsAndHashCode
@@ -22,22 +23,31 @@ public class ContactUsEntity implements Entity {
     @Getter
     @Setter
     @Column(name = "email_id")
+    @NotNull
     private String emailId;
 
     @Getter
     @Setter
+    @Column(name = "name")
+    @NotNull
     private String name;
 
     @Getter
     @Setter
+    @Column(name = "message")
+    @NotNull
     private String message;
 
     @Getter
     @Setter
+    @Column(name = "subject")
+    @NotNull
     private String subject;
 
     @Getter
     @Setter
+    @Column(name = "phone")
+    @NotNull
     private String phone;
 
 }

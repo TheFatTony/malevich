@@ -16,8 +16,7 @@ import {TradeTypeService} from "../../../_services/trade-type.service";
 import {TradeTypeDto} from "../../../_transfer/tradeTypeDto";
 import {OrderDto} from "../../../_transfer/orderDto";
 import {jqxWindowComponent} from "jqwidgets-scripts/jqwidgets-ts/angular_jqxwindow";
-import {jqxValidatorComponent} from "jqwidgets-scripts/jqwidgets-ts/angular_jqxvalidator";
-import {jqxDropDownListComponent} from "jqwidgets-scripts/jqwidgets-ts/angular_jqxdropdownlist";
+import {AbstractControl, FormControl, FormControlDirective, FormGroup, NgForm, NgModel} from "@angular/forms";
 
 @Component({
   selector: 'mch-order-window',
@@ -31,40 +30,7 @@ export class OrderWindowComponent implements OnInit, AfterViewInit {
   @Input('orderType') attrOrderType: string;
   @Output() onOrderPlaced = new EventEmitter();
 
-  @ViewChild('divBody') divBody: ElementRef;
   @ViewChild('myWindow') myWindow: jqxWindowComponent;
-  @ViewChild('myValidator') myValidator: jqxValidatorComponent;
-  @ViewChild('tradeTypeDropDown') tradeTypeDropDown: jqxDropDownListComponent;
-
-  rules =
-    [
-      {
-        input: '.artworkStockInput',
-        message: 'Field is required!',
-        action: 'keyup, blur',
-        rule: (input: any, commit: any): any => {
-          if (this.newOrder) {
-            if (this.newOrder.artworkStock !== null) {
-              return true;
-            }
-          }
-          return false;
-        }
-      },
-      {
-        input: '.amountInput',
-        message: 'Field is required!',
-        action: 'keyup, blur',
-        rule: (input: any, commit: any): any => {
-          if (this.newOrder) {
-            if (this.newOrder.amount != null) {
-              return true;
-            }
-          }
-          return false;
-        }
-      }
-    ];
 
   private x: number;
   private y: number;
@@ -96,31 +62,19 @@ export class OrderWindowComponent implements OnInit, AfterViewInit {
       );
   }
 
-  validationSuccess($event: any) {
-
-    if (this.orderType().toLocaleLowerCase() == 'ask')
-      this.orderService.placeAsk(this.newOrder).subscribe(() => {
-        this.onOrderPlaced.emit(this.newOrder);
-        this.myWindow.close();
-      });
-
-    if (this.orderType().toLocaleLowerCase() == 'bid')
-      this.orderService.placeBid(this.newOrder).subscribe(() => {
-        this.onOrderPlaced.emit(this.newOrder);
-        this.myWindow.close();
-      });
-  }
-
   showExpirationDateInput(show: boolean) {
     this.expirationDateHidden = !show;
 
-    if(show)
+    if (show)
       this.myWindow.height(300);
     else
       this.myWindow.height(240);
   }
 
   onTradeTypeSelected(event: any) {
+    if (!event.args.item)
+      return;
+
     switch (event.args.item.value.id) {
       case "GTC_": {
         this.newOrder.expirationDate = null;
@@ -142,10 +96,12 @@ export class OrderWindowComponent implements OnInit, AfterViewInit {
   }
 
   open() {
+    this.newOrder = new OrderDto();
     this.newOrder.artworkStock = this.artworkStock();
     this.newOrder.expirationDate = null;
     this.newOrder.tradeType = this.tradeTypes[0];
     this.newOrder.amount = 0;
+    this.showExpirationDateInput(false);
 
     this.myWindow.width(310);
     this.myWindow.height(240);
@@ -157,8 +113,18 @@ export class OrderWindowComponent implements OnInit, AfterViewInit {
     this.myWindow.close();
   }
 
-  sendButton() {
-    this.myValidator.validate();
+  onFormSubmit() {
+    if (this.orderType().toLocaleLowerCase() == 'ask')
+      this.orderService.placeAsk(this.newOrder).subscribe(() => {
+        this.onOrderPlaced.emit(this.newOrder);
+      });
+
+    if (this.orderType().toLocaleLowerCase() == 'bid')
+      this.orderService.placeBid(this.newOrder).subscribe(() => {
+        this.onOrderPlaced.emit(this.newOrder);
+      });
+
+    this.myWindow.close();
   }
 
   artworkStock(arg?: ArtworkStockDto): any {

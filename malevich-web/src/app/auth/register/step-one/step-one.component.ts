@@ -2,8 +2,9 @@ import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {first} from "rxjs/operators";
 import {TranslateService} from "@ngx-translate/core";
-import {AlertService, AuthService} from "../../../_services";
+import {AuthService} from "../../../_services";
 import {Router} from "@angular/router";
+import {AlertService} from "yinyang-core";
 
 @Component({
   selector: 'app-auth-register-step-one',
@@ -13,7 +14,7 @@ import {Router} from "@angular/router";
 export class StepOneComponent implements OnInit {
 
 
-  loginForm: FormGroup;
+  email: string = "";
 
   constructor(private router: Router,
               private formBuilder: FormBuilder,
@@ -23,17 +24,10 @@ export class StepOneComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.loginForm = this.formBuilder.group({
-      email: ['', Validators.required]
-    });
-  }
-
-  get f() {
-    return this.loginForm.controls;
   }
 
   onSubmit() {
-    this.authService.register(this.translate.currentLang, this.f.email.value)
+    this.authService.register(this.translate.currentLang, this.email)
       .pipe(first())
       .subscribe(
         data => {

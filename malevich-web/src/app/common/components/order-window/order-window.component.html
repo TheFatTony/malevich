@@ -1,7 +1,7 @@
 <jqxWindow #myWindow [autoOpen]="false" [resizable]="false">
   <div>Add ask</div>
-  <div #divBody style="width: 100%">
-    <jqxValidator #myValidator [rules]="rules" (onValidationSuccess)="validationSuccess($event)">
+  <div style="width: 100%">
+    <form #f="ngForm" (ngSubmit)="onFormSubmit()" novalidate>
       <div class="container" *ngIf="newOrder" style="width: 100%">
         <div class="row g-mt-10">
           <div class="col">
@@ -10,10 +10,12 @@
         </div>
         <div class="row">
           <div class="col">
-            <mchNumberInput
-              class="amountInput"
-              [ngModel]="newOrder?.amount"
-              (ngModelChange)="newOrder.amount=$event"></mchNumberInput>
+            <mchNumberInput name="amount"
+                            mchRequired
+                            mchMultipleOf="10"
+                            [ngModel]="newOrder?.amount"
+                            (ngModelChange)="newOrder.amount=$event"
+            ></mchNumberInput>
           </div>
         </div>
         <div class="row g-mt-10">
@@ -23,7 +25,7 @@
         </div>
         <div class="row">
           <div class="col">
-            <mchDropDownList #tradeTypeDropDown
+            <mchDropDownList name="tradeType"
                              [objectSource]="tradeTypes"
                              [displayFunc]="tradeTypeDisplayFunc"
                              [(ngModel)]="newOrder.tradeType"
@@ -31,28 +33,32 @@
             ></mchDropDownList>
           </div>
         </div>
-        <div class="row g-mt-10" [hidden]="expirationDateHidden">
-          <div class="col">
-            <span>Expiration Date:</span>
+        <ng-container *ngIf="!expirationDateHidden">
+          <div class="row g-mt-10">
+            <div class="col">
+              <span>Expiration Date:</span>
+            </div>
           </div>
-        </div>
-        <div class="row" [hidden]="expirationDateHidden">
-          <div class="col">
-            <mchDateTimeInput #expirationDateInput
-                              [(ngModel)]="newOrder.expirationDate"
-            ></mchDateTimeInput>
+          <div class="row">
+            <div class="col">
+              <mchDateTimeInput name="expirationDate"
+                                mchRequired
+                                [(ngModel)]="newOrder.expirationDate"
+              ></mchDateTimeInput>
+            </div>
           </div>
-        </div>
+        </ng-container>
         <div class="row">
           <div class="col text-center">
-              <mchButton #SendButton
-                         (onClick)="sendButton()"
-                         [width]="60" [height]="25">
-                Send
-              </mchButton>
+            <mchButton #SendButton
+                       class="g-mt-10"
+                       [submitForm]="f"
+                       [width]="60" [height]="25">
+              Send
+            </mchButton>
           </div>
         </div>
       </div>
-    </jqxValidator>
+    </form>
   </div>
 </jqxWindow>

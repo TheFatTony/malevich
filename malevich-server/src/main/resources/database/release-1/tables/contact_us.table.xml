@@ -17,13 +17,16 @@
             <column name="subject" type="varchar(255)">
                 <constraints nullable="false"/>
             </column>
-            <column name="message" type="varchar(255)">
+            <column name="message" type="longtext">
                 <constraints nullable="false"/>
             </column>
             <column name="phone" type="varchar(255)">
                 <constraints nullable="false"/>
             </column>
         </createTable>
+        <modifySql dbms="mysql">
+            <replace replace="clob" with="longtext"/>
+        </modifySql>
     </changeSet>
 
 

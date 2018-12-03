@@ -13,7 +13,9 @@
 
     <changeSet author="toolstik" id="order_status-table-ml" dbms="mysql">
         <addColumn tableName="order_status">
-            <column name="name_ml" type="json"/>
+            <column name="name_ml" type="json">
+                <constraints nullable="false"/>
+            </column>
         </addColumn>
     </changeSet>
 

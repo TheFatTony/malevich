@@ -10,6 +10,7 @@ import org.hibernate.annotations.LazyCollection;
 import org.hibernate.annotations.LazyCollectionOption;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.sql.Timestamp;
 import java.util.List;
 
@@ -29,12 +30,14 @@ public class TraderEntity implements Entity {
     @Setter
     @Fetch(FetchMode.JOIN)
     @OneToOne(cascade = CascadeType.MERGE)
+    @NotNull
     private PersonEntity person;
 
     @Getter
     @Setter
     @Fetch(FetchMode.JOIN)
     @OneToOne(cascade = CascadeType.DETACH)
+    @NotNull
     private UserEntity user;
 
     @Getter
@@ -45,17 +48,20 @@ public class TraderEntity implements Entity {
     @Setter
     @Fetch(FetchMode.JOIN)
     @ManyToOne
+    @NotNull
     private GenderEntity gender;
 
     @Getter
     @Setter
     @Fetch(FetchMode.JOIN)
     @ManyToOne
+    @NotNull
     private CountryEntity country;
 
     @Getter
     @Setter
     @Column(name = "date_of_birth")
+    @NotNull
     private Timestamp dateOfBirth;
 
     @Getter

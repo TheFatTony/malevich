@@ -8,6 +8,7 @@ import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 
 
 @EqualsAndHashCode
@@ -25,23 +26,27 @@ public class DelayedChangeEntity {
     @Getter
     @Setter
     @Column(name = "type_id")
+    @NotNull
     private String typeId;
 
     @Getter
     @Setter
     @Convert(converter = JpaConverterJson.class)
     @Column(name = "payload")
+    @NotNull
     private Object payload;
 
     @Getter
     @Setter
     @Column(name = "reference_id")
+    @NotNull
     private Long referenceId;
 
     @Getter
     @Setter
     @Fetch(FetchMode.JOIN)
     @ManyToOne
+    @NotNull
     private UserEntity user;
 
 }

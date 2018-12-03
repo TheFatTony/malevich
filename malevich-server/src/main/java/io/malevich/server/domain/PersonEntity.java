@@ -5,6 +5,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 
 @EqualsAndHashCode
 @javax.persistence.Entity
@@ -20,17 +21,17 @@ public class PersonEntity implements Entity {
     @Getter
     @Setter
     @Column(name = "first_name")
+    @NotNull
     private String firstName;
 
     @Getter
     @Setter
     @Column(name = "last_name")
+    @NotNull
     private String lastName;
 
     @Transient
-    private String fullName;
-
     public String getFullName() {
-        return firstName + " " + fullName;
+        return firstName + " " + lastName;
     }
 }

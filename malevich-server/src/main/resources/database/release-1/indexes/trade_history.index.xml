@@ -3,5 +3,17 @@
                    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
                    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.6.xsd">
 
+    <changeSet author="thefattony" id="trade_history-orders-index">
+        <createIndex indexName="trade_history_orders_idx" tableName="trade_history" unique="true">
+            <column name="ask_order_id"/>
+            <column name="bid_order_id"/>
+        </createIndex>
+    </changeSet>
+
+    <changeSet author="thefattony" id="trade_history-artwork_stock_id-index">
+        <createIndex indexName="trade_history_artwork_stock_id_idx" tableName="trade_history" unique="false">
+            <column name="artwork_stock_id"/>
+        </createIndex>
+    </changeSet>
 
 </databaseChangeLog>

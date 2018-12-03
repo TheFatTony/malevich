@@ -6,6 +6,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.util.Map;
 
 
@@ -25,6 +26,7 @@ public class TradeTypeEntity implements Entity {
     @Setter
     @Convert(converter = JpaConverterJson.class)
     @Column(name = "name_ml")
+    @NotNull
     private Map<String, String> nameMl;
 
 }

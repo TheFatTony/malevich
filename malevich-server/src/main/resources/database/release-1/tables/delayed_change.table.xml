@@ -22,7 +22,9 @@
 
     <changeSet author="thefattony" id="delayed_change-table-ml" dbms="mysql">
         <addColumn tableName="delayed_change">
-            <column name="payload" type="json"/>
+            <column name="payload" type="json">
+                <constraints nullable="false"/>
+            </column>
         </addColumn>
     </changeSet>
 

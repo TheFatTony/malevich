@@ -8,9 +8,7 @@
             <column name="id" type="bigint">
                 <constraints nullable="false"/>
             </column>
-            <column name="estimated_price" type="double">
-                <constraints nullable="false"/>
-            </column>
+            <column name="estimated_price" type="double"/>
             <column name="artist_id" type="bigint">
                 <constraints nullable="false"/>
             </column>
@@ -24,14 +22,13 @@
                 <constraints nullable="false"/>
             </column>
         </createTable>
-        <modifySql dbms="mysql">
-            <replace replace="clob" with="longtext"/>
-        </modifySql>
     </changeSet>
 
     <changeSet author="thefattony" id="artwork-table-ml" dbms="mysql">
         <addColumn tableName="artwork">
-            <column name="title_ml" type="json"/>
+            <column name="title_ml" type="json">
+                <constraints nullable="false"/>
+            </column>
             <column name="description_ml" type="json"/>
         </addColumn>
     </changeSet>

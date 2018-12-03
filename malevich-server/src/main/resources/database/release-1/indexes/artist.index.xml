@@ -9,4 +9,16 @@
         </createIndex>
     </changeSet>
 
+    <changeSet author="thefattony" id="artist-thumbnail_id-index">
+        <createIndex indexName="artist_thumbnail_id_idx" tableName="artist" unique="false">
+            <column name="thumbnail_id"/>
+        </createIndex>
+    </changeSet>
+
+    <changeSet author="thefattony" id="artist-image_id-index">
+        <createIndex indexName="artist_image_id_idx" tableName="artist" unique="false">
+            <column name="image_id"/>
+        </createIndex>
+    </changeSet>
+
 </databaseChangeLog>

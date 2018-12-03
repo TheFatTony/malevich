@@ -1,5 +1,5 @@
 <div class="row g-pt-30 g-mb-50">
-  <div class="col-6 col-lg-4 g-mb-30" *ngFor="let artworkStock of artworkStocks.stockDtoCopies | paginate: { id: 'server',
+  <div class="col-6 col-lg-4 g-mb-30" *ngFor="let artworkStock of artworkStocks.data | paginate: { id: 'server',
                                                       itemsPerPage: artworkStocks.size,
                                                       currentPage: artworkStocks.currentPage,
                                                       totalItems: artworkStocks.totalElements }">

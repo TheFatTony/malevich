@@ -40,5 +40,6 @@
     <include relativeToChangelogFile="true" file="constraints/gallery_document.constraint.xml"/>
     <include relativeToChangelogFile="true" file="constraints/trader_document.constraint.xml"/>
     <include relativeToChangelogFile="true" file="constraints/document_type.constraint.xml"/>
+    <include relativeToChangelogFile="true" file="constraints/wish_list.constraint.xml"/>
 
 </databaseChangeLog>

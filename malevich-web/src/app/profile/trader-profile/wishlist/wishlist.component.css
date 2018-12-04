@@ -1,0 +1,11 @@
+/* ---  Style code for pagination  ---*/
+.my-pagination /deep/ .ngx-pagination .current {
+  background: #e44235 !important;
+  border-radius: 50% !important;
+}
+
+.my-pagination /deep/ .ngx-pagination a:hover, .my-pagination /deep/ .ngx-pagination button:hover {
+  background: transparent;
+  text-decoration: none;
+  color: #e44235;
+}

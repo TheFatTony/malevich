@@ -17,7 +17,7 @@ import {Globals} from './globals';
 import {FileService} from './_services';
 import {AuthGuard} from './_guards/auth.guard';
 import {AdminGuard} from './_guards/admin.guard';
-import {ErrorInterceptor, JwtInterceptor} from '../../node_modules/yinyang-core';
+import {ErrorInterceptor, JwtInterceptor, YinyangCoreModule} from '../../node_modules/yinyang-core';
 import {HelpComponent} from './main/help/help.component';
 import {AboutComponent} from './main/about/about.component';
 import {ContactComponent} from './main/contact/contact.component';
@@ -70,7 +70,11 @@ import {OrderWindowComponent} from './common/components/order-window/order-windo
 import {StorageAddComponent} from './profile/gallery-profile/storage/add/storage-add.component';
 import {StorageEditComponent} from './profile/gallery-profile/storage/edit/storage-edit.component';
 import {StorageComponent} from './profile/gallery-profile/storage/storage.component';
-import {YinyangCoreModule} from '../../node_modules/yinyang-core';
+import {DocumentsComponent as GalleryProfileDocumentsComponent} from './profile/gallery-profile/documents/documents.component';
+import {DocumentsComponent as TraderProfileDocumentsComponent} from './profile/trader-profile/documents/documents.component';
+import {DocumentAddComponent as GalleryDocumentAddComponent} from './profile/gallery-profile/documents/add/document-add.component';
+import {DocumentAddComponent as TraderDocumentAddComponent} from './profile/trader-profile/documents/add/document-add.component';
+
 
 export function createTranslateLoader(http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
@@ -129,6 +133,11 @@ export function createTranslateLoader(http: HttpClient) {
     TraderProfileArtworkStockComponent,
     PageNotFoundComponent,
     OrderWindowComponent,
+    GalleryProfileDocumentsComponent,
+    TraderProfileDocumentsComponent,
+    TraderDocumentAddComponent,
+    GalleryDocumentAddComponent,
+    OrderWindowComponent
 
   ],
   imports: [
@@ -150,10 +159,13 @@ export function createTranslateLoader(http: HttpClient) {
     NgxPaginationModule,
     AdminModule
   ],
-  providers: [Globals, FileService, AuthGuard, AdminGuard,
-    {provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true},
-    {provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true}],
-  bootstrap: [AppComponent]
+  providers:
+    [Globals, FileService, AuthGuard, AdminGuard,
+      {provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true},
+      {provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true}],
+  bootstrap:
+    [AppComponent]
 })
+
 export class AppModule {
 }

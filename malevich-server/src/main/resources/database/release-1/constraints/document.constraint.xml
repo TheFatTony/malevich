@@ -9,4 +9,10 @@
                                  referencedColumnNames="id" referencedTableName="document_type"/>
     </changeSet>
 
+    <changeSet author="harshilmelegant" id="doc-file-id-fk">
+        <addForeignKeyConstraint baseColumnNames="file_id" baseTableName="document"
+                                 constraintName="document_file_id_fk"
+                                 referencedColumnNames="id" referencedTableName="files"/>
+    </changeSet>
+
 </databaseChangeLog>

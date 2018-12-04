@@ -74,10 +74,10 @@ import {DocumentsComponent as GalleryProfileDocumentsComponent} from './profile/
 import {DocumentsComponent as TraderProfileDocumentsComponent} from './profile/trader-profile/documents/documents.component';
 import {DocumentAddComponent as GalleryDocumentAddComponent} from './profile/gallery-profile/documents/add/document-add.component';
 import {DocumentAddComponent as TraderDocumentAddComponent} from './profile/trader-profile/documents/add/document-add.component';
-import {DateTimeInputComponent} from 'yinyang-core/lib/components/date-time-input.component';
+/*import {DateTimeInputComponent} from 'yinyang-core/lib/components/date-time-input.component';
 import {MaskedInputComponent} from 'yinyang-core/lib/components/masked-input.component';
 import {NumberInputComponent} from 'yinyang-core/lib/components/number-input.component';
-import {ComboBoxComponent} from 'yinyang-core/lib/components/combobox.component';
+import {ComboBoxComponent} from 'yinyang-core/lib/components/combobox.component';*/
 
 export function createTranslateLoader(http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
@@ -135,10 +135,10 @@ export function createTranslateLoader(http: HttpClient) {
     TraderProfileOrdersComponent,
     TraderProfileArtworkStockComponent,
     PageNotFoundComponent,
-    MaskedInputComponent,
+    /*MaskedInputComponent,
     DateTimeInputComponent,
     NumberInputComponent,
-    ComboBoxComponent,
+    ComboBoxComponent,*/
     OrderWindowComponent,
     GalleryProfileDocumentsComponent,
     TraderProfileDocumentsComponent,

@@ -36,6 +36,6 @@ public class DocumentEntity implements Entity {
     @Setter
     @Fetch(FetchMode.JOIN)
     @ManyToOne
-    private FileEntity file;
+    private FileEntity thumbnail;
 
 }

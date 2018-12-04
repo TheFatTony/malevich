@@ -11,7 +11,7 @@
             <column name="effective_date" type="datetime">
                 <constraints nullable="false"/>
             </column>
-            <column name="file_id" type="bigint"/>
+            <column name="thumbnail_id" type="bigint"/>
             <column name="document_type_id" type="bigint">
                 <constraints nullable="false"/>
             </column>

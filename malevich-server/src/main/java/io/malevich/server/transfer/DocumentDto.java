@@ -14,13 +14,11 @@ public class DocumentDto {
 
     private Long id;
 
-    private String fileName;
-
     @JsonFormat(pattern = "dd/MM/yyyy")
     private Timestamp effectiveDate;
 
     private DocumentTypeDto documentType;
 
-    private byte[] content;
+    private FileDto thumbnail;
 
 }

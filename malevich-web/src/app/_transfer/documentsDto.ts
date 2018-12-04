@@ -3,7 +3,7 @@ import {FileDto} from './fileDto';
 
 export class DocumentsDto {
   id: number;
-  file: FileDto;
+  thumbnail: FileDto;
   effectiveDate: Date;
   documentType: DocumentTypeDto;
 }

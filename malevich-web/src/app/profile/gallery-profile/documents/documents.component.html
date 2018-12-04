@@ -57,15 +57,15 @@
             <th>Date</th>
             <th>Document Type</th>
           </tr>
-          <tr *ngFor="let document of documents">
+          <tr *ngFor="let galleryDocs of galleryDocuments">
             <td>
-              {{document?.file.fileName}}
+              {{galleryDocs.thumbnail.fileName}}
             </td>
             <td>
-              {{document?.effectiveDate}}
+              {{galleryDocs.effectiveDate}}
             </td>
             <td>
-              {{document?.documentType.typeName}}
+              {{galleryDocs.documentType.typeName}}
             </td>
           </tr>
         </jqxGrid>

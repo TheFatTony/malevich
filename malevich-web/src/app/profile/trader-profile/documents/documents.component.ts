@@ -3,8 +3,8 @@ import {TranslateService} from '@ngx-translate/core';
 import {jqxGridComponent} from 'jqwidgets-scripts/jqwidgets-ts/angular_jqxgrid';
 import {environment} from '../../../../environments/environment.dev';
 import {DocumentsService} from '../../../_services/documents.service';
-import {DocumentsDto} from '../../../_transfer/documentsDto';
 import {Router} from '@angular/router';
+import {DocumentsDto} from '../../../_transfer/documentsDto';
 
 @Component({
   selector: 'app-profile-trader-documents',
@@ -15,7 +15,7 @@ export class DocumentsComponent implements OnInit {
   @ViewChild('myGrid') myGrid: jqxGridComponent;
 
   selectedRowIndex: number = -1;
-  documents: DocumentsDto[];
+  traderDocuments: DocumentsDto[];
 
   public url = environment.baseUrl;
 
@@ -38,7 +38,7 @@ export class DocumentsComponent implements OnInit {
 
   getTraderDocs(): void {
     this.documentsService.getTraderDocs().subscribe(data => {
-      this.documents = data;
+      this.traderDocuments = data;
     });
   }
 
@@ -51,7 +51,7 @@ export class DocumentsComponent implements OnInit {
   }
 
   onDeleteButtonClick() {
-    let deleted = this.documents.splice(this.selectedRowIndex, 1)[0];
+    let deleted = this.traderDocuments.splice(this.selectedRowIndex, 1)[0];
     this.documentsService.deleteDocument(deleted.id).subscribe();
     this.myGrid.refresh();
     this.selectedRowIndex = -1;

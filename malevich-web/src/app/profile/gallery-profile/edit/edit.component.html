@@ -44,8 +44,10 @@
           <div class="row">
             <div class="col-12">
               <span class="d-block g-color-text g-font-size-13 mb-1">{{'GALLERY_PROFILE.SECURITY.LEGAL_NAME_EN' | translate}}:</span>
-              <mchInput name="legalNameEn" [(ngModel)]="gallery?.organization.legalNameMl['en']"></mchInput>
-
+              <mchInput name="legalNameEn"
+                        mchRequired
+                        [(ngModel)]="gallery?.organization.legalNameMl['en']">
+              </mchInput>
             </div>
           </div>
 

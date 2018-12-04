@@ -59,7 +59,7 @@ export class DocumentAddComponent implements OnInit {
 
   onUploadEnd(event: any): void {
     let args = event.args;
-    this.document = JSON.parse(args.response.toString()
+    this.document.file = JSON.parse(args.response.toString()
       .replace('<pre style="word-wrap: break-word; white-space: pre-wrap;">', '')
       .replace('<pre>', '')
       .replace('</pre>', ''));

@@ -4,6 +4,8 @@ package io.malevich.server.domain;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
 
 import javax.persistence.*;
 import java.sql.Timestamp;
@@ -22,11 +24,6 @@ public class DocumentEntity implements Entity {
 
     @Getter
     @Setter
-    @Column(name = "document_name")
-    private String fileName;
-
-    @Getter
-    @Setter
     @Column(name = "effective_date")
     private Timestamp effectiveDate;
 
@@ -37,9 +34,8 @@ public class DocumentEntity implements Entity {
 
     @Getter
     @Setter
-    @Lob
-    @Basic(fetch = FetchType.LAZY)
-    @Column(name = "content")
-    private byte[] content;
+    @Fetch(FetchMode.JOIN)
+    @ManyToOne
+    private FileEntity file;
 
 }

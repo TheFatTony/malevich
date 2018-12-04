@@ -1,8 +1,9 @@
 import {DocumentTypeDto} from './documentTypeDto';
+import {FileDto} from './fileDto';
 
 export class DocumentsDto {
   id: number;
-  fileName: string;
+  file: FileDto;
   effectiveDate: Date;
   documentType: DocumentTypeDto;
 }

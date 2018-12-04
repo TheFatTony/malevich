@@ -13,9 +13,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
 
-import java.io.IOException;
 import java.sql.Timestamp;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -59,15 +57,10 @@ public class DocumentResource {
                 .collect(Collectors.toList());
     }
 
-    @PostMapping("/uploadFile")
-    @ResponseStatus(HttpStatus.OK)
-    public DocumentDto upload(@RequestParam("file") MultipartFile file) {
-        return convertToDto(uploadDocument(file));
-    }
-
     @PostMapping("/save")
     @ResponseStatus(HttpStatus.OK)
     public ResponseEntity<Void> save(@RequestBody DocumentDto documentDto) {
+        documentDto.setEffectiveDate(new Timestamp(System.currentTimeMillis()));
         DocumentEntity documentEntity = this.documentService.save(convertToEntity(documentDto));
         if (documentEntity != null)
             this.documentService.userDocs(documentEntity);
@@ -83,18 +76,6 @@ public class DocumentResource {
         return ResponseEntity.ok().build();
     }
 
-    private DocumentEntity uploadDocument(MultipartFile file) {
-        DocumentEntity documentEntity = new DocumentEntity();
-        try {
-            byte[] bytes = file.getBytes();
-            documentEntity.setFileName(file.getOriginalFilename());
-            documentEntity.setContent(bytes);
-            documentEntity.setEffectiveDate(new Timestamp(System.currentTimeMillis()));
-        } catch (IOException e) {
-            log.error(e.getMessage());
-        }
-        return documentEntity;
-    }
 
     private DocumentTypeDto convertToDto(DocumentTypeEntity entity) {
         return modelMapper.map(entity, DocumentTypeDto.class);

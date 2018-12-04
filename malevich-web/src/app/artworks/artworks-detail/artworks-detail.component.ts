@@ -1,16 +1,18 @@
-import {AfterViewInit, Component, HostListener, OnInit, ViewChild} from '@angular/core';
-import {environment} from "../../../environments/environment.dev";
-import {TranslateService} from "@ngx-translate/core";
-import {ActivatedRoute, Params} from "@angular/router";
-import {OrderDto} from "../../_transfer/orderDto";
-import {OrderService} from "../../_services/order.service";
-import {ArtworkStockDto} from "../../_transfer/artworkStockDto";
-import {ArtworkStockService} from "../../_services/artwork-stock.service";
-import {TradeHistoryService} from "../../_services/trade-history.service";
-import {TradeHistoryDto} from "../../_transfer/tradeHistoryDto";
-import {jqxDropDownListComponent} from "jqwidgets-scripts/jqwidgets-ts/angular_jqxdropdownlist";
-import {OrderPublicDto} from "../../_transfer/orderPublicDto";
-import {OrderWindowComponent} from "../../common/components/order-window/order-window.component";
+import {AfterViewInit, Component, OnInit, ViewChild} from '@angular/core';
+import {environment} from '../../../environments/environment.dev';
+import {TranslateService} from '@ngx-translate/core';
+import {ActivatedRoute, Params} from '@angular/router';
+import {OrderDto} from '../../_transfer/orderDto';
+import {OrderService} from '../../_services/order.service';
+import {ArtworkStockDto} from '../../_transfer/artworkStockDto';
+import {ArtworkStockService} from '../../_services/artwork-stock.service';
+import {TradeHistoryService} from '../../_services/trade-history.service';
+import {TradeHistoryDto} from '../../_transfer/tradeHistoryDto';
+import {jqxDropDownListComponent} from 'jqwidgets-scripts/jqwidgets-ts/angular_jqxdropdownlist';
+import {OrderPublicDto} from '../../_transfer/orderPublicDto';
+import {OrderWindowComponent} from '../../common/components/order-window/order-window.component';
+import {WishListService} from '../../_services/wish-list.service';
+import {WishListDto} from '../../_transfer/wishListDto';
 
 @Component({
   selector: 'app-artworks-detail',
@@ -23,6 +25,7 @@ export class ArtworksDetailComponent implements OnInit, AfterViewInit {
   @ViewChild('tradeTypeDropDown') tradeTypeDropDown: jqxDropDownListComponent;
 
   artworkStock: ArtworkStockDto;
+  wishList: WishListDto;
   id: number;
 
   placedOrders: OrderPublicDto[];
@@ -35,10 +38,12 @@ export class ArtworksDetailComponent implements OnInit, AfterViewInit {
               private route: ActivatedRoute,
               public translate: TranslateService,
               private artworkStockService: ArtworkStockService,
-              private tradeHistoryService: TradeHistoryService) {
+              private tradeHistoryService: TradeHistoryService,
+              private wishListService: WishListService) {
   }
 
   ngOnInit() {
+    this.wishList = new WishListDto();
     this.route.params.forEach((params: Params) => {
       this.id = params['id'];
     });
@@ -85,6 +90,11 @@ export class ArtworksDetailComponent implements OnInit, AfterViewInit {
   onOrderPlaced(order: OrderDto) {
     this.getOrdersByArtworkId();
     this.getTradeHistoryByArtworkId();
+  }
+
+  addToWishList(): void {
+    this.wishList.artworkStock = this.artworkStock;
+    this.wishListService.addToWishList(this.wishList).subscribe();
   }
 
 }

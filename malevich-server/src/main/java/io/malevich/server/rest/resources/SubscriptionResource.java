@@ -25,7 +25,6 @@ public class SubscriptionResource {
     @PostMapping("/save")
     @ResponseStatus(HttpStatus.OK)
     public ResponseEntity<Void> save(@RequestBody SubscriptionDto dto) {
-
         this.subscriptionService.save(convertToEntity(dto));
         return ResponseEntity.ok().build();
     }

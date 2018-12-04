@@ -9,25 +9,31 @@
 
         <!-- Form -->
         <div class="g-py-15">
-          <div class="mb-4">
-            <div class="input-group g-rounded-left-5">
-                    <span class="input-group-prepend g-width-45 g-brd-gray-light-v3 g-color-gray-dark-v5">
-                      <span class="input-group-text justify-content-center w-100 g-bg-transparent g-brd-gray-light-v3">
-                        <i class="icon-finance-067 u-line-icon-pro"></i>
-                      </span>
-                    </span>
-              <input
-                class="form-control g-color-black g-bg-white g-bg-white--focus g-brd-gray-light-v3 g-rounded-left-0 g-rounded-right-5 g-py-15 g-px-15"
-                [(ngModel)]="email"
-                type="email"
-                placeholder="Email Address">
+          <form #f="ngForm" (ngSubmit)="onSubmit()">
+            <div class="mb-4">
+              <div class="input-group g-rounded-left-5">
+                <span class="input-group-prepend g-width-45 g-brd-gray-light-v3 g-color-gray-dark-v5">
+                  <span class="input-group-text justify-content-center w-100 g-bg-transparent g-brd-gray-light-v3">
+                    <i class="icon-finance-067 u-line-icon-pro"></i>
+                  </span>
+                </span>
+                <input
+                  name="email"
+                  #emailInput="ngModel"
+                  class="form-control g-color-black g-bg-white g-bg-white--focus g-brd-gray-light-v3 g-rounded-left-0 g-rounded-right-3 g-py-15 g-px-15"
+                  mchRequired
+                  mchEmail
+                  [(ngModel)]="email"
+                  type="email"
+                  placeholder="Email Address">
+              </div>
+              <mchErrors [component]="emailInput"></mchErrors>
             </div>
-          </div>
 
-          <button class="btn btn-block u-btn-primary g-font-size-12 text-uppercase g-py-15 g-px-25"
-                  type="button"
-                  (click)="onSubmit()">Reset Password
-          </button>
+            <mchButton class="btn btn-block u-btn-primary g-font-size-12 text-uppercase g-py-12 g-px-25"
+                       [submitForm]="f">Reset Password
+            </mchButton>
+          </form>
         </div>
         <!-- End Form -->
       </div>

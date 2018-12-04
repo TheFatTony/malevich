@@ -1,7 +1,4 @@
-<div class="g-brd-bottom g-brd-gray-light-v4" *ngFor="let artworkStock of artworkStocks.data | paginate: { id: 'server',
-                                                      itemsPerPage: artworkStocks.size,
-                                                      currentPage: artworkStocks.currentPage,
-                                                      totalItems: artworkStocks.totalElements }">
+<div class="g-brd-bottom g-brd-gray-light-v4" *ngFor="let artworkStock of artworkStocks.data">
   <div class="row g-pt-30">
     <figure class="col-6 col-sm-5 col-lg-4 g-mb-30">
       <img class="img-fluid" src="{{url}}{{artworkStock.artwork.thumbnail.url}}" alt="Image Description">

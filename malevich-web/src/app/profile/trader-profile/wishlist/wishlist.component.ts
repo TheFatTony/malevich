@@ -2,7 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {WishListService} from '../../../_services/wish-list.service';
 import {TranslateService} from '@ngx-translate/core';
 import {PageSortableRequestDto} from '../../../_transfer/pageSortableRequestDto';
-import {Router} from '@angular/router';
+import {PageService} from '../../../_services/page.service';
 
 @Component({
   selector: 'app-profile-trader-wishlist',
@@ -11,10 +11,12 @@ import {Router} from '@angular/router';
 })
 export class WishlistComponent implements OnInit {
 
+  pager: any = {};
   wishList: any = {};
   pageSortable: PageSortableRequestDto;
 
-  constructor(private wishListService: WishListService, private translate: TranslateService, private router: Router) {
+  constructor(private wishListService: WishListService, private translate: TranslateService,
+              private pageService: PageService,) {
   }
 
   ngOnInit() {
@@ -34,12 +36,13 @@ export class WishlistComponent implements OnInit {
       this.wishList = data.body;
       this.wishList.currentPage = pageObj.page + 1;
       this.wishList.size = pageObj.size;
+      this.pager = this.pageService.getPager(this.wishList.totalElements, pageObj.page, pageObj.size);
     });
   }
 
-  removeWish(id: number, currentPage: number) {
+  removeWish(id: number) {
     return this.wishListService.removeWish(id).subscribe(data => {
-      this.pageSortable.page = currentPage;
+      this.pageSortable.page = 0;
       this.getWishList(this.pageSortable);
     });
   }

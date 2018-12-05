@@ -107,7 +107,7 @@ public class TraderServiceImpl implements TraderService {
         Object principal = authentication.getPrincipal();
 
         if (!(principal instanceof UserDetails))
-            throw new PreAuthenticatedCredentialsNotFoundException(null);
+            return null;
 
         UserDetails userDetails = (UserDetails) principal;
         return userDetails.getUsername();
@@ -117,6 +117,10 @@ public class TraderServiceImpl implements TraderService {
     @Transactional(readOnly = true)
     public TraderEntity getCurrentTrader() {
         String username = getUserName();
+
+        if (username == null)
+            return null;
+
         TraderEntity traderEntity = findByUserName(username);
         return traderEntity;
     }

@@ -1,4 +1,4 @@
-import {Component, OnInit, ViewChild} from '@angular/core';
+import {AfterViewInit, Component, OnInit, ViewChild} from '@angular/core';
 import {TranslateService} from '@ngx-translate/core';
 import {jqxComboBoxComponent} from 'jqwidgets-scripts/jqwidgets-ts/angular_jqxcombobox';
 import {Router} from '@angular/router';
@@ -12,26 +12,30 @@ import {environment} from '../../../../../environments/environment.dev';
   templateUrl: './document-add.component.html',
   styleUrls: ['./document-add.component.css']
 })
-export class DocumentAddComponent implements OnInit {
+export class DocumentAddComponent implements OnInit, AfterViewInit {
 
-  @ViewChild('documentTypeComboBox') categoryComboBox: jqxComboBoxComponent;
+  @ViewChild('documentTypeComboBox') documentTypeComboBox: jqxComboBoxComponent;
 
   public url = environment.baseUrl;
 
-  document: DocumentsDto;
+  galleryDocument: DocumentsDto;
   documentTypes: any[];
   userType: string = 'gallery';
-
-  documentTypeDisplayFunc = (documentType: DocumentTypeDto) => {
-    return documentType.typeName;
-  };
 
   constructor(private router: Router, public translate: TranslateService, private documentService: DocumentsService) {
   }
 
   ngOnInit() {
+    this.galleryDocument = new DocumentsDto();
     this.getDocumentTypes(this.userType);
   }
+
+  ngAfterViewInit(): void {
+  }
+
+  documentTypeDisplayFunc = (documentType: DocumentTypeDto) => {
+    return documentType.nameMl[this.translate.currentLang];
+  };
 
   getDocumentTypes(userType: string): void {
     this.documentService.getDocumentTypes(userType).subscribe(data => (
@@ -40,26 +44,16 @@ export class DocumentAddComponent implements OnInit {
   }
 
   submit() {
-    this.documentService.save(this.document).subscribe();
+    this.documentService.save(this.galleryDocument).subscribe();
   }
 
   cancel() {
     this.router.navigate(['/profile/gallery/documents/list/gallery']);
   }
 
-  onTypeComboBoxChange($event) {
-    if (!$event)
-      return;
-
-    if (!this.document)
-      this.document = new DocumentsDto();
-
-    this.document.documentType = $event;
-  }
-
   onUploadEnd(event: any): void {
     let args = event.args;
-    this.document.thumbnail = JSON.parse(args.response.toString()
+    this.galleryDocument.files = JSON.parse(args.response.toString()
       .replace('<pre style="word-wrap: break-word; white-space: pre-wrap;">', '')
       .replace('<pre>', '')
       .replace('</pre>', ''));

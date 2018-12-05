@@ -1,10 +1,13 @@
 package io.malevich.server.domain;
 
+import com.yinyang.core.server.core.jpa.JpaConverterJson;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
+import java.util.Map;
 
 
 @EqualsAndHashCode
@@ -21,8 +24,11 @@ public class DocumentTypeEntity implements Entity {
 
     @Getter
     @Setter
-    @Column(name = "document_type_name")
-    private String typeName;
+    @Convert(converter = JpaConverterJson.class)
+    @Column(name = "name_ml")
+    @NotNull
+    private Map<String, String> nameMl;
+
 
     @Getter
     @Setter

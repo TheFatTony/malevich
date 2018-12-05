@@ -4,7 +4,7 @@
 
 
 <jqxGrid #myGrid
-         [width]="'100%'" [height]="'100%'" [pageable]="true" [sortable]="true" [columnsresize]="true"
+         [width]="'100%'" [height]="'90%'" [pageable]="true" [sortable]="true" [columnsresize]="true"
          [pagermode]="'simple'">
   <tr>
     <th>Sr No.</th>
@@ -27,13 +27,13 @@
   <div style="overflow: hidden; width: 100%">
     <div><label>Category Name[En]:</label>
       <div>
-        <mchInput [ngModel]="!newHelpCategory?.categoryNameMl ? '' : newHelpCategory?.categoryNameMl['en']"
+        <mchInput #nameEn [ngModel]="!newHelpCategory?.categoryNameMl ? '' : newHelpCategory?.categoryNameMl['en']"
                   (ngModelChange)="onNameChange($event, 'en')"></mchInput>
       </div>
     </div>
     <div><label>Category Name[Ru]:</label>
       <div>
-        <mchInput [ngModel]="!newHelpCategory?.categoryNameMl ? '' : newHelpCategory?.categoryNameMl['ru']"
+        <mchInput #nameRu [ngModel]="!newHelpCategory?.categoryNameMl ? '' : newHelpCategory?.categoryNameMl['ru']"
                   (ngModelChange)="onNameChange($event, 'ru')"></mchInput>
       </div>
     </div>

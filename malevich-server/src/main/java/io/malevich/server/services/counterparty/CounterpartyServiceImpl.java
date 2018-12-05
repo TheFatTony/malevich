@@ -54,13 +54,13 @@ public class CounterpartyServiceImpl implements CounterpartyService {
 
     @Override
     @Transactional(readOnly = true)
-    public CounterpartyEntity getCurrent(){
+    public CounterpartyEntity getCurrent() {
         TraderEntity trader = traderService.getCurrentTrader();
-        if(trader != null)
+        if (trader != null)
             return findCounterpartyEntitiesByTraderId(trader.getId());
 
         GalleryEntity gallery = galleryService.getCurrent();
-        if(gallery != null)
+        if (gallery != null)
             return findCounterpartyEntitiesByGalleryId(gallery.getId());
 
         return null;
@@ -68,7 +68,7 @@ public class CounterpartyServiceImpl implements CounterpartyService {
 
     @Override
     @Transactional(readOnly = true)
-    public CounterpartyEntity getMalevich(){
+    public CounterpartyEntity getMalevich() {
         return findById(1L).get();
     }
 

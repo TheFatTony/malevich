@@ -5,6 +5,7 @@ import {ArtworkStockService} from '../../_services/artwork-stock.service';
 import {ArtworkStockDto} from '../../_transfer/artworkStockDto';
 import {PageSortableRequestDto} from '../../_transfer/pageSortableRequestDto';
 import {FilterDto} from '../../_transfer/filterDto';
+import {PageService} from '../../_services/page.service';
 
 @Component({
   selector: 'app-artworks-list',
@@ -17,10 +18,12 @@ export class ArtworksListComponent implements OnInit {
   pageSortable: PageSortableRequestDto;
   filterDto: FilterDto;
   stockData: any = {};
-
+  pager: any = {};
   private url = environment.baseUrl;
 
-  constructor(public translate: TranslateService, private artworkStockService: ArtworkStockService) {
+  constructor(public translate: TranslateService,
+              private artworkStockService: ArtworkStockService,
+              private pageService: PageService) {
     this.pageSortable = new PageSortableRequestDto();
     this.filterDto = new FilterDto();
   }
@@ -67,7 +70,7 @@ export class ArtworksListComponent implements OnInit {
       (data) => {
         this.stockData = data.body;
         this.stockData.currentPage = filterDtoObj.page + 1;
-        this.stockData.size = filterDtoObj.size;
+        this.pager = this.pageService.getPager(this.stockData.totalElements, filterDtoObj.page, this.filterDto.size);
       }
     );
   }

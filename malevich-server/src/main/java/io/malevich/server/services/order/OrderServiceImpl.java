@@ -20,6 +20,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.sql.Timestamp;
 import java.util.Calendar;
+import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -84,7 +85,12 @@ public class OrderServiceImpl implements OrderService {
     @Override
     @Transactional(readOnly = true)
     public List<OrderEntity> getOrdersByArtworkStockId(Long artworkId) {
-        Long currentPartyId = counterpartyService.getCurrent().getId();
+        CounterpartyEntity currentCounterparty = counterpartyService.getCurrent();
+
+        if(currentCounterparty == null)
+            return Collections.emptyList();
+
+        Long currentPartyId = currentCounterparty.getId();
         return orderDao.findAllOrdersByArtworkStockId(artworkId)
                 .stream()
                 .map(order -> {

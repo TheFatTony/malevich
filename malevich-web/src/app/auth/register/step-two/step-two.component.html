@@ -1,31 +1,40 @@
 <!-- Login & Security -->
 <!-- Info -->
-<div class="g-brd-around g-brd-gray-light-v4 rounded g-pa-30 g-mb-30">
 
-  <div class="row">
-    <span
-      class="d-block g-color-text g-font-size-13 mb-1">{{'TRADER_PROFILE.SECURITY.LABEL.PASSWORD' | translate}}</span>
+<form #f="ngForm" (ngSubmit)="submit()">
 
-    <input class="form-control g-color-black g-bg-white g-bg-white--focus g-brd-gray-light-v3 rounded g-mb-20"
-           type="password"
-           [(ngModel)]="password"
-           placeholder="{{'TRADER_PROFILE.SECURITY.PLACEHOLDER.PASSWORD' | translate}}">
-
-    <input class="form-control g-color-black g-bg-white g-bg-white--focus g-brd-gray-light-v3 rounded"
-           type="password"
-           [(ngModel)]="passwordConfirm"
-           placeholder="{{'TRADER_PROFILE.SECURITY.PLACEHOLDER.CONFIRM_PASSWORD' | translate}}">
+  <div class="g-mb-20">
+    <mchInput name="password"
+              class="form-control g-color-black g-bg-white g-bg-white--focus g-brd-gray-light-v3 rounded g-py-15 g-px-15"
+              mchRequired
+              mchPassword
+              [type]="'password'"
+              [placeHolder]="'TRADER_PROFILE.SECURITY.PLACEHOLDER.PASSWORD' | translate"
+              [(ngModel)]="password">
+    </mchInput>
   </div>
 
-</div>
+  <div class="g-mb-20">
+    <mchInput name="passwordConfirm"
+              class="form-control g-color-black g-bg-white g-bg-white--focus g-brd-gray-light-v3 rounded g-py-15 g-px-15"
+              mchRequired
+              mchMatchTo="password"
+              mchMatchToMessage="Passwords should match"
+              [type]="'password'"
+              [placeHolder]="'TRADER_PROFILE.SECURITY.PLACEHOLDER.CONFIRM_PASSWORD' | translate"
+              [(ngModel)]="passwordConfirm">
+    </mchInput>
+  </div>
+
+</form>
 <!-- End Info -->
 
 <div class="row">
 
-  <button (click)="submit()"
-          class="btn btn-block u-btn-primary g-font-size-12 text-uppercase g-py-12 g-px-25">
+  <mchButton class="btn btn-block u-btn-primary g-font-size-12 text-uppercase g-py-12 g-px-25"
+             [submitForm]="f">
     {{'TRADER_PROFILE.SECURITY.BUTTON.SUBMIT' | translate}}
-  </button>
+  </mchButton>
 
 </div>
 

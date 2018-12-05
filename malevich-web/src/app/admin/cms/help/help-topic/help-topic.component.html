@@ -4,7 +4,7 @@
 
 
 <jqxGrid #myGrid
-         [width]="'100%'" [height]="'100%'" [pageable]="true" [sortable]="true" [columnsresize]="true"
+         [width]="'100%'" [height]="'90%'" [pageable]="true" [sortable]="true" [columnsresize]="true"
          [pagermode]="'simple'">
   <tr>
     <th>Sr No.</th>
@@ -45,25 +45,25 @@
     </div>
     <div><label>Title Name[En]:</label>
       <div>
-        <mchInput [ngModel]="!helpTopic?.topicNameMl ? '' : helpTopic?.topicNameMl['en']"
+        <mchInput #nameEn [ngModel]="!helpTopic?.topicNameMl ? '' : helpTopic?.topicNameMl['en']"
                   (ngModelChange)="onTitleChange($event, 'en')"></mchInput>
       </div>
     </div>
     <div><label>Title Name[Ru]:</label>
       <div>
-        <mchInput [ngModel]="!helpTopic?.topicNameMl ? '' : helpTopic?.topicNameMl['ru']"
+        <mchInput #nameRu [ngModel]="!helpTopic?.topicNameMl ? '' : helpTopic?.topicNameMl['ru']"
                   (ngModelChange)="onTitleChange($event, 'ru')"></mchInput>
       </div>
     </div>
     <div><label>Body[En]:</label>
       <div>
-        <mchInput [ngModel]="!helpTopic?.bodyMl ? '' : helpTopic?.bodyMl['en']"
+        <mchInput #bodyEn [ngModel]="!helpTopic?.bodyMl ? '' : helpTopic?.bodyMl['en']"
                   (ngModelChange)="onBodyChange($event, 'en')"></mchInput>
       </div>
     </div>
     <div><label>Body[Ru]:</label>
       <div>
-        <mchInput [ngModel]="!helpTopic?.bodyMl ? '' : helpTopic?.bodyMl['ru']"
+        <mchInput #bodyRu [ngModel]="!helpTopic?.bodyMl ? '' : helpTopic?.bodyMl['ru']"
                   (ngModelChange)="onBodyChange($event, 'ru')"></mchInput>
       </div>
     </div>

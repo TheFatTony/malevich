@@ -59,13 +59,13 @@
           </tr>
           <tr *ngFor="let galleryDocs of galleryDocuments">
             <td>
-              {{galleryDocs.thumbnail.fileName}}
+              {{galleryDocs.files.fileName}}
             </td>
             <td>
               {{galleryDocs.effectiveDate}}
             </td>
             <td>
-              {{galleryDocs.documentType.typeName}}
+              {{galleryDocs.documentType.nameMl[translate.currentLang]}}
             </td>
           </tr>
         </jqxGrid>

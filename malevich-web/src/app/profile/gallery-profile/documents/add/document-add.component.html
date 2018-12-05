@@ -13,7 +13,7 @@
             <i class="g-color-gray-light-v2 g-ml-5 fa fa-angle-right"></i>
           </li>
           <li class="list-inline-item g-mr-5">
-            <a class="u-link-v5 g-color-text" routerLink="/profile/gallery/artworkstok">Document</a>
+            <a class="u-link-v5 g-color-text" routerLink="/profile/gallery/documents/list/gallery">Documents</a>
             <i class="g-color-gray-light-v2 g-ml-5 fa fa-angle-right"></i>
           </li>
           <li class="list-inline-item g-color-primary">
@@ -48,8 +48,8 @@
             <mchComboBox #documentTypeComboBox
                          [objectSource]="documentTypes"
                          [displayFunc]="documentTypeDisplayFunc"
-                         [ngModel]="document?.documentType"
-                         (ngModelChange)="onTypeComboBoxChange($event)">
+                         [ngModel]="galleryDocument?.documentType"
+                         (ngModelChange)="galleryDocument.documentType=$event">
             </mchComboBox>
           </div>
         </div>

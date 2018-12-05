@@ -19,6 +19,6 @@ public class DocumentDto {
 
     private DocumentTypeDto documentType;
 
-    private FileDto thumbnail;
+    private FileDto files;
 
 }

@@ -1,5 +1,5 @@
 export class DocumentTypeDto {
   id: number;
-  typeName: string;
+  nameMl: Map<string, string>;
   userType: string;
 }

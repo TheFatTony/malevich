@@ -69,7 +69,7 @@ public class ArtworkStockResource {
     public PageResponseDto filter(@RequestBody FilterDto filterDto) {
         Specification<ArtworkStockEntity> specification = new FilterSpecification(filterDto);
         Page<ArtworkStockEntity> resultPage = this.artworkStockService.findAll(specification, PageRequest.of(filterDto.getPage(), filterDto.getSize()));
-        return new PageResponseDto(resultPage.getContent().stream().map(pageEntry -> convertToDto(pageEntry)).collect(Collectors.toList()), resultPage.getTotalElements(), resultPage.getTotalPages());
+        return new PageResponseDto(resultPage.getContent().stream().map(pageEntry -> convertToDto(pageEntry)).collect(Collectors.toList()), resultPage.getTotalElements(), resultPage.getTotalPages(), filterDto.getSort());
     }
 
     private ArtworkStockDto convertToDto(ArtworkStockEntity entity) {

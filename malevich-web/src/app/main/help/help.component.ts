@@ -4,6 +4,9 @@ import {HelpCategoryDto} from '../../_transfer/helpCategoryDto';
 import {TranslateService} from '@ngx-translate/core';
 import {HelpTopicDto} from '../../_transfer/helpTopicDto';
 import {HelpFilterDto} from '../../_transfer/helpFilterDto';
+import {ContactUsDto} from '../../_transfer/contactUsDto';
+import {ContactUsService} from '../../_services/contactus.service';
+import {AlertService} from 'yinyang-core';
 
 @Component({
   selector: 'app-main-help',
@@ -18,12 +21,17 @@ export class HelpComponent implements OnInit, AfterViewInit {
   helpCategories: HelpCategoryDto[];
   helpTopics: HelpTopicDto[];
   helpFilter: HelpFilterDto;
+  contactUs: ContactUsDto;
   searchValue: string;
 
-  constructor(private helpService: HelpService, private translate: TranslateService) {
+  constructor(private helpService: HelpService,
+              private translate: TranslateService,
+              private contactUsService: ContactUsService,
+              private alertService: AlertService) {
   }
 
   ngOnInit() {
+    this.contactUs = new ContactUsDto();
     this.helpFilter = new HelpFilterDto();
     this.getCategories();
     this.getTopic(1);
@@ -55,6 +63,21 @@ export class HelpComponent implements OnInit, AfterViewInit {
     this.helpFilter.lang = this.translate.currentLang;
     this.helpFilter.searchValue = this.searchValue;
     this.helpService.filterSearch(this.helpFilter).subscribe(data => (this.helpTopics = data));
+  }
+
+  submit(): void {
+    this.contactUsService.save(this.contactUs).subscribe(
+      data => {
+        this.alertService.success(data);
+      },
+      error => {
+        this.alertService.error(error);
+      });
+    this.contactUs.name = '';
+    this.contactUs.emailId = '';
+    this.contactUs.phone = '';
+    this.contactUs.message = '';
+    this.contactUs.subject = '';
   }
 
 }

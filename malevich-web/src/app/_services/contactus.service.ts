@@ -12,7 +12,7 @@ export class ContactUsService {
   }
 
   save(contactUs: ContactUsDto) {
-    return this.http.post<ContactUsDto>(this.url + '/save', contactUs);
+    return this.http.post<any>(this.url + '/save', contactUs);
   }
 
 }

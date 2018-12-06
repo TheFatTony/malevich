@@ -1,12 +1,67 @@
+<mchButton [width]="150" [height]="35" (click)="openLockWindow()" [disabled]="selectedRowIndex < 0">
+  Lock/UnLock User
+</mchButton>
+<mchButton [width]="150" [height]="35" (click)="openPasswordWindow()" [disabled]="selectedRowIndex < 0">
+  Change Password
+</mchButton>
 <jqxGrid #myGrid
-         [width]="'100%'" [height]="'100%'" [pageable]="true" [sortable]="true" [columnsresize]="true"
-         [pagermode]="'simple'">
+         [width]="'100%'" [height]="'90%'" [pageable]="true" [sortable]="true" [columnsresize]="true"
+         [pagermode]="'simple'" (onRowselect)="onGridRowSelect($event)">
   <tr>
     <th>Name</th>
+    <th>Status</th>
   </tr>
   <tr *ngFor="let user of users">
     <td>
       {{user.name}}
     </td>
+    <td *ngIf="!user.activityFlag">
+      locked
+    </td>
   </tr>
 </jqxGrid>
+
+
+<jqxWindow #lockWindow [autoOpen]="false" [resizable]="false" (onOpen)="onLockWindowOpen()">
+  <div>Lock/UnLock User</div>
+  <div style="overflow: hidden; width: 100%">
+    <div>
+      Are you sure ?
+    </div>
+    <div>
+      <mchButton #SendButton
+                 (onClick)="sendButton()"
+                 style="text-align: center; margin-left: 8em;"
+                 [width]="60" [height]="25">
+        Yes
+      </mchButton>
+    </div>
+    <div>
+      <mchButton #SendButton
+                 (onClick)="cancelButton()"
+                 style="text-align: center; margin-left: 8em;"
+                 [width]="60" [height]="25">
+        No
+      </mchButton>
+    </div>
+  </div>
+</jqxWindow>
+
+<jqxWindow #passwordWindow [autoOpen]="false" [resizable]="false" (onOpen)="onPasswordWindowOpen()">
+  <div>Change Password</div>
+  <div style="overflow: hidden; width: 100%">
+    <div><label>New Password:</label>
+      <div>
+        <mchInput #myInput [ngModel]="userPassword?.password" (ngModelChange)="onChange($event)"></mchInput>
+      </div>
+    </div>
+    <div>
+      <mchButton #SendButton
+                 (onClick)="submitButton()"
+                 style="text-align: center; margin-left: 8em;"
+                 [width]="60" [height]="25">
+        Change
+      </mchButton>
+    </div>
+  </div>
+</jqxWindow>

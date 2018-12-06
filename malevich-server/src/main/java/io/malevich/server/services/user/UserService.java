@@ -14,4 +14,8 @@ public interface UserService extends UserDetailsService {
     UserEntity save(UserEntity userEntity);
 
     UserEntity findByName(String name);
+
+    void lock(String name, boolean flag);
+
+    void changePassword(String name, String pass);
 }

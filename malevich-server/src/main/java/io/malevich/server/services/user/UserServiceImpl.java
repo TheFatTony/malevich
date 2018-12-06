@@ -1,14 +1,15 @@
 package io.malevich.server.services.user;
 
 
-import io.malevich.server.repositories.user.UserDao;
 import io.malevich.server.domain.AccessTokenEntity;
 import io.malevich.server.domain.UserEntity;
+import io.malevich.server.repositories.user.UserDao;
 import io.malevich.server.services.accesstoken.AccessTokenService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -24,6 +25,9 @@ public class UserServiceImpl implements UserService {
 
     @Autowired
     private AccessTokenService accessTokenService;
+
+    @Autowired
+    private BCryptPasswordEncoder encoder;
 
 
     protected UserServiceImpl() {
@@ -70,5 +74,22 @@ public class UserServiceImpl implements UserService {
     @Transactional
     public UserEntity findByName(String name) {
         return userDao.findByName(name);
+    }
+
+    @Override
+    @Transactional
+    public void lock(String name, boolean flag) {
+        if (flag)
+            flag = false;
+        else
+            flag = true;
+
+        this.userDao.lock(name, flag);
+    }
+
+    @Override
+    @Transactional
+    public void changePassword(String name, String pass) {
+        this.userDao.changePassword(name, encoder.encode(pass));
     }
 }

@@ -6,6 +6,8 @@ import {jqxWindowComponent} from 'jqwidgets-scripts/jqwidgets-ts/angular_jqxwind
 import {jqxValidatorComponent} from 'jqwidgets-scripts/jqwidgets-ts/angular_jqxvalidator';
 import {HelpTopicDto} from '../../../../_transfer/helpTopicDto';
 import {HelpCategoryDto} from '../../../../_transfer/helpCategoryDto';
+import {jqxComboBoxComponent} from 'jqwidgets-scripts/jqwidgets-ts/angular_jqxcombobox';
+import jqxInput = jqwidgets.jqxInput;
 
 @Component({
   selector: 'app-help-topic-list',
@@ -16,6 +18,11 @@ export class HelpTopicComponent implements OnInit, AfterViewInit {
   @ViewChild('myWindow') myWindow: jqxWindowComponent;
   @ViewChild('myValidator') myValidator: jqxValidatorComponent;
   @ViewChild('myGrid') myGrid: jqxGridComponent;
+  @ViewChild('helpCategoryComboBox') helpCategoryComboBox: jqxComboBoxComponent;
+  @ViewChild('nameEn') nameEn: jqxInput;
+  @ViewChild('nameRu') nameRu: jqxInput;
+  @ViewChild('bodyEn') bodyEn: jqxInput;
+  @ViewChild('bodyRu') bodyRu: jqxInput;
 
   helpTopics: HelpTopicDto[];
   helpTopic: HelpTopicDto;
@@ -67,6 +74,12 @@ export class HelpTopicComponent implements OnInit, AfterViewInit {
     this.helpService.addTopic(this.helpTopic).subscribe(
       () => {
         this.getTopics();
+        this.nameEn.val('');
+        this.nameRu.val('');
+        this.bodyEn.val('');
+        this.bodyRu.val('');
+        this.myWindow.close();
+        this.myGrid.refresh();
       }
     );
   }
@@ -98,6 +111,10 @@ export class HelpTopicComponent implements OnInit, AfterViewInit {
   }
 
   onMyWindowOpen() {
+    this.nameEn.val('');
+    this.nameRu.val('');
+    this.bodyEn.val('');
+    this.bodyRu.val('');
   }
 
 }

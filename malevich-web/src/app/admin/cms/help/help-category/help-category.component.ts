@@ -5,6 +5,7 @@ import {HelpCategoryDto} from '../../../../_transfer/helpCategoryDto';
 import {HelpService} from '../../../../_services/help.service';
 import {jqxWindowComponent} from 'jqwidgets-scripts/jqwidgets-ts/angular_jqxwindow';
 import {jqxValidatorComponent} from 'jqwidgets-scripts/jqwidgets-ts/angular_jqxvalidator';
+import jqxInput = jqwidgets.jqxInput;
 
 @Component({
   selector: 'app-help-category-list',
@@ -15,6 +16,8 @@ export class HelpCategoryComponent implements OnInit {
   @ViewChild('myWindow') myWindow: jqxWindowComponent;
   @ViewChild('myValidator') myValidator: jqxValidatorComponent;
   @ViewChild('myGrid') myGrid: jqxGridComponent;
+  @ViewChild('nameEn') nameEn: jqxInput;
+  @ViewChild('nameRu') nameRu: jqxInput;
 
   helpCategory: HelpCategoryDto[];
   newHelpCategory: HelpCategoryDto;
@@ -51,6 +54,10 @@ export class HelpCategoryComponent implements OnInit {
     this.helpService.addCategory(addHelpCategory).subscribe(
       () => {
         this.getCategories();
+        this.myWindow.close();
+        this.nameEn.val('');
+        this.nameRu.val('');
+        this.myGrid.refresh();
       }
     );
   }
@@ -69,6 +76,8 @@ export class HelpCategoryComponent implements OnInit {
   }
 
   onMyWindowOpen() {
+    this.nameEn.val('');
+    this.nameRu.val('');
   }
 
 }

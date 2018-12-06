@@ -19,6 +19,10 @@ export class ViewComponent implements OnInit {
   trader: TraderDto;
   countries: CountryDto[];
 
+  changePassword = false;
+  oldPassword: string;
+  newPassword: string;
+
   hasChanges: boolean
 
   constructor(public translate: TranslateService,
@@ -63,4 +67,12 @@ export class ViewComponent implements OnInit {
       );
   }
 
+  switchChangePassword() {
+    this.changePassword = !this.changePassword;
+  }
+
+  onChangePassword() {
+    this.authService.changePassword(this.oldPassword, this.newPassword).subscribe();
+    this.switchChangePassword();
+  }
 }

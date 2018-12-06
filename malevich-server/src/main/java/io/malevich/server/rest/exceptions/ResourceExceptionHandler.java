@@ -44,6 +44,12 @@ public class ResourceExceptionHandler {
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(err);
     }
 
+    @ExceptionHandler({ InvalidOldPasswordException.class })
+    public ResponseEntity<Object> handleInvalidOldPassword(final InvalidOldPasswordException e, final HttpServletRequest request) {
+        StandardError err = new StandardError(System.currentTimeMillis(), HttpStatus.BAD_REQUEST.value(), "Wrong old password", e.getMessage(), request.getRequestURI());
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(err);
+    }
+
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public ResponseEntity<StandardError> accountStateException(MethodArgumentNotValidException e, HttpServletRequest request) {
         List<String> errosList = e.getBindingResult()

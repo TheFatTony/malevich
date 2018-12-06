@@ -64,4 +64,12 @@ public class AuthResource {
         return ResponseEntity.ok().body("password set");
     }
 
+    @RequestMapping(value = "/changePassword", method = RequestMethod.POST)
+    @ResponseStatus(HttpStatus.OK)
+    @ResponseBody
+    public ResponseEntity<String> changePassword(@RequestBody PasswordDto pwd) {
+        authService.changePassword(pwd.getPassword(), pwd.getNewPassword());
+        return ResponseEntity.ok().body("password changed");
+    }
+
 }

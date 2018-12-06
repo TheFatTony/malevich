@@ -59,13 +59,13 @@
           </tr>
           <tr *ngFor="let traderDocs of traderDocuments">
             <td>
-              {{traderDocs.thumbnail.fileName}}
+              {{traderDocs.files.fileName}}
             </td>
             <td>
               {{traderDocs.effectiveDate}}
             </td>
             <td>
-              {{traderDocs.documentType.typeName}}
+              {{traderDocs.documentType.nameMl[translate.currentLang]}}
             </td>
           </tr>
         </jqxGrid>

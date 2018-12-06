@@ -14,22 +14,23 @@ import {environment} from '../../../../../environments/environment.dev';
 })
 export class DocumentAddComponent implements OnInit {
 
-  @ViewChild('documentTypeComboBox') categoryComboBox: jqxComboBoxComponent;
+  @ViewChild('documentTypeComboBox') documentTypeComboBox: jqxComboBoxComponent;
 
   public url = environment.baseUrl;
 
-  document: DocumentsDto;
+  traderDocument: DocumentsDto;
   documentTypes: any[];
   userType: string = 'trader';
 
   documentTypeDisplayFunc = (documentType: DocumentTypeDto) => {
-    return documentType.typeName;
+    return documentType.nameMl[this.translate.currentLang];
   };
 
   constructor(private router: Router, public translate: TranslateService, private documentService: DocumentsService) {
   }
 
   ngOnInit() {
+    this.traderDocument = new DocumentsDto();
     this.getDocumentTypes(this.userType);
   }
 
@@ -40,26 +41,17 @@ export class DocumentAddComponent implements OnInit {
   }
 
   submit() {
-    this.documentService.save(this.document).subscribe();
+    this.documentService.save(this.traderDocument).subscribe();
   }
 
   cancel() {
     this.router.navigate(['/profile/trader/documents/list/trader']);
   }
 
-  onTypeComboBoxChange($event) {
-    if (!$event)
-      return;
-
-    if (!this.document)
-      this.document = new DocumentsDto();
-
-    this.document.documentType = $event;
-  }
 
   onUploadEnd(event: any): void {
     let args = event.args;
-    this.document.thumbnail = JSON.parse(args.response.toString()
+    this.traderDocument.files = JSON.parse(args.response.toString()
       .replace('<pre style="word-wrap: break-word; white-space: pre-wrap;">', '')
       .replace('<pre>', '')
       .replace('</pre>', ''));

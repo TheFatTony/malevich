@@ -2,8 +2,8 @@ package io.malevich.server.rest.resources;
 
 import io.malevich.server.domain.WishListEntity;
 import io.malevich.server.services.wishlist.WishListService;
+import io.malevich.server.transfer.PageRequestDto;
 import io.malevich.server.transfer.PageResponseDto;
-import io.malevich.server.transfer.PageSortableRequestDto;
 import io.malevich.server.transfer.WishListDto;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,9 +37,9 @@ public class WishListResource {
     //@PreAuthorize("hasRole('TRADER')")
     @PostMapping("/list")
     @ResponseStatus(HttpStatus.OK)
-    public PageResponseDto list(@RequestBody PageSortableRequestDto requestDto) {
+    public PageResponseDto list(@RequestBody PageRequestDto requestDto) {
         Page<WishListEntity> resultPage = this.wishListService.findAll(PageRequest.of(requestDto.getPage(), requestDto.getSize()));
-        return new PageResponseDto(resultPage.getContent().stream().map(pageEntry -> convertToDto(pageEntry)).collect(Collectors.toList()), resultPage.getTotalElements(), resultPage.getTotalPages());
+        return new PageResponseDto(resultPage.getContent().stream().map(pageEntry -> convertToDto(pageEntry)).collect(Collectors.toList()), resultPage.getTotalElements(), resultPage.getTotalPages(), requestDto.getSort());
     }
 
     @DeleteMapping("/remove/{id}")

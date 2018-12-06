@@ -13,7 +13,7 @@
             <i class="g-color-gray-light-v2 g-ml-5 fa fa-angle-right"></i>
           </li>
           <li class="list-inline-item g-mr-5">
-            <a class="u-link-v5 g-color-text" routerLink="/profile/trader/documents/list/trader">Document</a>
+            <a class="u-link-v5 g-color-text" routerLink="/profile/trader/documents/list/trader">Documents</a>
             <i class="g-color-gray-light-v2 g-ml-5 fa fa-angle-right"></i>
           </li>
           <li class="list-inline-item g-color-primary">
@@ -23,7 +23,7 @@
       </div>
 
       <div class="align-self-center ml-auto">
-        <h1 class="h3 mb-0">{{'TRADER_PROFILE.DOCUMENTS.ADD.TITLE' | translate}}</h1>
+        <h1 class="h3 mb-0">{{'GALLERY_PROFILE.DOCUMENTS.ADD.TITLE' | translate}}</h1>
       </div>
     </div>
   </div>
@@ -48,8 +48,8 @@
             <mchComboBox #documentTypeComboBox
                          [objectSource]="documentTypes"
                          [displayFunc]="documentTypeDisplayFunc"
-                         [ngModel]="document?.documentType"
-                         (ngModelChange)="onTypeComboBoxChange($event)">
+                         [ngModel]="traderDocument?.documentType"
+                         (ngModelChange)="traderDocument.documentType=$event">
             </mchComboBox>
           </div>
         </div>

@@ -69,7 +69,6 @@ export class ArtworksListComponent implements OnInit {
     this.artworkStockService.stocksByFilter(filterDtoObj).subscribe(
       (data) => {
         this.stockData = data.body;
-        this.stockData.currentPage = filterDtoObj.page + 1;
         this.pager = this.pageService.getPager(this.stockData.totalElements, filterDtoObj.page, this.filterDto.size);
       }
     );

@@ -31,10 +31,7 @@
     <div class="col-lg-9 g-mb-50">
       <div class="g-brd-around g-brd-gray-light-v4 rounded g-pa-30 g-mb-30">
         <div class="row">
-          <div class="col-8">
-          </div>
-
-          <div class="col-4 text-right">
+          <div class="col-4 offset-8 text-right">
             <a
               class="btn g-brd-around g-brd-gray-light-v3 g-color-gray-dark-v3 g-bg-gray-light-v5 g-bg-gray-light-v4--hover g-font-size-13 rounded g-px-18 g-py-7"
               routerLink="/profile/trader/edit">{{'TRADER_PROFILE.SECURITY.BUTTON.EDIT_PROFILE' | translate}}</a>
@@ -75,8 +72,8 @@
 
         <div class="row">
           <div class="col-8">
-      <span
-        class="d-block g-color-text g-font-size-13 mb-1">{{'TRADER_PROFILE.SECURITY.LABEL.GENDER' | translate}}</span>
+            <span
+              class="d-block g-color-text g-font-size-13 mb-1">{{'TRADER_PROFILE.SECURITY.LABEL.GENDER' | translate}}</span>
             <span class="d-block">{{trader?.gender.nameMl[translate.currentLang]}}</span>
           </div>
         </div>

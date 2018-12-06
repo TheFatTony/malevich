@@ -3,6 +3,8 @@ import {GalleryService} from "../../../_services/gallery.service";
 import {GalleryDto} from "../../../_transfer";
 import {environment} from "../../../../environments/environment.dev";
 import {TranslateService} from "@ngx-translate/core";
+import {Router} from "@angular/router";
+import {AuthService} from "../../../_services";
 
 @Component({
   selector: 'app-profile-gallery-security-view',
@@ -13,10 +15,16 @@ export class ViewComponent implements OnInit {
 
   gallery: GalleryDto;
 
+  changePassword = false;
+  oldPassword: string;
+  newPassword: string;
+
   public url = environment.baseUrl;
 
-  constructor(public translate: TranslateService,
-              private galleryService: GalleryService) {
+  constructor(private router: Router,
+              public translate: TranslateService,
+              private galleryService: GalleryService,
+              private authService: AuthService) {
   }
 
   ngOnInit() {
@@ -31,4 +39,16 @@ export class ViewComponent implements OnInit {
       );
   }
 
+  edit() {
+    this.router.navigate(['/profile/gallery/edit']).then();
+  }
+
+  switchChangePassword() {
+    this.changePassword = !this.changePassword;
+  }
+
+  onChangePassword() {
+    this.authService.changePassword(this.oldPassword, this.newPassword).subscribe();
+    this.switchChangePassword();
+  }
 }

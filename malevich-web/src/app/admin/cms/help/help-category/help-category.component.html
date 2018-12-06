@@ -24,26 +24,26 @@
 
 <jqxWindow #myWindow [autoOpen]="false" [resizable]="false" (onOpen)="onMyWindowOpen()">
   <div>Add</div>
-  <div style="overflow: hidden; width: 100%">
-    <div><label>Category Name[En]:</label>
+    <div style="overflow: hidden; width: 100%">
+      <div><label>Category Name[En]:</label>
+        <div>
+          <mchInput #nameEn [ngModel]="!newHelpCategory?.categoryNameMl ? '' : newHelpCategory?.categoryNameMl['en']"
+                    (ngModelChange)="onNameChange($event, 'en')" mchRequired></mchInput>
+        </div>
+      </div>
+      <div><label>Category Name[Ru]:</label>
+        <div>
+          <mchInput #nameRu [ngModel]="!newHelpCategory?.categoryNameMl ? '' : newHelpCategory?.categoryNameMl['ru']"
+                    (ngModelChange)="onNameChange($event, 'ru')" mchRequired></mchInput>
+        </div>
+      </div>
       <div>
-        <mchInput #nameEn [ngModel]="!newHelpCategory?.categoryNameMl ? '' : newHelpCategory?.categoryNameMl['en']"
-                  (ngModelChange)="onNameChange($event, 'en')"></mchInput>
+        <mchButton #SendButton
+                   (onClick)="sendButton()"
+                   style="text-align: center; margin-left: 8em;"
+                   [width]="60" [height]="25">
+          Send
+        </mchButton>
       </div>
     </div>
-    <div><label>Category Name[Ru]:</label>
-      <div>
-        <mchInput #nameRu [ngModel]="!newHelpCategory?.categoryNameMl ? '' : newHelpCategory?.categoryNameMl['ru']"
-                  (ngModelChange)="onNameChange($event, 'ru')"></mchInput>
-      </div>
-    </div>
-    <div>
-      <mchButton #SendButton
-                 (onClick)="sendButton()"
-                 style="text-align: center; margin-left: 8em;"
-                 [width]="60" [height]="25">
-        Send
-      </mchButton>
-    </div>
-  </div>
 </jqxWindow>

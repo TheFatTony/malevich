@@ -12,7 +12,7 @@ import {environment} from '../../../../../environments/environment.dev';
   templateUrl: './document-add.component.html',
   styleUrls: ['./document-add.component.css']
 })
-export class DocumentAddComponent implements OnInit, AfterViewInit {
+export class DocumentAddComponent implements OnInit {
 
   @ViewChild('documentTypeComboBox') documentTypeComboBox: jqxComboBoxComponent;
 
@@ -28,9 +28,6 @@ export class DocumentAddComponent implements OnInit, AfterViewInit {
   ngOnInit() {
     this.galleryDocument = new DocumentsDto();
     this.getDocumentTypes(this.userType);
-  }
-
-  ngAfterViewInit(): void {
   }
 
   documentTypeDisplayFunc = (documentType: DocumentTypeDto) => {

@@ -21,4 +21,6 @@ public interface AuthService {
     ResetPasswordTokenEntity reset(String lang, String userName);
 
     UserEntity setNewPassword(String token, String password);
+
+    UserEntity changePassword(String oldPassword, String newPassword);
 }

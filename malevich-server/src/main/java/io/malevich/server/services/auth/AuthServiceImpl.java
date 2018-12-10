@@ -4,6 +4,7 @@ package io.malevich.server.services.auth;
 import com.yinyang.core.server.core.security.JWTUtil;
 import io.malevich.server.domain.*;
 import io.malevich.server.domain.enums.Role;
+import io.malevich.server.rest.exceptions.InvalidOldPasswordException;
 import io.malevich.server.services.mailqueue.MailQueueService;
 import io.malevich.server.services.registertoken.RegisterTokenService;
 import io.malevich.server.services.resetpasswordtoken.ResetPasswordTokenService;
@@ -175,6 +176,23 @@ public class AuthServiceImpl implements AuthService {
 
         return userEntity;
     }
+
+    @Override
+    @Transactional
+    public UserEntity changePassword(String oldPassword, String newPassword){
+
+        UserDto userDto = getUser();
+        UserEntity userEntity = userService.findByName(userDto.getName());
+
+        if(!bCryptPasswordEncoder.matches(oldPassword, userEntity.getPassword()))
+            throw new InvalidOldPasswordException();
+
+        userEntity.setPassword(bCryptPasswordEncoder.encode(newPassword));
+        userEntity = userService.save(userEntity);
+
+        return userEntity;
+    }
+
 
     private List<String> createRoleMap(UserDetails userDetails) {
         List<String> roles = new ArrayList<String>();

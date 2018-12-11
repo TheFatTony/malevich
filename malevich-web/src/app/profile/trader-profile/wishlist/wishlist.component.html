@@ -8,17 +8,20 @@
             <i class="g-color-gray-light-v2 g-ml-5 fa fa-angle-right"></i>
           </li>
           <li class="list-inline-item g-mr-5">
-            <a class="u-link-v5 g-color-text" routerLink="/profile/trader/view">Your Profile</a>
+            <a class="u-link-v5 g-color-text" routerLink="/profile/trader/view">{{'TRADER_PROFILE.TITLE' |
+              translate}}</a>
             <i class="g-color-gray-light-v2 g-ml-5 fa fa-angle-right"></i>
           </li>
           <li class="list-inline-item g-color-primary">
-            <span>Wishlist</span>
+            <span>{{'TRADER_PROFILE.WISHLIST.TITLE' |
+              translate}}</span>
           </li>
         </ul>
       </div>
 
       <div class="align-self-center ml-auto">
-        <h1 class="h3 mb-0">Wishlist</h1>
+        <h1 class="h3 mb-0">{{'TRADER_PROFILE.WISHLIST.TITLE' |
+          translate}}</h1>
       </div>
     </div>
   </div>
@@ -39,10 +42,18 @@
         <table class="text-center w-100">
           <thead class="h6 g-brd-bottom g-brd-gray-light-v4 g-color-black text-uppercase">
           <tr>
-            <th class="g-font-weight-500 text-left g-pb-20">Product</th>
-            <th class="g-font-weight-500 g-width-130 g-pb-20">Price</th>
-            <th class="g-font-weight-500 g-width-50 g-pb-20">Qty</th>
-            <th class="g-font-weight-500 g-width-130 g-pb-20">Total</th>
+            <th class="g-font-weight-500 text-left g-pb-20">{{'TRADER_PROFILE.WISHLIST.PRODUCT' |
+              translate}}
+            </th>
+            <th class="g-font-weight-500 g-width-130 g-pb-20">{{'TRADER_PROFILE.WISHLIST.PRICE' |
+              translate}}
+            </th>
+            <th class="g-font-weight-500 g-width-50 g-pb-20">{{'TRADER_PROFILE.WISHLIST.QUANTITY' |
+              translate}}
+            </th>
+            <th class="g-font-weight-500 g-width-130 g-pb-20">{{'TRADER_PROFILE.WISHLIST.TOTAL' |
+              translate}}
+            </th>
             <th></th>
           </tr>
           </thead>
@@ -106,11 +117,11 @@
                       <span aria-hidden="true">
                         <i class="fa fa-angle-right"></i>
                       </span>
-                  <span class="sr-only">Next</span>
+                  <span class="sr-only">{{"PAGINATION.NEXT"|translate}}</span>
                 </a>
               </li>
               <li class="list-inline-item float-right">
-                <span class="u-pagination-v1__item-info g-color-gray-dark-v4 g-font-size-12 g-pa-5">Page {{pager.currentPage+1}} of {{pager.totalPages}}</span>
+                <span class="u-pagination-v1__item-info g-color-gray-dark-v4 g-font-size-12 g-pa-5">{{"PAGINATION.PAGE"|translate}} {{pager.currentPage+1}} of {{pager.totalPages}}</span>
               </li>
             </ul>
           </nav>

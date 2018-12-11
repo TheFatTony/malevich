@@ -13,13 +13,13 @@
             <i class="g-color-gray-light-v2 g-ml-5 fa fa-angle-right"></i>
           </li>
           <li class="list-inline-item g-color-primary">
-            <span>Documents</span>
+            <span>{{'TRADER_PROFILE.DOCUMENTS.TITLE' | translate}}</span>
           </li>
         </ul>
       </div>
 
       <div class="align-self-center ml-auto">
-        <h1 class="h3 mb-0">Documents</h1>
+        <h1 class="h3 mb-0">{{'TRADER_PROFILE.DOCUMENTS.TITLE' | translate}}</h1>
       </div>
     </div>
   </div>
@@ -36,10 +36,13 @@
     <div class="col-lg-9 g-mb-50">
       <div class="g-brd-around g-brd-gray-light-v4 rounded g-pa-30 g-mb-30">
 
-        <mchButton [width]="100" [height]="35" (click)="onAddButtonClick()">Add</mchButton>
+        <mchButton [width]="100" [height]="35" (click)="onAddButtonClick()">{{'TRADER_PROFILE.BUTTON.ADD' |
+          translate}}
+        </mchButton>
 
         <mchButton [width]="100" [height]="35" [disabled]="selectedRowIndex < 0" (click)="onDeleteButtonClick()">
-          Delete
+          {{'TRADER_PROFILE.BUTTON.DELETE' |
+          translate}}
         </mchButton>
 
         <jqxGrid #myGrid
@@ -53,9 +56,9 @@
                  [columns]="columns"
                  (onRowselect)="onGridRowSelect($event)">
           <tr>
-            <th>File Name</th>
-            <th>Date</th>
-            <th>Document Type</th>
+            <th>{{'TRADER_PROFILE.GRID.FILE_NAME' | translate}}</th>
+            <th>{{'TRADER_PROFILE.GRID.DATE' | translate}}</th>
+            <th>{{'TRADER_PROFILE.GRID.DOCUMENT_TYPE' | translate}}</th>
           </tr>
           <tr *ngFor="let traderDocs of traderDocuments">
             <td>

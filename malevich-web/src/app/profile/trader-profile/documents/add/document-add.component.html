@@ -13,17 +13,20 @@
             <i class="g-color-gray-light-v2 g-ml-5 fa fa-angle-right"></i>
           </li>
           <li class="list-inline-item g-mr-5">
-            <a class="u-link-v5 g-color-text" routerLink="/profile/trader/documents/list/trader">Documents</a>
+            <a class="u-link-v5 g-color-text" routerLink="/profile/trader/documents/list/trader">{{'TRADER_PROFILE.DOCUMENTS.TITLE'
+              |
+              translate}}</a>
             <i class="g-color-gray-light-v2 g-ml-5 fa fa-angle-right"></i>
           </li>
           <li class="list-inline-item g-color-primary">
-            <span>Add</span>
+            <span>{{'TRADER_PROFILE.BUTTON.ADD' |
+              translate}}</span>
           </li>
         </ul>
       </div>
 
       <div class="align-self-center ml-auto">
-        <h1 class="h3 mb-0">{{'GALLERY_PROFILE.DOCUMENTS.ADD.TITLE' | translate}}</h1>
+        <h1 class="h3 mb-0">{{'TRADER_PROFILE.DOCUMENTS.ADD.TITLE' | translate}}</h1>
       </div>
     </div>
   </div>
@@ -44,7 +47,7 @@
 
         <div class="row">
           <div class="col-12">
-            <span class="d-block g-color-text g-font-size-13 mb-1">Choose from existing</span>
+            <span class="d-block g-color-text g-font-size-13 mb-1">{{'TRADER_PROFILE.DOCUMENTS.ADD.CHOOSE' | translate}}</span>
             <mchComboBox #documentTypeComboBox
                          [objectSource]="documentTypes"
                          [displayFunc]="documentTypeDisplayFunc"

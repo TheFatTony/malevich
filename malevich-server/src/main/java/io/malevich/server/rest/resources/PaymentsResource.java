@@ -3,7 +3,6 @@ package io.malevich.server.rest.resources;
 import io.malevich.server.domain.PaymentsEntity;
 import io.malevich.server.services.payments.PaymentsService;
 import io.malevich.server.transfer.PaymentsDto;
-import io.malevich.server.util.PaymentFop;
 import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,12 +10,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
-import org.xml.sax.SAXException;
 
-import javax.xml.parsers.ParserConfigurationException;
-import javax.xml.transform.TransformerException;
-import java.io.IOException;
-import java.text.ParseException;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -49,9 +43,9 @@ public class PaymentsResource {
     @PreAuthorize("hasRole('TRADER')")
     @GetMapping("/print/{id}")
     @ResponseStatus(HttpStatus.OK)
-    public ResponseEntity<byte[]> print(@PathVariable("id") Long id) throws SAXException, IOException, TransformerException, ParserConfigurationException, ParseException {
-        PaymentsEntity entity = this.paymentsService.findById(id);
-        return new PaymentFop().create(entity);
+    public ResponseEntity<byte[]> print(@PathVariable("id") Long id) {
+        PaymentsEntity entity = this.paymentsService.getPayments(id);
+        return paymentsService.createFop(entity);
     }
 
     private PaymentsDto convertToDto(PaymentsEntity entity) {

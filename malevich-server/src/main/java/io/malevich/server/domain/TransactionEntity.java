@@ -53,7 +53,6 @@ public class TransactionEntity implements Entity {
     @Setter
     @Fetch(FetchMode.JOIN)
     @ManyToOne(cascade = CascadeType.MERGE)
-    //@NotNull
     private ArtworkStockEntity artworkStock;
 
     @Getter

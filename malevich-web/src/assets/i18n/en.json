@@ -190,6 +190,7 @@
       "POSTED": "Posted",
       "DAYS": "days",
       "AGO": "ago",
+      "DAYS_AGO": "days ago",
       "DESCRIPTION": "Description"
     },
     "ARTWORK": {
@@ -201,7 +202,7 @@
       "BID": "Bid",
       "ASK": "Ask",
       "TRADER_HISTORY": "Trader History",
-      "PLACE_A": "Place a",
+      "PLACE_A_BID": "Place a Bid",
       "ADD_TO_WISHLIST": "Add to WishList",
       "REVIEW": "Review",
       "ADD": "Add",
@@ -211,13 +212,12 @@
   },
   "PAGINATION": {
     "PAGE": "Page",
-    "NEXT": "Next"
+    "NEXT": "Next",
+    "OF": "Of"
   },
   "404": {
-    "NOT": "Not",
-    "FOUND": "Found",
-    "HOME": "Home",
-    "PAGE": "Page"
+    "NOT_FOUND": "Not found",
+    "HOME_PAGE": "Home page"
   },
   "COMMON_PROFILE": {
     "NAVIGATION": {

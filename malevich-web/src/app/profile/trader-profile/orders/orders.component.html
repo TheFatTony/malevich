@@ -8,18 +8,18 @@
             <i class="g-color-gray-light-v2 g-ml-5 fa fa-angle-right"></i>
           </li>
           <li class="list-inline-item g-mr-5">
-            <a class="u-link-v5 g-color-text" routerLink="/profile/gallery/view">{{'GALLERY_PROFILE.TITLE' |
+            <a class="u-link-v5 g-color-text" routerLink="/profile/gallery/view">{{'TRADER_PROFILE.TITLE' |
               translate}}</a>
             <i class="g-color-gray-light-v2 g-ml-5 fa fa-angle-right"></i>
           </li>
           <li class="list-inline-item g-color-primary">
-            <span>Orders</span>
+            <span>{{'TRADER_PROFILE.ORDERS.TITLE' | translate}}</span>
           </li>
         </ul>
       </div>
 
       <div class="align-self-center ml-auto">
-        <h1 class="h3 mb-0">Orders</h1>
+        <h1 class="h3 mb-0">{{'TRADER_PROFILE.ORDERS.TITLE' | translate}}</h1>
       </div>
     </div>
   </div>
@@ -41,7 +41,7 @@
         <!--</button>-->
 
         <mchButton [disabled]="selectedRowIndex < 0" (click)="onCancelOrderButton()">
-          Cancel order
+          {{'TRADER_PROFILE.BUTTON.CANCEL_ORDER' | translate}}
         </mchButton>
 
         <jqxGrid #myGrid
@@ -55,13 +55,13 @@
                  [columns]="columns"
                  (onRowselect)="onGridRowSelect($event)">
           <tr>
-            <th>Date</th>
-            <th>Amount</th>
-            <th>Artwork</th>
-            <th>Trade Type</th>
-            <th>Type</th>
-            <th>Best Bid</th>
-            <th>Current Ask</th>
+            <th>{{'TRADER_PROFILE.GRID.DATE' | translate}}</th>
+            <th>{{'TRADER_PROFILE.GRID.AMOUNT' | translate}}</th>
+            <th>{{'TRADER_PROFILE.GRID.ARTWORK' | translate}}</th>
+            <th>{{'TRADER_PROFILE.GRID.TRADER_TYPE' | translate}}</th>
+            <th>{{'TRADER_PROFILE.GRID.TYPE' | translate}}</th>
+            <th>{{'TRADER_PROFILE.GRID.BEST_BID' | translate}}</th>
+            <th>{{'TRADER_PROFILE.GRID.CURRENT_ASK' | translate}}</th>
           </tr>
           <tr *ngFor="let order of orders">
             <td>

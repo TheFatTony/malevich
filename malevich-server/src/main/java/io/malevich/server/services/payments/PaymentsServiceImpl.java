@@ -45,7 +45,8 @@ public class PaymentsServiceImpl implements PaymentsService {
     @Override
     @Transactional(readOnly = true)
     public List<PaymentsEntity> findAll() {
-        return this.paymentsDao.findAll();
+        TraderEntity traderEntity = traderService.getCurrentTrader();
+        return this.paymentsDao.findAll(traderEntity.getId());
     }
 
     @Override
@@ -81,5 +82,9 @@ public class PaymentsServiceImpl implements PaymentsService {
         transactionService.createTransactionAndReverse(transactionType, paymentsEntity.getTransactionGroup(), paymentsEntity.getParty(), malevich, null, paymentsEntity.getAmount(), 0L);
     }
 
-
+    @Override
+    @Transactional(readOnly = true)
+    public PaymentsEntity findById(Long id) {
+        return this.paymentsDao.findBy(id);
+    }
 }

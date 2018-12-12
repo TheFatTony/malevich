@@ -13,13 +13,13 @@
             <i class="g-color-gray-light-v2 g-ml-5 fa fa-angle-right"></i>
           </li>
           <li class="list-inline-item g-color-primary">
-            <span>Artworks</span>
+            <span>{{'GALLERY_PROFILE.ARTWORKS.TITLE' | translate}}</span>
           </li>
         </ul>
       </div>
 
       <div class="align-self-center ml-auto">
-        <h1 class="h3 mb-0">Artworks</h1>
+        <h1 class="h3 mb-0">{{'GALLERY_PROFILE.ARTWORKS.TITLE' | translate}}</h1>
       </div>
     </div>
   </div>
@@ -38,9 +38,8 @@
 
 
         <mchButton [width]="100" [height]="35" (click)="openAskWindow()" [disabled]="selectedRowIndex < 0">
-          Ask add
+          {{'GALLERY_PROFILE.BUTTON.ASK_ADD' | translate}}
         </mchButton>
-
         <jqxGrid #myGrid
                  class="g-mt-5 g-mb-15"
                  [columns]="columns"
@@ -55,10 +54,10 @@
                  [rowdetails]="true"
                  [rowdetailstemplate]="rowdetailstemplate">
           <tr>
-            <th>Image</th>
-            <th>Title</th>
-            <th>Artist</th>
-            <th>Category</th>
+            <th>{{'GALLERY_PROFILE.GRID.IMAGE' | translate}}</th>
+            <th>{{'GALLERY_PROFILE.GRID.TITLE' | translate}}</th>
+            <th>{{'GALLERY_PROFILE.GRID.ARTIST' | translate}}</th>
+            <th>{{'GALLERY_PROFILE.GRID.CATEGORY' | translate}}</th>
           </tr>
           <tr *ngFor="let a of artworkStocks">
             <td></td>
@@ -107,11 +106,11 @@
                       <span aria-hidden="true">
                         <i class="fa fa-angle-right"></i>
                       </span>
-                <span class="sr-only">Next</span>
+                <span class="sr-only">{{"PAGINATION.NEXT"|translate}}</span>
               </a>
             </li>
             <li class="list-inline-item float-right">
-              <span class="u-pagination-v1__item-info g-color-gray-dark-v4 g-font-size-12 g-pa-5">Page 1 of 15</span>
+              <span class="u-pagination-v1__item-info g-color-gray-dark-v4 g-font-size-12 g-pa-5">{{"PAGINATION.PAGE"|translate}} 1 of 15</span>
             </li>
           </ul>
         </nav>

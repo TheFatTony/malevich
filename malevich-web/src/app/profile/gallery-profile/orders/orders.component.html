@@ -13,13 +13,13 @@
             <i class="g-color-gray-light-v2 g-ml-5 fa fa-angle-right"></i>
           </li>
           <li class="list-inline-item g-color-primary">
-            <span>Orders</span>
+            <span>{{'GALLERY_PROFILE.ORDERS.TITLE' | translate}}</span>
           </li>
         </ul>
       </div>
 
       <div class="align-self-center ml-auto">
-        <h1 class="h3 mb-0">Orders</h1>
+        <h1 class="h3 mb-0">{{'GALLERY_PROFILE.ORDERS.TITLE' | translate}}</h1>
       </div>
     </div>
   </div>
@@ -41,7 +41,7 @@
         <!--</button>-->
 
         <mchButton [disabled]="selectedRowIndex < 0" (click)="onCancelOrderButton()">
-          Cancel order
+          {{'GALLERY_PROFILE.BUTTON.CANCEL_ORDER' | translate}}
         </mchButton>
 
         <jqxGrid #myGrid
@@ -55,13 +55,13 @@
                  [columns]="columns"
                  (onRowselect)="onGridRowSelect($event)">
           <tr>
-            <th>Date</th>
-            <th>Amount</th>
-            <th>Artwork</th>
-            <th>Trade Type</th>
-            <th>Type</th>
-            <th>Best Bid</th>
-            <th>Current Ask</th>
+            <th>{{'GALLERY_PROFILE.GRID.DATE' | translate}}</th>
+            <th>{{'GALLERY_PROFILE.GRID.AMOUNT' | translate}}</th>
+            <th>{{'GALLERY_PROFILE.GRID.ARTWORK' | translate}}</th>
+            <th>{{'GALLERY_PROFILE.GRID.TRADER_TYPE' | translate}}</th>
+            <th>{{'GALLERY_PROFILE.GRID.TYPE' | translate}}</th>
+            <th>{{'GALLERY_PROFILE.GRID.BEST_BID' | translate}}</th>
+            <th>{{'GALLERY_PROFILE.GRID.CURRENT_ASK' | translate}}</th>
           </tr>
           <tr *ngFor="let order of orders">
             <td>

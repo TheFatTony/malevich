@@ -1,11 +1,11 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
-import {OrderDto} from "../../../_transfer/orderDto";
-import {OrderService} from "../../../_services/order.service";
-import {TranslateService} from "@ngx-translate/core";
+import {OrderDto} from '../../../_transfer/orderDto';
+import {OrderService} from '../../../_services/order.service';
+import {TranslateService} from '@ngx-translate/core';
 import {jqxGridComponent} from 'jqwidgets-scripts/jqwidgets-ts/angular_jqxgrid';
-import {TradeTypeService} from "../../../_services/trade-type.service";
-import {TradeTypeDto} from "../../../_transfer/tradeTypeDto";
-import {environment} from "../../../../environments/environment.dev";
+import {TradeTypeService} from '../../../_services/trade-type.service';
+import {TradeTypeDto} from '../../../_transfer/tradeTypeDto';
+import {environment} from '../../../../environments/environment.dev';
 
 @Component({
   selector: 'app-profile-trader-orders',
@@ -23,13 +23,13 @@ export class OrdersComponent implements OnInit {
 
   columns: any[] =
     [
-      {datafield: 'Date', width: '20%', columntype: 'textbox'},
-      {datafield: 'Amount', width: '15%', columntype: 'textbox'},
-      {datafield: 'Artwork', width: '25%', columntype: 'textbox'},
-      {datafield: 'Trade Type', width: '15%', columntype: 'textbox'},
-      {datafield: 'Type', width: '5%', columntype: 'textbox'},
-      {datafield: 'Best Bid', width: '10%', columntype: 'textbox'},
-      {datafield: 'Current Ask', width: '10%', columntype: 'textbox'}
+      {datafield: this.translate.instant('TRADER_PROFILE.GRID.DATE'), width: '20%', columntype: 'textbox'},
+      {datafield: this.translate.instant('TRADER_PROFILE.GRID.AMOUNT'), width: '15%', columntype: 'textbox'},
+      {datafield: this.translate.instant('TRADER_PROFILE.GRID.ARTWORK'), width: '25%', columntype: 'textbox'},
+      {datafield: this.translate.instant('TRADER_PROFILE.GRID.TRADER_TYPE'), width: '15%', columntype: 'textbox'},
+      {datafield: this.translate.instant('TRADER_PROFILE.GRID.TYPE'), width: '5%', columntype: 'textbox'},
+      {datafield: this.translate.instant('TRADER_PROFILE.GRID.BEST_BID'), width: '10%', columntype: 'textbox'},
+      {datafield: this.translate.instant('TRADER_PROFILE.GRID.CURRENT_ASK'), width: '10%', columntype: 'textbox'}
     ];
 
   constructor(private orderService: OrderService,

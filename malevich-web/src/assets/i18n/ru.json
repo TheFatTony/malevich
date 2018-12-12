@@ -92,6 +92,21 @@
       "ADD":{
         "TITLE": "Добавить предмет искусства"
       }
+    },
+    "GRID": {
+      "FILE_NAME": "File Name",
+      "DATE": "Date",
+      "DOCUMENT_TYPE": "Document Type",
+      "AMOUNT": "Amount",
+      "ARTWORK": "Artwork",
+      "TRADER_TYPE": "Trader Type",
+      "TYPE": "Type",
+      "BEST_BID": "Best Bid",
+      "CURRENT_ASK": "Current Ask",
+      "IMAGE": "ImageRu",
+      "TITLE": "Title",
+      "ARTIST": "Artist",
+      "CATEGORY": "Category"
     }
   }
 }

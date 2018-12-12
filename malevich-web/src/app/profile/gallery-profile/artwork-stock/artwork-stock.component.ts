@@ -1,14 +1,14 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
-import {TranslateService} from "@ngx-translate/core";
-import {ArtworkStockDto} from "../../../_transfer/artworkStockDto";
-import {environment} from "../../../../environments/environment.dev";
-import {ArtworkDto, GalleryDto} from "../../../_transfer";
-import {jqxGridComponent} from "jqwidgets-scripts/jqwidgets-ts/angular_jqxgrid";
-import {jqxComboBoxComponent} from "jqwidgets-scripts/jqwidgets-ts/angular_jqxcombobox";
-import {Router} from "@angular/router";
-import {AccountStateService} from "../../../_services/account-state.service";
-import {OrderDto} from "../../../_transfer/orderDto";
-import {OrderWindowComponent} from "../../../common/components/order-window/order-window.component";
+import {TranslateService} from '@ngx-translate/core';
+import {ArtworkStockDto} from '../../../_transfer/artworkStockDto';
+import {environment} from '../../../../environments/environment.dev';
+import {ArtworkDto, GalleryDto} from '../../../_transfer';
+import {jqxGridComponent} from 'jqwidgets-scripts/jqwidgets-ts/angular_jqxgrid';
+import {jqxComboBoxComponent} from 'jqwidgets-scripts/jqwidgets-ts/angular_jqxcombobox';
+import {Router} from '@angular/router';
+import {AccountStateService} from '../../../_services/account-state.service';
+import {OrderDto} from '../../../_transfer/orderDto';
+import {OrderWindowComponent} from '../../../common/components/order-window/order-window.component';
 
 @Component({
   selector: 'app-profile-gallery-artwork-stock',
@@ -19,12 +19,11 @@ export class ArtworkStockComponent implements OnInit {
 
   @ViewChild('myGrid') myGrid: jqxGridComponent;
   @ViewChild('addArtWorkComboBox') addArtWorkComboBox: jqxComboBoxComponent;
-  @ViewChild('askWindow') askWindow : OrderWindowComponent
+  @ViewChild('askWindow') askWindow: OrderWindowComponent;
 
   gallery: GalleryDto;
   artworks: ArtworkDto[];
   artworkStocks: ArtworkStockDto[];
-
   selectedRowIndex: number = -1;
 
   x: number;
@@ -44,17 +43,17 @@ export class ArtworkStockComponent implements OnInit {
   };
 
   rowdetailstemplate: any = {
-    rowdetails: "<div>{{a.artwork.descriptionMl[translate.currentLang]}}</div>",
+    rowdetails: '<div>{{a.artwork.descriptionMl[translate.currentLang]}}</div>',
     rowdetailsheight: 50,
     rowdetailshidden: true
   };
 
   columns: any[] =
     [
-      {datafield: 'Image', width: '10%', cellsrenderer: this.photoRenderer},
-      {datafield: 'Title', width: '40%', cellsrenderer: this.renderer},
-      {datafield: 'Artist', width: '25%', cellsrenderer: this.renderer},
-      {datafield: 'Category', width: '25%', cellsrenderer: this.renderer}
+      {datafield: this.translate.instant('GALLERY_PROFILE.GRID.IMAGE'), width: '10%', cellsrenderer: this.photoRenderer},
+      {datafield: this.translate.instant('GALLERY_PROFILE.GRID.TITLE'), width: '40%', cellsrenderer: this.renderer},
+      {datafield: this.translate.instant('GALLERY_PROFILE.GRID.ARTIST'), width: '25%', cellsrenderer: this.renderer},
+      {datafield: this.translate.instant('GALLERY_PROFILE.GRID.CATEGORY'), width: '25%', cellsrenderer: this.renderer}
     ];
 
   constructor(private router: Router,
@@ -77,7 +76,7 @@ export class ArtworkStockComponent implements OnInit {
   }
 
   openAskWindow() {
-    if(this.selectedRowIndex < 0)
+    if (this.selectedRowIndex < 0)
       return;
 
     let artwork = this.artworkStocks[this.selectedRowIndex];

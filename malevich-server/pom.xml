@@ -23,7 +23,7 @@
         <spring-boot.version>2.1.0.RELEASE</spring-boot.version>
 		<version.org.liquibase>3.6.2</version.org.liquibase>
 		<version.org.testcontainers>1.10.1</version.org.testcontainers>
-		<version.apache.fop>2.3</version.apache.fop>
+		<version.apache.fop>2.1</version.apache.fop>
 		<version.io.jsonwebtoken>0.9.1</version.io.jsonwebtoken>
 		<version.org.fabric-sdk>1.2.0</version.org.fabric-sdk>
 

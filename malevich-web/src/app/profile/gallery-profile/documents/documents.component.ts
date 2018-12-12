@@ -21,9 +21,9 @@ export class DocumentsComponent implements OnInit {
 
   columns: any[] =
     [
-      {datafield: 'File Name', width: '35%', columntype: 'textbox'},
-      {datafield: 'Date', width: '35%', columntype: 'textbox'},
-      {datafield: 'Document Type', width: '30%', columntype: 'textbox'},
+      {datafield: this.translate.instant('GALLERY_PROFILE.GRID.FILE_NAME'), width: '35%', columntype: 'textbox'},
+      {datafield: this.translate.instant('GALLERY_PROFILE.GRID.DATE'), width: '35%', columntype: 'textbox'},
+      {datafield: this.translate.instant('GALLERY_PROFILE.GRID.DOCUMENT_TYPE'), width: '30%', columntype: 'textbox'}
     ];
 
   constructor(public translate: TranslateService, private documentsService: DocumentsService, private router: Router) {

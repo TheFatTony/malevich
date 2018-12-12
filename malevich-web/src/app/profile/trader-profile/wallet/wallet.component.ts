@@ -1,9 +1,11 @@
 import {Component, HostListener, OnInit, ViewChild} from '@angular/core';
-import {PaymentsDto} from "../../../_transfer/paymentsDto";
-import {jqxWindowComponent} from "jqwidgets-scripts/jqwidgets-ts/angular_jqxwindow";
-import {PaymentsService} from "../../../_services/payments.service";
-import {AccountStateService} from "../../../_services/account-state.service";
-import {AccountStateDto} from "../../../_transfer/accountStateDto";
+import {PaymentsDto} from '../../../_transfer/paymentsDto';
+import {jqxWindowComponent} from 'jqwidgets-scripts/jqwidgets-ts/angular_jqxwindow';
+import {PaymentsService} from '../../../_services/payments.service';
+import {AccountStateService} from '../../../_services/account-state.service';
+import {AccountStateDto} from '../../../_transfer/accountStateDto';
+import {jqxGridComponent} from 'jqwidgets-scripts/jqwidgets-ts/angular_jqxgrid';
+import {TranslateService} from '@ngx-translate/core';
 
 @Component({
   selector: 'app-profile-trader-wallet',
@@ -14,24 +16,49 @@ export class WalletComponent implements OnInit {
 
   @ViewChild('myWindow') myWindow: jqxWindowComponent;
   @ViewChild('withdrawWindow') withdrawWindow: jqxWindowComponent;
+  @ViewChild('myGrid') myGrid: jqxGridComponent;
 
   public newPayment: PaymentsDto;
   public newWithdraw: PaymentsDto;
   public accountState: AccountStateDto;
+  payments: PaymentsDto[];
 
   x: number;
   y: number;
 
-  constructor(private paymentsService: PaymentsService, private accountStateService: AccountStateService) {
-    }
+  constructor(private paymentsService: PaymentsService, private accountStateService: AccountStateService,
+              public translate: TranslateService) {
+  }
 
   ngOnInit() {
     this.getTraderAccountState();
+    this.getPayments();
   }
+
+  columns: any[] =
+    [
+      {datafield: this.translate.instant('TRADER_PROFILE.GRID.PAYMENT_NO'), width: '20%', columntype: 'textbox'},
+      {datafield: this.translate.instant('TRADER_PROFILE.GRID.DATE'), width: '20%', columntype: 'textbox'},
+      {datafield: this.translate.instant('TRADER_PROFILE.GRID.AMOUNT'), width: '20%', columntype: 'textbox'},
+      {datafield: this.translate.instant('TRADER_PROFILE.GRID.TYPE'), width: '20%', columntype: 'textbox'},
+      {
+        datafield: this.translate.instant('TRADER_PROFILE.GRID.PRINT'), width: '20%', columntype: 'button', cellsrenderer: (): string => {
+        return this.translate.instant('TRADER_PROFILE.GRID.PRINT');
+      },
+        buttonclick: (row: number): void => {
+          this.paymentsService.receiptPrint(this.myGrid.getrowdata(row).PaymentNo).subscribe((data) => {
+            let file = new Blob([data], {type: 'application/pdf'});
+            let fileURL = URL.createObjectURL(file);
+            window.open(fileURL);
+          });
+        }
+      }
+    ];
 
   sendPayment() {
     this.paymentsService.insert(this.newPayment).subscribe(() => {
       this.myWindow.close();
+      this.getPayments();
       this.getTraderAccountState();
     });
   }
@@ -39,6 +66,7 @@ export class WalletComponent implements OnInit {
   sendWithdraw() {
     this.paymentsService.insert(this.newWithdraw).subscribe(() => {
       this.withdrawWindow.close();
+      this.getPayments();
       this.getTraderAccountState();
     });
   }
@@ -71,6 +99,12 @@ export class WalletComponent implements OnInit {
       .subscribe(
         data => (this.accountState = data)
       );
+  }
+
+  getPayments(): void {
+    this.paymentsService.getPayments().subscribe((data) => {
+      this.payments = data;
+    });
   }
 
 }

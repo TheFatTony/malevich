@@ -1,7 +1,7 @@
 package io.malevich.server.services.payments;
 
 import io.malevich.server.domain.PaymentsEntity;
-import io.malevich.server.exceptions.AccountStateException;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -14,4 +14,7 @@ public interface PaymentsService {
 
     void insertPayment(PaymentsEntity paymentsEntity);
 
+    PaymentsEntity getPayments(Long id);
+
+    ResponseEntity<byte[]> createFop(PaymentsEntity entity);
 }

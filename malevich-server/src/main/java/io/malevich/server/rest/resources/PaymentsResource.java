@@ -8,6 +8,7 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -26,18 +27,25 @@ public class PaymentsResource {
     private ModelMapper modelMapper;
 
 
-    @RequestMapping(value = "/list", method = RequestMethod.GET)
+    @GetMapping("/list")
     @ResponseStatus(HttpStatus.OK)
-    @ResponseBody
     public List<PaymentsDto> list() {
         List<PaymentsEntity> allEntries = this.paymentsService.findAll();
         return allEntries.stream().map(allEntry -> convertToDto(allEntry)).collect(Collectors.toList());
     }
 
-    @RequestMapping(value = "/insert", method = RequestMethod.POST)
+    @PostMapping("/insert")
     public ResponseEntity<Void> insert(@RequestBody PaymentsDto paymentsDto) {
         this.paymentsService.insertPayment(convertToEntity(paymentsDto));
         return ResponseEntity.ok().build();
+    }
+
+    @PreAuthorize("hasRole('TRADER')")
+    @GetMapping("/print/{id}")
+    @ResponseStatus(HttpStatus.OK)
+    public ResponseEntity<byte[]> print(@PathVariable("id") Long id) {
+        PaymentsEntity entity = this.paymentsService.getPayments(id);
+        return paymentsService.createFop(entity);
     }
 
     private PaymentsDto convertToDto(PaymentsEntity entity) {

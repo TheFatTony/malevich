@@ -1,8 +1,8 @@
 import {Injectable} from '@angular/core';
-import {environment} from "../../environments/environment.dev";
-import {HttpClient} from "@angular/common/http";
-import {map} from "rxjs/operators";
-import {PaymentsDto} from "../_transfer/paymentsDto";
+import {environment} from '../../environments/environment.dev';
+import {HttpClient} from '@angular/common/http';
+import {map} from 'rxjs/operators';
+import {PaymentsDto} from '../_transfer/paymentsDto';
 
 @Injectable({
   providedIn: 'root'
@@ -26,5 +26,13 @@ export class PaymentsService {
           return data;
         })
       );
+  }
+
+  receiptPrint(id: number) {
+    const httpOptions = {
+      'responseType': 'arraybuffer' as 'json'
+    };
+
+    return this.http.get<any>(this.url + '/print/' + id, httpOptions);
   }
 }

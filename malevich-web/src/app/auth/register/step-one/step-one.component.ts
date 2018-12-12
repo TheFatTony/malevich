@@ -1,10 +1,10 @@
 import {Component, OnInit} from '@angular/core';
-import {FormBuilder, FormGroup, Validators} from "@angular/forms";
-import {first} from "rxjs/operators";
 import {TranslateService} from "@ngx-translate/core";
 import {AuthService} from "../../../_services";
 import {Router} from "@angular/router";
-import {AlertService} from "yinyang-core";
+import {SubscriptionService} from "../../../_services/subscription.service";
+import {SubscriptionDto} from "../../../_transfer/subscriptionDto";
+import {HttpClient} from "@angular/common/http";
 
 @Component({
   selector: 'app-auth-register-step-one',
@@ -15,27 +15,32 @@ export class StepOneComponent implements OnInit {
 
 
   email: string = "";
+  agreementAccepted: boolean = false;
+  subscribe: boolean = false;
 
   constructor(private router: Router,
-              private formBuilder: FormBuilder,
               public translate: TranslateService,
               private authService: AuthService,
-              private alertService: AlertService) {
+              private subscriptionService: SubscriptionService,
+              private http: HttpClient) {
   }
 
   ngOnInit() {
+    this.http.get('assets/i18n/agreement.en.html')
+      .subscribe(resp => {
+        console.log(resp);
+      });
   }
 
   onSubmit() {
     this.authService.register(this.translate.currentLang, this.email)
-      .pipe(first())
-      .subscribe(
-        data => {
-          this.alertService.success(data);
-        },
-        error => {
-          this.alertService.error(error);
-        });
+      .subscribe();
+
+    if (this.subscribe) {
+      let subscription = new SubscriptionDto();
+      subscription.emailId = this.email;
+      this.subscriptionService.save(subscription).subscribe();
+    }
 
     this.router.navigate(['/main-page']);
   }

@@ -1,6 +1,7 @@
 package io.malevich.server.util;
 
 import io.malevich.server.domain.PaymentsEntity;
+import io.malevich.server.rest.exceptions.FopException;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.fop.apps.FOUserAgent;
 import org.apache.fop.apps.Fop;
@@ -86,8 +87,7 @@ public class PaymentFop {
                     .header(HttpHeaders.CONTENT_DISPOSITION, "attachment;filename=" + fileName).body(pdfBytes);
 
         } catch (SAXException | IOException | ParserConfigurationException | ParseException | TransformerException e) {
-            log.error(e.getMessage());
-            return null;
+            throw new FopException("error message", e);
         }
     }
 }

@@ -1,35 +1,37 @@
-import {Component, OnInit} from '@angular/core';
+import {AfterViewInit, Component, OnInit, ViewChild} from '@angular/core';
 import {TranslateService} from "@ngx-translate/core";
 import {AuthService} from "../../../_services";
 import {Router} from "@angular/router";
 import {SubscriptionService} from "../../../_services/subscription.service";
 import {SubscriptionDto} from "../../../_transfer/subscriptionDto";
-import {HttpClient} from "@angular/common/http";
+import {TermsAndConditionsService} from "../../../_services/terms-and-conditions.service";
 
 @Component({
   selector: 'app-auth-register-step-one',
   templateUrl: './step-one.component.html',
   styleUrls: ['./step-one.component.css']
 })
-export class StepOneComponent implements OnInit {
-
+export class StepOneComponent implements OnInit, AfterViewInit {
 
   email: string = "";
   agreementAccepted: boolean = false;
   subscribe: boolean = false;
+  termsAndConditions: string;
 
   constructor(private router: Router,
               public translate: TranslateService,
               private authService: AuthService,
               private subscriptionService: SubscriptionService,
-              private http: HttpClient) {
+              private termsAndConditionsService: TermsAndConditionsService) {
   }
 
   ngOnInit() {
-    this.http.get('assets/i18n/agreement.en.html')
-      .subscribe(resp => {
-        console.log(resp);
-      });
+    this.termsAndConditionsService.getHtml(this.translate.currentLang)
+      .subscribe(data => (this.termsAndConditions = data.htmlText));
+  }
+
+  ngAfterViewInit(): void {
+    $['HSCore'].components.HSModalWindow.init('[data-modal-target]');
   }
 
   onSubmit() {

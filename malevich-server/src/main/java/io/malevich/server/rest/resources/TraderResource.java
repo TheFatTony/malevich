@@ -30,8 +30,6 @@ public class TraderResource {
     @ResponseBody
     public TraderDto getTrader() {
         TraderEntity traderEntity = traderService.getCurrentTrader();
-        if (traderEntity == null)
-            return null;
         return convertToDto(traderEntity);
     }
 

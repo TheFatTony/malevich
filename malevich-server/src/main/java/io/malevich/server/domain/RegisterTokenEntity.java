@@ -33,7 +33,7 @@ public class RegisterTokenEntity implements Entity {
     @Setter
     @Column(name = "user_name")
     @NotNull
-    @Size(min = 5, message = "Email should be atleast 2 characters")
+    @Size(min = 5, message = "Email should be at least 5 characters")
     @Email
     private String userName;
 

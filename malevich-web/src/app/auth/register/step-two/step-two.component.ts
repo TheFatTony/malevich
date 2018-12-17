@@ -1,6 +1,5 @@
-import {Component, Inject, Input, LOCALE_ID, OnInit} from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import {TranslateService} from "@ngx-translate/core";
-import {UserDto} from "../../../_transfer";
 import {Router} from "@angular/router";
 import {AuthService} from "../../../_services";
 
@@ -13,10 +12,10 @@ export class StepTwoComponent implements OnInit {
 
   password: string;
   passwordConfirm: string;
+  isLegalPerson: boolean = false;
+  isGallery: boolean = false;
 
   @Input() activationCode: string;
-
-  @Inject(LOCALE_ID) public locale: string;
 
   constructor(private router: Router,
               private authService: AuthService,

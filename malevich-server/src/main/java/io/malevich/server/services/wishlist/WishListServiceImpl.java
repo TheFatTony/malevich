@@ -3,6 +3,7 @@ package io.malevich.server.services.wishlist;
 import io.malevich.server.domain.TraderEntity;
 import io.malevich.server.domain.WishListEntity;
 import io.malevich.server.repositories.wishlist.WishListDao;
+import io.malevich.server.services.counterparty.CounterpartyService;
 import io.malevich.server.services.trader.TraderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -17,12 +18,12 @@ public class WishListServiceImpl implements WishListService {
     private WishListDao wishListDao;
 
     @Autowired
-    private TraderService traderService;
+    private CounterpartyService counterpartyService;
 
     @Override
     @Transactional
     public WishListEntity save(WishListEntity entity) {
-        TraderEntity traderEntity = traderService.getCurrentTrader();
+        TraderEntity traderEntity = counterpartyService.getCurrent().getTrader();
         if (traderEntity == null)
             return null;
 
@@ -34,7 +35,7 @@ public class WishListServiceImpl implements WishListService {
     @Override
     @Transactional(readOnly = true)
     public Page<WishListEntity> findAll(Pageable pageable) {
-        TraderEntity traderEntity = traderService.getCurrentTrader();
+        TraderEntity traderEntity = counterpartyService.getCurrent().getTrader();
         if (traderEntity == null)
             return null;
 

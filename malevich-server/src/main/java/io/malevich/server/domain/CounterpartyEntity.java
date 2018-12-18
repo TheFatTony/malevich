@@ -31,6 +31,13 @@ public class CounterpartyEntity implements Entity {
     @Getter
     @Setter
     @Fetch(FetchMode.JOIN)
+    @OneToOne(cascade = CascadeType.DETACH)
+    @NotNull
+    private UserEntity user;
+
+    @Getter
+    @Setter
+    @Fetch(FetchMode.JOIN)
     @OneToOne(cascade = CascadeType.MERGE)
     private TraderEntity trader;
 

@@ -9,6 +9,12 @@
                                  referencedColumnNames="id" referencedTableName="counterparty_type"/>
     </changeSet>
 
+    <changeSet author="toolstik" id="counterparty-user_id-fk">
+        <addForeignKeyConstraint baseColumnNames="user_id" baseTableName="counterparty"
+                                 constraintName="counterparty_user_fk"
+                                 referencedColumnNames="id" referencedTableName="user"/>
+    </changeSet>
+
     <changeSet author="thefattony" id="counterparty-trader_id-fk">
         <addForeignKeyConstraint baseColumnNames="trader_id" baseTableName="counterparty"
                                  constraintName="counterparty_trader_fk"

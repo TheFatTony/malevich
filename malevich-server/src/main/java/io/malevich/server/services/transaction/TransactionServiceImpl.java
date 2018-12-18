@@ -130,14 +130,4 @@ public class TransactionServiceImpl implements TransactionService {
         createTransaction(transactionType, group, counterparty, party, artworkStock, -amount, -quantity);
     }
 
-    @Override
-    @Transactional
-    public void createArtworkStock(ArtworkStockEntity artworkStockEntity, TransactionGroupEntity transactionGroup) {
-        CounterpartyEntity counterpartyEntity = counterpartyService.getCurrent();
-        CounterpartyEntity malevichEntity = counterpartyService.getMalevich();
-        TransactionTypeEntity transactionTypeEntity = transactionTypeService.getCreateArtwork();
-
-        createTransactionAndReverse(transactionTypeEntity, transactionGroup, counterpartyEntity, malevichEntity, artworkStockEntity, 0D, 1L);
-    }
-
 }

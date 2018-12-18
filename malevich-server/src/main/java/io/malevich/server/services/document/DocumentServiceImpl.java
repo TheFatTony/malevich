@@ -2,6 +2,7 @@ package io.malevich.server.services.document;
 
 import io.malevich.server.domain.*;
 import io.malevich.server.repositories.document.DocumentDao;
+import io.malevich.server.services.counterparty.CounterpartyService;
 import io.malevich.server.services.document.gallery.GalleryDocumentService;
 import io.malevich.server.services.document.trader.TraderDocumentService;
 import io.malevich.server.services.gallery.GalleryService;
@@ -24,10 +25,7 @@ public class DocumentServiceImpl implements DocumentService {
     private GalleryDocumentService galleryDocumentService;
 
     @Autowired
-    private GalleryService galleryService;
-
-    @Autowired
-    private TraderService traderService;
+    private CounterpartyService counterpartyService;
 
     @Autowired
     private TraderDocumentService traderDocumentService;
@@ -35,14 +33,14 @@ public class DocumentServiceImpl implements DocumentService {
     @Override
     @Transactional(readOnly = true)
     public List<DocumentEntity> findTraderDocs() {
-        TraderEntity traderEntity = traderService.getCurrentTrader();
+        TraderEntity traderEntity = counterpartyService.getCurrent().getTrader();
         return this.documentDao.findTraderDocs(traderEntity.getId());
     }
 
     @Override
     @Transactional(readOnly = true)
     public List<DocumentEntity> findGalleryDocs() {
-        GalleryEntity galleryEntity = galleryService.getCurrent();
+        GalleryEntity galleryEntity = counterpartyService.getCurrent().getGallery();
         return this.documentDao.findGalleryDocs(galleryEntity.getId());
     }
 
@@ -55,13 +53,12 @@ public class DocumentServiceImpl implements DocumentService {
     @Override
     @Transactional
     public void delete(Long id) {
-        GalleryEntity galleryEntity = galleryService.getCurrent();
-        TraderEntity traderEntity = traderService.getCurrentTrader();
-        if (galleryEntity != null && id != null) {
-            this.galleryDocumentService.deleteById(id, galleryEntity.getId());
+        CounterpartyEntity counterpartyEntity = counterpartyService.getCurrent();
+        if (counterpartyEntity.getGallery() != null && id != null) {
+            this.galleryDocumentService.deleteById(id, counterpartyEntity.getGallery().getId());
         }
-        if (traderEntity != null && id != null) {
-            this.traderDocumentService.deleteById(id, traderEntity.getId());
+        if (counterpartyEntity.getTrader() != null && id != null) {
+            this.traderDocumentService.deleteById(id, counterpartyEntity.getTrader().getId());
         }
         this.documentDao.deleteById(id);
     }
@@ -69,8 +66,10 @@ public class DocumentServiceImpl implements DocumentService {
     @Override
     public void userDocs(DocumentEntity documentEntity) {
 
-        GalleryEntity galleryEntity = galleryService.getCurrent();
-        TraderEntity traderEntity = traderService.getCurrentTrader();
+        CounterpartyEntity counterpartyEntity = counterpartyService.getCurrent();
+        GalleryEntity galleryEntity = counterpartyEntity.getGallery();
+        TraderEntity traderEntity = counterpartyEntity.getTrader();
+
         if (galleryEntity != null && documentEntity != null) {
             GalleryDocumentEntity galleryDocumentEntity = new GalleryDocumentEntity();
             galleryDocumentEntity.setDocument(documentEntity);

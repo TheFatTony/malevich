@@ -11,6 +11,7 @@
             <column name="type_id" type="char(1)">
                 <constraints nullable="false"/>
             </column>
+            <column name="user_id" type="bigint"/>
             <column name="trader_id" type="bigint"/>
             <column name="gallery_id" type="bigint"/>
         </createTable>

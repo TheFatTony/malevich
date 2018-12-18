@@ -12,12 +12,4 @@ public interface TraderService {
     List<TraderEntity> findAll();
 
     TraderEntity find(Long id);
-
-    TraderEntity findByUserName(String name);
-
-    TraderEntity update(TraderEntity trader);
-
-    TraderEntity save(TraderEntity traderEntity);
-
-    TraderEntity getCurrentTrader();
 }

@@ -12,6 +12,4 @@ import java.util.Optional;
 @Repository
 public interface TraderDao extends JpaRepository<TraderEntity, Long> {
 
-    @Query("select te from TraderEntity te join fetch te.user where te.user.name = :name")
-    Optional<TraderEntity> findByUserName(@Param(value = "name") String name);
 }

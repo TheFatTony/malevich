@@ -33,9 +33,6 @@ public class PaymentsServiceImpl implements PaymentsService {
     private TransactionTypeService transactionTypeService;
 
     @Autowired
-    private TraderService traderService;
-
-    @Autowired
     private CounterpartyService counterpartyService;
 
     @Autowired
@@ -56,8 +53,8 @@ public class PaymentsServiceImpl implements PaymentsService {
     @Transactional
     public void insertPayment(PaymentsEntity paymentsEntity) {
 
-        TraderEntity traderEntity = traderService.getCurrentTrader();
-        CounterpartyEntity trader = counterpartyService.findCounterpartyEntitiesByTraderId(traderEntity.getId());
+
+        CounterpartyEntity trader = counterpartyService.getCurrent();
         CounterpartyEntity malevich = counterpartyService.getMalevich();
 
         PaymentTypeEntity paymentType;

@@ -35,13 +35,6 @@ public class TraderEntity implements Entity {
 
     @Getter
     @Setter
-    @Fetch(FetchMode.JOIN)
-    @OneToOne(cascade = CascadeType.DETACH)
-    @NotNull
-    private UserEntity user;
-
-    @Getter
-    @Setter
     private String mobile;
 
     @Getter

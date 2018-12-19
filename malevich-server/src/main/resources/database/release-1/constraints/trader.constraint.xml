@@ -25,12 +25,6 @@
                                  referencedColumnNames="id" referencedTableName="gender"/>
     </changeSet>
 
-    <changeSet author="toolstik" id="trader-user-fk">
-        <addForeignKeyConstraint baseColumnNames="user_id" baseTableName="trader"
-                                 constraintName="trader_user_fk"
-                                 referencedColumnNames="id" referencedTableName="user"/>
-    </changeSet>
-
     <changeSet author="toolstik" id="trader-country-fk">
         <addForeignKeyConstraint baseColumnNames="country_id" baseTableName="trader"
                                  constraintName="trader_country_fk"

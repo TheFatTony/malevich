@@ -14,6 +14,4 @@ public interface GalleryDao extends JpaRepository<GalleryEntity, Long> {
     @Query("select ge from GalleryEntity ge join fetch ge.organization join fetch ge.thumbnail join fetch ge.image")
     List<GalleryEntity> findAll();
 
-    Optional<GalleryEntity> findByUsers_Name(String name);
-
 }

@@ -11,4 +11,10 @@
         </createIndex>
     </changeSet>
 
+    <changeSet author="toolstik" id="counterparty-user_id-index">
+        <createIndex indexName="counterparty_user_id_idx" tableName="counterparty" unique="true">
+            <column name="user_id"/>
+        </createIndex>
+    </changeSet>
+
 </databaseChangeLog>

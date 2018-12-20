@@ -1,11 +1,11 @@
 import {Component, OnInit} from '@angular/core';
-import {WishListService} from '../../../_services/wish-list.service';
+import {WishListService} from '../../_services/wish-list.service';
 import {TranslateService} from '@ngx-translate/core';
-import {PageSortableRequestDto} from '../../../_transfer/pageSortableRequestDto';
-import {PageService} from '../../../_services/page.service';
+import {PageSortableRequestDto} from '../../_transfer/pageSortableRequestDto';
+import {PageService} from '../../_services/page.service';
 
 @Component({
-  selector: 'app-profile-trader-wishlist',
+  selector: 'app-profile-wishlist',
   templateUrl: './wishlist.component.html',
   styleUrls: ['./wishlist.component.css']
 })
@@ -15,7 +15,8 @@ export class WishlistComponent implements OnInit {
   wishList: any = {};
   pageSortable: PageSortableRequestDto;
 
-  constructor(private wishListService: WishListService, private translate: TranslateService,
+  constructor(private wishListService: WishListService,
+              private translate: TranslateService,
               private pageService: PageService,) {
   }
 

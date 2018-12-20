@@ -42,11 +42,8 @@ import {ListComponent as ArtistsListListComponent} from './artists/artists-list/
 import {ArtworksDetailComponent} from './artworks/artworks-detail/artworks-detail.component';
 import {GalleriesDetailComponent} from './galleries/galleries-detail/galleries-detail.component';
 import {ArtistsDetailComponent} from './artists/artists-detail/artists-detail.component';
-import {SecurityComponent} from './profile/trader-profile/security/security.component';
-import {WalletComponent} from './profile/trader-profile/wallet/wallet.component';
-import {WishlistComponent} from './profile/trader-profile/wishlist/wishlist.component';
-import {PaymentComponent} from './profile/trader-profile/payment/payment.component';
-import {NotificationsComponent} from './profile/trader-profile/notifications/notifications.component';
+import {WishlistComponent} from './profile/wishlist/wishlist.component';
+import {NotificationsComponent} from './profile/notifications/notifications.component';
 import {StepOneComponent as RegisterStepOneComponent} from './auth/register/step-one/step-one.component';
 import {StepTwoComponent as RegisterStepTwoComponent} from './auth/register/step-two/step-two.component';
 import {NavigationComponent as GalleryProfileNavigationComponent} from './profile/gallery-profile/navigation/navigation.component';
@@ -77,6 +74,8 @@ import {ViewComponent as ProfileViewComponent} from "./profile/view/view.compone
 import {EditComponent as ProfileEditComponent} from "./profile/edit/edit.component";
 import {PaymentComponent as ProfilePaymentComponent} from "./profile/payment/payment.component";
 import {WalletComponent as ProfileWalletComponent} from "./profile/wallet/wallet.component";
+import {WishlistComponent as ProfileWishlistComponent} from "./profile/wishlist/wishlist.component";
+import {NotificationsComponent as ProfileNotificationsComponent} from "./profile/notifications/notifications.component";
 
 
 export function createTranslateLoader(http: HttpClient) {
@@ -110,10 +109,7 @@ export function createTranslateLoader(http: HttpClient) {
     ArtworksDetailComponent,
     GalleriesDetailComponent,
     ArtistsDetailComponent,
-    SecurityComponent,
-    WalletComponent,
     WishlistComponent,
-    PaymentComponent,
     GalleryProfileNotificationsComponent,
     RegisterStepOneComponent,
     RegisterStepTwoComponent,
@@ -143,7 +139,9 @@ export function createTranslateLoader(http: HttpClient) {
     ProfileViewComponent,
     ProfileEditComponent,
     ProfilePaymentComponent,
-    ProfileWalletComponent
+    ProfileWalletComponent,
+    ProfileWalletComponent,
+    ProfileNotificationsComponent
 
   ],
   imports: [

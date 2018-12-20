@@ -26,10 +26,6 @@ import {EditComponent as GalleryProfileSecurityEditComponent} from './profile/ga
 import {ArtworkStockComponent as GalleryProfileArtworkStockComponent} from './profile/gallery-profile/artwork-stock/artwork-stock.component';
 import {OrdersComponent as GalleryProfileOrdersComponent} from './profile/gallery-profile/orders/orders.component';
 import {DocumentsComponent as GalleryProfileDocumentsComponent} from './profile/gallery-profile/documents/documents.component';
-import {PaymentComponent} from './profile/trader-profile/payment/payment.component';
-import {WalletComponent} from './profile/trader-profile/wallet/wallet.component';
-import {WishlistComponent} from './profile/trader-profile/wishlist/wishlist.component';
-import {NotificationsComponent} from './profile/trader-profile/notifications/notifications.component';
 import {ViewComponent as GalleryProfileNotificationsComponent} from './profile/gallery-profile/notifications/view/view.component';
 import {OrdersComponent as TraderProfileOrdersComponent} from './profile/trader-profile/orders/orders.component';
 import {DocumentsComponent as TraderProfileDocumentsComponent} from './profile/trader-profile/documents/documents.component';
@@ -40,10 +36,13 @@ import {StorageEditComponent} from './profile/gallery-profile/storage/edit/stora
 import {StorageComponent} from './profile/gallery-profile/storage/storage.component';
 import {DocumentAddComponent as GalleryDocumentAddComponent} from './profile/gallery-profile/documents/add/document-add.component';
 import {DocumentAddComponent as TraderDocumentAddComponent} from './profile/trader-profile/documents/add/document-add.component';
+
 import {ViewComponent as ProfileViewComponent} from "./profile/view/view.component";
 import {EditComponent as ProfileEditComponent} from "./profile/edit/edit.component";
 import {PaymentComponent as ProfilePaymentComponent} from "./profile/payment/payment.component";
 import {WalletComponent as ProfileWalletComponent} from "./profile/wallet/wallet.component";
+import {WishlistComponent as ProfileWishlistComponent} from "./profile/wishlist/wishlist.component";
+import {NotificationsComponent as ProfileNotificationsComponent} from "./profile/notifications/notifications.component";
 
 const routes: Routes = [
   {path: '', redirectTo: '/main-page', pathMatch: 'full'},
@@ -61,8 +60,8 @@ const routes: Routes = [
       {path: 'edit', component: ProfileEditComponent, canActivate: [AuthGuard]},
       {path: 'payment', component: ProfilePaymentComponent, canActivate: [AuthGuard]},
       {path: 'wallet', component: ProfileWalletComponent, canActivate: [AuthGuard]},
-      // {path: 'wishlist', component: WishlistComponent, canActivate: [AuthGuard]},
-      // {path: 'notifications', component: NotificationsComponent, canActivate: [AuthGuard]},
+      {path: 'wishlist', component: ProfileWishlistComponent, canActivate: [AuthGuard]},
+      {path: 'notifications', component: ProfileNotificationsComponent, canActivate: [AuthGuard]},
       // {path: 'orders/list', component: TraderProfileOrdersComponent, canActivate: [AuthGuard]},
       // {path: 'artworkstock', component: TraderProfileArtworkStockComponent, canActivate: [AuthGuard]},
       // {path: 'documents/list/trader', component: TraderProfileDocumentsComponent, canActivate: [AuthGuard]},

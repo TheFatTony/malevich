@@ -37,8 +37,6 @@
     <include relativeToChangelogFile="true" file="indexes/contact_us.index.xml"/>
     <include relativeToChangelogFile="true" file="indexes/subscription.index.xml"/>
     <include relativeToChangelogFile="true" file="indexes/document.index.xml"/>
-    <include relativeToChangelogFile="true" file="indexes/gallery_document.index.xml"/>
-    <include relativeToChangelogFile="true" file="indexes/trader_document.index.xml"/>
     <include relativeToChangelogFile="true" file="indexes/document_type.index.xml"/>
     <include relativeToChangelogFile="true" file="indexes/wish_list.index.xml"/>
     <include relativeToChangelogFile="true" file="indexes/delayed_change.index.xml"/>

@@ -2,10 +2,10 @@ import {Component, OnInit, ViewChild} from '@angular/core';
 import {TranslateService} from '@ngx-translate/core';
 import {jqxComboBoxComponent} from 'jqwidgets-scripts/jqwidgets-ts/angular_jqxcombobox';
 import {Router} from '@angular/router';
-import {DocumentTypeDto} from '../../../../_transfer/documentTypeDto';
-import {DocumentsService} from '../../../../_services/documents.service';
-import {DocumentsDto} from '../../../../_transfer/documentsDto';
-import {environment} from '../../../../../environments/environment.dev';
+import {DocumentTypeDto} from '../../../_transfer/documentTypeDto';
+import {DocumentsService} from '../../../_services/documents.service';
+import {DocumentsDto} from '../../../_transfer/documentsDto';
+import {environment} from '../../../../environments/environment.dev';
 
 @Component({
   selector: 'app-profile-gallery-storage-add',
@@ -18,7 +18,7 @@ export class DocumentAddComponent implements OnInit {
 
   public url = environment.baseUrl;
 
-  traderDocument: DocumentsDto;
+  document: DocumentsDto;
   documentTypes: any[];
   userType: string = 'trader';
 
@@ -30,7 +30,7 @@ export class DocumentAddComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.traderDocument = new DocumentsDto();
+    this.document = new DocumentsDto();
     this.getDocumentTypes(this.userType);
   }
 
@@ -41,17 +41,17 @@ export class DocumentAddComponent implements OnInit {
   }
 
   submit() {
-    this.documentService.save(this.traderDocument).subscribe();
+    this.documentService.save(this.document).subscribe();
   }
 
   cancel() {
-    this.router.navigate(['/profile/trader/documents/list/trader']);
+    this.router.navigate(['/profile/documents']);
   }
 
 
   onUploadEnd(event: any): void {
     let args = event.args;
-    this.traderDocument.files = JSON.parse(args.response.toString()
+    this.document.files = JSON.parse(args.response.toString()
       .replace('<pre style="word-wrap: break-word; white-space: pre-wrap;">', '')
       .replace('<pre>', '')
       .replace('</pre>', ''));

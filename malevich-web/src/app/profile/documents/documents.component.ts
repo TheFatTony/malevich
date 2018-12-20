@@ -1,13 +1,13 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
 import {TranslateService} from '@ngx-translate/core';
 import {jqxGridComponent} from 'jqwidgets-scripts/jqwidgets-ts/angular_jqxgrid';
-import {environment} from '../../../../environments/environment.dev';
-import {DocumentsService} from '../../../_services/documents.service';
+import {environment} from '../../../environments/environment.dev';
+import {DocumentsService} from '../../_services/documents.service';
 import {Router} from '@angular/router';
-import {DocumentsDto} from '../../../_transfer/documentsDto';
+import {DocumentsDto} from '../../_transfer/documentsDto';
 
 @Component({
-  selector: 'app-profile-trader-documents',
+  selector: 'app-profile-documents',
   templateUrl: './documents.component.html',
   styleUrls: ['./documents.component.css']
 })
@@ -15,7 +15,7 @@ export class DocumentsComponent implements OnInit {
   @ViewChild('myGrid') myGrid: jqxGridComponent;
 
   selectedRowIndex: number = -1;
-  traderDocuments: DocumentsDto[];
+  documents: DocumentsDto[];
 
   public url = environment.baseUrl;
 
@@ -26,7 +26,9 @@ export class DocumentsComponent implements OnInit {
       {datafield: this.translate.instant('TRADER_PROFILE.GRID.DOCUMENT_TYPE'), width: '30%', columntype: 'textbox'}
     ];
 
-  constructor(public translate: TranslateService, private documentsService: DocumentsService, private router: Router) {
+  constructor(public translate: TranslateService,
+              private documentsService: DocumentsService,
+              private router: Router) {
   }
 
   ngOnInit() {
@@ -37,13 +39,13 @@ export class DocumentsComponent implements OnInit {
   }
 
   getTraderDocs(): void {
-    this.documentsService.getTraderDocs().subscribe(data => {
-      this.traderDocuments = data;
+    this.documentsService.getDocs().subscribe(data => {
+      this.documents = data;
     });
   }
 
   onAddButtonClick() {
-    this.router.navigate(['/profile/trader/documents/add']);
+    this.router.navigate(['/profile/documents/add']);
   }
 
   onGridRowSelect($event: any) {
@@ -51,7 +53,7 @@ export class DocumentsComponent implements OnInit {
   }
 
   onDeleteButtonClick() {
-    let deleted = this.traderDocuments.splice(this.selectedRowIndex, 1)[0];
+    let deleted = this.documents.splice(this.selectedRowIndex, 1)[0];
     this.documentsService.deleteDocument(deleted.id).subscribe();
     this.myGrid.refresh();
     this.selectedRowIndex = -1;

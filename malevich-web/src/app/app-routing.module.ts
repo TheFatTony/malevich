@@ -27,9 +27,7 @@ import {ArtworkStockComponent as GalleryProfileArtworkStockComponent} from './pr
 import {OrdersComponent as GalleryProfileOrdersComponent} from './profile/gallery-profile/orders/orders.component';
 import {DocumentsComponent as GalleryProfileDocumentsComponent} from './profile/gallery-profile/documents/documents.component';
 import {ViewComponent as GalleryProfileNotificationsComponent} from './profile/gallery-profile/notifications/view/view.component';
-import {OrdersComponent as TraderProfileOrdersComponent} from './profile/trader-profile/orders/orders.component';
 import {DocumentsComponent as TraderProfileDocumentsComponent} from './profile/trader-profile/documents/documents.component';
-import {ArtworkStockComponent as TraderProfileArtworkStockComponent} from './profile/trader-profile/artwork-stock/artwork-stock.component';
 import {PageNotFoundComponent} from './page-not-found/page-not-found.component';
 import {StorageAddComponent} from './profile/gallery-profile/storage/add/storage-add.component';
 import {StorageEditComponent} from './profile/gallery-profile/storage/edit/storage-edit.component';
@@ -43,6 +41,8 @@ import {PaymentComponent as ProfilePaymentComponent} from "./profile/payment/pay
 import {WalletComponent as ProfileWalletComponent} from "./profile/wallet/wallet.component";
 import {WishlistComponent as ProfileWishlistComponent} from "./profile/wishlist/wishlist.component";
 import {NotificationsComponent as ProfileNotificationsComponent} from "./profile/notifications/notifications.component";
+import {OrdersComponent as ProfileOrdersComponent} from './profile/orders/orders.component';
+import {ArtworkStockComponent as ProfileArtworkStockComponent} from './profile/artwork-stock/artwork-stock.component';
 
 const routes: Routes = [
   {path: '', redirectTo: '/main-page', pathMatch: 'full'},
@@ -62,8 +62,8 @@ const routes: Routes = [
       {path: 'wallet', component: ProfileWalletComponent, canActivate: [AuthGuard]},
       {path: 'wishlist', component: ProfileWishlistComponent, canActivate: [AuthGuard]},
       {path: 'notifications', component: ProfileNotificationsComponent, canActivate: [AuthGuard]},
-      // {path: 'orders/list', component: TraderProfileOrdersComponent, canActivate: [AuthGuard]},
-      // {path: 'artworkstock', component: TraderProfileArtworkStockComponent, canActivate: [AuthGuard]},
+      {path: 'orders/list', component: ProfileOrdersComponent, canActivate: [AuthGuard]},
+      {path: 'artworkstock', component: ProfileArtworkStockComponent, canActivate: [AuthGuard]},
       // {path: 'documents/list/trader', component: TraderProfileDocumentsComponent, canActivate: [AuthGuard]},
       // {path: 'documents/add', component: TraderDocumentAddComponent, canActivate: [AuthGuard]}
     ]

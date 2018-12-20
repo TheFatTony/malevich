@@ -22,6 +22,7 @@
   </div>
 </section>
 
+
 <div class="container g-pt-70 g-pb-30">
   <div class="row">
     <!-- Profile Settings -->
@@ -29,158 +30,158 @@
       <app-profile-navigation></app-profile-navigation>
     </div>
     <!-- End Profile Settings -->
-
-    <div class="col-lg-9 g-mb-50">
-      <div class="g-brd-around g-brd-gray-light-v4 rounded g-pa-30 g-mb-30">
-        <div class="row">
-          <div class="col-4 offset-8 text-right">
-            <a
-              class="btn g-brd-around g-brd-gray-light-v3 g-color-gray-dark-v3 g-bg-gray-light-v5 g-bg-gray-light-v4--hover g-font-size-13 rounded g-px-18 g-py-7"
-              routerLink="/profile/edit">{{'TRADER_PROFILE.SECURITY.BUTTON.EDIT_PROFILE' | translate}}</a>
+    <ng-container *ngIf="trader">
+      <div class="col-lg-9 g-mb-50">
+        <div class="g-brd-around g-brd-gray-light-v4 rounded g-pa-30 g-mb-30">
+          <div class="row">
+            <div class="col-4 offset-8 text-right">
+              <a
+                class="btn g-brd-around g-brd-gray-light-v3 g-color-gray-dark-v3 g-bg-gray-light-v5 g-bg-gray-light-v4--hover g-font-size-13 rounded g-px-18 g-py-7"
+                routerLink="/profile/edit">{{'TRADER_PROFILE.SECURITY.BUTTON.EDIT_PROFILE' | translate}}</a>
+            </div>
           </div>
-        </div>
 
-        <div class="row">
-          <div class="col-8">
+          <div class="row">
+            <div class="col-8">
             <span
               class="d-block g-color-text g-font-size-13 mb-1">{{'TRADER_PROFILE.SECURITY.LABEL.FIRST_NAME' | translate}}</span>
-            <span class="d-block">{{trader?.person.firstName}}</span>
+              <span class="d-block">{{trader?.person.firstName}}</span>
+            </div>
+
           </div>
 
-        </div>
+          <hr class="g-brd-gray-light-v4 g-my-20">
 
-        <hr class="g-brd-gray-light-v4 g-my-20">
-
-        <div class="row">
-          <div class="col-8">
+          <div class="row">
+            <div class="col-8">
             <span
               class="d-block g-color-text g-font-size-13 mb-1">{{'TRADER_PROFILE.SECURITY.LABEL.LAST_NAME' | translate}}</span>
-            <span class="d-block">{{trader?.person.lastName}}</span>
+              <span class="d-block">{{trader?.person.lastName}}</span>
+            </div>
+
           </div>
 
-        </div>
+          <hr class="g-brd-gray-light-v4 g-my-20">
 
-        <hr class="g-brd-gray-light-v4 g-my-20">
-
-        <div class="row">
-          <div class="col-8">
+          <div class="row">
+            <div class="col-8">
             <span
               class="d-block g-color-text g-font-size-13 mb-1">{{'TRADER_PROFILE.SECURITY.LABEL.EMAIL' | translate}}</span>
-            <span class="d-block">{{counterparty?.user.name}}</span>
+              <span class="d-block">{{counterparty?.user.name}}</span>
+            </div>
           </div>
-        </div>
 
-        <hr class="g-brd-gray-light-v4 g-my-20">
+          <hr class="g-brd-gray-light-v4 g-my-20">
 
-        <div class="row">
-          <div class="col-8">
+          <div class="row">
+            <div class="col-8">
             <span
               class="d-block g-color-text g-font-size-13 mb-1">{{'TRADER_PROFILE.SECURITY.LABEL.GENDER' | translate}}</span>
-            <span class="d-block">{{trader?.gender.nameMl[translate.currentLang]}}</span>
+              <span class="d-block">{{trader?.gender.nameMl[translate.currentLang]}}</span>
+            </div>
           </div>
-        </div>
 
-        <hr class="g-brd-gray-light-v4 g-my-20">
+          <hr class="g-brd-gray-light-v4 g-my-20">
 
-        <div class="row">
-          <div class="col-8">
+          <div class="row">
+            <div class="col-8">
             <span
               class="d-block g-color-text g-font-size-13 mb-1">{{'TRADER_PROFILE.SECURITY.LABEL.COUNTRY' | translate}}</span>
-            <span class="d-block">{{trader?.country.nameMl[translate.currentLang]}}</span>
+              <span class="d-block">{{trader?.country.nameMl[translate.currentLang]}}</span>
+            </div>
           </div>
-        </div>
 
-        <hr class="g-brd-gray-light-v4 g-my-20">
+          <hr class="g-brd-gray-light-v4 g-my-20">
 
-        <div class="row">
-          <div class="col-8">
+          <div class="row">
+            <div class="col-8">
             <span
               class="d-block g-color-text g-font-size-13 mb-1">{{'TRADER_PROFILE.SECURITY.LABEL.MOBILE' | translate}}</span>
-            <span class="d-block">{{trader?.mobile}}</span>
+              <span class="d-block">{{trader?.mobile}}</span>
+            </div>
+
           </div>
 
-        </div>
+          <hr class="g-brd-gray-light-v4 g-my-20">
 
-        <hr class="g-brd-gray-light-v4 g-my-20">
-
-        <div class="row">
-          <ng-container *ngIf="!changePassword">
-            <div class="col-8">
+          <div class="row">
+            <ng-container *ngIf="!changePassword">
+              <div class="col-8">
               <span
                 class="d-block g-color-text g-font-size-13 mb-1">{{'TRADER_PROFILE.SECURITY.LABEL.PASSWORD' | translate}}</span>
-              <span class="d-block">*******</span>
-            </div>
+                <span class="d-block">*******</span>
+              </div>
 
-            <div class="col-4 text-right">
-              <mchButton
-                class="g-brd-around g-brd-gray-light-v3 g-color-gray-dark-v3 g-bg-gray-light-v5 g-bg-gray-light-v4--hover g-font-size-13 rounded g-px-18 g-py-7"
-                (onClick)="switchChangePassword()">
-                {{'TRADER_PROFILE.SECURITY.BUTTON.CHANGE_PASSWORD' | translate}}
-              </mchButton>
-            </div>
-          </ng-container>
+              <div class="col-4 text-right">
+                <mchButton
+                  class="g-brd-around g-brd-gray-light-v3 g-color-gray-dark-v3 g-bg-gray-light-v5 g-bg-gray-light-v4--hover g-font-size-13 rounded g-px-18 g-py-7"
+                  (onClick)="switchChangePassword()">
+                  {{'TRADER_PROFILE.SECURITY.BUTTON.CHANGE_PASSWORD' | translate}}
+                </mchButton>
+              </div>
+            </ng-container>
 
-          <ng-container *ngIf="changePassword">
-            <div class="col-12">
-              <form #passwordForm="ngForm" (ngSubmit)="onChangePassword()">
-                <mchInput name="oldPassword"
-                          mchRequired
-                          [(ngModel)]="oldPassword"
-                          [type]="'password'"
-                          [placeHolder]="'TRADER_PROFILE.SECURITY.PLACEHOLDER.OLD_PASSWORD' | translate"></mchInput>
+            <ng-container *ngIf="changePassword">
+              <div class="col-12">
+                <form #passwordForm="ngForm" (ngSubmit)="onChangePassword()">
+                  <mchInput name="oldPassword"
+                            mchRequired
+                            [(ngModel)]="oldPassword"
+                            [type]="'password'"
+                            [placeHolder]="'TRADER_PROFILE.SECURITY.PLACEHOLDER.OLD_PASSWORD' | translate"></mchInput>
 
-                <mchInput name="newPassword"
-                          class="g-my-10"
-                          mchRequired
-                          mchPassword
-                          [(ngModel)]="newPassword"
-                          [type]="'password'"
-                          [placeHolder]="'TRADER_PROFILE.SECURITY.PLACEHOLDER.NEW_PASSWORD' | translate"></mchInput>
+                  <mchInput name="newPassword"
+                            class="g-my-10"
+                            mchRequired
+                            mchPassword
+                            [(ngModel)]="newPassword"
+                            [type]="'password'"
+                            [placeHolder]="'TRADER_PROFILE.SECURITY.PLACEHOLDER.NEW_PASSWORD' | translate"></mchInput>
 
-                <mchInput name="confirmNewPassword"
-                          mchMatchTo="newPassword"
-                          [ngModel]
-                          [type]="'password'"
-                          [placeHolder]="'TRADER_PROFILE.SECURITY.PLACEHOLDER.CONFIRM_NEW_PASSWORD' | translate"></mchInput>
+                  <mchInput name="confirmNewPassword"
+                            mchMatchTo="newPassword"
+                            [ngModel]
+                            [type]="'password'"
+                            [placeHolder]="'TRADER_PROFILE.SECURITY.PLACEHOLDER.CONFIRM_NEW_PASSWORD' | translate"></mchInput>
 
-                <div class="row g-mt-10 justify-content-md-center">
-                  <div class="col text-center">
-                    <mchButton
-                      class="g-brd-around g-brd-gray-light-v3 g-color-gray-dark-v3 g-bg-gray-light-v5 g-bg-gray-light-v4--hover g-font-size-13 rounded g-px-18 g-py-7 g-mx-10"
-                      [submitForm]="passwordForm"
-                    >{{'TRADER_PROFILE.SECURITY.BUTTON.UPDATE' | translate}}
-                    </mchButton>
+                  <div class="row g-mt-10 justify-content-md-center">
+                    <div class="col text-center">
+                      <mchButton
+                        class="g-brd-around g-brd-gray-light-v3 g-color-gray-dark-v3 g-bg-gray-light-v5 g-bg-gray-light-v4--hover g-font-size-13 rounded g-px-18 g-py-7 g-mx-10"
+                        [submitForm]="passwordForm"
+                      >{{'TRADER_PROFILE.SECURITY.BUTTON.UPDATE' | translate}}
+                      </mchButton>
 
-                    <mchButton
-                      class="g-brd-around g-brd-gray-light-v3 g-color-gray-dark-v3 g-bg-gray-light-v5 g-bg-gray-light-v4--hover g-font-size-13 rounded g-px-18 g-py-7 g-mx-10"
-                      (onClick)="switchChangePassword()"
-                    >{{'TRADER_PROFILE.SECURITY.BUTTON.CANCEL' | translate}}
-                    </mchButton>
+                      <mchButton
+                        class="g-brd-around g-brd-gray-light-v3 g-color-gray-dark-v3 g-bg-gray-light-v5 g-bg-gray-light-v4--hover g-font-size-13 rounded g-px-18 g-py-7 g-mx-10"
+                        (onClick)="switchChangePassword()"
+                      >{{'TRADER_PROFILE.SECURITY.BUTTON.CANCEL' | translate}}
+                      </mchButton>
+                    </div>
+
                   </div>
 
-                </div>
-
-              </form>
-            </div>
-          </ng-container>
-        </div>
-
-        <hr class="g-brd-gray-light-v4 g-my-20">
-
-        <div class="row">
-          <div class="col-8">
-            <span class="d-block g-color-text g-font-size-13 mb-1">{{'TRADER_PROFILE.SECURITY.LABEL.DATE_OF_BIRTH' | translate}}</span>
-            <span class="d-block">{{trader?.dateOfBirth}}</span>
+                </form>
+              </div>
+            </ng-container>
           </div>
-        </div>
 
-        <hr class="g-brd-gray-light-v4 g-my-20">
+          <hr class="g-brd-gray-light-v4 g-my-20">
 
-        <!-- Address -->
-        <div class="row" *ngIf="trader?.addresses[0] as address">
-          <div class="col-12">
-            <span class="d-block g-color-text g-font-size-13 mb-1">{{'TRADER_PROFILE.SECURITY.LABEL.ADDRESS.STREET' | translate}}</span>
-            <span class="d-block">
+          <div class="row">
+            <div class="col-8">
+              <span class="d-block g-color-text g-font-size-13 mb-1">{{'TRADER_PROFILE.SECURITY.LABEL.DATE_OF_BIRTH' | translate}}</span>
+              <span class="d-block">{{trader?.dateOfBirth}}</span>
+            </div>
+          </div>
+
+          <hr class="g-brd-gray-light-v4 g-my-20">
+
+          <!-- Address -->
+          <div class="row" *ngIf="trader?.addresses[0] as address">
+            <div class="col-12">
+              <span class="d-block g-color-text g-font-size-13 mb-1">{{'TRADER_PROFILE.SECURITY.LABEL.ADDRESS.STREET' | translate}}</span>
+              <span class="d-block">
                 {{address.street}}
                 <br>
                 {{address.state}} {{address.postalCode}}
@@ -189,15 +190,126 @@
                 <br>
                 {{address.country.nameMl[translate.currentLang]}}
               </span>
+            </div>
           </div>
+          <!-- End Address -->
+
         </div>
-        <!-- End Address -->
+        <!-- End Info -->
+
+        <!-- End Login & Security -->
+      </div>
+    </ng-container>
+
+    <ng-container *ngIf="gallery">
+      <div class="col-lg-9 g-mb-50">
+
+        <!-- Info -->
+        <div class="g-brd-around g-brd-gray-light-v4 rounded g-pa-30 g-mb-30">
+
+          <div class="row">
+            <ng-container *ngIf="!changePassword">
+              <div class="col-12 g-mb-20 text-right">
+                <mchButton
+                  class="g-brd-around g-brd-gray-light-v3 g-color-gray-dark-v3 g-bg-gray-light-v5 g-bg-gray-light-v4--hover g-font-size-13 rounded g-px-18 g-py-7"
+                  (onClick)="edit()">
+                  {{'TRADER_PROFILE.SECURITY.BUTTON.EDIT_PROFILE' | translate}}
+                </mchButton>
+
+                <mchButton
+                  class="g-brd-around g-brd-gray-light-v3 g-color-gray-dark-v3 g-bg-gray-light-v5 g-bg-gray-light-v4--hover g-font-size-13 rounded g-px-18 g-py-7 g-ml-10"
+                  (onClick)="switchChangePassword()">
+                  {{'TRADER_PROFILE.SECURITY.BUTTON.CHANGE_PASSWORD' | translate}}
+                </mchButton>
+              </div>
+            </ng-container>
+
+            <ng-container *ngIf="changePassword">
+              <div class="col-12">
+                <form #passwordForm="ngForm" (ngSubmit)="onChangePassword()">
+                  <mchInput name="oldPassword"
+                            mchRequired
+                            [(ngModel)]="oldPassword"
+                            [type]="'password'"
+                            [placeHolder]="'TRADER_PROFILE.SECURITY.PLACEHOLDER.OLD_PASSWORD' | translate"></mchInput>
+
+                  <mchInput name="newPassword"
+                            class="g-my-10"
+                            mchRequired
+                            mchPassword
+                            [(ngModel)]="newPassword"
+                            [type]="'password'"
+                            [placeHolder]="'TRADER_PROFILE.SECURITY.PLACEHOLDER.NEW_PASSWORD' | translate"></mchInput>
+
+                  <mchInput name="confirmNewPassword"
+                            mchMatchTo="newPassword"
+                            [ngModel]
+                            [type]="'password'"
+                            [placeHolder]="'TRADER_PROFILE.SECURITY.PLACEHOLDER.CONFIRM_NEW_PASSWORD' | translate"></mchInput>
+
+                  <div class="row g-mt-10 justify-content-md-center">
+                    <div class="col text-center">
+                      <mchButton
+                        class="g-brd-around g-brd-gray-light-v3 g-color-gray-dark-v3 g-bg-gray-light-v5 g-bg-gray-light-v4--hover g-font-size-13 rounded g-px-18 g-py-7 g-mx-10"
+                        [submitForm]="passwordForm"
+                      >{{'TRADER_PROFILE.SECURITY.BUTTON.UPDATE' | translate}}
+                      </mchButton>
+
+                      <mchButton
+                        class="g-brd-around g-brd-gray-light-v3 g-color-gray-dark-v3 g-bg-gray-light-v5 g-bg-gray-light-v4--hover g-font-size-13 rounded g-px-18 g-py-7 g-mx-10"
+                        (onClick)="switchChangePassword()"
+                      >{{'TRADER_PROFILE.SECURITY.BUTTON.CANCEL' | translate}}
+                      </mchButton>
+                    </div>
+
+                  </div>
+
+                </form>
+              </div>
+            </ng-container>
+          </div>
+
+          <div class="row">
+            <div class="col-12">
+              <span class="d-block g-color-text g-font-size-13 mb-1">{{'GALLERY_PROFILE.SECURITY.LEGAL_NAME' | translate}}:</span>
+              <span class="d-block">{{gallery?.organization.legalNameMl[translate.currentLang]}}</span>
+            </div>
+          </div>
+
+          <hr class="g-brd-gray-light-v4 g-my-20">
+
+          <div class="row">
+            <div class="col-12">
+              <span class="d-block g-color-text g-font-size-13 mb-1">{{'GALLERY_PROFILE.SECURITY.PHONE_NUMBER' | translate}}:</span>
+              <span class="d-block">{{gallery?.organization.phoneNumber}}</span>
+            </div>
+          </div>
+
+          <hr class="g-brd-gray-light-v4 g-my-20">
+
+          <div class="row">
+            <div class="col-12">
+            <span
+              class="d-block g-color-text g-font-size-13 mb-1">{{'GALLERY_PROFILE.SECURITY.LOCATION' | translate}}:</span>
+              <span class="d-block">{{gallery?.addresses[0].street}} {{gallery?.addresses[0].state}} {{gallery?.addresses[0].postalCode}} {{gallery?.addresses[0].city}} {{gallery?.addresses[0].country.nameMl[translate.currentLang]}}</span>
+            </div>
+          </div>
+
+          <hr class="g-brd-gray-light-v4 g-my-20">
+
+          <div class="row">
+            <div class="col-12">
+              <span class="d-block g-color-text g-font-size-13 mb-1">{{'GALLERY_PROFILE.SECURITY.DESCRIPTION' | translate}}:</span>
+              <span class="d-block">{{gallery?.descriptionMl[translate.currentLang]}}</span>
+            </div>
+          </div>
+
+        </div>
+        <!-- End Info -->
 
       </div>
-      <!-- End Info -->
-
-      <!-- End Login & Security -->
-    </div>
-
+    </ng-container>
   </div>
 </div>
+
+

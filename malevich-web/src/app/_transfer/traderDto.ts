@@ -1,5 +1,4 @@
 import {PersonDto} from "./personDto";
-import {FileDto} from "./fileDto";
 import {UserDto} from "./userDto";
 import {GenderDto} from "./genderDto";
 import {CountryDto} from "./countryDto";
@@ -13,6 +12,5 @@ export class TraderDto {
   dateOfBirth: Date;
   gender: GenderDto;
   country: CountryDto;
-  thumbnail: FileDto;
   addresses: AddressDto[];
 }

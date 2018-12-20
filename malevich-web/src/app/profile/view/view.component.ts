@@ -3,7 +3,7 @@ import {TraderDto} from "../../_transfer/traderDto";
 import {CountryDto} from "../../_transfer/countryDto";
 import {TranslateService} from "@ngx-translate/core";
 import {AuthService} from "../../_services";
-import {UserDto} from "../../_transfer";
+import {GalleryDto, UserDto} from "../../_transfer";
 import {DelayedChangeService} from "../../_services/delayed-change.service";
 import {AlertService} from "yinyang-core";
 import {CounterpartyService} from "../../_services/counterparty.service";
@@ -19,6 +19,7 @@ export class ViewComponent implements OnInit {
   user: UserDto;
   counterparty: CounterpartyDto;
   trader: TraderDto;
+  gallery: GalleryDto;
   countries: CountryDto[];
 
   changePassword = false;
@@ -64,6 +65,7 @@ export class ViewComponent implements OnInit {
           if (data) {
             this.counterparty = data;
             this.trader = this.counterparty.trader;
+            this.gallery = this.counterparty.gallery;
             this.findByTypeIdAndAndReferenceId(this.counterparty.id);
           }
         }

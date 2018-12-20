@@ -30,7 +30,6 @@ export class EditComponent implements OnInit, AfterViewInit {
 
   public url = environment.baseUrl;
 
-  @Inject(LOCALE_ID) public locale: string;
 
   constructor(private router: Router,
               public translate: TranslateService,
@@ -81,8 +80,7 @@ export class EditComponent implements OnInit, AfterViewInit {
       .replace('<pre style="word-wrap: break-word; white-space: pre-wrap;">', '')
       .replace('<pre>', '')
       .replace('</pre>', ''));
-    this.trader.thumbnail = serverResponse;
-    console.log(this.trader);
+    this.counterparty.image = serverResponse;
   }
 
   countryDisplayFunc = (country: CountryDto) => {

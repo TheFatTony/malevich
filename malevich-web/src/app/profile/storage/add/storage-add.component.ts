@@ -1,21 +1,21 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
-import {ArtistDto, ArtworkDto, CategoryDto, GalleryDto} from "../../../../_transfer";
-import {ArtworkStockDto} from "../../../../_transfer/artworkStockDto";
-import {GalleryService} from "../../../../_services/gallery.service";
-import {ArtworkStockService} from "../../../../_services/artwork-stock.service";
-import {ArtworkService} from "../../../../_services/artwork.service";
+import {ArtistDto, ArtworkDto, CategoryDto, GalleryDto} from "../../../_transfer";
+import {ArtworkStockDto} from "../../../_transfer/artworkStockDto";
+import {GalleryService} from "../../../_services/gallery.service";
+import {ArtworkStockService} from "../../../_services/artwork-stock.service";
+import {ArtworkService} from "../../../_services/artwork.service";
 import {TranslateService} from "@ngx-translate/core";
 import {jqxComboBoxComponent} from "jqwidgets-scripts/jqwidgets-ts/angular_jqxcombobox";
-import {ActivatedRoute, Params, Router} from "@angular/router";
-import {ArtistService} from "../../../../_services/artist.service";
-import {CategoryService} from "../../../../_services/category.service";
+import {Router} from "@angular/router";
+import {ArtistService} from "../../../_services/artist.service";
+import {CategoryService} from "../../../_services/category.service";
 
 @Component({
-  selector: 'app-profile-gallery-storage-edit',
-  templateUrl: './storage-edit.component.html',
-  styleUrls: ['./storage-edit.component.css']
+  selector: 'app-profile-storage-add',
+  templateUrl: './storage-add.component.html',
+  styleUrls: ['./storage-add.component.css']
 })
-export class StorageEditComponent implements OnInit {
+export class StorageAddComponent implements OnInit {
 
   @ViewChild('addArtWorkComboBox') addArtWorkComboBox: jqxComboBoxComponent;
   @ViewChild('artistComboBox') artistComboBox: jqxComboBoxComponent;
@@ -23,9 +23,9 @@ export class StorageEditComponent implements OnInit {
 
   gallery: GalleryDto;
 
-  artworkStock: ArtworkStockDto;
   public artwork: ArtworkDto;
 
+  artworks: ArtworkDto[];
   artists: ArtistDto[];
   categories: CategoryDto[];
 
@@ -37,28 +37,33 @@ export class StorageEditComponent implements OnInit {
     return category.categoryNameMl[this.translate.currentLang];
   };
 
+  artworkDisplayFunc = (artwork:ArtworkDto) =>{
+    return artwork.titleMl[this.translate.currentLang];
+  };
+
   constructor(private router: Router,
-              private route: ActivatedRoute,
               private galleryService: GalleryService,
               private artworkStockService: ArtworkStockService,
-              private artworkService: ArtworkService,
+              public artworkService: ArtworkService,
               private artistService: ArtistService,
               private categoryService: CategoryService,
               public translate: TranslateService) {
     }
 
   ngOnInit() {
+    this.getArtworks();
     this.getArtists();
     this.getCategories();
+  }
 
-    this.route.params.subscribe((params: Params) => {
-      let id = params['id'];
-      this.artworkStockService.getArtworkStock(id)
-        .subscribe(a => {
-          this.artworkStock = a;
-          this.artwork = a.artwork;
-        })
-    });
+  getArtworks(): void {
+    this.artworkService
+      .getArtworks()
+      .subscribe(
+        data => {
+          this.artworks = data;
+        }
+      );
   }
 
   getArtists() {
@@ -78,12 +83,24 @@ export class StorageEditComponent implements OnInit {
   }
 
   submit() {
-    this.artworkStockService.addArtworkStock(this.artworkStock).subscribe();
-    this.router.navigate(['/profile/gallery/storage']);
+    let addArtworkStock = new ArtworkStockDto();
+    addArtworkStock.artwork = this.artwork;
+    addArtworkStock.gallery = this.gallery;
+    this.artworkStockService.addArtworkStock(addArtworkStock).subscribe(() => {
+      this.router.navigate(['/profile/storage']);
+    });
+  }
+
+  onArtworkComboBoxChange($event) {
+    if (!$event)
+      return;
+
+    this.artwork = $event;
+    this.addArtWorkComboBox.disabled(true);
   }
 
   cancel() {
-    this.router.navigate(['/profile/gallery/storage']);
+    this.router.navigate(['/profile/storage']);
   }
 
   onArtistComboBoxChange($event) {

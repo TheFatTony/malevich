@@ -13,12 +13,6 @@
                                  referencedColumnNames="id" referencedTableName="person"/>
     </changeSet>
 
-    <changeSet author="thefattony" id="trader-files-fk">
-        <addForeignKeyConstraint baseColumnNames="thumbnail_id" baseTableName="trader"
-                                 constraintName="trader_files_fk"
-                                 referencedColumnNames="id" referencedTableName="files"/>
-    </changeSet>
-
     <changeSet author="toolstik" id="trader-gender-fk">
         <addForeignKeyConstraint baseColumnNames="gender_id" baseTableName="trader"
                                  constraintName="trader_gender_fk"

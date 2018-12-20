@@ -35,20 +35,6 @@ public class GalleryEntity implements Entity {
 
     @Getter
     @Setter
-    @Fetch(FetchMode.JOIN)
-    @ManyToOne(cascade = CascadeType.MERGE)
-    @NotNull
-    private FileEntity thumbnail;
-
-    @Getter
-    @Setter
-    @Fetch(FetchMode.JOIN)
-    @ManyToOne(cascade = CascadeType.MERGE)
-    @NotNull
-    private FileEntity image;
-
-    @Getter
-    @Setter
     @Convert(converter = JpaConverterJson.class)
     @Column(name = "description_ml")
     private Map<String, String> descriptionMl;

@@ -13,16 +13,4 @@
                                  referencedColumnNames="id" referencedTableName="organization"/>
     </changeSet>
 
-    <changeSet author="thefattony" id="gallery-thumbnail_id-fk">
-        <addForeignKeyConstraint baseColumnNames="thumbnail_id" baseTableName="gallery"
-                                 constraintName="gallery_thumbnail_id_fk"
-                                 referencedColumnNames="id" referencedTableName="files"/>
-    </changeSet>
-
-    <changeSet author="thefattony" id="gallery-image_id-fk">
-        <addForeignKeyConstraint baseColumnNames="image_id" baseTableName="gallery"
-                                 constraintName="gallery_image_id_fk"
-                                 referencedColumnNames="id" referencedTableName="files"/>
-    </changeSet>
-
 </databaseChangeLog>

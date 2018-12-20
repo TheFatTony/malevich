@@ -42,27 +42,14 @@ import {ListComponent as ArtistsListListComponent} from './artists/artists-list/
 import {ArtworksDetailComponent} from './artworks/artworks-detail/artworks-detail.component';
 import {GalleriesDetailComponent} from './galleries/galleries-detail/galleries-detail.component';
 import {ArtistsDetailComponent} from './artists/artists-detail/artists-detail.component';
-import {WishlistComponent} from './profile/wishlist/wishlist.component';
-import {NotificationsComponent} from './profile/notifications/notifications.component';
 import {StepOneComponent as RegisterStepOneComponent} from './auth/register/step-one/step-one.component';
 import {StepTwoComponent as RegisterStepTwoComponent} from './auth/register/step-two/step-two.component';
-import {NavigationComponent as GalleryProfileNavigationComponent} from './profile/gallery-profile/navigation/navigation.component';
-import {ViewComponent as GalleryProfileSecurityView} from './profile/gallery-profile/view/view.component';
-import {EditComponent as GalleryProfileSecurityEdit} from './profile/gallery-profile/edit/edit.component';
-import {ViewComponent as GalleryProfileNotificationsComponent} from './profile/gallery-profile/notifications/view/view.component';
 import {NgxLoadingModule} from 'ngx-loading';
 import {StepOneComponent as ResetStepOneComponent} from './auth/reset/step-one/step-one.component';
 import {StepTwoComponent as ResetStepTwoComponent} from './auth/reset/step-two/step-two.component';
 
-import {OrdersComponent as GalleryProfileOrdersComponent} from './profile/gallery-profile/orders/orders.component';
-import {ArtworkStockComponent as GalleryProfileArtworkStockComponent} from './profile/gallery-profile/artwork-stock/artwork-stock.component';
 import {PageNotFoundComponent} from './page-not-found/page-not-found.component';
 import {OrderWindowComponent} from './common/components/order-window/order-window.component';
-import {StorageAddComponent} from './profile/gallery-profile/storage/add/storage-add.component';
-import {StorageEditComponent} from './profile/gallery-profile/storage/edit/storage-edit.component';
-import {StorageComponent} from './profile/gallery-profile/storage/storage.component';
-import {DocumentsComponent as GalleryProfileDocumentsComponent} from './profile/gallery-profile/documents/documents.component';
-import {DocumentAddComponent as GalleryDocumentAddComponent} from './profile/gallery-profile/documents/add/document-add.component';
 
 import {NavigationComponent as ProfileNavigationComponent} from "./profile/navigation/navigation.component";
 import {ViewComponent as ProfileViewComponent} from "./profile/view/view.component";
@@ -75,6 +62,9 @@ import {OrdersComponent as ProfileOrdersComponent} from './profile/orders/orders
 import {ArtworkStockComponent as ProfileArtworkStockComponent} from './profile/artwork-stock/artwork-stock.component';
 import {DocumentsComponent as ProfileDocumentsComponent} from './profile/documents/documents.component';
 import {DocumentAddComponent as ProfileDocumentAddComponent} from './profile/documents/add/document-add.component';
+import {StorageComponent as ProfileStorageComponent} from './profile/storage/storage.component';
+import {StorageAddComponent as ProfileStorageAddComponent} from './profile/storage/add/storage-add.component';
+import {StorageEditComponent as ProfileStorageEditComponent} from './profile/storage/edit/storage-edit.component';
 
 
 export function createTranslateLoader(http: HttpClient) {
@@ -108,25 +98,11 @@ export function createTranslateLoader(http: HttpClient) {
     ArtworksDetailComponent,
     GalleriesDetailComponent,
     ArtistsDetailComponent,
-    WishlistComponent,
-    GalleryProfileNotificationsComponent,
     RegisterStepOneComponent,
     RegisterStepTwoComponent,
-    GalleryProfileNavigationComponent,
-    GalleryProfileSecurityView,
-    GalleryProfileSecurityEdit,
-    NotificationsComponent,
     ResetStepOneComponent,
     ResetStepTwoComponent,
-    GalleryProfileOrdersComponent,
-    GalleryProfileArtworkStockComponent,
-    StorageComponent,
-    StorageAddComponent,
-    StorageEditComponent,
     PageNotFoundComponent,
-    OrderWindowComponent,
-    GalleryProfileDocumentsComponent,
-    GalleryDocumentAddComponent,
     OrderWindowComponent,
 
     ProfileNavigationComponent,
@@ -140,6 +116,9 @@ export function createTranslateLoader(http: HttpClient) {
     ProfileArtworkStockComponent,
     ProfileDocumentsComponent,
     ProfileDocumentAddComponent,
+    ProfileStorageComponent,
+    ProfileStorageAddComponent,
+    ProfileStorageEditComponent,
 
   ],
   imports: [

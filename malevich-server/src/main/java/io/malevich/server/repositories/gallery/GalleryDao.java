@@ -11,7 +11,7 @@ import java.util.Optional;
 @Repository
 public interface GalleryDao extends JpaRepository<GalleryEntity, Long> {
 
-    @Query("select ge from GalleryEntity ge join fetch ge.organization join fetch ge.thumbnail join fetch ge.image")
+    @Query("select ge from GalleryEntity ge join fetch ge.organization")
     List<GalleryEntity> findAll();
 
 }

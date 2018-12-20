@@ -21,7 +21,6 @@
 			<column name="country_id" type="char(2)">
 				<constraints nullable="false"/>
 			</column>
-			<column name="thumbnail_id" type="bigint"/>
 		</createTable>
 	</changeSet>
 

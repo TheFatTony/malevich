@@ -46,4 +46,10 @@ public class CounterpartyEntity implements Entity {
     @OneToOne(cascade = CascadeType.MERGE)
     private GalleryEntity gallery;
 
+    @Getter
+    @Setter
+    @Fetch(FetchMode.JOIN)
+    @ManyToOne
+    private FileEntity image;
+
 }

@@ -18,4 +18,5 @@ public class CounterpartyDto {
 
     private GalleryDto gallery;
 
+    private FileDto image;
 }

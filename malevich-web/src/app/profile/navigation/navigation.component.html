@@ -3,13 +3,13 @@
   <div class="text-center g-pos-rel g-mb-30">
     <div class="g-width-100 g-height-100 mx-auto mb-3">
       <a routerLink="/profile/view">
-        <img class="img-fluid rounded-circle" *ngIf="trader?.thumbnail" src="{{url}}{{trader?.thumbnail?.url}}"
+        <img class="img-fluid rounded-circle" *ngIf="counterparty?.image" src="{{url}}{{counterparty?.image?.url}}"
              alt="Image Decor">
       </a>
     </div>
 
-    <a class="d-block g-font-weight-500" routerLink="/profile/view">{{trader?.person.firstName}}
-      {{trader?.person.lastName}}
+    <a class="d-block g-font-weight-500" routerLink="/profile/view">
+      {{titleName}}
     </a>
   </div>
   <!-- End Profile Picture -->
@@ -18,6 +18,16 @@
 
   <!-- Profile Settings List -->
   <ul class="list-unstyled mb-0">
+    <li *ngIf="isGallery" class="g-py-3">
+      <a
+        class="d-block align-middle g-bg-gray-light-v5--active u-link-v5 g-color-text g-color-primary--hover g-bg-gray-light-v5--hover rounded g-pa-3"
+        routerLink="/profile/storage" routerLinkActive="active">
+        <span class="u-icon-v1 g-color-gray-dark-v5 mr-2">
+          <i class="icon-finance-057 u-line-icon-pro"></i>
+        </span>
+        {{"COMMON_PROFILE.NAVIGATION.STORED_ARTWORKS" | translate}}
+      </a>
+    </li>
     <li class="g-pb-3">
       <a
         class="d-block align-middle u-link-v5 g-color-text g-bg-gray-light-v5--hover g-color-primary--active g-bg-gray-light-v5--active rounded g-pa-3"

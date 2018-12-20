@@ -27,4 +27,10 @@
                                  referencedColumnNames="id" referencedTableName="gallery"/>
     </changeSet>
 
+    <changeSet author="toolstik" id="counterparty-image_id-fk">
+        <addForeignKeyConstraint baseColumnNames="image_id" baseTableName="counterparty"
+                                 constraintName="counterparty_image_id_fk"
+                                 referencedColumnNames="id" referencedTableName="files"/>
+    </changeSet>
+
 </databaseChangeLog>

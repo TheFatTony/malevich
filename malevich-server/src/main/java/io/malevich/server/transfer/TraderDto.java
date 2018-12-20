@@ -26,8 +26,6 @@ public class TraderDto {
 
     private CountryDto country;
 
-    private FileDto thumbnail;
-
     private List<AddressDto> addresses;
 
 }

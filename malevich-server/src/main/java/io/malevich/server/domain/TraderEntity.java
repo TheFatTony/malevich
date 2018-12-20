@@ -59,12 +59,6 @@ public class TraderEntity implements Entity {
 
     @Getter
     @Setter
-    @Fetch(FetchMode.JOIN)
-    @ManyToOne
-    private FileEntity thumbnail;
-
-    @Getter
-    @Setter
     @LazyCollection(LazyCollectionOption.FALSE)
     @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     @JoinTable(name = "trader_address",

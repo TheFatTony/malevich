@@ -8,69 +8,82 @@
             <i class="g-color-gray-light-v2 g-ml-5 fa fa-angle-right"></i>
           </li>
           <li class="list-inline-item g-mr-5">
-            <a class="u-link-v5 g-color-text" routerLink="/profile/gallery/view">{{'GALLERY_PROFILE.TITLE' |
+            <a class="u-link-v5 g-color-text" routerLink="/profile/view">{{'GALLERY_PROFILE.TITLE' |
               translate}}</a>
             <i class="g-color-gray-light-v2 g-ml-5 fa fa-angle-right"></i>
           </li>
           <li class="list-inline-item g-color-primary">
-            <span>{{'GALLERY_PROFILE.DOCUMENTS.TITLE' | translate}}</span>
+            <span>{{'COMMON_PROFILE.NAVIGATION.STORED_ARTWORKS' | translate}}</span>
           </li>
         </ul>
       </div>
 
       <div class="align-self-center ml-auto">
-        <h1 class="h3 mb-0">{{'GALLERY_PROFILE.DOCUMENTS.TITLE' | translate}}</h1>
+        <h1 class="h3 mb-0">{{'GALLERY_PROFILE.ARTWORKS.TITLE' | translate}}</h1>
       </div>
     </div>
   </div>
 </section>
 
+
 <div class="container g-pt-70 g-pb-30">
   <div class="row">
     <!-- Profile Settings -->
     <div class="col-lg-3 g-mb-50">
-      <app-profile-gallery-navigation></app-profile-gallery-navigation>
+      <app-profile-navigation></app-profile-navigation>
     </div>
     <!-- End Profile Settings -->
-
     <div class="col-lg-9 g-mb-50">
       <div class="g-brd-around g-brd-gray-light-v4 rounded g-pa-30 g-mb-30">
 
-        <mchButton [width]="100" [height]="35" (click)="onAddButtonClick()">{{'GALLERY_PROFILE.BUTTON.ADD' |
-          translate}}
+        <mchButton [width]="100" [height]="35" (click)="onAddButtonClick()">
+          {{'GALLERY_PROFILE.BUTTON.ADD' | translate}}
         </mchButton>
 
-        <mchButton [width]="100" [height]="35" [disabled]="selectedRowIndex < 0" (click)="onDeleteButtonClick()">
+        <mchButton [width]="100" [height]="35" [disabled]="selectedRowIndex >= 0 ? false : true"
+                   (click)="onUpdateButtonClick()">
+          {{'TRADER_PROFILE.SECURITY.BUTTON.UPDATE' | translate}}
+        </mchButton>
+
+        <mchButton [width]="100" [height]="35" [disabled]="selectedRowIndex >= 0 ? false : true"
+                   (click)="onDeleteButtonClick()">
           {{'GALLERY_PROFILE.BUTTON.DELETE' | translate}}
         </mchButton>
 
+
         <jqxGrid #myGrid
+                 class="g-mt-5 g-mb-15"
+                 [columns]="columns"
+                 [rowsheight]="50"
+                 (onRowselect)="onGridRowSelect($event)"
                  [width]="'100%'"
                  [height]="'320px'"
-                 class="g-mt-5 g-mb-15"
                  [sortable]="true"
                  [columnsresize]="true"
                  [filterable]="true"
                  [autoshowfiltericon]="true"
-                 [columns]="columns"
-                 (onRowselect)="onGridRowSelect($event)">
+                 [rowdetails]="true"
+                 [rowdetailstemplate]="rowdetailstemplate">
           <tr>
-            <th>{{'GALLERY_PROFILE.GRID.FILE_NAME' | translate}}</th>
-            <th>{{'GALLERY_PROFILE.GRID.DATE' | translate}}</th>
-            <th>{{'GALLERY_PROFILE.GRID.DOCUMENT_TYPE' | translate}}</th>
+            <th>{{"GALLERY_PROFILE.GRID.IMAGE" | translate}}</th>
+            <th>{{"GALLERY_PROFILE.GRID.TITLE" | translate}}</th>
+            <th>{{"GALLERY_PROFILE.GRID.ARTIST" | translate}}</th>
+            <th>{{"GALLERY_PROFILE.GRID.CATEGORY" | translate}}</th>
           </tr>
-          <tr *ngFor="let galleryDocs of galleryDocuments">
+          <tr *ngFor="let a of artworkStocks">
+            <td></td>
             <td>
-              {{galleryDocs.files.fileName}}
+              {{a.artwork.titleMl[translate.currentLang]}}
             </td>
             <td>
-              {{galleryDocs.effectiveDate}}
+              {{a.artwork.artist.fullNameMl[translate.currentLang]}}
             </td>
             <td>
-              {{galleryDocs.documentType.nameMl[translate.currentLang]}}
+              {{a.artwork.category.categoryNameMl[translate.currentLang]}}
             </td>
           </tr>
         </jqxGrid>
+
         <!-- Pagination -->
         <nav class="g-mb-100" aria-label="Page Navigation">
           <ul class="list-inline mb-0">
@@ -113,8 +126,10 @@
           </ul>
         </nav>
         <!-- End Pagination -->
+
       </div>
     </div>
+
     <!-- Login & Security -->
     <!-- End Login & Security -->
   </div>

@@ -75,6 +75,10 @@ import {DocumentsComponent as TraderProfileDocumentsComponent} from './profile/t
 import {DocumentAddComponent as GalleryDocumentAddComponent} from './profile/gallery-profile/documents/add/document-add.component';
 import {DocumentAddComponent as TraderDocumentAddComponent} from './profile/trader-profile/documents/add/document-add.component';
 
+import {NavigationComponent as ProfileNavigationComponent} from "./profile/navigation/navigation.component";
+import {ViewComponent as ProfileViewComponent} from "./profile/view/view.component";
+import {EditComponent as ProfileEditComponent} from "./profile/edit/edit.component";
+
 
 export function createTranslateLoader(http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
@@ -137,7 +141,11 @@ export function createTranslateLoader(http: HttpClient) {
     TraderProfileDocumentsComponent,
     TraderDocumentAddComponent,
     GalleryDocumentAddComponent,
-    OrderWindowComponent
+    OrderWindowComponent,
+
+    ProfileNavigationComponent,
+    ProfileViewComponent,
+    ProfileEditComponent
 
   ],
   imports: [

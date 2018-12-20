@@ -16,14 +16,12 @@ export class DelayedChangeService {
 
   public getDelayedChanges() {
     return this.http
-      .get<DelayedChangeDto[]>(this.url + '/list')
-      .pipe(map(data => data));
+      .get<DelayedChangeDto[]>(this.url + '/list');
   }
 
   public findByTypeIdAndAndReferenceId(referenceId: number) {
     return this.http
-      .get<boolean>(this.url + '/findByTypeIdAndAndReferenceId/TRADER/' + referenceId)
-      .pipe(map(data => data));
+      .get<boolean>(this.url + '/findByTypeIdAndAndReferenceId/COUNTERPARTY/' + referenceId);
   }
 
   public approveChange(delayedChangeDto: DelayedChangeDto) {

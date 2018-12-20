@@ -24,7 +24,7 @@ public class CounterpartyEntity implements Entity {
     @Getter
     @Setter
     @Fetch(FetchMode.JOIN)
-    @ManyToOne(cascade = CascadeType.MERGE)
+    @ManyToOne(cascade = CascadeType.DETACH)
     @NotNull
     private CounterpartyTypeEntity type;
 

@@ -32,9 +32,6 @@ public class DelayedChangeServiceImpl implements DelayedChangeService {
     private MailQueueService mailQueueService;
 
     @Autowired
-    private TraderService traderService;
-
-    @Autowired
     private CounterpartyService counterpartyService;
 
     @Override

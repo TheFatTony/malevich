@@ -26,7 +26,7 @@
   <div class="row">
     <!-- Profile Settings -->
     <div class="col-lg-3 g-mb-50">
-      <app-trader-profile-navigation></app-trader-profile-navigation>
+      <app-profile-navigation></app-profile-navigation>
     </div>
     <!-- End Profile Settings -->
 
@@ -36,7 +36,7 @@
           <div class="col-4 offset-8 text-right">
             <a
               class="btn g-brd-around g-brd-gray-light-v3 g-color-gray-dark-v3 g-bg-gray-light-v5 g-bg-gray-light-v4--hover g-font-size-13 rounded g-px-18 g-py-7"
-              routerLink="/profile/trader/edit">{{'TRADER_PROFILE.SECURITY.BUTTON.EDIT_PROFILE' | translate}}</a>
+              routerLink="/profile/edit">{{'TRADER_PROFILE.SECURITY.BUTTON.EDIT_PROFILE' | translate}}</a>
           </div>
         </div>
 
@@ -66,7 +66,7 @@
           <div class="col-8">
             <span
               class="d-block g-color-text g-font-size-13 mb-1">{{'TRADER_PROFILE.SECURITY.LABEL.EMAIL' | translate}}</span>
-            <span class="d-block">{{trader?.user.name}}</span>
+            <span class="d-block">{{counterparty?.user.name}}</span>
           </div>
         </div>
 

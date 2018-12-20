@@ -8,7 +8,7 @@
             <i class="g-color-gray-light-v2 g-ml-5 fa fa-angle-right"></i>
           </li>
           <li class="list-inline-item g-mr-5">
-            <a class="u-link-v5 g-color-text" routerLink="/profile/trader/view">{{'TRADER_PROFILE.TITLE' |
+            <a class="u-link-v5 g-color-text" routerLink="/profile/view">{{'TRADER_PROFILE.TITLE' |
               translate}}</a>
             <i class="g-color-gray-light-v2 g-ml-5 fa fa-angle-right"></i>
           </li>
@@ -29,7 +29,7 @@
   <div class="row">
     <!-- Profile Settings -->
     <div class="col-lg-3 g-mb-50">
-      <app-trader-profile-navigation></app-trader-profile-navigation>
+      <app-profile-navigation></app-profile-navigation>
     </div>
     <!-- End Profile Settings -->
 
@@ -81,7 +81,7 @@
             <div class="col-12">
             <span
               class="d-block g-color-text g-font-size-13 mb-1">{{'TRADER_PROFILE.SECURITY.LABEL.EMAIL' | translate}}</span>
-              <span class="d-block">{{trader?.user?.name}}</span>
+              <span class="d-block">{{counterparty?.user?.name}}</span>
             </div>
           </div>
 

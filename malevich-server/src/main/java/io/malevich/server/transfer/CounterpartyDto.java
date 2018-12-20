@@ -12,6 +12,8 @@ public class CounterpartyDto {
 
     private String typeId;
 
+    private UserDto user;
+
     private TraderDto trader;
 
     private GalleryDto gallery;

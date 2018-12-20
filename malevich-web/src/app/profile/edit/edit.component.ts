@@ -1,27 +1,29 @@
 import {AfterViewInit, Component, Inject, LOCALE_ID, OnInit} from '@angular/core';
-import {TraderDto} from "../../../_transfer/traderDto";
+import {TraderDto} from "../../_transfer/traderDto";
 import {TranslateService} from "@ngx-translate/core";
-import {TraderService} from "../../../_services/trader.service";
-import {CountryService} from "../../../_services/country.service";
-import {AuthService} from "../../../_services";
-import {AddressDto} from "../../../_transfer/addressDto";
-import {PersonDto} from "../../../_transfer";
-import {GenderService} from "../../../_services/gender.service";
+import {CountryService} from "../../_services/country.service";
+import {AuthService} from "../../_services";
+import {AddressDto} from "../../_transfer/addressDto";
+import {PersonDto} from "../../_transfer";
+import {GenderService} from "../../_services/gender.service";
 import {Router} from "@angular/router";
 
 import {forkJoin} from "rxjs";
 import {distinctUntilChanged, map, mergeMap} from "rxjs/operators";
-import {environment} from "../../../../environments/environment.dev";
-import {CountryDto} from "../../../_transfer/countryDto";
-import {GenderDto} from "../../../_transfer/genderDto";
+import {environment} from "../../../environments/environment.dev";
+import {CountryDto} from "../../_transfer/countryDto";
+import {GenderDto} from "../../_transfer/genderDto";
+import {CounterpartyService} from "../../_services/counterparty.service";
+import {CounterpartyDto} from "../../_transfer/counterpartyDto";
 
 @Component({
-  selector: 'trader-profile-security-edit',
+  selector: 'app-profile-edit',
   templateUrl: './edit.component.html',
   styleUrls: ['./edit.component.css']
 })
 export class EditComponent implements OnInit, AfterViewInit {
 
+  counterparty : CounterpartyDto;
   trader: TraderDto;
   countries: any[];
   genders: any[];
@@ -32,7 +34,7 @@ export class EditComponent implements OnInit, AfterViewInit {
 
   constructor(private router: Router,
               public translate: TranslateService,
-              private traderService: TraderService,
+              private counterpartyService: CounterpartyService,
               private countryService: CountryService,
               private genderService: GenderService,
               private authService: AuthService) {
@@ -55,21 +57,22 @@ export class EditComponent implements OnInit, AfterViewInit {
       .pipe(mergeMap(results => {
         this.countries = results[0];
         this.genders = results[1];
-        return this.traderService.getTrader();
+        return this.counterpartyService.getCurrent();
       }))
       .pipe(map(data => {
-        this.trader = data;
+        this.counterparty = data || new CounterpartyDto();
+        this.trader = this.counterparty.trader || new TraderDto();
       }))
       .subscribe();
   }
 
   update(): void {
-    this.traderService.update(this.trader)
-      .subscribe(data => this.router.navigate(['/profile/trader/view']));
+    this.counterpartyService.update(this.counterparty)
+      .subscribe(data => this.router.navigate(['/profile/view']));
   }
 
   cancel(): void {
-    this.router.navigate(['/profile/trader/view']);
+    this.router.navigate(['/profile/view']);
   }
 
   onUploadEnd(event: any): void {

@@ -1,14 +1,14 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
-import {OrderDto} from '../../../_transfer/orderDto';
-import {OrderService} from '../../../_services/order.service';
+import {OrderDto} from '../../_transfer/orderDto';
+import {OrderService} from '../../_services/order.service';
 import {TranslateService} from '@ngx-translate/core';
 import {jqxGridComponent} from 'jqwidgets-scripts/jqwidgets-ts/angular_jqxgrid';
-import {TradeTypeService} from '../../../_services/trade-type.service';
-import {TradeTypeDto} from '../../../_transfer/tradeTypeDto';
-import {environment} from '../../../../environments/environment.dev';
+import {TradeTypeService} from '../../_services/trade-type.service';
+import {TradeTypeDto} from '../../_transfer/tradeTypeDto';
+import {environment} from '../../../environments/environment.dev';
 
 @Component({
-  selector: 'app-profile-trader-orders',
+  selector: 'app-profile-orders',
   templateUrl: './orders.component.html',
   styleUrls: ['./orders.component.css']
 })

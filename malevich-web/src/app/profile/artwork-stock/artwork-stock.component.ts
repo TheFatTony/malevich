@@ -1,14 +1,14 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
 import {TranslateService} from "@ngx-translate/core";
-import {ArtworkStockDto} from "../../../_transfer/artworkStockDto";
-import {environment} from "../../../../environments/environment.dev";
-import {ArtworkDto, GalleryDto} from "../../../_transfer";
+import {ArtworkStockDto} from "../../_transfer/artworkStockDto";
+import {environment} from "../../../environments/environment.dev";
+import {ArtworkDto} from "../../_transfer/index";
 import {jqxGridComponent} from "jqwidgets-scripts/jqwidgets-ts/angular_jqxgrid";
 import {jqxComboBoxComponent} from "jqwidgets-scripts/jqwidgets-ts/angular_jqxcombobox";
 import {Router} from "@angular/router";
-import {AccountStateService} from "../../../_services/account-state.service";
-import {OrderDto} from "../../../_transfer/orderDto";
-import {OrderWindowComponent} from "../../../common/components/order-window/order-window.component";
+import {AccountStateService} from "../../_services/account-state.service";
+import {OrderDto} from "../../_transfer/orderDto";
+import {OrderWindowComponent} from "../../common/components/order-window/order-window.component";
 
 @Component({
   selector: 'app-profile-trader-artwork-stock',
@@ -21,11 +21,8 @@ export class ArtworkStockComponent implements OnInit {
   @ViewChild('addArtWorkComboBox') addArtWorkComboBox: jqxComboBoxComponent;
   @ViewChild('askWindow') askWindow : OrderWindowComponent
 
-  gallery: GalleryDto;
   artworks: ArtworkDto[];
   artworkStocks: ArtworkStockDto[];
-
-  public addArtWorkComboBoxSource: any[];
 
   selectedRowIndex: number = -1;
 

@@ -57,8 +57,6 @@ import {StepTwoComponent as ResetStepTwoComponent} from './auth/reset/step-two/s
 
 import {OrdersComponent as GalleryProfileOrdersComponent} from './profile/gallery-profile/orders/orders.component';
 import {ArtworkStockComponent as GalleryProfileArtworkStockComponent} from './profile/gallery-profile/artwork-stock/artwork-stock.component';
-import {OrdersComponent as TraderProfileOrdersComponent} from './profile/trader-profile/orders/orders.component';
-import {ArtworkStockComponent as TraderProfileArtworkStockComponent} from './profile/trader-profile/artwork-stock/artwork-stock.component';
 import {PageNotFoundComponent} from './page-not-found/page-not-found.component';
 import {OrderWindowComponent} from './common/components/order-window/order-window.component';
 import {StorageAddComponent} from './profile/gallery-profile/storage/add/storage-add.component';
@@ -76,6 +74,8 @@ import {PaymentComponent as ProfilePaymentComponent} from "./profile/payment/pay
 import {WalletComponent as ProfileWalletComponent} from "./profile/wallet/wallet.component";
 import {WishlistComponent as ProfileWishlistComponent} from "./profile/wishlist/wishlist.component";
 import {NotificationsComponent as ProfileNotificationsComponent} from "./profile/notifications/notifications.component";
+import {OrdersComponent as ProfileOrdersComponent} from './profile/orders/orders.component';
+import {ArtworkStockComponent as ProfileArtworkStockComponent} from './profile/artwork-stock/artwork-stock.component';
 
 
 export function createTranslateLoader(http: HttpClient) {
@@ -125,8 +125,6 @@ export function createTranslateLoader(http: HttpClient) {
     StorageComponent,
     StorageAddComponent,
     StorageEditComponent,
-    TraderProfileOrdersComponent,
-    TraderProfileArtworkStockComponent,
     PageNotFoundComponent,
     OrderWindowComponent,
     GalleryProfileDocumentsComponent,
@@ -140,8 +138,10 @@ export function createTranslateLoader(http: HttpClient) {
     ProfileEditComponent,
     ProfilePaymentComponent,
     ProfileWalletComponent,
-    ProfileWalletComponent,
-    ProfileNotificationsComponent
+    ProfileWishlistComponent,
+    ProfileNotificationsComponent,
+    ProfileOrdersComponent,
+    ProfileArtworkStockComponent,
 
   ],
   imports: [

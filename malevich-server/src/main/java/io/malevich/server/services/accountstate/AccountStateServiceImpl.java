@@ -45,7 +45,7 @@ public class AccountStateServiceImpl implements AccountStateService {
 
     @Override
     @Transactional(readOnly = true)
-    public AccountStateEntity getTraderWallet() {
+    public AccountStateEntity getWallet() {
         CounterpartyEntity counterpartyEntity = counterpartyService.getCurrent();
 
         return accountStateDao.findByArtworkStock_IdAndParty_Id(null, counterpartyEntity.getId());

@@ -32,7 +32,6 @@ public class CounterpartyEntity implements Entity {
     @Setter
     @Fetch(FetchMode.JOIN)
     @OneToOne(cascade = CascadeType.DETACH)
-    @NotNull
     private UserEntity user;
 
     @Getter

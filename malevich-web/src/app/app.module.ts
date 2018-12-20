@@ -43,7 +43,6 @@ import {ArtworksDetailComponent} from './artworks/artworks-detail/artworks-detai
 import {GalleriesDetailComponent} from './galleries/galleries-detail/galleries-detail.component';
 import {ArtistsDetailComponent} from './artists/artists-detail/artists-detail.component';
 import {SecurityComponent} from './profile/trader-profile/security/security.component';
-import {AddressesComponent} from './profile/trader-profile/addresses/addresses.component';
 import {WalletComponent} from './profile/trader-profile/wallet/wallet.component';
 import {WishlistComponent} from './profile/trader-profile/wishlist/wishlist.component';
 import {PaymentComponent} from './profile/trader-profile/payment/payment.component';
@@ -56,8 +55,6 @@ import {EditComponent as GalleryProfileSecurityEdit} from './profile/gallery-pro
 import {ViewComponent as GalleryProfileNotificationsComponent} from './profile/gallery-profile/notifications/view/view.component';
 import {NgxLoadingModule} from 'ngx-loading';
 import {NavigationComponent as TraderProfileNavigation} from './profile/trader-profile/navigation/navigation.component';
-import {ViewComponent as TraderProfileSecurityView} from './profile/trader-profile/view/view.component';
-import {EditComponent as TraderProfileSecurityEdit} from './profile/trader-profile/edit/edit.component';
 import {StepOneComponent as ResetStepOneComponent} from './auth/reset/step-one/step-one.component';
 import {StepTwoComponent as ResetStepTwoComponent} from './auth/reset/step-two/step-two.component';
 
@@ -78,6 +75,8 @@ import {DocumentAddComponent as TraderDocumentAddComponent} from './profile/trad
 import {NavigationComponent as ProfileNavigationComponent} from "./profile/navigation/navigation.component";
 import {ViewComponent as ProfileViewComponent} from "./profile/view/view.component";
 import {EditComponent as ProfileEditComponent} from "./profile/edit/edit.component";
+import {PaymentComponent as ProfilePaymentComponent} from "./profile/payment/payment.component";
+import {WalletComponent as ProfileWalletComponent} from "./profile/wallet/wallet.component";
 
 
 export function createTranslateLoader(http: HttpClient) {
@@ -112,7 +111,6 @@ export function createTranslateLoader(http: HttpClient) {
     GalleriesDetailComponent,
     ArtistsDetailComponent,
     SecurityComponent,
-    AddressesComponent,
     WalletComponent,
     WishlistComponent,
     PaymentComponent,
@@ -124,8 +122,6 @@ export function createTranslateLoader(http: HttpClient) {
     GalleryProfileSecurityEdit,
     NotificationsComponent,
     TraderProfileNavigation,
-    TraderProfileSecurityView,
-    TraderProfileSecurityEdit,
     ResetStepOneComponent,
     ResetStepTwoComponent,
     GalleryProfileOrdersComponent,
@@ -145,7 +141,9 @@ export function createTranslateLoader(http: HttpClient) {
 
     ProfileNavigationComponent,
     ProfileViewComponent,
-    ProfileEditComponent
+    ProfileEditComponent,
+    ProfilePaymentComponent,
+    ProfileWalletComponent
 
   ],
   imports: [

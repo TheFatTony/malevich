@@ -44,7 +44,7 @@ public class PaymentsServiceImpl implements PaymentsService {
 
     @Override
     @Transactional(readOnly = true)
-    public List<PaymentsEntity> findAll() {
+    public List<PaymentsEntity> findOwnPayments() {
         CounterpartyEntity entity = counterpartyService.getCurrent();
         return this.paymentsDao.findPaymentsEntityByParty_Id(entity.getId());
     }
@@ -85,11 +85,7 @@ public class PaymentsServiceImpl implements PaymentsService {
     @Override
     @Transactional(readOnly = true)
     public PaymentsEntity getPayments(Long id) {
-        Optional<PaymentsEntity> value = this.paymentsDao.findById(id);
-        if (value.isPresent())
-            return value.get();
-
-        return null;
+        return this.paymentsDao.findById(id).orElse(null);
     }
 
     @Override

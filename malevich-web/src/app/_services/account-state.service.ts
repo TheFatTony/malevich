@@ -19,9 +19,9 @@ export class AccountStateService {
       .get<AccountStateDto[]>(this.url + '/list');
   }
 
-  getTraderWallet() {
+  getWallet() {
     return this.http
-      .get<AccountStateDto>(this.url + '/getTraderWallet');
+      .get<AccountStateDto>(this.url + '/getWallet');
   }
 
   getOwnArtworks() {

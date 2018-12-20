@@ -51,7 +51,6 @@ import {ViewComponent as GalleryProfileSecurityView} from './profile/gallery-pro
 import {EditComponent as GalleryProfileSecurityEdit} from './profile/gallery-profile/edit/edit.component';
 import {ViewComponent as GalleryProfileNotificationsComponent} from './profile/gallery-profile/notifications/view/view.component';
 import {NgxLoadingModule} from 'ngx-loading';
-import {NavigationComponent as TraderProfileNavigation} from './profile/trader-profile/navigation/navigation.component';
 import {StepOneComponent as ResetStepOneComponent} from './auth/reset/step-one/step-one.component';
 import {StepTwoComponent as ResetStepTwoComponent} from './auth/reset/step-two/step-two.component';
 
@@ -63,9 +62,7 @@ import {StorageAddComponent} from './profile/gallery-profile/storage/add/storage
 import {StorageEditComponent} from './profile/gallery-profile/storage/edit/storage-edit.component';
 import {StorageComponent} from './profile/gallery-profile/storage/storage.component';
 import {DocumentsComponent as GalleryProfileDocumentsComponent} from './profile/gallery-profile/documents/documents.component';
-import {DocumentsComponent as TraderProfileDocumentsComponent} from './profile/trader-profile/documents/documents.component';
 import {DocumentAddComponent as GalleryDocumentAddComponent} from './profile/gallery-profile/documents/add/document-add.component';
-import {DocumentAddComponent as TraderDocumentAddComponent} from './profile/trader-profile/documents/add/document-add.component';
 
 import {NavigationComponent as ProfileNavigationComponent} from "./profile/navigation/navigation.component";
 import {ViewComponent as ProfileViewComponent} from "./profile/view/view.component";
@@ -76,6 +73,8 @@ import {WishlistComponent as ProfileWishlistComponent} from "./profile/wishlist/
 import {NotificationsComponent as ProfileNotificationsComponent} from "./profile/notifications/notifications.component";
 import {OrdersComponent as ProfileOrdersComponent} from './profile/orders/orders.component';
 import {ArtworkStockComponent as ProfileArtworkStockComponent} from './profile/artwork-stock/artwork-stock.component';
+import {DocumentsComponent as ProfileDocumentsComponent} from './profile/documents/documents.component';
+import {DocumentAddComponent as ProfileDocumentAddComponent} from './profile/documents/add/document-add.component';
 
 
 export function createTranslateLoader(http: HttpClient) {
@@ -117,7 +116,6 @@ export function createTranslateLoader(http: HttpClient) {
     GalleryProfileSecurityView,
     GalleryProfileSecurityEdit,
     NotificationsComponent,
-    TraderProfileNavigation,
     ResetStepOneComponent,
     ResetStepTwoComponent,
     GalleryProfileOrdersComponent,
@@ -128,8 +126,6 @@ export function createTranslateLoader(http: HttpClient) {
     PageNotFoundComponent,
     OrderWindowComponent,
     GalleryProfileDocumentsComponent,
-    TraderProfileDocumentsComponent,
-    TraderDocumentAddComponent,
     GalleryDocumentAddComponent,
     OrderWindowComponent,
 
@@ -142,6 +138,8 @@ export function createTranslateLoader(http: HttpClient) {
     ProfileNotificationsComponent,
     ProfileOrdersComponent,
     ProfileArtworkStockComponent,
+    ProfileDocumentsComponent,
+    ProfileDocumentAddComponent,
 
   ],
   imports: [

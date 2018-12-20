@@ -27,13 +27,11 @@ import {ArtworkStockComponent as GalleryProfileArtworkStockComponent} from './pr
 import {OrdersComponent as GalleryProfileOrdersComponent} from './profile/gallery-profile/orders/orders.component';
 import {DocumentsComponent as GalleryProfileDocumentsComponent} from './profile/gallery-profile/documents/documents.component';
 import {ViewComponent as GalleryProfileNotificationsComponent} from './profile/gallery-profile/notifications/view/view.component';
-import {DocumentsComponent as TraderProfileDocumentsComponent} from './profile/trader-profile/documents/documents.component';
 import {PageNotFoundComponent} from './page-not-found/page-not-found.component';
 import {StorageAddComponent} from './profile/gallery-profile/storage/add/storage-add.component';
 import {StorageEditComponent} from './profile/gallery-profile/storage/edit/storage-edit.component';
 import {StorageComponent} from './profile/gallery-profile/storage/storage.component';
 import {DocumentAddComponent as GalleryDocumentAddComponent} from './profile/gallery-profile/documents/add/document-add.component';
-import {DocumentAddComponent as TraderDocumentAddComponent} from './profile/trader-profile/documents/add/document-add.component';
 
 import {ViewComponent as ProfileViewComponent} from "./profile/view/view.component";
 import {EditComponent as ProfileEditComponent} from "./profile/edit/edit.component";
@@ -43,6 +41,8 @@ import {WishlistComponent as ProfileWishlistComponent} from "./profile/wishlist/
 import {NotificationsComponent as ProfileNotificationsComponent} from "./profile/notifications/notifications.component";
 import {OrdersComponent as ProfileOrdersComponent} from './profile/orders/orders.component';
 import {ArtworkStockComponent as ProfileArtworkStockComponent} from './profile/artwork-stock/artwork-stock.component';
+import {DocumentsComponent as ProfileDocumentsComponent} from './profile/documents/documents.component';
+import {DocumentAddComponent as ProfileDocumentAddComponent} from './profile/documents/add/document-add.component';
 
 const routes: Routes = [
   {path: '', redirectTo: '/main-page', pathMatch: 'full'},
@@ -62,27 +62,12 @@ const routes: Routes = [
       {path: 'wallet', component: ProfileWalletComponent, canActivate: [AuthGuard]},
       {path: 'wishlist', component: ProfileWishlistComponent, canActivate: [AuthGuard]},
       {path: 'notifications', component: ProfileNotificationsComponent, canActivate: [AuthGuard]},
-      {path: 'orders/list', component: ProfileOrdersComponent, canActivate: [AuthGuard]},
-      {path: 'artworkstock', component: ProfileArtworkStockComponent, canActivate: [AuthGuard]},
-      // {path: 'documents/list/trader', component: TraderProfileDocumentsComponent, canActivate: [AuthGuard]},
-      // {path: 'documents/add', component: TraderDocumentAddComponent, canActivate: [AuthGuard]}
+      {path: 'orders', component: ProfileOrdersComponent, canActivate: [AuthGuard]},
+      {path: 'artworks', component: ProfileArtworkStockComponent, canActivate: [AuthGuard]},
+      {path: 'documents', component: ProfileDocumentsComponent, canActivate: [AuthGuard]},
+      {path: 'documents/add', component: ProfileDocumentAddComponent, canActivate: [AuthGuard]}
     ]
   },
-
-  // {
-  //   path: 'profile/trader', canActivate: [AuthGuard], children: [
-  //   {path: 'view', component: TraderProfileSecurityViewComponent, canActivate: [AuthGuard]},
-  //   {path: 'edit', component: TraderProfileSecurityEditComponent, canActivate: [AuthGuard]},
-  //   {path: 'payment', component: PaymentComponent, canActivate: [AuthGuard]},
-  //   {path: 'wallet', component: WalletComponent, canActivate: [AuthGuard]},
-  //   {path: 'wishlist', component: WishlistComponent, canActivate: [AuthGuard]},
-  //   {path: 'notifications', component: NotificationsComponent, canActivate: [AuthGuard]},
-  //   {path: 'orders/list', component: TraderProfileOrdersComponent, canActivate: [AuthGuard]},
-  //   {path: 'artworkstock', component: TraderProfileArtworkStockComponent, canActivate: [AuthGuard]},
-  //   {path: 'documents/list/trader', component: TraderProfileDocumentsComponent, canActivate: [AuthGuard]},
-  //   {path: 'documents/add', component: TraderDocumentAddComponent, canActivate: [AuthGuard]}
-  // ]
-  // },
 
   {
     path: 'profile/gallery', canActivate: [AuthGuard], children: [

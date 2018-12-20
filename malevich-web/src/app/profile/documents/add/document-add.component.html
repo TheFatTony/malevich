@@ -8,12 +8,12 @@
             <i class="g-color-gray-light-v2 g-ml-5 fa fa-angle-right"></i>
           </li>
           <li class="list-inline-item g-mr-5">
-            <a class="u-link-v5 g-color-text" routerLink="/profile/trader/view">{{'TRADER_PROFILE.TITLE' |
+            <a class="u-link-v5 g-color-text" routerLink="/profile/view">{{'TRADER_PROFILE.TITLE' |
               translate}}</a>
             <i class="g-color-gray-light-v2 g-ml-5 fa fa-angle-right"></i>
           </li>
           <li class="list-inline-item g-mr-5">
-            <a class="u-link-v5 g-color-text" routerLink="/profile/trader/documents/list/trader">{{'TRADER_PROFILE.DOCUMENTS.TITLE'
+            <a class="u-link-v5 g-color-text" routerLink="/profile/documents">{{'TRADER_PROFILE.DOCUMENTS.TITLE'
               |
               translate}}</a>
             <i class="g-color-gray-light-v2 g-ml-5 fa fa-angle-right"></i>
@@ -36,7 +36,7 @@
   <div class="row">
     <!-- Profile Settings -->
     <div class="col-lg-3 g-mb-50">
-      <app-trader-profile-navigation></app-trader-profile-navigation>
+      <app-profile-navigation></app-profile-navigation>
     </div>
     <!-- End Profile Settings -->
     <!-- Add -->
@@ -51,8 +51,8 @@
             <mchComboBox #documentTypeComboBox
                          [objectSource]="documentTypes"
                          [displayFunc]="documentTypeDisplayFunc"
-                         [ngModel]="traderDocument?.documentType"
-                         (ngModelChange)="traderDocument.documentType=$event">
+                         [ngModel]="document?.documentType"
+                         (ngModelChange)="document.documentType=$event">
             </mchComboBox>
           </div>
         </div>

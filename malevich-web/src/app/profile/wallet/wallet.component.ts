@@ -1,14 +1,14 @@
 import {Component, HostListener, OnInit, ViewChild} from '@angular/core';
-import {PaymentsDto} from '../../../_transfer/paymentsDto';
+import {PaymentsDto} from '../../_transfer/paymentsDto';
 import {jqxWindowComponent} from 'jqwidgets-scripts/jqwidgets-ts/angular_jqxwindow';
-import {PaymentsService} from '../../../_services/payments.service';
-import {AccountStateService} from '../../../_services/account-state.service';
-import {AccountStateDto} from '../../../_transfer/accountStateDto';
+import {PaymentsService} from '../../_services/payments.service';
+import {AccountStateService} from '../../_services/account-state.service';
+import {AccountStateDto} from '../../_transfer/accountStateDto';
 import {jqxGridComponent} from 'jqwidgets-scripts/jqwidgets-ts/angular_jqxgrid';
 import {TranslateService} from '@ngx-translate/core';
 
 @Component({
-  selector: 'app-profile-trader-wallet',
+  selector: 'app-profile-wallet',
   templateUrl: './wallet.component.html',
   styleUrls: ['./wallet.component.css']
 })
@@ -26,12 +26,13 @@ export class WalletComponent implements OnInit {
   x: number;
   y: number;
 
-  constructor(private paymentsService: PaymentsService, private accountStateService: AccountStateService,
+  constructor(private paymentsService: PaymentsService,
+              private accountStateService: AccountStateService,
               public translate: TranslateService) {
   }
 
   ngOnInit() {
-    this.getTraderAccountState();
+    this.getAccountState();
     this.getPayments();
   }
 
@@ -59,7 +60,7 @@ export class WalletComponent implements OnInit {
     this.paymentsService.insert(this.newPayment).subscribe(() => {
       this.myWindow.close();
       this.getPayments();
-      this.getTraderAccountState();
+      this.getAccountState();
     });
   }
 
@@ -67,7 +68,7 @@ export class WalletComponent implements OnInit {
     this.paymentsService.insert(this.newWithdraw).subscribe(() => {
       this.withdrawWindow.close();
       this.getPayments();
-      this.getTraderAccountState();
+      this.getAccountState();
     });
   }
 
@@ -93,7 +94,7 @@ export class WalletComponent implements OnInit {
     this.y = event.pageY;
   }
 
-  getTraderAccountState(): void {
+  getAccountState(): void {
     this.accountStateService
       .getWallet()
       .subscribe(

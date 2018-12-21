@@ -10742,8 +10742,8 @@ input[type="radio"]:checked + * .g-show-check {
 .u-check input[type="radio"]:checked + * .u-check-icon-checkbox-v6 i,
 .u-check input[type="radio"]:checked + * .u-check-icon-radio-v6 i {
   color: #fff;
-  background-color: #3bb18f;
-  border-color: #3bb18f;
+  background-color: #e44235;
+  border-color: #e44235;
 }
 
 .u-check input[type="checkbox"]:checked + .u-check-icon-checkbox-v6 i::before,

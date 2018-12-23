@@ -3,9 +3,9 @@
 				   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 				   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.6.xsd">
 
-	<changeSet author="thefattony" id="gallery_address-table">
-		<createTable tableName="gallery_address">
-			<column name="gallery_id" type="bigint">
+	<changeSet author="toolstik" id="organization_address-table">
+		<createTable tableName="organization_address">
+			<column name="organization_id" type="bigint">
 				<constraints nullable="false"/>
 			</column>
 			<column name="address_id" type="bigint">
@@ -14,8 +14,8 @@
 		</createTable>
 	</changeSet>
 
-	<changeSet author="thefattony" id="gallery_address-pk">
-		<addPrimaryKey columnNames="gallery_id, address_id" constraintName="gallery_address_pk" tableName="gallery_address"/>
+	<changeSet author="toolstik" id="organization_address-pk">
+		<addPrimaryKey columnNames="organization_id, address_id" constraintName="organization_address_pk" tableName="organization_address"/>
 	</changeSet>
 
 </databaseChangeLog>

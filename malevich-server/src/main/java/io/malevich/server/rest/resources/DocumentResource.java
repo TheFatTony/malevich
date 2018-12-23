@@ -43,7 +43,7 @@ public class DocumentResource {
     @PreAuthorize("hasRole('USER')")
     @GetMapping("/list")
     @ResponseStatus(HttpStatus.OK)
-    public List<DocumentDto> listTrader() {
+    public List<DocumentDto> list() {
         return this.documentService.findDocs()
                 .stream()
                 .map(this::convertToDto)

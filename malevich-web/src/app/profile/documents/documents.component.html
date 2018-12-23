@@ -60,15 +60,15 @@
             <th>{{'TRADER_PROFILE.GRID.DATE' | translate}}</th>
             <th>{{'TRADER_PROFILE.GRID.DOCUMENT_TYPE' | translate}}</th>
           </tr>
-          <tr *ngFor="let traderDocs of documents">
+          <tr *ngFor="let doc of documents">
             <td>
-              {{traderDocs.files.fileName}}
+              {{doc.files.fileName}}
             </td>
             <td>
-              {{traderDocs.effectiveDate}}
+              {{doc.effectiveDate}}
             </td>
             <td>
-              {{traderDocs.documentType.nameMl[translate.currentLang]}}
+              {{doc.documentType.nameMl[translate.currentLang]}}
             </td>
           </tr>
         </jqxGrid>

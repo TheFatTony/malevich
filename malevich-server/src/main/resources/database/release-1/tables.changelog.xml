@@ -9,10 +9,9 @@
     <include relativeToChangelogFile="true" file="tables/gallery.table.xml"/>
     <include relativeToChangelogFile="true" file="tables/person.table.xml"/>
     <include relativeToChangelogFile="true" file="tables/artist.table.xml"/>
-    <include relativeToChangelogFile="true" file="tables/trader.table.xml"/>
     <include relativeToChangelogFile="true" file="tables/category.table.xml"/>
-    <include relativeToChangelogFile="true" file="tables/trader_address.table.xml"/>
-    <include relativeToChangelogFile="true" file="tables/gallery_address.table.xml"/>
+    <include relativeToChangelogFile="true" file="tables/person_address.table.xml"/>
+    <include relativeToChangelogFile="true" file="tables/organization_address.table.xml"/>
     <include relativeToChangelogFile="true" file="tables/artwork.table.xml"/>
     <include relativeToChangelogFile="true" file="tables/address.table.xml"/>
     <include relativeToChangelogFile="true" file="tables/artwork_stock.table.xml"/>

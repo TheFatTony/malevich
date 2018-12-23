@@ -9,10 +9,9 @@
     <include relativeToChangelogFile="true" file="constraints/gallery.constraint.xml"/>
     <include relativeToChangelogFile="true" file="constraints/person.constraint.xml"/>
     <include relativeToChangelogFile="true" file="constraints/artist.constraint.xml"/>
-    <include relativeToChangelogFile="true" file="constraints/trader.constraint.xml"/>
     <include relativeToChangelogFile="true" file="constraints/category.constraint.xml"/>
-    <include relativeToChangelogFile="true" file="constraints/trader_address.constraint.xml"/>
-    <include relativeToChangelogFile="true" file="constraints/gallery_address.constraint.xml"/>
+    <include relativeToChangelogFile="true" file="constraints/person_address.constraint.xml"/>
+    <include relativeToChangelogFile="true" file="constraints/organization_address.constraint.xml"/>
     <include relativeToChangelogFile="true" file="constraints/artwork.constraint.xml"/>
     <include relativeToChangelogFile="true" file="constraints/address.constraint.xml"/>
     <include relativeToChangelogFile="true" file="constraints/artwork_stock.constraint.xml"/>

@@ -19,7 +19,7 @@ export class DelayedChangeService {
       .get<DelayedChangeDto[]>(this.url + '/list');
   }
 
-  public findByTypeIdAndAndReferenceId(referenceId: number) {
+  public getCounterpartyDelayedChanges(referenceId: number) {
     return this.http
       .get<boolean>(this.url + '/findByTypeIdAndAndReferenceId/COUNTERPARTY/' + referenceId);
   }

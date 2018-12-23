@@ -12,7 +12,8 @@
                 <constraints nullable="false"/>
             </column>
             <column name="user_id" type="bigint"/>
-            <column name="trader_id" type="bigint"/>
+            <column name="person_id" type="bigint"/>
+            <column name="organization_id" type="bigint"/>
             <column name="gallery_id" type="bigint"/>
             <column name="image_id" type="bigint"/>
         </createTable>

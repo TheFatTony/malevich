@@ -79,24 +79,18 @@ public class CounterpartyServiceImpl implements CounterpartyService {
             counterpartyEntity.getUser().setId(currentPartyEntity.getUser().getId());
             UserEntity user = counterpartyEntity.getUser();
 
-            if(counterpartyEntity.getTrader() != null && currentPartyEntity.getTrader() != null){
-                TraderEntity trader = counterpartyEntity.getTrader();
-                TraderEntity currentTrader = currentPartyEntity.getTrader();
+            if(counterpartyEntity.getPerson() != null && currentPartyEntity.getPerson() != null){
+                PersonEntity person = counterpartyEntity.getPerson();
+                PersonEntity currentPerson = currentPartyEntity.getPerson();
 
-                trader.setId(currentTrader.getId());
-
-                if (currentTrader.getPerson() != null)
-                    trader.getPerson().setId(currentTrader.getPerson().getId());
+                person.setId(currentPerson.getId());
             }
 
             if(counterpartyEntity.getGallery() != null && currentPartyEntity.getGallery() != null){
                 GalleryEntity gallery = counterpartyEntity.getGallery();
-                GalleryEntity currentGllery = currentPartyEntity.getGallery();
+                GalleryEntity currentGallery = currentPartyEntity.getGallery();
 
-                gallery.setId(currentGllery.getId());
-
-                if (currentGllery.getOrganization() != null)
-                    gallery.getOrganization().setId(currentGllery.getOrganization().getId());
+                gallery.setId(currentGallery.getId());
             }
 
 

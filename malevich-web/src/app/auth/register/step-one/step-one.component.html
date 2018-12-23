@@ -13,7 +13,12 @@
 
   <div class="mb-1">
     <label class="form-check-inline u-check g-color-gray-dark-v5 g-font-size-13 g-pl-25 mb-2">
-      <input class="g-hidden-xs-up g-pos-abs g-top-0 g-left-0" type="checkbox">
+      <input
+        class="g-hidden-xs-up g-pos-abs g-top-0 g-left-0"
+        type="checkbox"
+        name="agreement"
+        [(ngModel)]="agreementAccepted"
+      >
       <span class="d-block u-check-icon-checkbox-v6 g-absolute-centered--y g-left-0">
                       <i class="fa" data-check-icon=""></i>
                     </span>
@@ -23,7 +28,12 @@
 
   <div class="mb-3">
     <label class="form-check-inline u-check g-color-gray-dark-v5 g-font-size-13 g-pl-25 mb-2">
-      <input class="g-hidden-xs-up g-pos-abs g-top-0 g-left-0" type="checkbox">
+      <input
+        class="g-hidden-xs-up g-pos-abs g-top-0 g-left-0"
+        type="checkbox"
+        name="subscribe"
+        [(ngModel)]="subscribe"
+      >
       <span class="d-block u-check-icon-checkbox-v6 g-absolute-centered--y g-left-0">
                       <i class="fa" data-check-icon=""></i>
                     </span>
@@ -32,7 +42,17 @@
   </div>
 
   <mchButton class="btn btn-block u-btn-primary g-font-size-12 text-uppercase g-py-12 g-px-25"
-             [submitForm]="f">Signup
+             [submitForm]="f"
+             [disabled]="!agreementAccepted">Signup
   </mchButton>
 </form>
 <!-- End Form -->
+
+<!-- Demo modal window -->
+<div id="modal1" class="text-left g-max-width-600 g-bg-white g-overflow-y-auto g-pa-20" style="display: none;">
+  <button type="button" class="close" onclick="Custombox.modal.close();">
+    <i class="hs-icon hs-icon-close"></i>
+  </button>
+  <div [innerHTML]="termsAndConditions"></div>
+</div>
+<!-- End Demo modal window -->

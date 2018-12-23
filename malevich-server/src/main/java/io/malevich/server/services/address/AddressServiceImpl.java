@@ -1,9 +1,8 @@
 package io.malevich.server.services.address;
 
 
-import io.malevich.server.repositories.address.AddressDao;
 import io.malevich.server.domain.AddressEntity;
-import io.malevich.server.services.trader.TraderService;
+import io.malevich.server.repositories.address.AddressDao;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -18,9 +17,6 @@ public class AddressServiceImpl implements AddressService {
 
     @Autowired
     private AddressDao addressDao;
-
-    @Autowired
-    private TraderService traderService;
 
     @Override
     @Transactional(readOnly = true)

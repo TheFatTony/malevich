@@ -1,10 +1,8 @@
 package io.malevich.server.rest.resources;
 
 import io.malevich.server.domain.CounterpartyEntity;
-import io.malevich.server.domain.TraderEntity;
 import io.malevich.server.services.counterparty.CounterpartyService;
 import io.malevich.server.transfer.CounterpartyDto;
-import io.malevich.server.transfer.TraderDto;
 import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -46,7 +44,7 @@ public class CounterpartyResource {
         return convertToDto(entity);
     }
 
-    @PreAuthorize("hasRole('TRADER')")
+    @PreAuthorize("hasRole('USER')")
     @RequestMapping(value = "/update", method = RequestMethod.PUT)
     @ResponseStatus(HttpStatus.OK)
     @ResponseBody

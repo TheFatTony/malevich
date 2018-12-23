@@ -32,13 +32,13 @@ export class DocumentsComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.getTraderDocs();
+    this.getDocs();
   }
 
   ngAfterViewInit(): void {
   }
 
-  getTraderDocs(): void {
+  getDocs(): void {
     this.documentsService.getDocs().subscribe(data => {
       this.documents = data;
     });

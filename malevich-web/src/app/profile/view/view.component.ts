@@ -1,13 +1,13 @@
 import {Component, OnInit} from '@angular/core';
-import {TraderDto} from "../../_transfer/traderDto";
 import {CountryDto} from "../../_transfer/countryDto";
 import {TranslateService} from "@ngx-translate/core";
 import {AuthService} from "../../_services";
-import {GalleryDto, UserDto} from "../../_transfer";
+import {UserDto} from "../../_transfer";
 import {DelayedChangeService} from "../../_services/delayed-change.service";
 import {AlertService} from "yinyang-core";
 import {CounterpartyService} from "../../_services/counterparty.service";
 import {CounterpartyDto} from "../../_transfer/counterpartyDto";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-profile-view',
@@ -18,8 +18,6 @@ export class ViewComponent implements OnInit {
 
   user: UserDto;
   counterparty: CounterpartyDto;
-  trader: TraderDto;
-  gallery: GalleryDto;
   countries: CountryDto[];
 
   changePassword = false;
@@ -32,7 +30,8 @@ export class ViewComponent implements OnInit {
               private authService: AuthService,
               private counterpartyService: CounterpartyService,
               private delayedChangeService: DelayedChangeService,
-              private alertService: AlertService) {
+              private alertService: AlertService,
+              private router: Router) {
     this.authService.getCurrentUser().subscribe(data => {
       this.user = data
     });
@@ -45,9 +44,9 @@ export class ViewComponent implements OnInit {
   ngAfterViewInit(): void {
   }
 
-  findByTypeIdAndAndReferenceId(traderId: number): void {
+  getCounterpartyDelayedChanges(counterpartyId: number): void {
     this.delayedChangeService
-      .findByTypeIdAndAndReferenceId(traderId)
+      .getCounterpartyDelayedChanges(counterpartyId)
       .subscribe(
         data => {
           this.hasChanges = data;
@@ -64,12 +63,14 @@ export class ViewComponent implements OnInit {
         data => {
           if (data) {
             this.counterparty = data;
-            this.trader = this.counterparty.trader;
-            this.gallery = this.counterparty.gallery;
-            this.findByTypeIdAndAndReferenceId(this.counterparty.id);
+            this.getCounterpartyDelayedChanges(this.counterparty.id);
           }
         }
       );
+  }
+
+  edit() {
+    this.router.navigate(['/profile/edit']).then();
   }
 
   switchChangePassword() {

@@ -5,7 +5,6 @@ import io.malevich.server.repositories.payments.PaymentsDao;
 import io.malevich.server.repositories.transactiongroup.TransactionGroupDao;
 import io.malevich.server.services.counterparty.CounterpartyService;
 import io.malevich.server.services.paymenttype.PaymentTypeService;
-import io.malevich.server.services.trader.TraderService;
 import io.malevich.server.services.transaction.TransactionService;
 import io.malevich.server.services.transactiontype.TransactionTypeService;
 import io.malevich.server.util.PaymentFop;
@@ -16,7 +15,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
-import java.util.Optional;
 
 
 @Slf4j
@@ -52,9 +50,7 @@ public class PaymentsServiceImpl implements PaymentsService {
     @Override
     @Transactional
     public void insertPayment(PaymentsEntity paymentsEntity) {
-
-
-        CounterpartyEntity trader = counterpartyService.getCurrent();
+        CounterpartyEntity current = counterpartyService.getCurrent();
         CounterpartyEntity malevich = counterpartyService.getMalevich();
 
         PaymentTypeEntity paymentType;
@@ -68,7 +64,7 @@ public class PaymentsServiceImpl implements PaymentsService {
             transactionType = transactionTypeService.getAddBalance();
         }
 
-        paymentsEntity.setParty(trader);
+        paymentsEntity.setParty(current);
         paymentsEntity.setPaymentType(paymentType);
 
         TransactionGroupEntity transactionGroupEntity = new TransactionGroupEntity();

@@ -1,15 +1,12 @@
-import {AfterViewInit, Component, Inject, LOCALE_ID, OnInit} from '@angular/core';
-import {TraderDto} from "../../_transfer/traderDto";
+import {AfterViewInit, Component, OnInit} from '@angular/core';
 import {TranslateService} from "@ngx-translate/core";
 import {CountryService} from "../../_services/country.service";
 import {AuthService} from "../../_services";
-import {AddressDto} from "../../_transfer/addressDto";
-import {PersonDto} from "../../_transfer";
 import {GenderService} from "../../_services/gender.service";
 import {Router} from "@angular/router";
 
 import {forkJoin} from "rxjs";
-import {distinctUntilChanged, map, mergeMap} from "rxjs/operators";
+import {map, mergeMap} from "rxjs/operators";
 import {environment} from "../../../environments/environment.dev";
 import {CountryDto} from "../../_transfer/countryDto";
 import {GenderDto} from "../../_transfer/genderDto";
@@ -24,7 +21,6 @@ import {CounterpartyDto} from "../../_transfer/counterpartyDto";
 export class EditComponent implements OnInit, AfterViewInit {
 
   counterparty : CounterpartyDto;
-  trader: TraderDto;
   countries: any[];
   genders: any[];
 
@@ -40,10 +36,6 @@ export class EditComponent implements OnInit, AfterViewInit {
   }
 
   ngOnInit() {
-    this.trader = new TraderDto();
-    this.authService.getCurrentUser().pipe(distinctUntilChanged()).subscribe(data => this.trader.user = data);
-    this.trader.addresses = [new AddressDto()];
-    this.trader.person = new PersonDto();
     this.initFields();
   }
 
@@ -60,7 +52,6 @@ export class EditComponent implements OnInit, AfterViewInit {
       }))
       .pipe(map(data => {
         this.counterparty = data || new CounterpartyDto();
-        this.trader = this.counterparty.trader || new TraderDto();
       }))
       .subscribe();
   }

@@ -39,11 +39,11 @@ export class NavigationComponent implements OnInit {
 
           this.counterparty = data;
 
-          if (data.trader) {
-            this.titleName = `${data.trader.person.firstName} ${data.trader.person.lastName}`
-          } else if (data.gallery) {
-            this.titleName = data.gallery.organization.legalNameMl[this.translate.currentLang]
-              || data.gallery.organization.legalNameMl['en'];
+          if (data.person) {
+            this.titleName = `${data.person.firstName} ${data.person.lastName}`
+          } else if (data.organization) {
+            this.titleName = data.organization.legalNameMl[this.translate.currentLang]
+              || data.organization.legalNameMl['en'];
           }
         }
       );

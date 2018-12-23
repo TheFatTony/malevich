@@ -12,10 +12,6 @@ public class GalleryDto {
 
     private Long id;
 
-    private OrganizationDto organization;
-
     private Map<String, String> descriptionMl;
-
-    private List<AddressDto> addresses;
 
 }

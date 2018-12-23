@@ -14,7 +14,9 @@ public class CounterpartyDto {
 
     private UserDto user;
 
-    private TraderDto trader;
+    private PersonDto person;
+
+    private OrganizationDto organization;
 
     private GalleryDto gallery;
 

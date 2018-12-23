@@ -1,12 +1,10 @@
 package io.malevich.server.services.accountstate;
 
-import io.malevich.server.repositories.accountstate.AccountStateDao;
 import io.malevich.server.domain.AccountStateEntity;
 import io.malevich.server.domain.ArtworkStockEntity;
 import io.malevich.server.domain.CounterpartyEntity;
-import io.malevich.server.domain.TraderEntity;
+import io.malevich.server.repositories.accountstate.AccountStateDao;
 import io.malevich.server.services.counterparty.CounterpartyService;
-import io.malevich.server.services.trader.TraderService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -23,9 +21,6 @@ public class AccountStateServiceImpl implements AccountStateService {
 
     @Autowired
     private AccountStateDao accountStateDao;
-
-    @Autowired
-    private TraderService traderService;
 
     @Autowired
     private CounterpartyService counterpartyService;

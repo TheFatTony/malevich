@@ -11,7 +11,7 @@ import {OrderDto} from "../../_transfer/orderDto";
 import {OrderWindowComponent} from "../../common/components/order-window/order-window.component";
 
 @Component({
-  selector: 'app-profile-trader-artwork-stock',
+  selector: 'app-profile-artwork-stock',
   templateUrl: './artwork-stock.component.html',
   styleUrls: ['./artwork-stock.component.css']
 })

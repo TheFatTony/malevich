@@ -28,23 +28,7 @@ public class GalleryEntity implements Entity {
 
     @Getter
     @Setter
-    @Fetch(FetchMode.JOIN)
-    @OneToOne(cascade = CascadeType.MERGE)
-    @NotNull
-    private OrganizationEntity organization;
-
-    @Getter
-    @Setter
     @Convert(converter = JpaConverterJson.class)
     @Column(name = "description_ml")
     private Map<String, String> descriptionMl;
-
-    @Getter
-    @Setter
-    @LazyCollection(LazyCollectionOption.FALSE)
-    @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
-    @JoinTable(name = "gallery_address",
-            joinColumns = @JoinColumn(name = "gallery_id"),
-            inverseJoinColumns = @JoinColumn(name = "address_id"))
-    private List<AddressEntity> addresses;
 }

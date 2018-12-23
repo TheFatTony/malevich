@@ -3,14 +3,14 @@
                    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
                    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.6.xsd">
 
-    <changeSet author="thefattony" id="gallery_address-gallery_id-index">
-        <createIndex indexName="gallery_address_gallery_id_idx" tableName="gallery_address" unique="true">
-            <column name="gallery_id"/>
+    <changeSet author="toolstik" id="person_address-person_id-index">
+        <createIndex indexName="person_address_person_id_idx" tableName="person_address" unique="true">
+            <column name="person_id"/>
         </createIndex>
     </changeSet>
 
-    <changeSet author="thefattony" id="gallery_address-address_id-index">
-        <createIndex indexName="gallery_address_address_id_idx" tableName="gallery_address" unique="true">
+    <changeSet author="toolstik" id="person_address-address_id-index">
+        <createIndex indexName="person_address_address_id_idx" tableName="person_address" unique="true">
             <column name="address_id"/>
         </createIndex>
     </changeSet>

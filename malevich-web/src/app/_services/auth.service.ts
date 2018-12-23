@@ -4,7 +4,7 @@ import {map} from 'rxjs/operators';
 import {environment} from '../../environments/environment.dev';
 import {Globals} from '../globals';
 import {UserDto} from '../_transfer';
-import {Observable, of} from "rxjs";
+import {Observable} from "rxjs";
 
 @Injectable({providedIn: 'root'})
 export class AuthService {

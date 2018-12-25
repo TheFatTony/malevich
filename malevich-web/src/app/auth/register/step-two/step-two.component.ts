@@ -1,7 +1,7 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {TranslateService} from "@ngx-translate/core";
 import {Router} from "@angular/router";
-import {AuthService} from "../../../_services";
+import {UserService} from "../../../_services/user.service";
 
 @Component({
   selector: 'app-auth-register-step-two',
@@ -18,7 +18,7 @@ export class StepTwoComponent implements OnInit {
   @Input() activationCode: string;
 
   constructor(private router: Router,
-              private authService: AuthService,
+              private userService: UserService,
               public translate: TranslateService) {
   }
 
@@ -29,8 +29,12 @@ export class StepTwoComponent implements OnInit {
   }
 
   submit(): void {
-    this.authService
-      .register2(this.activationCode, this.password)
+    this.userService
+      .register2(this.activationCode, {
+        password: this.password,
+        isOrganization: this.isLegalPerson,
+        isGallery: this.isGallery
+      })
       .subscribe();
 
     this.router.navigate(['/auth/login']);

@@ -14,6 +14,10 @@ public class CounterpartyDto {
 
     private UserDto user;
 
+    private Boolean isOrganization;
+
+    private Boolean isGallery;
+
     private PersonDto person;
 
     private OrganizationDto organization;

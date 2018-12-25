@@ -11,7 +11,13 @@
             <column name="type_id" type="char(1)">
                 <constraints nullable="false"/>
             </column>
-            <column name="user_id" type="bigint"/>
+            <column name="user_id" type="bigint" />
+            <column name="is_organization" type="boolean">
+                <constraints nullable="false"/>
+            </column>
+            <column name="is_gallery" type="boolean">
+                <constraints nullable="false"/>
+            </column>
             <column name="person_id" type="bigint"/>
             <column name="organization_id" type="bigint"/>
             <column name="gallery_id" type="bigint"/>

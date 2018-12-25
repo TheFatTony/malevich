@@ -36,6 +36,14 @@ public class CounterpartyEntity implements Entity {
 
     @Getter
     @Setter
+    private Boolean isOrganization;
+
+    @Getter
+    @Setter
+    private Boolean isGallery;
+
+    @Getter
+    @Setter
     @Fetch(FetchMode.JOIN)
     @OneToOne(cascade = CascadeType.MERGE)
     private PersonEntity person;

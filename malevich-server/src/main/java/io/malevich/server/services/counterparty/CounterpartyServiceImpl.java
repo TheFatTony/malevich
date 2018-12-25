@@ -5,7 +5,6 @@ import io.malevich.server.repositories.counterparty.CounterpartyDao;
 import io.malevich.server.services.auth.AuthService;
 import io.malevich.server.services.delayedchange.DelayedChangeService;
 import io.malevich.server.services.user.UserService;
-import io.malevich.server.services.user.UserServiceImpl;
 import io.malevich.server.transfer.UserDto;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;

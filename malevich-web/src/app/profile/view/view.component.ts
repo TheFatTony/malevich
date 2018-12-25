@@ -8,6 +8,7 @@ import {AlertService} from "yinyang-core";
 import {CounterpartyService} from "../../_services/counterparty.service";
 import {CounterpartyDto} from "../../_transfer/counterpartyDto";
 import {Router} from "@angular/router";
+import {UserService} from "../../_services/user.service";
 
 @Component({
   selector: 'app-profile-view',
@@ -28,6 +29,7 @@ export class ViewComponent implements OnInit {
 
   constructor(public translate: TranslateService,
               private authService: AuthService,
+              private userService: UserService,
               private counterpartyService: CounterpartyService,
               private delayedChangeService: DelayedChangeService,
               private alertService: AlertService,
@@ -78,7 +80,7 @@ export class ViewComponent implements OnInit {
   }
 
   onChangePassword() {
-    this.authService.changePassword(this.oldPassword, this.newPassword).subscribe();
+    this.userService.changePassword(this.oldPassword, this.newPassword).subscribe();
     this.switchChangePassword();
   }
 }

@@ -1,9 +1,9 @@
 <aside class="g-brd-around g-brd-gray-light-v4 rounded g-px-20 g-py-30">
   <!-- Profile Picture -->
   <div class="text-center g-pos-rel g-mb-30">
-    <div class="g-width-100 g-height-100 mx-auto mb-3">
+    <div *ngIf="counterparty?.image" class="g-width-100 g-height-100 mx-auto mb-3">
       <a routerLink="/profile/view">
-        <img class="img-fluid rounded-circle" *ngIf="counterparty?.image" src="{{url}}{{counterparty?.image?.url}}"
+        <img class="img-fluid rounded-circle" src="{{url}}{{counterparty?.image?.url}}"
              alt="Image Decor">
       </a>
     </div>

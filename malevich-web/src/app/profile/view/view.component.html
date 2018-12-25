@@ -80,7 +80,7 @@
             <div class="col-8">
             <span
               class="d-block g-color-text g-font-size-13 mb-1">{{'TRADER_PROFILE.SECURITY.LABEL.GENDER' | translate}}</span>
-              <span class="d-block">{{person?.gender.nameMl[translate.currentLang]}}</span>
+              <span class="d-block">{{person.gender?.nameMl[translate.currentLang]}}</span>
             </div>
           </div>
 
@@ -90,7 +90,7 @@
             <div class="col-8">
             <span
               class="d-block g-color-text g-font-size-13 mb-1">{{'TRADER_PROFILE.SECURITY.LABEL.COUNTRY' | translate}}</span>
-              <span class="d-block">{{person?.country.nameMl[translate.currentLang]}}</span>
+              <span class="d-block">{{person.country?.nameMl[translate.currentLang]}}</span>
             </div>
           </div>
 
@@ -191,7 +191,7 @@
                 <br>
                 {{address.city}}
                 <br>
-                {{address.country.nameMl[translate.currentLang]}}
+                {{address.country?.nameMl[translate.currentLang]}}
               </span>
             </div>
           </div>
@@ -292,7 +292,7 @@
             <div class="col-12">
             <span
               class="d-block g-color-text g-font-size-13 mb-1">{{'GALLERY_PROFILE.SECURITY.LOCATION' | translate}}:</span>
-              <span class="d-block">{{organization.addresses[0].street}} {{organization.addresses[0].state}} {{organization.addresses[0].postalCode}} {{organization.addresses[0].city}} {{organization.addresses[0].country.nameMl[translate.currentLang]}}</span>
+              <span class="d-block">{{organization.addresses[0].street}} {{organization.addresses[0].state}} {{organization.addresses[0].postalCode}} {{organization.addresses[0].city}} {{organization.addresses[0].country?.nameMl[translate.currentLang]}}</span>
             </div>
           </div>
 

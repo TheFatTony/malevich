@@ -2,13 +2,14 @@ import {Component, OnInit} from '@angular/core';
 import {CountryDto} from "../../_transfer/countryDto";
 import {TranslateService} from "@ngx-translate/core";
 import {AuthService} from "../../_services";
-import {UserDto} from "../../_transfer";
+import {GalleryDto, OrganizationDto, PersonDto, UserDto} from "../../_transfer";
 import {DelayedChangeService} from "../../_services/delayed-change.service";
 import {AlertService} from "yinyang-core";
 import {CounterpartyService} from "../../_services/counterparty.service";
 import {CounterpartyDto} from "../../_transfer/counterpartyDto";
 import {Router} from "@angular/router";
 import {UserService} from "../../_services/user.service";
+import {AddressDto} from "../../_transfer/addressDto";
 
 @Component({
   selector: 'app-profile-view',
@@ -64,7 +65,8 @@ export class ViewComponent implements OnInit {
       .subscribe(
         data => {
           if (data) {
-            this.counterparty = data;
+            this.counterparty = this.counterpartyService.initInstance(data);
+
             this.getCounterpartyDelayedChanges(this.counterparty.id);
           }
         }

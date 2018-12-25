@@ -9,6 +9,8 @@ export class CounterpartyDto {
   id: number;
   type: CounterpartyTypeDto;
   user: UserDto;
+  isOrganization:boolean;
+  isGallery:boolean;
   person: PersonDto;
   organization: OrganizationDto;
   gallery: GalleryDto;

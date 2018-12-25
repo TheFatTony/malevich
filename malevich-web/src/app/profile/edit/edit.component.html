@@ -280,7 +280,7 @@
               </div>
             </div>
 
-            <div *ngIf="countries && gallery?.addresses[0] as address">
+            <ng-container *ngIf="countries && organization.addresses[0] as address">
 
               <hr class="g-brd-gray-light-v4 g-my-20">
 
@@ -342,7 +342,7 @@
 
               </div>
 
-            </div>
+            </ng-container>
 
           </div>
 

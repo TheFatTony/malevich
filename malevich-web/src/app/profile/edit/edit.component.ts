@@ -12,6 +12,8 @@ import {CountryDto} from "../../_transfer/countryDto";
 import {GenderDto} from "../../_transfer/genderDto";
 import {CounterpartyService} from "../../_services/counterparty.service";
 import {CounterpartyDto} from "../../_transfer/counterpartyDto";
+import {GalleryDto, OrganizationDto, PersonDto} from "../../_transfer";
+import {AddressDto} from "../../_transfer/addressDto";
 
 @Component({
   selector: 'app-profile-edit',
@@ -51,7 +53,7 @@ export class EditComponent implements OnInit, AfterViewInit {
         return this.counterpartyService.getCurrent();
       }))
       .pipe(map(data => {
-        this.counterparty = data || new CounterpartyDto();
+        this.counterparty = this.counterpartyService.initInstance(data);
       }))
       .subscribe();
   }

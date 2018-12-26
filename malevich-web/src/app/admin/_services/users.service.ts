@@ -8,7 +8,7 @@ import {UserPasswordDto} from '../../_transfer/userPasswordDto';
 @Injectable()
 export class UsersService {
 
-  private url = environment.baseUrl + 'users';
+  private url = environment.baseUrl + 'user';
 
   constructor(private http: HttpClient) {
   }
@@ -23,8 +23,8 @@ export class UsersService {
     return this.http.post<UserDto>(this.url + '/lock', user);
   }
 
-  changePassword(userPassword: UserPasswordDto) {
-    return this.http.post<UserPasswordDto>(this.url + '/change', userPassword);
+  setPassword(userPassword: UserPasswordDto) {
+    return this.http.post<UserPasswordDto>(this.url + '/password/set', userPassword);
   }
 
 }

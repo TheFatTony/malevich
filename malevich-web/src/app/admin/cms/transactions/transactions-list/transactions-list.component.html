@@ -21,20 +21,20 @@
     <td>
       {{transaction?.type.nameMl[translate.currentLang]}}
     </td>
-    <td *ngIf="transaction?.party.gallery">
-      {{transaction?.party.gallery?.organization.legalNameMl[translate.currentLang]}}
+    <td *ngIf="transaction?.party.organization">
+      {{transaction?.party.organization.legalNameMl[translate.currentLang]}}
     </td>
-    <td *ngIf="transaction?.party.trader">
-      {{transaction?.party.trader?.person.fullName}}
+    <td *ngIf="transaction?.party.person">
+      {{transaction?.party.person.fullName}}
     </td>
     <td *ngIf="transaction?.party.id === 1">
       Malevich
     </td>
-    <td *ngIf="transaction?.counterparty.gallery">
-      {{transaction?.counterparty.gallery?.organization.legalNameMl[translate.currentLang]}}
+    <td *ngIf="transaction?.counterparty.organization">
+      {{transaction?.counterparty.organization.legalNameMl[translate.currentLang]}}
     </td>
-    <td *ngIf="transaction?.counterparty.trader">
-      {{transaction?.counterparty.trader?.person.fullName}}
+    <td *ngIf="transaction?.counterparty.person">
+      {{transaction?.counterparty.person.fullName}}
     </td>
     <td *ngIf="transaction?.counterparty.id === 1">
       Malevich

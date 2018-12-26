@@ -3,6 +3,7 @@ package io.malevich.server.transfer;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.List;
 import java.util.Map;
 
 @Getter
@@ -14,5 +15,7 @@ public class OrganizationDto {
     private String phoneNumber;
 
     private Map<String, String> legalNameMl;
+
+    private List<AddressDto> addresses;
 
 }

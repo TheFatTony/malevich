@@ -39,12 +39,6 @@
                  path="test_data/005_gallery.sql"/>
     </changeSet>
 
-    <changeSet author="thefattony" id="005_gallery_user-data">
-        <sqlFile splitStatements="false" stripComments="false"
-                 relativeToChangelogFile="true"
-                 path="test_data/005_gallery_user.sql"/>
-    </changeSet>
-
     <changeSet author="thefattony" id="006_person-data">
         <sqlFile splitStatements="false" stripComments="false"
                  relativeToChangelogFile="true"
@@ -63,28 +57,22 @@
                  path="test_data/008_artwork.sql"/>
     </changeSet>
 
-    <changeSet author="toolstik" id="009_trader-data">
-        <sqlFile splitStatements="false" stripComments="false"
-                 relativeToChangelogFile="true"
-                 path="test_data/009_trader.sql"/>
-    </changeSet>
-
     <changeSet author="toolstik" id="010_address-data">
         <sqlFile splitStatements="false" stripComments="false"
                  relativeToChangelogFile="true"
                  path="test_data/010_address.sql"/>
     </changeSet>
 
-    <changeSet author="thefattony" id="011_trader_address-data">
+    <changeSet author="thefattony" id="011_person_address-data">
         <sqlFile splitStatements="false" stripComments="false"
                  relativeToChangelogFile="true"
-                 path="test_data/011_trader_address.sql"/>
+                 path="test_data/011_person_address.sql"/>
     </changeSet>
 
     <changeSet author="thefattony" id="012_gallery_address-data">
         <sqlFile splitStatements="false" stripComments="false"
                  relativeToChangelogFile="true"
-                 path="test_data/012_gallery_address.sql"/>
+                 path="test_data/012_organization_address.sql"/>
     </changeSet>
 
     <changeSet author="thefattony" id="013_counterparty-data">

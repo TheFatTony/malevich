@@ -24,20 +24,46 @@ public class CounterpartyEntity implements Entity {
     @Getter
     @Setter
     @Fetch(FetchMode.JOIN)
-    @ManyToOne(cascade = CascadeType.MERGE)
+    @ManyToOne(cascade = CascadeType.DETACH)
     @NotNull
     private CounterpartyTypeEntity type;
 
     @Getter
     @Setter
     @Fetch(FetchMode.JOIN)
+    @OneToOne(cascade = CascadeType.DETACH)
+    private UserEntity user;
+
+    @Getter
+    @Setter
+    private Boolean isOrganization;
+
+    @Getter
+    @Setter
+    private Boolean isGallery;
+
+    @Getter
+    @Setter
+    @Fetch(FetchMode.JOIN)
     @OneToOne(cascade = CascadeType.MERGE)
-    private TraderEntity trader;
+    private PersonEntity person;
+
+    @Getter
+    @Setter
+    @Fetch(FetchMode.JOIN)
+    @OneToOne(cascade = CascadeType.MERGE)
+    private OrganizationEntity organization;
 
     @Getter
     @Setter
     @Fetch(FetchMode.JOIN)
     @OneToOne(cascade = CascadeType.MERGE)
     private GalleryEntity gallery;
+
+    @Getter
+    @Setter
+    @Fetch(FetchMode.JOIN)
+    @ManyToOne
+    private FileEntity image;
 
 }

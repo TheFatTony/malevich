@@ -1,11 +1,11 @@
 package io.malevich.server.services.delayedchange;
 
+import io.malevich.server.domain.CounterpartyEntity;
 import io.malevich.server.domain.DelayedChangeEntity;
 import io.malevich.server.domain.MailQueueEntity;
-import io.malevich.server.domain.TraderEntity;
 import io.malevich.server.repositories.delayedchange.DelayedChangeDao;
+import io.malevich.server.services.counterparty.CounterpartyService;
 import io.malevich.server.services.mailqueue.MailQueueService;
-import io.malevich.server.services.trader.TraderService;
 import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,7 +13,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
-import java.util.Locale;
 
 
 @Slf4j
@@ -31,7 +30,7 @@ public class DelayedChangeServiceImpl implements DelayedChangeService {
     private MailQueueService mailQueueService;
 
     @Autowired
-    private TraderService traderService;
+    private CounterpartyService counterpartyService;
 
     @Override
     @Transactional(readOnly = true)
@@ -42,10 +41,10 @@ public class DelayedChangeServiceImpl implements DelayedChangeService {
     @Override
     @Transactional
     public void approveChange(DelayedChangeEntity delayedChangeEntity) {
-        if (delayedChangeEntity.getTypeId().equals("TRADER")) {
-            TraderEntity traderEntity = new TraderEntity();
-            traderEntity = modelMapper.map(delayedChangeEntity.getPayload(), TraderEntity.class);
-            traderService.save(traderEntity);
+        if(delayedChangeEntity.getTypeId().equals("COUNTERPARTY")){
+            CounterpartyEntity counterpartyEntity =
+                    modelMapper.map(delayedChangeEntity.getPayload(), CounterpartyEntity.class);
+            counterpartyService.save(counterpartyEntity);
             delayedChangeDao.delete(delayedChangeEntity);
         }
     }

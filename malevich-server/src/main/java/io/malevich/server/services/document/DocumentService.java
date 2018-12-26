@@ -6,13 +6,9 @@ import java.util.List;
 
 public interface DocumentService {
 
-    List<DocumentEntity> findTraderDocs();
-
-    List<DocumentEntity> findGalleryDocs();
+    List<DocumentEntity> findDocs();
 
     DocumentEntity save(DocumentEntity entity);
 
     void delete(Long id);
-
-    void userDocs(DocumentEntity entity);
 }

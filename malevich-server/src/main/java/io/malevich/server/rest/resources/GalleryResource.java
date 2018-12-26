@@ -43,24 +43,6 @@ public class GalleryResource {
         return convertToDto(allEntry);
     }
 
-    @PreAuthorize("hasRole('GALLERY')")
-    @RequestMapping(value = "/current", method = RequestMethod.GET)
-    @ResponseStatus(HttpStatus.OK)
-    @ResponseBody
-    public GalleryDto current() {
-        log.info("happy");
-        GalleryEntity allEntry = this.galleryService.getCurrent();
-        return convertToDto(allEntry);
-    }
-
-    @PreAuthorize("hasRole('GALLERY')")
-    @RequestMapping(value = "/update", method = RequestMethod.POST)
-    public ResponseEntity<Void> update(@RequestBody GalleryDto gallery) {
-        GalleryEntity newEntity = convertToEntity(gallery);
-        this.galleryService.update(newEntity);
-        return ResponseEntity.ok().build();
-    }
-
     private GalleryDto convertToDto(GalleryEntity files) {
         GalleryDto filesDto = modelMapper.map(files, GalleryDto.class);
         return filesDto;

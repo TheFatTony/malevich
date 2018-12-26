@@ -8,15 +8,7 @@
 			<column name="id" type="bigint">
 				<constraints nullable="false"/>
 			</column>
-			<column name="organization_id" type="bigint">
-				<constraints nullable="false"/>
-			</column>
-			<column name="thumbnail_id" type="bigint">
-				<constraints nullable="false"/>
-			</column>
-			<column name="image_id" type="bigint">
-				<constraints nullable="false"/>
-			</column>
+			<column name="image_id" type="bigint"/>
 		</createTable>
 	</changeSet>
 

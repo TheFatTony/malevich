@@ -12,10 +12,6 @@ public interface CounterpartyService {
 
     List<CounterpartyEntity> findAll();
 
-    CounterpartyEntity findCounterpartyEntitiesByGalleryId(Long galleryId);
-
-    CounterpartyEntity findCounterpartyEntitiesByTraderId(Long traderId);
-
     Optional<CounterpartyEntity> findById(Long counterpartyId);
 
     CounterpartyEntity getCurrent();
@@ -23,4 +19,6 @@ public interface CounterpartyService {
     CounterpartyEntity getMalevich();
 
     CounterpartyEntity save(CounterpartyEntity counterpartyEntity);
+
+    CounterpartyEntity update(CounterpartyEntity counterpartyEntity);
 }

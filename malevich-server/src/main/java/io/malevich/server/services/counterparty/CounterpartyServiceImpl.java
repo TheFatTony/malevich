@@ -1,11 +1,11 @@
 package io.malevich.server.services.counterparty;
 
-import io.malevich.server.domain.GalleryEntity;
-import io.malevich.server.domain.TraderEntity;
+import io.malevich.server.domain.*;
 import io.malevich.server.repositories.counterparty.CounterpartyDao;
-import io.malevich.server.domain.CounterpartyEntity;
-import io.malevich.server.services.gallery.GalleryService;
-import io.malevich.server.services.trader.TraderService;
+import io.malevich.server.services.auth.AuthService;
+import io.malevich.server.services.delayedchange.DelayedChangeService;
+import io.malevich.server.services.user.UserService;
+import io.malevich.server.transfer.UserDto;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -20,30 +20,21 @@ import java.util.Optional;
 public class CounterpartyServiceImpl implements CounterpartyService {
 
     @Autowired
+    private AuthService authService;
+
+    @Autowired
     private CounterpartyDao counterpartyDao;
 
     @Autowired
-    private GalleryService galleryService;
+    private DelayedChangeService delayedChangeService;
 
     @Autowired
-    private TraderService traderService;
+    private UserService userService;
 
     @Override
     @Transactional(readOnly = true)
     public List<CounterpartyEntity> findAll() {
         return this.counterpartyDao.findAll();
-    }
-
-    @Override
-    @Transactional(readOnly = true)
-    public CounterpartyEntity findCounterpartyEntitiesByGalleryId(Long galleryId) {
-        return counterpartyDao.findCounterpartyEntitiesByGallery_Id(galleryId);
-    }
-
-    @Override
-    @Transactional(readOnly = true)
-    public CounterpartyEntity findCounterpartyEntitiesByTraderId(Long traderId) {
-        return counterpartyDao.findCounterpartyEntitiesByTrader_Id(traderId);
     }
 
     @Override
@@ -55,15 +46,13 @@ public class CounterpartyServiceImpl implements CounterpartyService {
     @Override
     @Transactional(readOnly = true)
     public CounterpartyEntity getCurrent() {
-        TraderEntity trader = traderService.getCurrentTrader();
-        if (trader != null)
-            return findCounterpartyEntitiesByTraderId(trader.getId());
+        UserDto user = authService.getUser();
 
-        GalleryEntity gallery = galleryService.getCurrent();
-        if (gallery != null)
-            return findCounterpartyEntitiesByGalleryId(gallery.getId());
+        if (user == null)
+            return null;
 
-        return null;
+        CounterpartyEntity entity = counterpartyDao.findByUserName(user.getName()).orElse(null);
+        return entity;
     }
 
     @Override
@@ -73,8 +62,52 @@ public class CounterpartyServiceImpl implements CounterpartyService {
     }
 
     @Override
-    public CounterpartyEntity save(CounterpartyEntity counterpartyEntity) {
+    @Transactional
+    public CounterpartyEntity save(CounterpartyEntity counterpartyEntity){
         return counterpartyDao.save(counterpartyEntity);
+    }
+
+    @Override
+    @Transactional
+    public CounterpartyEntity update(CounterpartyEntity counterpartyEntity) {
+        CounterpartyEntity currentPartyEntity = getCurrent();
+
+        boolean isNew = currentPartyEntity == null;
+        if (!isNew) {
+            counterpartyEntity.setId(currentPartyEntity.getId());
+            counterpartyEntity.getUser().setId(currentPartyEntity.getUser().getId());
+            UserEntity user = counterpartyEntity.getUser();
+
+            if(counterpartyEntity.getPerson() != null && currentPartyEntity.getPerson() != null){
+                PersonEntity person = counterpartyEntity.getPerson();
+                PersonEntity currentPerson = currentPartyEntity.getPerson();
+
+                person.setId(currentPerson.getId());
+            }
+
+            if(counterpartyEntity.getGallery() != null && currentPartyEntity.getGallery() != null){
+                GalleryEntity gallery = counterpartyEntity.getGallery();
+                GalleryEntity currentGallery = currentPartyEntity.getGallery();
+
+                gallery.setId(currentGallery.getId());
+            }
+
+
+            DelayedChangeEntity delayedChangeEntity = new DelayedChangeEntity();
+            delayedChangeEntity.setTypeId("COUNTERPARTY");
+            delayedChangeEntity.setPayload(counterpartyEntity);
+            delayedChangeEntity.setReferenceId(counterpartyEntity.getId());
+            delayedChangeEntity.setUser(user);
+            delayedChangeService.save(delayedChangeEntity);
+        } else {
+            UserDto user = authService.getUser();
+            UserEntity userEntity = userService.findByName(user.getName());
+            counterpartyEntity.setUser(userEntity);
+
+            counterpartyDao.save(counterpartyEntity);
+        }
+
+        return counterpartyEntity;
     }
 
 }

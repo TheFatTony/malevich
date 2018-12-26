@@ -1,9 +1,9 @@
 package io.malevich.server.services.wishlist;
 
-import io.malevich.server.domain.TraderEntity;
+import io.malevich.server.domain.CounterpartyEntity;
 import io.malevich.server.domain.WishListEntity;
 import io.malevich.server.repositories.wishlist.WishListDao;
-import io.malevich.server.services.trader.TraderService;
+import io.malevich.server.services.counterparty.CounterpartyService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -17,16 +17,16 @@ public class WishListServiceImpl implements WishListService {
     private WishListDao wishListDao;
 
     @Autowired
-    private TraderService traderService;
+    private CounterpartyService counterpartyService;
 
     @Override
     @Transactional
     public WishListEntity save(WishListEntity entity) {
-        TraderEntity traderEntity = traderService.getCurrentTrader();
-        if (traderEntity == null)
+        CounterpartyEntity currentCounterparty = counterpartyService.getCurrent();
+        if (currentCounterparty == null)
             return null;
 
-        entity.setTrader(traderEntity);
+        entity.setCounterparty(currentCounterparty);
         return this.wishListDao.save(entity);
     }
 
@@ -34,11 +34,11 @@ public class WishListServiceImpl implements WishListService {
     @Override
     @Transactional(readOnly = true)
     public Page<WishListEntity> findAll(Pageable pageable) {
-        TraderEntity traderEntity = traderService.getCurrentTrader();
-        if (traderEntity == null)
+        CounterpartyEntity currentCounterparty = counterpartyService.getCurrent();
+        if (currentCounterparty == null)
             return null;
 
-        return this.wishListDao.findAll(pageable, traderEntity.getId());
+        return this.wishListDao.findByCounterparty_Id(pageable, currentCounterparty.getId());
     }
 
     @Override

@@ -27,6 +27,6 @@ public class WishListEntity implements Entity {
     @Getter
     @Setter
     @ManyToOne
-    private TraderEntity trader;
+    private CounterpartyEntity counterparty;
 
 }

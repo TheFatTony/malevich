@@ -34,7 +34,7 @@ public class DelayedChangeServiceImpl implements DelayedChangeService {
     private TraderService traderService;
 
     @Override
-    @Transactional(readOnly = true)
+    @Transactional
     public DelayedChangeEntity save(DelayedChangeEntity delayedChange) {
         return delayedChangeDao.save(delayedChange);
     }

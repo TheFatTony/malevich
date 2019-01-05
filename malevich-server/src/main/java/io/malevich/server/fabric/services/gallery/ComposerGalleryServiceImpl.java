@@ -1,9 +1,6 @@
 package io.malevich.server.fabric.services.gallery;
 
 import io.malevich.server.domain.GalleryEntity;
-import io.malevich.server.domain.TransactionEntity;
-import io.malevich.server.fabric.model.BuySellTransaction;
-import io.malevich.server.fabric.model.GalleryModel;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;

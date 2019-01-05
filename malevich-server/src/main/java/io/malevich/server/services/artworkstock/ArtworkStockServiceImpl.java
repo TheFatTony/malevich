@@ -3,7 +3,6 @@ package io.malevich.server.services.artworkstock;
 import io.malevich.server.domain.ArtworkStockEntity;
 import io.malevich.server.domain.GalleryEntity;
 import io.malevich.server.domain.TransactionGroupEntity;
-import io.malevich.server.fabric.services.ComposerService;
 import io.malevich.server.repositories.artworkstock.ArtworkStockDao;
 import io.malevich.server.repositories.transactiongroup.TransactionGroupDao;
 import io.malevich.server.services.artwork.ArtworkService;

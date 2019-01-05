@@ -1,7 +1,6 @@
 package io.malevich.server.fabric.services.trader;
 
 import io.malevich.server.domain.TransactionEntity;
-import io.malevich.server.fabric.model.BuySellTransaction;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -34,15 +33,6 @@ public class ComposerTraderServiceImpl implements ComposerTraderService {
 
     @Override
     public void submitTransction(TransactionEntity transaction) {
-        BuySellTransaction buySellTransaction = new BuySellTransaction(
-                transaction.getId().toString(),
-                transaction.getEffectiveDate().toString(),
-                transaction.getParty().getId().toString(),
-                transaction.getCounterparty().getId().toString(),
-                transaction.getArtworkStock().getId().toString(),
-                transaction.getAmount().toString(),
-                transaction.getQuantity().toString());
-        doPost(buySellTransaction);
     }
 
     private void doPost(Object arg) {

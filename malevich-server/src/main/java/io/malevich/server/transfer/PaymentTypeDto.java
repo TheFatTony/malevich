@@ -8,12 +8,11 @@ import java.util.Map;
 
 @Getter
 @Setter
-public class DocumentTypeDto {
+public class PaymentTypeDto {
 
-    private Long id;
+
+    private String id;
 
     private Map<String, String> nameMl;
-
-    private String userType;
 
 }

@@ -33,7 +33,6 @@ public class AccountStateEntity implements Entity {
     @Setter
     @Fetch(FetchMode.JOIN)
     @ManyToOne(cascade = CascadeType.MERGE)
-    @NotNull
     private ArtworkStockEntity artworkStock;
 
     @Getter

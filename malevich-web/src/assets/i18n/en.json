@@ -25,10 +25,14 @@
     "FILTERS_SORT_NAME": "Name",
     "FILTERS_PAGE": "Page",
     "FILTERS_PAGE_OF": "of",
-    "FILTERS_FILTER": "Filter"
+    "FILTERS_FILTER": "Filter",
+    "FILTERS_BUTTON": {
+      "RESET": "Reset"
+    }
   },
   "TRADER_PROFILE": {
     "TITLE": "Your Profile",
+    "EDIT_PROFILE": "Edit Your Profile",
     "SECURITY": {
       "LABEL": {
         "FIRST_NAME": "First Name:",
@@ -63,19 +67,63 @@
           "ZIP": "ZIP or Postal Code",
           "STREET": "Address"
         }
-      },
-      "DOCUMENTS": {
-        "ADD": {
-          "TITLE": "Add documents"
-        }
-      },
-      "BUTTON": {
-        "EDIT_PROFILE": "Edit",
-        "SUBMIT": "Submit",
-        "UPDATE": "Update",
-        "CANCEL": "Cancel",
-        "CHANGE_PASSWORD": "Change Password"
       }
+    },
+    "ARTWORKS": {
+      "TITLE": "Artworks",
+      "ADD": {
+        "TITLE": "Add artwork"
+      }
+    },
+    "WALLET": {
+      "BALANCE": "Balance",
+      "AVAILABLE": "Available"
+    },
+    "WISHLIST": {
+      "TITLE": "WishList",
+      "PRODUCT": "Product",
+      "PRICE": "Price",
+      "QUANTITY": "Qty",
+      "TOTAL": "Total"
+    },
+    "ORDERS": {
+      "TITLE": "Orders"
+    },
+    "DOCUMENTS": {
+      "TITLE": "Documents",
+      "ADD": {
+        "TITLE": "Add documents",
+        "CHOOSE": "Choose from existing"
+      }
+    },
+    "GRID": {
+      "FILE_NAME": "File Name",
+      "DATE": "Date",
+      "DOCUMENT_TYPE": "Document Type",
+      "AMOUNT": "Amount",
+      "ARTWORK": "Artwork",
+      "TRADER_TYPE": "Trader Type",
+      "TYPE": "Type",
+      "BEST_BID": "Best Bid",
+      "CURRENT_ASK": "Current Ask",
+      "IMAGE": "Image",
+      "TITLE": "Title",
+      "ARTIST": "Artist",
+      "CATEGORY": "Category",
+      "PAYMENT_NO": "PaymentNo",
+      "PRINT": "Print"
+    },
+    "BUTTON": {
+      "EDIT_PROFILE": "Edit",
+      "SUBMIT": "Submit",
+      "UPDATE": "Update",
+      "CANCEL": "Cancel",
+      "ASK_ADD": "Ask Add",
+      "DELETE": "Delete",
+      "CHANGE_PASSWORD": "Change Password",
+      "ADD": "Add",
+      "WITHDRAW": "Withdraw",
+      "CANCEL_ORDER": "Cancel order"
     }
   },
   "GALLERY_PROFILE": {
@@ -93,15 +141,95 @@
       "DESCRIPTION_EN": "Description - English",
       "DESCRIPTION_RU": "Description - Russian"
     },
+    "LABELS": {
+      "TITLE": "Title",
+      "DESCRIPTION": "Description",
+      "ARTIST": "Artist",
+      "CATEGORY": "Category"
+    },
     "ARTWORKS": {
+      "TITLE": "Artworks",
       "ADD": {
         "TITLE": "Add artwork"
       }
     },
+    "ORDERS": {
+      "TITLE": "Orders"
+    },
     "DOCUMENTS": {
+      "TITLE": "Documents",
       "ADD": {
-        "TITLE": "Add documents"
+        "TITLE": "Add documents",
+        "CHOOSE": "Choose from existing"
       }
+    },
+    "BUTTON": {
+      "ADD": "Add",
+      "DELETE": "Delete",
+      "ASK_ADD": "Ask Add",
+      "CANCEL_ORDER": "Cancel order"
+    },
+    "GRID": {
+      "FILE_NAME": "File Name",
+      "DATE": "Date",
+      "DOCUMENT_TYPE": "Document Type",
+      "AMOUNT": "Amount",
+      "ARTWORK": "Artwork",
+      "TRADER_TYPE": "Trader Type",
+      "TYPE": "Type",
+      "BEST_BID": "Best Bid",
+      "CURRENT_ASK": "Current Ask",
+      "IMAGE": "Image",
+      "TITLE": "Title",
+      "ARTIST": "Artist",
+      "CATEGORY": "Category"
     }
-  }
+  },
+  "MAIN": {
+    "GALLERY": {
+      "POSTED": "Posted",
+      "DAYS": "days",
+      "AGO": "ago",
+      "DAYS_AGO": "days ago",
+      "DESCRIPTION": "Description"
+    },
+    "ARTWORK": {
+      "DETAILS": "Details",
+      "DESCRIPTION": "Description",
+      "PROPERTY": "Property",
+      "EFFECTIVE_DATE": "Effective Date",
+      "COST": "Cost",
+      "BID": "Bid",
+      "ASK": "Ask",
+      "TRADER_HISTORY": "Trader History",
+      "PLACE_A_BID": "Place a Bid",
+      "ADD_TO_WISHLIST": "Add to WishList",
+      "REVIEW": "Review",
+      "ADD": "Add",
+      "COMMENT": "Comment",
+      "RATE": "Rate"
+    }
+  },
+  "PAGINATION": {
+    "PAGE": "Page",
+    "NEXT": "Next",
+    "OF": "Of"
+  },
+  "404": {
+    "NOT_FOUND": "Not found",
+    "HOME_PAGE": "Home page"
+  },
+  "COMMON_PROFILE": {
+    "NAVIGATION": {
+      "STORED_ARTWORKS": "Stored Artworks",
+      "YOUR_ARTWORKS": "Your Artworks",
+      "YOUR_ORDERS": "Your Orders",
+      "DOCUMENTS": "Documents",
+      "NOTIFICATION": "Notifications",
+      "YOUR_WALLET": "Your Wallet",
+      "PAYMENT_OPTIONS": "Paymetn Options",
+      "WISHLIST": "WishList"
+    }
+  },
+  "EDIT": "Edit"
 }

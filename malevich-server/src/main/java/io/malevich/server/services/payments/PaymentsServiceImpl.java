@@ -8,12 +8,15 @@ import io.malevich.server.services.paymenttype.PaymentTypeService;
 import io.malevich.server.services.trader.TraderService;
 import io.malevich.server.services.transaction.TransactionService;
 import io.malevich.server.services.transactiontype.TransactionTypeService;
+import io.malevich.server.util.PaymentFop;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Optional;
 
 
 @Slf4j
@@ -45,7 +48,8 @@ public class PaymentsServiceImpl implements PaymentsService {
     @Override
     @Transactional(readOnly = true)
     public List<PaymentsEntity> findAll() {
-        return this.paymentsDao.findAll();
+        CounterpartyEntity entity = counterpartyService.getCurrent();
+        return this.paymentsDao.findPaymentsEntityByParty_Id(entity.getId());
     }
 
     @Override
@@ -81,5 +85,19 @@ public class PaymentsServiceImpl implements PaymentsService {
         transactionService.createTransactionAndReverse(transactionType, paymentsEntity.getTransactionGroup(), paymentsEntity.getParty(), malevich, null, paymentsEntity.getAmount(), 0L);
     }
 
+    @Override
+    @Transactional(readOnly = true)
+    public PaymentsEntity getPayments(Long id) {
+        Optional<PaymentsEntity> value = this.paymentsDao.findById(id);
+        if (value.isPresent())
+            return value.get();
 
+        return null;
+    }
+
+    @Override
+    public ResponseEntity<byte[]> createFop(PaymentsEntity entity) {
+        String fileName = "receipt.pdf";
+        return new PaymentFop().create(entity, fileName);
+    }
 }

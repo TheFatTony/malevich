@@ -6,7 +6,7 @@ import javax.persistence.Transient;
 import java.io.Serializable;
 
 
-public interface Entity extends Persistable, Serializable {
+public interface Entity<ID> extends Persistable<ID>, Serializable {
 
 
     @Transient

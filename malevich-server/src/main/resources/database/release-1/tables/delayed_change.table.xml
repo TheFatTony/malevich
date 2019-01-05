@@ -12,7 +12,7 @@
                 <constraints nullable="false"/>
             </column>
             <column name="reference_id" type="bigint">
-                <constraints nullable="false"/>
+                <constraints nullable="true"/>
             </column>
             <column name="user_id" type="bigint">
                 <constraints nullable="false"/>

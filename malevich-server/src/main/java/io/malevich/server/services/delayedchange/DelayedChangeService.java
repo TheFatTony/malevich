@@ -1,7 +1,9 @@
 package io.malevich.server.services.delayedchange;
 
 import io.malevich.server.domain.DelayedChangeEntity;
+import io.malevich.server.domain.Entity;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -11,6 +13,8 @@ public interface DelayedChangeService {
 
 
     DelayedChangeEntity save(DelayedChangeEntity delayedChange);
+
+    DelayedChangeEntity saveEntity(Entity<Long> entity);
 
     void approveChange(DelayedChangeEntity delayedChangeEntity);
 

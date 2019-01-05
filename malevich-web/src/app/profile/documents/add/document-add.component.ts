@@ -6,6 +6,7 @@ import {DocumentTypeDto} from '../../../_transfer/documentTypeDto';
 import {DocumentsService} from '../../../_services/documents.service';
 import {DocumentsDto} from '../../../_transfer/documentsDto';
 import {environment} from '../../../../environments/environment.dev';
+import {CounterpartyService} from "../../../_services/counterparty.service";
 
 @Component({
   selector: 'app-profile-gallery-storage-add',
@@ -20,18 +21,26 @@ export class DocumentAddComponent implements OnInit {
 
   document: DocumentsDto;
   documentTypes: any[];
-  userType: string = 'trader';
 
   documentTypeDisplayFunc = (documentType: DocumentTypeDto) => {
     return documentType.nameMl[this.translate.currentLang];
   };
 
-  constructor(private router: Router, public translate: TranslateService, private documentService: DocumentsService) {
+  constructor(private router: Router,
+              public translate: TranslateService,
+              private counterpartyService: CounterpartyService,
+              private documentService: DocumentsService) {
   }
 
   ngOnInit() {
     this.document = new DocumentsDto();
-    this.getDocumentTypes(this.userType);
+
+    this.counterpartyService
+      .getCurrent()
+      .subscribe(cp => {
+        let userType = cp.isOrganization ? 'gallery' : 'trader';
+        this.getDocumentTypes(userType);
+      });
   }
 
   getDocumentTypes(userType: string): void {

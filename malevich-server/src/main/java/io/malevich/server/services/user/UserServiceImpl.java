@@ -99,6 +99,17 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    @Transactional(readOnly = true)
+    public UserEntity getCurrent(){
+        UserDto dto = authService.getUser();
+
+        if(dto == null)
+            return null;
+
+        return findByName(dto.getName());
+    }
+
+    @Override
     @Transactional
     public UserEntity save(UserEntity userEntity) {
         return userDao.save(userEntity);

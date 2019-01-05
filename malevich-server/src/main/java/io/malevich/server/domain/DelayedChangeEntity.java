@@ -39,7 +39,6 @@ public class DelayedChangeEntity {
     @Getter
     @Setter
     @Column(name = "reference_id")
-    @NotNull
     private Long referenceId;
 
     @Getter

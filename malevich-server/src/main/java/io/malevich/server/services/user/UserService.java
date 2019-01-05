@@ -4,6 +4,7 @@ import io.malevich.server.domain.ResetPasswordTokenEntity;
 import io.malevich.server.domain.UserEntity;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -11,6 +12,8 @@ import java.util.List;
 public interface UserService extends UserDetailsService {
 
     List<UserEntity> findAll();
+
+    UserEntity getCurrent();
 
     UserEntity save(UserEntity userEntity);
 

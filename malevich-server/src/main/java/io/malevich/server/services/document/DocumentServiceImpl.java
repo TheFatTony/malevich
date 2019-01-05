@@ -4,6 +4,7 @@ import io.malevich.server.domain.CounterpartyEntity;
 import io.malevich.server.domain.DocumentEntity;
 import io.malevich.server.repositories.document.DocumentDao;
 import io.malevich.server.services.counterparty.CounterpartyService;
+import io.malevich.server.services.delayedchange.DelayedChangeService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -22,6 +23,9 @@ public class DocumentServiceImpl implements DocumentService {
     @Autowired
     private CounterpartyService counterpartyService;
 
+    @Autowired
+    private DelayedChangeService delayedChangeService;
+
     @Override
     @Transactional(readOnly = true)
     public List<DocumentEntity> findDocs() {
@@ -31,10 +35,17 @@ public class DocumentServiceImpl implements DocumentService {
 
     @Override
     @Transactional
-    public DocumentEntity save(DocumentEntity entity) {
+    public DocumentEntity trySave(DocumentEntity entity) {
         CounterpartyEntity current = counterpartyService.getCurrent();
         entity.setCounterparty(current);
         entity.setEffectiveDate(new Timestamp(System.currentTimeMillis()));
+        delayedChangeService.saveEntity(entity);
+        return entity;
+    }
+
+    @Override
+    @Transactional
+    public DocumentEntity save(DocumentEntity entity) {
         return this.documentDao.save(entity);
     }
 
@@ -44,7 +55,7 @@ public class DocumentServiceImpl implements DocumentService {
         CounterpartyEntity me = counterpartyService.getCurrent();
         DocumentEntity existing = documentDao.findById(id).orElse(null);
 
-        if(existing == null || existing.getCounterparty().getId() != me.getId())
+        if(existing == null || !existing.getCounterparty().getId().equals(me.getId()))
             return;
 
         this.documentDao.deleteById(id);

@@ -53,7 +53,7 @@ public class DocumentResource {
     @PostMapping("/save")
     @ResponseStatus(HttpStatus.OK)
     public ResponseEntity<Void> save(@RequestBody DocumentDto documentDto) {
-        this.documentService.save(convertToEntity(documentDto));
+        this.documentService.trySave(convertToEntity(documentDto));
         return ResponseEntity.ok().build();
     }
 

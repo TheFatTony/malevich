@@ -1,24 +1,25 @@
 package io.malevich.server.services.delayedchange;
 
-import io.malevich.server.domain.CounterpartyEntity;
-import io.malevich.server.domain.DelayedChangeEntity;
-import io.malevich.server.domain.MailQueueEntity;
+import io.malevich.server.domain.*;
 import io.malevich.server.repositories.delayedchange.DelayedChangeDao;
 import io.malevich.server.services.counterparty.CounterpartyService;
+import io.malevich.server.services.document.DocumentService;
 import io.malevich.server.services.mailqueue.MailQueueService;
+import io.malevich.server.services.tradehistory.TradeHistoryService;
+import io.malevich.server.services.user.UserService;
 import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.sql.Timestamp;
 import java.util.List;
 
 
 @Slf4j
 @Service
 public class DelayedChangeServiceImpl implements DelayedChangeService {
-
 
     @Autowired
     private DelayedChangeDao delayedChangeDao;
@@ -32,19 +33,50 @@ public class DelayedChangeServiceImpl implements DelayedChangeService {
     @Autowired
     private CounterpartyService counterpartyService;
 
+    @Autowired
+    private DocumentService documentService;
+
+    @Autowired
+    private UserService userService;
+
     @Override
-    @Transactional(readOnly = true)
+    @Transactional
     public DelayedChangeEntity save(DelayedChangeEntity delayedChange) {
         return delayedChangeDao.save(delayedChange);
     }
 
     @Override
     @Transactional
+    public DelayedChangeEntity saveEntity(Entity<Long> entity) {
+        UserEntity currentUser = userService.getCurrent();
+
+        DelayedChangeEntity delayedChangeEntity = new DelayedChangeEntity();
+        delayedChangeEntity.setPayload(entity);
+        delayedChangeEntity.setReferenceId(entity.getId());
+        delayedChangeEntity.setUser(currentUser);
+
+        if (entity instanceof CounterpartyEntity)
+            delayedChangeEntity.setTypeId("COUNTERPARTY");
+        else if (entity instanceof DocumentEntity)
+            delayedChangeEntity.setTypeId("DOCUMENT");
+        else
+            return null;
+
+        return save(delayedChangeEntity);
+    }
+
+    @Override
+    @Transactional
     public void approveChange(DelayedChangeEntity delayedChangeEntity) {
-        if(delayedChangeEntity.getTypeId().equals("COUNTERPARTY")){
+        if (delayedChangeEntity.getTypeId().equals("COUNTERPARTY")) {
             CounterpartyEntity counterpartyEntity =
                     modelMapper.map(delayedChangeEntity.getPayload(), CounterpartyEntity.class);
             counterpartyService.save(counterpartyEntity);
+            delayedChangeDao.delete(delayedChangeEntity);
+        } else if (delayedChangeEntity.getTypeId().equals("DOCUMENT")) {
+            DocumentEntity document =
+                    modelMapper.map(delayedChangeEntity.getPayload(), DocumentEntity.class);
+            documentService.save(document);
             delayedChangeDao.delete(delayedChangeEntity);
         }
     }

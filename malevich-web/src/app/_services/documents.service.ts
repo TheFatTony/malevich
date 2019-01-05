@@ -23,10 +23,6 @@ export class DocumentsService {
     return this.http.get<DocumentsDto[]>(this.url + '/list');
   }
 
-  getGalleryDocs() {
-    return this.http.get<DocumentsDto[]>(this.url + '/list/gallery').pipe(map(data => data));
-  }
-
   save(document: DocumentsDto) {
     return this.http.post(this.url + '/save', document);
   }

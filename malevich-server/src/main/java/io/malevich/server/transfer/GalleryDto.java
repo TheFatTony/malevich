@@ -3,7 +3,6 @@ package io.malevich.server.transfer;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.util.List;
 import java.util.Map;
 
 @Getter
@@ -12,6 +11,11 @@ public class GalleryDto {
 
     private Long id;
 
-    private Map<String, String> descriptionMl;
+    private FileDto thumbnail;
 
+    private FileDto image;
+
+    private Map<String, String> titleMl;
+
+    private Map<String, String> descriptionMl;
 }

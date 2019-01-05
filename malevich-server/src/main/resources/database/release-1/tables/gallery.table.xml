@@ -8,9 +8,20 @@
 			<column name="id" type="bigint">
 				<constraints nullable="false"/>
 			</column>
-			<column name="image_id" type="bigint"/>
+            <column name="thumbnail_id" type="bigint">
+                <constraints nullable="false"/>
+            </column>
+            <column name="image_id" type="bigint">
+                <constraints nullable="false"/>
+            </column>
 		</createTable>
 	</changeSet>
+
+    <changeSet author="toolstik" id="gallery-table-title-ml" dbms="mysql">
+        <addColumn tableName="gallery">
+            <column name="title_ml" type="json"/>
+        </addColumn>
+    </changeSet>
 
 	<changeSet author="thefattony" id="gallery-table-ml" dbms="mysql">
 		<addColumn tableName="gallery">

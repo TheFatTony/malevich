@@ -11,7 +11,6 @@ import java.util.List;
 @Repository
 public interface DocumentTypeDao extends JpaRepository<DocumentTypeEntity, Long> {
 
-    @Query("select dte from DocumentTypeEntity dte where lower(userType) = lower(:userType)")
-    List<DocumentTypeEntity> findAll(@Param("userType") String userType);
+    List<DocumentTypeEntity> findByUserType(String userType);
 
 }

@@ -78,7 +78,7 @@ export class UserListComponent implements OnInit {
   submitButton() {
     let change = this.users.splice(this.selectedRowIndex)[0];
     this.userPassword.name = change.name;
-    this.usersService.changePassword(this.userPassword).subscribe(() => {
+    this.usersService.setPassword(this.userPassword).subscribe(() => {
       this.myInput.val('');
       this.getUsers();
     });

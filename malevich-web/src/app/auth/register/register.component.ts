@@ -20,7 +20,6 @@ export class RegisterComponent implements OnInit, AfterViewInit {
   constructor(private involvementService: InvolvementService,
               private alertService: AlertService,
               public translate: TranslateService,
-              private authService: AuthService,
               private route: ActivatedRoute) {
   }
 
@@ -36,7 +35,6 @@ export class RegisterComponent implements OnInit, AfterViewInit {
   ngAfterViewInit(): void {
     // $['HSCore'].components.HSSelect.init('.js-custom-select');
     var counters = $['HSCore'].components.HSCounter.init('[class*="js-counter"]');
-    $['HSCore'].components.HSModalWindow.init('[data-modal-target]');
   }
 
   getInvolvementCounters(): void {

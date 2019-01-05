@@ -3,13 +3,13 @@
                    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
                    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.6.xsd">
 
-    <changeSet author="harshilmelegant" id="wish_list-trader-fk">
-        <addForeignKeyConstraint baseColumnNames="trader_id" baseTableName="wish_list"
-                                 constraintName="wish_list_trader_fk"
-                                 referencedColumnNames="id" referencedTableName="trader"/>
+    <changeSet author="toolstik" id="wish_list-counterparty_id-fk">
+        <addForeignKeyConstraint baseColumnNames="counterparty_id" baseTableName="wish_list"
+                                 constraintName="wish_list_counterparty_id_fk"
+                                 referencedColumnNames="id" referencedTableName="counterparty"/>
     </changeSet>
 
-    <changeSet author="harshilmelegant" id="wish_list-wishlist-fk">
+    <changeSet author="harshilmelegant" id="wish_list-artwork_stock_id-fk">
         <addForeignKeyConstraint baseColumnNames="artwork_stock_id" baseTableName="wish_list"
                                  constraintName="wish_list_artwork_stock_fk"
                                  referencedColumnNames="id" referencedTableName="artwork_stock"/>

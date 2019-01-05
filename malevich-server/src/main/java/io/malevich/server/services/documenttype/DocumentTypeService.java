@@ -6,5 +6,5 @@ import java.util.List;
 
 public interface DocumentTypeService {
 
-    List<DocumentTypeEntity> findAll(String userType);
+    List<DocumentTypeEntity> findByUserType(String userType);
 }

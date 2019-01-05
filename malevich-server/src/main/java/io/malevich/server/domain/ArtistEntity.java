@@ -26,13 +26,6 @@ public class ArtistEntity implements Entity {
     @Getter
     @Setter
     @Fetch(FetchMode.JOIN)
-    @OneToOne
-    @NotNull
-    private PersonEntity person;
-
-    @Getter
-    @Setter
-    @Fetch(FetchMode.JOIN)
     @ManyToOne
     @NotNull
     private FileEntity thumbnail;

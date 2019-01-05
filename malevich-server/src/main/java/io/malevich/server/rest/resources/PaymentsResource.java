@@ -30,7 +30,7 @@ public class PaymentsResource {
     @GetMapping("/list")
     @ResponseStatus(HttpStatus.OK)
     public List<PaymentsDto> list() {
-        List<PaymentsEntity> allEntries = this.paymentsService.findAll();
+        List<PaymentsEntity> allEntries = this.paymentsService.findOwnPayments();
         return allEntries.stream().map(allEntry -> convertToDto(allEntry)).collect(Collectors.toList());
     }
 
@@ -40,7 +40,7 @@ public class PaymentsResource {
         return ResponseEntity.ok().build();
     }
 
-    @PreAuthorize("hasRole('TRADER')")
+    @PreAuthorize("hasRole('USER')")
     @GetMapping("/print/{id}")
     @ResponseStatus(HttpStatus.OK)
     public ResponseEntity<byte[]> print(@PathVariable("id") Long id) {

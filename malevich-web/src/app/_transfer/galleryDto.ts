@@ -1,12 +1,10 @@
 import {FileDto} from "./fileDto";
 import {OrganizationDto} from "./organizationDto";
-import {AddressDto} from "./addressDto";
+import {ParticipantDto} from "./participantDto";
 
-export class GalleryDto {
-  id: number;
+export class GalleryDto extends ParticipantDto{
   organization: OrganizationDto;
   thumbnail: FileDto;
   image: FileDto;
   descriptionMl: Map<string, string>;
-  addresses: AddressDto[];
 }

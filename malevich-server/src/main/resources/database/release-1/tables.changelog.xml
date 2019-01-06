@@ -14,7 +14,7 @@
     <include relativeToChangelogFile="true" file="tables/trader_person.table.xml"/>
     <include relativeToChangelogFile="true" file="tables/trader_organization.table.xml"/>
     <include relativeToChangelogFile="true" file="tables/category.table.xml"/>
-    <include relativeToChangelogFile="true" file="tables/trader_address.table.xml"/>
+    <include relativeToChangelogFile="true" file="tables/participant_address.table.xml"/>
     <include relativeToChangelogFile="true" file="tables/gallery_address.table.xml"/>
     <include relativeToChangelogFile="true" file="tables/artwork.table.xml"/>
     <include relativeToChangelogFile="true" file="tables/address.table.xml"/>

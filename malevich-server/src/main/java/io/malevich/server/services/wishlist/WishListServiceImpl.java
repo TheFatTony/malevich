@@ -26,7 +26,7 @@ public class WishListServiceImpl implements WishListService {
         if (traderEntity == null)
             return null;
 
-        entity.setTrader(traderEntity);
+        entity.setParticipant(traderEntity);
         return this.wishListDao.save(entity);
     }
 

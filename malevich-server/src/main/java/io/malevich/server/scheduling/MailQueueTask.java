@@ -7,7 +7,7 @@ import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
 
-@Profile("test")
+//@Profile("test")
 @Component
 public class MailQueueTask {
 

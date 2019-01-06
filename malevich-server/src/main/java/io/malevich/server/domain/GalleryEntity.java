@@ -18,20 +18,14 @@ import java.util.Map;
 @EqualsAndHashCode
 @javax.persistence.Entity
 @Table(name = "gallery")
-public class GalleryEntity implements Entity {
+@Inheritance(strategy = InheritanceType.JOINED)
+public class GalleryEntity extends ParticipantEntity {
 
     @Getter
     @Setter
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
-    @Getter
-    @Setter
-    @Fetch(FetchMode.JOIN)
-    @OneToOne(cascade = CascadeType.MERGE)
-    @NotNull
-    private OrganizationEntity organization;
 
     @Getter
     @Setter
@@ -69,6 +63,7 @@ public class GalleryEntity implements Entity {
     @JoinTable(name = "gallery_user",
             joinColumns = @JoinColumn(name = "gallery_id"),
             inverseJoinColumns = @JoinColumn(name = "user_id"))
+    // TODO to Participant discussion
     private List<UserEntity> users;
 
 

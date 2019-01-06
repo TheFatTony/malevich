@@ -35,6 +35,11 @@ public class ParticipantEntity implements Entity {
 
     @Getter
     @Setter
+    @Column(name = "phone_number")
+    private String phoneNumber;
+
+    @Getter
+    @Setter
     @Fetch(FetchMode.JOIN)
     @ManyToOne
     private FileEntity thumbnail;

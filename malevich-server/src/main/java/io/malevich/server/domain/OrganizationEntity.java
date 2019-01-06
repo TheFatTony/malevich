@@ -23,11 +23,6 @@ public class OrganizationEntity implements Entity {
 
     @Getter
     @Setter
-    @Column(name = "phone_number")
-    private String phoneNumber;
-
-    @Getter
-    @Setter
     @Convert(converter = JpaConverterJson.class)
     @Column(name = "legal_name_ml")
     @NotNull

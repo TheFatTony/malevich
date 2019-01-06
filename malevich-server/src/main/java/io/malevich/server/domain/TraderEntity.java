@@ -18,7 +18,8 @@ import java.util.List;
 @EqualsAndHashCode
 @javax.persistence.Entity
 @Table(name = "trader")
-public class TraderEntity implements Entity {
+@Inheritance(strategy = InheritanceType.JOINED)
+public class TraderEntity extends ParticipantEntity {
 
     @Getter
     @Setter
@@ -26,12 +27,6 @@ public class TraderEntity implements Entity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Getter
-    @Setter
-    @Fetch(FetchMode.JOIN)
-    @OneToOne(cascade = CascadeType.MERGE)
-    @NotNull
-    private PersonEntity person;
 
     @Getter
     @Setter

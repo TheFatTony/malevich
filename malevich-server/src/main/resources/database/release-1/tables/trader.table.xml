@@ -8,9 +8,6 @@
 			<column name="id" type="bigint">
 				<constraints nullable="false"/>
 			</column>
-			<column name="person_id" type="bigint">
-				<constraints nullable="false"/>
-			</column>
 			<column name="user_id" type="bigint">
 				<constraints nullable="false"/>
 			</column>

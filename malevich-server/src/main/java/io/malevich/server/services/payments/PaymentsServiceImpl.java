@@ -56,7 +56,7 @@ public class PaymentsServiceImpl implements PaymentsService {
     @Transactional
     public void insertPayment(PaymentsEntity paymentsEntity) {
 
-        TraderEntity traderEntity = traderService.getCurrentTrader();
+        TraderOrganizationEntity traderEntity = traderService.getCurrentTrader();
         CounterpartyEntity trader = counterpartyService.findCounterpartyEntitiesByTraderId(traderEntity.getId());
         CounterpartyEntity malevich = counterpartyService.getMalevich();
 

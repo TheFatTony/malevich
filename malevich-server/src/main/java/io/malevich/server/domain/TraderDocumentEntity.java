@@ -27,6 +27,6 @@ public class TraderDocumentEntity implements Entity {
     @Getter
     @Setter
     @ManyToOne
-    private TraderEntity trader;
+    private TraderOrganizationEntity trader;
 
 }

@@ -7,11 +7,11 @@
         <addUniqueConstraint columnNames="mobile" constraintName="trader_mobile_uc" tableName="trader"/>
     </changeSet>
 
-    <changeSet author="thefattony" id="trader-person-fk">
-        <addForeignKeyConstraint baseColumnNames="person_id" baseTableName="trader"
-                                 constraintName="trader_person_fk"
-                                 referencedColumnNames="id" referencedTableName="person"/>
-    </changeSet>
+    <!--<changeSet author="thefattony" id="trader-person-fk">-->
+        <!--<addForeignKeyConstraint baseColumnNames="person_id" baseTableName="trader"-->
+                                 <!--constraintName="trader_person_fk"-->
+                                 <!--referencedColumnNames="id" referencedTableName="person"/>-->
+    <!--</changeSet>-->
 
     <changeSet author="thefattony" id="trader-files-fk">
         <addForeignKeyConstraint baseColumnNames="thumbnail_id" baseTableName="trader"

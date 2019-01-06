@@ -1,23 +1,22 @@
 package io.malevich.server.services.trader;
 
-import io.malevich.server.domain.TraderEntity;
+import io.malevich.server.domain.TraderOrganizationEntity;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
 @Service
 public interface TraderService {
 
-    List<TraderEntity> findAll();
+    List<TraderOrganizationEntity> findAll();
 
-    TraderEntity find(Long id);
+    TraderOrganizationEntity find(Long id);
 
-    TraderEntity findByUserName(String name);
+    TraderOrganizationEntity findByUserName(String name);
 
-    TraderEntity update(TraderEntity trader);
+    TraderOrganizationEntity update(TraderOrganizationEntity trader);
 
-    TraderEntity save(TraderEntity traderEntity);
+    TraderOrganizationEntity save(TraderOrganizationEntity traderEntity);
 
-    TraderEntity getCurrentTrader();
+    TraderOrganizationEntity getCurrentTrader();
 }

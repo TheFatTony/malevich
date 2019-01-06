@@ -12,7 +12,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.web.authentication.preauth.PreAuthenticatedCredentialsNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -41,25 +40,25 @@ public class TraderServiceImpl implements TraderService {
 
     @Override
     @Transactional(readOnly = true)
-    public List<TraderEntity> findAll() {
+    public List<TraderOrganizationEntity> findAll() {
         return traderDao.findAll();
     }
 
     @Override
     @Transactional(readOnly = true)
-    public TraderEntity find(Long id) {
+    public TraderOrganizationEntity find(Long id) {
         return traderDao.findById(id).orElse(null);
     }
 
     @Override
-    public TraderEntity findByUserName(String name) {
+    public TraderOrganizationEntity findByUserName(String name) {
         return traderDao.findByUserName(name).orElse(null);
     }
 
     @Override
     @Transactional
-    public TraderEntity update(TraderEntity trader) {
-        TraderEntity traderEntity = getCurrentTrader();
+    public TraderOrganizationEntity update(TraderOrganizationEntity trader) {
+        TraderOrganizationEntity traderEntity = getCurrentTrader();
 
         UserEntity user = null;
         boolean isNew = false;
@@ -98,7 +97,7 @@ public class TraderServiceImpl implements TraderService {
 
     @Override
     @Transactional
-    public TraderEntity save(TraderEntity traderEntity) {
+    public TraderOrganizationEntity save(TraderOrganizationEntity traderEntity) {
         return traderDao.save(traderEntity);
     }
 
@@ -115,13 +114,13 @@ public class TraderServiceImpl implements TraderService {
 
     @Override
     @Transactional(readOnly = true)
-    public TraderEntity getCurrentTrader() {
+    public TraderOrganizationEntity getCurrentTrader() {
         String username = getUserName();
 
         if (username == null)
             return null;
 
-        TraderEntity traderEntity = findByUserName(username);
+        TraderOrganizationEntity traderEntity = findByUserName(username);
         return traderEntity;
     }
 }

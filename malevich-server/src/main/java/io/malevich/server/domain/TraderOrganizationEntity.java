@@ -1,19 +1,25 @@
 package io.malevich.server.domain;
 
+
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.sql.Timestamp;
+import java.util.List;
+
 
 @EqualsAndHashCode
 @javax.persistence.Entity
-@Table(name = "person")
-public class PersonEntity implements Entity {
+@Table(name = "trader")
+@Inheritance(strategy = InheritanceType.JOINED)
+public class TraderOrganizationEntity extends ParticipantEntity {
 
     @Getter
     @Setter
@@ -23,34 +29,9 @@ public class PersonEntity implements Entity {
 
     @Getter
     @Setter
-    @Column(name = "first_name")
-    @NotNull
-    private String firstName;
-
-    @Getter
-    @Setter
-    @Column(name = "last_name")
-    @NotNull
-    private String lastName;
-
-    @Getter
-    @Setter
-    @Column(name = "phone_number")
-    private String phoneNumber;
-
-
-    @Getter
-    @Setter
     @Fetch(FetchMode.JOIN)
-    @ManyToOne
+    @OneToOne(cascade = CascadeType.MERGE)
     @NotNull
-    private GenderEntity gender;
-
-    @Getter
-    @Setter
-    @Column(name = "date_of_birth")
-    @NotNull
-    private Timestamp dateOfBirth;
-
+    private OrganizationEntity organization;
 
 }

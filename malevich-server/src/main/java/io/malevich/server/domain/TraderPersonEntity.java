@@ -13,16 +13,9 @@ import javax.validation.constraints.NotNull;
 
 @EqualsAndHashCode
 @javax.persistence.Entity
-@Table(name = "trader")
-@Inheritance(strategy = InheritanceType.JOINED)
+@Table(name = "trader_person")
+@PrimaryKeyJoinColumn(name = "participant_id")
 public class TraderPersonEntity extends ParticipantEntity {
-
-    @Getter
-    @Setter
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-
 
     @Getter
     @Setter

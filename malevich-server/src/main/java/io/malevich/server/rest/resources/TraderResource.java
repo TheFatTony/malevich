@@ -1,7 +1,7 @@
 package io.malevich.server.rest.resources;
 
 
-import io.malevich.server.domain.TraderOrganizationEntity;
+import io.malevich.server.domain.TraderPersonEntity;
 import io.malevich.server.services.trader.TraderService;
 import io.malevich.server.transfer.TraderDto;
 import lombok.extern.slf4j.Slf4j;
@@ -25,33 +25,22 @@ public class TraderResource {
     private ModelMapper modelMapper;
 
     @PreAuthorize("hasRole('TRADER')")
-    @RequestMapping(value = "/current", method = RequestMethod.GET)
-    @ResponseStatus(HttpStatus.OK)
-    @ResponseBody
-    public TraderDto getTrader() {
-        TraderOrganizationEntity traderEntity = traderService.getCurrentTrader();
-        if (traderEntity == null)
-            return null;
-        return convertToDto(traderEntity);
-    }
-
-    @PreAuthorize("hasRole('TRADER')")
     @RequestMapping(value = "/update", method = RequestMethod.PUT)
     @ResponseStatus(HttpStatus.OK)
     @ResponseBody
     public ResponseEntity<Void> update(@RequestBody TraderDto trader) {
-        TraderOrganizationEntity newTraderEntity = convertToEntity(trader);
+        TraderPersonEntity newTraderEntity = convertToEntity(trader);
         this.traderService.update(newTraderEntity);
         return ResponseEntity.ok().build();
     }
 
-    private TraderDto convertToDto(TraderOrganizationEntity entity) {
+    private TraderDto convertToDto(TraderPersonEntity entity) {
         TraderDto dto = modelMapper.map(entity, TraderDto.class);
         return dto;
     }
 
-    private TraderOrganizationEntity convertToEntity(TraderDto filesDto) {
-        TraderOrganizationEntity files = modelMapper.map(filesDto, TraderOrganizationEntity.class);
+    private TraderPersonEntity convertToEntity(TraderDto filesDto) {
+        TraderPersonEntity files = modelMapper.map(filesDto, TraderPersonEntity.class);
         return files;
     }
 

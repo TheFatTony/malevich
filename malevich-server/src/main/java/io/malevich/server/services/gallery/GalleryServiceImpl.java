@@ -1,8 +1,10 @@
 package io.malevich.server.services.gallery;
 
 
+import io.malevich.server.domain.ParticipantEntity;
 import io.malevich.server.repositories.gallery.GalleryDao;
 import io.malevich.server.domain.GalleryEntity;
+import io.malevich.server.services.participant.ParticipantService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
@@ -22,6 +24,9 @@ public class GalleryServiceImpl implements GalleryService {
     @Autowired
     private GalleryDao galleryDao;
 
+    @Autowired
+    private ParticipantService participantService;
+
     protected GalleryServiceImpl() {
     }
 
@@ -39,22 +44,9 @@ public class GalleryServiceImpl implements GalleryService {
 
     @Override
     @Transactional(readOnly = true)
-    public GalleryEntity findByUserName(String name) {
-        return galleryDao.findByUsers_Name(name).orElse(null);
-    }
-
-    @Override
-    @Transactional(readOnly = true)
     public GalleryEntity getCurrent() {
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        Object principal = authentication.getPrincipal();
-        UserDetails userDetails = null;
-        if (principal instanceof UserDetails) {
-            userDetails = (UserDetails) principal;
-        } else return null;
-        String username = userDetails.getUsername();
-        GalleryEntity galleryEntity = findByUserName(username);
-        return galleryEntity;
+        ParticipantEntity participantEntity = participantService.getCurrent();
+        return participantEntity instanceof GalleryEntity ? (GalleryEntity) participantEntity : null;
     }
 
     @Override

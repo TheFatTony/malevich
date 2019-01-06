@@ -32,7 +32,7 @@ public class CounterpartyEntity implements Entity {
     @Setter
     @Fetch(FetchMode.JOIN)
     @OneToOne(cascade = CascadeType.MERGE)
-    private TraderOrganizationEntity trader;
+    private TraderPersonEntity trader;
 
     @Getter
     @Setter

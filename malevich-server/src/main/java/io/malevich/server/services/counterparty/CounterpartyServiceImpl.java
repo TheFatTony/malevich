@@ -1,7 +1,7 @@
 package io.malevich.server.services.counterparty;
 
 import io.malevich.server.domain.GalleryEntity;
-import io.malevich.server.domain.TraderEntity;
+import io.malevich.server.domain.TraderOrganizationEntity;
 import io.malevich.server.repositories.counterparty.CounterpartyDao;
 import io.malevich.server.domain.CounterpartyEntity;
 import io.malevich.server.services.gallery.GalleryService;
@@ -55,7 +55,7 @@ public class CounterpartyServiceImpl implements CounterpartyService {
     @Override
     @Transactional(readOnly = true)
     public CounterpartyEntity getCurrent() {
-        TraderEntity trader = traderService.getCurrentTrader();
+        TraderOrganizationEntity trader = traderService.getCurrentTrader();
         if (trader != null)
             return findCounterpartyEntitiesByTraderId(trader.getId());
 

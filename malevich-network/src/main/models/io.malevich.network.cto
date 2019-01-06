@@ -1,32 +1,77 @@
-/*
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- * http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
-
-/**
- * Write your model definitions here
- */
-
 namespace io.malevich.network
 
-
-transaction BuySellTransaction {
-  o String id
-  o String effectiveDate
-  o String partyId
-  o String counterpartyId
-  o String artworkStockId
-  o String amount
-  o String quantity
+enum OrderStatus {
+  o OPEN
+  o EXECUTED
+  o CANCELED
 }
 
+enum OrderType {
+  o ASK
+  o BID
+}
 
+abstract participant User identified by email {
+  o String email
+}
+
+abstract participant Counterparty extends User {
+  o Double balance
+}
+
+participant Trader extends Counterparty {
+}
+
+participant Gallery extends Counterparty {
+}
+
+asset Artwork identified by token {
+  o String token
+  o String description
+  o Double estimatedPrice
+}
+
+asset ArtworkStock identified by id {
+  o String id
+  --> Artwork artwork
+  --> Counterparty holder
+  --> Counterparty owner
+}
+
+concept Order {
+  o String id
+  o Double amount
+  o OrderType orderType
+  o OrderStatus orderStatus
+  --> ArtworkStock artworkStock
+  --> Counterparty сounterparty
+}
+
+asset OrderAsset identified by id {
+  o String id
+  o Order order
+}
+
+asset TradeHistory identified by id {
+  o String id
+  o OrderAsset askOrder
+  o OrderAsset bidOrder 
+}
+
+concept Balance {
+  o Double newBalance
+  --> Counterparty сounterparty
+}
+
+asset BalanceAsset identified by id {
+  o String id
+  o Balance balance
+}
+
+transaction PlaceOrder {
+  o Order order
+}
+
+transaction UpdateBalance {
+  o Balance balance
+}

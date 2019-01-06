@@ -1,6 +1,6 @@
 package io.malevich.server.services.wishlist;
 
-import io.malevich.server.domain.TraderOrganizationEntity;
+import io.malevich.server.domain.TraderPersonEntity;
 import io.malevich.server.domain.WishListEntity;
 import io.malevich.server.repositories.wishlist.WishListDao;
 import io.malevich.server.services.trader.TraderService;
@@ -22,7 +22,7 @@ public class WishListServiceImpl implements WishListService {
     @Override
     @Transactional
     public WishListEntity save(WishListEntity entity) {
-        TraderOrganizationEntity traderEntity = traderService.getCurrentTrader();
+        TraderPersonEntity traderEntity = traderService.getCurrentTrader();
         if (traderEntity == null)
             return null;
 
@@ -34,7 +34,7 @@ public class WishListServiceImpl implements WishListService {
     @Override
     @Transactional(readOnly = true)
     public Page<WishListEntity> findAll(Pageable pageable) {
-        TraderOrganizationEntity traderEntity = traderService.getCurrentTrader();
+        TraderPersonEntity traderEntity = traderService.getCurrentTrader();
         if (traderEntity == null)
             return null;
 

@@ -4,7 +4,7 @@ import io.malevich.server.repositories.accountstate.AccountStateDao;
 import io.malevich.server.domain.AccountStateEntity;
 import io.malevich.server.domain.ArtworkStockEntity;
 import io.malevich.server.domain.CounterpartyEntity;
-import io.malevich.server.domain.TraderOrganizationEntity;
+import io.malevich.server.domain.TraderPersonEntity;
 import io.malevich.server.services.counterparty.CounterpartyService;
 import io.malevich.server.services.trader.TraderService;
 import lombok.extern.slf4j.Slf4j;
@@ -46,8 +46,7 @@ public class AccountStateServiceImpl implements AccountStateService {
     @Override
     @Transactional(readOnly = true)
     public AccountStateEntity getTraderWallet() {
-        TraderOrganizationEntity traderEntity = traderService.getCurrentTrader();
-        CounterpartyEntity counterpartyEntity = counterpartyService.findCounterpartyEntitiesByTraderId(traderEntity.getId());
+        CounterpartyEntity counterpartyEntity = counterpartyService.getCurrent();
 
         return accountStateDao.findByArtworkStock_IdAndParty_Id(null, counterpartyEntity.getId());
     }

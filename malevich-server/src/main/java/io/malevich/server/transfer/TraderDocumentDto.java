@@ -12,6 +12,6 @@ public class TraderDocumentDto {
 
     private DocumentDto document;
 
-    private TraderDto trader;
+    private TraderPersonDto trader;
 
 }

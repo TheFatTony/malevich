@@ -1,18 +1,6 @@
 import {PersonDto} from "./personDto";
-import {FileDto} from "./fileDto";
-import {UserDto} from "./userDto";
-import {GenderDto} from "./genderDto";
-import {CountryDto} from "./countryDto";
-import {AddressDto} from "./addressDto";
+import {ParticipantDto} from "./participantDto";
 
-export class TraderDto {
-  id: number;
+export class TraderDto extends ParticipantDto{
   person: PersonDto;
-  user: UserDto;
-  mobile: string;
-  dateOfBirth: Date;
-  gender: GenderDto;
-  country: CountryDto;
-  thumbnail: FileDto;
-  addresses: AddressDto[];
 }

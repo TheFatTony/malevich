@@ -81,7 +81,7 @@
             <div class="col-12">
             <span
               class="d-block g-color-text g-font-size-13 mb-1">{{'TRADER_PROFILE.SECURITY.LABEL.EMAIL' | translate}}</span>
-              <span class="d-block">{{trader?.user?.name}}</span>
+              <span class="d-block">{{trader?.users[0].name}}</span>
             </div>
           </div>
 
@@ -94,8 +94,8 @@
               <mchDropDownList name="gender"
                                [objectSource]="genders"
                                [displayFunc]="genderDisplayFunc"
-                               [ngModel]="trader?.gender"
-                               (ngModelChange)="trader.gender=$event">
+                               [ngModel]="trader?.person.gender"
+                               (ngModelChange)="trader.person.gender=$event">
               </mchDropDownList>
             </div>
           </div>
@@ -124,8 +124,8 @@
               <mchMaskedInput name="mobile"
                               mchRequired
                               mchMobile
-                              [ngModel]="trader?.mobile"
-                              (ngModelChange)="trader.mobile=$event"
+                              [ngModel]="trader?.phoneNumber"
+                              (ngModelChange)="trader.phoneNumber=$event"
                               [mask]="'+# (###) ###-####'">
               </mchMaskedInput>
             </div>
@@ -155,8 +155,8 @@
               <span class="d-block g-color-text g-font-size-13 mb-1">{{'TRADER_PROFILE.SECURITY.LABEL.DATE_OF_BIRTH' | translate}}</span>
               <div class="g-brd-primary--focus">
                 <mchDateTimeInput name="dateOfBirth"
-                                  [ngModel]='trader?.dateOfBirth'
-                                  (ngModelChange)="trader.dateOfBirth=$event">
+                                  [ngModel]='trader?.person.dateOfBirth'
+                                  (ngModelChange)="trader.person.dateOfBirth=$event">
                 </mchDateTimeInput>
               </div>
 

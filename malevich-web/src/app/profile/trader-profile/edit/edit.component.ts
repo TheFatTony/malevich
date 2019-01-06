@@ -5,7 +5,7 @@ import {TraderService} from "../../../_services/trader.service";
 import {CountryService} from "../../../_services/country.service";
 import {AuthService} from "../../../_services";
 import {AddressDto} from "../../../_transfer/addressDto";
-import {PersonDto} from "../../../_transfer";
+import {PersonDto, UserDto} from "../../../_transfer";
 import {GenderService} from "../../../_services/gender.service";
 import {Router} from "@angular/router";
 
@@ -40,7 +40,8 @@ export class EditComponent implements OnInit, AfterViewInit {
 
   ngOnInit() {
     this.trader = new TraderDto();
-    this.authService.getCurrentUser().pipe(distinctUntilChanged()).subscribe(data => this.trader.user = data);
+    this.trader.users = [new UserDto()];
+    this.authService.getCurrentUser().pipe(distinctUntilChanged()).subscribe(data => this.trader.users[0] = data);
     this.trader.addresses = [new AddressDto()];
     this.trader.person = new PersonDto();
     this.initFields();
@@ -58,7 +59,8 @@ export class EditComponent implements OnInit, AfterViewInit {
         return this.traderService.getTrader();
       }))
       .pipe(map(data => {
-        this.trader = data;
+        if (data)
+          this.trader = data;
       }))
       .subscribe();
   }

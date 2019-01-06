@@ -13,7 +13,7 @@
     <include relativeToChangelogFile="true" file="constraints/trader_person.constraint.xml"/>
     <include relativeToChangelogFile="true" file="constraints/trader_organization.constraint.xml"/>
     <include relativeToChangelogFile="true" file="constraints/category.constraint.xml"/>
-    <include relativeToChangelogFile="true" file="constraints/trader_address.constraint.xml"/>
+    <include relativeToChangelogFile="true" file="constraints/participant_address.constraint.xml"/>
     <include relativeToChangelogFile="true" file="constraints/gallery_address.constraint.xml"/>
     <include relativeToChangelogFile="true" file="constraints/artwork.constraint.xml"/>
     <include relativeToChangelogFile="true" file="constraints/address.constraint.xml"/>

@@ -20,7 +20,7 @@ public class TraderPersonEntity extends ParticipantEntity {
     @Getter
     @Setter
     @Fetch(FetchMode.JOIN)
-    @OneToOne(cascade = CascadeType.MERGE)
+    @OneToOne(cascade = CascadeType.ALL)
     @NotNull
     private PersonEntity person;
 

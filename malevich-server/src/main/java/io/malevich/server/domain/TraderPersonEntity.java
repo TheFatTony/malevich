@@ -1,5 +1,6 @@
 package io.malevich.server.domain;
 
+
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
@@ -12,8 +13,9 @@ import javax.validation.constraints.NotNull;
 
 @EqualsAndHashCode
 @javax.persistence.Entity
-@Table(name = "counterparty")
-public class CounterpartyEntity implements Entity {
+@Table(name = "trader")
+@Inheritance(strategy = InheritanceType.JOINED)
+public class TraderPersonEntity extends ParticipantEntity {
 
     @Getter
     @Setter
@@ -21,23 +23,13 @@ public class CounterpartyEntity implements Entity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+
     @Getter
     @Setter
     @Fetch(FetchMode.JOIN)
-    @ManyToOne(cascade = CascadeType.MERGE)
+    @OneToOne(cascade = CascadeType.MERGE)
     @NotNull
-    private CounterpartyTypeEntity type;
+    private PersonEntity person;
 
-    @Getter
-    @Setter
-    @Fetch(FetchMode.JOIN)
-    @OneToOne(cascade = CascadeType.MERGE)
-    private TraderOrganizationEntity trader;
-
-    @Getter
-    @Setter
-    @Fetch(FetchMode.JOIN)
-    @OneToOne(cascade = CascadeType.MERGE)
-    private GalleryEntity gallery;
 
 }

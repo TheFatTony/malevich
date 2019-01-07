@@ -35,12 +35,6 @@ public class PersonEntity implements Entity {
 
     @Getter
     @Setter
-    @Column(name = "phone_number")
-    private String phoneNumber;
-
-
-    @Getter
-    @Setter
     @Fetch(FetchMode.JOIN)
     @ManyToOne
     @NotNull

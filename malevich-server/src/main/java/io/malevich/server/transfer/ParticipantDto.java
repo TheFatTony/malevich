@@ -9,24 +9,15 @@ import java.util.List;
 
 @Getter
 @Setter
-public class TraderDto {
+public class ParticipantDto {
 
     private Long id;
 
-    private PersonDto person;
-
-    private UserDto user;
-
-    private String mobile;
-
-    @JsonFormat(pattern = "dd/MM/yyyy")
-    private Timestamp dateOfBirth;
-
-    private GenderDto gender;
+    private String phoneNumber;
 
     private CountryDto country;
 
-    private FileDto thumbnail;
+    private List<UserDto> users;
 
     private List<AddressDto> addresses;
 

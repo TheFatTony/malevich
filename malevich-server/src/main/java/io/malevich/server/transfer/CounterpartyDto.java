@@ -12,7 +12,7 @@ public class CounterpartyDto {
 
     private String typeId;
 
-    private TraderDto trader;
+    private TraderPersonDto trader;
 
     private GalleryDto gallery;
 

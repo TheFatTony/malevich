@@ -35,7 +35,7 @@ public class DocumentServiceImpl implements DocumentService {
     @Override
     @Transactional(readOnly = true)
     public List<DocumentEntity> findTraderDocs() {
-        TraderOrganizationEntity traderEntity = traderService.getCurrentTrader();
+        TraderPersonEntity traderEntity = traderService.getCurrentTrader();
         return this.documentDao.findTraderDocs(traderEntity.getId());
     }
 
@@ -56,7 +56,7 @@ public class DocumentServiceImpl implements DocumentService {
     @Transactional
     public void delete(Long id) {
         GalleryEntity galleryEntity = galleryService.getCurrent();
-        TraderOrganizationEntity traderEntity = traderService.getCurrentTrader();
+        TraderPersonEntity traderEntity = traderService.getCurrentTrader();
         if (galleryEntity != null && id != null) {
             this.galleryDocumentService.deleteById(id, galleryEntity.getId());
         }
@@ -70,7 +70,7 @@ public class DocumentServiceImpl implements DocumentService {
     public void userDocs(DocumentEntity documentEntity) {
 
         GalleryEntity galleryEntity = galleryService.getCurrent();
-        TraderOrganizationEntity traderEntity = traderService.getCurrentTrader();
+        TraderPersonEntity traderEntity = traderService.getCurrentTrader();
         if (galleryEntity != null && documentEntity != null) {
             GalleryDocumentEntity galleryDocumentEntity = new GalleryDocumentEntity();
             galleryDocumentEntity.setDocument(documentEntity);

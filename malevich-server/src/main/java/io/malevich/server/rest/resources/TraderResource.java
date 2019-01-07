@@ -1,9 +1,9 @@
 package io.malevich.server.rest.resources;
 
 
-import io.malevich.server.domain.TraderOrganizationEntity;
+import io.malevich.server.domain.TraderPersonEntity;
 import io.malevich.server.services.trader.TraderService;
-import io.malevich.server.transfer.TraderDto;
+import io.malevich.server.transfer.TraderPersonDto;
 import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,9 +28,9 @@ public class TraderResource {
     @RequestMapping(value = "/current", method = RequestMethod.GET)
     @ResponseStatus(HttpStatus.OK)
     @ResponseBody
-    public TraderDto getTrader() {
-        TraderOrganizationEntity traderEntity = traderService.getCurrentTrader();
-        if (traderEntity == null)
+    public TraderPersonDto getTrader() {
+        TraderPersonEntity traderEntity = traderService.getCurrentTrader();
+        if(traderEntity == null)
             return null;
         return convertToDto(traderEntity);
     }
@@ -39,19 +39,19 @@ public class TraderResource {
     @RequestMapping(value = "/update", method = RequestMethod.PUT)
     @ResponseStatus(HttpStatus.OK)
     @ResponseBody
-    public ResponseEntity<Void> update(@RequestBody TraderDto trader) {
-        TraderOrganizationEntity newTraderEntity = convertToEntity(trader);
+    public ResponseEntity<Void> update(@RequestBody TraderPersonDto trader) {
+        TraderPersonEntity newTraderEntity = convertToEntity(trader);
         this.traderService.update(newTraderEntity);
         return ResponseEntity.ok().build();
     }
 
-    private TraderDto convertToDto(TraderOrganizationEntity entity) {
-        TraderDto dto = modelMapper.map(entity, TraderDto.class);
+    private TraderPersonDto convertToDto(TraderPersonEntity entity) {
+        TraderPersonDto dto = modelMapper.map(entity, TraderPersonDto.class);
         return dto;
     }
 
-    private TraderOrganizationEntity convertToEntity(TraderDto filesDto) {
-        TraderOrganizationEntity files = modelMapper.map(filesDto, TraderOrganizationEntity.class);
+    private TraderPersonEntity convertToEntity(TraderPersonDto filesDto) {
+        TraderPersonEntity files = modelMapper.map(filesDto, TraderPersonEntity.class);
         return files;
     }
 

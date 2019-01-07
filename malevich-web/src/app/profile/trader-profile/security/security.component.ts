@@ -35,11 +35,11 @@ export class SecurityComponent implements OnInit, AfterViewInit {
     $['HSCore'].components.HSSelect.init('.js-custom-select');
 
     $(this.mobileInput.nativeElement).on('change', (e) => {
-      this.trader.mobile = e.target.value;
+      this.trader.phoneNumber = e.target.value;
     });
 
     $(this.dateOfBirthInput.nativeElement).on('change', (e) => {
-      this.trader.dateOfBirth = e.target.value;
+      this.trader.person.dateOfBirth = e.target.value;
     });
   }
 
@@ -48,8 +48,8 @@ export class SecurityComponent implements OnInit, AfterViewInit {
   }
 
   update(): void {
-    this.trader.mobile = $('#mobile').val().toString();
-    this.trader.dateOfBirth = new Date($('#datepickerDefault').val().toString().split('.').reverse().join('-'));
+    this.trader.phoneNumber = $('#mobile').val().toString();
+    this.trader.person.dateOfBirth = new Date($('#datepickerDefault').val().toString().split('.').reverse().join('-'));
     this.traderService.update(this.trader);
     this.switchMode();
   }

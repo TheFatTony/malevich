@@ -2,7 +2,7 @@ package io.malevich.server.services.delayedchange;
 
 import io.malevich.server.domain.DelayedChangeEntity;
 import io.malevich.server.domain.MailQueueEntity;
-import io.malevich.server.domain.TraderOrganizationEntity;
+import io.malevich.server.domain.TraderPersonEntity;
 import io.malevich.server.repositories.delayedchange.DelayedChangeDao;
 import io.malevich.server.services.mailqueue.MailQueueService;
 import io.malevich.server.services.trader.TraderService;
@@ -42,8 +42,8 @@ public class DelayedChangeServiceImpl implements DelayedChangeService {
     @Transactional
     public void approveChange(DelayedChangeEntity delayedChangeEntity) {
         if (delayedChangeEntity.getTypeId().equals("TRADER")) {
-            TraderOrganizationEntity traderEntity = new TraderOrganizationEntity();
-            traderEntity = modelMapper.map(delayedChangeEntity.getPayload(), TraderOrganizationEntity.class);
+            TraderPersonEntity traderEntity = new TraderPersonEntity();
+            traderEntity = modelMapper.map(delayedChangeEntity.getPayload(), TraderPersonEntity.class);
             traderService.save(traderEntity);
             delayedChangeDao.delete(delayedChangeEntity);
         }

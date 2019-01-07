@@ -1,6 +1,6 @@
 package io.malevich.server.services.trader;
 
-import io.malevich.server.domain.TraderOrganizationEntity;
+import io.malevich.server.domain.TraderPersonEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -8,15 +8,13 @@ import java.util.List;
 @Service
 public interface TraderService {
 
-    List<TraderOrganizationEntity> findAll();
+    List<TraderPersonEntity> findAll();
 
-    TraderOrganizationEntity find(Long id);
+    TraderPersonEntity find(Long id);
 
-    TraderOrganizationEntity findByUserName(String name);
+    TraderPersonEntity update(TraderPersonEntity trader);
 
-    TraderOrganizationEntity update(TraderOrganizationEntity trader);
+    TraderPersonEntity save(TraderPersonEntity traderEntity);
 
-    TraderOrganizationEntity save(TraderOrganizationEntity traderEntity);
-
-    TraderOrganizationEntity getCurrentTrader();
+    TraderPersonEntity getCurrentTrader();
 }

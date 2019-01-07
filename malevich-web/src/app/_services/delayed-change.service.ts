@@ -19,9 +19,9 @@ export class DelayedChangeService {
       .get<DelayedChangeDto[]>(this.url + '/list');
   }
 participant
-  public getCounterpartyDelayedChanges(referenceId: number) {
+  public getParticipantDelayedChanges(referenceId: number) {
     return this.http
-      .get<boolean>(this.url + '/findByTypeIdAndAndReferenceId/COUNTERPARTY/' + referenceId);
+      .get<boolean>(this.url + '/findByTypeIdAndAndReferenceId/PARTICIPANT/' + referenceId);
   }
 
   public approveChange(delayedChangeDto: DelayedChangeDto) {

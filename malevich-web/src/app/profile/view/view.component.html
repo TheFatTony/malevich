@@ -33,7 +33,7 @@
 
     <div class="col-lg-9 g-mb-50">
 
-      <ng-container *ngIf="counterparty?.person as person">
+      <ng-container *ngIf="traderPerson?.person as person">
 
         <div class="g-brd-around g-brd-gray-light-v4 rounded g-pa-30 g-mb-30">
           <div class="row">
@@ -70,7 +70,7 @@
             <div class="col-8">
             <span
               class="d-block g-color-text g-font-size-13 mb-1">{{'TRADER_PROFILE.SECURITY.LABEL.EMAIL' | translate}}</span>
-              <span class="d-block">{{counterparty?.user.name}}</span>
+              <span class="d-block">{{participant?.users[0].name}}</span>
             </div>
           </div>
 
@@ -90,7 +90,7 @@
             <div class="col-8">
             <span
               class="d-block g-color-text g-font-size-13 mb-1">{{'TRADER_PROFILE.SECURITY.LABEL.COUNTRY' | translate}}</span>
-              <span class="d-block">{{person.country?.nameMl[translate.currentLang]}}</span>
+              <span class="d-block">{{participant?.country?.nameMl[translate.currentLang]}}</span>
             </div>
           </div>
 
@@ -100,7 +100,7 @@
             <div class="col-8">
             <span
               class="d-block g-color-text g-font-size-13 mb-1">{{'TRADER_PROFILE.SECURITY.LABEL.MOBILE' | translate}}</span>
-              <span class="d-block">{{person?.mobile}}</span>
+              <span class="d-block">{{participant?.phoneNumber}}</span>
             </div>
 
           </div>
@@ -181,7 +181,7 @@
           <hr class="g-brd-gray-light-v4 g-my-20">
 
           <!-- Address -->
-          <div class="row" *ngIf="person?.addresses[0] as address">
+          <div class="row" *ngIf="participant?.addresses[0] as address">
             <div class="col-12">
               <span class="d-block g-color-text g-font-size-13 mb-1">{{'TRADER_PROFILE.SECURITY.LABEL.ADDRESS.STREET' | translate}}</span>
               <span class="d-block">
@@ -203,7 +203,7 @@
         <!-- End Login & Security -->
       </ng-container>
 
-      <ng-container *ngIf="counterparty?.organization as organization">
+      <ng-container *ngIf="gallery?.organization as organization">
 
         <!-- Info -->
         <div class="g-brd-around g-brd-gray-light-v4 rounded g-pa-30 g-mb-30">
@@ -292,7 +292,7 @@
             <div class="col-12">
             <span
               class="d-block g-color-text g-font-size-13 mb-1">{{'GALLERY_PROFILE.SECURITY.LOCATION' | translate}}:</span>
-              <span class="d-block">{{organization.addresses[0].street}} {{organization.addresses[0].state}} {{organization.addresses[0].postalCode}} {{organization.addresses[0].city}} {{organization.addresses[0].country?.nameMl[translate.currentLang]}}</span>
+              <span class="d-block">{{participant.addresses[0].street}} {{participant.addresses[0].state}} {{participant.addresses[0].postalCode}} {{participant.addresses[0].city}} {{organization.addresses[0].country?.nameMl[translate.currentLang]}}</span>
             </div>
           </div>
 
@@ -301,7 +301,7 @@
 
       </ng-container>
 
-      <ng-container *ngIf="counterparty?.gallery as gallery">
+      <ng-container *ngIf="gallery">
         <div class="g-brd-around g-brd-gray-light-v4 rounded g-pa-30 g-mb-30">
 
           <div class="row">

@@ -1,8 +1,11 @@
 import {Component, OnInit} from '@angular/core';
 import {environment} from "../../../environments/environment.dev";
-import {CounterpartyService} from "../../_services/counterparty.service";
+import {ParticipantService} from "../../_services/participant.service";
 import {CounterpartyDto} from "../../_transfer/counterpartyDto";
 import {TranslateService} from "@ngx-translate/core";
+import {ParticipantDto} from "../../_transfer/participantDto";
+import {TraderDto} from "../../_transfer/traderDto";
+import {GalleryDto} from "../../_transfer";
 
 @Component({
   selector: 'app-profile-navigation',
@@ -11,15 +14,19 @@ import {TranslateService} from "@ngx-translate/core";
 })
 export class NavigationComponent implements OnInit {
 
-  counterparty: CounterpartyDto;
+  participant: ParticipantDto;
+  traderPerson: TraderDto;
+  gallery: GalleryDto;
+
   isTrader: boolean = false;
   isGallery: boolean = false;
+
 
   titleName: string = "";
 
   public url = environment.baseUrl;
 
-  constructor(private counterpartyService: CounterpartyService, participant
+  constructor(private participantService: ParticipantService,
               private translate: TranslateService) {
   }
 
@@ -28,22 +35,23 @@ export class NavigationComponent implements OnInit {
   }
 
   getCurrentMember(): void {
-    this.counterpartyService
+    this.participantService
       .getCurrent()
       .subscribe(
         data => {
-          data.user.roles.forEach(r => {
+          data.users[0].roles.forEach(r => {
             this.isTrader = this.isTrader || (r == "TRADER");
             this.isGallery = this.isGallery || (r == "GALLERY");
           });
 
-          this.counterparty = data;
+          this.participant = data;
+          this.traderPerson = data as TraderDto;
+          this.gallery = data as GalleryDto;
 
-          if (data.person) {
-            this.titleName = `${data.person.firstName} ${data.person.lastName}`
-          } else if (data.organization) {
-            this.titleName = data.organization.legalNameMl[this.translate.currentLang]
-              || data.organization.legalNameMl['en'];
+          if (this.traderPerson && this.traderPerson.person) {
+            this.titleName = `${this.traderPerson.person.firstName} ${this.traderPerson.person.lastName}`
+          } else if (this.gallery && this.gallery.organization) {
+            this.titleName = this.gallery.organization.legalNameMl[this.translate.currentLang] || this.gallery.organization.legalNameMl['en'];
           }
         }
       );

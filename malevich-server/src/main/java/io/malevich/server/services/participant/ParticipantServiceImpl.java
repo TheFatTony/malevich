@@ -77,7 +77,7 @@ public class ParticipantServiceImpl implements ParticipantService {
 
         ParticipantEntity abstractParticipant = modelMapper.map(payload, ParticipantEntity.class);
 
-        if(abstractParticipant.getType() == null)
+        if (abstractParticipant.getType() == null)
             return null;
 
         String type = abstractParticipant.getType().getId();
@@ -96,15 +96,8 @@ public class ParticipantServiceImpl implements ParticipantService {
 
     @Override
     @Transactional
-    public ParticipantEntity save(ParticipantEntity participantEntity) {
-        return dao.save(participantEntity);
-    }
-
-    @Override
-    @Transactional
-    public ParticipantEntity update(ParticipantEntity participantEntity) {
-        ParticipantEntity currentParticipant = getCurrent();
-        UserEntity user = userService.findByName(authService.getUser().getName());
+    public ParticipantEntity save(ParticipantEntity participantEntity, UserEntity user) {
+        ParticipantEntity currentParticipant = dao.findByUsers_Name(user.getName()).orElse(null);
 
         boolean isNew = currentParticipant == null;
         if (!isNew) {
@@ -114,29 +107,36 @@ public class ParticipantServiceImpl implements ParticipantService {
             if (participantEntity instanceof TraderPersonEntity && currentParticipant instanceof TraderPersonEntity) {
                 PersonEntity person = ((TraderPersonEntity) participantEntity).getPerson();
                 PersonEntity currentPerson = ((TraderPersonEntity) currentParticipant).getPerson();
-                person.setId(currentPerson.getId());
+                if (person != null && currentPerson != null)
+                    person.setId(currentPerson.getId());
             } else if (participantEntity instanceof TraderOrganizationEntity && currentParticipant instanceof TraderOrganizationEntity) {
                 OrganizationEntity organization = ((TraderOrganizationEntity) participantEntity).getOrganization();
                 OrganizationEntity currentOrganization = ((TraderOrganizationEntity) currentParticipant).getOrganization();
-                organization.setId(currentOrganization.getId());
+                if (organization != null && currentOrganization != null)
+                    organization.setId(currentOrganization.getId());
             } else if (participantEntity instanceof GalleryEntity && currentParticipant instanceof GalleryEntity) {
                 OrganizationEntity organization = ((GalleryEntity) participantEntity).getOrganization();
                 OrganizationEntity currentOrganization = ((GalleryEntity) currentParticipant).getOrganization();
-                organization.setId(currentOrganization.getId());
+                if (organization != null && currentOrganization != null)
+                    organization.setId(currentOrganization.getId());
             }
-
-
-            DelayedChangeEntity delayedChangeEntity = new DelayedChangeEntity();
-            delayedChangeEntity.setTypeId("PARTICIPANT");
-            delayedChangeEntity.setPayload(participantEntity);
-            delayedChangeEntity.setReferenceId(participantEntity.getId());
-            delayedChangeEntity.setUser(user);
-            delayedChangeService.save(delayedChangeEntity);
         } else {
             participantEntity.setUsers(Lists.newArrayList(user));
-            dao.save(participantEntity);
         }
 
+        return dao.save(participantEntity);
+    }
+
+    @Override
+    @Transactional
+    public ParticipantEntity update(ParticipantEntity participantEntity) {
+        UserEntity user = userService.findByName(authService.getUser().getName());
+        DelayedChangeEntity delayedChangeEntity = new DelayedChangeEntity();
+        delayedChangeEntity.setTypeId("PARTICIPANT");
+        delayedChangeEntity.setPayload(participantEntity);
+        delayedChangeEntity.setReferenceId(participantEntity.getId());
+        delayedChangeEntity.setUser(user);
+        delayedChangeService.save(delayedChangeEntity);
         return participantEntity;
     }
 }

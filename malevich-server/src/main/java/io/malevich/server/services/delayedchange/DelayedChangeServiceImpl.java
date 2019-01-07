@@ -1,11 +1,12 @@
 package io.malevich.server.services.delayedchange;
 
-import io.malevich.server.domain.*;
+import io.malevich.server.domain.DelayedChangeEntity;
+import io.malevich.server.domain.MailQueueEntity;
+import io.malevich.server.domain.ParticipantEntity;
 import io.malevich.server.repositories.delayedchange.DelayedChangeDao;
-import io.malevich.server.services.participant.ParticipantService;
 import io.malevich.server.services.mailqueue.MailQueueService;
+import io.malevich.server.services.participant.ParticipantService;
 import lombok.extern.slf4j.Slf4j;
-import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -22,9 +23,6 @@ public class DelayedChangeServiceImpl implements DelayedChangeService {
     private DelayedChangeDao delayedChangeDao;
 
     @Autowired
-    private ModelMapper modelMapper;
-
-    @Autowired
     private MailQueueService mailQueueService;
 
     @Autowired
@@ -39,10 +37,12 @@ public class DelayedChangeServiceImpl implements DelayedChangeService {
     @Override
     @Transactional
     public void approveChange(DelayedChangeEntity delayedChangeEntity) {
+        delayedChangeEntity = delayedChangeDao.findById(delayedChangeEntity.getId()).orElse(null);
+
         if (delayedChangeEntity.getTypeId().equals("PARTICIPANT")) {
             ParticipantEntity participantEntity =
                     participantService.convertToEntity(delayedChangeEntity.getPayload());
-            participantService.save(participantEntity);
+            participantService.save(participantEntity, delayedChangeEntity.getUser());
             delayedChangeDao.delete(delayedChangeEntity);
         }
     }

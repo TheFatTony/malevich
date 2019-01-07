@@ -19,6 +19,7 @@ import java.util.List;
 @javax.persistence.Entity
 @Table(name = "trader_organization")
 @PrimaryKeyJoinColumn(name = "participant_id")
+@DiscriminatorValue("TO")
 public class TraderOrganizationEntity extends ParticipantEntity {
 
     @Getter

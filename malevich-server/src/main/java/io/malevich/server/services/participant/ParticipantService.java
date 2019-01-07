@@ -1,6 +1,7 @@
 package io.malevich.server.services.participant;
 
 import io.malevich.server.domain.ParticipantEntity;
+import io.malevich.server.domain.UserEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -19,7 +20,7 @@ public interface ParticipantService {
 
     ParticipantEntity convertToEntity(Object payload);
 
-    ParticipantEntity save(ParticipantEntity participantEntity);
+    ParticipantEntity save(ParticipantEntity participantEntity, UserEntity user);
 
     ParticipantEntity update(ParticipantEntity participantEntity);
 }

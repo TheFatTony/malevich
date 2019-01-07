@@ -14,7 +14,6 @@
     <include relativeToChangelogFile="true" file="indexes/trader_organization.index.xml"/>
     <include relativeToChangelogFile="true" file="indexes/category.index.xml"/>
     <include relativeToChangelogFile="true" file="indexes/participant_address.index.xml"/>
-    <include relativeToChangelogFile="true" file="indexes/gallery_address.index.xml"/> remove
     <include relativeToChangelogFile="true" file="indexes/artwork.index.xml"/>
     <include relativeToChangelogFile="true" file="indexes/address.index.xml"/>
     <include relativeToChangelogFile="true" file="indexes/artwork_stock.index.xml"/>

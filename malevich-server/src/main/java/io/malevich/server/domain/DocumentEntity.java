@@ -36,7 +36,7 @@ public class DocumentEntity implements Entity {
     @Setter
     @Fetch(FetchMode.JOIN)
     @ManyToOne(fetch = FetchType.LAZY)
-    private CounterpartyEntity counterparty;
+    private ParticipantEntity participant;
 
     @Getter
     @Setter

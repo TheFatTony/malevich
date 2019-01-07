@@ -15,11 +15,10 @@
                                  referencedColumnNames="id" referencedTableName="files"/>
     </changeSet>
 
-participant
-    <changeSet author="toolstik" id="document-counterparty_id-fk">
-        <addForeignKeyConstraint baseColumnNames="counterparty_id" baseTableName="document"
-                                 constraintName="document_counterparty_id_fk"
-                                 referencedColumnNames="id" referencedTableName="counterparty"/>
+    <changeSet author="toolstik" id="document-participant_id-fk">
+        <addForeignKeyConstraint baseColumnNames="participant_id" baseTableName="document"
+                                 constraintName="document_participant_id_fk"
+                                 referencedColumnNames="id" referencedTableName="participant"/>
     </changeSet>
 
 </databaseChangeLog>

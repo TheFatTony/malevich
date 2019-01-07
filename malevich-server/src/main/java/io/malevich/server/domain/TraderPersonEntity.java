@@ -15,6 +15,7 @@ import javax.validation.constraints.NotNull;
 @javax.persistence.Entity
 @Table(name = "trader_person")
 @PrimaryKeyJoinColumn(name = "participant_id")
+@DiscriminatorValue("TP")
 public class TraderPersonEntity extends ParticipantEntity {
 
     @Getter

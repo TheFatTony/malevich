@@ -141,7 +141,7 @@ public class RegisterServiceImpl implements RegisterService {
         participant.setUsers(Lists.newArrayList(user));
         participant.setType(participantType);
 
-        participantService.save(participant);
+        participantService.save(participant, user);
 
         deleteToken(registerTokenEntity);
         return user;

@@ -17,6 +17,8 @@ import java.util.List;
 @javax.persistence.Entity
 @Table(name = "participant")
 @Inheritance(strategy = InheritanceType.JOINED)
+@DiscriminatorColumn(name = "type_id", discriminatorType = DiscriminatorType.STRING)
+@DiscriminatorValue("not null")
 public class ParticipantEntity implements Entity {
 
     @Getter
@@ -60,7 +62,7 @@ public class ParticipantEntity implements Entity {
     @Getter
     @Setter
     @LazyCollection(LazyCollectionOption.FALSE)
-    @OneToMany(cascade = {CascadeType.PERSIST})
+    @OneToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     @JoinTable(name = "participant_user",
             joinColumns = @JoinColumn(name = "participant_id"),
             inverseJoinColumns = @JoinColumn(name = "user_id"))

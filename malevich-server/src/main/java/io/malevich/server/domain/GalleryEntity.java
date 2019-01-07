@@ -4,6 +4,7 @@ import com.yinyang.core.server.core.jpa.JpaConverterJson;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
+import org.hibernate.annotations.DiscriminatorOptions;
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
 
@@ -16,6 +17,7 @@ import java.util.Map;
 @javax.persistence.Entity
 @Table(name = "gallery")
 @PrimaryKeyJoinColumn(name = "participant_id")
+@DiscriminatorValue("G")
 public class GalleryEntity extends ParticipantEntity {
 
     @Getter

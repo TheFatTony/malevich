@@ -11,7 +11,7 @@ import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 
 
-@EqualsAndHashCode
+@EqualsAndHashCode(callSuper = true)
 @javax.persistence.Entity
 @Table(name = "trader_person")
 @PrimaryKeyJoinColumn(name = "participant_id")
@@ -21,8 +21,6 @@ public class TraderPersonEntity extends ParticipantEntity {
     @Setter
     @Fetch(FetchMode.JOIN)
     @OneToOne(cascade = CascadeType.ALL)
-    @NotNull
     private PersonEntity person;
-
 
 }

@@ -39,6 +39,9 @@ export class NavigationComponent implements OnInit {
       .getCurrent()
       .subscribe(
         data => {
+          if(!data)
+            return;
+
           data.users[0].roles.forEach(r => {
             this.isTrader = this.isTrader || (r == "TRADER");
             this.isGallery = this.isGallery || (r == "GALLERY");

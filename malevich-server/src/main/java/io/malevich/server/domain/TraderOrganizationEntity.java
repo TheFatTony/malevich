@@ -15,7 +15,7 @@ import java.sql.Timestamp;
 import java.util.List;
 
 
-@EqualsAndHashCode
+@EqualsAndHashCode(callSuper = true)
 @javax.persistence.Entity
 @Table(name = "trader_organization")
 @PrimaryKeyJoinColumn(name = "participant_id")
@@ -25,7 +25,6 @@ public class TraderOrganizationEntity extends ParticipantEntity {
     @Setter
     @Fetch(FetchMode.JOIN)
     @OneToOne(cascade = CascadeType.MERGE)
-    @NotNull
     private OrganizationEntity organization;
 
 }

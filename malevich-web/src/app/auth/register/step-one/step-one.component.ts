@@ -1,6 +1,5 @@
-import {AfterViewInit, Component, OnInit, ViewChild} from '@angular/core';
+import {AfterViewInit, Component, OnInit} from '@angular/core';
 import {TranslateService} from "@ngx-translate/core";
-import {AuthService} from "../../../_services";
 import {Router} from "@angular/router";
 import {SubscriptionService} from "../../../_services/subscription.service";
 import {SubscriptionDto} from "../../../_transfer/subscriptionDto";

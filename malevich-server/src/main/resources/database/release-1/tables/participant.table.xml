@@ -9,7 +9,7 @@
                 <constraints nullable="false"/>
             </column>
             <column name="country_id" type="char(2)">
-                <constraints nullable="false"/>
+                <constraints nullable="true"/>
             </column>
             <column name="phone_number" type="varchar(100)">
                 <constraints nullable="true"/>

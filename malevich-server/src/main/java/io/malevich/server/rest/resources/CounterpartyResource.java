@@ -26,7 +26,6 @@ public class CounterpartyResource {
     @Autowired
     private ModelMapper modelMapper;
 
-
     @RequestMapping(value = "/list", method = RequestMethod.GET)
     @ResponseStatus(HttpStatus.OK)
     @ResponseBody

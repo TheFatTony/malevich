@@ -31,7 +31,6 @@ public class ParticipantEntity implements Entity {
     @Setter
     @Fetch(FetchMode.JOIN)
     @ManyToOne
-    @NotNull
     private CountryEntity country;
 
     @Getter

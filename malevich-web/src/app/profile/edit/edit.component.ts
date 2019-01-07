@@ -57,8 +57,8 @@ export class EditComponent implements OnInit, AfterViewInit {
       }))
       .pipe(map(data => {
         this.participant = this.participantService.initInstance(data);
-        this.traderPerson = this.participant as TraderDto;
-        this.gallery = this.participant as GalleryDto;
+        this.traderPerson = this.participantService.getTraderPerson(this.participant);
+        this.gallery = this.participantService.getGallery(this.participant);
       }))
       .subscribe();
   }

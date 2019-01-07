@@ -70,8 +70,8 @@ export class ViewComponent implements OnInit {
         data => {
           if (data) {
             this.participant = this.participantService.initInstance(data);
-            this.traderPerson = this.participant as TraderDto;
-            this.gallery = this.participant as GalleryDto;
+            this.traderPerson = this.participantService.getTraderPerson(this.participant);
+            this.gallery = this.participantService.getGallery(this.participant);
 
             this.getCounterpartyDelayedChanges(this.participant.id);
           }

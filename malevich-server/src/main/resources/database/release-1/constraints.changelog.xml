@@ -7,6 +7,8 @@
     <include relativeToChangelogFile="true" file="constraints/country.constraint.xml"/>
     <include relativeToChangelogFile="true" file="constraints/organization.constraint.xml"/>
     <include relativeToChangelogFile="true" file="constraints/gallery.constraint.xml"/>
+    <include relativeToChangelogFile="true" file="constraints/participant.constraint.xml"/>
+    <include relativeToChangelogFile="true" file="constraints/participant_type.constraint.xml"/>
     <include relativeToChangelogFile="true" file="constraints/participant_user.constraint.xml"/>
     <include relativeToChangelogFile="true" file="constraints/person.constraint.xml"/>
     <include relativeToChangelogFile="true" file="constraints/artist.constraint.xml"/>

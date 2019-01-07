@@ -1,7 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {environment} from "../../../environments/environment.dev";
 import {ParticipantService} from "../../_services/participant.service";
-import {CounterpartyDto} from "../../_transfer/counterpartyDto";
 import {TranslateService} from "@ngx-translate/core";
 import {ParticipantDto} from "../../_transfer/participantDto";
 import {TraderDto} from "../../_transfer/traderDto";
@@ -39,7 +38,7 @@ export class NavigationComponent implements OnInit {
       .getCurrent()
       .subscribe(
         data => {
-          if(!data)
+          if (!data)
             return;
 
           data.users[0].roles.forEach(r => {
@@ -48,8 +47,8 @@ export class NavigationComponent implements OnInit {
           });
 
           this.participant = data;
-          this.traderPerson = data as TraderDto;
-          this.gallery = data as GalleryDto;
+          this.traderPerson = this.participantService.getTraderPerson(this.participant);
+          this.gallery = this.participantService.getGallery(this.participant);
 
           if (this.traderPerson && this.traderPerson.person) {
             this.titleName = `${this.traderPerson.person.firstName} ${this.traderPerson.person.lastName}`

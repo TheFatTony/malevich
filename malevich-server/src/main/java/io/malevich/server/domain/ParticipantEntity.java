@@ -25,8 +25,12 @@ public class ParticipantEntity implements Entity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Getter
+    @Setter
+    @Fetch(FetchMode.JOIN)
+    @ManyToOne
+    private ParticipantTypeEntity type;
 
-    // TODO participant type
     @Getter
     @Setter
     @Fetch(FetchMode.JOIN)

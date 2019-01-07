@@ -8,6 +8,9 @@
             <column name="id" type="bigint">
                 <constraints nullable="false"/>
             </column>
+            <column name="type_id" type="char(3)">
+                <constraints nullable="false"/>
+            </column>
             <column name="country_id" type="char(2)">
                 <constraints nullable="true"/>
             </column>

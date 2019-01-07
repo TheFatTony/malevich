@@ -7,6 +7,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
@@ -40,6 +41,16 @@ public class ParticipantResource {
     public List<ParticipantDto> list() {
         List<ParticipantEntity> allEntries = this.participantService.findAll();
         return allEntries.stream().map(allEntry -> convertToDto(allEntry)).collect(Collectors.toList());
+    }
+
+    @PreAuthorize("hasRole('USER')")
+    @RequestMapping(value = "/update", method = RequestMethod.PUT)
+    @ResponseStatus(HttpStatus.OK)
+    @ResponseBody
+    public ResponseEntity<Void> update(@RequestBody Object dto) {
+        ParticipantEntity entity = convertToEntity(dto);
+        participantService.update(entity);
+        return ResponseEntity.ok().build();
     }
 
     private ParticipantDto convertToDto(ParticipantEntity entity) {

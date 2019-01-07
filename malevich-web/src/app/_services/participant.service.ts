@@ -18,17 +18,35 @@ export class ParticipantService {
 
   getCurrent() {
     return this.http
-      .get<any>(this.url + '/current')
-      .pipe(map<any, ParticipantDto>(data => {
-        if (!data) return null;
+      .get<ParticipantDto>(this.url + '/current')
+      // .pipe(map<any, ParticipantDto>(data => {
+      //   if (!data) return null;
+      //
+      //   let participant = data as ParticipantDto;
+      //
+      //   // todo replace with type matching
+      //   if (data.person) return data as TraderDto;
+      //
+      //   if(data.organization) return data as GalleryDto;
+      //
+      //   return null;
+      // }))
+      // ;
+  }
 
-        // todo replace with type matching
-        if (data.person) return data as TraderDto;
+  private getTyped<T extends ParticipantDto>(participant: ParticipantDto, typeId:string){
+    if(participant != null && participant.type && participant.type.id == typeId)
+      return participant as T;
 
-        if(data.organization) return data as GalleryDto;
+    return null;
+  }
 
-        return null;
-      }));
+  getTraderPerson(participant: ParticipantDto){
+    return this.getTyped<TraderDto>(participant, 'TP');
+  }
+
+  getGallery(participant: ParticipantDto){
+    return this.getTyped<GalleryDto>(participant, 'G');
   }
 
   update(dto: ParticipantDto) {

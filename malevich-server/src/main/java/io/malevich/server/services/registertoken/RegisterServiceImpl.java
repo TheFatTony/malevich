@@ -4,14 +4,10 @@ import com.google.common.collect.Lists;
 import io.malevich.server.domain.*;
 import io.malevich.server.domain.enums.Role;
 import io.malevich.server.repositories.registertoken.RegisterTokenDao;
-import io.malevich.server.repositories.user.UserDao;
-import io.malevich.server.services.accesstoken.AccessTokenService;
-import io.malevich.server.services.auth.AuthService;
-import io.malevich.server.services.counterparty.CounterpartyService;
 import io.malevich.server.services.counterpartytype.CounterpartyTypeService;
 import io.malevich.server.services.mailqueue.MailQueueService;
 import io.malevich.server.services.participant.ParticipantService;
-import io.malevich.server.services.resetpasswordtoken.ResetPasswordTokenService;
+import io.malevich.server.services.participanttype.ParticipantTypeService;
 import io.malevich.server.services.user.UserService;
 import io.malevich.server.services.usertype.UserTypeService;
 import io.malevich.server.transfer.RegisterFormStepTwoDto;
@@ -60,8 +56,12 @@ public class RegisterServiceImpl implements RegisterService {
     @Autowired
     private BCryptPasswordEncoder bCryptPasswordEncoder;
 
+    @Autowired
+    private ParticipantTypeService participantTypeService;
+
     @Value("${malevich.client.url}")
     private String clientUrl;
+
 
     @Override
     @Transactional
@@ -124,18 +124,22 @@ public class RegisterServiceImpl implements RegisterService {
 
         user = userService.save(user);
 
-        CounterpartyTypeEntity counterpartyType = registerInfo.getIsGallery()
-                ? counterpartyTypeService.getGalleryType()
-                : counterpartyTypeService.getTraderType();
-
-
-        ParticipantEntity participant = registerInfo.getIsGallery()
-                ? new GalleryEntity()
+        ParticipantTypeEntity participantType = registerInfo.getIsGallery()
+                ? participantTypeService.getGalleryType()
                 : registerInfo.getIsOrganization()
-                ? new TraderOrganizationEntity()
-                : new TraderPersonEntity();
+                ? participantTypeService.getTraderOrganizationType()
+                : participantTypeService.getTraderPersonType();
+
+
+        ParticipantEntity participant = new ParticipantEntity();
+//                registerInfo.getIsGallery()
+//                ? new GalleryEntity()
+//                : registerInfo.getIsOrganization()
+//                ? new TraderOrganizationEntity()
+//                : new TraderPersonEntity();
 
         participant.setUsers(Lists.newArrayList(user));
+        participant.setType(participantType);
 
         participantService.save(participant);
 

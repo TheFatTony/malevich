@@ -12,20 +12,21 @@ import java.util.Map;
 
 @EqualsAndHashCode
 @javax.persistence.Entity
-@Table(name = "organization")
-public class OrganizationEntity implements Entity {
+@Table(name = "participant_type")
+public class ParticipantTypeEntity implements Entity {
+
 
     @Getter
     @Setter
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private String id;
 
     @Getter
     @Setter
     @Convert(converter = JpaConverterJson.class)
-    @Column(name = "legal_name_ml")
+    @Column(name = "name_ml")
     @NotNull
-    private Map<String, String> legalNameMl;
+    private Map<String, String> nameMl;
 
 }

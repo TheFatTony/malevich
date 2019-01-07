@@ -1,0 +1,47 @@
+package io.malevich.server.services.participanttype;
+
+import io.malevich.server.domain.ParticipantTypeEntity;
+import io.malevich.server.repositories.participanttype.ParticipantTypeDao;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
+
+public class ParticipantTypeServiceImpl implements ParticipantTypeService {
+
+    private final Map<String, ParticipantTypeEntity> values;
+
+    @Autowired
+    private ParticipantTypeDao participantTypeDao;
+
+    @Autowired
+    public ParticipantTypeServiceImpl(ParticipantTypeDao participantTypeDao) {
+        this.participantTypeDao = participantTypeDao;
+
+        values = participantTypeDao.findAll().stream().collect(Collectors.toMap(i -> i.getId(), i -> i));
+    }
+
+
+    @Override
+    @Transactional(readOnly = true)
+    public List<ParticipantTypeEntity> findAll() {
+        return this.participantTypeDao.findAll();
+    }
+
+    @Override
+    public ParticipantTypeEntity getTraderPersonType(){
+        return values.get("TP");
+    }
+
+    @Override
+    public ParticipantTypeEntity getTraderOrganizationType(){
+        return values.get("TO");
+    }
+
+    @Override
+    public ParticipantTypeEntity getGalleryType(){
+        return values.get("G");
+    }
+}

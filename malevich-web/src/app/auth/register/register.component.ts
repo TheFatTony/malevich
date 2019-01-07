@@ -20,7 +20,6 @@ export class RegisterComponent implements OnInit, AfterViewInit {
   constructor(private involvementService: InvolvementService,
               private alertService: AlertService,
               public translate: TranslateService,
-              private authService: AuthService,
               private route: ActivatedRoute) {
   }
 

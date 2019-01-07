@@ -9,7 +9,7 @@
                                  referencedColumnNames="id" referencedTableName="participant"/>
     </changeSet>
 
-    <changeSet author="harshilmelegant" id="wish_list-wishlist-fk">
+    <changeSet author="harshilmelegant" id="wish_list-artwork_stock_id-fk">
         <addForeignKeyConstraint baseColumnNames="artwork_stock_id" baseTableName="wish_list"
                                  constraintName="wish_list_artwork_stock_fk"
                                  referencedColumnNames="id" referencedTableName="artwork_stock"/>

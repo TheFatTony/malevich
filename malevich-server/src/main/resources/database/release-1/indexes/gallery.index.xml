@@ -7,7 +7,7 @@
         <!--<createIndex indexName="gallery_organization_id_idx" tableName="gallery" unique="true">-->
             <!--<column name="organization_id"/>-->
         <!--</createIndex>-->
-    <!--</changeSet>-->
+    <!--</changeSet>--> uncomment
 
 
     <changeSet author="thefattony" id="gallery-thumbnail_id-index">

@@ -10,7 +10,7 @@ import java.util.List;
 @Service
 public interface PaymentsService {
 
-    List<PaymentsEntity> findAll();
+    List<PaymentsEntity> findOwnPayments();
 
     void insertPayment(PaymentsEntity paymentsEntity);
 

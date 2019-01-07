@@ -37,12 +37,12 @@ public class AccountStateResource {
     }
 
 
-    @PreAuthorize("hasRole('TRADER')")
-    @RequestMapping(value = "/getTraderWallet", method = RequestMethod.GET)
+    @PreAuthorize("hasRole('USER')")
+    @RequestMapping(value = "/getWallet", method = RequestMethod.GET)
     @ResponseStatus(HttpStatus.OK)
     @ResponseBody
-    public AccountStateDto getTraderWallet() {
-        AccountStateEntity allEntry = this.accountStateService.getTraderWallet();
+    public AccountStateDto getWallet() {
+        AccountStateEntity allEntry = this.accountStateService.getWallet();
         if (allEntry == null)
             return null;
         return convertToDto(allEntry);

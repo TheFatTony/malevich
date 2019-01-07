@@ -1,8 +1,7 @@
-import {Component, Inject, Input, LOCALE_ID, OnInit} from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import {TranslateService} from "@ngx-translate/core";
-import {UserDto} from "../../../_transfer";
 import {Router} from "@angular/router";
-import {AuthService} from "../../../_services";
+import {UserService} from "../../../_services/user.service";
 
 @Component({
   selector: 'app-auth-register-step-two',
@@ -13,13 +12,13 @@ export class StepTwoComponent implements OnInit {
 
   password: string;
   passwordConfirm: string;
+  isLegalPerson: boolean = false;
+  isGallery: boolean = false;
 
   @Input() activationCode: string;
 
-  @Inject(LOCALE_ID) public locale: string;
-
   constructor(private router: Router,
-              private authService: AuthService,
+              private userService: UserService,
               public translate: TranslateService) {
   }
 
@@ -30,8 +29,12 @@ export class StepTwoComponent implements OnInit {
   }
 
   submit(): void {
-    this.authService
-      .register2(this.activationCode, this.password)
+    this.userService
+      .register2(this.activationCode, {
+        password: this.password,
+        isOrganization: this.isLegalPerson,
+        isGallery: this.isGallery
+      })
       .subscribe();
 
     this.router.navigate(['/auth/login']);

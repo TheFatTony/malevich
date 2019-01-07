@@ -16,12 +16,6 @@ export class AddressService {
               private alertService: AlertService) {
   }
 
-  getByTrader(traderId: number) {
-    return this.http
-      .get<AddressDto[]>(this.url + '/trader/' + traderId)
-      .pipe(map(data => data));
-  }
-
   create(address: AddressDto) {
     const headers = new Headers();
     headers.append('Content-Type', 'application/json');

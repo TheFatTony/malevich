@@ -4,7 +4,7 @@ import {map} from 'rxjs/operators';
 import {environment} from '../../environments/environment.dev';
 import {Globals} from '../globals';
 import {UserDto} from '../_transfer';
-import {Observable, of} from "rxjs";
+import {Observable} from "rxjs";
 
 @Injectable({providedIn: 'root'})
 export class AuthService {
@@ -53,27 +53,6 @@ export class AuthService {
     localStorage.removeItem('currentUser');
     localStorage.removeItem('user');
     this.globals.isAuthorised = false;
-  }
-
-  register(lang: string, email: string) {
-    return this.http.post<any>(this.url + '/register', {lang: lang, email: email});
-  }
-
-  /// set password
-  register2(token: string, password: string) {
-    return this.http.post<any>(this.url + `/register/${token}`, {password: password});
-  }
-
-  reset(lang: string, email: string) {
-    return this.http.post<any>(this.url + '/reset', {lang: lang, email: email});
-  }
-
-  setNewPassword(token: string, password: string) {
-    return this.http.post<any>(this.url + `/reset/${token}`, {password: password});
-  }
-
-  changePassword(password: string, newPassword: string) {
-    return this.http.post<any>(this.url + '/changePassword', {password: password, newPassword: newPassword});
   }
 
 }

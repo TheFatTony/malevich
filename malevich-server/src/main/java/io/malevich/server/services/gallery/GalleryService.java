@@ -14,6 +14,4 @@ public interface GalleryService {
     GalleryEntity find(Long id);
 
     GalleryEntity getCurrent();
-
-    GalleryEntity update(GalleryEntity newEntity);
 }

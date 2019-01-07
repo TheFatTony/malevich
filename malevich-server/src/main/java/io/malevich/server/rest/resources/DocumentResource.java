@@ -14,7 +14,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
-import java.sql.Timestamp;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -37,34 +36,24 @@ public class DocumentResource {
     @GetMapping("/typeList/{userType}")
     @ResponseStatus(HttpStatus.OK)
     public List<DocumentTypeDto> typeList(@PathVariable("userType") String userType) {
-        return this.documentTypeService.findAll(userType).stream().map(allData -> convertToDto(allData))
+        return this.documentTypeService.findByUserType(userType).stream().map(allData -> convertToDto(allData))
                 .collect(Collectors.toList());
     }
 
-    @PreAuthorize("hasRole('GALLERY')")
-    @GetMapping("/list/gallery")
+    @PreAuthorize("hasAnyRole('TRADER','GALLERY')")
+    @GetMapping("/list")
     @ResponseStatus(HttpStatus.OK)
-    public List<DocumentDto> listGallery() {
-        return this.documentService.findGalleryDocs().stream().map(allData -> convertToDto(allData))
-                .collect(Collectors.toList());
-    }
-
-    @PreAuthorize("hasRole('TRADER')")
-    @GetMapping("/list/trader")
-    @ResponseStatus(HttpStatus.OK)
-    public List<DocumentDto> listTrader() {
-        return this.documentService.findTraderDocs().stream().map(allData -> convertToDto(allData))
+    public List<DocumentDto> list() {
+        return this.documentService.findDocs()
+                .stream()
+                .map(this::convertToDto)
                 .collect(Collectors.toList());
     }
 
     @PostMapping("/save")
     @ResponseStatus(HttpStatus.OK)
     public ResponseEntity<Void> save(@RequestBody DocumentDto documentDto) {
-        documentDto.setEffectiveDate(new Timestamp(System.currentTimeMillis()));
-        DocumentEntity documentEntity = this.documentService.save(convertToEntity(documentDto));
-        if (documentEntity != null)
-            this.documentService.userDocs(documentEntity);
-
+        this.documentService.save(convertToEntity(documentDto));
         return ResponseEntity.ok().build();
     }
 

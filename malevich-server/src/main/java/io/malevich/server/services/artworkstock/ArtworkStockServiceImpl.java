@@ -7,6 +7,7 @@ import io.malevich.server.repositories.transactiongroup.TransactionGroupDao;
 import io.malevich.server.services.artwork.ArtworkService;
 import io.malevich.server.services.counterparty.CounterpartyService;
 import io.malevich.server.services.gallery.GalleryService;
+import io.malevich.server.services.participant.ParticipantServiceImpl;
 import io.malevich.server.services.transaction.TransactionService;
 import io.malevich.server.services.transactiontype.TransactionTypeService;
 import lombok.extern.slf4j.Slf4j;
@@ -42,6 +43,9 @@ public class ArtworkStockServiceImpl implements ArtworkStockService {
     @Autowired
     private TransactionTypeService transactionTypeService;
 
+    @Autowired
+    private GalleryService galleryService;
+
     @Override
     @Transactional(readOnly = true)
     public List<ArtworkStockEntity> findAll() {
@@ -51,7 +55,11 @@ public class ArtworkStockServiceImpl implements ArtworkStockService {
     @Override
     @Transactional
     public void add(ArtworkStockEntity artworkStockEntity) {
-        GalleryEntity gallery = galleryService.getCurrent(); check null
+        GalleryEntity gallery = galleryService.getCurrent();
+
+        if(gallery == null)
+            return;
+
         artworkStockEntity.setGallery(gallery);
         artworkStockEntity.setArtwork(artworkService.save(artworkStockEntity.getArtwork()));
         artworkStockEntity = this.artworkStockDao.save(artworkStockEntity);
@@ -71,8 +79,12 @@ public class ArtworkStockServiceImpl implements ArtworkStockService {
     @Override
     @Transactional
     public void delete(long id) {
-        GalleryEntity gallery = galleryService.getCurrent(); check null
-        ArtworkStockEntity existing = artworkStockDao.getOne(id);
+        GalleryEntity gallery = galleryService.getCurrent();
+
+        if(gallery == null)
+            return;
+
+        ArtworkStockEntity existing = artworkStockDao.findById(id).orElse(null);
 
         if (existing == null || existing.getGallery().getId() != gallery.getId())
             return;
@@ -83,7 +95,7 @@ public class ArtworkStockServiceImpl implements ArtworkStockService {
     @Override
     @Transactional(readOnly = true)
     public ArtworkStockEntity find(long id) {
-        return artworkStockDao.findById(id).get();
+        return artworkStockDao.findById(id).orElse(null);
     }
 
     @Override

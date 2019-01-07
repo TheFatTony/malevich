@@ -45,7 +45,7 @@ public class PaymentFop {
             doc.appendChild(rootElement);
 
             Element fullName = doc.createElement("fullName");
-            fullName.appendChild(doc.createTextNode(entity.getParty().getPerson().getFirstName() + entity.getParty().getPerson().getLastName()));
+            fullName.appendChild(doc.createTextNode(entity.getParty().getTrader().getPerson().getFirstName() + entity.getParty().getTrader().getPerson().getLastName()));
             rootElement.appendChild(fullName);
 
             Element paymentNumber = doc.createElement("paymentNumber");

@@ -3,26 +3,26 @@
                    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
                    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.6.xsd">
 
-    <changeSet author="harshilmelegant" id="wish_list-table">
-        <createTable tableName="wish_list">
+    <changeSet author="thefattony" id="trader-person-table">
+        <createTable tableName="trader_person">
             <column name="id" type="bigint">
                 <constraints nullable="false"/>
             </column>
             <column name="participant_id" type="bigint">
                 <constraints nullable="false"/>
             </column>
-            <column name="artwork_stock_id" type="bigint">
+            <column name="person_id" type="bigint">
                 <constraints nullable="false"/>
             </column>
         </createTable>
     </changeSet>
 
-    <changeSet author="harshilmelegant" id="wish_list-pk">
-        <addPrimaryKey columnNames="id" constraintName="wish_list_pk" tableName="wish_list"/>
+    <changeSet author="thefattony" id="trader-person-pk">
+        <addPrimaryKey columnNames="id" constraintName="trader_pk" tableName="trader_person"/>
     </changeSet>
 
-    <changeSet author="harshilmelegant" id="wish_list-id-aa" dbms="mysql">
-        <addAutoIncrement columnDataType="bigint" columnName="id" tableName="wish_list"/>
+    <changeSet author="thefattony" id="trader-person-id-aa" dbms="mysql">
+        <addAutoIncrement columnDataType="bigint" columnName="id" tableName="trader_person"/>
     </changeSet>
 
 </databaseChangeLog>

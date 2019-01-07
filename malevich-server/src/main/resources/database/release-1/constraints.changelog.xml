@@ -7,12 +7,13 @@
     <include relativeToChangelogFile="true" file="constraints/country.constraint.xml"/>
     <include relativeToChangelogFile="true" file="constraints/organization.constraint.xml"/>
     <include relativeToChangelogFile="true" file="constraints/gallery.constraint.xml"/>
-    <include relativeToChangelogFile="true" file="constraints/gallery_user.constraint.xml"/>
+    <include relativeToChangelogFile="true" file="constraints/participant_user.constraint.xml"/>
     <include relativeToChangelogFile="true" file="constraints/person.constraint.xml"/>
     <include relativeToChangelogFile="true" file="constraints/artist.constraint.xml"/>
-    <include relativeToChangelogFile="true" file="constraints/trader.constraint.xml"/>
+    <include relativeToChangelogFile="true" file="constraints/trader_person.constraint.xml"/>
+    <include relativeToChangelogFile="true" file="constraints/trader_organization.constraint.xml"/>
     <include relativeToChangelogFile="true" file="constraints/category.constraint.xml"/>
-    <include relativeToChangelogFile="true" file="constraints/trader_address.constraint.xml"/>
+    <include relativeToChangelogFile="true" file="constraints/participant_address.constraint.xml"/>
     <include relativeToChangelogFile="true" file="constraints/gallery_address.constraint.xml"/>
     <include relativeToChangelogFile="true" file="constraints/artwork.constraint.xml"/>
     <include relativeToChangelogFile="true" file="constraints/address.constraint.xml"/>

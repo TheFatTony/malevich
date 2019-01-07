@@ -3,16 +3,16 @@
                    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
                    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.6.xsd">
 
-    <changeSet author="harshilmelegant" id="gallery_document-gallery-fk">
-        <addForeignKeyConstraint baseColumnNames="gallery_id" baseTableName="gallery_document"
-                                 constraintName="gallery_document_gallery_fk"
-                                 referencedColumnNames="id" referencedTableName="gallery"/>
-    </changeSet>
+    <!--<changeSet author="harshilmelegant" id="gallery_document-gallery-fk">-->
+        <!--<addForeignKeyConstraint baseColumnNames="gallery_id" baseTableName="gallery_document"-->
+                                 <!--constraintName="gallery_document_gallery_fk"-->
+                                 <!--referencedColumnNames="id" referencedTableName="gallery"/>-->
+    <!--</changeSet>-->
 
-    <changeSet author="harshilmelegant" id="gallery_document-document-fk">
-        <addForeignKeyConstraint baseColumnNames="document_id" baseTableName="gallery_document"
-                                 constraintName="gallery_document_document_fk"
-                                 referencedColumnNames="id" referencedTableName="document"/>
-    </changeSet>
+    <!--<changeSet author="harshilmelegant" id="gallery_document-document-fk">-->
+        <!--<addForeignKeyConstraint baseColumnNames="document_id" baseTableName="gallery_document"-->
+                                 <!--constraintName="gallery_document_document_fk"-->
+                                 <!--referencedColumnNames="id" referencedTableName="document"/>-->
+    <!--</changeSet>-->
 
 </databaseChangeLog>

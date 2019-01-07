@@ -13,8 +13,6 @@ public interface GalleryService {
 
     GalleryEntity find(Long id);
 
-    GalleryEntity findByUserName(String name);
-
     GalleryEntity getCurrent();
 
     GalleryEntity update(GalleryEntity newEntity);

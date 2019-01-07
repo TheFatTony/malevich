@@ -3,15 +3,14 @@ package io.malevich.server.services.trader;
 
 import io.malevich.server.domain.*;
 import io.malevich.server.repositories.trader.TraderDao;
+import io.malevich.server.services.auth.AuthService;
 import io.malevich.server.services.counterparty.CounterpartyService;
 import io.malevich.server.services.counterpartytype.CounterpartyTypeService;
 import io.malevich.server.services.delayedchange.DelayedChangeService;
+import io.malevich.server.services.participant.ParticipantService;
 import io.malevich.server.services.user.UserService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -26,6 +25,9 @@ public class TraderServiceImpl implements TraderService {
     private TraderDao traderDao;
 
     @Autowired
+    private AuthService authService;
+
+    @Autowired
     private UserService userService;
 
     @Autowired
@@ -37,28 +39,26 @@ public class TraderServiceImpl implements TraderService {
     @Autowired
     private DelayedChangeService delayedChangeService;
 
+    @Autowired
+    private ParticipantService participantService;
+
 
     @Override
     @Transactional(readOnly = true)
-    public List<TraderOrganizationEntity> findAll() {
+    public List<TraderPersonEntity> findAll() {
         return traderDao.findAll();
     }
 
     @Override
     @Transactional(readOnly = true)
-    public TraderOrganizationEntity find(Long id) {
+    public TraderPersonEntity find(Long id) {
         return traderDao.findById(id).orElse(null);
     }
 
     @Override
-    public TraderOrganizationEntity findByUserName(String name) {
-        return traderDao.findByUserName(name).orElse(null);
-    }
-
-    @Override
     @Transactional
-    public TraderOrganizationEntity update(TraderOrganizationEntity trader) {
-        TraderOrganizationEntity traderEntity = getCurrentTrader();
+    public TraderPersonEntity update(TraderPersonEntity trader) {
+        TraderPersonEntity traderEntity = getCurrentTrader();
 
         UserEntity user = null;
         boolean isNew = false;
@@ -70,7 +70,7 @@ public class TraderServiceImpl implements TraderService {
             if (traderEntity.getPerson() != null)
                 trader.getPerson().setId(traderEntity.getPerson().getId());
         } else {
-            user = userService.findByName(getUserName());
+            user = userService.findByName(authService.getUser().getName());
             trader.getUser().setId(user.getId());
             isNew = true;
         }
@@ -97,30 +97,14 @@ public class TraderServiceImpl implements TraderService {
 
     @Override
     @Transactional
-    public TraderOrganizationEntity save(TraderOrganizationEntity traderEntity) {
+    public TraderPersonEntity save(TraderPersonEntity traderEntity) {
         return traderDao.save(traderEntity);
-    }
-
-    private String getUserName() {
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        Object principal = authentication.getPrincipal();
-
-        if (!(principal instanceof UserDetails))
-            return null;
-
-        UserDetails userDetails = (UserDetails) principal;
-        return userDetails.getUsername();
     }
 
     @Override
     @Transactional(readOnly = true)
-    public TraderOrganizationEntity getCurrentTrader() {
-        String username = getUserName();
-
-        if (username == null)
-            return null;
-
-        TraderOrganizationEntity traderEntity = findByUserName(username);
-        return traderEntity;
+    public TraderPersonEntity getCurrentTrader() {
+        ParticipantEntity participantEntity = participantService.getCurrent();
+        return participantEntity instanceof TraderPersonEntity ? (TraderPersonEntity) participantEntity : null;
     }
 }

@@ -66,7 +66,7 @@
           <div class="col-8">
             <span
               class="d-block g-color-text g-font-size-13 mb-1">{{'TRADER_PROFILE.SECURITY.LABEL.EMAIL' | translate}}</span>
-            <span class="d-block">{{trader?.user.name}}</span>
+            <span class="d-block">{{trader?.users[0].name}}</span>
           </div>
         </div>
 
@@ -76,7 +76,7 @@
           <div class="col-8">
             <span
               class="d-block g-color-text g-font-size-13 mb-1">{{'TRADER_PROFILE.SECURITY.LABEL.GENDER' | translate}}</span>
-            <span class="d-block">{{trader?.gender.nameMl[translate.currentLang]}}</span>
+            <span class="d-block">{{trader?.person.gender.nameMl[translate.currentLang]}}</span>
           </div>
         </div>
 
@@ -96,7 +96,7 @@
           <div class="col-8">
             <span
               class="d-block g-color-text g-font-size-13 mb-1">{{'TRADER_PROFILE.SECURITY.LABEL.MOBILE' | translate}}</span>
-            <span class="d-block">{{trader?.mobile}}</span>
+            <span class="d-block">{{trader?.phoneNumber}}</span>
           </div>
 
         </div>
@@ -170,7 +170,7 @@
         <div class="row">
           <div class="col-8">
             <span class="d-block g-color-text g-font-size-13 mb-1">{{'TRADER_PROFILE.SECURITY.LABEL.DATE_OF_BIRTH' | translate}}</span>
-            <span class="d-block">{{trader?.dateOfBirth}}</span>
+            <span class="d-block">{{trader?.person.dateOfBirth}}</span>
           </div>
         </div>
 

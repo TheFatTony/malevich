@@ -17,15 +17,9 @@ import java.util.List;
 
 @EqualsAndHashCode
 @javax.persistence.Entity
-@Table(name = "trader")
-@Inheritance(strategy = InheritanceType.JOINED)
+@Table(name = "trader_organization")
+@PrimaryKeyJoinColumn(name = "participant_id")
 public class TraderOrganizationEntity extends ParticipantEntity {
-
-    @Getter
-    @Setter
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
 
     @Getter
     @Setter

@@ -16,6 +16,7 @@ import java.util.List;
 @EqualsAndHashCode
 @javax.persistence.Entity
 @Table(name = "participant")
+@Inheritance(strategy = InheritanceType.JOINED)
 public class ParticipantEntity implements Entity {
 
     @Getter
@@ -35,6 +36,11 @@ public class ParticipantEntity implements Entity {
 
     @Getter
     @Setter
+    @Column(name = "phone_number")
+    private String phoneNumber;
+
+    @Getter
+    @Setter
     @Fetch(FetchMode.JOIN)
     @ManyToOne
     private FileEntity thumbnail;
@@ -43,18 +49,24 @@ public class ParticipantEntity implements Entity {
     @Setter
     @LazyCollection(LazyCollectionOption.FALSE)
     @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
-    @JoinTable(name = "gallery_address",
-            joinColumns = @JoinColumn(name = "gallery_id"),
+    @JoinTable(name = "participant_address",
+            joinColumns = @JoinColumn(name = "participant_id"),
             inverseJoinColumns = @JoinColumn(name = "address_id"))
     private List<AddressEntity> addresses;
 
     @Getter
     @Setter
     @LazyCollection(LazyCollectionOption.FALSE)
-    @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
-    @JoinTable(name = "gallery_user",
-            joinColumns = @JoinColumn(name = "gallery_id"),
+    @ManyToMany(cascade = {CascadeType.MERGE})
+    @JoinTable(name = "participant_user",
+            joinColumns = @JoinColumn(name = "participant_id"),
             inverseJoinColumns = @JoinColumn(name = "user_id"))
     private List<UserEntity> users;
+
+    @Transient
+    public UserEntity getUser(){
+        List<UserEntity> usersList = getUsers();
+        return usersList != null && !usersList.isEmpty() ? usersList.get(0) : null;
+    }
 
 }

@@ -9,10 +9,9 @@
         </createIndex>
     </changeSet>
 
-participant
-    <changeSet author="toolstik" id="document-counterparty_id-index">
-        <createIndex indexName="document_counterparty_id_idx" tableName="document" unique="false">
-            <column name="counterparty_id" type="bigint"/>
+    <changeSet author="toolstik" id="document-participant_id-index">
+        <createIndex indexName="document_participant_id_idx" tableName="document" unique="false">
+            <column name="participant_id" type="bigint"/>
         </createIndex>
     </changeSet>
 

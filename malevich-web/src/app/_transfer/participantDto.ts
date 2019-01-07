@@ -3,6 +3,8 @@ import {UserDto} from "./userDto";
 import {CountryDto} from "./countryDto";
 import {AddressDto} from "./addressDto";
 import {ParticipantTypeDto} from "./participantTypeDto";
+import {PersonDto} from "./personDto";
+import {OrganizationDto} from "./organizationDto";
 
 export class ParticipantDto {
   id: number;
@@ -12,4 +14,10 @@ export class ParticipantDto {
   country: CountryDto;
   thumbnail: FileDto;
   addresses: AddressDto[];
+
+  organization: OrganizationDto;
+  image: FileDto;
+  descriptionMl: Map<string, string>;
+
+  person: PersonDto;
 }

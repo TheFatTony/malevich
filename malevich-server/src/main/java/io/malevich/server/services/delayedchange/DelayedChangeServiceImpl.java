@@ -39,9 +39,9 @@ public class DelayedChangeServiceImpl implements DelayedChangeService {
     @Override
     @Transactional
     public void approveChange(DelayedChangeEntity delayedChangeEntity) {
-        if(delayedChangeEntity.getTypeId().equals("PARTICIPANT")){
+        if (delayedChangeEntity.getTypeId().equals("PARTICIPANT")) {
             ParticipantEntity participantEntity =
-                    modelMapper.map(delayedChangeEntity.getPayload(), ParticipantEntity.class);
+                    participantService.convertToEntity(delayedChangeEntity.getPayload());
             participantService.save(participantEntity);
             delayedChangeDao.delete(delayedChangeEntity);
         }

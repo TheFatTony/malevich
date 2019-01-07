@@ -51,7 +51,7 @@ public class ParticipantEntity implements Entity {
     @Getter
     @Setter
     @LazyCollection(LazyCollectionOption.FALSE)
-    @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    @OneToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     @JoinTable(name = "participant_address",
             joinColumns = @JoinColumn(name = "participant_id"),
             inverseJoinColumns = @JoinColumn(name = "address_id"))
@@ -60,7 +60,7 @@ public class ParticipantEntity implements Entity {
     @Getter
     @Setter
     @LazyCollection(LazyCollectionOption.FALSE)
-    @ManyToMany(cascade = {CascadeType.MERGE})
+    @OneToMany(cascade = {CascadeType.PERSIST})
     @JoinTable(name = "participant_user",
             joinColumns = @JoinColumn(name = "participant_id"),
             inverseJoinColumns = @JoinColumn(name = "user_id"))

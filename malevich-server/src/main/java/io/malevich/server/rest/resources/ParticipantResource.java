@@ -1,7 +1,11 @@
 package io.malevich.server.rest.resources;
 
+import io.malevich.server.domain.GalleryEntity;
 import io.malevich.server.domain.ParticipantEntity;
+import io.malevich.server.domain.TraderOrganizationEntity;
+import io.malevich.server.domain.TraderPersonEntity;
 import io.malevich.server.services.participant.ParticipantService;
+import io.malevich.server.services.participanttype.ParticipantTypeService;
 import io.malevich.server.transfer.ParticipantDto;
 import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
@@ -47,8 +51,8 @@ public class ParticipantResource {
     @RequestMapping(value = "/update", method = RequestMethod.PUT)
     @ResponseStatus(HttpStatus.OK)
     @ResponseBody
-    public ResponseEntity<Void> update(@RequestBody Object dto) {
-        ParticipantEntity entity = convertToEntity(dto);
+    public ResponseEntity<Void> update(@RequestBody ParticipantDto dto) {
+        ParticipantEntity entity = participantService.convertToEntity(dto);
         participantService.update(entity);
         return ResponseEntity.ok().build();
     }

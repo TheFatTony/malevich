@@ -47,13 +47,11 @@ export class NavigationComponent implements OnInit {
           });
 
           this.participant = data;
-          this.traderPerson = this.participantService.getTraderPerson(this.participant);
-          this.gallery = this.participantService.getGallery(this.participant);
 
-          if (this.traderPerson && this.traderPerson.person) {
-            this.titleName = `${this.traderPerson.person.firstName} ${this.traderPerson.person.lastName}`
-          } else if (this.gallery && this.gallery.organization) {
-            this.titleName = this.gallery.organization.legalNameMl[this.translate.currentLang] || this.gallery.organization.legalNameMl['en'];
+          if (this.participant.person) {
+            this.titleName = `${this.participant.person.firstName} ${this.participant.person.lastName}`
+          } else if (this.participant.organization) {
+            this.titleName = this.participant.organization.legalNameMl[this.translate.currentLang] || this.participant.organization.legalNameMl['en'];
           }
         }
       );

@@ -1,5 +1,6 @@
 package io.malevich.server.services.user;
 
+import io.malevich.server.domain.ResetPasswordTokenEntity;
 import io.malevich.server.domain.UserEntity;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.stereotype.Service;
@@ -17,5 +18,11 @@ public interface UserService extends UserDetailsService {
 
     void lock(String name, boolean flag);
 
-    void changePassword(String name, String pass);
+    void setPassword(String name, String pass);
+
+    ResetPasswordTokenEntity reset(String lang, String userName);
+
+    UserEntity setNewPassword(String token, String password);
+
+    UserEntity changePassword(String oldPassword, String newPassword);
 }

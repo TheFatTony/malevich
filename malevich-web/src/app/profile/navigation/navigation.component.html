@@ -1,0 +1,116 @@
+<aside class="g-brd-around g-brd-gray-light-v4 rounded g-px-20 g-py-30">
+  <!-- Profile Picture -->
+  <div class="text-center g-pos-rel g-mb-30">
+    <div *ngIf="counterparty?.image" class="g-width-100 g-height-100 mx-auto mb-3">
+      <a routerLink="/profile/view">
+        <img class="img-fluid rounded-circle" src="{{url}}{{counterparty?.image?.url}}"
+             alt="Image Decor">
+      </a>
+    </div>
+
+    <a class="d-block g-font-weight-500" routerLink="/profile/view">
+      {{titleName}}
+    </a>
+  </div>
+  <!-- End Profile Picture -->
+
+  <hr class="g-brd-gray-light-v4 g-my-30">
+
+  <!-- Profile Settings List -->
+  <ul class="list-unstyled mb-0">
+    <li *ngIf="isGallery" class="g-py-3">
+      <a
+        class="d-block align-middle g-bg-gray-light-v5--active u-link-v5 g-color-text g-color-primary--hover g-bg-gray-light-v5--hover rounded g-pa-3"
+        routerLink="/profile/storage" routerLinkActive="active">
+        <span class="u-icon-v1 g-color-gray-dark-v5 mr-2">
+          <i class="icon-finance-057 u-line-icon-pro"></i>
+        </span>
+        {{"COMMON_PROFILE.NAVIGATION.STORED_ARTWORKS" | translate}}
+      </a>
+    </li>
+    <li class="g-pb-3">
+      <a
+        class="d-block align-middle u-link-v5 g-color-text g-bg-gray-light-v5--hover g-color-primary--active g-bg-gray-light-v5--active rounded g-pa-3"
+        routerLink="/profile/wallet" href="javascript:void(0)"
+        routerLinkActive="active">
+        <span class="u-icon-v1 g-color-gray-dark-v5 mr-2">
+          <i class="icon-finance-059 u-line-icon-pro"></i>
+        </span>
+        {{"COMMON_PROFILE.NAVIGATION.YOUR_WALLET" | translate}}
+      </a>
+    </li>
+    <li class="g-py-3">
+      <a
+        class="d-block align-middle g-bg-gray-light-v5--active u-link-v5 g-color-text g-color-primary--hover g-bg-gray-light-v5--hover rounded g-pa-3"
+        routerLink="/profile/artworks"
+        routerLinkActive="active">
+        <span class="u-icon-v1 g-color-gray-dark-v5 mr-2">
+          <i class="icon-media-031 u-line-icon-pro"></i>
+        </span>
+        {{"COMMON_PROFILE.NAVIGATION.YOUR_ARTWORKS" | translate}}
+      </a>
+    </li>
+    <li class="g-py-3">
+      <a
+        class="d-block align-middle u-link-v5 g-color-text g-bg-gray-light-v5--hover g-color-primary--active g-bg-gray-light-v5--active rounded g-pa-3"
+        routerLink="/profile/orders"
+        href="javascript:void(0)"
+        routerLinkActive="active">
+        <span class="u-icon-v1 g-color-gray-dark-v5 mr-2">
+          <i class="icon-finance-114 u-line-icon-pro"></i>
+        </span>
+        {{"COMMON_PROFILE.NAVIGATION.YOUR_ORDERS" | translate}}
+      </a>
+    </li>
+    <li class="g-py-3">
+      <a
+        class="d-block align-middle u-link-v5 g-color-text g-bg-gray-light-v5--hover g-color-primary--active g-bg-gray-light-v5--active rounded g-pa-3"
+        routerLink="/profile/documents"
+        href="javascript:void(0)"
+        routerLinkActive="active">
+        <span class="u-icon-v1 g-color-gray-dark-v5 mr-2">
+          <i class="icon-finance-114 u-line-icon-pro"></i>
+        </span>
+        {{"COMMON_PROFILE.NAVIGATION.DOCUMENTS" | translate}}
+      </a>
+    </li>
+    <li class="g-py-3">
+      <a
+        class="d-block align-middle u-link-v5 g-color-text g-bg-gray-light-v5--hover g-color-primary--active g-bg-gray-light-v5--active rounded g-pa-3"
+        routerLink="/profile/wishlist"
+        href="javascript:void(0)"
+        routerLinkActive="active">
+        <span class="u-icon-v1 g-color-gray-dark-v5 mr-2">
+          <i class="icon-medical-022 u-line-icon-pro"></i>
+        </span>
+        {{"COMMON_PROFILE.NAVIGATION.WISHLIST" | translate}}
+      </a>
+    </li>
+    <li class="g-py-3">
+      <a
+        class="d-block align-middle u-link-v5 g-color-text g-bg-gray-light-v5--hover g-color-primary--active g-bg-gray-light-v5--active rounded g-pa-3"
+        routerLink="/profile/payment"
+        href="javascript:void(0)"
+        routerLinkActive="active">
+        <span class="u-icon-v1 g-color-gray-dark-v5 mr-2">
+          <i class="icon-finance-110 u-line-icon-pro"></i>
+        </span>
+        {{"COMMON_PROFILE.NAVIGATION.PAYMENT_OPTIONS" | translate}}
+      </a>
+    </li>
+    <li class="g-pt-3">
+      <a
+        class="d-block align-middle u-link-v5 g-color-text g-bg-gray-light-v5--hover g-color-primary--active g-bg-gray-light-v5--active rounded g-pa-3"
+        routerLink="/profile/notifications"
+        href="javascript:void(0)"
+        routerLinkActive="active">
+        <span class="u-icon-v1 g-color-gray-dark-v5 mr-2">
+          <i
+            class="icon-education-033 u-line-icon-pro"></i>
+        </span>
+        {{"COMMON_PROFILE.NAVIGATION.NOTIFICATION" | translate}}
+      </a>
+    </li>
+  </ul>
+  <!-- End Profile Settings List -->
+</aside>

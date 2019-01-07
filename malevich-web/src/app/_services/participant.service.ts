@@ -22,9 +22,12 @@ export class ParticipantService {
       .pipe(map<any, ParticipantDto>(data => {
         if (!data) return null;
 
+        // todo replace with type matching
         if (data.person) return data as TraderDto;
 
-        return <GalleryDto>data;
+        if(data.organization) return data as GalleryDto;
+
+        return null;
       }));
   }
 

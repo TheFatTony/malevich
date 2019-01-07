@@ -128,11 +128,14 @@ public class RegisterServiceImpl implements RegisterService {
                 ? counterpartyTypeService.getGalleryType()
                 : counterpartyTypeService.getTraderType();
 
-        ParticipantEntity participant = new ParticipantEntity();
-//        participant.setUser(user);
-//        participant.setType(counterpartyType);
-//        participant.setIsOrganization(registerInfo.getIsOrganization());
-//        participant.setIsGallery(registerInfo.getIsGallery());
+
+        ParticipantEntity participant = registerInfo.getIsGallery()
+                ? new GalleryEntity()
+                : registerInfo.getIsOrganization()
+                ? new TraderOrganizationEntity()
+                : new TraderPersonEntity();
+
+        participant.setUsers(Lists.newArrayList(user));
 
         participantService.save(participant);
 

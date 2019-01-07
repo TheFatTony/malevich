@@ -50,6 +50,6 @@ public class ParticipantServiceImpl implements ParticipantService {
     @Override
     @Transactional
     public ParticipantEntity save(ParticipantEntity participantEntity) {
-        return null;
+        return dao.save(participantEntity);
     }
 }

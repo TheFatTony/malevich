@@ -22,9 +22,8 @@ import {TraderDto} from "../../_transfer/traderDto";
 })
 export class EditComponent implements OnInit, AfterViewInit {
 
-  participant : ParticipantDto;
-  traderPerson: TraderDto;
-  gallery: GalleryDto;
+  participant: ParticipantDto;
+  isGallery: boolean;
 
   countries: any[];
   genders: any[];
@@ -57,8 +56,7 @@ export class EditComponent implements OnInit, AfterViewInit {
       }))
       .pipe(map(data => {
         this.participant = this.participantService.initInstance(data);
-        this.traderPerson = this.participantService.getTraderPerson(this.participant);
-        this.gallery = this.participantService.getGallery(this.participant);
+        this.isGallery = this.participantService.isGallery(this.participant);
       }))
       .subscribe();
   }

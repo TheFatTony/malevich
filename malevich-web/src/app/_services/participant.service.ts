@@ -2,9 +2,8 @@ import {Injectable} from '@angular/core';
 import {environment} from "../../environments/environment.dev";
 import {HttpClient} from "@angular/common/http";
 import {ParticipantDto} from "../_transfer/participantDto";
-import {map} from "rxjs/operators";
-import {TraderDto} from "../_transfer/traderDto";
-import {GalleryDto} from "../_transfer";
+import {OrganizationDto, PersonDto} from "../_transfer";
+import {AddressDto} from "../_transfer/addressDto";
 
 @Injectable({
   providedIn: 'root'
@@ -18,35 +17,27 @@ export class ParticipantService {
 
   getCurrent() {
     return this.http
-      .get<ParticipantDto>(this.url + '/current')
-      // .pipe(map<any, ParticipantDto>(data => {
-      //   if (!data) return null;
-      //
-      //   let participant = data as ParticipantDto;
-      //
-      //   // todo replace with type matching
-      //   if (data.person) return data as TraderDto;
-      //
-      //   if(data.organization) return data as GalleryDto;
-      //
-      //   return null;
-      // }))
-      // ;
+      .get<ParticipantDto>(this.url + '/current');
   }
 
-  private getTyped<T extends ParticipantDto>(participant: ParticipantDto, typeId:string){
-    if(participant != null && participant.type && participant.type.id == typeId)
-      return participant as T;
-
-    return null;
+  isTraderPerson(participant: ParticipantDto) {
+    return participant != null && participant.type != null && participant.type.id == 'TP';
   }
 
-  getTraderPerson(participant: ParticipantDto){
-    return this.getTyped<TraderDto>(participant, 'TP');
+  isTraderOrganization(participant: ParticipantDto) {
+    return participant != null && participant.type != null && participant.type.id == 'TO';
   }
 
-  getGallery(participant: ParticipantDto){
-    return this.getTyped<GalleryDto>(participant, 'G');
+  isGallery(participant: ParticipantDto) {
+    return participant != null && participant.type != null && participant.type.id == 'G';
+  }
+
+  private isOrganization(participant: ParticipantDto) {
+    return this.isGallery(participant) || this.isTraderOrganization(participant);
+  }
+
+  private isPerson(participant: ParticipantDto) {
+    return this.isTraderPerson(participant);
   }
 
   update(dto: ParticipantDto) {
@@ -55,21 +46,21 @@ export class ParticipantService {
   }
 
   initInstance(dto: ParticipantDto): ParticipantDto {
-    // if(dto.isOrganization && !dto.organization){
-    //   dto.organization = new OrganizationDto();
-    //   dto.organization.legalNameMl = new Map<string, string>();
-    //   dto.organization.addresses = [new AddressDto()];
-    // }
-    //
-    // if(!dto.isOrganization && !dto.person){
-    //   dto.person = new PersonDto();
-    //   dto.person.addresses = [new AddressDto()];
-    // }
-    //
-    // if(dto.isGallery && !dto.gallery){
-    //   dto.gallery = new GalleryDto();
-    //   dto.gallery.descriptionMl = new Map<string, string>();
-    // }
+    if (!dto.addresses || !dto.addresses.length)
+      dto.addresses = [new AddressDto()];
+
+    if (this.isOrganization(dto) && !dto.organization) {
+      dto.organization = new OrganizationDto();
+      dto.organization.legalNameMl = new Map<string, string>();
+    }
+
+    if (this.isPerson(dto) && !dto.person) {
+      dto.person = new PersonDto();
+    }
+
+    if (this.isGallery(dto)) {
+      dto.descriptionMl = dto.descriptionMl || new Map<string, string>();
+    }
 
     return dto;
   }

@@ -33,7 +33,7 @@
 
     <div class="col-lg-9 g-mb-50">
 
-      <ng-container *ngIf="traderPerson?.person as person">
+      <ng-container *ngIf="participant?.person as person">
 
         <div class="g-brd-around g-brd-gray-light-v4 rounded g-pa-30 g-mb-30">
           <div class="row">
@@ -203,7 +203,7 @@
         <!-- End Login & Security -->
       </ng-container>
 
-      <ng-container *ngIf="gallery?.organization as organization">
+      <ng-container *ngIf="participant?.organization as organization">
 
         <!-- Info -->
         <div class="g-brd-around g-brd-gray-light-v4 rounded g-pa-30 g-mb-30">
@@ -301,13 +301,13 @@
 
       </ng-container>
 
-      <ng-container *ngIf="gallery">
+      <ng-container *ngIf="isGallery">
         <div class="g-brd-around g-brd-gray-light-v4 rounded g-pa-30 g-mb-30">
 
           <div class="row">
             <div class="col-12">
               <span class="d-block g-color-text g-font-size-13 mb-1">{{'GALLERY_PROFILE.SECURITY.DESCRIPTION' | translate}}:</span>
-              <span class="d-block">{{gallery.descriptionMl[translate.currentLang]}}</span>
+              <span class="d-block">{{participant.descriptionMl[translate.currentLang]}}</span>
             </div>
           </div>
 

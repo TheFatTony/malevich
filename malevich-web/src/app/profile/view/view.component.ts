@@ -21,9 +21,7 @@ export class ViewComponent implements OnInit {
 
   user: UserDto;
   participant: ParticipantDto;
-  traderPerson: TraderDto;
-  gallery: GalleryDto;
-
+  isGallery: boolean;
   countries: CountryDto[];
 
   changePassword = false;
@@ -70,8 +68,7 @@ export class ViewComponent implements OnInit {
         data => {
           if (data) {
             this.participant = this.participantService.initInstance(data);
-            this.traderPerson = this.participantService.getTraderPerson(this.participant);
-            this.gallery = this.participantService.getGallery(this.participant);
+            this.isGallery = this.participantService.isGallery(this.participant);
 
             this.getCounterpartyDelayedChanges(this.participant.id);
           }

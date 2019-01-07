@@ -1,9 +1,11 @@
 package io.malevich.server.services.wishlist;
 
 import io.malevich.server.domain.CounterpartyEntity;
+import io.malevich.server.domain.ParticipantEntity;
 import io.malevich.server.domain.WishListEntity;
 import io.malevich.server.repositories.wishlist.WishListDao;
 import io.malevich.server.services.counterparty.CounterpartyService;
+import io.malevich.server.services.participant.ParticipantService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -17,17 +19,16 @@ public class WishListServiceImpl implements WishListService {
     private WishListDao wishListDao;
 
     @Autowired
-    private CounterpartyService counterpartyService;
+    private ParticipantService participantService;
 
     @Override
     @Transactional
     public WishListEntity save(WishListEntity entity) {
-participant
-        CounterpartyEntity currentCounterparty = counterpartyService.getCurrent();
-        if (currentCounterparty == null)
+        ParticipantEntity current = participantService.getCurrent();
+        if (current == null)
             return null;
 
-        entity.setCounterparty(currentCounterparty);
+        entity.setParticipant(current);
         return this.wishListDao.save(entity);
     }
 
@@ -35,12 +36,11 @@ participant
     @Override
     @Transactional(readOnly = true)
     public Page<WishListEntity> findAll(Pageable pageable) {
-participant
-        CounterpartyEntity currentCounterparty = counterpartyService.getCurrent();
-        if (currentCounterparty == null)
+        ParticipantEntity current = participantService.getCurrent();
+        if (current == null)
             return null;
 
-        return this.wishListDao.findByCounterparty_Id(pageable, currentCounterparty.getId());
+        return this.wishListDao.findAll(pageable, current.getId());
     }
 
     @Override

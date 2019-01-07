@@ -1,11 +1,8 @@
 package io.malevich.server.services.delayedchange;
 
-import io.malevich.server.domain.CounterpartyEntity;
-import io.malevich.server.domain.DelayedChangeEntity;
-import io.malevich.server.domain.MailQueueEntity;
-import io.malevich.server.domain.TraderPersonEntity;
+import io.malevich.server.domain.*;
 import io.malevich.server.repositories.delayedchange.DelayedChangeDao;
-import io.malevich.server.services.counterparty.CounterpartyService;
+import io.malevich.server.services.participant.ParticipantService;
 import io.malevich.server.services.mailqueue.MailQueueService;
 import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
@@ -31,7 +28,7 @@ public class DelayedChangeServiceImpl implements DelayedChangeService {
     private MailQueueService mailQueueService;
 
     @Autowired
-    private CounterpartyService counterpartyService;
+    private ParticipantService participantService;
 
     @Override
     @Transactional(readOnly = true)
@@ -43,10 +40,9 @@ public class DelayedChangeServiceImpl implements DelayedChangeService {
     @Transactional
     public void approveChange(DelayedChangeEntity delayedChangeEntity) {
         if(delayedChangeEntity.getTypeId().equals("PARTICIPANT")){
-participant
-            CounterpartyEntity counterpartyEntity =
-                    modelMapper.map(delayedChangeEntity.getPayload(), CounterpartyEntity.class);
-            counterpartyService.save(counterpartyEntity);
+            ParticipantEntity participantEntity =
+                    modelMapper.map(delayedChangeEntity.getPayload(), ParticipantEntity.class);
+            participantService.save(participantEntity);
             delayedChangeDao.delete(delayedChangeEntity);
         }
     }

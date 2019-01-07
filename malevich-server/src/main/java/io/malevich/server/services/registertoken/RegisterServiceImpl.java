@@ -10,6 +10,7 @@ import io.malevich.server.services.auth.AuthService;
 import io.malevich.server.services.counterparty.CounterpartyService;
 import io.malevich.server.services.counterpartytype.CounterpartyTypeService;
 import io.malevich.server.services.mailqueue.MailQueueService;
+import io.malevich.server.services.participant.ParticipantService;
 import io.malevich.server.services.resetpasswordtoken.ResetPasswordTokenService;
 import io.malevich.server.services.user.UserService;
 import io.malevich.server.services.usertype.UserTypeService;
@@ -39,7 +40,7 @@ public class RegisterServiceImpl implements RegisterService {
     private UserService userService;
 
     @Autowired
-    private CounterpartyService counterpartyService;
+    private ParticipantService participantService;
 
     @Autowired
     private CounterpartyTypeService counterpartyTypeService;
@@ -127,13 +128,13 @@ public class RegisterServiceImpl implements RegisterService {
                 ? counterpartyTypeService.getGalleryType()
                 : counterpartyTypeService.getTraderType();
 
-        CounterpartyEntity counterparty = new CounterpartyEntity();
-        counterparty.setUser(user);
-        counterparty.setType(counterpartyType);
-        counterparty.setIsOrganization(registerInfo.getIsOrganization());
-        counterparty.setIsGallery(registerInfo.getIsGallery());
+        ParticipantEntity participant = new ParticipantEntity();
+//        participant.setUser(user);
+//        participant.setType(counterpartyType);
+//        participant.setIsOrganization(registerInfo.getIsOrganization());
+//        participant.setIsGallery(registerInfo.getIsGallery());
 
-        counterpartyService.save(counterparty);
+        participantService.save(participant);
 
         deleteToken(registerTokenEntity);
         return user;

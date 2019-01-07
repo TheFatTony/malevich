@@ -2,8 +2,9 @@ package io.malevich.server.services.document;
 
 import io.malevich.server.domain.CounterpartyEntity;
 import io.malevich.server.domain.DocumentEntity;
+import io.malevich.server.domain.ParticipantEntity;
 import io.malevich.server.repositories.document.DocumentDao;
-import io.malevich.server.services.counterparty.CounterpartyService;
+import io.malevich.server.services.participant.ParticipantService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -20,21 +21,20 @@ public class DocumentServiceImpl implements DocumentService {
     private DocumentDao documentDao;
 
     @Autowired
-    private CounterpartyService counterpartyService;
+    private ParticipantService participantService;
 
     @Override
     @Transactional(readOnly = true)
     public List<DocumentEntity> findDocs() {
-participant
-        CounterpartyEntity current = counterpartyService.getCurrent();
-        return this.documentDao.findByCounterparty_Id(current.getId());
+        ParticipantEntity current = participantService.getCurrent();
+        return this.documentDao.findByParticipant_Id(current.getId());
     }
 
     @Override
     @Transactional
     public DocumentEntity save(DocumentEntity entity) {
-        CounterpartyEntity current = counterpartyService.getCurrent();
-        entity.setCounterparty(current);
+        ParticipantEntity current = participantService.getCurrent();
+        entity.setParticipant(current);
         entity.setEffectiveDate(new Timestamp(System.currentTimeMillis()));
         return this.documentDao.save(entity);
     }
@@ -42,11 +42,10 @@ participant
     @Override
     @Transactional
     public void delete(Long id) {
-        participant
-        CounterpartyEntity me = counterpartyService.getCurrent();
+        ParticipantEntity current = participantService.getCurrent();
         DocumentEntity existing = documentDao.findById(id).orElse(null);
 
-        if(existing == null || existing.getCounterparty().getId() != me.getId())
+        if(existing == null || existing.getParticipant().getId() != current.getId())
             return;
 
         this.documentDao.deleteById(id);

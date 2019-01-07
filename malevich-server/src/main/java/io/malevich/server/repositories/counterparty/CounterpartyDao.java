@@ -14,6 +14,7 @@ public interface CounterpartyDao extends JpaRepository<CounterpartyEntity, Long>
 
     List<CounterpartyEntity> findAll();
 
-    @Query("select ce from CounterpartyEntity ce join fetch ce.user left join fetch ce.person left join fetch ce.organization left join fetch ce.gallery where ce.user.name = :name")
-    Optional<CounterpartyEntity> findByUserName(@Param(value = "name") String name);
+    CounterpartyEntity findCounterpartyEntitiesByGallery_Id(Long galleryId);
+
+    CounterpartyEntity findCounterpartyEntitiesByTrader_Id(Long traderId);
 }

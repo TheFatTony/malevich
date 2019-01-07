@@ -35,7 +35,7 @@
 
     <div class="col-lg-9 g-mb-50">
       <form #f="ngForm" (ngSubmit)="update()" novalidate>
-        <ng-container *ngIf="counterparty?.person as person">
+        <ng-container *ngIf="traderPerson?.person as person">
 
           <div class="g-brd-around g-brd-gray-light-v4 rounded g-pa-30 g-mb-30">
 
@@ -82,7 +82,7 @@
               <div class="col-12">
             <span
               class="d-block g-color-text g-font-size-13 mb-1">{{'TRADER_PROFILE.SECURITY.LABEL.EMAIL' | translate}}</span>
-                <span class="d-block">{{counterparty?.user?.name}}</span>
+                <span class="d-block">{{counterparty?.users[0]?.name}}</span>
               </div>
             </div>
 
@@ -110,8 +110,8 @@
                 <mchComboBox name="country"
                              [objectSource]="countries"
                              [displayFunc]="countryDisplayFunc"
-                             [ngModel]="person.country"
-                             (ngModelChange)="person.country=$event">
+                             [ngModel]="participant.country"
+                             (ngModelChange)="participant.country=$event">
                 </mchComboBox>
               </div>
             </div>
@@ -125,8 +125,8 @@
                 <mchMaskedInput name="mobile"
                                 mchRequired
                                 mchMobile
-                                [ngModel]="person.mobile"
-                                (ngModelChange)="person.mobile=$event"
+                                [ngModel]="participant.phoneNumber"
+                                (ngModelChange)="participant.phoneNumber=$event"
                                 [mask]="'+# (###) ###-####'">
                 </mchMaskedInput>
               </div>
@@ -147,7 +147,7 @@
               </div>
             </div>
 
-            <ng-container *ngIf="countries && person.addresses[0] as address">
+            <ng-container *ngIf="countries && participant.addresses[0] as address">
 
               <hr class="g-brd-gray-light-v4 g-my-20">
 
@@ -226,7 +226,7 @@
 
         </ng-container>
 
-        <ng-container *ngIf="counterparty?.organization as organization">
+        <ng-container *ngIf="gallery?.organization as organization">
 
           <div class="g-brd-around g-brd-gray-light-v4 rounded g-pa-30 g-mb-30">
 
@@ -272,7 +272,7 @@
             <span
               class="d-block g-color-text g-font-size-13 mb-1">{{'GALLERY_PROFILE.SECURITY.PHONE_NUMBER' | translate}}:</span>
                 <mchMaskedInput name="mobile"
-                                [(ngModel)]="organization.phoneNumber"
+                                [(ngModel)]="participant.phoneNumber"
                                 mchRequired
                                 mchMobile
                                 [mask]="'+# (###) ###-####'">
@@ -280,7 +280,7 @@
               </div>
             </div>
 
-            <ng-container *ngIf="countries && organization.addresses[0] as address">
+            <ng-container *ngIf="countries && participant.addresses[0] as address">
 
               <hr class="g-brd-gray-light-v4 g-my-20">
 
@@ -348,7 +348,7 @@
 
         </ng-container>
 
-        <ng-container *ngIf="counterparty?.gallery as gallery">
+        <ng-container *ngIf="gallery">
           <div class="g-brd-around g-brd-gray-light-v4 rounded g-pa-30 g-mb-30">
             <div class="row">
               <div class="col-12">

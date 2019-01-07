@@ -1,12 +1,12 @@
 import { TestBed } from '@angular/core/testing';
 
-import { CounterpartyService } from './counterparty.service';
+import { ParticipantService } from './participant.service';
 
-describe('CounterpartyService', () => {
+describe('ParticipantService', () => {
   beforeEach(() => TestBed.configureTestingModule({}));
 
   it('should be created', () => {
-    const service: CounterpartyService = TestBed.get(CounterpartyService);
+    const service: ParticipantService = TestBed.get(ParticipantService);
     expect(service).toBeTruthy();
   });
 });

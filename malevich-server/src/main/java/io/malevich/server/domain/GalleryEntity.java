@@ -22,7 +22,6 @@ public class GalleryEntity extends ParticipantEntity {
     @Setter
     @Fetch(FetchMode.JOIN)
     @OneToOne(cascade = CascadeType.MERGE)
-    @NotNull
     private OrganizationEntity organization;
 
 
@@ -30,7 +29,6 @@ public class GalleryEntity extends ParticipantEntity {
     @Setter
     @Fetch(FetchMode.JOIN)
     @ManyToOne(cascade = CascadeType.MERGE)
-    @NotNull
     private FileEntity image;
 
     @Getter

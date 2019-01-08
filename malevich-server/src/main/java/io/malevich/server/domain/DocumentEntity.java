@@ -29,8 +29,14 @@ public class DocumentEntity implements Entity {
 
     @Getter
     @Setter
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.DETACH)
     private DocumentTypeEntity documentType;
+
+    @Getter
+    @Setter
+    @Fetch(FetchMode.JOIN)
+    @ManyToOne(fetch = FetchType.LAZY)
+    private ParticipantEntity participant;
 
     @Getter
     @Setter

@@ -8,11 +8,12 @@
             <column name="id" type="bigint">
                 <constraints nullable="false"/>
             </column>
-            <column name="effective_date" type="datetime">
-                <constraints nullable="false"/>
-            </column>
+            <column name="participant_id" type="bigint"/>
             <column name="files_id" type="bigint"/>
             <column name="document_type_id" type="bigint">
+                <constraints nullable="false"/>
+            </column>
+            <column name="effective_date" type="datetime">
                 <constraints nullable="false"/>
             </column>
         </createTable>

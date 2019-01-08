@@ -6,7 +6,6 @@ import io.malevich.server.domain.ArtworkStockEntity;
 import io.malevich.server.domain.CounterpartyEntity;
 import io.malevich.server.domain.TraderPersonEntity;
 import io.malevich.server.services.counterparty.CounterpartyService;
-import io.malevich.server.services.trader.TraderService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -23,9 +22,6 @@ public class AccountStateServiceImpl implements AccountStateService {
 
     @Autowired
     private AccountStateDao accountStateDao;
-
-    @Autowired
-    private TraderService traderService;
 
     @Autowired
     private CounterpartyService counterpartyService;
@@ -45,7 +41,7 @@ public class AccountStateServiceImpl implements AccountStateService {
 
     @Override
     @Transactional(readOnly = true)
-    public AccountStateEntity getTraderWallet() {
+    public AccountStateEntity getWallet() {
         CounterpartyEntity counterpartyEntity = counterpartyService.getCurrent();
 
         return accountStateDao.findByArtworkStock_IdAndParty_Id(null, counterpartyEntity.getId());

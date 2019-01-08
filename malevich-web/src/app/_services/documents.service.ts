@@ -16,15 +16,11 @@ export class DocumentsService {
   }
 
   getDocumentTypes(userType: string) {
-    return this.http.get<DocumentTypeDto[]>(this.url + '/typeList/' + userType).pipe(map(data => data));
+    return this.http.get<DocumentTypeDto[]>(this.url + '/typeList/' + userType);
   }
 
-  getGalleryDocs() {
-    return this.http.get<DocumentsDto[]>(this.url + '/list/gallery').pipe(map(data => data));
-  }
-
-  getTraderDocs() {
-    return this.http.get<DocumentsDto[]>(this.url + '/list/trader').pipe(map(data => data));
+  getDocs() {
+    return this.http.get<DocumentsDto[]>(this.url + '/list');
   }
 
   save(document: DocumentsDto) {

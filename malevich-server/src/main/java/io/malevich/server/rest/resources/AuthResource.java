@@ -34,42 +34,4 @@ public class AuthResource {
         return authService.authenticate(loginFormDto);
     }
 
-    @RequestMapping(value = "/register", method = RequestMethod.POST)
-    @ResponseStatus(HttpStatus.OK)
-    @ResponseBody
-    public ResponseEntity<String> register(@RequestBody RegisterFormDto registerFormDto) {
-        authService.register(registerFormDto.getLang(), registerFormDto.getEmail());
-        return ResponseEntity.ok().body("registered");
-    }
-
-    @RequestMapping(value = "/register/{token}", method = RequestMethod.POST)
-    @ResponseStatus(HttpStatus.OK)
-    @ResponseBody
-    public ResponseEntity<String> register(@RequestBody PasswordDto resetDto, @PathVariable("token") String token) {
-        authService.register2(token, resetDto.getPassword());
-        return ResponseEntity.ok().body("password set");
-    }
-
-    @RequestMapping(value = "/reset", method = RequestMethod.POST)
-    @ResponseStatus(HttpStatus.OK)
-    @ResponseBody
-    public ResponseEntity<String> reset(@RequestBody ResetPasswordFormDto resetFormDto) {
-        authService.reset(resetFormDto.getLang(), resetFormDto.getEmail());
-        return ResponseEntity.ok().body("reset");
-    }
-
-    @RequestMapping(value = "/reset/{token}", method = RequestMethod.POST)
-    public ResponseEntity<String> reset(@RequestBody PasswordDto resetDto, @PathVariable("token") String token) {
-        authService.setNewPassword(token, resetDto.getPassword());
-        return ResponseEntity.ok().body("password set");
-    }
-
-    @RequestMapping(value = "/changePassword", method = RequestMethod.POST)
-    @ResponseStatus(HttpStatus.OK)
-    @ResponseBody
-    public ResponseEntity<String> changePassword(@RequestBody PasswordDto pwd) {
-        authService.changePassword(pwd.getPassword(), pwd.getNewPassword());
-        return ResponseEntity.ok().body("password changed");
-    }
-
 }

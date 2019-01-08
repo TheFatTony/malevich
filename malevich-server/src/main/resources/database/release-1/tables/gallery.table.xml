@@ -12,13 +12,13 @@
                 <constraints nullable="false"/>
             </column>
             <column name="organization_id" type="bigint">
-                <constraints nullable="false"/>
+                <constraints nullable="true"/>
             </column>
 			<column name="thumbnail_id" type="bigint">
-				<constraints nullable="false"/>
+				<constraints nullable="true"/>
 			</column>
 			<column name="image_id" type="bigint">
-				<constraints nullable="false"/>
+				<constraints nullable="true"/>
 			</column>
 		</createTable>
 	</changeSet>

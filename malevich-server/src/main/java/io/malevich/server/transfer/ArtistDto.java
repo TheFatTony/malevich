@@ -12,8 +12,6 @@ public class ArtistDto {
 
     private Long id;
 
-    private PersonDto person;
-
     private FileDto thumbnail;
 
     private FileDto image;

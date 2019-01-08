@@ -15,17 +15,12 @@ export class PaymentsService {
 
   getPayments() {
     return this.http
-      .get<PaymentsDto[]>(this.url + '/list')
-      .pipe(map(data => data));
+      .get<PaymentsDto[]>(this.url + '/list');
   }
 
   insert(payments: PaymentsDto) {
     return this.http
-      .post<PaymentsDto>(this.url + '/insert', payments)
-      .pipe(map(data => {
-          return data;
-        })
-      );
+      .post<PaymentsDto>(this.url + '/insert', payments);
   }
 
   receiptPrint(id: number) {

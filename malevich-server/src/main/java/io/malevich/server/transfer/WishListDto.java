@@ -12,6 +12,4 @@ public class WishListDto {
 
     private ArtworkStockDto artworkStock;
 
-    private TraderPersonDto trader;
-
 }

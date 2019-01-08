@@ -8,6 +8,7 @@
     <include relativeToChangelogFile="true" file="data/country.data.xml"/>
     <include relativeToChangelogFile="true" file="data/user_type.data.xml"/>
     <include relativeToChangelogFile="true" file="data/user.data.xml"/>
+    <include relativeToChangelogFile="true" file="data/user_roles.data.xml"/>
     <include relativeToChangelogFile="true" file="data/category.data.xml"/>
     <include relativeToChangelogFile="true" file="data/transaction_type.data.xml"/>
     <include relativeToChangelogFile="true" file="data/order_type.data.xml"/>
@@ -15,6 +16,8 @@
     <include relativeToChangelogFile="true" file="data/order_status.data.xml"/>
     <include relativeToChangelogFile="true" file="data/trade_type.data.xml"/>
     <include relativeToChangelogFile="true" file="data/counterparty_type.data.xml"/>
+    <include relativeToChangelogFile="true" file="data/counterparty.data.xml"/>
+    <include relativeToChangelogFile="true" file="data/participant_type.data.xml"/>
     <include relativeToChangelogFile="true" file="data/help_category.data.xml"/>
 
 </databaseChangeLog>

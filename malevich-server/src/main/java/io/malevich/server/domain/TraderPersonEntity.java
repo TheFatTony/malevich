@@ -7,11 +7,13 @@ import lombok.Setter;
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
 
-import javax.persistence.*;
-import javax.validation.constraints.NotNull;
+import javax.persistence.CascadeType;
+import javax.persistence.OneToOne;
+import javax.persistence.PrimaryKeyJoinColumn;
+import javax.persistence.Table;
 
 
-@EqualsAndHashCode
+@EqualsAndHashCode(callSuper = true)
 @javax.persistence.Entity
 @Table(name = "trader_person")
 @PrimaryKeyJoinColumn(name = "participant_id")
@@ -21,8 +23,6 @@ public class TraderPersonEntity extends ParticipantEntity {
     @Setter
     @Fetch(FetchMode.JOIN)
     @OneToOne(cascade = CascadeType.ALL)
-    @NotNull
     private PersonEntity person;
-
 
 }

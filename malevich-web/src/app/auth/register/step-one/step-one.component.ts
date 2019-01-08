@@ -1,10 +1,10 @@
-import {AfterViewInit, Component, OnInit, ViewChild} from '@angular/core';
+import {AfterViewInit, Component, OnInit} from '@angular/core';
 import {TranslateService} from "@ngx-translate/core";
-import {AuthService} from "../../../_services";
 import {Router} from "@angular/router";
 import {SubscriptionService} from "../../../_services/subscription.service";
 import {SubscriptionDto} from "../../../_transfer/subscriptionDto";
 import {TermsAndConditionsService} from "../../../_services/terms-and-conditions.service";
+import {UserService} from "../../../_services/user.service";
 
 @Component({
   selector: 'app-auth-register-step-one',
@@ -20,7 +20,7 @@ export class StepOneComponent implements OnInit, AfterViewInit {
 
   constructor(private router: Router,
               public translate: TranslateService,
-              private authService: AuthService,
+              private userService: UserService,
               private subscriptionService: SubscriptionService,
               private termsAndConditionsService: TermsAndConditionsService) {
   }
@@ -35,7 +35,7 @@ export class StepOneComponent implements OnInit, AfterViewInit {
   }
 
   onSubmit() {
-    this.authService.register(this.translate.currentLang, this.email)
+    this.userService.register(this.translate.currentLang, this.email)
       .subscribe();
 
     if (this.subscribe) {

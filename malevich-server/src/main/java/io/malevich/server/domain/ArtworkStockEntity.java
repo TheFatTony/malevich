@@ -34,6 +34,7 @@ public class ArtworkStockEntity implements Entity {
     @Setter
     @Fetch(FetchMode.JOIN)
     @ManyToOne()
+    @JoinColumn(name = "gallery_id")
     @NotNull
     private GalleryEntity gallery;
 

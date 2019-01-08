@@ -8,8 +8,11 @@
             <column name="id" type="bigint">
                 <constraints nullable="false"/>
             </column>
-            <column name="country_id" type="char(2)">
+            <column name="type_id" type="char(3)">
                 <constraints nullable="false"/>
+            </column>
+            <column name="country_id" type="char(2)">
+                <constraints nullable="true"/>
             </column>
             <column name="phone_number" type="varchar(100)">
                 <constraints nullable="true"/>

@@ -5,7 +5,6 @@ import io.malevich.server.repositories.payments.PaymentsDao;
 import io.malevich.server.repositories.transactiongroup.TransactionGroupDao;
 import io.malevich.server.services.counterparty.CounterpartyService;
 import io.malevich.server.services.paymenttype.PaymentTypeService;
-import io.malevich.server.services.trader.TraderService;
 import io.malevich.server.services.transaction.TransactionService;
 import io.malevich.server.services.transactiontype.TransactionTypeService;
 import io.malevich.server.util.PaymentFop;
@@ -16,7 +15,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
-import java.util.Optional;
 
 
 @Slf4j
@@ -33,9 +31,6 @@ public class PaymentsServiceImpl implements PaymentsService {
     private TransactionTypeService transactionTypeService;
 
     @Autowired
-    private TraderService traderService;
-
-    @Autowired
     private CounterpartyService counterpartyService;
 
     @Autowired
@@ -47,7 +42,7 @@ public class PaymentsServiceImpl implements PaymentsService {
 
     @Override
     @Transactional(readOnly = true)
-    public List<PaymentsEntity> findAll() {
+    public List<PaymentsEntity> findOwnPayments() {
         CounterpartyEntity entity = counterpartyService.getCurrent();
         return this.paymentsDao.findPaymentsEntityByParty_Id(entity.getId());
     }
@@ -55,9 +50,7 @@ public class PaymentsServiceImpl implements PaymentsService {
     @Override
     @Transactional
     public void insertPayment(PaymentsEntity paymentsEntity) {
-
-        TraderPersonEntity traderEntity = traderService.getCurrentTrader();
-        CounterpartyEntity trader = counterpartyService.findCounterpartyEntitiesByTraderId(traderEntity.getId());
+        CounterpartyEntity current = counterpartyService.getCurrent();
         CounterpartyEntity malevich = counterpartyService.getMalevich();
 
         PaymentTypeEntity paymentType;
@@ -71,7 +64,7 @@ public class PaymentsServiceImpl implements PaymentsService {
             transactionType = transactionTypeService.getAddBalance();
         }
 
-        paymentsEntity.setParty(trader);
+        paymentsEntity.setParty(current);
         paymentsEntity.setPaymentType(paymentType);
 
         TransactionGroupEntity transactionGroupEntity = new TransactionGroupEntity();
@@ -88,11 +81,7 @@ public class PaymentsServiceImpl implements PaymentsService {
     @Override
     @Transactional(readOnly = true)
     public PaymentsEntity getPayments(Long id) {
-        Optional<PaymentsEntity> value = this.paymentsDao.findById(id);
-        if (value.isPresent())
-            return value.get();
-
-        return null;
+        return this.paymentsDao.findById(id).orElse(null);
     }
 
     @Override

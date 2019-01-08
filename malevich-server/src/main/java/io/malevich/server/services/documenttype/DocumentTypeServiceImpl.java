@@ -18,7 +18,7 @@ public class DocumentTypeServiceImpl implements DocumentTypeService {
 
     @Override
     @Transactional(readOnly = true)
-    public List<DocumentTypeEntity> findAll(String userType) {
-        return this.documentTypeDao.findAll(userType);
+    public List<DocumentTypeEntity> findByUserType(String userType) {
+        return this.documentTypeDao.findByUserType(userType);
     }
 }

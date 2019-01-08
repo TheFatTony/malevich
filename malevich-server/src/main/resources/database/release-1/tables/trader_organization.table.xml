@@ -12,7 +12,7 @@
                 <constraints nullable="false"/>
             </column>
             <column name="organization_id" type="bigint">
-                <constraints nullable="false"/>
+                <constraints nullable="true"/>
             </column>
         </createTable>
     </changeSet>

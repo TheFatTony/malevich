@@ -27,6 +27,4 @@ public interface TransactionService {
                                      Double amount,
                                      Long quantity);
 
-    void createArtworkStock(ArtworkStockEntity artworkStockEntity, TransactionGroupEntity transactionGroup);
-
 }

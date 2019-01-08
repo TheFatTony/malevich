@@ -9,6 +9,7 @@ import io.malevich.server.services.participant.ParticipantService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
@@ -35,9 +36,13 @@ public class DelayedChangeServiceImpl implements DelayedChangeService {
     }
 
     @Override
-    @Transactional
+    // TODO total crap
+    @Transactional(propagation = Propagation.NOT_SUPPORTED)
     public void approveChange(DelayedChangeEntity delayedChangeEntity) {
         delayedChangeEntity = delayedChangeDao.findById(delayedChangeEntity.getId()).orElse(null);
+
+        if(delayedChangeEntity == null)
+            return;
 
         if (delayedChangeEntity.getTypeId().equals("PARTICIPANT")) {
             ParticipantEntity participantEntity =

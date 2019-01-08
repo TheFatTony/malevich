@@ -9,7 +9,7 @@
 
     <include relativeToChangelogFile="true" file="sources.changelog.xml" context="default"/>
 
-    <!--<include relativeToChangelogFile="true" file="test_data.changelog.xml" context="test_data"/>-->
+    <include relativeToChangelogFile="true" file="test_data.changelog.xml" context="test_data"/>
 
 </databaseChangeLog>
 

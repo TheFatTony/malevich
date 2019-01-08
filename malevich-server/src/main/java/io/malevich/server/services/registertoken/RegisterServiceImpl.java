@@ -4,6 +4,7 @@ import com.google.common.collect.Lists;
 import io.malevich.server.domain.*;
 import io.malevich.server.domain.enums.Role;
 import io.malevich.server.repositories.registertoken.RegisterTokenDao;
+import io.malevich.server.services.counterparty.CounterpartyService;
 import io.malevich.server.services.counterpartytype.CounterpartyTypeService;
 import io.malevich.server.services.mailqueue.MailQueueService;
 import io.malevich.server.services.participant.ParticipantService;
@@ -58,6 +59,9 @@ public class RegisterServiceImpl implements RegisterService {
 
     @Autowired
     private ParticipantTypeService participantTypeService;
+
+    @Autowired
+    private CounterpartyService counterpartyService;
 
     @Value("${malevich.client.url}")
     private String clientUrl;
@@ -124,24 +128,36 @@ public class RegisterServiceImpl implements RegisterService {
 
         user = userService.save(user);
 
-        ParticipantTypeEntity participantType = registerInfo.getIsGallery()
-                ? participantTypeService.getGalleryType()
-                : registerInfo.getIsOrganization()
-                ? participantTypeService.getTraderOrganizationType()
-                : participantTypeService.getTraderPersonType();
+        CounterpartyEntity counterparty = new CounterpartyEntity();
+        ParticipantEntity participant;
 
+        if (registerInfo.getIsGallery()) {
+            participant = new GalleryEntity();
+            participant.setType(participantTypeService.getGalleryType());
 
-        ParticipantEntity participant = new ParticipantEntity();
-//                registerInfo.getIsGallery()
-//                ? new GalleryEntity()
-//                : registerInfo.getIsOrganization()
-//                ? new TraderOrganizationEntity()
-//                : new TraderPersonEntity();
+            counterparty.setType(counterpartyTypeService.getGalleryType());
+        } else {
+            counterparty.setType(counterpartyTypeService.getTraderType());
+
+            if (registerInfo.getIsOrganization()) {
+                participant = new TraderOrganizationEntity();
+                participant.setType(participantTypeService.getTraderOrganizationType());
+            } else {
+                participant = new TraderPersonEntity();
+                participant.setType(participantTypeService.getTraderPersonType());
+            }
+        }
 
         participant.setUsers(Lists.newArrayList(user));
-        participant.setType(participantType);
 
-        participantService.save(participant, user);
+        participant = participantService.save(participant, user);
+
+        if (participant instanceof GalleryEntity)
+            counterparty.setGallery((GalleryEntity) participant);
+        else
+            counterparty.setTrader((TraderPersonEntity) participant);
+
+        counterpartyService.save(counterparty);
 
         deleteToken(registerTokenEntity);
         return user;

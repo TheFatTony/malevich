@@ -15,7 +15,9 @@ async function placeOrder(placeOrder) { // eslint-disable-line no-unused-vars
     }
 
     const registry = await getAssetRegistry('io.malevich.network.OrderAsset');
+    const registryTrader = await getParticipantRegistry('io.malevich.network.Trader');
     const tradeHistoryRegistry = await getAssetRegistry('io.malevich.network.TradeHistory');
+    const registryArtworkStock = await getAssetRegistry('io.malevich.network.ArtworkStock');
     const factory = getFactory();
 
 
@@ -50,7 +52,7 @@ async function placeOrder(placeOrder) { // eslint-disable-line no-unused-vars
         var results = await query(ordersAskQuery, { artworkStock: 'resource:io.malevich.network.ArtworkStock#' + placeOrder.order.artworkStock.getIdentifier()});
         results.forEach(async existingOrders => {
             if ((existingOrders != matchingBid) && (existingOrders != currentAsk)) {
-                let existingOrders1 = await registry.get(existingOrders.getIdentifier());
+                let existingOrders1 = await registry.get(existingOrders.order.getIdentifier());
                 existingOrders1.order.orderStatus = 'CLOSE';
                 await registry.update(existingOrders1);
             }
@@ -65,6 +67,15 @@ async function placeOrder(placeOrder) { // eslint-disable-line no-unused-vars
         tradeHistoryAsset.askOrder = currentAsk;
         tradeHistoryAsset.bidOrder = matchingBid;
         await tradeHistoryRegistry.add(tradeHistoryAsset);
+
+        let uptadeArtwork = await registryArtworkStock.get(matchingBid.order.artworkStock.getIdentifier());
+        uptadeArtwork.owner = matchingBid.order.сounterparty;
+        await registryArtworkStock.update(uptadeArtwork);
+
+        let uptadeCounterparty = await registryTrader.get(uptadeArtwork.owner.getIdentifier());
+        uptadeCounterparty.balance = uptadeCounterparty.balance - matchingBid.order.amount;
+        await registryTrader.update(uptadeCounterparty);
+
     }
 }
 
@@ -74,7 +85,20 @@ async function placeOrder(placeOrder) { // eslint-disable-line no-unused-vars
  * @transaction
  */
 async function updateBalance(updateBalance) { // eslint-disable-line no-unused-vars
-    const registry = await getAssetRegistry('io.malevich.network.BalanceAsset');
+    const registryBalanceAsset = await getAssetRegistry('io.malevich.network.BalanceAsset'); // eslint-disable-line no-undef
+    const registryTrader = await getParticipantRegistry('io.malevich.network.Trader'); // eslint-disable-line no-undef
     const factory = getFactory();
-    await registry.add(updateBalance.balance);
+
+
+    const balanceAsset = factory.newResource('io.malevich.network', 'BalanceAsset', '!!!!');
+    balanceAsset.balance = updateBalance.balance;
+    await registryBalanceAsset.add(balanceAsset);
+
+
+    let uptadeCounterparty = await registryTrader.get(balanceAsset.balance.сounterparty.getIdentifier());
+
+    uptadeCounterparty.balance = updateBalance.balance.newBalance;
+    await registryTrader.update(uptadeCounterparty);
+
+
 }

@@ -10,7 +10,7 @@
     </changeSet>
 
     <changeSet author="toolstik" id="participant_user-user_id-index">
-        <createIndex indexName="participant_user_user_id_idx" tableName="participant_user" unique="true">
+        <createIndex indexName="participant_user_user_id_idx" tableName="participant_user" unique="false">
             <column name="user_id"/>
         </createIndex>
     </changeSet>

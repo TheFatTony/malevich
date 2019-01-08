@@ -12,7 +12,7 @@ import {CountryDto} from "../../_transfer/countryDto";
 import {GenderDto} from "../../_transfer/genderDto";
 import {ParticipantService} from "../../_services/participant.service";
 import {ParticipantDto} from "../../_transfer/participantDto";
-import {GalleryDto} from "../../_transfer";
+import {GalleryDto, UserDto} from "../../_transfer";
 import {TraderDto} from "../../_transfer/traderDto";
 
 @Component({
@@ -24,6 +24,8 @@ export class EditComponent implements OnInit, AfterViewInit {
 
   participant: ParticipantDto;
   isGallery: boolean;
+
+  user: UserDto;
 
   countries: any[];
   genders: any[];
@@ -37,6 +39,9 @@ export class EditComponent implements OnInit, AfterViewInit {
               private countryService: CountryService,
               private genderService: GenderService,
               private authService: AuthService) {
+    this.authService.getCurrentUser().subscribe(data => {
+      this.user = data
+    });
   }
 
   ngOnInit() {

@@ -4,13 +4,13 @@
                    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.6.xsd">
 
     <changeSet author="toolstik" id="participant_user-participant_id-index">
-        <createIndex indexName="participant_user_participant_id_idx" tableName="participant_user" unique="true">
+        <createIndex indexName="participant_user_participant_id_idx" tableName="participant_user" unique="false">
             <column name="participant_id"/>
         </createIndex>
     </changeSet>
 
     <changeSet author="toolstik" id="participant_user-user_id-index">
-        <createIndex indexName="participant_user_user_id_idx" tableName="participant_user" unique="false">
+        <createIndex indexName="participant_user_user_id_idx" tableName="participant_user" unique="true">
             <column name="user_id"/>
         </createIndex>
     </changeSet>

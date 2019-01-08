@@ -60,11 +60,10 @@ public class ParticipantEntity implements Entity {
     @Getter
     @Setter
     @LazyCollection(LazyCollectionOption.FALSE)
-    @OneToMany(cascade = {CascadeType.ALL})
+    @OneToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     @JoinTable(name = "participant_user",
-            joinColumns = @JoinColumn(name = "participant_id", updatable = false),
-            inverseJoinColumns = @JoinColumn(name = "user_id", updatable = false)
-//            uniqueConstraints = @UniqueConstraint(columnNames = {"user_id"})
+            joinColumns = @JoinColumn(name = "participant_id"),
+            inverseJoinColumns = @JoinColumn(name = "user_id")
     )
     private List<UserEntity> users;
 

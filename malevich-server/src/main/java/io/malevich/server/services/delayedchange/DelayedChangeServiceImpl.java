@@ -39,6 +39,7 @@ public class DelayedChangeServiceImpl implements DelayedChangeService {
     // TODO total crap
     @Transactional(propagation = Propagation.NOT_SUPPORTED)
     public void approveChange(DelayedChangeEntity delayedChangeEntity) {
+        // refresh entity from db to get user
         delayedChangeEntity = delayedChangeDao.findById(delayedChangeEntity.getId()).orElse(null);
 
         if(delayedChangeEntity == null)

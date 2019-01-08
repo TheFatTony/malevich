@@ -3,17 +3,17 @@
                    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
                    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.6.xsd">
 
-    <changeSet author="thefattony" id="000_user-data">
-        <sqlFile splitStatements="false" stripComments="false"
-                 relativeToChangelogFile="true"
-                 path="test_data/000_user.sql"/>
-    </changeSet>
+    <!--<changeSet author="thefattony" id="000_user-data">-->
+        <!--<sqlFile splitStatements="false" stripComments="false"-->
+                 <!--relativeToChangelogFile="true"-->
+                 <!--path="test_data/000_user.sql"/>-->
+    <!--</changeSet>-->
 
-    <changeSet author="thefattony" id="001_user_roles-data">
-        <sqlFile splitStatements="false" stripComments="false"
-                 relativeToChangelogFile="true"
-                 path="test_data/001_user_roles.sql"/>
-    </changeSet>
+    <!--<changeSet author="thefattony" id="001_user_roles-data">-->
+        <!--<sqlFile splitStatements="false" stripComments="false"-->
+                 <!--relativeToChangelogFile="true"-->
+                 <!--path="test_data/001_user_roles.sql"/>-->
+    <!--</changeSet>-->
 
     <changeSet author="thefattony" id="002_files-data">
         <sqlFile splitStatements="false" stripComments="false"
@@ -27,29 +27,29 @@
                  path="test_data/003_lob_storage.sql"/>
     </changeSet>
 
-    <changeSet author="thefattony" id="004_organization-data">
-        <sqlFile splitStatements="false" stripComments="false"
-                 relativeToChangelogFile="true"
-                 path="test_data/004_organization.sql"/>
-    </changeSet>
+    <!--<changeSet author="thefattony" id="004_organization-data">-->
+        <!--<sqlFile splitStatements="false" stripComments="false"-->
+                 <!--relativeToChangelogFile="true"-->
+                 <!--path="test_data/004_organization.sql"/>-->
+    <!--</changeSet>-->
 
-    <changeSet author="thefattony" id="005_gallery-data">
-        <sqlFile splitStatements="false" stripComments="false"
-                 relativeToChangelogFile="true"
-                 path="test_data/005_gallery.sql"/>
-    </changeSet>
+    <!--<changeSet author="thefattony" id="005_gallery-data">-->
+        <!--<sqlFile splitStatements="false" stripComments="false"-->
+                 <!--relativeToChangelogFile="true"-->
+                 <!--path="test_data/005_gallery.sql"/>-->
+    <!--</changeSet>-->
 
-    <changeSet author="thefattony" id="005_gallery_user-data">
-        <sqlFile splitStatements="false" stripComments="false"
-                 relativeToChangelogFile="true"
-                 path="test_data/005_gallery_user.sql"/>
-    </changeSet>
+    <!--<changeSet author="thefattony" id="005_gallery_user-data">-->
+        <!--<sqlFile splitStatements="false" stripComments="false"-->
+                 <!--relativeToChangelogFile="true"-->
+                 <!--path="test_data/005_gallery_user.sql"/>-->
+    <!--</changeSet>-->
 
-    <changeSet author="thefattony" id="006_person-data">
-        <sqlFile splitStatements="false" stripComments="false"
-                 relativeToChangelogFile="true"
-                 path="test_data/006_person.sql"/>
-    </changeSet>
+    <!--<changeSet author="thefattony" id="006_person-data">-->
+        <!--<sqlFile splitStatements="false" stripComments="false"-->
+                 <!--relativeToChangelogFile="true"-->
+                 <!--path="test_data/006_person.sql"/>-->
+    <!--</changeSet>-->
 
     <changeSet author="thefattony" id="007_artist-data">
         <sqlFile splitStatements="false" stripComments="false"
@@ -57,41 +57,41 @@
                  path="test_data/007_artist.sql"/>
     </changeSet>
 
-    <changeSet author="thefattony" id="008_artwork-data">
-        <sqlFile splitStatements="false" stripComments="false"
-                 relativeToChangelogFile="true"
-                 path="test_data/008_artwork.sql"/>
-    </changeSet>
+    <!--<changeSet author="thefattony" id="008_artwork-data">-->
+        <!--<sqlFile splitStatements="false" stripComments="false"-->
+                 <!--relativeToChangelogFile="true"-->
+                 <!--path="test_data/008_artwork.sql"/>-->
+    <!--</changeSet>-->
 
-    <changeSet author="toolstik" id="009_trader-data">
-        <sqlFile splitStatements="false" stripComments="false"
-                 relativeToChangelogFile="true"
-                 path="test_data/009_trader.sql"/>
-    </changeSet>
+    <!--<changeSet author="toolstik" id="009_trader-data">-->
+        <!--<sqlFile splitStatements="false" stripComments="false"-->
+                 <!--relativeToChangelogFile="true"-->
+                 <!--path="test_data/009_trader.sql"/>-->
+    <!--</changeSet>-->
 
-    <changeSet author="toolstik" id="010_address-data">
-        <sqlFile splitStatements="false" stripComments="false"
-                 relativeToChangelogFile="true"
-                 path="test_data/010_address.sql"/>
-    </changeSet>
+    <!--<changeSet author="toolstik" id="010_address-data">-->
+        <!--<sqlFile splitStatements="false" stripComments="false"-->
+                 <!--relativeToChangelogFile="true"-->
+                 <!--path="test_data/010_address.sql"/>-->
+    <!--</changeSet>-->
 
-    <changeSet author="thefattony" id="011_trader_address-data">
-        <sqlFile splitStatements="false" stripComments="false"
-                 relativeToChangelogFile="true"
-                 path="test_data/011_trader_address.sql"/>
-    </changeSet>
+    <!--<changeSet author="thefattony" id="011_trader_address-data">-->
+        <!--<sqlFile splitStatements="false" stripComments="false"-->
+                 <!--relativeToChangelogFile="true"-->
+                 <!--path="test_data/011_trader_address.sql"/>-->
+    <!--</changeSet>-->
 
-    <changeSet author="thefattony" id="012_gallery_address-data">
-        <sqlFile splitStatements="false" stripComments="false"
-                 relativeToChangelogFile="true"
-                 path="test_data/012_gallery_address.sql"/>
-    </changeSet>
+    <!--<changeSet author="thefattony" id="012_gallery_address-data">-->
+        <!--<sqlFile splitStatements="false" stripComments="false"-->
+                 <!--relativeToChangelogFile="true"-->
+                 <!--path="test_data/012_gallery_address.sql"/>-->
+    <!--</changeSet>-->
 
-    <changeSet author="thefattony" id="013_counterparty-data">
-        <sqlFile splitStatements="false" stripComments="false"
-                 relativeToChangelogFile="true"
-                 path="test_data/013_counterparty.sql"/>
-    </changeSet>
+    <!--<changeSet author="thefattony" id="013_counterparty-data">-->
+        <!--<sqlFile splitStatements="false" stripComments="false"-->
+                 <!--relativeToChangelogFile="true"-->
+                 <!--path="test_data/013_counterparty.sql"/>-->
+    <!--</changeSet>-->
 
     <!--<changeSet author="thefattony" id="014_artwork_stock-data" context="transactions">-->
         <!--<sqlFile splitStatements="false" stripComments="false"-->

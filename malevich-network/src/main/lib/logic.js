@@ -17,7 +17,6 @@ async function placeOrder(placeOrder) { // eslint-disable-line no-unused-vars
     const registry = await getAssetRegistry('io.malevich.network.OrderAsset');
     const tradeHistoryRegistry = await getAssetRegistry('io.malevich.network.TradeHistory');
     const factory = getFactory();
-    var serializer = getSerializer();
 
 
     var ordersAskQuery = buildQuery('SELECT io.malevich.network.OrderAsset WHERE ((order.artworkStock == _$artworkStock))');
@@ -75,5 +74,7 @@ async function placeOrder(placeOrder) { // eslint-disable-line no-unused-vars
  * @transaction
  */
 async function updateBalance(updateBalance) { // eslint-disable-line no-unused-vars
-
+    const registry = await getAssetRegistry('io.malevich.network.BalanceAsset');
+    const factory = getFactory();
+    await registry.add(updateBalance.balance);
 }

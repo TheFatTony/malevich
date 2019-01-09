@@ -1,14 +1,17 @@
 package io.malevich.server.domain;
 
 
+import com.yinyang.core.server.domain.Entity;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
 
-import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+
+
+import javax.persistence.*;
 
 
 @EqualsAndHashCode

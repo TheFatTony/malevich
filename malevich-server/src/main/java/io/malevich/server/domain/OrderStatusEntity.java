@@ -7,6 +7,7 @@ import lombok.Setter;
 
 import javax.persistence.*;
 import java.util.Map;
+import com.yinyang.core.server.domain.Entity;
 
 @EqualsAndHashCode
 @javax.persistence.Entity

@@ -1,9 +1,9 @@
 package io.malevich.server.services.artwork;
 
 
+import com.yinyang.core.server.services.file.FileService;
 import io.malevich.server.domain.ArtworkEntity;
 import io.malevich.server.repositories.artwork.ArtworkDao;
-import io.malevich.server.services.file.FileService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

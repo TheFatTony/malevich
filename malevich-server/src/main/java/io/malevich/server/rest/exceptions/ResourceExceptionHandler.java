@@ -1,6 +1,7 @@
 package io.malevich.server.rest.exceptions;
 
 
+import com.yinyang.core.server.exceptions.InvalidOldPasswordException;
 import io.malevich.server.exceptions.AccountStateException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

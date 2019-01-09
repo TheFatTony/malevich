@@ -35,15 +35,15 @@ public class TraderResource {
         return convertToDto(traderEntity);
     }
 
-    @PreAuthorize("hasRole('TRADER')")
-    @RequestMapping(value = "/update", method = RequestMethod.PUT)
-    @ResponseStatus(HttpStatus.OK)
-    @ResponseBody
-    public ResponseEntity<Void> update(@RequestBody TraderPersonDto trader) {
-        TraderPersonEntity newTraderEntity = convertToEntity(trader);
-        this.traderService.update(newTraderEntity);
-        return ResponseEntity.ok().build();
-    }
+//    @PreAuthorize("hasRole('TRADER')")
+//    @RequestMapping(value = "/update", method = RequestMethod.PUT)
+//    @ResponseStatus(HttpStatus.OK)
+//    @ResponseBody
+//    public ResponseEntity<Void> update(@RequestBody TraderPersonDto trader) {
+//        TraderPersonEntity newTraderEntity = convertToEntity(trader);
+//        this.traderService.update(newTraderEntity);
+//        return ResponseEntity.ok().build();
+//    }
 
     private TraderPersonDto convertToDto(TraderPersonEntity entity) {
         TraderPersonDto dto = modelMapper.map(entity, TraderPersonDto.class);

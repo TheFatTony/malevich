@@ -1,6 +1,6 @@
 package io.malevich.server.util;
 
-import io.malevich.server.domain.PaymentsEntity;
+import io.malevich.server.domain.*;
 import io.malevich.server.rest.exceptions.FopException;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.fop.apps.FOUserAgent;
@@ -45,7 +45,7 @@ public class PaymentFop {
             doc.appendChild(rootElement);
 
             Element fullName = doc.createElement("fullName");
-            fullName.appendChild(doc.createTextNode(entity.getParty().getTrader().getPerson().getFirstName() + entity.getParty().getTrader().getPerson().getLastName()));
+            fullName.appendChild(doc.createTextNode(getFullName(entity.getParty().getParticipant())));
             rootElement.appendChild(fullName);
 
             Element paymentNumber = doc.createElement("paymentNumber");
@@ -89,5 +89,28 @@ public class PaymentFop {
         } catch (SAXException | IOException | ParserConfigurationException | ParseException | TransformerException e) {
             throw new FopException("error message", e);
         }
+    }
+
+    private String getFullName(ParticipantEntity participantEntity){
+        if (participantEntity == null)
+            return null;
+
+        PersonEntity person = null;
+        OrganizationEntity organization = null;
+
+        if(participantEntity instanceof TraderPersonEntity)
+            person = ((TraderPersonEntity)participantEntity).getPerson();
+        else if(participantEntity instanceof TraderOrganizationEntity)
+            organization = ((TraderOrganizationEntity)participantEntity).getOrganization();
+        else if(participantEntity instanceof GalleryEntity)
+            organization = ((GalleryEntity)participantEntity).getOrganization();
+
+        if(person != null)
+            return person.getFirstName() + person.getLastName();
+
+        if(organization != null)
+            return organization.getLegalNameMl().get("en");
+
+        return null;
     }
 }

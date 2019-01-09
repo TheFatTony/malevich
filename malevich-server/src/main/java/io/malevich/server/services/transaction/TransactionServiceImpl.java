@@ -2,7 +2,6 @@ package io.malevich.server.services.transaction;
 
 import io.malevich.server.domain.*;
 import io.malevich.server.exceptions.AccountStateException;
-import io.malevich.server.fabric.services.ComposerService;
 import io.malevich.server.repositories.accountstate.AccountStateDao;
 import io.malevich.server.repositories.transaction.TransactionDao;
 import io.malevich.server.services.counterparty.CounterpartyService;
@@ -32,9 +31,6 @@ public class TransactionServiceImpl implements TransactionService {
     @Autowired
     private TransactionTypeService transactionTypeService;
 
-    @Autowired
-    private ComposerService composerService;
-
     @Override
     @Transactional(readOnly = true)
     public List<TransactionEntity> findAll() {
@@ -60,9 +56,6 @@ public class TransactionServiceImpl implements TransactionService {
         transaction.setType(transactionType);
         transaction = transactionDao.save(transaction);
 
-
-        if (transaction.getType().equals(transactionTypeService.getBuySell()))
-            composerService.submitTransction(transaction);
 
         return transaction;
     }

@@ -10,8 +10,4 @@ public class RegisterFormStepTwoDto {
 
     private String password;
 
-    private Boolean isOrganization;
-
-    private Boolean isGallery;
-
 }

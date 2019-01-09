@@ -34,11 +34,25 @@
     <!-- End Profile Settings -->
 
     <div class="col-lg-9 g-mb-50">
-      <form #f="ngForm" (ngSubmit)="update()" novalidate>
 
-        <ng-container *ngIf="participant?.person as person">
+      <div class="g-brd-around g-brd-gray-light-v4 rounded g-pa-30 g-mb-30">
 
-          <div class="g-brd-around g-brd-gray-light-v4 rounded g-pa-30 g-mb-30">
+        <div class="row">
+          <div class="col-12">
+            <span
+              class="d-block g-color-text g-font-size-13 mb-1">{{'TRADER_PROFILE.SECURITY.LABEL.UPLOAD_AVATAR' | translate}}</span>
+            <jqxFileUpload
+              [width]="'100%'" [uploadUrl]="url + 'files/uploadFile'" [fileInputName]="'file'"
+              (onUploadEnd)="onUploadEnd($event)" [multipleFilesUpload]="false" [autoUpload]="false">
+            </jqxFileUpload>
+          </div>
+        </div>
+
+        <hr class="g-brd-gray-light-v4 g-my-20">
+
+        <form #f="ngForm" (ngSubmit)="update()" novalidate>
+
+          <ng-container *ngIf="participant?.person as person">
 
             <div class="row">
               <div class="col-12">
@@ -61,19 +75,6 @@
                           mchRequired
                           [(ngModel)]="person.lastName"
                           [placeHolder]="'TRADER_PROFILE.SECURITY.PLACEHOLDER.LAST_NAME' | translate"></mchInput>
-              </div>
-            </div>
-
-            <hr class="g-brd-gray-light-v4 g-my-20">
-
-            <div class="row">
-              <div class="col-12">
-            <span
-              class="d-block g-color-text g-font-size-13 mb-1">{{'TRADER_PROFILE.SECURITY.LABEL.UPLOAD_AVATAR' | translate}}</span>
-                <jqxFileUpload
-                  [width]="'100%'" [uploadUrl]="url + 'files/uploadFile'" [fileInputName]="'file'"
-                  (onUploadEnd)="onUploadEnd($event)" [multipleFilesUpload]="false">
-                </jqxFileUpload>
               </div>
             </div>
 
@@ -221,15 +222,11 @@
               </div>
 
             </ng-container>
+            <!-- End Info -->
 
-          </div>
-          <!-- End Info -->
+          </ng-container>
 
-        </ng-container>
-
-        <ng-container *ngIf="participant?.organization as organization">
-
-          <div class="g-brd-around g-brd-gray-light-v4 rounded g-pa-30 g-mb-30">
+          <ng-container *ngIf="participant?.organization as organization">
 
             <div class="row">
               <div class="col-12">
@@ -345,12 +342,10 @@
 
             </ng-container>
 
-          </div>
+          </ng-container>
 
-        </ng-container>
+          <ng-container *ngIf="isGallery">
 
-        <ng-container *ngIf="isGallery">
-          <div class="g-brd-around g-brd-gray-light-v4 rounded g-pa-30 g-mb-30">
             <div class="row">
               <div class="col-12">
                 <span class="d-block g-color-text g-font-size-13 mb-1">{{'GALLERY_PROFILE.SECURITY.DESCRIPTION_EN' | translate}}:</span>
@@ -369,29 +364,29 @@
                 <mchInput name="descriptionRu" [(ngModel)]="participant.descriptionMl['ru']"></mchInput>
               </div>
             </div>
-          </div>
-        </ng-container>
+          </ng-container>
 
-        <div class="row">
-          <div class="col-3">
-            <mchButton
-              class="btn btn-block u-btn-primary h-100 g-font-size-12 text-uppercase g-py-12 g-px-25"
-              [submitForm]="f"
-            >{{'TRADER_PROFILE.SECURITY.BUTTON.UPDATE' | translate}}
-            </mchButton>
-          </div>
-
-          <div class="col-3">
-            <mchButton
-              class="btn btn-block u-btn-primary h-100 g-font-size-12 text-uppercase g-py-12 g-px-25"
-              (onClick)="cancel()"
-            >{{'TRADER_PROFILE.SECURITY.BUTTON.CANCEL' | translate}}
-            </mchButton>
-          </div>
-
+        </form>
+      </div>
+      <div class="row">
+        <div class="col-3">
+          <mchButton
+            class="btn btn-block u-btn-primary h-100 g-font-size-12 text-uppercase g-py-12 g-px-25"
+            [submitForm]="f"
+          >{{'TRADER_PROFILE.SECURITY.BUTTON.UPDATE' | translate}}
+          </mchButton>
         </div>
 
-      </form>
+        <div class="col-3">
+          <mchButton
+            class="btn btn-block u-btn-primary h-100 g-font-size-12 text-uppercase g-py-12 g-px-25"
+            (onClick)="cancel()"
+          >{{'TRADER_PROFILE.SECURITY.BUTTON.CANCEL' | translate}}
+          </mchButton>
+        </div>
+
+      </div>
+
     </div>
   </div>
 </div>

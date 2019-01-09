@@ -58,40 +58,41 @@ public class TraderServiceImpl implements TraderService {
     @Override
     @Transactional
     public TraderPersonEntity update(TraderPersonEntity trader) {
-        TraderPersonEntity traderEntity = getCurrentTrader();
-
-        UserEntity user = null;
-        boolean isNew = false;
-        if (traderEntity != null) {
-            trader.setId(traderEntity.getId());
-            trader.getUser().setId(traderEntity.getUser().getId());
-            user = traderEntity.getUser();
-
-            if (traderEntity.getPerson() != null)
-                trader.getPerson().setId(traderEntity.getPerson().getId());
-        } else {
-            user = userService.findByName(authService.getUser().getName());
-            trader.getUser().setId(user.getId());
-            isNew = true;
-        }
-
-        if (isNew) {
-            traderEntity = traderDao.save(trader);
-            CounterpartyEntity counterpartyEntity = new CounterpartyEntity();
-            counterpartyEntity.setTrader(traderEntity);
-            counterpartyEntity.setType(counterpartyTypeService.getTraderType());
-            counterpartyService.save(counterpartyEntity);
-        } else {
-            DelayedChangeEntity delayedChangeEntity = new DelayedChangeEntity();
-            delayedChangeEntity.setTypeId("TRADER");
-            delayedChangeEntity.setPayload(trader);
-            delayedChangeEntity.setReferenceId(trader.getId());
-            delayedChangeEntity.setUser(user);
-            delayedChangeService.save(delayedChangeEntity);
-        }
-
-
-        return traderEntity;
+//        TraderPersonEntity traderEntity = getCurrentTrader();
+//
+//        UserEntity user = null;
+//        boolean isNew = false;
+//        if (traderEntity != null) {
+//            trader.setId(traderEntity.getId());
+//            trader.getUser().setId(traderEntity.getUser().getId());
+//            user = traderEntity.getUser();
+//
+//            if (traderEntity.getPerson() != null)
+//                trader.getPerson().setId(traderEntity.getPerson().getId());
+//        } else {
+//            user = userService.findByName(authService.getUser().getName());
+//            trader.getUser().setId(user.getId());
+//            isNew = true;
+//        }
+//
+//        if (isNew) {
+//            traderEntity = traderDao.save(trader);
+//            CounterpartyEntity counterpartyEntity = new CounterpartyEntity();
+//            counterpartyEntity.setTrader(traderEntity);
+//            counterpartyEntity.setType(counterpartyTypeService.getTraderType());
+//            counterpartyService.save(counterpartyEntity);
+//        } else {
+//            DelayedChangeEntity delayedChangeEntity = new DelayedChangeEntity();
+//            delayedChangeEntity.setTypeId("TRADER");
+//            delayedChangeEntity.setPayload(trader);
+//            delayedChangeEntity.setReferenceId(trader.getId());
+//            delayedChangeEntity.setUser(user);
+//            delayedChangeService.save(delayedChangeEntity);
+//        }
+//
+//
+//        return traderEntity;
+        return null;
     }
 
 

@@ -26,7 +26,9 @@ export class DocumentAddComponent implements OnInit {
     return documentType.nameMl[this.translate.currentLang];
   };
 
-  constructor(private router: Router, public translate: TranslateService, private documentService: DocumentsService) {
+  constructor(private router: Router,
+              public translate: TranslateService,
+              private documentService: DocumentsService) {
   }
 
   ngOnInit() {

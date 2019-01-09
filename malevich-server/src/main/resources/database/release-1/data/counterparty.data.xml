@@ -5,8 +5,8 @@
 
     <changeSet author="toolstik" id="counterparty-data" dbms="mysql">
         <sql splitStatements="true" stripComments="true">
-            INSERT INTO counterparty (id, type_id, trader_id, gallery_id)
-            VALUES (1, 'X', null, null);
+            INSERT INTO counterparty (id, type_id, participant_id)
+            VALUES (1, 'X', null);
         </sql>
     </changeSet>
 

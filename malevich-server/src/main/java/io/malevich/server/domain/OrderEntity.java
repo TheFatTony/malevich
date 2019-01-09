@@ -10,7 +10,7 @@ import org.hibernate.annotations.Formula;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Positive;
-
+import com.yinyang.core.server.domain.Entity;
 
 @EqualsAndHashCode
 @javax.persistence.Entity

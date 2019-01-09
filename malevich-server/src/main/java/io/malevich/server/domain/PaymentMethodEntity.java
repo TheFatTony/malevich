@@ -8,6 +8,8 @@ import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
 
 import javax.persistence.*;
+import com.yinyang.core.server.domain.Entity;
+
 
 @EqualsAndHashCode
 @javax.persistence.Entity

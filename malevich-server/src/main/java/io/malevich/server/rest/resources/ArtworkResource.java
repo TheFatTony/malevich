@@ -1,9 +1,9 @@
 package io.malevich.server.rest.resources;
 
+import com.yinyang.core.server.transfer.FileDto;
 import io.malevich.server.domain.ArtworkEntity;
 import io.malevich.server.services.artwork.ArtworkService;
 import io.malevich.server.transfer.ArtworkDto;
-import io.malevich.server.transfer.FileDto;
 import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;

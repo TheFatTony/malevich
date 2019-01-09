@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.6.xsd">
+
+    <changeSet author="thefattony" id="trade_type-table">
+        <createTable tableName="trade_type">
+            <column name="id" type="char(4)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+    <changeSet author="thefattony" id="trade_type-table-ml" dbms="mysql">
+        <addColumn tableName="trade_type">
+            <column name="name_ml" type="json">
+                <constraints nullable="false"/>
+            </column>
+        </addColumn>
+    </changeSet>
+
+    <changeSet author="thefattony" id="trade_type-pk">
+        <addPrimaryKey columnNames="id" constraintName="trade_type_pk" tableName="trade_type"/>
+    </changeSet>
+
+</databaseChangeLog>

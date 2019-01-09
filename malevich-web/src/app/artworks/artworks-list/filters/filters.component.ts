@@ -16,6 +16,7 @@ export class FiltersComponent implements OnInit, AfterViewInit {
   filterDto: FilterDto;
   size: number = 9;
   page: number = 0;
+  sort: string = '';
 
   constructor(public translate: TranslateService, private categoryService: CategoryService, private artworksListComponent: ArtworksListComponent) {
   }
@@ -39,9 +40,10 @@ export class FiltersComponent implements OnInit, AfterViewInit {
       );
   }
 
-  filterCategory(id: number): void {
+  filter(id: number): void {
     this.filterDto.page = this.page;
     this.filterDto.size = this.size;
+    this.filterDto.sort = this.sort;
     this.filterDto.categoryId = id;
     this.onCategoryChange.emit(this.filterDto);
     this.artworksListComponent.stocksByFilter(this.filterDto);

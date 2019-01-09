@@ -1,16 +1,16 @@
 package io.malevich.server.services.trader;
 
 
+import io.malevich.server.domain.*;
 import io.malevich.server.repositories.trader.TraderDao;
-import io.malevich.server.domain.TraderEntity;
-import io.malevich.server.domain.UserEntity;
+import io.malevich.server.services.auth.AuthService;
+import io.malevich.server.services.counterparty.CounterpartyService;
+import io.malevich.server.services.counterpartytype.CounterpartyTypeService;
+import io.malevich.server.services.delayedchange.DelayedChangeService;
+import io.malevich.server.services.participant.ParticipantService;
 import io.malevich.server.services.user.UserService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.web.authentication.preauth.PreAuthenticatedCredentialsNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -25,62 +25,87 @@ public class TraderServiceImpl implements TraderService {
     private TraderDao traderDao;
 
     @Autowired
+    private AuthService authService;
+
+    @Autowired
     private UserService userService;
 
-    protected TraderServiceImpl() {
-    }
+    @Autowired
+    private CounterpartyService counterpartyService;
+
+    @Autowired
+    private CounterpartyTypeService counterpartyTypeService;
+
+    @Autowired
+    private DelayedChangeService delayedChangeService;
+
+    @Autowired
+    private ParticipantService participantService;
+
 
     @Override
     @Transactional(readOnly = true)
-    public List<TraderEntity> findAll() {
+    public List<TraderPersonEntity> findAll() {
         return traderDao.findAll();
     }
 
     @Override
     @Transactional(readOnly = true)
-    public TraderEntity find(Long id) {
+    public TraderPersonEntity find(Long id) {
         return traderDao.findById(id).orElse(null);
     }
 
     @Override
-    public TraderEntity findByUserName(String name) {
-        return traderDao.findByUserName(name).orElse(null);
+    @Transactional
+    public TraderPersonEntity update(TraderPersonEntity trader) {
+//        TraderPersonEntity traderEntity = getCurrentTrader();
+//
+//        UserEntity user = null;
+//        boolean isNew = false;
+//        if (traderEntity != null) {
+//            trader.setId(traderEntity.getId());
+//            trader.getUser().setId(traderEntity.getUser().getId());
+//            user = traderEntity.getUser();
+//
+//            if (traderEntity.getPerson() != null)
+//                trader.getPerson().setId(traderEntity.getPerson().getId());
+//        } else {
+//            user = userService.findByName(authService.getUser().getName());
+//            trader.getUser().setId(user.getId());
+//            isNew = true;
+//        }
+//
+//        if (isNew) {
+//            traderEntity = traderDao.save(trader);
+//            CounterpartyEntity counterpartyEntity = new CounterpartyEntity();
+//            counterpartyEntity.setTrader(traderEntity);
+//            counterpartyEntity.setType(counterpartyTypeService.getTraderType());
+//            counterpartyService.save(counterpartyEntity);
+//        } else {
+//            DelayedChangeEntity delayedChangeEntity = new DelayedChangeEntity();
+//            delayedChangeEntity.setTypeId("TRADER");
+//            delayedChangeEntity.setPayload(trader);
+//            delayedChangeEntity.setReferenceId(trader.getId());
+//            delayedChangeEntity.setUser(user);
+//            delayedChangeService.save(delayedChangeEntity);
+//        }
+//
+//
+//        return traderEntity;
+        return null;
     }
+
 
     @Override
     @Transactional
-    public TraderEntity update(TraderEntity trader) {
-        TraderEntity traderEntity = getCurrentTrader();
-
-        if (traderEntity != null) {
-            trader.setId(traderEntity.getId());
-            trader.getUser().setId(traderEntity.getUser().getId());
-
-            if (traderEntity.getPerson() != null)
-                trader.getPerson().setId(traderEntity.getPerson().getId());
-        } else {
-            UserEntity user = userService.findByName(getUserName());
-            trader.getUser().setId(user.getId());
-        }
-        return traderDao.save(trader);
-    }
-
-    private String getUserName() {
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        Object principal = authentication.getPrincipal();
-
-        if (!(principal instanceof UserDetails))
-            throw new PreAuthenticatedCredentialsNotFoundException(null);
-
-        UserDetails userDetails = (UserDetails) principal;
-        return userDetails.getUsername();
+    public TraderPersonEntity save(TraderPersonEntity traderEntity) {
+        return traderDao.save(traderEntity);
     }
 
     @Override
     @Transactional(readOnly = true)
-    public TraderEntity getCurrentTrader() {
-        String username = getUserName();
-        TraderEntity traderEntity = findByUserName(username);
-        return traderEntity;
+    public TraderPersonEntity getCurrentTrader() {
+        ParticipantEntity participantEntity = participantService.getCurrent();
+        return participantEntity instanceof TraderPersonEntity ? (TraderPersonEntity) participantEntity : null;
     }
 }

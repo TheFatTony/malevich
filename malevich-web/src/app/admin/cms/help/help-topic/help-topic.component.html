@@ -1,0 +1,79 @@
+<mchButton [width]="100" [height]="35" (click)="openWindow()">
+  Add
+</mchButton>
+
+
+<jqxGrid #myGrid
+         [width]="'100%'" [height]="'90%'" [pageable]="true" [sortable]="true" [columnsresize]="true"
+         [pagermode]="'simple'">
+  <tr>
+    <th>Sr No.</th>
+    <th>Name</th>
+    <th>Body</th>
+    <th>Category Name</th>
+    <th>Action</th>
+  </tr>
+  <tr *ngFor="let topic of helpTopics;index as i">
+    <td>
+      {{i+1}}
+    </td>
+    <td>
+      {{topic.topicNameMl[translate.currentLang]}}
+    </td>
+    <td>
+      {{topic.bodyMl[translate.currentLang]}}
+    </td>
+    <td>
+      {{topic.helpCategory.categoryNameMl[translate.currentLang]}}
+    </td>
+  </tr>
+</jqxGrid>
+
+
+<jqxWindow #myWindow [autoOpen]="false" [resizable]="false" (onOpen)="onMyWindowOpen()">
+  <div>Add</div>
+  <div style="overflow: hidden; width: 100%">
+    <div><label>Category Name:</label>
+      <div>
+        <mchDropDownList #helpCategoryComboBox
+                         [objectSource]="helpCategories"
+                         [displayFunc]="helpCategoryDisplayFunc"
+                         [ngModel]="helpTopic?.helpCategory"
+                         (ngModelChange)="helpTopic.helpCategory=$event">
+        </mchDropDownList>
+      </div>
+    </div>
+    <div><label>Title Name[En]:</label>
+      <div>
+        <mchInput #nameEn [ngModel]="!helpTopic?.topicNameMl ? '' : helpTopic?.topicNameMl['en']"
+                  (ngModelChange)="onTitleChange($event, 'en')" mchRequired></mchInput>
+      </div>
+    </div>
+    <div><label>Title Name[Ru]:</label>
+      <div>
+        <mchInput #nameRu [ngModel]="!helpTopic?.topicNameMl ? '' : helpTopic?.topicNameMl['ru']"
+                  (ngModelChange)="onTitleChange($event, 'ru')" mchRequired></mchInput>
+      </div>
+    </div>
+    <div><label>Body[En]:</label>
+      <div>
+        <mchInput #bodyEn [ngModel]="!helpTopic?.bodyMl ? '' : helpTopic?.bodyMl['en']"
+                  (ngModelChange)="onBodyChange($event, 'en')" mchRequired></mchInput>
+      </div>
+    </div>
+    <div><label>Body[Ru]:</label>
+      <div>
+        <mchInput #bodyRu [ngModel]="!helpTopic?.bodyMl ? '' : helpTopic?.bodyMl['ru']"
+                  (ngModelChange)="onBodyChange($event, 'ru')" mchRequired></mchInput>
+      </div>
+    </div>
+    <div>
+      <mchButton #SendButton
+                 (onClick)="sendButton()"
+                 style="text-align: center; margin-left: 8em;"
+                 [width]="60" [height]="25">
+        Send
+      </mchButton>
+    </div>
+  </div>
+</jqxWindow>

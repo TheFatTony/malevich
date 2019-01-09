@@ -1,7 +1,7 @@
 package io.malevich.server.rest.resources;
 
 import io.malevich.server.domain.ArtworkStockEntity;
-import io.malevich.server.domain.enums.SortEnum;
+import io.malevich.server.repositories.artworkstock.filter.FilterSpecification;
 import io.malevich.server.services.artworkstock.ArtworkStockService;
 import io.malevich.server.transfer.ArtworkStockDto;
 import io.malevich.server.transfer.FilterDto;
@@ -11,7 +11,7 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Sort;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -67,8 +67,9 @@ public class ArtworkStockResource {
     @PostMapping("/filter")
     @ResponseStatus(HttpStatus.OK)
     public PageResponseDto filter(@RequestBody FilterDto filterDto) {
-        Page<ArtworkStockEntity> resultPage = this.artworkStockService.filterStocks(PageRequest.of(filterDto.getPage(), filterDto.getSize(), Sort.by(Sort.Order.by(SortEnum.NAME.getValue()))), filterDto);
-        return new PageResponseDto(resultPage.getContent().stream().map(pageEntry -> convertToDto(pageEntry)).collect(Collectors.toList()), resultPage.getTotalElements(), resultPage.getTotalPages());
+        Specification<ArtworkStockEntity> specification = new FilterSpecification(filterDto);
+        Page<ArtworkStockEntity> resultPage = this.artworkStockService.findAll(specification, PageRequest.of(filterDto.getPage(), filterDto.getSize()));
+        return new PageResponseDto(resultPage.getContent().stream().map(pageEntry -> convertToDto(pageEntry)).collect(Collectors.toList()), resultPage.getTotalElements(), resultPage.getTotalPages(), filterDto.getSort());
     }
 
     private ArtworkStockDto convertToDto(ArtworkStockEntity entity) {

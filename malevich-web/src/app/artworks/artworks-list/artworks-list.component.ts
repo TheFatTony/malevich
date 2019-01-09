@@ -5,6 +5,7 @@ import {ArtworkStockService} from '../../_services/artwork-stock.service';
 import {ArtworkStockDto} from '../../_transfer/artworkStockDto';
 import {PageSortableRequestDto} from '../../_transfer/pageSortableRequestDto';
 import {FilterDto} from '../../_transfer/filterDto';
+import {PageService} from '../../_services/page.service';
 
 @Component({
   selector: 'app-artworks-list',
@@ -17,17 +18,20 @@ export class ArtworksListComponent implements OnInit {
   pageSortable: PageSortableRequestDto;
   filterDto: FilterDto;
   stockData: any = {};
-
+  pager: any = {};
   private url = environment.baseUrl;
 
-  constructor(public translate: TranslateService, private artworkStockService: ArtworkStockService) {
+  constructor(public translate: TranslateService,
+              private artworkStockService: ArtworkStockService,
+              private pageService: PageService) {
     this.pageSortable = new PageSortableRequestDto();
     this.filterDto = new FilterDto();
   }
 
   ngOnInit() {
     this.filterDto.page = 0;
-    this.filterDto.size = 2;
+    this.filterDto.size = 9;
+    this.filterDto.sort = '';
     this.stocksByFilter(this.filterDto);
   }
 
@@ -51,6 +55,11 @@ export class ArtworksListComponent implements OnInit {
     this.stocksByFilter(this.filterDto);
   }
 
+  setSort(sort: string) {
+    this.filterDto.sort = sort;
+    this.stocksByFilter(this.filterDto);
+  }
+
   setSize(size: number) {
     this.filterDto.size = size;
     this.stocksByFilter(this.filterDto);
@@ -60,8 +69,7 @@ export class ArtworksListComponent implements OnInit {
     this.artworkStockService.stocksByFilter(filterDtoObj).subscribe(
       (data) => {
         this.stockData = data.body;
-        this.stockData.currentPage = filterDtoObj.page + 1;
-        this.stockData.size = filterDtoObj.size;
+        this.pager = this.pageService.getPager(this.stockData.totalElements, filterDtoObj.page, this.filterDto.size);
       }
     );
   }

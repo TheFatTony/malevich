@@ -12,10 +12,11 @@ import java.util.List;
 @AllArgsConstructor(access = AccessLevel.PUBLIC)
 public class PageResponseDto {
 
-    private List<ArtworkStockDto> stockDtoCopies;
+    private List<?> data;
 
     private Long totalElements;
 
     private int totalPages;
 
+    private String sortBy;
 }

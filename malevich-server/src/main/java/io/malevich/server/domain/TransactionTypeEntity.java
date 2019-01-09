@@ -1,11 +1,12 @@
 package io.malevich.server.domain;
 
-import io.malevich.server.core.jpa.JpaConverterJson;
+import com.yinyang.core.server.core.jpa.JpaConverterJson;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.util.Map;
 
 
@@ -25,6 +26,7 @@ public class TransactionTypeEntity implements Entity {
     @Setter
     @Convert(converter = JpaConverterJson.class)
     @Column(name = "name_ml")
+    @NotNull
     private Map<String, String> nameMl;
 
 }

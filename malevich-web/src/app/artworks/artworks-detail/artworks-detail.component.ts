@@ -1,17 +1,18 @@
-import {AfterViewInit, Component, HostListener, OnInit, ViewChild} from '@angular/core';
-import {environment} from "../../../environments/environment.dev";
-import {TranslateService} from "@ngx-translate/core";
-import {ActivatedRoute, Params} from "@angular/router";
-import {OrderDto} from "../../_transfer/orderDto";
-import {jqxWindowComponent} from "jqwidgets-scripts/jqwidgets-ts/angular_jqxwindow";
-import {OrderService} from "../../_services/order.service";
-import {ArtworkStockDto} from "../../_transfer/artworkStockDto";
-import {ArtworkStockService} from "../../_services/artwork-stock.service";
-import {TradeHistoryService} from "../../_services/trade-history.service";
-import {TradeHistoryDto} from "../../_transfer/tradeHistoryDto";
-import {TradeTypeService} from "../../_services/trade-type.service";
-import {TradeTypeDto} from "../../_transfer/tradeTypeDto";
-import {jqxDropDownListComponent} from "jqwidgets-scripts/jqwidgets-ts/angular_jqxdropdownlist";
+import {AfterViewInit, Component, OnInit, ViewChild} from '@angular/core';
+import {environment} from '../../../environments/environment.dev';
+import {TranslateService} from '@ngx-translate/core';
+import {ActivatedRoute, Params} from '@angular/router';
+import {OrderDto} from '../../_transfer/orderDto';
+import {OrderService} from '../../_services/order.service';
+import {ArtworkStockDto} from '../../_transfer/artworkStockDto';
+import {ArtworkStockService} from '../../_services/artwork-stock.service';
+import {TradeHistoryService} from '../../_services/trade-history.service';
+import {TradeHistoryDto} from '../../_transfer/tradeHistoryDto';
+import {jqxDropDownListComponent} from 'jqwidgets-scripts/jqwidgets-ts/angular_jqxdropdownlist';
+import {OrderPublicDto} from '../../_transfer/orderPublicDto';
+import {OrderWindowComponent} from '../../common/components/order-window/order-window.component';
+import {WishListService} from '../../_services/wish-list.service';
+import {WishListDto} from '../../_transfer/wishListDto';
 
 @Component({
   selector: 'app-artworks-detail',
@@ -20,40 +21,33 @@ import {jqxDropDownListComponent} from "jqwidgets-scripts/jqwidgets-ts/angular_j
 })
 export class ArtworksDetailComponent implements OnInit, AfterViewInit {
 
-  @ViewChild('myWindow') myWindow: jqxWindowComponent;
+  @ViewChild('myWindow') myWindow: OrderWindowComponent;
   @ViewChild('tradeTypeDropDown') tradeTypeDropDown: jqxDropDownListComponent;
 
   artworkStock: ArtworkStockDto;
+  wishList: WishListDto;
   id: number;
-  public newOrder: OrderDto;
 
-  placedOrders: OrderDto[];
-
+  placedOrders: OrderPublicDto[];
 
   tradeHistory: TradeHistoryDto[];
 
-  x: number;
-  y: number;
-
-  expirationDateInputHidden: boolean = true;
-
   public url = environment.baseUrl;
-  private tradeTypes: any[];
 
   constructor(private orderService: OrderService,
               private route: ActivatedRoute,
               public translate: TranslateService,
               private artworkStockService: ArtworkStockService,
               private tradeHistoryService: TradeHistoryService,
-              private tradeTypeService:TradeTypeService) {
+              private wishListService: WishListService) {
   }
 
   ngOnInit() {
+    this.wishList = new WishListDto();
     this.route.params.forEach((params: Params) => {
       this.id = params['id'];
     });
     this.getArtworkStock();
-    this.getTradeTypes();
     this.getOrdersByArtworkId();
     this.getTradeHistoryByArtworkId();
   }
@@ -87,69 +81,20 @@ export class ArtworksDetailComponent implements OnInit, AfterViewInit {
       );
   }
 
-  getTradeTypes(): void {
-    this.tradeTypeService
-      .getTradeTypes()
-      .subscribe(
-        data => {
-          this.tradeTypes = data.map(t => ({
-            title: t.nameMl[this.translate.currentLang],
-            value: t
-          }));
-        }
-      );
-  }
-
   openWindow() {
-    this.newOrder = new OrderDto();
-    this.myWindow.width(310);
-    this.myWindow.height(220);
+    this.myWindow.artworkStock(this.artworkStock);
     this.myWindow.open();
-    this.myWindow.move(this.x, this.y);
   }
 
-  @HostListener('mousedown', ['$event'])
-  mouseHandling(event) {
-    this.x = event.pageX;
-    this.y = event.pageY;
+
+  onOrderPlaced(order: OrderDto) {
+    this.getOrdersByArtworkId();
+    this.getTradeHistoryByArtworkId();
   }
 
-  sendButton() {
-    this.myWindow.close();
-    this.newOrder.artworkStock = this.artworkStock;
-    this.orderService.placeBid(this.newOrder).subscribe(() => {
-      this.getOrdersByArtworkId();
-      this.getTradeHistoryByArtworkId();
-    });
-  }
-
-  showExpirationDateInput(show: boolean){
-    this.expirationDateInputHidden = !show;
-  }
-
-  setTradeType(value:TradeTypeDto){
-    this.newOrder.tradeType = value;
-
-    switch (value.id) {
-      case "GTC_":{
-        this.newOrder.expirationDate = null;
-        this.showExpirationDateInput(false);
-        break;
-      }
-      case "GTT0":{
-        this.newOrder.expirationDate = new Date();
-        this.showExpirationDateInput(false);
-        break;
-      }
-      case "GTD_":{
-        this.showExpirationDateInput(true);
-        break;
-      }
-    }
-  }
-
-  onMyWindowOpen() {
-    this.tradeTypeDropDown.selectIndex(0);
+  addToWishList(): void {
+    this.wishList.artworkStock = this.artworkStock;
+    this.wishListService.addToWishList(this.wishList).subscribe();
   }
 
 }

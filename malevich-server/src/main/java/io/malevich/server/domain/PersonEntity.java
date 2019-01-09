@@ -3,8 +3,12 @@ package io.malevich.server.domain;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
+import java.sql.Timestamp;
 
 @EqualsAndHashCode
 @javax.persistence.Entity
@@ -20,17 +24,27 @@ public class PersonEntity implements Entity {
     @Getter
     @Setter
     @Column(name = "first_name")
+    @NotNull
     private String firstName;
 
     @Getter
     @Setter
     @Column(name = "last_name")
+    @NotNull
     private String lastName;
 
-    @Transient
-    private String fullName;
+    @Getter
+    @Setter
+    @Fetch(FetchMode.JOIN)
+    @ManyToOne
+    @NotNull
+    private GenderEntity gender;
 
-    public String getFullName() {
-        return firstName + " " + fullName;
-    }
+    @Getter
+    @Setter
+    @Column(name = "date_of_birth")
+    @NotNull
+    private Timestamp dateOfBirth;
+
+
 }

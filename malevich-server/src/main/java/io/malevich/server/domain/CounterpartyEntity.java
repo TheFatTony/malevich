@@ -7,6 +7,7 @@ import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 
 
 @EqualsAndHashCode
@@ -24,18 +25,14 @@ public class CounterpartyEntity implements Entity {
     @Setter
     @Fetch(FetchMode.JOIN)
     @ManyToOne(cascade = CascadeType.MERGE)
+    @NotNull
     private CounterpartyTypeEntity type;
 
     @Getter
     @Setter
     @Fetch(FetchMode.JOIN)
     @OneToOne(cascade = CascadeType.MERGE)
-    private TraderEntity trader;
-
-    @Getter
-    @Setter
-    @Fetch(FetchMode.JOIN)
-    @OneToOne(cascade = CascadeType.MERGE)
-    private GalleryEntity gallery;
+    @JoinColumn(name = "participant_id")
+    private ParticipantEntity participant;
 
 }

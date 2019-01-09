@@ -11,7 +11,5 @@ public interface CounterpartyDao extends JpaRepository<CounterpartyEntity, Long>
 
     List<CounterpartyEntity> findAll();
 
-    CounterpartyEntity findCounterpartyEntitiesByGallery_Id(Long galleryId);
-
-    CounterpartyEntity findCounterpartyEntitiesByTrader_Id(Long traderId);
+    CounterpartyEntity findByParticipant_Id(Long galleryId);
 }

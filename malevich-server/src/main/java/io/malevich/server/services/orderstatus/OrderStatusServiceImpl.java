@@ -13,9 +13,19 @@ import java.util.Optional;
 @Service
 public class OrderStatusServiceImpl implements OrderStatusService {
 
-    @Autowired
+
+    private final OrderStatusEntity open;
+    private final OrderStatusEntity executed;
+    private final OrderStatusEntity canceled;
     private OrderStatusDao dao;
 
+    @Autowired
+    public OrderStatusServiceImpl(OrderStatusDao dao) {
+        this.dao = dao;
+        open = dao.findById("OPEN").get();
+        executed = dao.findById("EXECUTED").get();
+        canceled = dao.findById("CANCELED").get();
+    }
 
     @Override
     @Transactional(readOnly = true)
@@ -24,8 +34,17 @@ public class OrderStatusServiceImpl implements OrderStatusService {
     }
 
     @Override
-    public Optional<OrderStatusEntity> findById(String id) {
-        return dao.findById(id);
+    public OrderStatusEntity getOpen() {
+        return open;
     }
 
+    @Override
+    public OrderStatusEntity getExecuted() {
+        return executed;
+    }
+
+    @Override
+    public OrderStatusEntity getCanceled() {
+        return canceled;
+    }
 }

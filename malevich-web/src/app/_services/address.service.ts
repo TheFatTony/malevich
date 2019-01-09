@@ -3,7 +3,7 @@ import {HttpClient} from "@angular/common/http";
 import {environment} from "../../environments/environment.dev";
 import {first, map} from "rxjs/operators";
 import {AddressDto} from "../_transfer/addressDto";
-import {AlertService} from "./alert.service";
+import {AlertService} from "yinyang-core";
 
 @Injectable({
   providedIn: 'root'
@@ -14,12 +14,6 @@ export class AddressService {
 
   constructor(private http: HttpClient,
               private alertService: AlertService) {
-  }
-
-  getByTrader(traderId: number) {
-    return this.http
-      .get<AddressDto[]>(this.url + '/trader/' + traderId)
-      .pipe(map(data => data));
   }
 
   create(address: AddressDto) {

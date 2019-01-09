@@ -1,4 +1,12 @@
 import {AfterViewInit, Component, OnInit} from '@angular/core';
+import {HelpService} from '../../_services/help.service';
+import {HelpCategoryDto} from '../../_transfer/helpCategoryDto';
+import {TranslateService} from '@ngx-translate/core';
+import {HelpTopicDto} from '../../_transfer/helpTopicDto';
+import {HelpFilterDto} from '../../_transfer/helpFilterDto';
+import {ContactUsDto} from '../../_transfer/contactUsDto';
+import {ContactUsService} from '../../_services/contactus.service';
+import {AlertService} from 'yinyang-core';
 
 @Component({
   selector: 'app-main-help',
@@ -10,10 +18,23 @@ import {AfterViewInit, Component, OnInit} from '@angular/core';
 })
 export class HelpComponent implements OnInit, AfterViewInit {
 
-  constructor() {
+  helpCategories: HelpCategoryDto[];
+  helpTopics: HelpTopicDto[];
+  helpFilter: HelpFilterDto;
+  contactUs: ContactUsDto;
+  searchValue: string;
+
+  constructor(private helpService: HelpService,
+              private translate: TranslateService,
+              private contactUsService: ContactUsService,
+              private alertService: AlertService) {
   }
 
   ngOnInit() {
+    this.contactUs = new ContactUsDto();
+    this.helpFilter = new HelpFilterDto();
+    this.getCategories();
+    this.getTopic(1);
   }
 
   ngAfterViewInit(): void {
@@ -24,6 +45,39 @@ export class HelpComponent implements OnInit, AfterViewInit {
     setTimeout(function () {
       $['HSCore'].components.HSTabs.init('[role="tablist"]');
     }, 200);
+  }
+
+  getCategories(): void {
+    this.helpService
+      .getCategories()
+      .subscribe(
+        data => (this.helpCategories = data)
+      );
+  }
+
+  getTopic(id: number): void {
+    this.helpService.getTopic(id).subscribe(data => (this.helpTopics = data));
+  }
+
+  filterSearch(): void {
+    this.helpFilter.lang = this.translate.currentLang;
+    this.helpFilter.searchValue = this.searchValue;
+    this.helpService.filterSearch(this.helpFilter).subscribe(data => (this.helpTopics = data));
+  }
+
+  submit(): void {
+    this.contactUsService.save(this.contactUs).subscribe(
+      data => {
+        this.alertService.success(data);
+      },
+      error => {
+        this.alertService.error(error);
+      });
+    this.contactUs.name = '';
+    this.contactUs.emailId = '';
+    this.contactUs.phone = '';
+    this.contactUs.message = '';
+    this.contactUs.subject = '';
   }
 
 }

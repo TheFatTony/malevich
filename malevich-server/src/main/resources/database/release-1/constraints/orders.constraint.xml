@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.6.xsd">
+
+    <changeSet author="thefattony" id="orders-type_id-fk">
+        <addForeignKeyConstraint baseColumnNames="type_id" baseTableName="orders"
+                                 constraintName="orders_type_fk"
+                                 referencedColumnNames="id" referencedTableName="order_type"/>
+    </changeSet>
+
+    <changeSet author="thefattony" id="orders-artwork_stock-fk">
+        <addForeignKeyConstraint baseColumnNames="artwork_stock_id" baseTableName="orders"
+                                 constraintName="orders_artwork_stock_fk"
+                                 referencedColumnNames="id" referencedTableName="artwork_stock"/>
+    </changeSet>
+
+    <changeSet author="thefattony" id="orders-party_id-fk">
+        <addForeignKeyConstraint baseColumnNames="party_id" baseTableName="orders"
+                                 constraintName="orders_party_fk"
+                                 referencedColumnNames="id" referencedTableName="counterparty"/>
+    </changeSet>
+
+    <changeSet author="thefattony" id="orders-trade_type_id-fk">
+        <addForeignKeyConstraint baseColumnNames="trade_type_id" baseTableName="orders"
+                                 constraintName="orders_trade_type_fk"
+                                 referencedColumnNames="id" referencedTableName="trade_type"/>
+    </changeSet>
+
+    <changeSet author="toolstik" id="orders-status_id-fk">
+        <addForeignKeyConstraint baseColumnNames="status_id" baseTableName="orders"
+                                 constraintName="orders_status_fk"
+                                 referencedColumnNames="id" referencedTableName="order_status"/>
+    </changeSet>
+
+    <changeSet author="toolstik" id="orders-transaction_group_id-fk">
+        <addForeignKeyConstraint baseColumnNames="transaction_group_id" baseTableName="orders"
+                                 constraintName="orders_transaction_group_id_fk"
+                                 referencedColumnNames="id" referencedTableName="transaction_group"/>
+    </changeSet>
+
+</databaseChangeLog>

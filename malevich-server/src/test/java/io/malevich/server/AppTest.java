@@ -44,19 +44,6 @@ public class AppTest {
     }
 
     @Test
-    public void testPersonEntity() {
-        PersonEntity personEntity = new PersonEntity();
-        personEntity.setFirstName("First Name");
-        personEntity.setLastName("Last Name");
-        assertEquals("First Name", personEntity.getFirstName());
-        assertEquals("Last Name", personEntity.getLastName());
-
-        PersonDto personDto = modelMapper.map(personEntity, PersonDto.class);
-        assertEquals("First Name", personDto.getFirstName());
-        assertEquals("Last Name", personDto.getLastName());
-    }
-
-    @Test
     public void testPersonDao() {
         PersonEntity personEntity = new PersonEntity();
         personEntity.setFirstName("First Name");
@@ -68,7 +55,6 @@ public class AppTest {
         assertEquals(personEntity.getFirstName(), dbPersonEntity.getFirstName());
         assertEquals(personEntity.getLastName(), dbPersonEntity.getLastName());
     }
-
 
     @Test
     public void testPersonService() {

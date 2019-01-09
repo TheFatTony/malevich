@@ -1,6 +1,7 @@
 package io.malevich.server.services.payments;
 
 import io.malevich.server.domain.PaymentsEntity;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -9,8 +10,11 @@ import java.util.List;
 @Service
 public interface PaymentsService {
 
-    List<PaymentsEntity> findAll();
+    List<PaymentsEntity> findOwnPayments();
 
-    void insert(PaymentsEntity paymentsEntity);
+    void insertPayment(PaymentsEntity paymentsEntity);
 
+    PaymentsEntity getPayments(Long id);
+
+    ResponseEntity<byte[]> createFop(PaymentsEntity entity);
 }

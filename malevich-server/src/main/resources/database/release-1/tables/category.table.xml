@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.6.xsd">
+
+    <changeSet author="thefattony" id="category-table">
+        <createTable tableName="category">
+            <column name="id" type="bigint">
+                <constraints nullable="false"/>
+            </column>
+            <column name="description" type="longtext"/>
+        </createTable>
+        <modifySql dbms="mysql">
+            <replace replace="clob" with="longtext"/>
+        </modifySql>
+    </changeSet>
+
+    <changeSet author="thefattony" id="category-table-ml" dbms="mysql">
+        <addColumn tableName="category">
+            <column name="category_name_ml" type="json">
+                <constraints nullable="false"/>
+            </column>
+        </addColumn>
+    </changeSet>
+
+    <changeSet author="thefattony" id="category-pk">
+        <addPrimaryKey columnNames="id" constraintName="category_pk" tableName="category"/>
+    </changeSet>
+
+    <changeSet author="thefattony" id="category-id-aa" dbms="mysql">
+        <addAutoIncrement columnDataType="bigint" columnName="id" tableName="category"/>
+    </changeSet>
+
+</databaseChangeLog>

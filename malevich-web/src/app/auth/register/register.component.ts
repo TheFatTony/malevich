@@ -1,9 +1,10 @@
 import {AfterViewInit, Component, OnInit} from '@angular/core';
 import {InvolvementService} from "../../_services/involvement.service";
 import {InvolvementDto} from "../../_transfer";
-import {AlertService, AuthService} from "../../_services";
+import {AuthService} from "../../_services";
 import {TranslateService} from "@ngx-translate/core";
 import {ActivatedRoute} from "@angular/router";
+import {AlertService} from "yinyang-core";
 
 @Component({
   selector: 'app-auth-register',
@@ -19,7 +20,6 @@ export class RegisterComponent implements OnInit, AfterViewInit {
   constructor(private involvementService: InvolvementService,
               private alertService: AlertService,
               public translate: TranslateService,
-              private authService: AuthService,
               private route: ActivatedRoute) {
   }
 
@@ -35,7 +35,6 @@ export class RegisterComponent implements OnInit, AfterViewInit {
   ngAfterViewInit(): void {
     // $['HSCore'].components.HSSelect.init('.js-custom-select');
     var counters = $['HSCore'].components.HSCounter.init('[class*="js-counter"]');
-    $['HSCore'].components.HSModalWindow.init('[data-modal-target]');
   }
 
   getInvolvementCounters(): void {

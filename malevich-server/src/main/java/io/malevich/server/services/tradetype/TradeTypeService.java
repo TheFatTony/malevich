@@ -12,6 +12,5 @@ public interface TradeTypeService {
 
     List<TradeTypeEntity> findAll();
 
-    Optional<TradeTypeEntity> findById(String id);
-
+    TradeTypeEntity getGtc();
 }

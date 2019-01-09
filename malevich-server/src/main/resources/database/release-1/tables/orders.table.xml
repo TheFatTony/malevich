@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.6.xsd">
+
+    <changeSet author="thefattony" id="orders-table">
+        <createTable tableName="orders">
+            <column name="id" type="bigint">
+                <constraints nullable="false"/>
+            </column>
+            <column name="type_id" type="char(3)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="artwork_stock_id" type="bigint">
+                <constraints nullable="false"/>
+            </column>
+            <column name="party_id" type="bigint">
+                <constraints nullable="false"/>
+            </column>
+            <column name="trade_type_id" type="char(4)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="amount" type="double">
+                <constraints nullable="false"/>
+            </column>
+            <column name="effective_date" type="timestamp">
+                <constraints nullable="false"/>
+            </column>
+            <column name="status_id" type="char(10)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="expiration_date" type="timestamp"/>
+            <column name="transaction_group_id" type="bigint">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+    <changeSet author="thefattony" id="orders-pk">
+        <addPrimaryKey columnNames="id" constraintName="orders_pk" tableName="orders"/>
+    </changeSet>
+
+    <changeSet author="thefattony" id="orders-id-aa" dbms="mysql">
+        <addAutoIncrement columnDataType="bigint" columnName="id" tableName="orders"/>
+    </changeSet>
+
+</databaseChangeLog>

@@ -2,7 +2,7 @@ import {AfterViewInit, Component} from '@angular/core';
 import {TranslateService} from "@ngx-translate/core";
 import {Globals} from "./globals";
 import {AuthService} from "./_services";
-import {LoadingService} from "./_services/loading.service";
+import {LoadingService} from "yinyang-core";
 
 @Component({
   selector: 'app-root',

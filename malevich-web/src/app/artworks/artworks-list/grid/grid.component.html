@@ -1,8 +1,5 @@
 <div class="row g-pt-30 g-mb-50">
-  <div class="col-6 col-lg-4 g-mb-30" *ngFor="let artworkStock of artworkStocks.stockDtoCopies | paginate: { id: 'server',
-                                                      itemsPerPage: artworkStocks.size,
-                                                      currentPage: artworkStocks.currentPage,
-                                                      totalItems: artworkStocks.totalElements }">
+  <div class="col-6 col-lg-4 g-mb-30" *ngFor="let artworkStock of artworkStocks.data">
     <!-- Product -->
     <figure class="g-pos-rel g-mb-20">
       <img class="img-fluid" src="{{url}}{{artworkStock.artwork.thumbnail.url}}" alt="Image Description">

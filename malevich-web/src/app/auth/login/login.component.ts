@@ -1,8 +1,9 @@
 import {Component, OnInit} from '@angular/core';
-import {AlertService, AuthService} from "../../_services";
-import {FormBuilder, FormGroup, Validators} from "@angular/forms";
+import {AuthService} from "../../_services";
+import {FormBuilder} from "@angular/forms";
 import {ActivatedRoute, Router} from "@angular/router";
 import {first} from "rxjs/operators";
+import {AlertService} from "yinyang-core";
 
 @Component({
   selector: 'app-auth-login',
@@ -11,9 +12,10 @@ import {first} from "rxjs/operators";
 })
 export class LoginComponent implements OnInit {
 
-  loginForm: FormGroup;
-  submitted = false;
   returnUrl: string;
+
+  login: string = "";
+  password: string = "";
 
   constructor(private formBuilder: FormBuilder,
               private route: ActivatedRoute,
@@ -28,29 +30,13 @@ export class LoginComponent implements OnInit {
   }
 
   ngOnInit() {
-
-    this.loginForm = this.formBuilder.group({
-      username: ['', Validators.required],
-      password: ['', Validators.required]
-    });
-
     this.authService.logout();
 
     this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
   }
 
-  get f() {
-    return this.loginForm.controls;
-  }
-
   onSubmit() {
-    this.submitted = true;
-
-    if (this.loginForm.invalid) {
-      return;
-    }
-
-    this.authService.login(this.f.username.value, this.f.password.value)
+    this.authService.login(this.login, this.password)
       .pipe(first())
       .subscribe(
         data => {

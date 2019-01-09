@@ -14,7 +14,7 @@ public interface AccountStateService {
 
     AccountStateEntity findByArtworkStockAndParty(Long artworkStockId, Long counterpartyId);
 
-    AccountStateEntity getTraderWallet();
+    AccountStateEntity getWallet();
 
-    List<ArtworkStockEntity> getTraderArtworks();
+    List<ArtworkStockEntity> getOwnArtworks();
 }

@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {Router} from "@angular/router";
 import {TranslateService} from "@ngx-translate/core";
-import {AlertService, AuthService} from "../../../_services";
+import {UserService} from "../../../_services/user.service";
 
 @Component({
   selector: 'app-auth-reset-step-one',
@@ -14,24 +14,19 @@ export class StepOneComponent implements OnInit {
 
   constructor(private router: Router,
               public translate: TranslateService,
-              private authService: AuthService,
-              private alertService: AlertService) {
+              private userService: UserService) {
   }
 
   ngOnInit() {
   }
 
   onSubmit() {
-    this.authService.reset(this.translate.currentLang, this.email)
-      .subscribe(
-        data => {
-          this.alertService.success(data);
-        },
-        error => {
-          this.alertService.error(error);
-        });
+    this.userService.reset(this.translate.currentLang, this.email)
+      .subscribe(() => {
+        this.router.navigate(['/main-page']);
+      });
 
-    this.router.navigate(['/main-page']);
+
   }
 
 }

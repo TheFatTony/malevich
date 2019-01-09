@@ -5,7 +5,7 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class FilterDto extends PageSortableRequestDto {
+public class FilterDto extends PageRequestDto {
 
     private long categoryId;
 

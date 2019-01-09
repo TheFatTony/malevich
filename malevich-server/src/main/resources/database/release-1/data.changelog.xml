@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.6.xsd">
+
+    <include relativeToChangelogFile="true" file="data/gender.data.xml"/>
+    <include relativeToChangelogFile="true" file="data/roles.data.xml"/>
+    <include relativeToChangelogFile="true" file="data/country.data.xml"/>
+    <include relativeToChangelogFile="true" file="data/user_type.data.xml"/>
+    <include relativeToChangelogFile="true" file="data/user.data.xml"/>
+    <include relativeToChangelogFile="true" file="data/user_roles.data.xml"/>
+    <include relativeToChangelogFile="true" file="data/category.data.xml"/>
+    <include relativeToChangelogFile="true" file="data/transaction_type.data.xml"/>
+    <include relativeToChangelogFile="true" file="data/order_type.data.xml"/>
+    <include relativeToChangelogFile="true" file="data/payment_type.data.xml"/>
+    <include relativeToChangelogFile="true" file="data/order_status.data.xml"/>
+    <include relativeToChangelogFile="true" file="data/trade_type.data.xml"/>
+    <include relativeToChangelogFile="true" file="data/counterparty_type.data.xml"/>
+    <include relativeToChangelogFile="true" file="data/counterparty.data.xml"/>
+    <include relativeToChangelogFile="true" file="data/participant_type.data.xml"/>
+    <include relativeToChangelogFile="true" file="data/help_category.data.xml"/>
+
+</databaseChangeLog>

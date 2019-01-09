@@ -806,9 +806,9 @@
   overflow: visible !important;
 }
 
-input[type="text"].jqx-input-malevich, input[type="text"].jqx-widget-content-malevich, input[type="textarea"].jqx-widget-content-malevich, textarea.jqx-input-malevich {
-  padding-left: 0px !important;
-}
+/*input[type="text"].jqx-input-malevich, input[type="text"].jqx-widget-content-malevich, input[type="textarea"].jqx-widget-content-malevich, textarea.jqx-input-malevich {*/
+  /*padding-left: 0px !important;*/
+/*}*/
 
 input[type="text"].jqx-input-malevich:-moz-placeholder, input[type="text"].jqx-widget-content-malevich:-moz-placeholder, input[type="textarea"].jqx-widget-content-malevich:-moz-placeholder, textarea.jqx-input-malevich:-moz-placeholder {
   color: #999999;

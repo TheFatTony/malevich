@@ -5,6 +5,7 @@ import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
+import org.springframework.statemachine.StateMachineContext;
 
 import javax.persistence.*;
 
@@ -19,7 +20,7 @@ public class ResetPasswordTokenEntity implements Entity {
     @Setter
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+    private Long id;
 
     @Getter
     @Setter

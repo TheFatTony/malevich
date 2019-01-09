@@ -1,11 +1,12 @@
 package io.malevich.server.domain;
 
-import io.malevich.server.core.jpa.JpaConverterJson;
+import com.yinyang.core.server.core.jpa.JpaConverterJson;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.util.Map;
 
 
@@ -22,13 +23,9 @@ public class OrganizationEntity implements Entity {
 
     @Getter
     @Setter
-    @Column(name = "phone_number")
-    private String phoneNumber;
-
-    @Getter
-    @Setter
     @Convert(converter = JpaConverterJson.class)
     @Column(name = "legal_name_ml")
+    @NotNull
     private Map<String, String> legalNameMl;
 
 }

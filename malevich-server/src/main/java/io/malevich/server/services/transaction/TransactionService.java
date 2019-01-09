@@ -11,17 +11,20 @@ public interface TransactionService {
 
     List<TransactionEntity> findAll();
 
-    void createArtworkStock(ArtworkStockEntity artworkStockEntity);
+    void createTransaction(TransactionTypeEntity transactionType,
+                           TransactionGroupEntity group,
+                           CounterpartyEntity party,
+                           CounterpartyEntity counterparty,
+                           ArtworkStockEntity artworkStock,
+                           Double amount,
+                           Long quantity);
 
-    void placeAsk(OrderEntity orderEntity);
+    void createTransactionAndReverse(TransactionTypeEntity transactionType,
+                                     TransactionGroupEntity group,
+                                     CounterpartyEntity party,
+                                     CounterpartyEntity counterparty,
+                                     ArtworkStockEntity artworkStock,
+                                     Double amount,
+                                     Long quantity);
 
-    void addAccountStates(PaymentsEntity paymentsEntity);
-
-    void placeBid(OrderEntity orderEntity);
-
-    void cancelBid(OrderEntity orderEntity);
-
-    void cancelAsk(OrderEntity orderEntity);
-
-    void buySell(TradeHistoryEntity tradeHistoryEntity);
 }

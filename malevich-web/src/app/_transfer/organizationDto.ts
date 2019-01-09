@@ -1,3 +1,5 @@
+import {AddressDto} from "./addressDto";
+
 export class OrganizationDto {
   id: number;
   phoneNumber: string;

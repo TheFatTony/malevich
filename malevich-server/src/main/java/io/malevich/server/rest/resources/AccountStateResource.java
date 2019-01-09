@@ -37,23 +37,23 @@ public class AccountStateResource {
     }
 
 
-    @PreAuthorize("hasRole('TRADER')")
-    @RequestMapping(value = "/getTraderWallet", method = RequestMethod.GET)
+    @PreAuthorize("hasRole('USER')")
+    @RequestMapping(value = "/getWallet", method = RequestMethod.GET)
     @ResponseStatus(HttpStatus.OK)
     @ResponseBody
-    public AccountStateDto getTraderWallet() {
-        AccountStateEntity allEntry = this.accountStateService.getTraderWallet();
+    public AccountStateDto getWallet() {
+        AccountStateEntity allEntry = this.accountStateService.getWallet();
         if (allEntry == null)
             return null;
         return convertToDto(allEntry);
     }
 
-    @PreAuthorize("hasRole('TRADER')")
-    @RequestMapping(value = "/getTraderArtworks", method = RequestMethod.GET)
+    @PreAuthorize("hasAnyRole('GALLERY', 'TRADER')")
+    @RequestMapping(value = "/getOwnArtworks", method = RequestMethod.GET)
     @ResponseStatus(HttpStatus.OK)
     @ResponseBody
-    public List<ArtworkStockDto> getTraderArtworks() {
-        List<ArtworkStockEntity> allEntries = this.accountStateService.getTraderArtworks();
+    public List<ArtworkStockDto> getOwnArtworks() {
+        List<ArtworkStockEntity> allEntries = this.accountStateService.getOwnArtworks();
         return allEntries.stream().map(allEntry -> modelMapper.map(allEntry, ArtworkStockDto.class)).collect(Collectors.toList());
     }
 

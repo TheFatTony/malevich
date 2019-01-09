@@ -1,0 +1,64 @@
+<jqxWindow #myWindow [autoOpen]="false" [resizable]="false">
+  <div>Add ask</div>
+  <div style="width: 100%">
+    <form #f="ngForm" (ngSubmit)="onFormSubmit()" novalidate>
+      <div class="container" *ngIf="newOrder" style="width: 100%">
+        <div class="row g-mt-10">
+          <div class="col">
+            <span>Amount:</span>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col">
+            <mchNumberInput name="amount"
+                            mchRequired
+                            mchMultipleOf="10"
+                            [ngModel]="newOrder?.amount"
+                            (ngModelChange)="newOrder.amount=$event"
+            ></mchNumberInput>
+          </div>
+        </div>
+        <div class="row g-mt-10">
+          <div class="col">
+            <span>Expiration:</span>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col">
+            <mchDropDownList name="tradeType"
+                             [objectSource]="tradeTypes"
+                             [displayFunc]="tradeTypeDisplayFunc"
+                             [(ngModel)]="newOrder.tradeType"
+                             (onSelect)="onTradeTypeSelected($event)"
+            ></mchDropDownList>
+          </div>
+        </div>
+        <ng-container *ngIf="!expirationDateHidden">
+          <div class="row g-mt-10">
+            <div class="col">
+              <span>Expiration Date:</span>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col">
+              <mchDateTimeInput name="expirationDate"
+                                mchRequired
+                                [(ngModel)]="newOrder.expirationDate"
+              ></mchDateTimeInput>
+            </div>
+          </div>
+        </ng-container>
+        <div class="row">
+          <div class="col text-center">
+            <mchButton #SendButton
+                       class="g-mt-10"
+                       [submitForm]="f"
+                       [width]="60" [height]="25">
+              Send
+            </mchButton>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+</jqxWindow>

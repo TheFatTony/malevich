@@ -1,47 +1,48 @@
-import {Component, OnInit} from '@angular/core';
-import {FormBuilder, FormGroup, Validators} from "@angular/forms";
-import {first} from "rxjs/operators";
+import {AfterViewInit, Component, OnInit} from '@angular/core';
 import {TranslateService} from "@ngx-translate/core";
-import {AlertService, AuthService} from "../../../_services";
 import {Router} from "@angular/router";
+import {SubscriptionService} from "../../../_services/subscription.service";
+import {SubscriptionDto} from "../../../_transfer/subscriptionDto";
+import {TermsAndConditionsService} from "../../../_services/terms-and-conditions.service";
+import {UserService} from "../../../_services/user.service";
 
 @Component({
   selector: 'app-auth-register-step-one',
   templateUrl: './step-one.component.html',
   styleUrls: ['./step-one.component.css']
 })
-export class StepOneComponent implements OnInit {
+export class StepOneComponent implements OnInit, AfterViewInit {
 
-
-  loginForm: FormGroup;
+  email: string = "";
+  agreementAccepted: boolean = false;
+  subscribe: boolean = false;
+  termsAndConditions: string;
 
   constructor(private router: Router,
-              private formBuilder: FormBuilder,
               public translate: TranslateService,
-              private authService: AuthService,
-              private alertService: AlertService) {
+              private userService: UserService,
+              private subscriptionService: SubscriptionService,
+              private termsAndConditionsService: TermsAndConditionsService) {
   }
 
   ngOnInit() {
-    this.loginForm = this.formBuilder.group({
-      email: ['', Validators.required]
-    });
+    this.termsAndConditionsService.getHtml(this.translate.currentLang)
+      .subscribe(data => (this.termsAndConditions = data.htmlText));
   }
 
-  get f() {
-    return this.loginForm.controls;
+  ngAfterViewInit(): void {
+    $['HSCore'].components.HSModalWindow.init('[data-modal-target]');
   }
 
   onSubmit() {
-    this.authService.register(this.translate.currentLang, this.f.email.value)
-      .pipe(first())
-      .subscribe(
-        data => {
-          this.alertService.success(data);
-        },
-        error => {
-          this.alertService.error(error);
-        });
+    this.userService.register(this.translate.currentLang, this.email)
+      .subscribe();
+
+    if (this.subscribe) {
+      let subscription = new SubscriptionDto();
+      subscription.emailId = this.email;
+      this.subscriptionService.save(subscription).subscribe();
+    }
 
     this.router.navigate(['/main-page']);
   }

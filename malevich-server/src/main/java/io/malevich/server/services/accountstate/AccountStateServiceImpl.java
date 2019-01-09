@@ -4,9 +4,8 @@ import io.malevich.server.repositories.accountstate.AccountStateDao;
 import io.malevich.server.domain.AccountStateEntity;
 import io.malevich.server.domain.ArtworkStockEntity;
 import io.malevich.server.domain.CounterpartyEntity;
-import io.malevich.server.domain.TraderEntity;
+import io.malevich.server.domain.TraderPersonEntity;
 import io.malevich.server.services.counterparty.CounterpartyService;
-import io.malevich.server.services.trader.TraderService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -23,9 +22,6 @@ public class AccountStateServiceImpl implements AccountStateService {
 
     @Autowired
     private AccountStateDao accountStateDao;
-
-    @Autowired
-    private TraderService traderService;
 
     @Autowired
     private CounterpartyService counterpartyService;
@@ -45,22 +41,20 @@ public class AccountStateServiceImpl implements AccountStateService {
 
     @Override
     @Transactional(readOnly = true)
-    public AccountStateEntity getTraderWallet() {
-        TraderEntity traderEntity = traderService.getCurrentTrader();
-        CounterpartyEntity counterpartyEntity = counterpartyService.findCounterpartyEntitiesByTraderId(traderEntity.getId());
+    public AccountStateEntity getWallet() {
+        CounterpartyEntity counterpartyEntity = counterpartyService.getCurrent();
 
         return accountStateDao.findByArtworkStock_IdAndParty_Id(null, counterpartyEntity.getId());
     }
 
     @Override
     @Transactional(readOnly = true)
-    public List<ArtworkStockEntity> getTraderArtworks() {
-        TraderEntity traderEntity = traderService.getCurrentTrader();
-        CounterpartyEntity counterpartyEntity = counterpartyService.findCounterpartyEntitiesByTraderId(traderEntity.getId());
+    public List<ArtworkStockEntity> getOwnArtworks() {
+        CounterpartyEntity counterpartyEntity = counterpartyService.getCurrent();
 
         return accountStateDao.findByParty_Id(counterpartyEntity.getId())
                 .stream()
-                .filter(s -> s.getArtworkStock() != null)
+                .filter(s -> s.getArtworkStock() != null && s.getQuantity() > 0)
                 .map(s -> s.getArtworkStock())
                 .collect(Collectors.toList());
     }

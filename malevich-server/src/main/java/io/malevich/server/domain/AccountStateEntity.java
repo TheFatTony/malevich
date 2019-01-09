@@ -7,6 +7,7 @@ import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 
 
 @EqualsAndHashCode
@@ -25,6 +26,7 @@ public class AccountStateEntity implements Entity {
     @Setter
     @Fetch(FetchMode.JOIN)
     @ManyToOne(cascade = CascadeType.MERGE)
+    @NotNull
     private CounterpartyEntity party;
 
     @Getter

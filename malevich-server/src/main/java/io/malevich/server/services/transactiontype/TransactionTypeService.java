@@ -12,5 +12,23 @@ public interface TransactionTypeService {
 
     List<TransactionTypeEntity> findAll();
 
-    Optional<TransactionTypeEntity> findById(String id);
+    TransactionTypeEntity getAddBalance();
+
+    TransactionTypeEntity getCreateArtwork();
+
+    TransactionTypeEntity getBid();
+
+    TransactionTypeEntity getAsk();
+
+    TransactionTypeEntity getBuySell();
+
+    TransactionTypeEntity getCancelBid();
+
+    TransactionTypeEntity getCancelAsk();
+
+    TransactionTypeEntity getReturnBid();
+
+    TransactionTypeEntity getReturnAsk();
+
+    TransactionTypeEntity getWithdrawBalance();
 }

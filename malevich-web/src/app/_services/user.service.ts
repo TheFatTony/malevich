@@ -1,7 +1,8 @@
-import { Injectable } from '@angular/core';
+import {Injectable} from '@angular/core';
 import {environment} from "../../environments/environment.dev";
 import {HttpClient} from "@angular/common/http";
 import {Globals} from "../globals";
+import {RegisterFormDto} from "../_transfer/registerFormDto";
 
 @Injectable({
   providedIn: 'root'
@@ -13,8 +14,13 @@ export class UserService {
   constructor(private http: HttpClient, public globals: Globals) {
   }
 
-  register(lang: string, email: string) {
-    return this.http.post<any>(this.url + '/register', {lang: lang, email: email});
+  register(lang: string, registerInfo: RegisterFormDto) {
+    return this.http.post<any>(this.url + '/register', registerInfo,
+      {
+        params: {
+          lang: lang
+        }
+      });
   }
 
   /// set password

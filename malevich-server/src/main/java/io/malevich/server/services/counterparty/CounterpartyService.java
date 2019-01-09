@@ -13,7 +13,7 @@ public interface CounterpartyService {
 
     List<CounterpartyEntity> findAll();
 
-    CounterpartyEntity findByParticipantId(Long galleryId);
+    CounterpartyEntity findByParticipantId(Long participantId);
 
     Optional<CounterpartyEntity> findById(Long counterpartyId);
 

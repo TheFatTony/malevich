@@ -149,14 +149,9 @@ public class RegisterServiceImpl implements RegisterService {
         }
 
         participant.setUsers(Lists.newArrayList(user));
-
         participant = participantService.save(participant, user);
 
-        if (participant instanceof GalleryEntity)
-            counterparty.setGallery((GalleryEntity) participant);
-        else
-            counterparty.setTrader((TraderPersonEntity) participant);
-
+        counterparty.setParticipant(participant);
         counterpartyService.save(counterparty);
 
         deleteToken(registerTokenEntity);

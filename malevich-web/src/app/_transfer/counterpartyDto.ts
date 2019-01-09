@@ -1,10 +1,8 @@
 import {CounterpartyTypeDto} from "./counterpartyTypeDto";
-import {TraderDto} from "./traderDto";
-import {GalleryDto} from "./galleryDto";
+import {ParticipantDto} from "./participantDto";
 
 export class CounterpartyDto {
   id: number;
   type: CounterpartyTypeDto;
-  trader: TraderDto;
-  gallery: GalleryDto;
+  participant : ParticipantDto;
 }

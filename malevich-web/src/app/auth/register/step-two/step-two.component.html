@@ -4,10 +4,17 @@
 <form #f="ngForm" (ngSubmit)="submit()">
   <div class="row g-mb-20">
     <div class="col">
+      <!--<mchInput name="password"-->
+                <!--class="form-control g-color-black g-bg-white g-bg-white&#45;&#45;focus g-brd-gray-light-v3 rounded g-py-15 g-px-15"-->
+                <!--mchRequired-->
+                <!--mchPassword-->
+                <!--[type]="'password'"-->
+                <!--[placeHolder]="'TRADER_PROFILE.SECURITY.PLACEHOLDER.PASSWORD' | translate"-->
+                <!--[(ngModel)]="password">-->
+      <!--</mchInput>-->
       <mchInput name="password"
                 class="form-control g-color-black g-bg-white g-bg-white--focus g-brd-gray-light-v3 rounded g-py-15 g-px-15"
                 mchRequired
-                mchPassword
                 [type]="'password'"
                 [placeHolder]="'TRADER_PROFILE.SECURITY.PLACEHOLDER.PASSWORD' | translate"
                 [(ngModel)]="password">

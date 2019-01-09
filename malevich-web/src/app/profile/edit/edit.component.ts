@@ -86,9 +86,9 @@ export class EditComponent implements OnInit, AfterViewInit {
 
   countryDisplayFunc = (country: CountryDto) => {
     return country.nameMl[this.translate.currentLang];
-  }
+  };
 
   genderDisplayFunc = (gender: GenderDto) => {
     return gender.nameMl[this.translate.currentLang];
-  }
+  };
 }

@@ -17,7 +17,7 @@ public interface RegisterService {
 
     Optional<RegisterTokenEntity> findToken(String token);
 
-    RegisterTokenEntity register(String lang, String userName);
+    RegisterTokenEntity register(RegisterTokenEntity entity, String lang);
 
     UserEntity register2(String token, RegisterFormStepTwoDto registerInfo);
 

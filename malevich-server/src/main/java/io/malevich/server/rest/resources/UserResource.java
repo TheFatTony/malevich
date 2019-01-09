@@ -1,6 +1,7 @@
 package io.malevich.server.rest.resources;
 
 
+import com.yinyang.core.server.domain.RegisterTokenEntity;
 import com.yinyang.core.server.domain.UserEntity;
 import com.yinyang.core.server.services.user.UserService;
 import com.yinyang.core.server.transfer.UserDto;
@@ -62,8 +63,9 @@ public class UserResource {
     @RequestMapping(value = "/register", method = RequestMethod.POST)
     @ResponseStatus(HttpStatus.OK)
     @ResponseBody
-    public ResponseEntity<String> registerStep1(@RequestBody RegisterFormDto registerFormDto) {
-        registerService.register(registerFormDto.getLang(), registerFormDto.getEmail());
+    public ResponseEntity<String> registerStep1(@RequestBody RegisterFormDto registerFormDto, @RequestParam("lang") String lang) {
+        RegisterTokenEntity registerTokenEntity = modelMapper.map(registerFormDto, RegisterTokenEntity.class);
+        registerService.register(registerTokenEntity, lang);
         return ResponseEntity.ok().body("registered");
     }
 

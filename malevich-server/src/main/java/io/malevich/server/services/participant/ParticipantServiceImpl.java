@@ -1,13 +1,13 @@
 package io.malevich.server.services.participant;
 
 import com.google.common.collect.Lists;
+import com.yinyang.core.server.domain.UserEntity;
+import com.yinyang.core.server.services.auth.AuthService;
+import com.yinyang.core.server.services.user.UserService;
 import io.malevich.server.domain.*;
 import io.malevich.server.repositories.participant.ParticipantDao;
-import io.malevich.server.services.auth.AuthService;
 import io.malevich.server.services.delayedchange.DelayedChangeService;
 import io.malevich.server.services.participanttype.ParticipantTypeService;
-import io.malevich.server.services.user.UserService;
-import io.malevich.server.transfer.UserDto;
 import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;

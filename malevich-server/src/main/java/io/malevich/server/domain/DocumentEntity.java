@@ -1,6 +1,7 @@
 package io.malevich.server.domain;
 
 
+import com.yinyang.core.server.domain.FileEntity;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
@@ -9,7 +10,7 @@ import org.hibernate.annotations.FetchMode;
 
 import javax.persistence.*;
 import java.sql.Timestamp;
-
+import com.yinyang.core.server.domain.Entity;
 
 @EqualsAndHashCode
 @javax.persistence.Entity

@@ -4,11 +4,13 @@ package io.malevich.server.config;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.aspectj.lang.annotation.Aspect;
 import org.modelmapper.ModelMapper;
+import org.springframework.boot.autoconfigure.domain.EntityScan;
 import org.springframework.context.MessageSource;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.support.ReloadableResourceBundleMessageSource;
+import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.web.servlet.LocaleResolver;
 import org.springframework.web.servlet.i18n.CookieLocaleResolver;
 import org.springframework.web.servlet.i18n.LocaleChangeInterceptor;
@@ -18,7 +20,9 @@ import java.util.Locale;
 
 
 @Configuration
-@ComponentScan(basePackages = {"io.malevich.server.*"},
+@EntityScan(basePackages = {"com.yinyang.core.server.domain", "io.malevich.server.domain"})
+@EnableJpaRepositories(basePackages = {"com.yinyang.core.server.repositories.*", "io.malevich.server.repositories.*"})
+@ComponentScan(basePackages = {"com.yinyang.core.server.*", "io.malevich.server.*"},
         excludeFilters = {@ComponentScan.Filter(Aspect.class)})
 public class ApplicationConfig {
 

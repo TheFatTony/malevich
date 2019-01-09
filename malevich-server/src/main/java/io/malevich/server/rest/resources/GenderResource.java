@@ -1,8 +1,8 @@
 package io.malevich.server.rest.resources;
 
+import com.yinyang.core.server.transfer.FileDto;
 import io.malevich.server.domain.GenderEntity;
 import io.malevich.server.services.gender.GenderService;
-import io.malevich.server.transfer.FileDto;
 import io.malevich.server.transfer.GenderDto;
 import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;

@@ -1,9 +1,10 @@
 package io.malevich.server.rest.resources;
 
 
-import io.malevich.server.domain.UserEntity;
+import com.yinyang.core.server.domain.UserEntity;
+import com.yinyang.core.server.services.user.UserService;
+import com.yinyang.core.server.transfer.UserDto;
 import io.malevich.server.services.registertoken.RegisterService;
-import io.malevich.server.services.user.UserService;
 import io.malevich.server.transfer.*;
 import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;

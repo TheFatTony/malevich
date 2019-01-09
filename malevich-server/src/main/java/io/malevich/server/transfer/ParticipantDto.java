@@ -1,5 +1,7 @@
 package io.malevich.server.transfer;
 
+import com.yinyang.core.server.transfer.FileDto;
+import com.yinyang.core.server.transfer.UserDto;
 import lombok.Getter;
 import lombok.Setter;
 

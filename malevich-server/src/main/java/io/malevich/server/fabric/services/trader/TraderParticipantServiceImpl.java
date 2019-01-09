@@ -1,4 +1,4 @@
-package io.malevich.server.fabric.services.gallery;
+package io.malevich.server.fabric.services.trader;
 
 import io.malevich.server.domain.ParticipantEntity;
 import io.malevich.server.fabric.model.GalleryParticipant;
@@ -9,11 +9,11 @@ import org.springframework.stereotype.Service;
 
 @Slf4j
 @Service
-public class GalleryParticipantServiceImpl extends GenericComposerServiceImpl<ParticipantEntity> implements GalleryParticipantService {
+public class TraderParticipantServiceImpl extends GenericComposerServiceImpl<ParticipantEntity> implements TraderParticipantService {
 
 
-    public GalleryParticipantServiceImpl() {
-        super("Gallery");
+    public TraderParticipantServiceImpl() {
+        super("Trader");
     }
 
     @Override

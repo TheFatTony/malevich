@@ -1,7 +1,6 @@
 package io.malevich.server.services.termsandconditions;
 
 
-import io.malevich.server.domain.MailQueueEntity;
 import io.malevich.server.transfer.TermsAndConditionsDto;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.velocity.VelocityContext;
@@ -10,7 +9,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.io.StringWriter;
-import java.util.Locale;
 
 
 @Slf4j

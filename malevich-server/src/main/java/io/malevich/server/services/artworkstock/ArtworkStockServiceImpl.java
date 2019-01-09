@@ -1,13 +1,11 @@
 package io.malevich.server.services.artworkstock;
 
 import io.malevich.server.domain.*;
-import io.malevich.server.fabric.services.ComposerService;
 import io.malevich.server.repositories.artworkstock.ArtworkStockDao;
 import io.malevich.server.repositories.transactiongroup.TransactionGroupDao;
 import io.malevich.server.services.artwork.ArtworkService;
 import io.malevich.server.services.counterparty.CounterpartyService;
 import io.malevich.server.services.gallery.GalleryService;
-import io.malevich.server.services.participant.ParticipantServiceImpl;
 import io.malevich.server.services.transaction.TransactionService;
 import io.malevich.server.services.transactiontype.TransactionTypeService;
 import lombok.extern.slf4j.Slf4j;

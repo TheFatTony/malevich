@@ -1,14 +1,15 @@
 package io.malevich.server.services.trader;
 
 
-import io.malevich.server.domain.*;
+import com.yinyang.core.server.services.auth.AuthService;
+import com.yinyang.core.server.services.user.UserService;
+import io.malevich.server.domain.ParticipantEntity;
+import io.malevich.server.domain.TraderPersonEntity;
 import io.malevich.server.repositories.trader.TraderDao;
-import io.malevich.server.services.auth.AuthService;
 import io.malevich.server.services.counterparty.CounterpartyService;
 import io.malevich.server.services.counterpartytype.CounterpartyTypeService;
 import io.malevich.server.services.delayedchange.DelayedChangeService;
 import io.malevich.server.services.participant.ParticipantService;
-import io.malevich.server.services.user.UserService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

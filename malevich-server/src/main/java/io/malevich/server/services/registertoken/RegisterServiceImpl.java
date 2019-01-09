@@ -1,16 +1,20 @@
 package io.malevich.server.services.registertoken;
 
 import com.google.common.collect.Lists;
+import com.yinyang.core.server.domain.MailQueueEntity;
+import com.yinyang.core.server.domain.RegisterTokenEntity;
+import com.yinyang.core.server.domain.UserEntity;
+import com.yinyang.core.server.domain.UserTypeEntity;
+import com.yinyang.core.server.domain.enums.Role;
+import com.yinyang.core.server.repositories.registertoken.RegisterTokenDao;
+import com.yinyang.core.server.services.mailqueue.MailQueueService;
+import com.yinyang.core.server.services.user.UserService;
+import com.yinyang.core.server.services.usertype.UserTypeService;
 import io.malevich.server.domain.*;
-import io.malevich.server.domain.enums.Role;
-import io.malevich.server.repositories.registertoken.RegisterTokenDao;
 import io.malevich.server.services.counterparty.CounterpartyService;
 import io.malevich.server.services.counterpartytype.CounterpartyTypeService;
-import io.malevich.server.services.mailqueue.MailQueueService;
 import io.malevich.server.services.participant.ParticipantService;
 import io.malevich.server.services.participanttype.ParticipantTypeService;
-import io.malevich.server.services.user.UserService;
-import io.malevich.server.services.usertype.UserTypeService;
 import io.malevich.server.transfer.RegisterFormStepTwoDto;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.velocity.VelocityContext;

@@ -2,7 +2,7 @@ package io.malevich.server.config;
 
 
 import com.yinyang.core.server.core.dto.View;
-import io.malevich.server.domain.enums.Role;
+import com.yinyang.core.server.domain.enums.Role;
 import org.springframework.core.MethodParameter;
 import org.springframework.http.MediaType;
 import org.springframework.http.converter.HttpMessageConverter;

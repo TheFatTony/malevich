@@ -2,6 +2,7 @@ package io.malevich.server.domain;
 
 
 import com.yinyang.core.server.core.jpa.JpaConverterJson;
+import com.yinyang.core.server.domain.FileEntity;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
@@ -12,7 +13,7 @@ import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Positive;
 import java.util.Map;
-
+import com.yinyang.core.server.domain.Entity;
 
 @EqualsAndHashCode
 @javax.persistence.Entity

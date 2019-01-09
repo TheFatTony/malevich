@@ -3,7 +3,7 @@ package io.malevich.server.config;
 import com.yinyang.core.server.core.security.JWTAuthenticationFilter;
 import com.yinyang.core.server.core.security.JWTAuthorizationFilter;
 import com.yinyang.core.server.core.security.JWTUtil;
-import io.malevich.server.services.user.UserService;
+import com.yinyang.core.server.services.user.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -27,28 +27,26 @@ import java.util.Arrays;
 @EnableGlobalMethodSecurity(prePostEnabled = true)
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
+    private static final String[] PUBLIC_MATCHERS = {
+            "**"
+    };
+    private static final String[] PUBLIC_MATCHERS_GET = {
+    };
+    private static final String[] PUBLIC_MATCHERS_POST = {
+    };
+    private static final String[] PUBLIC_MATCHERS_PUT = {
+    };
+    private static final String[] PUBLIC_MATCHERS_DELETE = {
+    };
+
     @Autowired
     private UserService userService;
 
     @Autowired
     private JWTUtil jwtUtil;
 
-    private static final String[] PUBLIC_MATCHERS = {
-            "**"
-    };
-
-    private static final String[] PUBLIC_MATCHERS_GET = {
-    };
-
-    private static final String[] PUBLIC_MATCHERS_POST = {
-    };
-
-    private static final String[] PUBLIC_MATCHERS_PUT = {
-    };
-
-    private static final String[] PUBLIC_MATCHERS_DELETE = {
-    };
-
+    @Autowired
+    private BCryptPasswordEncoder bCryptPasswordEncoder;
 
     @Bean
     public JWTUtil jwtUtil() {
@@ -74,7 +72,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     public void configure(AuthenticationManagerBuilder auth) throws Exception {
-        auth.userDetailsService(userService).passwordEncoder(bCryptPasswordEncoder());
+        auth.userDetailsService(userService).passwordEncoder(bCryptPasswordEncoder);
     }
 
     @Bean(name = "authenticationManager")
@@ -90,11 +88,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         final UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         source.registerCorsConfiguration("/**", configuration);
         return source;
-    }
-
-    @Bean
-    public BCryptPasswordEncoder bCryptPasswordEncoder() {
-        return new BCryptPasswordEncoder();
     }
 
 }

@@ -12,8 +12,7 @@ import {CountryDto} from "../../_transfer/countryDto";
 import {GenderDto} from "../../_transfer/genderDto";
 import {ParticipantService} from "../../_services/participant.service";
 import {ParticipantDto} from "../../_transfer/participantDto";
-import {GalleryDto, UserDto} from "../../_transfer";
-import {TraderDto} from "../../_transfer/traderDto";
+import {UserDto} from '../../../../node_modules/yinyang-core';
 
 @Component({
   selector: 'app-profile-edit',

@@ -1,6 +1,6 @@
 import {CategoryDto} from "./categoryDto";
-import {FileDto} from "./fileDto";
 import {ArtistDto} from "./artistDto";
+import {FileDto} from "../../../node_modules/yinyang-core";
 
 export class ArtworkDto {
   id: number;

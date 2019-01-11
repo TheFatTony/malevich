@@ -3,7 +3,6 @@ import {RouterModule, Routes} from '@angular/router';
 
 
 import {MainPageComponent} from './main/main-page/main-page.component';
-import {AdminGuard} from './_guards/admin.guard';
 
 import {routes as adminRoutes} from './admin/admin-routing.module';
 import {AdminComponent} from './admin/admin.component';
@@ -19,7 +18,6 @@ import {GalleriesListComponent} from './galleries/galleries-list/galleries-list.
 import {GalleriesDetailComponent} from './galleries/galleries-detail/galleries-detail.component';
 import {ArtistsListComponent} from './artists/artists-list/artists-list.component';
 import {ArtistsDetailComponent} from './artists/artists-detail/artists-detail.component';
-import {AuthGuard} from './_guards/auth.guard';
 import {PageNotFoundComponent} from './page-not-found/page-not-found.component';
 
 import {ViewComponent as ProfileViewComponent} from "./profile/view/view.component";
@@ -35,6 +33,7 @@ import {DocumentAddComponent as ProfileDocumentAddComponent} from './profile/doc
 import {StorageComponent as ProfileStorageComponent} from './profile/storage/storage.component';
 import {StorageAddComponent as ProfileStorageAddComponent} from './profile/storage/add/storage-add.component';
 import {StorageEditComponent as ProfileStorageEditComponent} from './profile/storage/edit/storage-edit.component';
+import {AdminGuard, AuthGuard} from '../../node_modules/yinyang-core';
 
 
 const routes: Routes = [

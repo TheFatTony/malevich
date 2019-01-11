@@ -1,5 +1,5 @@
 import {DocumentTypeDto} from './documentTypeDto';
-import {FileDto} from './fileDto';
+import {FileDto} from '../../../node_modules/yinyang-core';
 
 export class DocumentsDto {
   id: number;

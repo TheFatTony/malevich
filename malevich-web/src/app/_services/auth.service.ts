@@ -3,8 +3,8 @@ import {Injectable} from '@angular/core';
 import {map} from 'rxjs/operators';
 import {environment} from '../../environments/environment.dev';
 import {Globals} from '../globals';
-import {UserDto} from '../_transfer';
 import {Observable} from "rxjs";
+import {UserDto} from '../../../node_modules/yinyang-core';
 
 @Injectable({providedIn: 'root'})
 export class AuthService {

@@ -1,10 +1,9 @@
-import {FileDto} from "./fileDto";
-import {UserDto} from "./userDto";
 import {CountryDto} from "./countryDto";
 import {AddressDto} from "./addressDto";
 import {ParticipantTypeDto} from "./participantTypeDto";
 import {PersonDto} from "./personDto";
 import {OrganizationDto} from "./organizationDto";
+import {UserDto, FileDto} from "../../../node_modules/yinyang-core";
 
 export class ParticipantDto {
   id: number;

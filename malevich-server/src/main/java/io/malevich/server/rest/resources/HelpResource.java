@@ -36,7 +36,7 @@ public class HelpResource {
 
     @PostMapping("/addCategory")
     @ResponseStatus(HttpStatus.OK)
-    @PreAuthorize("hasRole('ADMIN')")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     public ResponseEntity<Void> addCategory(@RequestBody HelpCategoryDto helpCategoryDto) {
         this.helpCategoryService.save(convertToEntity(helpCategoryDto));
         return ResponseEntity.ok().build();
@@ -50,7 +50,7 @@ public class HelpResource {
 
     @PostMapping("/addTopic")
     @ResponseStatus(HttpStatus.OK)
-    @PreAuthorize("hasRole('ADMIN')")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     public ResponseEntity<Void> addTopics(@RequestBody HelpTopicDto topicDto) {
         this.helpTopicService.save(convertToEntity(topicDto));
         return ResponseEntity.ok().build();

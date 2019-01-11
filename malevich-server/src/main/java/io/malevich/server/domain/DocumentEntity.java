@@ -7,7 +7,6 @@ import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
-import org.springframework.data.jpa.domain.AbstractPersistable;
 
 import javax.persistence.*;
 import java.sql.Timestamp;
@@ -16,7 +15,6 @@ import java.sql.Timestamp;
 @javax.persistence.Entity
 @Table(name = "document")
 public class DocumentEntity extends YAbstractPersistable<Long> {
-
 
 
     @Getter

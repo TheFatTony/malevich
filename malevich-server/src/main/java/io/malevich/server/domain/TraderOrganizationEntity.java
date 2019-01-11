@@ -14,7 +14,6 @@ import javax.persistence.Table;
 
 @javax.persistence.Entity
 @Table(name = "trader_organization")
-@PrimaryKeyJoinColumn(name = "participant_id")
 public class TraderOrganizationEntity extends ParticipantEntity {
 
     @Getter

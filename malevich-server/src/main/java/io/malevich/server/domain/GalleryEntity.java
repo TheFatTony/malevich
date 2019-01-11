@@ -13,7 +13,6 @@ import java.util.Map;
 
 @javax.persistence.Entity
 @Table(name = "gallery")
-@PrimaryKeyJoinColumn(name = "participant_id")
 public class GalleryEntity extends ParticipantEntity {
 
     @Getter

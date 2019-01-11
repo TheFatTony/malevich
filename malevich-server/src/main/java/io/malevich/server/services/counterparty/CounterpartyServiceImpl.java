@@ -75,9 +75,9 @@ public class CounterpartyServiceImpl implements CounterpartyService {
         CounterpartyEntity entity = counterpartyDao.save(counterpartyEntity);
 
         if (entity.getType().equals(counterpartyTypeService.getGalleryType()))
-            galleryParticipantService.submit(entity.getParticipant());
+            galleryParticipantService.create(entity.getParticipant());
         else if (entity.getType().equals(counterpartyTypeService.getTraderType()))
-            traderParticipantService.submit(entity.getParticipant());
+            traderParticipantService.create(entity.getParticipant());
 
         return entity;
     }

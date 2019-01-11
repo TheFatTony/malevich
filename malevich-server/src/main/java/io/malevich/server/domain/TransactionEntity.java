@@ -1,5 +1,6 @@
 package io.malevich.server.domain;
 
+import com.yinyang.core.server.domain.YAbstractPersistable;
 import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.annotations.Fetch;
@@ -12,7 +13,7 @@ import javax.validation.constraints.NotNull;
 
 @javax.persistence.Entity
 @Table(name = "transactions")
-public class TransactionEntity extends AbstractPersistable<Long> {
+public class TransactionEntity extends YAbstractPersistable<Long> {
 
     @Getter
     @Setter

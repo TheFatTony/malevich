@@ -69,10 +69,4 @@ public class ParticipantEntity extends AbstractPersistable<Long> {
         return usersList != null && !usersList.isEmpty() ? usersList.get(0) : null;
     }
 
-    // TODO crap
-    @Override
-    public void setId(@Nullable Long id) {
-        super.setId(id);
-    }
-
 }

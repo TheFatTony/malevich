@@ -24,10 +24,5 @@ public class OrganizationEntity extends AbstractPersistable<Long> {
     @NotNull
     private Map<String, String> legalNameMl;
 
-    // TODO crap
-    @Override
-    public void setId(@Nullable Long id) {
-        super.setId(id);
-    }
 
 }

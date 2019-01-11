@@ -1,6 +1,7 @@
 package io.malevich.server.domain;
 
 
+import com.yinyang.core.server.domain.YAbstractPersistable;
 import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.annotations.Fetch;
@@ -13,7 +14,7 @@ import javax.validation.constraints.NotNull;
 
 @javax.persistence.Entity
 @Table(name = "address")
-public class AddressEntity extends AbstractPersistable<Long> {
+public class AddressEntity extends YAbstractPersistable<Long> {
 
     @Getter
     @Setter

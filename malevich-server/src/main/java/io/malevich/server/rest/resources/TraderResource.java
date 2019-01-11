@@ -24,7 +24,7 @@ public class TraderResource {
     @Autowired
     private ModelMapper modelMapper;
 
-    @PreAuthorize("hasRole('TRADER')")
+    @PreAuthorize("hasRole('ROLE_TRADER')")
     @RequestMapping(value = "/current", method = RequestMethod.GET)
     @ResponseStatus(HttpStatus.OK)
     @ResponseBody
@@ -35,7 +35,7 @@ public class TraderResource {
         return convertToDto(traderEntity);
     }
 
-//    @PreAuthorize("hasRole('TRADER')")
+//    @PreAuthorize("hasRole('ROLE_TRADER')")
 //    @RequestMapping(value = "/update", method = RequestMethod.PUT)
 //    @ResponseStatus(HttpStatus.OK)
 //    @ResponseBody

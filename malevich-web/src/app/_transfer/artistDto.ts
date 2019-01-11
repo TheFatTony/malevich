@@ -1,5 +1,4 @@
-import {FileDto} from "./fileDto";
-import {PersonDto} from "./personDto";
+import {FileDto} from "../../../node_modules/yinyang-core";
 
 export class ArtistDto {
   id: number;

@@ -35,7 +35,7 @@ public class UserResource {
     private ModelMapper modelMapper;
 
 
-    @PreAuthorize("hasRole('ADMIN')")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @RequestMapping(value = "/list", method = RequestMethod.GET)
     @ResponseStatus(HttpStatus.OK)
     @ResponseBody
@@ -44,7 +44,7 @@ public class UserResource {
         return allEntries.stream().map(allEntry -> convertToDto(allEntry)).collect(Collectors.toList());
     }
 
-    @PreAuthorize("hasRole('ADMIN')")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @PostMapping("/lock")
     @ResponseStatus(HttpStatus.OK)
     public ResponseEntity<Void> lock(@RequestBody UserDto lockDto) {
@@ -52,7 +52,7 @@ public class UserResource {
         return ResponseEntity.ok().build();
     }
 
-    @PreAuthorize("hasRole('ADMIN')")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @PostMapping("/password/set")
     @ResponseStatus(HttpStatus.OK)
     public ResponseEntity<Void> setPassword(@RequestBody UserPasswordDto passwordDto) {

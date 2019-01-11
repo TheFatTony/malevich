@@ -30,7 +30,7 @@ public class ParticipantResource {
     @Autowired
     private ModelMapper modelMapper;
 
-    @PreAuthorize("hasRole('USER')")
+    @PreAuthorize("hasRole('ROLE_USER')")
     @RequestMapping(value = "/current", method = RequestMethod.GET)
     @ResponseStatus(HttpStatus.OK)
     @ResponseBody
@@ -47,7 +47,7 @@ public class ParticipantResource {
         return allEntries.stream().map(allEntry -> convertToDto(allEntry)).collect(Collectors.toList());
     }
 
-    @PreAuthorize("hasRole('USER')")
+    @PreAuthorize("hasRole('ROLE_USER')")
     @RequestMapping(value = "/update", method = RequestMethod.PUT)
     @ResponseStatus(HttpStatus.OK)
     @ResponseBody

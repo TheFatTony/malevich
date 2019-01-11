@@ -2,14 +2,13 @@ package io.malevich.server.domain;
 
 import com.yinyang.core.server.domain.FileEntity;
 import com.yinyang.core.server.domain.UserEntity;
+import com.yinyang.core.server.domain.YAbstractPersistable;
 import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
 import org.hibernate.annotations.LazyCollection;
 import org.hibernate.annotations.LazyCollectionOption;
-import org.springframework.data.jpa.domain.AbstractPersistable;
-import org.springframework.lang.Nullable;
 
 import javax.persistence.*;
 import java.util.List;
@@ -18,7 +17,7 @@ import java.util.List;
 @javax.persistence.Entity
 @Table(name = "participant")
 @Inheritance(strategy = InheritanceType.JOINED)
-public class ParticipantEntity extends AbstractPersistable<Long> {
+public class ParticipantEntity extends YAbstractPersistable<Long> {
 
 
     @Getter

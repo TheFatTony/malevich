@@ -7,9 +7,11 @@ import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
-import org.springframework.data.jpa.domain.AbstractPersistable;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Convert;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import java.util.Map;
 
@@ -17,7 +19,6 @@ import java.util.Map;
 @javax.persistence.Entity
 @Table(name = "help_topic")
 public class HelpTopicEntity extends YAbstractPersistable<Long> {
-
 
 
     @Getter

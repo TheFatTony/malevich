@@ -5,7 +5,6 @@ import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
-import org.springframework.data.jpa.domain.AbstractPersistable;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -14,7 +13,6 @@ import javax.validation.constraints.NotNull;
 @javax.persistence.Entity
 @Table(name = "counterparty")
 public class CounterpartyEntity extends YAbstractPersistable<Long> {
-
 
 
     @Getter

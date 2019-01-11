@@ -26,7 +26,7 @@ public class CounterpartyEntity extends YAbstractPersistable<Long> {
     @Setter
     @Fetch(FetchMode.JOIN)
     @OneToOne(cascade = CascadeType.MERGE)
-    @JoinColumn(name = "participant_id")
+    @NotNull
     private ParticipantEntity participant;
 
 }

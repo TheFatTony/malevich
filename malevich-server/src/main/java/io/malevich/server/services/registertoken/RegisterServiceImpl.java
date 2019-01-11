@@ -69,7 +69,7 @@ public class RegisterServiceImpl implements RegisterService {
 
     @Override
     @Transactional
-    public RegisterTokenEntity saveToken(RegisterTokenEntity registerTokenEntity) {
+    public RegisterTokenEntity  saveToken(RegisterTokenEntity registerTokenEntity) {
         return registerTokenDao.save(registerTokenEntity);
     }
 

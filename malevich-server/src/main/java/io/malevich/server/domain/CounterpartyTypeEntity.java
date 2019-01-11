@@ -1,6 +1,7 @@
 package io.malevich.server.domain;
 
 import com.yinyang.core.server.core.jpa.JpaConverterJson;
+import com.yinyang.core.server.domain.YAbstractPersistable;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.data.jpa.domain.AbstractPersistable;
@@ -12,7 +13,7 @@ import java.util.Map;
 
 @javax.persistence.Entity
 @Table(name = "counterparty_type")
-public class CounterpartyTypeEntity extends AbstractPersistable<String> {
+public class CounterpartyTypeEntity extends YAbstractPersistable<String> {
 
 
 

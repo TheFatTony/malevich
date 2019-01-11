@@ -63,13 +63,13 @@ public class RegisterServiceImpl implements RegisterService {
     @Autowired
     private CounterpartyService counterpartyService;
 
-    @Value("${malevich.client.url}")
+    @Value("${yinyang.client.url}")
     private String clientUrl;
 
 
     @Override
     @Transactional
-    public RegisterTokenEntity saveToken(RegisterTokenEntity registerTokenEntity) {
+    public RegisterTokenEntity  saveToken(RegisterTokenEntity registerTokenEntity) {
         return registerTokenDao.save(registerTokenEntity);
     }
 

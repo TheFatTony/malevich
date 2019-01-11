@@ -2,21 +2,22 @@ package io.malevich.server.domain;
 
 import com.yinyang.core.server.core.jpa.JpaConverterJson;
 import com.yinyang.core.server.domain.UserEntity;
-import lombok.EqualsAndHashCode;
+import com.yinyang.core.server.domain.YAbstractPersistable;
 import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
-import org.springframework.data.jpa.domain.AbstractPersistable;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Convert;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
 
 @javax.persistence.Entity
 @Table(name = "delayed_change")
-public class DelayedChangeEntity extends AbstractPersistable<Long> {
-
+public class DelayedChangeEntity extends YAbstractPersistable<Long> {
 
 
     @Getter

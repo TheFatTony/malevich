@@ -1,18 +1,21 @@
 package io.malevich.server.domain;
 
+import com.yinyang.core.server.domain.YAbstractPersistable;
 import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
-import org.springframework.data.jpa.domain.AbstractPersistable;
 
-import javax.persistence.*;
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
 
 @javax.persistence.Entity
 @Table(name = "transactions")
-public class TransactionEntity extends AbstractPersistable<Long> {
+public class TransactionEntity extends YAbstractPersistable<Long> {
 
     @Getter
     @Setter

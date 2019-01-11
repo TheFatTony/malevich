@@ -1,11 +1,11 @@
 package io.malevich.server.domain;
 
+import com.yinyang.core.server.domain.YAbstractPersistable;
 import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
 import org.hibernate.annotations.Formula;
-import org.springframework.data.jpa.domain.AbstractPersistable;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -14,9 +14,7 @@ import javax.validation.constraints.Positive;
 
 @javax.persistence.Entity
 @Table(name = "orders")
-public class OrderEntity extends AbstractPersistable<Long> {
-
-
+public class OrderEntity extends YAbstractPersistable<Long> {
 
 
     @Getter

@@ -1,20 +1,22 @@
 package io.malevich.server.domain;
 
+import com.yinyang.core.server.domain.YAbstractPersistable;
 import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
-import org.springframework.data.jpa.domain.AbstractPersistable;
 import org.springframework.lang.Nullable;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import java.sql.Timestamp;
 
 
 @javax.persistence.Entity
 @Table(name = "person")
-public class PersonEntity extends AbstractPersistable<Long> {
+public class PersonEntity extends YAbstractPersistable<Long> {
 
     @Getter
     @Setter

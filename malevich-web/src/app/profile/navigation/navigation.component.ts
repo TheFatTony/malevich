@@ -42,8 +42,8 @@ export class NavigationComponent implements OnInit {
             return;
 
           data.users[0].roles.forEach(r => {
-            this.isTrader = this.isTrader || (r == "TRADER");
-            this.isGallery = this.isGallery || (r == "GALLERY");
+            this.isTrader = this.isTrader || (r == "ROLE_TRADER");
+            this.isGallery = this.isGallery || (r == "ROLE_GALLERY");
           });
 
           this.participant = data;

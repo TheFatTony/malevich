@@ -1,27 +1,18 @@
 package io.malevich.server.domain;
 
-import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
+import org.springframework.data.jpa.domain.AbstractPersistable;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
-import com.yinyang.core.server.domain.Entity;
 
 
-@EqualsAndHashCode
 @javax.persistence.Entity
 @Table(name = "account_state")
-public class AccountStateEntity implements Entity {
-
-
-    @Getter
-    @Setter
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+public class AccountStateEntity extends AbstractPersistable<Long> {
 
     @Getter
     @Setter

@@ -1,29 +1,21 @@
 package io.malevich.server.domain;
 
 import com.yinyang.core.server.core.jpa.JpaConverterJson;
-import com.yinyang.core.server.domain.Entity;
 import com.yinyang.core.server.domain.FileEntity;
-import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
+import org.springframework.data.jpa.domain.AbstractPersistable;
 
-
+import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.util.Map;
-import javax.persistence.*;
 
-@EqualsAndHashCode
+
 @javax.persistence.Entity
 @Table(name = "artist")
-public class ArtistEntity implements Entity {
-
-    @Getter
-    @Setter
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+public class ArtistEntity extends AbstractPersistable<Long> {
 
     @Getter
     @Setter

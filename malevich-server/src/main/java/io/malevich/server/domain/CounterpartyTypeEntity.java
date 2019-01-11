@@ -1,26 +1,21 @@
 package io.malevich.server.domain;
 
 import com.yinyang.core.server.core.jpa.JpaConverterJson;
-import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
+import org.springframework.data.jpa.domain.AbstractPersistable;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.util.Map;
-import com.yinyang.core.server.domain.Entity;
 
-@EqualsAndHashCode
+
 @javax.persistence.Entity
 @Table(name = "counterparty_type")
-public class CounterpartyTypeEntity implements Entity {
+public class CounterpartyTypeEntity extends AbstractPersistable<String> {
 
 
-    @Getter
-    @Setter
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private String id;
+
 
     @Getter
     @Setter

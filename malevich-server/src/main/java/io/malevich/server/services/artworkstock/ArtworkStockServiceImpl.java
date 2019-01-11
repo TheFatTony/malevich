@@ -1,6 +1,7 @@
 package io.malevich.server.services.artworkstock;
 
 import io.malevich.server.domain.*;
+import io.malevich.server.fabric.services.artworkstock.ArtworkStockAssetService;
 import io.malevich.server.repositories.artworkstock.ArtworkStockDao;
 import io.malevich.server.repositories.transactiongroup.TransactionGroupDao;
 import io.malevich.server.services.artwork.ArtworkService;
@@ -44,6 +45,9 @@ public class ArtworkStockServiceImpl implements ArtworkStockService {
     @Autowired
     private GalleryService galleryService;
 
+    @Autowired
+    private ArtworkStockAssetService artworkStockAssetService;
+
     @Override
     @Transactional(readOnly = true)
     public List<ArtworkStockEntity> findAll() {
@@ -55,12 +59,14 @@ public class ArtworkStockServiceImpl implements ArtworkStockService {
     public void add(ArtworkStockEntity artworkStockEntity) {
         GalleryEntity gallery = galleryService.getCurrent();
 
-        if(gallery == null)
+        if (gallery == null)
             return;
 
         artworkStockEntity.setGallery(gallery);
         artworkStockEntity.setArtwork(artworkService.save(artworkStockEntity.getArtwork()));
         artworkStockEntity = this.artworkStockDao.save(artworkStockEntity);
+
+        artworkStockAssetService.create(artworkStockEntity);
 
         TransactionGroupEntity transactionGroupEntity = new TransactionGroupEntity();
         transactionGroupEntity.setType("NEW_ART");
@@ -79,7 +85,7 @@ public class ArtworkStockServiceImpl implements ArtworkStockService {
     public void delete(long id) {
         GalleryEntity gallery = galleryService.getCurrent();
 
-        if(gallery == null)
+        if (gallery == null)
             return;
 
         ArtworkStockEntity existing = artworkStockDao.findById(id).orElse(null);

@@ -43,8 +43,8 @@ public class CounterpartyServiceImpl implements CounterpartyService {
 
     @Override
     @Transactional(readOnly = true)
-    public CounterpartyEntity findByParticipantId(Long galleryId) {
-        return counterpartyDao.findByParticipant_Id(galleryId);
+    public CounterpartyEntity findByParticipantId(Long participantId) {
+        return counterpartyDao.findByParticipant_Id(participantId);
     }
 
     @Override

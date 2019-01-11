@@ -59,6 +59,7 @@ asset TradeHistory identified by id {
 }
 
 concept Balance {
+  o String id
   o Double newBalance
   --> Counterparty сounterparty
 }

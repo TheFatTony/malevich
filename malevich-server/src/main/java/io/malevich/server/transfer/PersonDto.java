@@ -1,6 +1,7 @@
 package io.malevich.server.transfer;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.yinyang.core.server.transfer.FileDto;
 import lombok.Getter;
 import lombok.Setter;
 

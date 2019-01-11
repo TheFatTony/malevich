@@ -1,27 +1,19 @@
 package io.malevich.server.domain;
 
-import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
+import org.springframework.data.jpa.domain.AbstractPersistable;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Positive;
 
 
-@EqualsAndHashCode
 @javax.persistence.Entity
 @Table(name = "trade_history")
-public class TradeHistoryEntity implements Entity {
-
-
-    @Getter
-    @Setter
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+public class TradeHistoryEntity extends AbstractPersistable<Long> {
 
     @Getter
     @Setter

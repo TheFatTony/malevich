@@ -1,10 +1,10 @@
 package io.malevich.server.services.delayedchange;
 
+import com.yinyang.core.server.domain.MailQueueEntity;
+import com.yinyang.core.server.services.mailqueue.MailQueueService;
 import io.malevich.server.domain.DelayedChangeEntity;
-import io.malevich.server.domain.MailQueueEntity;
 import io.malevich.server.domain.ParticipantEntity;
 import io.malevich.server.repositories.delayedchange.DelayedChangeDao;
-import io.malevich.server.services.mailqueue.MailQueueService;
 import io.malevich.server.services.participant.ParticipantService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -42,7 +42,7 @@ public class DelayedChangeServiceImpl implements DelayedChangeService {
         // refresh entity from db to get user
         delayedChangeEntity = delayedChangeDao.findById(delayedChangeEntity.getId()).orElse(null);
 
-        if(delayedChangeEntity == null)
+        if (delayedChangeEntity == null)
             return;
 
         if (delayedChangeEntity.getTypeId().equals("PARTICIPANT")) {

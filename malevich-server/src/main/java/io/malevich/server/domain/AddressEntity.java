@@ -1,26 +1,19 @@
 package io.malevich.server.domain;
 
 
-import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
+import org.springframework.data.jpa.domain.AbstractPersistable;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 
 
-@EqualsAndHashCode
 @javax.persistence.Entity
 @Table(name = "address")
-public class AddressEntity implements Entity {
-
-    @Getter
-    @Setter
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+public class AddressEntity extends AbstractPersistable<Long> {
 
     @Getter
     @Setter

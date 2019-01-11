@@ -1,26 +1,22 @@
 package io.malevich.server.domain;
 
 
-import lombok.EqualsAndHashCode;
+import com.yinyang.core.server.domain.FileEntity;
 import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
+import org.springframework.data.jpa.domain.AbstractPersistable;
 
 import javax.persistence.*;
 import java.sql.Timestamp;
 
 
-@EqualsAndHashCode
 @javax.persistence.Entity
 @Table(name = "document")
-public class DocumentEntity implements Entity {
+public class DocumentEntity extends AbstractPersistable<Long> {
 
-    @Getter
-    @Setter
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+
 
     @Getter
     @Setter

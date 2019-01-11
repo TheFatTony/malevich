@@ -1,18 +1,16 @@
 package io.malevich.server.domain;
 
 import com.yinyang.core.server.core.jpa.JpaConverterJson;
-import lombok.EqualsAndHashCode;
+import com.yinyang.core.server.domain.FileEntity;
 import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotNull;
 import java.util.Map;
 
 
-@EqualsAndHashCode
 @javax.persistence.Entity
 @Table(name = "gallery")
 @PrimaryKeyJoinColumn(name = "participant_id")

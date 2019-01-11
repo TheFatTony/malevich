@@ -1,25 +1,20 @@
 package io.malevich.server.domain;
 
-import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
+import org.springframework.data.jpa.domain.AbstractPersistable;
+import org.springframework.lang.Nullable;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.sql.Timestamp;
 
-@EqualsAndHashCode
+
 @javax.persistence.Entity
 @Table(name = "person")
-public class PersonEntity implements Entity {
-
-    @Getter
-    @Setter
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+public class PersonEntity extends AbstractPersistable<Long> {
 
     @Getter
     @Setter
@@ -46,5 +41,10 @@ public class PersonEntity implements Entity {
     @NotNull
     private Timestamp dateOfBirth;
 
+    // TODO crap
+    @Override
+    public void setId(@Nullable Long id) {
+        super.setId(id);
+    }
 
 }

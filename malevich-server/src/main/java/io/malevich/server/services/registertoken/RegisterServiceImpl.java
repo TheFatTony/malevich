@@ -1,16 +1,19 @@
 package io.malevich.server.services.registertoken;
 
 import com.google.common.collect.Lists;
+import com.yinyang.core.server.domain.MailQueueEntity;
+import com.yinyang.core.server.domain.RegisterTokenEntity;
+import com.yinyang.core.server.domain.UserEntity;
+import com.yinyang.core.server.domain.UserTypeEntity;
+import com.yinyang.core.server.domain.enums.Role;
+import com.yinyang.core.server.repositories.registertoken.RegisterTokenDao;
+import com.yinyang.core.server.services.mailqueue.MailQueueService;
+import com.yinyang.core.server.services.user.UserService;
 import io.malevich.server.domain.*;
-import io.malevich.server.domain.enums.Role;
-import io.malevich.server.repositories.registertoken.RegisterTokenDao;
 import io.malevich.server.services.counterparty.CounterpartyService;
 import io.malevich.server.services.counterpartytype.CounterpartyTypeService;
-import io.malevich.server.services.mailqueue.MailQueueService;
 import io.malevich.server.services.participant.ParticipantService;
 import io.malevich.server.services.participanttype.ParticipantTypeService;
-import io.malevich.server.services.user.UserService;
-import io.malevich.server.services.usertype.UserTypeService;
 import io.malevich.server.transfer.RegisterFormStepTwoDto;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.velocity.VelocityContext;
@@ -41,9 +44,6 @@ public class RegisterServiceImpl implements RegisterService {
 
     @Autowired
     private CounterpartyTypeService counterpartyTypeService;
-
-    @Autowired
-    private UserTypeService userTypeService;
 
     @Autowired
     private MailQueueService mailQueueService;
@@ -87,12 +87,8 @@ public class RegisterServiceImpl implements RegisterService {
 
     @Override
     @Transactional
-    public RegisterTokenEntity register(String lang, String userName) {
-        UserTypeEntity userType = userTypeService.getOne(2L);
+    public RegisterTokenEntity register(RegisterTokenEntity entity, String lang) {
 
-        RegisterTokenEntity entity = new RegisterTokenEntity();
-        entity.setUserName(userName);
-        entity.setUserType(userType);
         entity.setToken(UUID.randomUUID().toString());
         entity.setEffectiveDate(new java.sql.Timestamp(System.currentTimeMillis()));
         entity = saveToken(entity);
@@ -108,6 +104,17 @@ public class RegisterServiceImpl implements RegisterService {
         return entity;
     }
 
+    private boolean isGallery(UserTypeEntity type){
+        if(type == null || type.getId() == null) return false;
+
+        return type.getId().equals(1L);
+    }
+
+    private boolean isOrganization(UserTypeEntity type){
+        if(type == null || type.getId() == null) return false;
+
+        return type.getId().equals(1L) || type.getId().equals(3L);
+    }
 
     @Override
     @Transactional
@@ -115,7 +122,7 @@ public class RegisterServiceImpl implements RegisterService {
         RegisterTokenEntity registerTokenEntity = findToken(token).get();
 
         List<Role> roles = Lists.newArrayList(Role.USER);
-        if (registerInfo.getIsGallery())
+        if (isGallery(registerTokenEntity.getUserType()))
             roles.add(Role.GALLERY);
         else
             roles.add(Role.TRADER);
@@ -131,7 +138,7 @@ public class RegisterServiceImpl implements RegisterService {
         CounterpartyEntity counterparty = new CounterpartyEntity();
         ParticipantEntity participant;
 
-        if (registerInfo.getIsGallery()) {
+        if (isGallery(registerTokenEntity.getUserType())) {
             participant = new GalleryEntity();
             participant.setType(participantTypeService.getGalleryType());
 
@@ -139,7 +146,7 @@ public class RegisterServiceImpl implements RegisterService {
         } else {
             counterparty.setType(counterpartyTypeService.getTraderType());
 
-            if (registerInfo.getIsOrganization()) {
+            if (isOrganization(registerTokenEntity.getUserType())) {
                 participant = new TraderOrganizationEntity();
                 participant.setType(participantTypeService.getTraderOrganizationType());
             } else {

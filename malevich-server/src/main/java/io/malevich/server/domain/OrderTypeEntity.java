@@ -1,24 +1,19 @@
 package io.malevich.server.domain;
 
 import com.yinyang.core.server.core.jpa.JpaConverterJson;
-import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
+import org.springframework.data.jpa.domain.AbstractPersistable;
 
 import javax.persistence.*;
 import java.util.Map;
 
 
-@EqualsAndHashCode
 @javax.persistence.Entity
 @Table(name = "order_type")
-public class OrderTypeEntity implements Entity {
+public class OrderTypeEntity extends AbstractPersistable<String> {
 
-    @Getter
-    @Setter
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private String id;
+
 
     @Getter
     @Setter

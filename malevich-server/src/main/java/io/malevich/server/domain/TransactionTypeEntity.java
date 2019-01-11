@@ -1,26 +1,18 @@
 package io.malevich.server.domain;
 
 import com.yinyang.core.server.core.jpa.JpaConverterJson;
-import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
+import org.springframework.data.jpa.domain.AbstractPersistable;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.util.Map;
 
 
-@EqualsAndHashCode
 @javax.persistence.Entity
 @Table(name = "transaction_type")
-public class TransactionTypeEntity implements Entity {
-
-
-    @Getter
-    @Setter
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private String id;
+public class TransactionTypeEntity extends AbstractPersistable<String> {
 
     @Getter
     @Setter

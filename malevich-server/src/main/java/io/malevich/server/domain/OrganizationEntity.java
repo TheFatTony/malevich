@@ -1,25 +1,21 @@
 package io.malevich.server.domain;
 
 import com.yinyang.core.server.core.jpa.JpaConverterJson;
-import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
+import org.springframework.data.jpa.domain.AbstractPersistable;
+import org.springframework.lang.Nullable;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.util.Map;
 
 
-@EqualsAndHashCode
 @javax.persistence.Entity
 @Table(name = "organization")
-public class OrganizationEntity implements Entity {
+public class OrganizationEntity extends AbstractPersistable<Long> {
 
-    @Getter
-    @Setter
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+
 
     @Getter
     @Setter
@@ -27,5 +23,11 @@ public class OrganizationEntity implements Entity {
     @Column(name = "legal_name_ml")
     @NotNull
     private Map<String, String> legalNameMl;
+
+    // TODO crap
+    @Override
+    public void setId(@Nullable Long id) {
+        super.setId(id);
+    }
 
 }

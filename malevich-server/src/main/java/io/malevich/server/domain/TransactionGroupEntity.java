@@ -1,26 +1,19 @@
 package io.malevich.server.domain;
 
-import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
+import org.springframework.data.jpa.domain.AbstractPersistable;
+
 import javax.persistence.*;
 
 
-@EqualsAndHashCode
 @javax.persistence.Entity
 @Table(name = "transaction_group")
-public class TransactionGroupEntity implements Entity {
+public class TransactionGroupEntity extends AbstractPersistable<Long> {
 
-
-  @Getter
-  @Setter
-  @Id
-  @GeneratedValue(strategy = GenerationType.IDENTITY)
-  private Long id;
-
-  @Getter
-  @Setter
-  @Column(name = "type")
-  private String type;
+    @Getter
+    @Setter
+    @Column(name = "type")
+    private String type;
 
 }

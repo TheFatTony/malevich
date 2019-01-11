@@ -5,6 +5,9 @@ import {SubscriptionService} from "../../../_services/subscription.service";
 import {SubscriptionDto} from "../../../_transfer/subscriptionDto";
 import {TermsAndConditionsService} from "../../../_services/terms-and-conditions.service";
 import {UserService} from "../../../_services/user.service";
+import {UserTypeService} from "../../../_services/user-type.service";
+import {UserTypeDto} from "../../../_transfer/userTypeDto";
+import {RegisterFormDto} from "../../../_transfer/registerFormDto";
 
 @Component({
   selector: 'app-auth-register-step-one',
@@ -18,16 +21,29 @@ export class StepOneComponent implements OnInit, AfterViewInit {
   subscribe: boolean = false;
   termsAndConditions: string;
 
+  userTypes: UserTypeDto[];
+  userTypeSelected: UserTypeDto;
+
+  userTypeDisplayFunc = (type: UserTypeDto) => {
+    return type.typeName;
+  };
+
   constructor(private router: Router,
               public translate: TranslateService,
               private userService: UserService,
+              private userTypeService: UserTypeService,
               private subscriptionService: SubscriptionService,
               private termsAndConditionsService: TermsAndConditionsService) {
   }
 
   ngOnInit() {
+    this.getUserTypes();
     this.termsAndConditionsService.getHtml(this.translate.currentLang)
       .subscribe(data => (this.termsAndConditions = data.htmlText));
+  }
+
+  getUserTypes(){
+    this.userTypeService.getAll().subscribe(data => (this.userTypes = data));
   }
 
   ngAfterViewInit(): void {
@@ -35,7 +51,11 @@ export class StepOneComponent implements OnInit, AfterViewInit {
   }
 
   onSubmit() {
-    this.userService.register(this.translate.currentLang, this.email)
+    let info = new RegisterFormDto();
+    info.userName = this.email;
+    info.userType = this.userTypeSelected;
+
+    this.userService.register(this.translate.currentLang, info)
       .subscribe();
 
     if (this.subscribe) {

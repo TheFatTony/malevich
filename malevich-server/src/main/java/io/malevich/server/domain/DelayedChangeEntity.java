@@ -7,22 +7,17 @@ import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
+import org.springframework.data.jpa.domain.AbstractPersistable;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 
 
-@EqualsAndHashCode
 @javax.persistence.Entity
 @Table(name = "delayed_change")
-public class DelayedChangeEntity {
+public class DelayedChangeEntity extends AbstractPersistable<Long> {
 
 
-    @Getter
-    @Setter
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
 
     @Getter
     @Setter

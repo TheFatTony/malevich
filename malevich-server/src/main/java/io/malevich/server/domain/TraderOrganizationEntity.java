@@ -1,7 +1,6 @@
 package io.malevich.server.domain;
 
 
-import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.annotations.Fetch;
@@ -13,7 +12,6 @@ import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
 
 
-@EqualsAndHashCode(callSuper = true)
 @javax.persistence.Entity
 @Table(name = "trader_organization")
 @PrimaryKeyJoinColumn(name = "participant_id")

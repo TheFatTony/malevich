@@ -1,32 +1,25 @@
 package io.malevich.server.domain;
 
-import com.yinyang.core.server.domain.Entity;
 import com.yinyang.core.server.domain.FileEntity;
 import com.yinyang.core.server.domain.UserEntity;
-import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
 import org.hibernate.annotations.LazyCollection;
 import org.hibernate.annotations.LazyCollectionOption;
-
+import org.springframework.data.jpa.domain.AbstractPersistable;
+import org.springframework.lang.Nullable;
 
 import javax.persistence.*;
 import java.util.List;
 
 
-@EqualsAndHashCode
 @javax.persistence.Entity
 @Table(name = "participant")
 @Inheritance(strategy = InheritanceType.JOINED)
-public class ParticipantEntity implements Entity {
+public class ParticipantEntity extends AbstractPersistable<Long> {
 
-    @Getter
-    @Setter
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
 
     @Getter
     @Setter
@@ -74,6 +67,12 @@ public class ParticipantEntity implements Entity {
     public UserEntity getUser() {
         List<UserEntity> usersList = getUsers();
         return usersList != null && !usersList.isEmpty() ? usersList.get(0) : null;
+    }
+
+    // TODO crap
+    @Override
+    public void setId(@Nullable Long id) {
+        super.setId(id);
     }
 
 }

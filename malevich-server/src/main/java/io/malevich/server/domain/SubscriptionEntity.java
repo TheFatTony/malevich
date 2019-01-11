@@ -1,23 +1,16 @@
 package io.malevich.server.domain;
 
 
-import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
+import org.springframework.data.jpa.domain.AbstractPersistable;
 
 import javax.persistence.*;
-import com.yinyang.core.server.domain.Entity;
 
-@EqualsAndHashCode
+
 @javax.persistence.Entity
 @Table(name = "subscription")
-public class SubscriptionEntity implements Entity {
-
-    @Getter
-    @Setter
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+public class SubscriptionEntity extends AbstractPersistable<Long> {
 
     @Getter
     @Setter

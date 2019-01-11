@@ -1,10 +1,9 @@
 package io.malevich.server.domain;
 
 import com.yinyang.core.server.core.jpa.JpaConverterJson;
-import com.yinyang.core.server.domain.Entity;
-import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
+import org.springframework.data.jpa.domain.AbstractPersistable;
 
 import javax.persistence.Column;
 import javax.persistence.Convert;
@@ -13,16 +12,9 @@ import javax.persistence.Table;
 import java.util.Map;
 
 
-@EqualsAndHashCode
 @javax.persistence.Entity
 @Table(name = "payment_type")
-public class PaymentTypeEntity implements Entity {
-
-    @Getter
-    @Setter
-    @Id
-    @Column(name = "id")
-    private String id;
+public class PaymentTypeEntity extends AbstractPersistable<String> {
 
     @Getter
     @Setter

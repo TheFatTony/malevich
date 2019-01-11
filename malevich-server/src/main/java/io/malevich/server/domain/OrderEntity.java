@@ -1,28 +1,23 @@
 package io.malevich.server.domain;
 
-import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
 import org.hibernate.annotations.Formula;
+import org.springframework.data.jpa.domain.AbstractPersistable;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Positive;
-import com.yinyang.core.server.domain.Entity;
 
-@EqualsAndHashCode
+
 @javax.persistence.Entity
 @Table(name = "orders")
-public class OrderEntity implements Entity {
+public class OrderEntity extends AbstractPersistable<Long> {
 
 
-    @Getter
-    @Setter
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+
 
     @Getter
     @Setter

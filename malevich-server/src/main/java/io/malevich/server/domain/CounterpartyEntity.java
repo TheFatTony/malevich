@@ -1,25 +1,20 @@
 package io.malevich.server.domain;
 
-import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
+import org.springframework.data.jpa.domain.AbstractPersistable;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
-import com.yinyang.core.server.domain.Entity;
 
-@EqualsAndHashCode
+
 @javax.persistence.Entity
 @Table(name = "counterparty")
-public class CounterpartyEntity implements Entity {
+public class CounterpartyEntity extends AbstractPersistable<Long> {
 
-    @Getter
-    @Setter
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+
 
     @Getter
     @Setter

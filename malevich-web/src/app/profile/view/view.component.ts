@@ -2,15 +2,12 @@ import {Component, OnInit} from '@angular/core';
 import {CountryDto} from "../../_transfer/countryDto";
 import {TranslateService} from "@ngx-translate/core";
 import {AuthService} from "../../_services";
-import {GalleryDto, OrganizationDto, PersonDto, UserDto} from "../../_transfer";
 import {DelayedChangeService} from "../../_services/delayed-change.service";
-import {AlertService} from "yinyang-core";
+import {AlertService, UserDto} from "yinyang-core";
 import {ParticipantService} from "../../_services/participant.service";
 import {ParticipantDto} from "../../_transfer/participantDto";
 import {Router} from "@angular/router";
 import {UserService} from "../../_services/user.service";
-import {AddressDto} from "../../_transfer/addressDto";
-import {TraderDto} from "../../_transfer/traderDto";
 
 @Component({
   selector: 'app-profile-view',

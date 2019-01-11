@@ -1,4 +1,4 @@
-import {UserTypeDto} from "./userTypeDto";
+import {UserTypeDto} from "../../../node_modules/yinyang-core";
 
 export class RegisterFormDto {
   userName: string;

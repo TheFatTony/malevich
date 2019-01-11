@@ -2,7 +2,6 @@ package io.malevich.server.config;
 
 
 import com.yinyang.core.server.core.dto.View;
-import com.yinyang.core.server.domain.enums.Role;
 import org.springframework.core.MethodParameter;
 import org.springframework.http.MediaType;
 import org.springframework.http.converter.HttpMessageConverter;
@@ -33,16 +32,16 @@ public class JsonViewConfiguration extends AbstractMappingJacksonResponseBodyAdv
         if (SecurityContextHolder.getContext().getAuthentication() != null && SecurityContextHolder.getContext().getAuthentication().getAuthorities() != null) {
             Collection<? extends GrantedAuthority> authorities = SecurityContextHolder.getContext().getAuthentication().getAuthorities();
 
-            if (authorities.stream().anyMatch(o -> o.getAuthority().equals(Role.USER))) {
+            if (authorities.stream().anyMatch(o -> o.getAuthority().equals(MyAuthenticationProvider.ROLE_USER))) {
                 viewClass = View.User.class;
             }
-            if (authorities.stream().anyMatch(o -> o.getAuthority().equals(Role.ADMIN))) {
+            if (authorities.stream().anyMatch(o -> o.getAuthority().equals(MyAuthenticationProvider.ROLE_ADMIN))) {
                 viewClass = View.Admin.class;
             }
-            if (authorities.stream().anyMatch(o -> o.getAuthority().equals(Role.TRADER))) {
+            if (authorities.stream().anyMatch(o -> o.getAuthority().equals(MyAuthenticationProvider.ROLE_TRADER))) {
                 viewClass = View.Trader.class;
             }
-            if (authorities.stream().anyMatch(o -> o.getAuthority().equals(Role.GALLERY))) {
+            if (authorities.stream().anyMatch(o -> o.getAuthority().equals(MyAuthenticationProvider.ROLE_TRADER))) {
                 viewClass = View.Gallery.class;
             }
         }

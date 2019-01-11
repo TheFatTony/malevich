@@ -5,10 +5,10 @@ import com.yinyang.core.server.domain.MailQueueEntity;
 import com.yinyang.core.server.domain.RegisterTokenEntity;
 import com.yinyang.core.server.domain.UserEntity;
 import com.yinyang.core.server.domain.UserTypeEntity;
-import com.yinyang.core.server.domain.enums.Role;
 import com.yinyang.core.server.repositories.registertoken.RegisterTokenDao;
 import com.yinyang.core.server.services.mailqueue.MailQueueService;
 import com.yinyang.core.server.services.user.UserService;
+import io.malevich.server.config.MyAuthenticationProvider;
 import io.malevich.server.domain.*;
 import io.malevich.server.services.counterparty.CounterpartyService;
 import io.malevich.server.services.counterpartytype.CounterpartyTypeService;
@@ -21,6 +21,7 @@ import org.apache.velocity.app.VelocityEngine;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.MessageSource;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -121,11 +122,11 @@ public class RegisterServiceImpl implements RegisterService {
     public UserEntity register2(String token, RegisterFormStepTwoDto registerInfo) {
         RegisterTokenEntity registerTokenEntity = findToken(token).get();
 
-        List<Role> roles = Lists.newArrayList(Role.USER);
+        List<SimpleGrantedAuthority> roles = Lists.newArrayList(MyAuthenticationProvider.ROLE_USER);
         if (isGallery(registerTokenEntity.getUserType()))
-            roles.add(Role.GALLERY);
+            roles.add(MyAuthenticationProvider.ROLE_GALLERY);
         else
-            roles.add(Role.TRADER);
+            roles.add(MyAuthenticationProvider.ROLE_TRADER);
 
         UserEntity user = new UserEntity(
                 registerTokenEntity.getUserName(),

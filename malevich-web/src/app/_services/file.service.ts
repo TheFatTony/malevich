@@ -2,8 +2,8 @@ import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {map} from 'rxjs/operators';
 
-import {FileDto} from '../_transfer';
 import {environment} from '../../environments/environment.dev';
+import {FileDto} from '../../../node_modules/yinyang-core';
 
 @Injectable()
 export class FileService {

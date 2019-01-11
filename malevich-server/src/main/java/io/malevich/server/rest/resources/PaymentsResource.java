@@ -40,7 +40,7 @@ public class PaymentsResource {
         return ResponseEntity.ok().build();
     }
 
-    @PreAuthorize("hasAnyRole('TRADER','GALLERY')")
+    @PreAuthorize("hasAnyRole('ROLE_TRADER','ROLE_GALLERY')")
     @GetMapping("/print/{id}")
     @ResponseStatus(HttpStatus.OK)
     public ResponseEntity<byte[]> print(@PathVariable("id") Long id) {

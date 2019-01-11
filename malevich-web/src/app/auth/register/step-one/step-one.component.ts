@@ -6,8 +6,8 @@ import {SubscriptionDto} from "../../../_transfer/subscriptionDto";
 import {TermsAndConditionsService} from "../../../_services/terms-and-conditions.service";
 import {UserService} from "../../../_services/user.service";
 import {UserTypeService} from "../../../_services/user-type.service";
-import {UserTypeDto} from "../../../_transfer/userTypeDto";
 import {RegisterFormDto} from "../../../_transfer/registerFormDto";
+import {UserTypeDto} from '../../../../../node_modules/yinyang-core';
 
 @Component({
   selector: 'app-auth-register-step-one',

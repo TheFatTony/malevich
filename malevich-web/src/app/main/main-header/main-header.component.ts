@@ -3,8 +3,8 @@ import {TranslateService} from "@ngx-translate/core";
 import {Globals} from "../../globals";
 import {AuthService} from "../../_services";
 import {Router} from "@angular/router";
-import {UserDto} from "../../_transfer";
 import {distinctUntilChanged} from "rxjs/operators";
+import {UserDto} from '../../../../node_modules/yinyang-core';
 
 @Component({
   selector: 'app-main-header',

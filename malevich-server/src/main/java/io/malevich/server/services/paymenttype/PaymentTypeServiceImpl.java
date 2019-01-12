@@ -41,4 +41,9 @@ public class PaymentTypeServiceImpl implements PaymentTypeService {
     public PaymentTypeEntity getWithdrawalType() {
         return values.get("OUT");
     }
+
+    @Override
+    public Map<String, PaymentTypeEntity> getValues() {
+        return values;
+    }
 }

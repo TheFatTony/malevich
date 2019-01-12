@@ -10,3 +10,14 @@ query selectArtworkStocks {
       SELECT io.malevich.network.ArtworkStock
 }
 
+query selectPaymentsByCounterparty {
+  description: "selectPaymentsByCounterparty"
+  statement:
+      SELECT io.malevich.network.Payment WHERE (party == _$party)
+}
+
+query getAccountState {
+  description: "getAccountState"
+  statement:
+      SELECT io.malevich.network.Counterparty WHERE (email == _$email)
+}

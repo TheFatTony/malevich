@@ -20,7 +20,6 @@
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 		<java.version>1.8</java.version>
-        <version.org.liquibase>3.6.2</version.org.liquibase>
         <spring-boot.version>2.1.0.RELEASE</spring-boot.version>
 		<version.org.testcontainers>1.10.1</version.org.testcontainers>
 

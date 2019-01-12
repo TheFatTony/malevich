@@ -25,7 +25,7 @@ participant Trader extends Counterparty {
 participant Gallery extends Counterparty {
 }
 
-asset Artwork identified by token {
+concept Artwork {
   o String token
   o String description
   o Double estimatedPrice
@@ -33,7 +33,7 @@ asset Artwork identified by token {
 
 asset ArtworkStock identified by id {
   o String id
-  --> Artwork artwork
+  o Artwork artwork
   --> Counterparty holder
   --> Counterparty owner
 }

@@ -1,16 +1,5 @@
 namespace io.malevich.network
 
-enum OrderStatus {
-  o OPEN
-  o EXECUTED
-  o CANCELED
-}
-
-enum OrderType {
-  o ASK
-  o BID
-}
-
 abstract participant User identified by email {
   o String email
 }
@@ -25,7 +14,10 @@ participant Trader extends Counterparty {
 participant Gallery extends Counterparty {
 }
 
-concept Artwork {
+participant Malevich extends Counterparty {
+}
+
+asset Artwork identified by token {
   o String token
   o String description
   o Double estimatedPrice
@@ -33,46 +25,8 @@ concept Artwork {
 
 asset ArtworkStock identified by id {
   o String id
-  o Artwork artwork
+  --> Artwork artwork
   --> Counterparty holder
   --> Counterparty owner
 }
 
-concept Order {
-  o String id
-  o Double amount
-  o OrderType orderType
-  o OrderStatus orderStatus
-  --> ArtworkStock artworkStock
-  --> Counterparty сounterparty
-}
-
-asset OrderAsset identified by id {
-  o String id
-  o Order order
-}
-
-asset TradeHistory identified by id {
-  o String id
-  o OrderAsset askOrder
-  o OrderAsset bidOrder 
-}
-
-concept Balance {
-  o String id
-  o Double newBalance
-  --> Counterparty сounterparty
-}
-
-asset BalanceAsset identified by id {
-  o String id
-  o Balance balance
-}
-
-transaction PlaceOrder {
-  o Order order
-}
-
-transaction UpdateBalance {
-  o Balance balance
-}

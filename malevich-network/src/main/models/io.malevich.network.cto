@@ -1,5 +1,10 @@
 namespace io.malevich.network
 
+enum PaymentType {
+  o IN
+  o OUT
+}
+
 abstract participant User identified by email {
   o String email
 }
@@ -30,3 +35,8 @@ asset ArtworkStock identified by id {
   --> Counterparty owner
 }
 
+transaction Payment {
+  o Double amount
+  o PaymentType paymentType
+  --> Counterparty party
+}

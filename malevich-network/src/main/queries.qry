@@ -4,9 +4,9 @@ query selectArtworks {
       SELECT io.malevich.network.Artwork
 }
 
-query selectOrdersByArtworkStock {
-  description: "selectOrdersByArtworkStock"
+query selectArtworkStocks {
+  description: "selectArtworkStocks"
   statement:
-      SELECT io.malevich.network.OrderAsset
-      WHERE (order.artworkStock == _$artworkStock)
+      SELECT io.malevich.network.ArtworkStock
 }
+

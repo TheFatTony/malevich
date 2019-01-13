@@ -1,4 +1,16 @@
-INSERT INTO person (id, first_name, last_name, mobile, date_of_birth, gender_id, country_id)
-VALUES (1, 'Trader 1', 'Trader 1', '+1 (111) 111-1111', '1991-01-01', 'M', 'RU'),
-       (2, 'Trader 2', 'Trader 2', '+2 (222) 222-2222', '1992-02-02', 'M', 'RU'),
-       (3, 'Trader 3', 'Trader 3', '+3 (333) 333-3333', '1993-03-03', 'F', 'RU');
+INSERT INTO person (id, first_name, last_name)
+VALUES (1, 'Artist 1', 'Artist'),
+       (2, 'Artist 2', 'Artist'),
+       (3, 'Artist 3', 'Artist'),
+       (4, 'Artist 4', 'Artist'),
+       (5, 'Artist 5', 'Artist'),
+       (6, 'Artist 6', 'Artist'),
+       (7, 'Artist 7', 'Artist'),
+       (9, 'Artist 9', 'Artist'),
+       (8, 'Artist 8', 'Artist'),
+       (10, 'Artist 10', 'Artist'),
+       (11, 'Artist 11', 'Artist'),
+       (12, 'Artist 12', 'Artist'),
+       (13, 'Trader 1', 'Trader 1'),
+       (14, 'Trader 2', 'Trader 2'),
+       (15, 'Trader 3', 'Trader 3');

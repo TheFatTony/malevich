@@ -1,26 +1,21 @@
 package io.malevich.server.domain;
 
 
-import lombok.EqualsAndHashCode;
+import com.yinyang.core.server.domain.YAbstractPersistable;
 import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
 
-@EqualsAndHashCode
 @javax.persistence.Entity
 @Table(name = "address")
-public class AddressEntity implements Entity {
-
-    @Getter
-    @Setter
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+public class AddressEntity extends YAbstractPersistable<Long> {
 
     @Getter
     @Setter

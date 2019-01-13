@@ -1,10 +1,10 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
 import {jqxGridComponent} from 'jqwidgets-scripts/jqwidgets-ts/angular_jqxgrid';
-import {UserDto} from '../../../_transfer';
 import {UsersService} from '../../_services/users.service';
 import {jqxWindowComponent} from 'jqwidgets-scripts/jqwidgets-ts/angular_jqxwindow';
 import {UserPasswordDto} from '../../../_transfer/userPasswordDto';
 import jqxInput = jqwidgets.jqxInput;
+import {UserDto} from '../../../../../node_modules/yinyang-core';
 
 @Component({
   selector: 'app-user-list',

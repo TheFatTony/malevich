@@ -11,5 +11,5 @@ import java.util.List;
 @Repository
 public interface DocumentDao extends JpaRepository<DocumentEntity, Long> {
 
-    List<DocumentEntity> findByCounterparty_Id(Long counterpartyId);
+    List<DocumentEntity> findByParticipant_Id(Long counterpartyId);
 }

@@ -12,17 +12,6 @@ public class CounterpartyDto {
 
     private String typeId;
 
-    private UserDto user;
+    private ParticipantDto participant;
 
-    private Boolean isOrganization;
-
-    private Boolean isGallery;
-
-    private PersonDto person;
-
-    private OrganizationDto organization;
-
-    private GalleryDto gallery;
-
-    private FileDto image;
 }

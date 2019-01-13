@@ -1,17 +1,18 @@
 package io.malevich.server.transfer;
 
+import com.yinyang.core.server.transfer.FileDto;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.util.List;
 import java.util.Map;
 
 @Getter
 @Setter
-public class GalleryDto {
+public class GalleryDto extends ParticipantDto {
 
-    private Long id;
+    private OrganizationDto organization;
+
+    private FileDto image;
 
     private Map<String, String> descriptionMl;
-
 }

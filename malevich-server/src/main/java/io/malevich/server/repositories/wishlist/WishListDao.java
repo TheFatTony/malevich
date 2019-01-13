@@ -11,7 +11,6 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface WishListDao extends JpaRepository<WishListEntity, Long> {
 
-    Page<WishListEntity> findAll(Pageable pageable);
-
-    Page<WishListEntity> findByCounterparty_Id(Pageable pageable, @Param("id") Long id);
+    @Query("select wle from WishListEntity wle where wle.participant.id =:id")
+    Page<WishListEntity> findAll(Pageable pageable, @Param("id") Long id);
 }

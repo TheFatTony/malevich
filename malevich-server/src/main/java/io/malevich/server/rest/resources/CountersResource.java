@@ -26,7 +26,7 @@ public class CountersResource {
     private ModelMapper modelMapper;
 
 
-    //    @PreAuthorize("hasRole('USER')")
+    //    @PreAuthorize("hasRole('ROLE_USER')")
     @RequestMapping(value = "/involvementCounters", method = RequestMethod.GET)
     @ResponseStatus(HttpStatus.OK)
     @ResponseBody

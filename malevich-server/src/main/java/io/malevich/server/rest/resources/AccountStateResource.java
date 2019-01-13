@@ -27,7 +27,7 @@ public class AccountStateResource {
     @Autowired
     private ModelMapper modelMapper;
 
-    @PreAuthorize("hasRole('ADMIN')")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @RequestMapping(value = "/list", method = RequestMethod.GET)
     @ResponseStatus(HttpStatus.OK)
     @ResponseBody
@@ -37,7 +37,7 @@ public class AccountStateResource {
     }
 
 
-    @PreAuthorize("hasRole('USER')")
+    @PreAuthorize("hasRole('ROLE_USER')")
     @RequestMapping(value = "/getWallet", method = RequestMethod.GET)
     @ResponseStatus(HttpStatus.OK)
     @ResponseBody
@@ -48,7 +48,7 @@ public class AccountStateResource {
         return convertToDto(allEntry);
     }
 
-    @PreAuthorize("hasAnyRole('GALLERY', 'TRADER')")
+    @PreAuthorize("hasAnyRole('ROLE_GALLERY', 'ROLE_TRADER')")
     @RequestMapping(value = "/getOwnArtworks", method = RequestMethod.GET)
     @ResponseStatus(HttpStatus.OK)
     @ResponseBody

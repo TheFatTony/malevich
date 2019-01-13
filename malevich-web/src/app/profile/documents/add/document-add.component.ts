@@ -6,7 +6,9 @@ import {DocumentTypeDto} from '../../../_transfer/documentTypeDto';
 import {DocumentsService} from '../../../_services/documents.service';
 import {DocumentsDto} from '../../../_transfer/documentsDto';
 import {environment} from '../../../../environments/environment.dev';
-import {CounterpartyService} from "../../../_services/counterparty.service";
+import {ParticipantService} from "../../../_services/participant.service";
+import {ParticipantDto} from "../../../_transfer/participantDto";
+import {map, mergeMap} from "rxjs/operators";
 
 @Component({
   selector: 'app-profile-gallery-storage-add',
@@ -20,6 +22,7 @@ export class DocumentAddComponent implements OnInit {
   public url = environment.baseUrl;
 
   document: DocumentsDto;
+  participant: ParticipantDto;
   documentTypes: any[];
 
   documentTypeDisplayFunc = (documentType: DocumentTypeDto) => {
@@ -28,25 +31,28 @@ export class DocumentAddComponent implements OnInit {
 
   constructor(private router: Router,
               public translate: TranslateService,
-              private counterpartyService: CounterpartyService,
+              private participantService: ParticipantService,
               private documentService: DocumentsService) {
   }
 
   ngOnInit() {
     this.document = new DocumentsDto();
-
-    this.counterpartyService
-      .getCurrent()
-      .subscribe(cp => {
-        let userType = cp.isOrganization ? 'gallery' : 'trader';
-        this.getDocumentTypes(userType);
-      });
+    this.getInitValues();
   }
 
-  getDocumentTypes(userType: string): void {
-    this.documentService.getDocumentTypes(userType).subscribe(data => (
-      this.documentTypes = data
-    ));
+  getInitValues() {
+    this.participantService.getCurrent()
+      .pipe(mergeMap(p => {
+          this.participant = p;
+          this.userType = this.participantService.isGallery(this.participant) ? "gallery" : "trader";
+
+          return this.documentService.getDocumentTypes(this.userType)
+            .pipe(map(data => {
+              this.documentTypes = data;
+            }));
+        })
+      )
+      .subscribe();
   }
 
   submit() {

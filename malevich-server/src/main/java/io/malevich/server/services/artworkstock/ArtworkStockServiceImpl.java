@@ -1,7 +1,7 @@
 package io.malevich.server.services.artworkstock;
 
 import io.malevich.server.domain.*;
-import io.malevich.server.fabric.services.ComposerService;
+import io.malevich.server.fabric.services.artworkstock.ArtworkStockAssetService;
 import io.malevich.server.repositories.artworkstock.ArtworkStockDao;
 import io.malevich.server.repositories.transactiongroup.TransactionGroupDao;
 import io.malevich.server.services.artwork.ArtworkService;
@@ -42,6 +42,12 @@ public class ArtworkStockServiceImpl implements ArtworkStockService {
     @Autowired
     private TransactionTypeService transactionTypeService;
 
+    @Autowired
+    private GalleryService galleryService;
+
+    @Autowired
+    private ArtworkStockAssetService artworkStockAssetService;
+
     @Override
     @Transactional(readOnly = true)
     public List<ArtworkStockEntity> findAll() {
@@ -51,21 +57,23 @@ public class ArtworkStockServiceImpl implements ArtworkStockService {
     @Override
     @Transactional
     public void add(ArtworkStockEntity artworkStockEntity) {
-        CounterpartyEntity counterpartyEntity = counterpartyService.getCurrent();
+        GalleryEntity gallery = galleryService.getCurrent();
 
-        if(counterpartyEntity == null || counterpartyEntity.getGallery() == null)
+        if (gallery == null)
             return;
 
-        GalleryEntity gallery = counterpartyEntity.getGallery();
         artworkStockEntity.setGallery(gallery);
         artworkStockEntity.setArtwork(artworkService.save(artworkStockEntity.getArtwork()));
         artworkStockEntity = this.artworkStockDao.save(artworkStockEntity);
+
+        artworkStockAssetService.create(artworkStockEntity);
 
         TransactionGroupEntity transactionGroupEntity = new TransactionGroupEntity();
         transactionGroupEntity.setType("NEW_ART");
         transactionGroupEntity = transactionGroupDao.save(transactionGroupEntity);
 
 
+        CounterpartyEntity counterpartyEntity = counterpartyService.getCurrent();
         CounterpartyEntity malevichEntity = counterpartyService.getMalevich();
         TransactionTypeEntity transactionTypeEntity = transactionTypeService.getCreateArtwork();
 
@@ -75,13 +83,12 @@ public class ArtworkStockServiceImpl implements ArtworkStockService {
     @Override
     @Transactional
     public void delete(long id) {
-        CounterpartyEntity counterpartyEntity = counterpartyService.getCurrent();
+        GalleryEntity gallery = galleryService.getCurrent();
 
-        if(counterpartyEntity == null || counterpartyEntity.getGallery() == null)
+        if (gallery == null)
             return;
 
-        GalleryEntity gallery = counterpartyEntity.getGallery();
-        ArtworkStockEntity existing = artworkStockDao.getOne(id);
+        ArtworkStockEntity existing = artworkStockDao.findById(id).orElse(null);
 
         if (existing == null || existing.getGallery().getId() != gallery.getId())
             return;
@@ -92,7 +99,7 @@ public class ArtworkStockServiceImpl implements ArtworkStockService {
     @Override
     @Transactional(readOnly = true)
     public ArtworkStockEntity find(long id) {
-        return artworkStockDao.findById(id).get();
+        return artworkStockDao.findById(id).orElse(null);
     }
 
     @Override

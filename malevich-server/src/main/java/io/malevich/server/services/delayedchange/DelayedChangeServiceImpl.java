@@ -1,16 +1,17 @@
 package io.malevich.server.services.delayedchange;
 
-import io.malevich.server.domain.*;
+import com.yinyang.core.server.domain.MailQueueEntity;
+import com.yinyang.core.server.services.mailqueue.MailQueueService;
+import io.malevich.server.domain.DelayedChangeEntity;
+import io.malevich.server.domain.ParticipantEntity;
 import io.malevich.server.repositories.delayedchange.DelayedChangeDao;
-import io.malevich.server.services.counterparty.CounterpartyService;
+import io.malevich.server.services.participant.ParticipantService;
 import io.malevich.server.services.document.DocumentService;
-import io.malevich.server.services.mailqueue.MailQueueService;
-import io.malevich.server.services.tradehistory.TradeHistoryService;
 import io.malevich.server.services.user.UserService;
 import lombok.extern.slf4j.Slf4j;
-import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.sql.Timestamp;
@@ -25,13 +26,10 @@ public class DelayedChangeServiceImpl implements DelayedChangeService {
     private DelayedChangeDao delayedChangeDao;
 
     @Autowired
-    private ModelMapper modelMapper;
-
-    @Autowired
     private MailQueueService mailQueueService;
 
     @Autowired
-    private CounterpartyService counterpartyService;
+    private ParticipantService participantService;
 
     @Autowired
     private DocumentService documentService;
@@ -46,7 +44,8 @@ public class DelayedChangeServiceImpl implements DelayedChangeService {
     }
 
     @Override
-    @Transactional
+    // TODO total crap
+    @Transactional(propagation = Propagation.NOT_SUPPORTED)
     public DelayedChangeEntity saveEntity(Entity<Long> entity) {
         UserEntity currentUser = userService.getCurrent();
 
@@ -55,8 +54,8 @@ public class DelayedChangeServiceImpl implements DelayedChangeService {
         delayedChangeEntity.setReferenceId(entity.getId());
         delayedChangeEntity.setUser(currentUser);
 
-        if (entity instanceof CounterpartyEntity)
-            delayedChangeEntity.setTypeId("COUNTERPARTY");
+        if (entity instanceof ParticipantEntity)
+            delayedChangeEntity.setTypeId("PARTICIPANT");
         else if (entity instanceof DocumentEntity)
             delayedChangeEntity.setTypeId("DOCUMENT");
         else
@@ -68,10 +67,16 @@ public class DelayedChangeServiceImpl implements DelayedChangeService {
     @Override
     @Transactional
     public void approveChange(DelayedChangeEntity delayedChangeEntity) {
-        if (delayedChangeEntity.getTypeId().equals("COUNTERPARTY")) {
-            CounterpartyEntity counterpartyEntity =
-                    modelMapper.map(delayedChangeEntity.getPayload(), CounterpartyEntity.class);
-            counterpartyService.save(counterpartyEntity);
+        // refresh entity from db to get user
+        delayedChangeEntity = delayedChangeDao.findById(delayedChangeEntity.getId()).orElse(null);
+
+        if (delayedChangeEntity == null)
+            return;
+
+        if (delayedChangeEntity.getTypeId().equals("PARTICIPANT")) {
+            ParticipantEntity participantEntity =
+                    participantService.convertToEntity(delayedChangeEntity.getPayload());
+            participantService.save(participantEntity, delayedChangeEntity.getUser());
             delayedChangeDao.delete(delayedChangeEntity);
         } else if (delayedChangeEntity.getTypeId().equals("DOCUMENT")) {
             DocumentEntity document =

@@ -1,20 +1,23 @@
 package io.malevich.server.services.delayedchange;
 
 import com.yinyang.core.server.domain.MailQueueEntity;
+import com.yinyang.core.server.domain.UserEntity;
+import com.yinyang.core.server.domain.YAbstractPersistable;
 import com.yinyang.core.server.services.mailqueue.MailQueueService;
+import com.yinyang.core.server.services.user.UserService;
 import io.malevich.server.domain.DelayedChangeEntity;
+import io.malevich.server.domain.DocumentEntity;
 import io.malevich.server.domain.ParticipantEntity;
 import io.malevich.server.repositories.delayedchange.DelayedChangeDao;
-import io.malevich.server.services.participant.ParticipantService;
 import io.malevich.server.services.document.DocumentService;
-import io.malevich.server.services.user.UserService;
+import io.malevich.server.services.participant.ParticipantService;
 import lombok.extern.slf4j.Slf4j;
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.sql.Timestamp;
 import java.util.List;
 
 
@@ -24,6 +27,9 @@ public class DelayedChangeServiceImpl implements DelayedChangeService {
 
     @Autowired
     private DelayedChangeDao delayedChangeDao;
+
+    @Autowired
+    private ModelMapper modelMapper;
 
     @Autowired
     private MailQueueService mailQueueService;
@@ -46,7 +52,7 @@ public class DelayedChangeServiceImpl implements DelayedChangeService {
     @Override
     // TODO total crap
     @Transactional(propagation = Propagation.NOT_SUPPORTED)
-    public DelayedChangeEntity saveEntity(Entity<Long> entity) {
+    public DelayedChangeEntity saveEntity(YAbstractPersistable<Long> entity) {
         UserEntity currentUser = userService.getCurrent();
 
         DelayedChangeEntity delayedChangeEntity = new DelayedChangeEntity();
@@ -56,9 +62,14 @@ public class DelayedChangeServiceImpl implements DelayedChangeService {
 
         if (entity instanceof ParticipantEntity)
             delayedChangeEntity.setTypeId("PARTICIPANT");
-        else if (entity instanceof DocumentEntity)
+        else if (entity instanceof DocumentEntity) {
             delayedChangeEntity.setTypeId("DOCUMENT");
-        else
+
+            // link document to participant, to show alert in profile
+            // todo seems to be not the best solution
+            ParticipantEntity currentParticipant = participantService.getCurrent();
+            delayedChangeEntity.setReferenceId(currentParticipant.getId());
+        } else
             return null;
 
         return save(delayedChangeEntity);

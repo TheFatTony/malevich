@@ -24,6 +24,7 @@ export class DocumentAddComponent implements OnInit {
   document: DocumentsDto;
   participant: ParticipantDto;
   documentTypes: any[];
+  userType: string = 'trader';
 
   documentTypeDisplayFunc = (documentType: DocumentTypeDto) => {
     return documentType.nameMl[this.translate.currentLang];

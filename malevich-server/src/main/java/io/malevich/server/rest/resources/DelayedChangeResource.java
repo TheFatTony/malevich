@@ -25,7 +25,7 @@ public class DelayedChangeResource {
     @Autowired
     private ModelMapper modelMapper;
 
-    @PreAuthorize("hasRole('ADMIN')")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @RequestMapping(value = "/list", method = RequestMethod.GET)
     @ResponseStatus(HttpStatus.OK)
     @ResponseBody
@@ -34,7 +34,7 @@ public class DelayedChangeResource {
         return allEntries.stream().map(allEntry -> convertToDto(allEntry)).collect(Collectors.toList());
     }
 
-    @PreAuthorize("hasRole('ADMIN')")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @RequestMapping(value = "/approveChange", method = RequestMethod.POST)
     @ResponseStatus(HttpStatus.OK)
     @ResponseBody
@@ -42,7 +42,7 @@ public class DelayedChangeResource {
         this.delayedChangeService.approveChange(convertToEntity(delayedChangeDto));
     }
 
-    @PreAuthorize("hasRole('ADMIN')")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @RequestMapping(value = "/declineChange", method = RequestMethod.POST)
     @ResponseStatus(HttpStatus.OK)
     @ResponseBody

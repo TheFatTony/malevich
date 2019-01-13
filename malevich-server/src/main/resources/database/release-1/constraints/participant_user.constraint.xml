@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.6.xsd">
+
+    <changeSet author="toolstik" id="participant_user-participant-fk">
+        <addForeignKeyConstraint baseColumnNames="participant_id" baseTableName="participant_user"
+                                 constraintName="participant_user_participant_fk"
+                                 referencedColumnNames="id" referencedTableName="participant"/>
+    </changeSet>
+
+    <changeSet author="toolstik" id="participant_user-user-fk">
+        <addForeignKeyConstraint baseColumnNames="user_id" baseTableName="participant_user"
+                                 constraintName="participant_user_user_fk"
+                                 referencedColumnNames="id" referencedTableName="user"/>
+    </changeSet>
+
+
+</databaseChangeLog>

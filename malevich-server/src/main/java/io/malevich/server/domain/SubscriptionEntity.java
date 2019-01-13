@@ -1,23 +1,17 @@
 package io.malevich.server.domain;
 
 
-import lombok.EqualsAndHashCode;
+import com.yinyang.core.server.domain.YAbstractPersistable;
 import lombok.Getter;
 import lombok.Setter;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Table;
 
 
-@EqualsAndHashCode
 @javax.persistence.Entity
 @Table(name = "subscription")
-public class SubscriptionEntity implements Entity {
-
-    @Getter
-    @Setter
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+public class SubscriptionEntity extends YAbstractPersistable<Long> {
 
     @Getter
     @Setter

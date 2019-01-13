@@ -26,7 +26,7 @@ public class WishListResource {
     @Autowired
     private ModelMapper modelMapper;
 
-    @PreAuthorize("hasRole('TRADER')")
+    @PreAuthorize("hasRole('ROLE_TRADER')")
     @PostMapping("/addWish")
     @ResponseStatus(HttpStatus.OK)
     public ResponseEntity<Void> save(@RequestBody WishListDto dto) {
@@ -34,7 +34,7 @@ public class WishListResource {
         return ResponseEntity.ok().build();
     }
 
-    //@PreAuthorize("hasRole('TRADER')")
+    //@PreAuthorize("hasRole('ROLE_TRADER')")
     @PostMapping("/list")
     @ResponseStatus(HttpStatus.OK)
     public PageResponseDto list(@RequestBody PageRequestDto requestDto) {

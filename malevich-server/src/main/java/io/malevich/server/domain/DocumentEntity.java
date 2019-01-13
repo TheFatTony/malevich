@@ -1,7 +1,8 @@
 package io.malevich.server.domain;
 
 
-import lombok.EqualsAndHashCode;
+import com.yinyang.core.server.domain.FileEntity;
+import com.yinyang.core.server.domain.YAbstractPersistable;
 import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.annotations.Fetch;
@@ -11,16 +12,10 @@ import javax.persistence.*;
 import java.sql.Timestamp;
 
 
-@EqualsAndHashCode
 @javax.persistence.Entity
 @Table(name = "document")
-public class DocumentEntity implements Entity {
+public class DocumentEntity extends YAbstractPersistable<Long> {
 
-    @Getter
-    @Setter
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
 
     @Getter
     @Setter
@@ -36,7 +31,7 @@ public class DocumentEntity implements Entity {
     @Setter
     @Fetch(FetchMode.JOIN)
     @ManyToOne(fetch = FetchType.LAZY)
-    private CounterpartyEntity counterparty;
+    private ParticipantEntity participant;
 
     @Getter
     @Setter

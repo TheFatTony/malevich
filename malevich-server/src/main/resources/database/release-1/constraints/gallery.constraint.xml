@@ -3,6 +3,22 @@
                    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
                    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.6.xsd">
 
+    <changeSet author="thefattony" id="gallery-organization_id-uc">
+        <addUniqueConstraint columnNames="organization_id" constraintName="gallery_organisation_id_uc" tableName="gallery"/>
+    </changeSet>
+
+    <!--<changeSet author="toolstik" id="gallery-participant-fk">-->
+        <!--<addForeignKeyConstraint baseColumnNames="participant_id" baseTableName="gallery"-->
+                                 <!--constraintName="gallery_participant_fk"-->
+                                 <!--referencedColumnNames="id" referencedTableName="participant"/>-->
+    <!--</changeSet>-->
+    
+    <changeSet author="thefattony" id="gallery-organization-fk">
+        <addForeignKeyConstraint baseColumnNames="organization_id" baseTableName="gallery"
+                                 constraintName="gallery_organization_fk"
+                                 referencedColumnNames="id" referencedTableName="organization"/>
+    </changeSet>
+
     <changeSet author="thefattony" id="gallery-thumbnail_id-fk">
         <addForeignKeyConstraint baseColumnNames="thumbnail_id" baseTableName="gallery"
                                  constraintName="gallery_thumbnail_id_fk"

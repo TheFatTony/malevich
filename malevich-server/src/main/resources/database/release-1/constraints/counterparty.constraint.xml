@@ -9,34 +9,10 @@
                                  referencedColumnNames="id" referencedTableName="counterparty_type"/>
     </changeSet>
 
-    <changeSet author="toolstik" id="counterparty-user_id-fk">
-        <addForeignKeyConstraint baseColumnNames="user_id" baseTableName="counterparty"
-                                 constraintName="counterparty_user_fk"
-                                 referencedColumnNames="id" referencedTableName="user"/>
-    </changeSet>
-
-    <changeSet author="thefattony" id="counterparty-person_id-fk">
-        <addForeignKeyConstraint baseColumnNames="person_id" baseTableName="counterparty"
-                                 constraintName="counterparty_person_fk"
-                                 referencedColumnNames="id" referencedTableName="person"/>
-    </changeSet>
-
-    <changeSet author="thefattony" id="counterparty-organization_id-fk">
-        <addForeignKeyConstraint baseColumnNames="organization_id" baseTableName="counterparty"
-                                 constraintName="counterparty_organization_fk"
-                                 referencedColumnNames="id" referencedTableName="organization"/>
-    </changeSet>
-
-    <changeSet author="thefattony" id="counterparty-gallery_id-fk">
-        <addForeignKeyConstraint baseColumnNames="gallery_id" baseTableName="counterparty"
-                                 constraintName="counterparty_gallery_fk"
-                                 referencedColumnNames="id" referencedTableName="gallery"/>
-    </changeSet>
-
-    <changeSet author="toolstik" id="counterparty-image_id-fk">
-        <addForeignKeyConstraint baseColumnNames="image_id" baseTableName="counterparty"
-                                 constraintName="counterparty_image_id_fk"
-                                 referencedColumnNames="id" referencedTableName="files"/>
+    <changeSet author="toolstik" id="counterparty-participant_id-fk">
+        <addForeignKeyConstraint baseColumnNames="participant_id" baseTableName="counterparty"
+                                 constraintName="counterparty_participant_fk"
+                                 referencedColumnNames="id" referencedTableName="participant"/>
     </changeSet>
 
 </databaseChangeLog>

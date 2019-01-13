@@ -7,11 +7,15 @@
     <include relativeToChangelogFile="true" file="constraints/country.constraint.xml"/>
     <include relativeToChangelogFile="true" file="constraints/organization.constraint.xml"/>
     <include relativeToChangelogFile="true" file="constraints/gallery.constraint.xml"/>
+    <include relativeToChangelogFile="true" file="constraints/participant.constraint.xml"/>
+    <include relativeToChangelogFile="true" file="constraints/participant_type.constraint.xml"/>
+    <include relativeToChangelogFile="true" file="constraints/participant_user.constraint.xml"/>
     <include relativeToChangelogFile="true" file="constraints/person.constraint.xml"/>
     <include relativeToChangelogFile="true" file="constraints/artist.constraint.xml"/>
+    <include relativeToChangelogFile="true" file="constraints/trader_person.constraint.xml"/>
+    <include relativeToChangelogFile="true" file="constraints/trader_organization.constraint.xml"/>
     <include relativeToChangelogFile="true" file="constraints/category.constraint.xml"/>
-    <include relativeToChangelogFile="true" file="constraints/person_address.constraint.xml"/>
-    <include relativeToChangelogFile="true" file="constraints/organization_address.constraint.xml"/>
+    <include relativeToChangelogFile="true" file="constraints/participant_address.constraint.xml"/>
     <include relativeToChangelogFile="true" file="constraints/artwork.constraint.xml"/>
     <include relativeToChangelogFile="true" file="constraints/address.constraint.xml"/>
     <include relativeToChangelogFile="true" file="constraints/artwork_stock.constraint.xml"/>
@@ -20,6 +24,7 @@
     <include relativeToChangelogFile="true" file="constraints/payment_type.constraint.xml"/>
     <include relativeToChangelogFile="true" file="constraints/order_status.constraint.xml"/>
     <include relativeToChangelogFile="true" file="constraints/trade_type.constraint.xml"/>
+    <include relativeToChangelogFile="true" file="constraints/counterparty.constraint.xml"/>
     <include relativeToChangelogFile="true" file="constraints/counterparty_type.constraint.xml"/>
     <include relativeToChangelogFile="true" file="constraints/payment_method_type.constraint.xml"/>
     <include relativeToChangelogFile="true" file="constraints/payment_method.constraint.xml"/>

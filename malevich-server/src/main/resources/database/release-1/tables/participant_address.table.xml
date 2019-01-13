@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+				   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+				   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.6.xsd">
+
+	<changeSet author="thefattony" id="participant_address-table">
+		<createTable tableName="participant_address">
+			<column name="participant_id" type="bigint">
+				<constraints nullable="false"/>
+			</column>
+			<column name="address_id" type="bigint">
+				<constraints nullable="false"/>
+			</column>
+		</createTable>
+	</changeSet>
+
+	<changeSet author="thefattony" id="participant_address-pk">
+		<addPrimaryKey columnNames="participant_id, address_id" constraintName="participant_address_pk" tableName="participant_address"/>
+	</changeSet>
+
+</databaseChangeLog>

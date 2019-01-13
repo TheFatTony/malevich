@@ -26,32 +26,12 @@ public class CounterpartyResource {
     @Autowired
     private ModelMapper modelMapper;
 
-
     @RequestMapping(value = "/list", method = RequestMethod.GET)
     @ResponseStatus(HttpStatus.OK)
     @ResponseBody
     public List<CounterpartyDto> list() {
         List<CounterpartyEntity> allEntries = this.counterpartyService.findAll();
         return allEntries.stream().map(allEntry -> convertToDto(allEntry)).collect(Collectors.toList());
-    }
-
-    @PreAuthorize("hasRole('USER')")
-    @RequestMapping(value = "/current", method = RequestMethod.GET)
-    @ResponseStatus(HttpStatus.OK)
-    @ResponseBody
-    public CounterpartyDto getCurrent() {
-        CounterpartyEntity entity = counterpartyService.getCurrent();
-        return convertToDto(entity);
-    }
-
-    @PreAuthorize("hasRole('USER')")
-    @RequestMapping(value = "/update", method = RequestMethod.PUT)
-    @ResponseStatus(HttpStatus.OK)
-    @ResponseBody
-    public ResponseEntity<Void> update(@RequestBody CounterpartyDto dto) {
-        CounterpartyEntity entity = convertToEntity(dto);
-        counterpartyService.update(entity);
-        return ResponseEntity.ok().build();
     }
 
     private CounterpartyDto convertToDto(CounterpartyEntity entity) {

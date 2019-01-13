@@ -2,25 +2,21 @@ package io.malevich.server.domain;
 
 
 import com.yinyang.core.server.core.jpa.JpaConverterJson;
-import lombok.EqualsAndHashCode;
+import com.yinyang.core.server.domain.YAbstractPersistable;
 import lombok.Getter;
 import lombok.Setter;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Convert;
+import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import java.util.Map;
 
 
-@EqualsAndHashCode
 @javax.persistence.Entity
 @Table(name = "category")
-public class CategoryEntity implements Entity {
+public class CategoryEntity extends YAbstractPersistable<Long> {
 
-    @Getter
-    @Setter
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
 
     @Getter
     @Setter

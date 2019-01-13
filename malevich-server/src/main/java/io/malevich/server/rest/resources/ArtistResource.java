@@ -25,7 +25,7 @@ public class ArtistResource {
     private ModelMapper modelMapper;
 
 
-    //    @PreAuthorize("hasRole('USER')")
+    //    @PreAuthorize("hasRole('ROLE_USER')")
     @RequestMapping(value = "/list", method = RequestMethod.GET)
     @ResponseStatus(HttpStatus.OK)
     @ResponseBody

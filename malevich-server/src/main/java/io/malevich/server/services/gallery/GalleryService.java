@@ -12,4 +12,6 @@ public interface GalleryService {
     List<GalleryEntity> findAll();
 
     GalleryEntity find(Long id);
+
+    GalleryEntity getCurrent();
 }

@@ -32,7 +32,7 @@ public class DocumentResource {
     @Autowired
     private ModelMapper modelMapper;
 
-    @PreAuthorize("hasAnyRole('TRADER','GALLERY')")
+    @PreAuthorize("hasAnyRole('ROLE_TRADER','ROLE_GALLERY')")
     @GetMapping("/typeList/{userType}")
     @ResponseStatus(HttpStatus.OK)
     public List<DocumentTypeDto> typeList(@PathVariable("userType") String userType) {
@@ -40,7 +40,7 @@ public class DocumentResource {
                 .collect(Collectors.toList());
     }
 
-    @PreAuthorize("hasRole('USER')")
+    @PreAuthorize("hasAnyRole('ROLE_TRADER','ROLE_GALLERY')")
     @GetMapping("/list")
     @ResponseStatus(HttpStatus.OK)
     public List<DocumentDto> list() {
@@ -57,7 +57,7 @@ public class DocumentResource {
         return ResponseEntity.ok().build();
     }
 
-    @PreAuthorize("hasRole('USER')")
+    @PreAuthorize("hasAnyRole('ROLE_TRADER','ROLE_GALLERY')")
     @DeleteMapping("/delete/{id}")
     @ResponseStatus(HttpStatus.OK)
     public ResponseEntity<Void> delete(@PathVariable("id") Long id) {

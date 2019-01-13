@@ -12,8 +12,6 @@ export class StepTwoComponent implements OnInit {
 
   password: string;
   passwordConfirm: string;
-  isLegalPerson: boolean = false;
-  isGallery: boolean = false;
 
   @Input() activationCode: string;
 
@@ -31,9 +29,7 @@ export class StepTwoComponent implements OnInit {
   submit(): void {
     this.userService
       .register2(this.activationCode, {
-        password: this.password,
-        isOrganization: this.isLegalPerson,
-        isGallery: this.isGallery
+        password: this.password
       })
       .subscribe();
 

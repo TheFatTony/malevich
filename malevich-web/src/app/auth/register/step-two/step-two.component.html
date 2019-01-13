@@ -4,10 +4,17 @@
 <form #f="ngForm" (ngSubmit)="submit()">
   <div class="row g-mb-20">
     <div class="col">
+      <!--<mchInput name="password"-->
+                <!--class="form-control g-color-black g-bg-white g-bg-white&#45;&#45;focus g-brd-gray-light-v3 rounded g-py-15 g-px-15"-->
+                <!--mchRequired-->
+                <!--mchPassword-->
+                <!--[type]="'password'"-->
+                <!--[placeHolder]="'TRADER_PROFILE.SECURITY.PLACEHOLDER.PASSWORD' | translate"-->
+                <!--[(ngModel)]="password">-->
+      <!--</mchInput>-->
       <mchInput name="password"
                 class="form-control g-color-black g-bg-white g-bg-white--focus g-brd-gray-light-v3 rounded g-py-15 g-px-15"
                 mchRequired
-                mchPassword
                 [type]="'password'"
                 [placeHolder]="'TRADER_PROFILE.SECURITY.PLACEHOLDER.PASSWORD' | translate"
                 [(ngModel)]="password">
@@ -26,40 +33,6 @@
                 [placeHolder]="'TRADER_PROFILE.SECURITY.PLACEHOLDER.CONFIRM_PASSWORD' | translate"
                 [(ngModel)]="passwordConfirm">
       </mchInput>
-    </div>
-  </div>
-
-  <div class="row mb-1">
-    <div class="col">
-      <label class="form-check-inline u-check g-color-gray-dark-v5 g-font-size-13 g-pl-25 mb-2">
-        <input
-          class="g-hidden-xs-up g-pos-abs g-top-0 g-left-0"
-          type="checkbox"
-          name="isLegalPerson"
-          [(ngModel)]="isLegalPerson"
-        >
-        <span class="d-block u-check-icon-checkbox-v6 g-absolute-centered--y g-left-0">
-                      <i class="fa" data-check-icon=""></i>
-                    </span>
-        I'm a legal person
-      </label>
-    </div>
-  </div>
-
-  <div class="row g-mb-20">
-    <div class="col">
-      <label class="form-check-inline u-check g-color-gray-dark-v5 g-font-size-13 g-pl-25 mb-2">
-        <input
-          class="g-hidden-xs-up g-pos-abs g-top-0 g-left-0"
-          type="checkbox"
-          name="isGallery"
-          [(ngModel)]="isGallery"
-        >
-        <span class="d-block u-check-icon-checkbox-v6 g-absolute-centered--y g-left-0">
-                      <i class="fa" data-check-icon=""></i>
-                    </span>
-        I'm a gallery or smth like that
-      </label>
     </div>
   </div>
 

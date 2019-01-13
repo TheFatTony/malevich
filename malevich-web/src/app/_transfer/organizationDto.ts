@@ -4,5 +4,4 @@ export class OrganizationDto {
   id: number;
   phoneNumber: string;
   legalNameMl: Map<string, string>;
-  addresses: AddressDto[];
 }

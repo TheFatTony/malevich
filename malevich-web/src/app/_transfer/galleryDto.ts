@@ -1,7 +1,9 @@
-import {FileDto} from "./fileDto";
+import {OrganizationDto} from "./organizationDto";
+import {ParticipantDto} from "./participantDto";
+import {FileDto} from "../../../node_modules/yinyang-core";
 
-export class GalleryDto {
-  id: number;
+export class GalleryDto extends ParticipantDto{
+  organization: OrganizationDto;
   thumbnail: FileDto;
   image: FileDto;
   titleMl: Map<string, string>;

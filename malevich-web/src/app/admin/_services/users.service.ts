@@ -1,9 +1,9 @@
 import {Injectable} from '@angular/core';
 import {environment} from '../../../environments/environment.dev';
-import {UserDto} from '../../_transfer';
 import {map} from 'rxjs/operators';
 import {HttpClient} from '@angular/common/http';
 import {UserPasswordDto} from '../../_transfer/userPasswordDto';
+import {UserDto} from '../../../../node_modules/yinyang-core';
 
 @Injectable()
 export class UsersService {

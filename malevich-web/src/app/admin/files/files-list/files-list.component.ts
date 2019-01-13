@@ -1,7 +1,7 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
 import {FileService} from '../../../_services';
-import {FileDto} from '../../../_transfer';
 import {jqxGridComponent} from 'jqwidgets-scripts/jqwidgets-ts/angular_jqxgrid';
+import {FileDto} from '../../../../../node_modules/yinyang-core';
 
 @Component({
   selector: 'app-files-list',

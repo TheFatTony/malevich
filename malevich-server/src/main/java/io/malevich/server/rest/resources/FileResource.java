@@ -1,10 +1,10 @@
 package io.malevich.server.rest.resources;
 
-import io.malevich.server.domain.FileEntity;
-import io.malevich.server.domain.LobStorageEntity;
-import io.malevich.server.services.file.FileService;
-import io.malevich.server.services.lobstorage.LobStorageService;
-import io.malevich.server.transfer.FileDto;
+import com.yinyang.core.server.domain.FileEntity;
+import com.yinyang.core.server.domain.LobStorageEntity;
+import com.yinyang.core.server.services.file.FileService;
+import com.yinyang.core.server.services.lobstorage.LobStorageService;
+import com.yinyang.core.server.transfer.FileDto;
 import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -86,7 +86,7 @@ public class FileResource {
     }
 
 
-    @PreAuthorize("hasRole('ADMIN')")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @RequestMapping(value = "/list", method = RequestMethod.GET)
     @ResponseStatus(HttpStatus.OK)
     @ResponseBody

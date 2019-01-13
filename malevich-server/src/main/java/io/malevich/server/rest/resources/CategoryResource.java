@@ -1,9 +1,9 @@
 package io.malevich.server.rest.resources;
 
+import com.yinyang.core.server.transfer.FileDto;
 import io.malevich.server.domain.CategoryEntity;
 import io.malevich.server.services.category.CategoryService;
 import io.malevich.server.transfer.CategoryDto;
-import io.malevich.server.transfer.FileDto;
 import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,7 +26,7 @@ public class CategoryResource {
     private ModelMapper modelMapper;
 
 
-    //    @PreAuthorize("hasRole('ADMIN')")
+    //    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @RequestMapping(value = "/list", method = RequestMethod.GET)
     @ResponseStatus(HttpStatus.OK)
     @ResponseBody

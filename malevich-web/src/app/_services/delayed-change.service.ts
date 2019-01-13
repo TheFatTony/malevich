@@ -18,10 +18,10 @@ export class DelayedChangeService {
     return this.http
       .get<DelayedChangeDto[]>(this.url + '/list');
   }
-
-  public getCounterpartyDelayedChanges(referenceId: number) {
+participant
+  public getParticipantDelayedChanges(referenceId: number) {
     return this.http
-      .get<boolean>(this.url + '/findByTypeIdAndAndReferenceId/COUNTERPARTY/' + referenceId);
+      .get<boolean>(this.url + '/findByTypeIdAndAndReferenceId/PARTICIPANT/' + referenceId);
   }
 
   public approveChange(delayedChangeDto: DelayedChangeDto) {

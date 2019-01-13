@@ -21,11 +21,8 @@
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 		<java.version>1.8</java.version>
         <spring-boot.version>2.1.0.RELEASE</spring-boot.version>
-		<version.org.liquibase>3.6.2</version.org.liquibase>
 		<version.org.testcontainers>1.10.1</version.org.testcontainers>
-		<version.apache.fop>2.1</version.apache.fop>
-		<version.io.jsonwebtoken>0.9.1</version.io.jsonwebtoken>
-		<version.org.fabric-sdk>1.2.0</version.org.fabric-sdk>
+        <version.org.liquibase>3.6.2</version.org.liquibase>
 
 		<version.org.modelmapper>2.3.1</version.org.modelmapper>
 
@@ -63,103 +60,58 @@
 			<version>0.0.1-SNAPSHOT</version>
 		</dependency>
 
-
-
-		<!-- Lombok -->
-		<dependency>
-			<groupId>org.projectlombok</groupId>
-			<artifactId>lombok</artifactId>
-			<optional>true</optional>
-		</dependency>
-
-		<!-- Velocity -->
-		<dependency>
-			<groupId>org.apache.velocity</groupId>
-			<artifactId>velocity-engine-core</artifactId>
-			<version>${version.velocity.engine}</version>
-		</dependency>
-
-		<!-- Databases -->
-		<dependency>
-			<groupId>mysql</groupId>
-			<artifactId>mysql-connector-java</artifactId>
-		</dependency>
-
-		<dependency>
-			<groupId>org.apache.tomcat</groupId>
-			<artifactId>tomcat-jdbc</artifactId>
-		</dependency>
-
-		<dependency>
-			<groupId>org.hibernate</groupId>
-			<artifactId>hibernate-ehcache</artifactId>
-		</dependency>
-
-		<!-- Security -->
-		<dependency>
-			<groupId>io.jsonwebtoken</groupId>
-			<artifactId>jjwt</artifactId>
-			<version>${version.io.jsonwebtoken}</version>
-		</dependency>
-
-        <!-- Apache Fop -->
         <dependency>
-            <groupId>org.apache.xmlgraphics</groupId>
-            <artifactId>fop</artifactId>
-            <version>${version.apache.fop}</version>
+            <groupId>org.liquibase</groupId>
+            <artifactId>liquibase-core</artifactId>
+            <version>${version.org.liquibase}</version>
+            <scope>test</scope>
         </dependency>
 
-		<!-- Test -->
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-test</artifactId>
-			<scope>test</scope>
-		</dependency>
-
-		<dependency>
-			<groupId>org.liquibase</groupId>
-			<artifactId>liquibase-core</artifactId>
-			<version>${version.org.liquibase}</version>
-			<scope>test</scope>
-		</dependency>
-
-		<dependency>
-			<groupId>org.testcontainers</groupId>
-			<artifactId>testcontainers</artifactId>
-			<version>${version.org.testcontainers}</version>
-			<scope>test</scope>
-		</dependency>
-
-		<dependency>
-			<groupId>org.testcontainers</groupId>
-			<artifactId>mysql</artifactId>
-			<version>${version.org.testcontainers}</version>
-			<scope>test</scope>
-		</dependency>
-
-        <!-- Hyperledger -->
+        <!-- Test -->
         <dependency>
-            <groupId>org.hyperledger.fabric-sdk-java</groupId>
-            <artifactId>fabric-sdk-java</artifactId>
-            <version>${version.org.fabric-sdk}</version>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-test</artifactId>
+            <scope>test</scope>
         </dependency>
 
-        <!-- Test dependencies -->
         <dependency>
-            <groupId>org.rnorth.visible-assertions</groupId>
-            <artifactId>visible-assertions</artifactId>
+            <groupId>org.testcontainers</groupId>
+            <artifactId>testcontainers</artifactId>
+            <version>${version.org.testcontainers}</version>
+            <scope>test</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>org.testcontainers</groupId>
+            <artifactId>mysql</artifactId>
+            <version>${version.org.testcontainers}</version>
+            <scope>test</scope>
+        </dependency>
+
+        <!-- Lombok -->
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <optional>true</optional>
+        </dependency>
+
+
+		<!-- Test dependencies -->
+		<dependency>
+			<groupId>org.rnorth.visible-assertions</groupId>
+			<artifactId>visible-assertions</artifactId>
 			<version>2.1.1</version>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.mockito</groupId>
-            <artifactId>mockito-all</artifactId>
-            <version>1.10.19</version>
-            <scope>test</scope>
-        </dependency>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.mockito</groupId>
+			<artifactId>mockito-all</artifactId>
+			<version>1.10.19</version>
+			<scope>test</scope>
+		</dependency>
 
 
-        <!-- Packaging -->
+		<!-- Packaging -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-tomcat</artifactId>
@@ -169,19 +121,19 @@
 		<dependency>
 			<groupId>javax.xml.bind</groupId>
 			<artifactId>jaxb-api</artifactId>
-            <version>2.3.1</version>
+			<version>2.3.1</version>
 		</dependency>
 
 		<dependency>
 			<groupId>com.sun.xml.bind</groupId>
 			<artifactId>jaxb-core</artifactId>
-            <version>2.3.0.1</version>
+			<version>2.3.0.1</version>
 		</dependency>
 
 		<dependency>
 			<groupId>com.sun.xml.bind</groupId>
 			<artifactId>jaxb-impl</artifactId>
-            <version>2.3.1</version>
+			<version>2.3.1</version>
 		</dependency>
 
 		<dependency>
@@ -242,6 +194,14 @@
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
+                <configuration>
+                    <requiresUnpack>
+                        <dependency>
+                            <groupId>com.yinyang.core</groupId>
+                            <artifactId>yinyang-server</artifactId>
+                        </dependency>
+                    </requiresUnpack>
+                </configuration>
 			</plugin>
 			<plugin>
 				<groupId>org.liquibase</groupId>

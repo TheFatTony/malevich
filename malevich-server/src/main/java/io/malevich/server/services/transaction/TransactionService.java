@@ -26,4 +26,5 @@ public interface TransactionService {
                                      ArtworkStockEntity artworkStock,
                                      Double amount,
                                      Long quantity);
+
 }

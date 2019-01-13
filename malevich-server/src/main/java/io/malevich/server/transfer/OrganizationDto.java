@@ -16,6 +16,4 @@ public class OrganizationDto {
 
     private Map<String, String> legalNameMl;
 
-    private List<AddressDto> addresses;
-
 }

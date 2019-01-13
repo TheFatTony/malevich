@@ -9,4 +9,3 @@
     <include relativeToChangelogFile="true" file="release-1/data.changelog.xml"/>
 
 </databaseChangeLog>
-

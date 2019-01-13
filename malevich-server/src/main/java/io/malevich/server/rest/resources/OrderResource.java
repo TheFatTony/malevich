@@ -29,7 +29,7 @@ public class OrderResource {
     private ModelMapper modelMapper;
 
 
-    @PreAuthorize("hasRole('ADMIN')")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @RequestMapping(value = "/list", method = RequestMethod.GET)
     @ResponseStatus(HttpStatus.OK)
     @ResponseBody
@@ -54,7 +54,7 @@ public class OrderResource {
         return allEntries.stream().map(allEntry -> convertToPublicDto(allEntry)).collect(Collectors.toList());
     }
 
-    @PreAuthorize("hasAnyRole('GALLERY', 'TRADER')")
+    @PreAuthorize("hasAnyRole('ROLE_GALLERY', 'ROLE_TRADER')")
     @RequestMapping(value = "/placeAsk", method = RequestMethod.POST)
     @ResponseStatus(HttpStatus.OK)
     @ResponseBody
@@ -64,7 +64,7 @@ public class OrderResource {
         return ResponseEntity.ok().build();
     }
 
-    @PreAuthorize("hasRole('TRADER')")
+    @PreAuthorize("hasRole('ROLE_TRADER')")
     @RequestMapping(value = "/placeBid", method = RequestMethod.POST)
     @ResponseStatus(HttpStatus.OK)
     @ResponseBody
@@ -74,7 +74,7 @@ public class OrderResource {
         return ResponseEntity.ok().build();
     }
 
-    @PreAuthorize("hasAnyRole('GALLERY', 'TRADER')")
+    @PreAuthorize("hasAnyRole('ROLE_GALLERY', 'ROLE_TRADER')")
     @RequestMapping(value = "/cancel", method = RequestMethod.POST)
     @ResponseStatus(HttpStatus.OK)
     @ResponseBody

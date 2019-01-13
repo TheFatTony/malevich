@@ -2,14 +2,12 @@ import {Component, OnInit} from '@angular/core';
 import {CountryDto} from "../../_transfer/countryDto";
 import {TranslateService} from "@ngx-translate/core";
 import {AuthService} from "../../_services";
-import {GalleryDto, OrganizationDto, PersonDto, UserDto} from "../../_transfer";
 import {DelayedChangeService} from "../../_services/delayed-change.service";
-import {AlertService} from "yinyang-core";
-import {CounterpartyService} from "../../_services/counterparty.service";
-import {CounterpartyDto} from "../../_transfer/counterpartyDto";
+import {AlertService, UserDto} from "yinyang-core";
+import {ParticipantService} from "../../_services/participant.service";
+import {ParticipantDto} from "../../_transfer/participantDto";
 import {Router} from "@angular/router";
 import {UserService} from "../../_services/user.service";
-import {AddressDto} from "../../_transfer/addressDto";
 
 @Component({
   selector: 'app-profile-view',
@@ -19,19 +17,20 @@ import {AddressDto} from "../../_transfer/addressDto";
 export class ViewComponent implements OnInit {
 
   user: UserDto;
-  counterparty: CounterpartyDto;
+  participant: ParticipantDto;
+  isGallery: boolean;
   countries: CountryDto[];
 
   changePassword = false;
   oldPassword: string;
   newPassword: string;
 
-  hasChanges: boolean
+  hasChanges: boolean;
 
   constructor(public translate: TranslateService,
               private authService: AuthService,
               private userService: UserService,
-              private counterpartyService: CounterpartyService,
+              private participantService: ParticipantService,
               private delayedChangeService: DelayedChangeService,
               private alertService: AlertService,
               private router: Router) {
@@ -47,9 +46,9 @@ export class ViewComponent implements OnInit {
   ngAfterViewInit(): void {
   }
 
-  getCounterpartyDelayedChanges(counterpartyId: number): void {
+  getCounterpartyDelayedChanges(participantId: number): void {
     this.delayedChangeService
-      .getCounterpartyDelayedChanges(counterpartyId)
+      .getParticipantDelayedChanges(participantId)
       .subscribe(
         data => {
           this.hasChanges = data;
@@ -60,14 +59,15 @@ export class ViewComponent implements OnInit {
   }
 
   getCurrent(): void {
-    this.counterpartyService
+    this.participantService
       .getCurrent()
       .subscribe(
         data => {
           if (data) {
-            this.counterparty = this.counterpartyService.initInstance(data);
+            this.participant = this.participantService.initInstance(data);
+            this.isGallery = this.participantService.isGallery(this.participant);
 
-            this.getCounterpartyDelayedChanges(this.counterparty.id);
+            this.getCounterpartyDelayedChanges(this.participant.id);
           }
         }
       );

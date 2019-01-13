@@ -1,9 +1,11 @@
 package io.malevich.server.rest.resources;
 
 
-import io.malevich.server.domain.UserEntity;
+import com.yinyang.core.server.domain.RegisterTokenEntity;
+import com.yinyang.core.server.domain.UserEntity;
+import com.yinyang.core.server.services.user.UserService;
+import com.yinyang.core.server.transfer.UserDto;
 import io.malevich.server.services.registertoken.RegisterService;
-import io.malevich.server.services.user.UserService;
 import io.malevich.server.transfer.*;
 import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
@@ -33,7 +35,7 @@ public class UserResource {
     private ModelMapper modelMapper;
 
 
-    @PreAuthorize("hasRole('ADMIN')")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @RequestMapping(value = "/list", method = RequestMethod.GET)
     @ResponseStatus(HttpStatus.OK)
     @ResponseBody
@@ -42,7 +44,7 @@ public class UserResource {
         return allEntries.stream().map(allEntry -> convertToDto(allEntry)).collect(Collectors.toList());
     }
 
-    @PreAuthorize("hasRole('ADMIN')")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @PostMapping("/lock")
     @ResponseStatus(HttpStatus.OK)
     public ResponseEntity<Void> lock(@RequestBody UserDto lockDto) {
@@ -50,7 +52,7 @@ public class UserResource {
         return ResponseEntity.ok().build();
     }
 
-    @PreAuthorize("hasRole('ADMIN')")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @PostMapping("/password/set")
     @ResponseStatus(HttpStatus.OK)
     public ResponseEntity<Void> setPassword(@RequestBody UserPasswordDto passwordDto) {
@@ -61,8 +63,9 @@ public class UserResource {
     @RequestMapping(value = "/register", method = RequestMethod.POST)
     @ResponseStatus(HttpStatus.OK)
     @ResponseBody
-    public ResponseEntity<String> registerStep1(@RequestBody RegisterFormDto registerFormDto) {
-        registerService.register(registerFormDto.getLang(), registerFormDto.getEmail());
+    public ResponseEntity<String> registerStep1(@RequestBody RegisterFormDto registerFormDto, @RequestParam("lang") String lang) {
+        RegisterTokenEntity registerTokenEntity = modelMapper.map(registerFormDto, RegisterTokenEntity.class);
+        registerService.register(registerTokenEntity, lang);
         return ResponseEntity.ok().body("registered");
     }
 

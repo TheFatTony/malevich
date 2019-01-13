@@ -9,10 +9,10 @@
                                  referencedColumnNames="id" referencedTableName="user"/>
     </changeSet>
 
-    <changeSet author="thefattony" id="user_roles-role-fk">
-        <addForeignKeyConstraint baseColumnNames="roles" baseTableName="user_roles"
-                                 constraintName="user_roles_role_fk"
-                                 referencedColumnNames="id" referencedTableName="roles"/>
-    </changeSet>
+    <!--<changeSet author="thefattony" id="user_roles-role-fk">-->
+        <!--<addForeignKeyConstraint baseColumnNames="roles" baseTableName="user_roles"-->
+                                 <!--constraintName="user_roles_role_fk"-->
+                                 <!--referencedColumnNames="id" referencedTableName="roles"/>-->
+    <!--</changeSet>-->
 
 </databaseChangeLog>

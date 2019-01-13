@@ -8,14 +8,14 @@
             <column name="user_id" type="bigint">
                 <constraints nullable="false"/>
             </column>
-            <column name="roles" type="bigint">
+            <column name="roles" type="tinyblob">
                 <constraints nullable="false"/>
             </column>
         </createTable>
     </changeSet>
 
-    <changeSet author="thefattony" id="user_roles-pk">
-        <addPrimaryKey columnNames="user_id, roles" constraintName="user_roles_pk" tableName="user_roles"/>
-    </changeSet>
+    <!--<changeSet author="thefattony" id="user_roles-pk">-->
+        <!--<addPrimaryKey columnNames="user_id, roles" constraintName="user_roles_pk" tableName="user_roles"/>-->
+    <!--</changeSet>-->
 
 </databaseChangeLog>

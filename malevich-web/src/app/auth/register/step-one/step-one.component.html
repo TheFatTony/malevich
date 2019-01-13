@@ -11,6 +11,15 @@
     </mchInput>
   </div>
 
+  <div class="g-mb-20">
+    <mchDropDownList name="userType"
+                     [objectSource]="userTypes"
+                     [displayFunc]="userTypeDisplayFunc"
+                     [(ngModel)]="userTypeSelected"
+                     [selectedIndex]="1">
+    </mchDropDownList>
+  </div>
+
   <div class="mb-1">
     <label class="form-check-inline u-check g-color-gray-dark-v5 g-font-size-13 g-pl-25 mb-2">
       <input

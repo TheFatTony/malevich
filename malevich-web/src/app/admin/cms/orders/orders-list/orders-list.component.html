@@ -20,11 +20,11 @@
     <td>
       {{order?.type.nameMl[translate.currentLang]}}
     </td>
-    <td *ngIf="order?.party.organization">
-      {{order?.party.organization.legalNameMl[translate.currentLang]}}
+    <td *ngIf="order?.party.gallery">
+      {{order?.party.gallery?.organization.legalNameMl[translate.currentLang]}}
     </td>
-    <td *ngIf="order?.party.person">
-      {{order?.party.person.fullName}}
+    <td *ngIf="order?.party.trader">
+      {{order?.party.trader?.person.fullName}}
     </td>
     <td *ngIf="order?.party.id === 1">
       Malevich

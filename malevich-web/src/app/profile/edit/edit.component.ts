@@ -10,10 +10,9 @@ import {map, mergeMap} from "rxjs/operators";
 import {environment} from "../../../environments/environment.dev";
 import {CountryDto} from "../../_transfer/countryDto";
 import {GenderDto} from "../../_transfer/genderDto";
-import {CounterpartyService} from "../../_services/counterparty.service";
-import {CounterpartyDto} from "../../_transfer/counterpartyDto";
-import {GalleryDto, OrganizationDto, PersonDto} from "../../_transfer";
-import {AddressDto} from "../../_transfer/addressDto";
+import {ParticipantService} from "../../_services/participant.service";
+import {ParticipantDto} from "../../_transfer/participantDto";
+import {UserDto} from '../../../../node_modules/yinyang-core';
 
 @Component({
   selector: 'app-profile-edit',
@@ -22,7 +21,11 @@ import {AddressDto} from "../../_transfer/addressDto";
 })
 export class EditComponent implements OnInit, AfterViewInit {
 
-  counterparty : CounterpartyDto;
+  participant: ParticipantDto;
+  isGallery: boolean;
+
+  user: UserDto;
+
   countries: any[];
   genders: any[];
 
@@ -31,10 +34,13 @@ export class EditComponent implements OnInit, AfterViewInit {
 
   constructor(private router: Router,
               public translate: TranslateService,
-              private counterpartyService: CounterpartyService,
+              private participantService: ParticipantService,
               private countryService: CountryService,
               private genderService: GenderService,
               private authService: AuthService) {
+    this.authService.getCurrentUser().subscribe(data => {
+      this.user = data
+    });
   }
 
   ngOnInit() {
@@ -50,16 +56,17 @@ export class EditComponent implements OnInit, AfterViewInit {
       .pipe(mergeMap(results => {
         this.countries = results[0];
         this.genders = results[1];
-        return this.counterpartyService.getCurrent();
+        return this.participantService.getCurrent();
       }))
       .pipe(map(data => {
-        this.counterparty = this.counterpartyService.initInstance(data);
+        this.participant = this.participantService.initInstance(data);
+        this.isGallery = this.participantService.isGallery(this.participant);
       }))
       .subscribe();
   }
 
   update(): void {
-    this.counterpartyService.update(this.counterparty)
+    this.participantService.update(this.participant)
       .subscribe(data => this.router.navigate(['/profile/view']));
   }
 
@@ -73,14 +80,14 @@ export class EditComponent implements OnInit, AfterViewInit {
       .replace('<pre style="word-wrap: break-word; white-space: pre-wrap;">', '')
       .replace('<pre>', '')
       .replace('</pre>', ''));
-    this.counterparty.image = serverResponse;
+    this.participant.thumbnail = serverResponse;
   }
 
   countryDisplayFunc = (country: CountryDto) => {
     return country.nameMl[this.translate.currentLang];
-  }
+  };
 
   genderDisplayFunc = (gender: GenderDto) => {
     return gender.nameMl[this.translate.currentLang];
-  }
+  };
 }

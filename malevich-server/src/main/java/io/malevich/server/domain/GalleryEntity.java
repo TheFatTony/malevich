@@ -32,15 +32,7 @@ public class GalleryEntity extends ParticipantEntity {
     @Setter
     @Fetch(FetchMode.JOIN)
     @ManyToOne(cascade = CascadeType.MERGE)
-    @NotNull
     private FileEntity thumbnail;
-
-    @Getter
-    @Setter
-    @Fetch(FetchMode.JOIN)
-    @ManyToOne(cascade = CascadeType.MERGE)
-    @NotNull
-    private FileEntity image;
 
     @Getter
     @Setter

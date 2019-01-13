@@ -18,10 +18,15 @@ export class DelayedChangeService {
     return this.http
       .get<DelayedChangeDto[]>(this.url + '/list');
   }
-participant
+
   public getParticipantDelayedChanges(referenceId: number) {
     return this.http
       .get<boolean>(this.url + '/findByTypeIdAndAndReferenceId/PARTICIPANT/' + referenceId);
+  }
+
+  public getDocumentsDelayedChanges(referenceId: number) {
+    return this.http
+      .get<boolean>(this.url + '/findByTypeIdAndAndReferenceId/DOCUMENT/' + referenceId);
   }
 
   public approveChange(delayedChangeDto: DelayedChangeDto) {

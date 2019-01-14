@@ -1,7 +1,7 @@
 package io.malevich.server.services.registertoken;
 
 import com.yinyang.core.server.domain.RegisterTokenEntity;
-import com.yinyang.core.server.domain.UserEntity;
+import com.yinyang.core.server.transfer.AccessTokenDto;
 import io.malevich.server.transfer.RegisterFormStepTwoDto;
 import org.springframework.stereotype.Service;
 
@@ -19,6 +19,6 @@ public interface RegisterService {
 
     RegisterTokenEntity register(RegisterTokenEntity entity, String lang);
 
-    UserEntity register2(String token, RegisterFormStepTwoDto registerInfo);
+    AccessTokenDto register2(String token, RegisterFormStepTwoDto registerInfo);
 
 }

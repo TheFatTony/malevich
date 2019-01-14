@@ -8,6 +8,8 @@ public interface DocumentService {
 
     List<DocumentEntity> findDocs();
 
+    DocumentEntity trySave(DocumentEntity entity);
+
     DocumentEntity save(DocumentEntity entity);
 
     void delete(Long id);

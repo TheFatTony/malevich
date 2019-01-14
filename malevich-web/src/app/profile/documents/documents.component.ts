@@ -5,6 +5,8 @@ import {environment} from '../../../environments/environment.dev';
 import {DocumentsService} from '../../_services/documents.service';
 import {Router} from '@angular/router';
 import {DocumentsDto} from '../../_transfer/documentsDto';
+import {DelayedChangeService} from "../../_services/delayed-change.service";
+import {ParticipantService} from "../../_services/participant.service";
 
 @Component({
   selector: 'app-profile-documents',
@@ -28,10 +30,13 @@ export class DocumentsComponent implements OnInit {
 
   constructor(public translate: TranslateService,
               private documentsService: DocumentsService,
+              private delayedChangeService: DelayedChangeService,
+              private participantService: ParticipantService,
               private router: Router) {
   }
 
   ngOnInit() {
+    this.getCurrent();
     this.getDocs();
   }
 
@@ -42,6 +47,24 @@ export class DocumentsComponent implements OnInit {
     this.documentsService.getDocs().subscribe(data => {
       this.documents = data;
     });
+  }
+
+  getCurrent(): void {
+    this.participantService
+      .getCurrent()
+      .subscribe(
+        data => {
+          if (data) {
+            this.getDelayedChanges(data.id);
+          }
+        }
+      );
+  }
+
+  getDelayedChanges(participantId: number): void {
+    this.delayedChangeService
+      .alertIfDelayedChanges("DOCUMENT", participantId)
+      .subscribe();
   }
 
   onAddButtonClick() {

@@ -7,7 +7,6 @@ import {Router} from '@angular/router';
 import {DocumentsDto} from '../../_transfer/documentsDto';
 import {DelayedChangeService} from "../../_services/delayed-change.service";
 import {ParticipantService} from "../../_services/participant.service";
-import {AlertService} from "yinyang-core";
 
 @Component({
   selector: 'app-profile-documents',
@@ -19,8 +18,6 @@ export class DocumentsComponent implements OnInit {
 
   selectedRowIndex: number = -1;
   documents: DocumentsDto[];
-
-  hasChanges: boolean;
 
   public url = environment.baseUrl;
 
@@ -35,12 +32,11 @@ export class DocumentsComponent implements OnInit {
               private documentsService: DocumentsService,
               private delayedChangeService: DelayedChangeService,
               private participantService: ParticipantService,
-              private alertService: AlertService,
               private router: Router) {
   }
 
   ngOnInit() {
-    this,this.getCurrent();
+    this.getCurrent();
     this.getDocs();
   }
 
@@ -59,7 +55,6 @@ export class DocumentsComponent implements OnInit {
       .subscribe(
         data => {
           if (data) {
-
             this.getDelayedChanges(data.id);
           }
         }
@@ -68,14 +63,8 @@ export class DocumentsComponent implements OnInit {
 
   getDelayedChanges(participantId: number): void {
     this.delayedChangeService
-      .getDocumentsDelayedChanges(participantId)
-      .subscribe(
-        data => {
-          this.hasChanges = data;
-          if (this.hasChanges === true)
-            this.alertService.success("You have unprocessed changes.");
-        }
-      );
+      .alertIfDelayedChanges("DOCUMENT", participantId)
+      .subscribe();
   }
 
   onAddButtonClick() {

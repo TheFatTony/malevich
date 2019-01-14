@@ -57,7 +57,9 @@ export class DocumentAddComponent implements OnInit {
   }
 
   submit() {
-    this.documentService.save(this.document).subscribe();
+    this.documentService.save(this.document).subscribe(() =>{
+      this.router.navigate(['/profile/documents']);
+    });
   }
 
   cancel() {

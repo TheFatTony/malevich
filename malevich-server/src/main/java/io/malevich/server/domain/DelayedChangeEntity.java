@@ -36,7 +36,6 @@ public class DelayedChangeEntity extends YAbstractPersistable<Long> {
     @Getter
     @Setter
     @Column(name = "reference_id")
-    @NotNull
     private Long referenceId;
 
     @Getter

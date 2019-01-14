@@ -1,7 +1,6 @@
 package io.malevich.server.services.document;
 
 import io.malevich.server.domain.DocumentEntity;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 

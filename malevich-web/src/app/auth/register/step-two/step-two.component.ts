@@ -31,9 +31,11 @@ export class StepTwoComponent implements OnInit {
       .register2(this.activationCode, {
         password: this.password
       })
-      .subscribe();
+      .subscribe(() => {
+        this.router.navigate(['/profile/edit']);
+      });
 
-    this.router.navigate(['/auth/login']);
+
   }
 
 

@@ -4,6 +4,7 @@ package io.malevich.server.rest.resources;
 import com.yinyang.core.server.domain.RegisterTokenEntity;
 import com.yinyang.core.server.domain.UserEntity;
 import com.yinyang.core.server.services.user.UserService;
+import com.yinyang.core.server.transfer.AccessTokenDto;
 import com.yinyang.core.server.transfer.UserDto;
 import io.malevich.server.services.registertoken.RegisterService;
 import io.malevich.server.transfer.*;
@@ -72,9 +73,8 @@ public class UserResource {
     @RequestMapping(value = "/register/{token}", method = RequestMethod.POST)
     @ResponseStatus(HttpStatus.OK)
     @ResponseBody
-    public ResponseEntity<String> registerStep2(@RequestBody RegisterFormStepTwoDto resetDto, @PathVariable("token") String token) {
-        registerService.register2(token, resetDto);
-        return ResponseEntity.ok().body("password set");
+    public AccessTokenDto registerStep2(@RequestBody RegisterFormStepTwoDto resetDto, @PathVariable("token") String token) {
+        return registerService.register2(token, resetDto);
     }
 
     @RequestMapping(value = "/password/reset", method = RequestMethod.POST)

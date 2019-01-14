@@ -5,22 +5,16 @@ import io.malevich.server.domain.ParticipantEntity;
 import io.malevich.server.domain.PaymentsEntity;
 import io.malevich.server.fabric.model.PaymentTransaction;
 import io.malevich.server.services.participant.ParticipantService;
+import io.malevich.server.services.paymenttype.PaymentTypeService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.ParameterizedTypeReference;
-import org.springframework.http.HttpEntity;
-import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.HttpStatusCodeException;
 import org.springframework.web.client.RestClientException;
-import org.springframework.web.util.UriTemplate;
 
-import java.io.UnsupportedEncodingException;
-import java.net.URI;
-import java.net.URLDecoder;
-import java.net.URLEncoder;
 import java.util.List;
 
 
@@ -31,6 +25,10 @@ public class PaymentTransactionServiceImpl extends GenericComposerServiceImpl<Pa
 
     @Autowired
     private ParticipantService participantService;
+
+
+    @Autowired
+    private PaymentTypeService paymentTypeService;
 
     public PaymentTransactionServiceImpl() {
         super("Payment");
@@ -49,8 +47,18 @@ public class PaymentTransactionServiceImpl extends GenericComposerServiceImpl<Pa
     @Override
     public List<PaymentTransaction> list() {
         ParticipantEntity participantEntity = participantService.getCurrent();
+        String fabricClass = null;
+
+        if ("G".equals(participantEntity.getType().getId())) {
+            fabricClass = "resource:io.malevich.network.Gallery#";
+        } else {
+            fabricClass = "resource:io.malevich.network.Trader#";
+        }
+
+
         try {
-             ResponseEntity<List<PaymentTransaction>> res = restTemplate.exchange(composerUrl + "/queries/selectPaymentsByCounterparty?party={party}", HttpMethod.GET, null, new ParameterizedTypeReference<List<PaymentTransaction>>() {}, ("resource:io.malevich.network.Trader#"+ participantEntity.getUser().getUsername()));
+            ResponseEntity<List<PaymentTransaction>> res = restTemplate.exchange(composerUrl + "/queries/selectPaymentsByCounterparty?party={party}", HttpMethod.GET, null, new ParameterizedTypeReference<List<PaymentTransaction>>() {
+            }, (fabricClass + participantEntity.getUser().getUsername()));
             return res.getBody();
         } catch (RestClientException e) {
             String errorResponse = ((HttpStatusCodeException) e).getResponseBodyAsString();

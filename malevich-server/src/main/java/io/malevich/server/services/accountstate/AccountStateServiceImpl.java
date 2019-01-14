@@ -3,7 +3,9 @@ package io.malevich.server.services.accountstate;
 import io.malevich.server.domain.AccountStateEntity;
 import io.malevich.server.domain.ArtworkStockEntity;
 import io.malevich.server.domain.CounterpartyEntity;
+import io.malevich.server.fabric.model.GalleryParticipant;
 import io.malevich.server.fabric.model.TraderParticipant;
+import io.malevich.server.fabric.services.gallery.GalleryParticipantService;
 import io.malevich.server.fabric.services.trader.TraderParticipantService;
 import io.malevich.server.repositories.accountstate.AccountStateDao;
 import io.malevich.server.services.counterparty.CounterpartyService;
@@ -30,6 +32,9 @@ public class AccountStateServiceImpl implements AccountStateService {
     @Autowired
     private TraderParticipantService traderParticipantService;
 
+    @Autowired
+    private GalleryParticipantService galleryParticipantService;
+
 
     @Override
     @Transactional(readOnly = true)
@@ -49,9 +54,17 @@ public class AccountStateServiceImpl implements AccountStateService {
         CounterpartyEntity counterpartyEntity = counterpartyService.getCurrent();
 
         AccountStateEntity accountStateEntity = new AccountStateEntity();
-        TraderParticipant traderParticipant = traderParticipantService.getOne();
-        accountStateEntity.setParty(counterpartyEntity);
-        accountStateEntity.setAmount(traderParticipant.getBalance());
+
+        if ("G".equals(counterpartyEntity.getType().getId())) {
+            GalleryParticipant galleryParticipant = galleryParticipantService.getOne();
+            accountStateEntity.setParty(counterpartyEntity);
+            accountStateEntity.setAmount(galleryParticipant.getBalance());
+        } else {
+            TraderParticipant traderParticipant = traderParticipantService.getOne();
+            accountStateEntity.setParty(counterpartyEntity);
+            accountStateEntity.setAmount(traderParticipant.getBalance());
+        }
+
 
         return accountStateEntity;
     }

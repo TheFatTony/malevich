@@ -49,7 +49,7 @@ public class PaymentsServiceImpl implements PaymentsService {
     @Override
     @Transactional(readOnly = true)
     public List<PaymentsEntity> findOwnPayments() {
-//        CounterpartyEntity entity = counterpartyService.getCurrent();
+        CounterpartyEntity entity = counterpartyService.getCurrent();
 //        return this.paymentsDao.findPaymentsEntityByParty_Id(entity.getId());
         List<PaymentsEntity> paymentsEntities = new ArrayList<>();
         List<PaymentTransaction> list = paymentTransactionService.list();
@@ -63,7 +63,6 @@ public class PaymentsServiceImpl implements PaymentsService {
         }
 
         return paymentsEntities;
-
     }
 
     @Override

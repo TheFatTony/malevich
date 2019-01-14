@@ -130,7 +130,7 @@ public class ParticipantServiceImpl implements ParticipantService {
     @Override
     @Transactional
     public ParticipantEntity update(ParticipantEntity participantEntity) {
-        UserEntity user = userService.findByName(authService.getUser().getName());
+        UserEntity user = authService.getUserEntity();
         DelayedChangeEntity delayedChangeEntity = new DelayedChangeEntity();
         delayedChangeEntity.setTypeId("PARTICIPANT");
         delayedChangeEntity.setPayload(participantEntity);

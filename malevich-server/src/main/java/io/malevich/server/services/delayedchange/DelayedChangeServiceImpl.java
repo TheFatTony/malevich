@@ -3,8 +3,8 @@ package io.malevich.server.services.delayedchange;
 import com.yinyang.core.server.domain.MailQueueEntity;
 import com.yinyang.core.server.domain.UserEntity;
 import com.yinyang.core.server.domain.YAbstractPersistable;
+import com.yinyang.core.server.services.auth.AuthService;
 import com.yinyang.core.server.services.mailqueue.MailQueueService;
-import com.yinyang.core.server.services.user.UserService;
 import io.malevich.server.domain.DelayedChangeEntity;
 import io.malevich.server.domain.DocumentEntity;
 import io.malevich.server.domain.ParticipantEntity;
@@ -41,7 +41,7 @@ public class DelayedChangeServiceImpl implements DelayedChangeService {
     private DocumentService documentService;
 
     @Autowired
-    private UserService userService;
+    private AuthService authService;
 
     @Override
     @Transactional
@@ -53,7 +53,7 @@ public class DelayedChangeServiceImpl implements DelayedChangeService {
     // TODO total crap
     @Transactional(propagation = Propagation.NOT_SUPPORTED)
     public DelayedChangeEntity saveEntity(YAbstractPersistable<Long> entity) {
-        UserEntity currentUser = userService.getCurrent();
+        UserEntity currentUser = authService.getUserEntity();
 
         DelayedChangeEntity delayedChangeEntity = new DelayedChangeEntity();
         delayedChangeEntity.setPayload(entity);

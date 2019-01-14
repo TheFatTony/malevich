@@ -30,6 +30,18 @@ public class GalleryEntity extends ParticipantEntity {
 
     @Getter
     @Setter
+    @Fetch(FetchMode.JOIN)
+    @ManyToOne(cascade = CascadeType.MERGE)
+    private FileEntity thumbnail;
+
+    @Getter
+    @Setter
+    @Convert(converter = JpaConverterJson.class)
+    @Column(name = "title_ml")
+    private Map<String, String> titleMl;
+
+    @Getter
+    @Setter
     @Convert(converter = JpaConverterJson.class)
     @Column(name = "description_ml")
     private Map<String, String> descriptionMl;

@@ -6,5 +6,6 @@ export class GalleryDto extends ParticipantDto{
   organization: OrganizationDto;
   thumbnail: FileDto;
   image: FileDto;
+  titleMl: Map<string, string>;
   descriptionMl: Map<string, string>;
 }

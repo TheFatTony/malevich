@@ -25,7 +25,7 @@ public class AuthResource {
     @ResponseStatus(HttpStatus.OK)
     @ResponseBody
     public UserDto getUser() {
-        return authService.getUser();
+        return authService.getUserDto();
     }
 
     @RequestMapping(value = "/authenticate", method = RequestMethod.POST)

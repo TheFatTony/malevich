@@ -21,3 +21,9 @@ query getAccountState {
   statement:
       SELECT io.malevich.network.Counterparty WHERE (email == _$email)
 }
+
+query getOrdersByArtworkStock {
+  description: "getOrdersByArtworkStock"
+  statement:
+      SELECT io.malevich.network.OrderAsset WHERE (order.artworkStock == _$artworkStock)
+}

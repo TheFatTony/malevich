@@ -1,0 +1,53 @@
+<mchButton [width]="100" [height]="35" (click)="onAddButton()">
+  Add
+</mchButton>
+<mchButton [width]="100" [height]="35" (click)="onEditButton()">
+  Edit
+</mchButton>
+
+<jqxGrid #myGrid
+         [width]="'100%'" [height]="'90%'" [pageable]="true" [sortable]="true" [columnsresize]="true"
+         [pagermode]="'simple'" (onRowselect)="onGridRowSelect($event)">
+  <tr>
+    <th>Sr No.</th>
+    <th>Name</th>
+    <th>Description</th>
+  </tr>
+  <tr *ngFor="let artist of artists;index as i">
+    <td>
+      {{i+1}}
+    </td>
+    <td>
+      {{artist.fullNameMl[translate.currentLang]}}
+    </td>
+    <td>
+      {{artist.descriptionMl[translate.currentLang]}}
+    </td>
+  </tr>
+</jqxGrid>
+
+
+<jqxWindow #myWindow [autoOpen]="false" [resizable]="false" (onOpen)="onMyWindowOpen()">
+  <div>Add</div>
+  <div style="overflow: hidden; width: 100%">
+    <div><label>Artist Name[En]:</label>
+      <div>
+        <mchInput [ngModel]="!editArtist?.fullNameMl ? '' : editArtist?.fullNameMl['en']"
+                  (ngModelChange)="onNameChange($event, 'en')" mchRequired></mchInput>
+      </div>
+    </div>
+    <div><label>Artist Name[Ru]:</label>
+      <div>
+        <mchInput [ngModel]="!editArtist?.fullNameMl ? '' : editArtist?.fullNameMl['ru']"
+                  (ngModelChange)="onNameChange($event, 'ru')" mchRequired></mchInput>
+      </div>
+    </div>
+    <div>
+      <mchButton (onClick)="sendButton()"
+                 style="text-align: center; margin-left: 8em;"
+                 [width]="60" [height]="25">
+        Send
+      </mchButton>
+    </div>
+  </div>
+</jqxWindow>

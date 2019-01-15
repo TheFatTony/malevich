@@ -1,5 +1,21 @@
 namespace io.malevich.network
 
+enum PaymentType {
+  o IN
+  o OUT
+}
+
+enum OrderStatus {
+  o OPEN
+  o EXECUTED
+  o CANCELED
+}
+
+enum OrderType {
+  o ASK
+  o BID
+}
+
 abstract participant User identified by email {
   o String email
 }
@@ -30,3 +46,32 @@ asset ArtworkStock identified by id {
   --> Counterparty owner
 }
 
+transaction Payment {
+  o Double amount
+  o PaymentType paymentType
+  --> Counterparty party
+}
+
+concept OrderConcept {
+  o String id
+  o Double amount
+  o OrderType orderType
+  o OrderStatus orderStatus
+  --> ArtworkStock artworkStock
+  --> Counterparty сounterparty
+}
+
+asset OrderAsset identified by id {
+  o String id
+  o OrderConcept order
+}
+
+asset TradeHistory identified by id {
+  o String id
+  o OrderAsset askOrder
+  o OrderAsset bidOrder 
+}
+
+transaction Order {
+  o OrderConcept order
+}

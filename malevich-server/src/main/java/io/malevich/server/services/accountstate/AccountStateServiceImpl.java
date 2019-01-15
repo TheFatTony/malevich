@@ -1,10 +1,13 @@
 package io.malevich.server.services.accountstate;
 
-import io.malevich.server.repositories.accountstate.AccountStateDao;
 import io.malevich.server.domain.AccountStateEntity;
 import io.malevich.server.domain.ArtworkStockEntity;
 import io.malevich.server.domain.CounterpartyEntity;
-import io.malevich.server.domain.TraderPersonEntity;
+import io.malevich.server.fabric.model.GalleryParticipant;
+import io.malevich.server.fabric.model.TraderParticipant;
+import io.malevich.server.fabric.services.gallery.GalleryParticipantService;
+import io.malevich.server.fabric.services.trader.TraderParticipantService;
+import io.malevich.server.repositories.accountstate.AccountStateDao;
 import io.malevich.server.services.counterparty.CounterpartyService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,6 +29,12 @@ public class AccountStateServiceImpl implements AccountStateService {
     @Autowired
     private CounterpartyService counterpartyService;
 
+    @Autowired
+    private TraderParticipantService traderParticipantService;
+
+    @Autowired
+    private GalleryParticipantService galleryParticipantService;
+
 
     @Override
     @Transactional(readOnly = true)
@@ -44,7 +53,20 @@ public class AccountStateServiceImpl implements AccountStateService {
     public AccountStateEntity getWallet() {
         CounterpartyEntity counterpartyEntity = counterpartyService.getCurrent();
 
-        return accountStateDao.findByArtworkStock_IdAndParty_Id(null, counterpartyEntity.getId());
+        AccountStateEntity accountStateEntity = new AccountStateEntity();
+
+        if ("G".equals(counterpartyEntity.getType().getId())) {
+            GalleryParticipant galleryParticipant = galleryParticipantService.getOne();
+            accountStateEntity.setParty(counterpartyEntity);
+            accountStateEntity.setAmount(galleryParticipant.getBalance());
+        } else {
+            TraderParticipant traderParticipant = traderParticipantService.getOne();
+            accountStateEntity.setParty(counterpartyEntity);
+            accountStateEntity.setAmount(traderParticipant.getBalance());
+        }
+
+
+        return accountStateEntity;
     }
 
     @Override

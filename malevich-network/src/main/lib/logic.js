@@ -78,7 +78,7 @@ async function placeOrder(order) { // eslint-disable-line no-unused-vars
         // matchingBid.order.orderStatus = 'EXECUTED';
         // await registry.add(matchingBid);
 
-        const tradeHistoryAsset = factory.newResource('io.malevich.network', 'TradeHistory', placeOrder.order.id);
+        const tradeHistoryAsset = factory.newResource('io.malevich.network', 'TradeHistory', order.order.id);
         tradeHistoryAsset.askOrder = currentAsk;
         tradeHistoryAsset.bidOrder = matchingBid;
         await tradeHistoryRegistry.add(tradeHistoryAsset);

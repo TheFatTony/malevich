@@ -1,5 +1,9 @@
 #!/usr/bin/env bash
 
+docker rm -f composer-inception
+
+docker volume prune -f
+
 docker run --name composer-inception --privileged -d \
 --env="BN_NAME=malevich-network" \
 -v ~/Projects/malevich/malevich-network/target/malevich-network.bna:/home/dockremap/malevich-network.bna \

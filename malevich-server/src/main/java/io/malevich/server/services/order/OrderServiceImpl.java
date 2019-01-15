@@ -4,6 +4,7 @@ import io.malevich.server.domain.CounterpartyEntity;
 import io.malevich.server.domain.OrderEntity;
 import io.malevich.server.domain.TradeHistoryEntity;
 import io.malevich.server.domain.TransactionGroupEntity;
+import io.malevich.server.fabric.services.order.OrderTransactionService;
 import io.malevich.server.repositories.order.OrderDao;
 import io.malevich.server.repositories.transactiongroup.TransactionGroupDao;
 import io.malevich.server.services.counterparty.CounterpartyService;
@@ -55,6 +56,9 @@ public class OrderServiceImpl implements OrderService {
 
     @Autowired
     private TransactionTypeService transactionTypeService;
+
+    @Autowired
+    private OrderTransactionService orderTransactionService;
 
     @Override
     @Transactional(readOnly = true)
@@ -140,6 +144,8 @@ public class OrderServiceImpl implements OrderService {
 
         orderEntity = orderDao.save(orderEntity);
 
+        orderTransactionService.create(orderEntity);
+
         CounterpartyEntity malevich = counterpartyService.getMalevich();
 
         transactionService.createTransactionAndReverse(transactionTypeService.getAsk(), orderEntity.getTransactionGroup(), orderEntity.getParty(), malevich, orderEntity.getArtworkStock(), 0D, -1L);
@@ -182,6 +188,8 @@ public class OrderServiceImpl implements OrderService {
         orderEntity.setTransactionGroup(transactionGroupEntity);
 
         orderEntity = orderDao.save(orderEntity);
+
+        orderTransactionService.create(orderEntity);
 
         CounterpartyEntity malevich = counterpartyService.getMalevich();
         transactionService.createTransactionAndReverse(transactionTypeService.getBid(), orderEntity.getTransactionGroup(), orderEntity.getParty(), malevich, null, -orderEntity.getAmount(), 0L);

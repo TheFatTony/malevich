@@ -4,6 +4,8 @@
          monitoring="autodetect"
          dynamicConfig="true">
 
+    <diskStore path="/tmp/ehcache"/>
+
     <defaultCache maxEntriesLocalHeap="10000" eternal="false"
                   timeToIdleSeconds="120" timeToLiveSeconds="240" maxEntriesLocalDisk="100000"
                   diskExpiryThreadIntervalSeconds="240" memoryStoreEvictionPolicy="LRU">

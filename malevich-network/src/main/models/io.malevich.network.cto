@@ -52,7 +52,7 @@ transaction Payment {
   --> Counterparty party
 }
 
-concept Order {
+concept OrderConcept {
   o String id
   o Double amount
   o OrderType orderType
@@ -63,9 +63,15 @@ concept Order {
 
 asset OrderAsset identified by id {
   o String id
-  o Order order
+  o OrderConcept order
 }
 
-transaction PlaceOrder {
-  o Order order
+asset TradeHistory identified by id {
+  o String id
+  o OrderAsset askOrder
+  o OrderAsset bidOrder 
+}
+
+transaction Order {
+  o OrderConcept order
 }

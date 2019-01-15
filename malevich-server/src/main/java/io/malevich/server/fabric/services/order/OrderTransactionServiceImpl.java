@@ -52,7 +52,7 @@ public class OrderTransactionServiceImpl extends GenericComposerServiceImpl<Orde
         orderTransaction.getOrder().setOrderType(entity.getType().getId());
         orderTransaction.getOrder().setOrderStatus(entity.getStatus().getId());
         orderTransaction.getOrder().setArtworkStock("resource:io.malevich.network.ArtworkStock#" + entity.getArtworkStock().getId().toString());
-        orderTransaction.getOrder().setСounterparty(fabricClass + participantEntity.getId());
+        orderTransaction.getOrder().setСounterparty(fabricClass + participantEntity.getUser().getUsername());
 
         doPost(orderTransaction);
     }

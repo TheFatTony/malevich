@@ -30,16 +30,43 @@
 <jqxWindow #myWindow [autoOpen]="false" [resizable]="false" (onOpen)="onMyWindowOpen()">
   <div>Add</div>
   <div style="overflow: hidden; width: 100%">
-    <div><label>Artist Name[En]:</label>
+
+    <div class="g-mb-10">
+      <label>Upload artist image:</label>
+      <div>
+        <jqxFileUpload
+          [width]="'100%'" [uploadUrl]="url + 'files/uploadFile'" [fileInputName]="'file'"
+          (onUploadEnd)="onUploadEnd($event)" [multipleFilesUpload]="false" [autoUpload]="false">
+        </jqxFileUpload>
+      </div>
+    </div>
+
+    <div class="g-mb-10">
+      <label>Artist Name [En]:</label>
       <div>
         <mchInput [ngModel]="!editArtist?.fullNameMl ? '' : editArtist?.fullNameMl['en']"
                   (ngModelChange)="onNameChange($event, 'en')" mchRequired></mchInput>
       </div>
     </div>
-    <div><label>Artist Name[Ru]:</label>
+    <div class="g-mb-10">
+      <label>Artist Name [Ru]:</label>
       <div>
         <mchInput [ngModel]="!editArtist?.fullNameMl ? '' : editArtist?.fullNameMl['ru']"
-                  (ngModelChange)="onNameChange($event, 'ru')" mchRequired></mchInput>
+                  (ngModelChange)="onNameChange($event, 'ru')"></mchInput>
+      </div>
+    </div>
+    <div class="g-mb-10">
+      <label>Description [En]:</label>
+      <div>
+        <mchInput [ngModel]="!editArtist?.descriptionMl ? '' : editArtist?.descriptionMl['en']"
+                  (ngModelChange)="onDescriptionChange($event, 'en')" mchRequired></mchInput>
+      </div>
+    </div>
+    <div class="g-mb-10">
+      <label>Description [Ru]:</label>
+      <div>
+        <mchInput [ngModel]="!editArtist?.descriptionMl ? '' : editArtist?.descriptionMl['ru']"
+                  (ngModelChange)="onDescriptionChange($event, 'ru')"></mchInput>
       </div>
     </div>
     <div>

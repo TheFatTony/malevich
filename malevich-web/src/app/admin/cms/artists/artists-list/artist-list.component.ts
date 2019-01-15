@@ -4,6 +4,7 @@ import {TranslateService} from '@ngx-translate/core';
 import {jqxWindowComponent} from 'jqwidgets-scripts/jqwidgets-ts/angular_jqxwindow';
 import {ArtistService} from "../../../../_services/artist.service";
 import {ArtistDto} from "../../../../_transfer";
+import {environment} from "../../../../../environments/environment.dev";
 
 @Component({
   selector: 'app-help-category-list',
@@ -18,6 +19,8 @@ export class ArtistListComponent implements OnInit {
   editArtist: ArtistDto;
 
   selectedRowIndex: number;
+
+  public url = environment.baseUrl;
 
   x: number;
   y: number;
@@ -39,8 +42,8 @@ export class ArtistListComponent implements OnInit {
   }
 
   openWindow() {
-    this.myWindow.width(310);
-    this.myWindow.height(240);
+    this.myWindow.width(500);
+    this.myWindow.height(800);
     this.myWindow.open();
     this.myWindow.move(this.x, this.y);
   }
@@ -61,6 +64,13 @@ export class ArtistListComponent implements OnInit {
       return;
 
     this.editArtist.fullNameMl[lang] = $event;
+  }
+
+  onDescriptionChange($event, lang: string) {
+    if (!$event)
+      return;
+
+    this.editArtist.descriptionMl[lang] = $event;
   }
 
   onGridRowSelect($event: any) {
@@ -86,5 +96,19 @@ export class ArtistListComponent implements OnInit {
     this.editArtist = this.artists[this.selectedRowIndex];
 
     this.openWindow();
+  }
+
+  onUploadEnd(event: any): void {
+    let args = event.args;
+    let body = args.response.toString()
+      .replace('<pre style="word-wrap: break-word; white-space: pre-wrap;">', '')
+      .replace('<pre>', '')
+      .replace('</pre>', '');
+
+    console.log(body);
+
+    let serverResponse = JSON.parse(body);
+    this.editArtist.thumbnail = serverResponse;
+    this.editArtist.image = serverResponse;
   }
 }

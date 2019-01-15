@@ -1,6 +1,8 @@
 package io.malevich.server.services.payments;
 
 import io.malevich.server.domain.*;
+import io.malevich.server.fabric.model.PaymentTransaction;
+import io.malevich.server.fabric.services.payment.PaymentTransactionService;
 import io.malevich.server.repositories.payments.PaymentsDao;
 import io.malevich.server.repositories.transactiongroup.TransactionGroupDao;
 import io.malevich.server.services.counterparty.CounterpartyService;
@@ -14,6 +16,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -39,12 +42,27 @@ public class PaymentsServiceImpl implements PaymentsService {
     @Autowired
     private PaymentTypeService paymentTypeService;
 
+    @Autowired
+    private PaymentTransactionService paymentTransactionService;
+
 
     @Override
     @Transactional(readOnly = true)
     public List<PaymentsEntity> findOwnPayments() {
         CounterpartyEntity entity = counterpartyService.getCurrent();
-        return this.paymentsDao.findPaymentsEntityByParty_Id(entity.getId());
+//        return this.paymentsDao.findPaymentsEntityByParty_Id(entity.getId());
+        List<PaymentsEntity> paymentsEntities = new ArrayList<>();
+        List<PaymentTransaction> list = paymentTransactionService.list();
+        for (PaymentTransaction p: list) {
+            PaymentsEntity paymentsEntity = new PaymentsEntity();
+            paymentsEntity.setAmount(p.getAmount());
+            paymentsEntity.setPaymentType(
+                    paymentTypeService.getValues().get(p.getPaymentType()));
+
+            paymentsEntities.add(paymentsEntity);
+        }
+
+        return paymentsEntities;
     }
 
     @Override
@@ -74,6 +92,8 @@ public class PaymentsServiceImpl implements PaymentsService {
         paymentsEntity.setTransactionGroup(transactionGroupEntity);
 
         paymentsEntity = paymentsDao.save(paymentsEntity);
+
+        paymentTransactionService.create(paymentsEntity);
 
         transactionService.createTransactionAndReverse(transactionType, paymentsEntity.getTransactionGroup(), paymentsEntity.getParty(), malevich, null, paymentsEntity.getAmount(), 0L);
     }

@@ -6,8 +6,11 @@ import com.yinyang.core.server.domain.RegisterTokenEntity;
 import com.yinyang.core.server.domain.UserEntity;
 import com.yinyang.core.server.domain.UserTypeEntity;
 import com.yinyang.core.server.repositories.registertoken.RegisterTokenDao;
+import com.yinyang.core.server.services.auth.AuthService;
 import com.yinyang.core.server.services.mailqueue.MailQueueService;
 import com.yinyang.core.server.services.user.UserService;
+import com.yinyang.core.server.transfer.AccessTokenDto;
+import com.yinyang.core.server.transfer.LoginFormDto;
 import io.malevich.server.config.MyAuthenticationProvider;
 import io.malevich.server.domain.*;
 import io.malevich.server.services.counterparty.CounterpartyService;
@@ -64,8 +67,12 @@ public class RegisterServiceImpl implements RegisterService {
     @Autowired
     private CounterpartyService counterpartyService;
 
+    @Autowired
+    private AuthService authService;
+
     @Value("${yinyang.client.url}")
     private String clientUrl;
+
 
 
     @Override
@@ -119,7 +126,7 @@ public class RegisterServiceImpl implements RegisterService {
 
     @Override
     @Transactional
-    public UserEntity register2(String token, RegisterFormStepTwoDto registerInfo) {
+    public AccessTokenDto register2(String token, RegisterFormStepTwoDto registerInfo) {
         RegisterTokenEntity registerTokenEntity = findToken(token).get();
 
         List<SimpleGrantedAuthority> roles = Lists.newArrayList(MyAuthenticationProvider.ROLE_USER);
@@ -163,7 +170,12 @@ public class RegisterServiceImpl implements RegisterService {
         counterpartyService.save(counterparty);
 
         deleteToken(registerTokenEntity);
-        return user;
+
+        LoginFormDto login = new LoginFormDto();
+        login.setUsername(user.getUsername());
+        login.setPassword(registerInfo.getPassword());
+
+        return authService.authenticate(login);
     }
 
 }

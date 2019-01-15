@@ -3,6 +3,8 @@ import {environment} from "../../environments/environment.dev";
 import {HttpClient} from "@angular/common/http";
 import {Globals} from "../globals";
 import {RegisterFormDto} from "../_transfer/registerFormDto";
+import {AuthService} from "./auth.service";
+import {map} from "rxjs/operators";
 
 @Injectable({
   providedIn: 'root'
@@ -11,7 +13,9 @@ export class UserService {
 
   private url = environment.baseUrl + 'user';
 
-  constructor(private http: HttpClient, public globals: Globals) {
+  constructor(private http: HttpClient,
+              public globals: Globals,
+              private authService: AuthService) {
   }
 
   register(lang: string, registerInfo: RegisterFormDto) {
@@ -25,7 +29,8 @@ export class UserService {
 
   /// set password
   register2(token: string, info: any) {
-    return this.http.post<any>(this.url + `/register/${token}`, info);
+    return this.http.post<any>(this.url + `/register/${token}`, info)
+      .pipe(map(this.authService.setUser));
   }
 
   reset(lang: string, email: string) {

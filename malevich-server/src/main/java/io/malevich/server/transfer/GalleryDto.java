@@ -12,7 +12,11 @@ public class GalleryDto extends ParticipantDto {
 
     private OrganizationDto organization;
 
+    private FileDto thumbnail;
+
     private FileDto image;
+
+    private Map<String, String> titleMl;
 
     private Map<String, String> descriptionMl;
 }

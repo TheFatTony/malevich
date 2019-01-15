@@ -10,6 +10,7 @@ import {OrdersListComponent} from './cms/orders/orders-list/orders-list.componen
 import {HelpCategoryComponent} from './cms/help/help-category/help-category.component';
 import {HelpTopicComponent} from './cms/help/help-topic/help-topic.component';
 import {DelayedChangeComponent} from "./cms/delayed-change/delayed-change.component";
+import {ArtistListComponent} from "./cms/artists/artists-list/artist-list.component";
 
 
 export const routes: Routes = [
@@ -23,7 +24,8 @@ export const routes: Routes = [
   {path: 'cms/orders/list', component: OrdersListComponent},
   {path: 'cms/help-category/categoryList', component: HelpCategoryComponent},
   {path: 'cms/help-topic/topicList', component: HelpTopicComponent},
-  {path: 'cms/delayed-changes', component: DelayedChangeComponent}
+  {path: 'cms/delayed-changes', component: DelayedChangeComponent},
+  {path: 'cms/artists', component: ArtistListComponent}
 ];
 
 @NgModule({

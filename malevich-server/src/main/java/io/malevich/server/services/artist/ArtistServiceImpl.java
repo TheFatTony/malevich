@@ -29,6 +29,12 @@ public class ArtistServiceImpl implements ArtistService {
     }
 
     @Override
+    @Transactional
+    public ArtistEntity save(ArtistEntity artist) {
+        return artistDao.save(artist);
+    }
+
+    @Override
     @Transactional(readOnly = true)
     public ArtistEntity find(Long id) {
         return this.artistDao.findById(id).get();

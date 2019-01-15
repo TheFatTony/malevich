@@ -16,15 +16,17 @@ export class AuthService {
 
   login(username: string, password: string) {
     return this.http.post<any>(this.url + '/authenticate', {username: username, password: password})
-      .pipe(map(user => {
-        if (user && user.token) {
-          localStorage.setItem('currentUser', JSON.stringify(user));
-          this.globals.isAuthorised = true;
-          this.getUser();
-        }
+      .pipe(map(this.setUser));
+  }
 
-        return user;
-      }));
+  setUser = (user: any) => {
+    if (user && user.token) {
+      localStorage.setItem('currentUser', JSON.stringify(user));
+      this.globals.isAuthorised = true;
+      this.getUser();
+    }
+
+    return user;
   }
 
   refreshToken() {

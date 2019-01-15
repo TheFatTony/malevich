@@ -1,5 +1,6 @@
 package io.malevich.server.services.delayedchange;
 
+import com.yinyang.core.server.domain.YAbstractPersistable;
 import io.malevich.server.domain.DelayedChangeEntity;
 import org.springframework.stereotype.Service;
 
@@ -11,6 +12,8 @@ public interface DelayedChangeService {
 
 
     DelayedChangeEntity save(DelayedChangeEntity delayedChange);
+
+    DelayedChangeEntity saveEntity(YAbstractPersistable<Long> entity);
 
     void approveChange(DelayedChangeEntity delayedChangeEntity);
 

@@ -3,7 +3,7 @@ import {CountryDto} from "../../_transfer/countryDto";
 import {TranslateService} from "@ngx-translate/core";
 import {AuthService} from "../../_services";
 import {DelayedChangeService} from "../../_services/delayed-change.service";
-import {AlertService, UserDto} from "yinyang-core";
+import {UserDto} from "yinyang-core";
 import {ParticipantService} from "../../_services/participant.service";
 import {ParticipantDto} from "../../_transfer/participantDto";
 import {Router} from "@angular/router";
@@ -25,14 +25,11 @@ export class ViewComponent implements OnInit {
   oldPassword: string;
   newPassword: string;
 
-  hasChanges: boolean;
-
   constructor(public translate: TranslateService,
               private authService: AuthService,
               private userService: UserService,
               private participantService: ParticipantService,
               private delayedChangeService: DelayedChangeService,
-              private alertService: AlertService,
               private router: Router) {
     this.authService.getCurrentUser().subscribe(data => {
       this.user = data
@@ -48,14 +45,8 @@ export class ViewComponent implements OnInit {
 
   getCounterpartyDelayedChanges(participantId: number): void {
     this.delayedChangeService
-      .getParticipantDelayedChanges(participantId)
-      .subscribe(
-        data => {
-          this.hasChanges = data;
-          if (this.hasChanges === true)
-            this.alertService.success("You have unprocessed changes.");
-        }
-      );
+      .alertIfDelayedChanges("PARTICIPANT", participantId)
+      .subscribe();
   }
 
   getCurrent(): void {

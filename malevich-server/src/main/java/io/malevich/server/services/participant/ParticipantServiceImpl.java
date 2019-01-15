@@ -3,7 +3,6 @@ package io.malevich.server.services.participant;
 import com.google.common.collect.Lists;
 import com.yinyang.core.server.domain.UserEntity;
 import com.yinyang.core.server.services.auth.AuthService;
-import com.yinyang.core.server.services.user.UserService;
 import io.malevich.server.domain.*;
 import io.malevich.server.repositories.participant.ParticipantDao;
 import io.malevich.server.services.delayedchange.DelayedChangeService;
@@ -27,9 +26,6 @@ public class ParticipantServiceImpl implements ParticipantService {
 
     @Autowired
     private ParticipantDao dao;
-
-    @Autowired
-    private UserService userService;
 
     @Autowired
     private DelayedChangeService delayedChangeService;

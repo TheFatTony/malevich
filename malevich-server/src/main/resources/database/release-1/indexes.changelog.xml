@@ -23,8 +23,6 @@
     <include relativeToChangelogFile="true" file="indexes/payment_type.index.xml"/>
     <include relativeToChangelogFile="true" file="indexes/order_status.index.xml"/>
     <include relativeToChangelogFile="true" file="indexes/trade_type.index.xml"/>
-    <include relativeToChangelogFile="true" file="indexes/counterparty_type.index.xml"/>
-    <include relativeToChangelogFile="true" file="indexes/counterparty.index.xml"/>
     <include relativeToChangelogFile="true" file="indexes/payment_method_type.index.xml"/>
     <include relativeToChangelogFile="true" file="indexes/payment_method.index.xml"/>
     <include relativeToChangelogFile="true" file="indexes/payments.index.xml"/>

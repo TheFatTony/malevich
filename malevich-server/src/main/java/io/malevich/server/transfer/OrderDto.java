@@ -17,7 +17,7 @@ public class OrderDto {
 
     private ArtworkStockDto artworkStock;
 
-    private CounterpartyDto party;
+    private ParticipantDto party;
 
     private TradeTypeDto tradeType;
 

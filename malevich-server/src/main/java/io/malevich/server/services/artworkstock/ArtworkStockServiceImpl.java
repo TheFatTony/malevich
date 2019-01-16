@@ -1,10 +1,10 @@
 package io.malevich.server.services.artworkstock;
 
-import io.malevich.server.domain.*;
+import io.malevich.server.domain.ArtworkStockEntity;
+import io.malevich.server.domain.GalleryEntity;
 import io.malevich.server.fabric.services.artworkstock.ArtworkStockAssetService;
 import io.malevich.server.repositories.artworkstock.ArtworkStockDao;
 import io.malevich.server.services.artwork.ArtworkService;
-import io.malevich.server.services.counterparty.CounterpartyService;
 import io.malevich.server.services.gallery.GalleryService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,9 +24,6 @@ public class ArtworkStockServiceImpl implements ArtworkStockService {
 
     @Autowired
     private ArtworkStockDao artworkStockDao;
-
-    @Autowired
-    private CounterpartyService counterpartyService;
 
     @Autowired
     private ArtworkService artworkService;

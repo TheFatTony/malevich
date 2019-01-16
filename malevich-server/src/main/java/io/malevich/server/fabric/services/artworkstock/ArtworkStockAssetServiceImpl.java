@@ -54,7 +54,7 @@ public class ArtworkStockAssetServiceImpl extends GenericComposerServiceImpl<Art
 
         try {
             ResponseEntity<List<ArtworkStockAsset>> res = restTemplate.exchange(composerUrl + "/queries/selectOwnedArtworkStocks?owner={owner}", HttpMethod.GET, null, new ParameterizedTypeReference<List<ArtworkStockAsset>>() {
-            }, (fabricClass + participantEntity.getUser().getUsername()));
+            }, (fabricClass + participantEntity.getId()));
             return res.getBody();
         } catch (RestClientException e) {
             String errorResponse = ((HttpStatusCodeException) e).getResponseBodyAsString();

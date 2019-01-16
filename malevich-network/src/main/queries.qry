@@ -27,3 +27,15 @@ query getOrdersByArtworkStock {
   statement:
       SELECT io.malevich.network.OrderAsset WHERE (order.artworkStock == _$artworkStock)
 }
+
+query getOrdersByCounterparty {
+  description: "getOrdersByCounterparty"
+  statement:
+      SELECT io.malevich.network.OrderAsset WHERE (order.сounterparty == _$сounterparty)
+}
+
+query getTradeHistoryByArtworkStock {
+  description: "getTradeHistoryByArtworkStock"
+  statement:
+      SELECT io.malevich.network.TradeHistory WHERE (artworkStock == _$artworkStock)
+}

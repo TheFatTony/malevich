@@ -19,7 +19,6 @@
     <include relativeToChangelogFile="true" file="indexes/artwork.index.xml"/>
     <include relativeToChangelogFile="true" file="indexes/address.index.xml"/>
     <include relativeToChangelogFile="true" file="indexes/artwork_stock.index.xml"/>
-    <include relativeToChangelogFile="true" file="indexes/transaction_type.index.xml"/>
     <include relativeToChangelogFile="true" file="indexes/order_type.index.xml"/>
     <include relativeToChangelogFile="true" file="indexes/payment_type.index.xml"/>
     <include relativeToChangelogFile="true" file="indexes/order_status.index.xml"/>
@@ -28,13 +27,7 @@
     <include relativeToChangelogFile="true" file="indexes/counterparty.index.xml"/>
     <include relativeToChangelogFile="true" file="indexes/payment_method_type.index.xml"/>
     <include relativeToChangelogFile="true" file="indexes/payment_method.index.xml"/>
-    <include relativeToChangelogFile="true" file="indexes/transaction_group.index.xml"/>
     <include relativeToChangelogFile="true" file="indexes/payments.index.xml"/>
-    <include relativeToChangelogFile="true" file="indexes/orders.index.xml"/>
-    <include relativeToChangelogFile="true" file="indexes/transactions.index.xml"/>
-    <include relativeToChangelogFile="true" file="indexes/account_state.index.xml"/>
-    <include relativeToChangelogFile="true" file="indexes/account_state_arch.index.xml"/>
-    <include relativeToChangelogFile="true" file="indexes/trade_history.index.xml"/>
     <include relativeToChangelogFile="true" file="indexes/help_category.index.xml"/>
     <include relativeToChangelogFile="true" file="indexes/help_topic.index.xml"/>
     <include relativeToChangelogFile="true" file="indexes/contact_us.index.xml"/>

@@ -1,6 +1,5 @@
 package io.malevich.server.services.counterpartytype;
 
-import io.malevich.server.domain.TransactionTypeEntity;
 import io.malevich.server.repositories.counterpartytype.CounterpartyTypeDao;
 import io.malevich.server.domain.CounterpartyTypeEntity;
 import lombok.extern.slf4j.Slf4j;

@@ -4,11 +4,8 @@ import io.malevich.server.domain.*;
 import io.malevich.server.fabric.model.PaymentTransaction;
 import io.malevich.server.fabric.services.payment.PaymentTransactionService;
 import io.malevich.server.repositories.payments.PaymentsDao;
-import io.malevich.server.repositories.transactiongroup.TransactionGroupDao;
 import io.malevich.server.services.counterparty.CounterpartyService;
 import io.malevich.server.services.paymenttype.PaymentTypeService;
-import io.malevich.server.services.transaction.TransactionService;
-import io.malevich.server.services.transactiontype.TransactionTypeService;
 import io.malevich.server.util.PaymentFop;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,16 +25,7 @@ public class PaymentsServiceImpl implements PaymentsService {
     private PaymentsDao paymentsDao;
 
     @Autowired
-    private TransactionService transactionService;
-
-    @Autowired
-    private TransactionTypeService transactionTypeService;
-
-    @Autowired
     private CounterpartyService counterpartyService;
-
-    @Autowired
-    private TransactionGroupDao transactionGroupDao;
 
     @Autowired
     private PaymentTypeService paymentTypeService;
@@ -72,30 +60,20 @@ public class PaymentsServiceImpl implements PaymentsService {
         CounterpartyEntity malevich = counterpartyService.getMalevich();
 
         PaymentTypeEntity paymentType;
-        TransactionTypeEntity transactionType;
 
         if (paymentsEntity.getAmount() < 0) {
             paymentType = paymentTypeService.getWithdrawalType();
-            transactionType = transactionTypeService.getWithdrawBalance();
         } else {
             paymentType = paymentTypeService.getPaymentType();
-            transactionType = transactionTypeService.getAddBalance();
         }
 
         paymentsEntity.setParty(current);
         paymentsEntity.setPaymentType(paymentType);
 
-        TransactionGroupEntity transactionGroupEntity = new TransactionGroupEntity();
-        transactionGroupEntity.setType("PAYMENT");
-        transactionGroupEntity = transactionGroupDao.save(transactionGroupEntity);
-
-        paymentsEntity.setTransactionGroup(transactionGroupEntity);
-
         paymentsEntity = paymentsDao.save(paymentsEntity);
 
         paymentTransactionService.create(paymentsEntity);
 
-        transactionService.createTransactionAndReverse(transactionType, paymentsEntity.getTransactionGroup(), paymentsEntity.getParty(), malevich, null, paymentsEntity.getAmount(), 0L);
     }
 
     @Override

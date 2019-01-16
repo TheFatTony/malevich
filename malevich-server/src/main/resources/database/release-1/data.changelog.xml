@@ -10,7 +10,6 @@
     <include relativeToChangelogFile="true" file="data/user.data.xml"/>
     <include relativeToChangelogFile="true" file="data/user_roles.data.xml"/>
     <include relativeToChangelogFile="true" file="data/category.data.xml"/>
-    <include relativeToChangelogFile="true" file="data/transaction_type.data.xml"/>
     <include relativeToChangelogFile="true" file="data/order_type.data.xml"/>
     <include relativeToChangelogFile="true" file="data/payment_type.data.xml"/>
     <include relativeToChangelogFile="true" file="data/order_status.data.xml"/>

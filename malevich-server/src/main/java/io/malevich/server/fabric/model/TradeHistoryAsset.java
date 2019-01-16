@@ -9,13 +9,13 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class PaymentTransaction {
+public class TradeHistoryAsset {
 
-    private Double amount;
+    private String id;
 
-    private String paymentType;
+    private OrderConcept askOrder;
 
-    private String party;
+    private OrderConcept bidOrder;
 
 
 }

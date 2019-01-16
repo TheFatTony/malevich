@@ -27,14 +27,6 @@ public class AccountStateResource {
     @Autowired
     private ModelMapper modelMapper;
 
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
-    @RequestMapping(value = "/list", method = RequestMethod.GET)
-    @ResponseStatus(HttpStatus.OK)
-    @ResponseBody
-    public List<AccountStateDto> list() {
-        List<AccountStateEntity> allEntries = this.accountStateService.findAll();
-        return allEntries.stream().map(allEntry -> convertToDto(allEntry)).collect(Collectors.toList());
-    }
 
 
     @PreAuthorize("hasRole('ROLE_USER')")

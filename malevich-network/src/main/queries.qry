@@ -10,6 +10,18 @@ query selectArtworkStocks {
       SELECT io.malevich.network.ArtworkStock
 }
 
+query selectOwnedArtworkStocks {
+  description: "selectOwnedArtworkStocks"
+  statement:
+      SELECT io.malevich.network.ArtworkStock WHERE (owner == _$owner)
+}
+
+query selectStoredArtworkStocks {
+  description: "selectStoredArtworkStocks"
+  statement:
+      SELECT io.malevich.network.ArtworkStock WHERE (holder == _$holder)
+}
+
 query selectPaymentsByCounterparty {
   description: "selectPaymentsByCounterparty"
   statement:
@@ -26,4 +38,16 @@ query getOrdersByArtworkStock {
   description: "getOrdersByArtworkStock"
   statement:
       SELECT io.malevich.network.OrderAsset WHERE (order.artworkStock == _$artworkStock)
+}
+
+query getOrdersByCounterparty {
+  description: "getOrdersByCounterparty"
+  statement:
+      SELECT io.malevich.network.OrderAsset WHERE (order.сounterparty == _$сounterparty)
+}
+
+query getTradeHistoryByArtworkStock {
+  description: "getTradeHistoryByArtworkStock"
+  statement:
+      SELECT io.malevich.network.TradeHistory WHERE (artworkStock == _$artworkStock)
 }

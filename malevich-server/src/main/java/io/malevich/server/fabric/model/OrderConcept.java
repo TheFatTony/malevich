@@ -9,7 +9,7 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class OrderConcept extends CounterpartyParticipant {
+public class OrderConcept  {
 
     private  String id;
 

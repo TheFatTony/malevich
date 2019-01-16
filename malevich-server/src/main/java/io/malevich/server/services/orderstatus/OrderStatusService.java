@@ -4,6 +4,7 @@ import io.malevich.server.domain.OrderStatusEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 
@@ -17,4 +18,6 @@ public interface OrderStatusService {
     OrderStatusEntity getExecuted();
 
     OrderStatusEntity getCanceled();
+
+    Map<String, OrderStatusEntity> getValues();
 }

@@ -25,14 +25,6 @@ public class TradeHistoryResource {
     private ModelMapper modelMapper;
 
 
-    @RequestMapping(value = "/list", method = RequestMethod.GET)
-    @ResponseStatus(HttpStatus.OK)
-    @ResponseBody
-    public List<TradeHistoryDto> list() {
-        List<TradeHistoryEntity> allEntries = this.tradeHistoryService.findAll();
-        return allEntries.stream().map(allEntry -> convertToDto(allEntry)).collect(Collectors.toList());
-    }
-
     @RequestMapping(value = "/findAllByArtworkId/{artworkId}", method = RequestMethod.GET)
     public List<TradeHistoryDto> findAllByArtworkId(@PathVariable("artworkId") long artworkId) {
         List<TradeHistoryEntity> allEntries = this.tradeHistoryService.findAllByArtworkId(artworkId);

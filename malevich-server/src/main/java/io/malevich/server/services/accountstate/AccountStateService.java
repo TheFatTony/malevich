@@ -10,10 +10,6 @@ import java.util.List;
 @Service
 public interface AccountStateService {
 
-    List<AccountStateEntity> findAll();
-
-    AccountStateEntity findByArtworkStockAndParty(Long artworkStockId, Long counterpartyId);
-
     AccountStateEntity getWallet();
 
     List<ArtworkStockEntity> getOwnArtworks();

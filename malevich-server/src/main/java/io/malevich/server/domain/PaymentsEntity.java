@@ -20,7 +20,7 @@ public class PaymentsEntity extends YAbstractPersistable<Long> {
     @Setter
     @Fetch(FetchMode.JOIN)
     @ManyToOne(cascade = CascadeType.MERGE)
-    private CounterpartyEntity party;
+    private ParticipantEntity participant;
 
     @Getter
     @Setter
@@ -37,12 +37,6 @@ public class PaymentsEntity extends YAbstractPersistable<Long> {
     @Setter
     @Column(name = "amount")
     private Double amount;
-
-    @Getter
-    @Setter
-    @Fetch(FetchMode.JOIN)
-    @ManyToOne(cascade = CascadeType.MERGE)
-    private TransactionGroupEntity transactionGroup;
 
     @Getter
     @Setter

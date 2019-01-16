@@ -1,6 +1,5 @@
 package io.malevich.server.services.document;
 
-import io.malevich.server.domain.CounterpartyEntity;
 import io.malevich.server.domain.DocumentEntity;
 import io.malevich.server.domain.ParticipantEntity;
 import io.malevich.server.repositories.document.DocumentDao;

@@ -37,7 +37,7 @@ public class PaymentTransactionServiceImpl extends GenericComposerServiceImpl<Pa
     @Override
     public void create(PaymentsEntity entity) {
         PaymentTransaction paymentTransaction = new PaymentTransaction();
-        paymentTransaction.setParty("resource:io.malevich.network.Trader#" + entity.getParty().getParticipant().getUser().getUsername());
+        paymentTransaction.setParty("resource:io.malevich.network.Trader#" + entity.getParticipant().getUser().getUsername());
         paymentTransaction.setAmount(entity.getAmount());
         paymentTransaction.setPaymentType(entity.getPaymentType().getId());
 

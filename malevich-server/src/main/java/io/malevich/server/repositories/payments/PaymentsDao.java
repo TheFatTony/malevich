@@ -10,5 +10,4 @@ import java.util.List;
 @Repository
 public interface PaymentsDao extends JpaRepository<PaymentsEntity, Long> {
 
-    List<PaymentsEntity> findPaymentsEntityByParty_Id(Long partyId);
 }

@@ -4,6 +4,8 @@ import com.google.common.collect.Lists;
 import com.yinyang.core.server.domain.UserEntity;
 import com.yinyang.core.server.services.auth.AuthService;
 import io.malevich.server.domain.*;
+import io.malevich.server.fabric.services.gallery.GalleryParticipantService;
+import io.malevich.server.fabric.services.trader.TraderParticipantService;
 import io.malevich.server.repositories.participant.ParticipantDao;
 import io.malevich.server.services.delayedchange.DelayedChangeService;
 import io.malevich.server.services.participanttype.ParticipantTypeService;
@@ -36,10 +38,14 @@ public class ParticipantServiceImpl implements ParticipantService {
     @Autowired
     private ModelMapper modelMapper;
 
-
     @Autowired
     private AuthService authService;
 
+    @Autowired
+    private GalleryParticipantService galleryParticipantService;
+
+    @Autowired
+    private TraderParticipantService traderParticipantService;
 
     @Override
     public List<ParticipantEntity> findAll() {
@@ -55,15 +61,7 @@ public class ParticipantServiceImpl implements ParticipantService {
     @Override
     @Transactional(readOnly = true)
     public ParticipantEntity getCurrent() {
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        Object principal = authentication.getPrincipal();
-
-        if (!(principal instanceof UserDetails))
-            return null;
-
-        UserDetails userDetails = (UserDetails) principal;
-
-        return dao.findByUsers_Name(userDetails.getUsername()).orElse(null);
+        return dao.findByUsers_Name(authService.getUserEntity().getUsername()).orElse(null);
     }
 
     @Override
@@ -119,8 +117,14 @@ public class ParticipantServiceImpl implements ParticipantService {
         } else {
             participantEntity.setUsers(Lists.newArrayList(user));
         }
+        participantEntity = dao.save(participantEntity);
 
-        return dao.save(participantEntity);
+        if ("G".equals(participantEntity.getType().getId()))
+            galleryParticipantService.create(participantEntity);
+        else
+            traderParticipantService.create(participantEntity);
+
+        return participantEntity;
     }
 
     @Override

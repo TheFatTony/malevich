@@ -34,7 +34,7 @@ public class OrderTransactionServiceImpl extends GenericComposerServiceImpl<Orde
 
     @Override
     public void create(OrderEntity entity) {
-        ParticipantEntity participantEntity = entity.getParty().getParticipant();
+        ParticipantEntity participantEntity = entity.getParticipant();
         String fabricClass = null;
 
         if ("G".equals(participantEntity.getType().getId())) {

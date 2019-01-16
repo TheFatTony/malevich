@@ -109,7 +109,7 @@ public class OrderServiceImpl implements OrderService {
 
 
         orderEntity.setEffectiveDate(new Timestamp(System.currentTimeMillis()));
-        orderEntity.setParty(participantService.getCurrent());
+        orderEntity.setParticipant(participantService.getCurrent());
         if (orderEntity.getTradeType() == null)
             orderEntity.setTradeType(tradeTypeService.getGtc());
         orderEntity.setType(orderTypeService.getAsk());
@@ -126,7 +126,7 @@ public class OrderServiceImpl implements OrderService {
     @Transactional()
     public void placeBid(OrderEntity orderEntity) {
         orderEntity.setEffectiveDate(new Timestamp(System.currentTimeMillis()));
-        orderEntity.setParty(participantService.getCurrent());
+        orderEntity.setParticipant(participantService.getCurrent());
         if (orderEntity.getTradeType() == null)
             orderEntity.setTradeType(tradeTypeService.getGtc());
         orderEntity.setType(orderTypeService.getBid());

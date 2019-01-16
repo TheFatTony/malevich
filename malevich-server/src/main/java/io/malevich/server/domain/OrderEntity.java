@@ -26,7 +26,7 @@ public class OrderEntity extends YAbstractPersistable<Long> {
     @Getter
     @Setter
     @Fetch(FetchMode.JOIN)
-    private CounterpartyEntity party;
+    private ParticipantEntity party;
 
     @Getter
     @Setter

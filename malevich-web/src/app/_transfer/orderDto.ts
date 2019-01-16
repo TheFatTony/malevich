@@ -1,13 +1,13 @@
 import {OrderTypeDto} from "./orderTypeDto";
 import {ArtworkStockDto} from "./artworkStockDto";
-import {CounterpartyDto} from "./counterpartyDto";
 import {TradeTypeDto} from "./tradeTypeDto";
+import {ParticipantDto} from "./participantDto";
 
 export class OrderDto {
   id: number;
   type: OrderTypeDto;
   artworkStock: ArtworkStockDto;
-  party: CounterpartyDto;
+  party: ParticipantDto;
   tradeType: TradeTypeDto;
   amount: number;
   effectiveDate: Date;

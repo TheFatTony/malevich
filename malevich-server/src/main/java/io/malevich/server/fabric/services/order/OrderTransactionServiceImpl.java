@@ -5,7 +5,6 @@ import io.malevich.server.domain.OrderEntity;
 import io.malevich.server.domain.ParticipantEntity;
 import io.malevich.server.fabric.model.OrderConcept;
 import io.malevich.server.fabric.model.OrderTransaction;
-import io.malevich.server.services.counterparty.CounterpartyService;
 import io.malevich.server.services.participant.ParticipantService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -6,8 +6,6 @@ import com.yinyang.core.server.services.user.UserService;
 import io.malevich.server.domain.ParticipantEntity;
 import io.malevich.server.domain.TraderPersonEntity;
 import io.malevich.server.repositories.trader.TraderDao;
-import io.malevich.server.services.counterparty.CounterpartyService;
-import io.malevich.server.services.counterpartytype.CounterpartyTypeService;
 import io.malevich.server.services.delayedchange.DelayedChangeService;
 import io.malevich.server.services.participant.ParticipantService;
 import lombok.extern.slf4j.Slf4j;
@@ -30,12 +28,6 @@ public class TraderServiceImpl implements TraderService {
 
     @Autowired
     private UserService userService;
-
-    @Autowired
-    private CounterpartyService counterpartyService;
-
-    @Autowired
-    private CounterpartyTypeService counterpartyTypeService;
 
     @Autowired
     private DelayedChangeService delayedChangeService;

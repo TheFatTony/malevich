@@ -5,9 +5,9 @@ import io.malevich.server.domain.OrderEntity;
 import io.malevich.server.fabric.model.OrderTransaction;
 import io.malevich.server.fabric.services.order.OrderTransactionService;
 import io.malevich.server.services.artworkstock.ArtworkStockService;
-import io.malevich.server.services.counterparty.CounterpartyService;
 import io.malevich.server.services.orderstatus.OrderStatusService;
 import io.malevich.server.services.ordertype.OrderTypeService;
+import io.malevich.server.services.participant.ParticipantService;
 import io.malevich.server.services.tradetype.TradeTypeService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,8 +25,6 @@ import java.util.List;
 public class OrderServiceImpl implements OrderService {
 
 
-    @Autowired
-    private CounterpartyService counterpartyService;
 
     @Autowired
     private TradeTypeService tradeTypeService;
@@ -37,12 +35,14 @@ public class OrderServiceImpl implements OrderService {
     @Autowired
     private OrderStatusService orderStatusService;
 
-
     @Autowired
     private OrderTransactionService orderTransactionService;
 
     @Autowired
     private ArtworkStockService artworkStockService;
+
+    @Autowired
+    private ParticipantService participantService;
 
     @Override
     @Transactional(readOnly = true)
@@ -106,8 +106,10 @@ public class OrderServiceImpl implements OrderService {
     @Override
     @Transactional
     public void placeAsk(OrderEntity orderEntity) {
+
+
         orderEntity.setEffectiveDate(new Timestamp(System.currentTimeMillis()));
-        orderEntity.setParty(counterpartyService.getCurrent());
+        orderEntity.setParty(participantService.getCurrent());
         if (orderEntity.getTradeType() == null)
             orderEntity.setTradeType(tradeTypeService.getGtc());
         orderEntity.setType(orderTypeService.getAsk());
@@ -124,7 +126,7 @@ public class OrderServiceImpl implements OrderService {
     @Transactional()
     public void placeBid(OrderEntity orderEntity) {
         orderEntity.setEffectiveDate(new Timestamp(System.currentTimeMillis()));
-        orderEntity.setParty(counterpartyService.getCurrent());
+        orderEntity.setParty(participantService.getCurrent());
         if (orderEntity.getTradeType() == null)
             orderEntity.setTradeType(tradeTypeService.getGtc());
         orderEntity.setType(orderTypeService.getBid());

@@ -9,7 +9,7 @@ public class AccountStateEntity extends YAbstractPersistable<Long> {
 
     @Getter
     @Setter
-    private CounterpartyEntity party;
+    private ParticipantEntity participant;
 
     @Getter
     @Setter

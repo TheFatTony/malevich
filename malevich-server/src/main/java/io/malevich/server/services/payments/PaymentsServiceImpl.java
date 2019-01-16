@@ -4,7 +4,7 @@ import io.malevich.server.domain.*;
 import io.malevich.server.fabric.model.PaymentTransaction;
 import io.malevich.server.fabric.services.payment.PaymentTransactionService;
 import io.malevich.server.repositories.payments.PaymentsDao;
-import io.malevich.server.services.counterparty.CounterpartyService;
+import io.malevich.server.services.participant.ParticipantService;
 import io.malevich.server.services.paymenttype.PaymentTypeService;
 import io.malevich.server.util.PaymentFop;
 import lombok.extern.slf4j.Slf4j;
@@ -25,20 +25,18 @@ public class PaymentsServiceImpl implements PaymentsService {
     private PaymentsDao paymentsDao;
 
     @Autowired
-    private CounterpartyService counterpartyService;
-
-    @Autowired
     private PaymentTypeService paymentTypeService;
 
     @Autowired
     private PaymentTransactionService paymentTransactionService;
 
+    @Autowired
+    private ParticipantService participantService;
+
 
     @Override
     @Transactional(readOnly = true)
     public List<PaymentsEntity> findOwnPayments() {
-        CounterpartyEntity entity = counterpartyService.getCurrent();
-//        return this.paymentsDao.findPaymentsEntityByParty_Id(entity.getId());
         List<PaymentsEntity> paymentsEntities = new ArrayList<>();
         List<PaymentTransaction> list = paymentTransactionService.list();
         for (PaymentTransaction p: list) {
@@ -56,8 +54,7 @@ public class PaymentsServiceImpl implements PaymentsService {
     @Override
     @Transactional
     public void insertPayment(PaymentsEntity paymentsEntity) {
-        CounterpartyEntity current = counterpartyService.getCurrent();
-        CounterpartyEntity malevich = counterpartyService.getMalevich();
+        ParticipantEntity current = participantService.getCurrent();
 
         PaymentTypeEntity paymentType;
 
@@ -67,7 +64,7 @@ public class PaymentsServiceImpl implements PaymentsService {
             paymentType = paymentTypeService.getPaymentType();
         }
 
-        paymentsEntity.setParty(current);
+        paymentsEntity.setParticipant(current);
         paymentsEntity.setPaymentType(paymentType);
 
         paymentsEntity = paymentsDao.save(paymentsEntity);

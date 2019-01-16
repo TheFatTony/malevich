@@ -18,9 +18,6 @@
             <column name="amount" type="double">
                 <constraints nullable="false"/>
             </column>
-            <column name="transaction_group_id" type="bigint">
-                <constraints nullable="false"/>
-            </column>
             <column name="payment_type_id" type="char(3)">
                 <constraints nullable="false"/>
             </column>

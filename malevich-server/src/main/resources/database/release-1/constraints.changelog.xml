@@ -19,7 +19,6 @@
     <include relativeToChangelogFile="true" file="constraints/artwork.constraint.xml"/>
     <include relativeToChangelogFile="true" file="constraints/address.constraint.xml"/>
     <include relativeToChangelogFile="true" file="constraints/artwork_stock.constraint.xml"/>
-    <include relativeToChangelogFile="true" file="constraints/transaction_type.constraint.xml"/>
     <include relativeToChangelogFile="true" file="constraints/order_type.constraint.xml"/>
     <include relativeToChangelogFile="true" file="constraints/payment_type.constraint.xml"/>
     <include relativeToChangelogFile="true" file="constraints/order_status.constraint.xml"/>
@@ -28,13 +27,7 @@
     <include relativeToChangelogFile="true" file="constraints/counterparty_type.constraint.xml"/>
     <include relativeToChangelogFile="true" file="constraints/payment_method_type.constraint.xml"/>
     <include relativeToChangelogFile="true" file="constraints/payment_method.constraint.xml"/>
-    <include relativeToChangelogFile="true" file="constraints/transaction_group.constraint.xml"/>
     <include relativeToChangelogFile="true" file="constraints/payments.constraint.xml"/>
-    <include relativeToChangelogFile="true" file="constraints/orders.constraint.xml"/>
-    <include relativeToChangelogFile="true" file="constraints/transactions.constraint.xml"/>
-    <include relativeToChangelogFile="true" file="constraints/account_state.constraint.xml"/>
-    <include relativeToChangelogFile="true" file="constraints/account_state_arch.constraint.xml"/>
-    <include relativeToChangelogFile="true" file="constraints/trade_history.constraint.xml"/>
     <include relativeToChangelogFile="true" file="constraints/help_category.constraint.xml"/>
     <include relativeToChangelogFile="true" file="constraints/help_topic.constraint.xml"/>
     <include relativeToChangelogFile="true" file="constraints/contact_us.constraint.xml"/>

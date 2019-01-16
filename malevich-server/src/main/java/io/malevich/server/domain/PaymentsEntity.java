@@ -42,12 +42,6 @@ public class PaymentsEntity extends YAbstractPersistable<Long> {
     @Setter
     @Fetch(FetchMode.JOIN)
     @ManyToOne(cascade = CascadeType.MERGE)
-    private TransactionGroupEntity transactionGroup;
-
-    @Getter
-    @Setter
-    @Fetch(FetchMode.JOIN)
-    @ManyToOne(cascade = CascadeType.MERGE)
     private PaymentTypeEntity paymentType;
 
 }

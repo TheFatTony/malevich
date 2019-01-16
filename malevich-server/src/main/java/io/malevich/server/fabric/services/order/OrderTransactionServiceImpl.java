@@ -27,8 +27,6 @@ public class OrderTransactionServiceImpl extends GenericComposerServiceImpl<Orde
     @Autowired
     private ParticipantService participantService;
 
-    @Autowired
-    private CounterpartyService counterpartyService;
 
 
     public OrderTransactionServiceImpl() {

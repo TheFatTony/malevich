@@ -3,19 +3,22 @@ package io.malevich.server.services.accountstate;
 import io.malevich.server.domain.AccountStateEntity;
 import io.malevich.server.domain.ArtworkStockEntity;
 import io.malevich.server.domain.CounterpartyEntity;
+import io.malevich.server.fabric.model.ArtworkStockAsset;
 import io.malevich.server.fabric.model.GalleryParticipant;
 import io.malevich.server.fabric.model.TraderParticipant;
+import io.malevich.server.fabric.services.artworkstock.ArtworkStockAssetService;
 import io.malevich.server.fabric.services.gallery.GalleryParticipantService;
 import io.malevich.server.fabric.services.trader.TraderParticipantService;
-import io.malevich.server.repositories.accountstate.AccountStateDao;
+import io.malevich.server.services.artwork.ArtworkService;
+import io.malevich.server.services.artworkstock.ArtworkStockService;
 import io.malevich.server.services.counterparty.CounterpartyService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 
 @Slf4j
@@ -23,8 +26,6 @@ import java.util.stream.Collectors;
 @Transactional(readOnly = true)
 public class AccountStateServiceImpl implements AccountStateService {
 
-    @Autowired
-    private AccountStateDao accountStateDao;
 
     @Autowired
     private CounterpartyService counterpartyService;
@@ -35,18 +36,12 @@ public class AccountStateServiceImpl implements AccountStateService {
     @Autowired
     private GalleryParticipantService galleryParticipantService;
 
+    @Autowired
+    private ArtworkStockAssetService artworkStockAssetService;
 
-    @Override
-    @Transactional(readOnly = true)
-    public List<AccountStateEntity> findAll() {
-        return this.accountStateDao.findAll();
-    }
+    @Autowired
+    private ArtworkStockService artworkStockService;
 
-    @Override
-    @Transactional(readOnly = true)
-    public AccountStateEntity findByArtworkStockAndParty(Long artworkStockId, Long counterpartyId) {
-        return accountStateDao.findByArtworkStock_IdAndParty_Id(artworkStockId, counterpartyId);
-    }
 
     @Override
     @Transactional(readOnly = true)
@@ -74,11 +69,13 @@ public class AccountStateServiceImpl implements AccountStateService {
     public List<ArtworkStockEntity> getOwnArtworks() {
         CounterpartyEntity counterpartyEntity = counterpartyService.getCurrent();
 
-        return accountStateDao.findByParty_Id(counterpartyEntity.getId())
-                .stream()
-                .filter(s -> s.getArtworkStock() != null && s.getQuantity() > 0)
-                .map(s -> s.getArtworkStock())
-                .collect(Collectors.toList());
+        List<ArtworkStockEntity> result = new ArrayList<>();
+
+        for (ArtworkStockAsset asset : artworkStockAssetService.selectOwnedArtworkStocks()) {
+            result.add(artworkStockService.find(new Long(asset.getId().replace("resource:io.malevich.network.ArtworkStock#", ""))));
+        }
+
+        return result;
     }
 
 

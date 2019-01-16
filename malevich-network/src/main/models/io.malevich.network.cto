@@ -68,6 +68,7 @@ asset OrderAsset identified by id {
 
 asset TradeHistory identified by id {
   o String id
+  --> ArtworkStock artworkStock
   o OrderAsset askOrder
   o OrderAsset bidOrder 
 }

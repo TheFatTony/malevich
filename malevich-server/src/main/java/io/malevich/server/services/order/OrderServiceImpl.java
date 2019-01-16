@@ -1,12 +1,11 @@
 package io.malevich.server.services.order;
 
-import io.malevich.server.domain.CounterpartyEntity;
-import io.malevich.server.domain.OrderEntity;
-import io.malevich.server.domain.TradeHistoryEntity;
-import io.malevich.server.domain.TransactionGroupEntity;
+import io.malevich.server.domain.*;
+import io.malevich.server.fabric.model.OrderTransaction;
 import io.malevich.server.fabric.services.order.OrderTransactionService;
 import io.malevich.server.repositories.order.OrderDao;
 import io.malevich.server.repositories.transactiongroup.TransactionGroupDao;
+import io.malevich.server.services.artworkstock.ArtworkStockService;
 import io.malevich.server.services.counterparty.CounterpartyService;
 import io.malevich.server.services.orderstatus.OrderStatusService;
 import io.malevich.server.services.ordertype.OrderTypeService;
@@ -20,6 +19,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.sql.Timestamp;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collections;
 import java.util.List;
@@ -60,6 +60,9 @@ public class OrderServiceImpl implements OrderService {
     @Autowired
     private OrderTransactionService orderTransactionService;
 
+    @Autowired
+    private ArtworkStockService artworkStockService;
+
     @Override
     @Transactional(readOnly = true)
     public List<OrderEntity> findAll() {
@@ -81,44 +84,47 @@ public class OrderServiceImpl implements OrderService {
     @Override
     @Transactional(readOnly = true)
     public List<OrderEntity> getPlacedOrders() {
-        Long currentId = counterpartyService.getCurrent().getId();
+        List<OrderTransaction> fabricOrders = orderTransactionService.getOrdersByCounterparty();
 
-        return orderDao.findAllPlacedOrdersByParty(currentId);
+        List<OrderEntity> result = new ArrayList<>();
+
+        for (OrderTransaction order: fabricOrders) {
+            OrderEntity orderEntity = new OrderEntity();
+            orderEntity.setStatus(orderStatusService.getValues().get(order.getOrder().getOrderStatus()));
+            orderEntity.setType(orderTypeService.getValues().get(order.getOrder().getOrderType()));
+            orderEntity.setAmount(order.getOrder().getAmount());
+            orderEntity.setIsOwn(false);
+            orderEntity.setArtworkStock(artworkStockService.find(new Long(order.getOrder().getArtworkStock().replace("resource:io.malevich.network.ArtworkStock#", ""))));
+            orderEntity.setTradeType(tradeTypeService.getGtc());
+            result.add(orderEntity);
+        }
+
+        return result;
     }
 
     @Override
     @Transactional(readOnly = true)
     public List<OrderEntity> getOrdersByArtworkStockId(Long artworkId) {
-        CounterpartyEntity currentCounterparty = counterpartyService.getCurrent();
 
-        if(currentCounterparty == null)
-            return Collections.emptyList();
+        ArtworkStockEntity artworkStockEntity = artworkStockService.find(artworkId);
 
-        Long currentPartyId = currentCounterparty.getId();
-        return orderDao.findAllOrdersByArtworkStockId(artworkId)
-                .stream()
-                .map(order -> {
-                    order.setIsOwn(currentPartyId.equals(order.getParty().getId()));
-                    return order;
-                })
-                .sorted((order1, order2) -> {
-                    // ask first
-                    if (!order1.getType().getId().equals(order2.getType().getId()))
-                        return orderTypeService.getAsk().getId().equals(order1.getType().getId()) ? -1 : 1;
+        List<OrderTransaction> fabricOrders = orderTransactionService.getOrdersByArtworkStock(artworkId);
 
-                    int result = 0;
+        List<OrderEntity> result = new ArrayList<>();
 
-                    if (!order1.getAmount().equals(order2.getAmount()))
-                        // max amount first
-                        result = -order1.getAmount().compareTo(order2.getAmount());
-                    else
-                        // earlier first
-                        result = order1.getEffectiveDate().compareTo(order2.getEffectiveDate());
+        for (OrderTransaction order: fabricOrders) {
+            OrderEntity orderEntity = new OrderEntity();
+            orderEntity.setStatus(orderStatusService.getValues().get(order.getOrder().getOrderStatus()));
+            orderEntity.setType(orderTypeService.getValues().get(order.getOrder().getOrderType()));
+            orderEntity.setAmount(order.getOrder().getAmount());
+            orderEntity.setIsOwn(false);
+            orderEntity.setArtworkStock(artworkStockEntity);
+            orderEntity.setTradeType(tradeTypeService.getGtc());
+            result.add(orderEntity);
+        }
 
-                    // invert sort for asks (just in case)
-                    return orderTypeService.getAsk().getId().equals(order1.getType().getId()) ? -result : result;
-                })
-                .collect(Collectors.toList());
+        return result;
+
     }
 
     @Override

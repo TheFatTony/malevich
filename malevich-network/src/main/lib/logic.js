@@ -65,13 +65,13 @@ async function placeOrder(order) { // eslint-disable-line no-unused-vars
 
     if (matchingBid != null) {
         var results = await query(ordersAskQuery, { artworkStock: 'resource:io.malevich.network.ArtworkStock#' + order.order.artworkStock.getIdentifier()});
-        results.forEach(async existingOrders => {
-            if ((existingOrders != matchingBid) && (existingOrders != currentAsk)) {
-                let existingOrders1 = await registry.get(existingOrders.order.getIdentifier());
-                existingOrders1.order.orderStatus = 'CLOSE';
-                await registry.update(existingOrders1);
-            }
-        });
+        // results.forEach(async existingOrders => {
+        //     if ((existingOrders != matchingBid) && (existingOrders != currentAsk)) {
+        //         let existingOrders1 = await registry.get(existingOrders.order.getIdentifier());
+        //         existingOrders1.order.orderStatus = 'CLOSE';
+        //         await registry.update(existingOrders1);
+        //     }
+        // });
         currentAsk.order.orderStatus = 'EXECUTED';
         await registry.update(currentAsk);
 
@@ -81,6 +81,7 @@ async function placeOrder(order) { // eslint-disable-line no-unused-vars
         const tradeHistoryAsset = factory.newResource('io.malevich.network', 'TradeHistory', order.order.id);
         tradeHistoryAsset.askOrder = currentAsk;
         tradeHistoryAsset.bidOrder = matchingBid;
+        tradeHistoryAsset.artworkStock = order.order.artworkStock;
         await tradeHistoryRegistry.add(tradeHistoryAsset);
 
         let uptadeArtwork = await registryArtworkStock.get(matchingBid.order.artworkStock.getIdentifier());

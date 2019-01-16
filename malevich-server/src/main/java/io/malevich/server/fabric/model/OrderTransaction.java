@@ -9,9 +9,9 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class OrderTransaction extends CounterpartyParticipant {
+public class OrderTransaction  {
 
-    private  OrderConcept order;
+    private OrderConcept order;
 
 
 }

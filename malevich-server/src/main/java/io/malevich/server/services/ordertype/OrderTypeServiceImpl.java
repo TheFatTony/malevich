@@ -1,14 +1,15 @@
 package io.malevich.server.services.ordertype;
 
-import io.malevich.server.repositories.ordertype.OrderTypeDao;
 import io.malevich.server.domain.OrderTypeEntity;
+import io.malevich.server.repositories.ordertype.OrderTypeDao;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
-import java.util.Optional;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 
 @Slf4j
@@ -16,16 +17,14 @@ import java.util.Optional;
 public class OrderTypeServiceImpl implements OrderTypeService {
 
 
-    private final OrderTypeEntity ask;
-    private final OrderTypeEntity bid;
+    private final Map<String, OrderTypeEntity> values;
 
     private OrderTypeDao orderTypeDao;
 
     @Autowired
-    public OrderTypeServiceImpl(OrderTypeDao orderTypeDao){
+    public OrderTypeServiceImpl(OrderTypeDao orderTypeDao) {
         this.orderTypeDao = orderTypeDao;
-        ask = orderTypeDao.findById("ASK").get();
-        bid = orderTypeDao.findById("BID").get();
+        values = orderTypeDao.findAll().stream().collect(Collectors.toMap(i -> i.getId(), i -> i));
     }
 
     @Override
@@ -36,12 +35,17 @@ public class OrderTypeServiceImpl implements OrderTypeService {
 
     @Override
     public OrderTypeEntity getAsk() {
-        return ask;
+        return getValues().get("ASK");
     }
 
     @Override
     public OrderTypeEntity getBid() {
-        return bid;
+        return getValues().get("BID");
+    }
+
+    @Override
+    public Map<String, OrderTypeEntity> getValues() {
+        return values;
     }
 
 }

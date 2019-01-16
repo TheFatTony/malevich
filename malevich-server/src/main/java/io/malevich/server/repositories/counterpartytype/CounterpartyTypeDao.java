@@ -10,6 +10,6 @@ import java.util.List;
 @Repository
 public interface CounterpartyTypeDao extends JpaRepository<CounterpartyTypeEntity, String> {
 
-    @Cacheable(value = "CounterpartyTypeDao.findAll")
+//    @Cacheable(value = "CounterpartyTypeDao.findAll")
     List<CounterpartyTypeEntity> findAll();
 }

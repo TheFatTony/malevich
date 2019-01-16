@@ -1,5 +1,7 @@
 package io.malevich.server.services.tradehistory;
 
+import io.malevich.server.fabric.model.TradeHistoryAsset;
+import io.malevich.server.fabric.services.tradehistory.TradeHistoryAssetService;
 import io.malevich.server.repositories.tradehistory.TradeHistoryDao;
 import io.malevich.server.domain.OrderEntity;
 import io.malevich.server.domain.TradeHistoryEntity;
@@ -9,6 +11,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.sql.Timestamp;
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -18,6 +21,9 @@ public class TradeHistoryServiceImpl implements TradeHistoryService {
 
     @Autowired
     private TradeHistoryDao tradeHistoryDao;
+
+    @Autowired
+    private TradeHistoryAssetService tradeHistoryAssetService;
 
 
     @Override
@@ -29,7 +35,17 @@ public class TradeHistoryServiceImpl implements TradeHistoryService {
     @Override
     @Transactional(readOnly = true)
     public List<TradeHistoryEntity> findAllByArtworkId(Long artworkId) {
-        return tradeHistoryDao.findAllByArtworkId(artworkId);
+        List<TradeHistoryEntity> result = new ArrayList<>();
+        List<TradeHistoryAsset> list =  tradeHistoryAssetService.list(artworkId);
+
+        for (TradeHistoryAsset asset: list){
+            TradeHistoryEntity tradeHistoryEntity = new TradeHistoryEntity();
+            tradeHistoryEntity.setAmount(asset.getBidOrder().getAmount());
+
+            result.add(tradeHistoryEntity);
+        }
+
+        return result;
     }
 
     @Override

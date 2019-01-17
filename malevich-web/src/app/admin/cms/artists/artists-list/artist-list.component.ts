@@ -98,17 +98,22 @@ export class ArtistListComponent implements OnInit {
     this.openWindow();
   }
 
-  onUploadEnd(event: any): void {
+  private parseFileResponse(event:any){
     let args = event.args;
     let body = args.response.toString()
       .replace('<pre style="word-wrap: break-word; white-space: pre-wrap;">', '')
       .replace('<pre>', '')
       .replace('</pre>', '');
 
-    console.log(body);
-
     let serverResponse = JSON.parse(body);
-    this.editArtist.thumbnail = serverResponse;
-    this.editArtist.image = serverResponse;
+    return serverResponse;
+  }
+
+  onImageUploadEnd(event: any): void {
+    this.editArtist.image = this.parseFileResponse(event);
+  }
+
+  onThmbnailUploadEnd(event: any): void {
+    this.editArtist.thumbnail = this.parseFileResponse(event);
   }
 }

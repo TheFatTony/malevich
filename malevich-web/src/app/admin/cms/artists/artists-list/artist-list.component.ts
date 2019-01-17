@@ -43,7 +43,7 @@ export class ArtistListComponent implements OnInit {
 
   openWindow() {
     this.myWindow.width(500);
-    this.myWindow.height(800);
+    this.myWindow.height(1000);
     this.myWindow.open();
     this.myWindow.move(this.x, this.y);
   }
@@ -67,9 +67,9 @@ export class ArtistListComponent implements OnInit {
   }
 
   onDescriptionChange($event, lang: string) {
-    if (!$event)
+    if (!$event || !this.editArtist)
       return;
-
+    console.log(this.editArtist.descriptionMl);
     this.editArtist.descriptionMl[lang] = $event;
   }
 
@@ -113,7 +113,7 @@ export class ArtistListComponent implements OnInit {
     this.editArtist.image = this.parseFileResponse(event);
   }
 
-  onThmbnailUploadEnd(event: any): void {
+  onThumbnailUploadEnd(event: any): void {
     this.editArtist.thumbnail = this.parseFileResponse(event);
   }
 }

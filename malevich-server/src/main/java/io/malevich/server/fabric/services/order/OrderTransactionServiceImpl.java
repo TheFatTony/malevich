@@ -16,6 +16,7 @@ import org.springframework.web.client.HttpStatusCodeException;
 import org.springframework.web.client.RestClientException;
 
 import java.util.List;
+import java.util.UUID;
 
 
 @Slf4j
@@ -45,12 +46,12 @@ public class OrderTransactionServiceImpl extends GenericComposerServiceImpl<Orde
 
         OrderTransaction orderTransaction = new OrderTransaction();
         orderTransaction.setOrder(new OrderConcept());
-        orderTransaction.getOrder().setId(entity.getId().toString());
+        orderTransaction.getOrder().setId(UUID.randomUUID().toString());
         orderTransaction.getOrder().setAmount(entity.getAmount());
         orderTransaction.getOrder().setOrderType(entity.getType().getId());
         orderTransaction.getOrder().setOrderStatus(entity.getStatus().getId());
         orderTransaction.getOrder().setArtworkStock("resource:io.malevich.network.ArtworkStock#" + entity.getArtworkStock().getId().toString());
-        orderTransaction.getOrder().setСounterparty(fabricClass + participantEntity.getUser().getUsername());
+        orderTransaction.getOrder().setСounterparty(fabricClass + participantEntity.getId());
 
         doPost(orderTransaction);
     }

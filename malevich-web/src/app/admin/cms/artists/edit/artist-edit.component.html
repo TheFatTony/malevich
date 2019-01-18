@@ -22,39 +22,45 @@
           </div>
         </div>
 
-        <div class="g-mb-10">
-          <label>Artist Name [En]:</label>
-          <div>
-            <mchInput [ngModel]="!editArtist?.fullNameMl ? '' : editArtist?.fullNameMl['en']"
-                      (ngModelChange)="onNameChange($event, 'en')" mchRequired></mchInput>
+        <form #f="ngForm" (ngSubmit)="sendButton()" novalidate>
+          <div class="g-mb-10">
+            <label>Artist Name [En]:</label>
+            <div>
+              <mchInput name="nameEn"
+                        [ngModel]="!editArtist?.fullNameMl ? '' : editArtist?.fullNameMl['en']"
+                        (ngModelChange)="onNameChange($event, 'en')" mchRequired></mchInput>
+            </div>
           </div>
-        </div>
-        <div class="g-mb-10">
-          <label>Artist Name [Ru]:</label>
-          <div>
-            <mchInput [ngModel]="!editArtist?.fullNameMl ? '' : editArtist?.fullNameMl['ru']"
-                      (ngModelChange)="onNameChange($event, 'ru')"></mchInput>
+          <div class="g-mb-10">
+            <label>Artist Name [Ru]:</label>
+            <div>
+              <mchInput name="nameRu"
+                        [ngModel]="!editArtist?.fullNameMl ? '' : editArtist?.fullNameMl['ru']"
+                        (ngModelChange)="onNameChange($event, 'ru')"></mchInput>
+            </div>
           </div>
-        </div>
-        <div class="g-mb-10">
-          <label>Description [En]:</label>
-          <div>
-            <jqxTextArea
-              [ngModel]="!editArtist?.descriptionMl ? '' : editArtist.descriptionMl['en']"
-              (ngModelChange)="onDescriptionChange($event, 'en')"
-              [height]="'200px'" mchRequired></jqxTextArea>
+          <div class="g-mb-10">
+            <label>Description [En]:</label>
+            <div>
+              <mchTextArea
+                name="descriptionEn"
+                [ngModel]="!editArtist?.descriptionMl ? '' : editArtist.descriptionMl['en']"
+                (ngModelChange)="onDescriptionChange($event, 'en')"
+                [height]="'200px'" mchRequired></mchTextArea>
+            </div>
           </div>
-        </div>
-        <div class="g-mb-10">
-          <label>Description [Ru]:</label>
-          <div>
-            <jqxTextArea [ngModel]="!editArtist?.descriptionMl ? '' : editArtist.descriptionMl['ru']"
-                       (ngModelChange)="onDescriptionChange($event, 'ru')"
-                       [height]="'200px'" [disabled]="false"></jqxTextArea>
+          <div class="g-mb-10">
+            <label>Description [Ru]:</label>
+            <div>
+              <mchTextArea name="descriptionRu"
+                           [ngModel]="!editArtist?.descriptionMl ? '' : editArtist.descriptionMl['ru']"
+                           (ngModelChange)="onDescriptionChange($event, 'ru')"
+                           [height]="'200px'" [disabled]="false"></mchTextArea>
+            </div>
           </div>
-        </div>
+        </form>
         <div class="text-center">
-          <mchButton (onClick)="sendButton()"
+          <mchButton [submitForm]="f"
                      style="text-align: center; margin-left: 8em;"
                      [width]="60" [height]="25">
             Send

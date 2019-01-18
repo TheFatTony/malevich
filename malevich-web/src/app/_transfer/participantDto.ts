@@ -16,6 +16,7 @@ export class ParticipantDto {
 
   organization: OrganizationDto;
   image: FileDto;
+  titleMl: Map<string, string>;
   descriptionMl: Map<string, string>;
 
   person: PersonDto;

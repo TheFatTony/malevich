@@ -36,6 +36,13 @@
       <ng-container *ngIf="participant?.person as person">
 
         <div class="g-brd-around g-brd-gray-light-v4 rounded g-pa-30 g-mb-30">
+
+          <div class="row">
+            <div class="col-12">
+              <h3 class="h5 mb-3">{{'PROFILE.SECURITY.LABEL.CAPTION_PERSON_INFO' | translate}}</h3>
+            </div>
+          </div>
+
           <div class="row">
             <div class="col-4 offset-8 text-right">
               <a
@@ -272,7 +279,13 @@
 
           <div class="row">
             <div class="col-12">
-              <span class="d-block g-color-text g-font-size-13 mb-1">{{'PROFILE.SECURITY.LEGAL_NAME' | translate}}:</span>
+              <h3 class="h5 mb-3">{{'PROFILE.SECURITY.LABEL.CAPTION_ORGANIZATION_INFO' | translate}}</h3>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-12">
+              <span class="d-block g-color-text g-font-size-13 mb-1">{{'PROFILE.SECURITY.LABEL.LEGAL_NAME' | translate}}</span>
               <span class="d-block">{{organization.legalNameMl[translate.currentLang]}}</span>
             </div>
           </div>
@@ -281,7 +294,7 @@
 
           <div class="row">
             <div class="col-12">
-              <span class="d-block g-color-text g-font-size-13 mb-1">{{'PROFILE.SECURITY.PHONE_NUMBER' | translate}}:</span>
+              <span class="d-block g-color-text g-font-size-13 mb-1">{{'PROFILE.SECURITY.LABEL.PHONE_NUMBER' | translate}}</span>
               <span class="d-block">{{participant.phoneNumber}}</span>
             </div>
           </div>
@@ -291,7 +304,7 @@
           <div class="row">
             <div class="col-12">
             <span
-              class="d-block g-color-text g-font-size-13 mb-1">{{'PROFILE.SECURITY.LOCATION' | translate}}:</span>
+              class="d-block g-color-text g-font-size-13 mb-1">{{'PROFILE.SECURITY.LABEL.LOCATION' | translate}}:</span>
               <span class="d-block">{{participant.addresses[0].street}} {{participant.addresses[0].state}} {{participant.addresses[0].postalCode}} {{participant.addresses[0].city}} {{participant.addresses[0].country?.nameMl[translate.currentLang]}}</span>
             </div>
           </div>
@@ -306,7 +319,22 @@
 
           <div class="row">
             <div class="col-12">
-              <span class="d-block g-color-text g-font-size-13 mb-1">{{'PROFILE.SECURITY.DESCRIPTION' | translate}}:</span>
+              <h3 class="h5 mb-3">{{"PROFILE.SECURITY.LABEL.CAPTION_GALLERY_INFO" | translate}}</h3>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-12">
+              <span class="d-block g-color-text g-font-size-13 mb-1">{{'PROFILE.SECURITY.LABEL.TITLE' | translate}}</span>
+              <span class="d-block">{{participant.titleMl[translate.currentLang]}}</span>
+            </div>
+          </div>
+
+          <hr class="g-brd-gray-light-v4 g-my-20">
+
+          <div class="row">
+            <div class="col-12">
+              <span class="d-block g-color-text g-font-size-13 mb-1">{{'PROFILE.SECURITY.LABEL.DESCRIPTION' | translate}}</span>
               <span class="d-block">{{participant.descriptionMl[translate.currentLang]}}</span>
             </div>
           </div>

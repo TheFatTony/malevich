@@ -9,7 +9,7 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class ArtworkStockAsset extends CounterpartyParticipant {
+public class ArtworkStockAsset {
 
     private String id;
 

@@ -9,13 +9,13 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class ArtworkAsset {
+public class PaymentTransaction {
 
-    private String token;
+    private Double amount;
 
-    private String description;
+    private String paymentType;
 
-    private Double estimatedPrice;
+    private String party;
 
 
 }

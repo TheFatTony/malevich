@@ -3,11 +3,5 @@
                    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
                    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.6.xsd">
 
-    <include relativeToChangelogFile="true" file="views/user_type.view.xml"/>
-    <include relativeToChangelogFile="true" file="views/organization.view.xml"/>
-    <include relativeToChangelogFile="true" file="views/gallery.view.xml"/>
-    <include relativeToChangelogFile="true" file="views/person.view.xml"/>
-    <include relativeToChangelogFile="true" file="views/artist.view.xml"/>
-    <include relativeToChangelogFile="true" file="views/artwork.view.xml"/>
 
 </databaseChangeLog>

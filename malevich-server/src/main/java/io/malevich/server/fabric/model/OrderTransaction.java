@@ -9,13 +9,9 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class ArtworkAsset {
+public class OrderTransaction  {
 
-    private String token;
-
-    private String description;
-
-    private Double estimatedPrice;
+    private OrderConcept order;
 
 
 }

@@ -23,9 +23,9 @@ export class DocumentsComponent implements OnInit {
 
   columns: any[] =
     [
-      {datafield: this.translate.instant('TRADER_PROFILE.GRID.FILE_NAME'), width: '35%', columntype: 'textbox'},
-      {datafield: this.translate.instant('TRADER_PROFILE.GRID.DATE'), width: '35%', columntype: 'textbox'},
-      {datafield: this.translate.instant('TRADER_PROFILE.GRID.DOCUMENT_TYPE'), width: '30%', columntype: 'textbox'}
+      {datafield: this.translate.instant('PROFILE.GRID.FILE_NAME'), width: '35%', columntype: 'textbox'},
+      {datafield: this.translate.instant('PROFILE.GRID.DATE'), width: '35%', columntype: 'textbox'},
+      {datafield: this.translate.instant('PROFILE.GRID.DOCUMENT_TYPE'), width: '30%', columntype: 'textbox'}
     ];
 
   constructor(public translate: TranslateService,

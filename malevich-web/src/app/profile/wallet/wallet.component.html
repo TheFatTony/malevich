@@ -8,18 +8,18 @@
             <i class="g-color-gray-light-v2 g-ml-5 fa fa-angle-right"></i>
           </li>
           <li class="list-inline-item g-mr-5">
-            <a class="u-link-v5 g-color-text" routerLink="/profile/view">{{'TRADER_PROFILE.TITLE' |
+            <a class="u-link-v5 g-color-text" routerLink="/profile/view">{{'PROFILE.TITLE' |
               translate}}</a>
             <i class="g-color-gray-light-v2 g-ml-5 fa fa-angle-right"></i>
           </li>
           <li class="list-inline-item g-color-primary">
-            <span> {{"COMMON_PROFILE.NAVIGATION.YOUR_WALLET" | translate}}</span>
+            <span> {{"PROFILE.WALLET.TITLE" | translate}}</span>
           </li>
         </ul>
       </div>
 
       <div class="align-self-center ml-auto">
-        <h1 class="h3 mb-0"> {{"COMMON_PROFILE.NAVIGATION.YOUR_WALLET" | translate}}</h1>
+        <h1 class="h3 mb-0"> {{"PROFILE.WALLET.TITLE" | translate}}</h1>
       </div>
     </div>
   </div>
@@ -37,14 +37,14 @@
       <!-- Wallet -->
       <!-- Balance & Rewards -->
       <div class="g-brd-around g-brd-gray-light-v4 rounded g-px-30 g-pt-30">
-        <h3 class="h5 mb-3">{{"TRADER_PROFILE.WALLET.BALANCE" | translate}}</h3>
+        <h3 class="h5 mb-3">{{"PROFILE.WALLET.BALANCE" | translate}}</h3>
 
         <!-- Balance Info -->
         <div class="row justify-content-between">
           <div class="col-sm-4 g-mb-30">
             <div class="g-bg-gray-dark-v3 text-center rounded g-px-20 g-py-30">
               <span class="d-block g-color-white g-font-weight-600 g-font-size-25 mb-1">${{accountState?.amount}}</span>
-              <span class="d-block g-color-white-opacity-0_8 g-font-size-18">{{"TRADER_PROFILE.WALLET.AVAILABLE" | translate}} {{"TRADER_PROFILE.WALLET.BALANCE" | translate}}</span>
+              <span class="d-block g-color-white-opacity-0_8 g-font-size-18">{{"PROFILE.WALLET.AVAILABLE" | translate}} {{"PROFILE.WALLET.BALANCE" | translate}}</span>
             </div>
           </div>
         </div>
@@ -57,14 +57,14 @@
               class="g-brd-around g-brd-gray-light-v3 g-color-gray-dark-v3 g-bg-gray-light-v5 g-bg-gray-light-v4--hover g-font-size-13 rounded g-px-18 g-py-9 g-mr-15"
               (click)="openPaymentWindow()">
               <i class="align-middle g-font-size-16 mr-2 icon-finance-053 u-line-icon-pro"></i>
-              {{"TRADER_PROFILE.BUTTON.ADD" | translate}} {{"TRADER_PROFILE.WALLET.BALANCE" | translate}}
+              {{"PROFILE.BUTTON.ADD" | translate}} {{"PROFILE.WALLET.BALANCE" | translate}}
             </mchButton>
 
             <mchButton
               class="g-brd-around g-brd-gray-light-v3 g-color-gray-dark-v3 g-bg-gray-light-v5 g-bg-gray-light-v4--hover g-font-size-13 rounded g-px-18 g-py-9"
               (click)="openWithdrawWindow()">
               <i class="align-middle g-font-size-16 mr-2 icon-finance-210 u-line-icon-pro"></i>
-              {{"TRADER_PROFILE.BUTTON.WITHDRAW" | translate}} {{"TRADER_PROFILE.WALLET.BALANCE" | translate}}
+              {{"PROFILE.BUTTON.WITHDRAW" | translate}} {{"PROFILE.WALLET.BALANCE" | translate}}
             </mchButton>
           </div>
         </div>
@@ -78,11 +78,11 @@
                  [autoshowfiltericon]="true"
                  [columns]="columns">
           <tr>
-            <th>{{"TRADER_PROFILE.GRID.PAYMENT_NO" | translate}}</th>
-            <th>{{"TRADER_PROFILE.GRID.DATE" | translate}}</th>
-            <th>{{"TRADER_PROFILE.GRID.AMOUNT" | translate}}</th>
-            <th>{{"TRADER_PROFILE.GRID.TYPE" | translate}}</th>
-            <th>{{"TRADER_PROFILE.GRID.PRINT" | translate}}</th>
+            <th>{{"PROFILE.GRID.PAYMENT_NO" | translate}}</th>
+            <th>{{"PROFILE.GRID.DATE" | translate}}</th>
+            <th>{{"PROFILE.GRID.AMOUNT" | translate}}</th>
+            <th>{{"PROFILE.GRID.TYPE" | translate}}</th>
+            <th>{{"PROFILE.GRID.PRINT" | translate}}</th>
           </tr>
           <tr *ngFor="let payment of payments">
             <td>

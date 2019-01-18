@@ -50,10 +50,10 @@ export class ArtworkStockComponent implements OnInit {
 
   columns: any[] =
     [
-      {datafield: this.translate.instant('TRADER_PROFILE.GRID.IMAGE'), width: '10%', cellsrenderer: this.photoRenderer},
-      {datafield: this.translate.instant('TRADER_PROFILE.GRID.TITLE'), width: '40%', cellsrenderer: this.renderer},
-      {datafield: this.translate.instant('TRADER_PROFILE.GRID.ARTIST'), width: '25%', cellsrenderer: this.renderer},
-      {datafield: this.translate.instant('TRADER_PROFILE.GRID.CATEGORY'), width: '25%', cellsrenderer: this.renderer}
+      {datafield: this.translate.instant('PROFILE.GRID.IMAGE'), width: '10%', cellsrenderer: this.photoRenderer},
+      {datafield: this.translate.instant('PROFILE.GRID.TITLE'), width: '40%', cellsrenderer: this.renderer},
+      {datafield: this.translate.instant('PROFILE.GRID.ARTIST'), width: '25%', cellsrenderer: this.renderer},
+      {datafield: this.translate.instant('PROFILE.GRID.CATEGORY'), width: '25%', cellsrenderer: this.renderer}
     ];
 
   constructor(private router: Router,

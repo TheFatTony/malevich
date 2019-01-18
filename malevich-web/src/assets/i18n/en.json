@@ -45,6 +45,17 @@
       "SIGNUP": "Signup"
     }
   },
+  "RESET_PASSWORD": {
+    "STEP_ONE": {
+      "CAPTION": "Forgot Password?",
+      "APPEAL": "Enter your e-mail address to reset your password",
+      "RESET":"Reset password"
+    },
+    "STEP_TWO": {
+      "CAPTION": "Changing password",
+      "APPEAL": "Set new password for your account"
+    }
+  },
   "PROFILE": {
     "TITLE": "Your Profile",
     "EDIT_PROFILE": "Edit Your Profile",

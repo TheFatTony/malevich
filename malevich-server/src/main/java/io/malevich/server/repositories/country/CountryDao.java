@@ -10,6 +10,6 @@ import java.util.List;
 @Repository
 public interface CountryDao extends JpaRepository<CountryEntity, Long> {
 
-    @Cacheable(value = "CountryDao.findAll")
+//    @Cacheable(value = "CountryDao.findAll")
     List<CountryEntity> findAll();
 }

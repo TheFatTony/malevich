@@ -12,11 +12,6 @@ import java.util.List;
 @Service
 public interface OrderService {
 
-    List<OrderEntity> findAll();
-
-    List<OrderEntity> findAllOpen();
-
-    List<OrderEntity> findOldOpen(Timestamp date);
 
     List<OrderEntity> getPlacedOrders();
 

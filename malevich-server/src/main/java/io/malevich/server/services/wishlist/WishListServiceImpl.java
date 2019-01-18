@@ -1,10 +1,8 @@
 package io.malevich.server.services.wishlist;
 
-import io.malevich.server.domain.CounterpartyEntity;
 import io.malevich.server.domain.ParticipantEntity;
 import io.malevich.server.domain.WishListEntity;
 import io.malevich.server.repositories.wishlist.WishListDao;
-import io.malevich.server.services.counterparty.CounterpartyService;
 import io.malevich.server.services.participant.ParticipantService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;

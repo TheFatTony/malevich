@@ -12,87 +12,52 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Positive;
 
 
-@javax.persistence.Entity
-@Table(name = "orders")
 public class OrderEntity extends YAbstractPersistable<Long> {
 
 
     @Getter
     @Setter
-    @Fetch(FetchMode.JOIN)
-    @ManyToOne(cascade = CascadeType.MERGE)
-    @NotNull
     private OrderTypeEntity type;
 
     @Getter
     @Setter
-    @Fetch(FetchMode.JOIN)
-    @ManyToOne(cascade = CascadeType.MERGE)
-    @NotNull
     private ArtworkStockEntity artworkStock;
 
     @Getter
     @Setter
     @Fetch(FetchMode.JOIN)
-    @ManyToOne(cascade = CascadeType.MERGE)
-    @NotNull
-    private CounterpartyEntity party;
+    private ParticipantEntity participant;
 
     @Getter
     @Setter
     @Fetch(FetchMode.JOIN)
-    @ManyToOne(cascade = CascadeType.MERGE)
-    @NotNull
     private TradeTypeEntity tradeType;
 
     @Getter
     @Setter
     @Column(name = "amount")
-    @NotNull
-    @Positive
     private Double amount;
 
     @Getter
     @Setter
-    @Column(name = "effective_date")
-    @NotNull
     private java.sql.Timestamp effectiveDate;
 
     @Getter
     @Setter
-    @Fetch(FetchMode.JOIN)
-    @ManyToOne(cascade = CascadeType.MERGE)
-    @NotNull
     private OrderStatusEntity status;
 
     @Getter
     @Setter
-    @Column(name = "expiration_date")
     private java.sql.Timestamp expirationDate;
 
     @Getter
     @Setter
-    @Fetch(FetchMode.JOIN)
-    @ManyToOne(cascade = CascadeType.MERGE)
-    @NotNull
-    private TransactionGroupEntity transactionGroup;
-
-    @Getter
-    @Setter
-    @Formula(value = "(SELECT o.amount\n" +
-            "FROM orders o\n" +
-            "WHERE o.type_id = 'BID' AND o.status_id = 'OPEN' AND o.artwork_stock_id = artwork_stock_id\n" +
-            "ORDER BY o.amount DESC, o.effective_date ASC\n" +
-            "LIMIT 1)")
+    @Transient
     private Double bestBid;
 
     @Getter
     @Setter
-    @Formula(value = "(SELECT o.amount\n" +
-            "FROM orders o\n" +
-            "WHERE o.type_id = 'ASK' AND o.status_id = 'OPEN' AND o.artwork_stock_id = artwork_stock_id\n" +
-            "ORDER BY o.amount ASC\n" +
-            "LIMIT 1)")
+    @Transient
     private Double currentAsk;
 
     @Getter

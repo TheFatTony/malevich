@@ -13,8 +13,6 @@ import com.yinyang.core.server.transfer.AccessTokenDto;
 import com.yinyang.core.server.transfer.LoginFormDto;
 import io.malevich.server.config.MyAuthenticationProvider;
 import io.malevich.server.domain.*;
-import io.malevich.server.services.counterparty.CounterpartyService;
-import io.malevich.server.services.counterpartytype.CounterpartyTypeService;
 import io.malevich.server.services.participant.ParticipantService;
 import io.malevich.server.services.participanttype.ParticipantTypeService;
 import io.malevich.server.transfer.RegisterFormStepTwoDto;
@@ -46,8 +44,6 @@ public class RegisterServiceImpl implements RegisterService {
     @Autowired
     private ParticipantService participantService;
 
-    @Autowired
-    private CounterpartyTypeService counterpartyTypeService;
 
     @Autowired
     private MailQueueService mailQueueService;
@@ -64,8 +60,6 @@ public class RegisterServiceImpl implements RegisterService {
     @Autowired
     private ParticipantTypeService participantTypeService;
 
-    @Autowired
-    private CounterpartyService counterpartyService;
 
     @Autowired
     private AuthService authService;
@@ -143,16 +137,13 @@ public class RegisterServiceImpl implements RegisterService {
 
         user = userService.save(user);
 
-        CounterpartyEntity counterparty = new CounterpartyEntity();
         ParticipantEntity participant;
 
         if (isGallery(registerTokenEntity.getUserType())) {
             participant = new GalleryEntity();
             participant.setType(participantTypeService.getGalleryType());
 
-            counterparty.setType(counterpartyTypeService.getGalleryType());
         } else {
-            counterparty.setType(counterpartyTypeService.getTraderType());
 
             if (isOrganization(registerTokenEntity.getUserType())) {
                 participant = new TraderOrganizationEntity();
@@ -165,9 +156,6 @@ public class RegisterServiceImpl implements RegisterService {
 
         participant.setUsers(Lists.newArrayList(user));
         participant = participantService.save(participant, user);
-
-        counterparty.setParticipant(participant);
-        counterpartyService.save(counterparty);
 
         deleteToken(registerTokenEntity);
 

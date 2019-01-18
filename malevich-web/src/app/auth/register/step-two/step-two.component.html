@@ -9,14 +9,14 @@
                 <!--mchRequired-->
                 <!--mchPassword-->
                 <!--[type]="'password'"-->
-                <!--[placeHolder]="'TRADER_PROFILE.SECURITY.PLACEHOLDER.PASSWORD' | translate"-->
+                <!--[placeHolder]="'PROFILE.SECURITY.PLACEHOLDER.PASSWORD' | translate"-->
                 <!--[(ngModel)]="password">-->
       <!--</mchInput>-->
       <mchInput name="password"
                 class="form-control g-color-black g-bg-white g-bg-white--focus g-brd-gray-light-v3 rounded g-py-15 g-px-15"
                 mchRequired
                 [type]="'password'"
-                [placeHolder]="'TRADER_PROFILE.SECURITY.PLACEHOLDER.PASSWORD' | translate"
+                [placeHolder]="'PROFILE.SECURITY.PLACEHOLDER.PASSWORD' | translate"
                 [(ngModel)]="password">
       </mchInput>
     </div>
@@ -30,7 +30,7 @@
                 mchMatchTo="password"
                 mchMatchToMessage="Passwords should match"
                 [type]="'password'"
-                [placeHolder]="'TRADER_PROFILE.SECURITY.PLACEHOLDER.CONFIRM_PASSWORD' | translate"
+                [placeHolder]="'PROFILE.SECURITY.PLACEHOLDER.CONFIRM_PASSWORD' | translate"
                 [(ngModel)]="passwordConfirm">
       </mchInput>
     </div>
@@ -40,7 +40,7 @@
     <div class="col-6 mx-auto">
       <mchButton class="btn btn-block u-btn-primary g-font-size-12 text-uppercase g-py-12 g-px-25"
                  [submitForm]="f">
-        {{'TRADER_PROFILE.SECURITY.BUTTON.SUBMIT' | translate}}
+        {{'PROFILE.SECURITY.BUTTON.SUBMIT' | translate}}
       </mchButton>
     </div>
 

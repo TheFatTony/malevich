@@ -38,13 +38,13 @@ export class WalletComponent implements OnInit {
 
   columns: any[] =
     [
-      {datafield: this.translate.instant('TRADER_PROFILE.GRID.PAYMENT_NO'), width: '20%', columntype: 'textbox'},
-      {datafield: this.translate.instant('TRADER_PROFILE.GRID.DATE'), width: '20%', columntype: 'textbox'},
-      {datafield: this.translate.instant('TRADER_PROFILE.GRID.AMOUNT'), width: '20%', columntype: 'textbox'},
-      {datafield: this.translate.instant('TRADER_PROFILE.GRID.TYPE'), width: '20%', columntype: 'textbox'},
+      {datafield: this.translate.instant('PROFILE.GRID.PAYMENT_NO'), width: '20%', columntype: 'textbox'},
+      {datafield: this.translate.instant('PROFILE.GRID.DATE'), width: '20%', columntype: 'textbox'},
+      {datafield: this.translate.instant('PROFILE.GRID.AMOUNT'), width: '20%', columntype: 'textbox'},
+      {datafield: this.translate.instant('PROFILE.GRID.TYPE'), width: '20%', columntype: 'textbox'},
       {
-        datafield: this.translate.instant('TRADER_PROFILE.GRID.PRINT'), width: '20%', columntype: 'button', cellsrenderer: (): string => {
-        return this.translate.instant('TRADER_PROFILE.GRID.PRINT');
+        datafield: this.translate.instant('PROFILE.GRID.PRINT'), width: '20%', columntype: 'button', cellsrenderer: (): string => {
+        return this.translate.instant('PROFILE.GRID.PRINT');
       },
         buttonclick: (row: number): void => {
           this.paymentsService.receiptPrint(this.myGrid.getrowdata(row).PaymentNo).subscribe((data) => {

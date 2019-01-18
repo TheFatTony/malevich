@@ -23,13 +23,13 @@ export class OrdersComponent implements OnInit {
 
   columns: any[] =
     [
-      {datafield: this.translate.instant('TRADER_PROFILE.GRID.DATE'), width: '20%', columntype: 'textbox'},
-      {datafield: this.translate.instant('TRADER_PROFILE.GRID.AMOUNT'), width: '15%', columntype: 'textbox'},
-      {datafield: this.translate.instant('TRADER_PROFILE.GRID.ARTWORK'), width: '25%', columntype: 'textbox'},
-      {datafield: this.translate.instant('TRADER_PROFILE.GRID.TRADER_TYPE'), width: '15%', columntype: 'textbox'},
-      {datafield: this.translate.instant('TRADER_PROFILE.GRID.TYPE'), width: '5%', columntype: 'textbox'},
-      {datafield: this.translate.instant('TRADER_PROFILE.GRID.BEST_BID'), width: '10%', columntype: 'textbox'},
-      {datafield: this.translate.instant('TRADER_PROFILE.GRID.CURRENT_ASK'), width: '10%', columntype: 'textbox'}
+      {datafield: this.translate.instant('PROFILE.GRID.DATE'), width: '20%', columntype: 'textbox'},
+      {datafield: this.translate.instant('PROFILE.GRID.AMOUNT'), width: '15%', columntype: 'textbox'},
+      {datafield: this.translate.instant('PROFILE.GRID.ARTWORK'), width: '25%', columntype: 'textbox'},
+      {datafield: this.translate.instant('PROFILE.GRID.TRADER_TYPE'), width: '15%', columntype: 'textbox'},
+      {datafield: this.translate.instant('PROFILE.GRID.TYPE'), width: '5%', columntype: 'textbox'},
+      {datafield: this.translate.instant('PROFILE.GRID.BEST_BID'), width: '10%', columntype: 'textbox'},
+      {datafield: this.translate.instant('PROFILE.GRID.CURRENT_ASK'), width: '10%', columntype: 'textbox'}
     ];
 
   constructor(private orderService: OrderService,

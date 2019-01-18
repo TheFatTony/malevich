@@ -31,7 +31,8 @@
       <span class="d-block u-check-icon-checkbox-v6 g-absolute-centered--y g-left-0">
                       <i class="fa" data-check-icon=""></i>
                     </span>
-      I accept the <a href="#modal1" data-modal-target="#modal1" data-modal-effect="fadein">Terms and Conditions</a>
+      {{'REGISTER.STEP_ONE.ACCEPT' | translate}} <a href="#modal1" data-modal-target="#modal1" data-modal-effect="fadein">
+      {{'REGISTER.STEP_ONE.TERMS_AND_CONDITIONS' | translate}}</a>
     </label>
   </div>
 
@@ -46,13 +47,13 @@
       <span class="d-block u-check-icon-checkbox-v6 g-absolute-centered--y g-left-0">
                       <i class="fa" data-check-icon=""></i>
                     </span>
-      Subscribe to our newsletter
+      {{'REGISTER.STEP_ONE.SUBSCRIBE' | translate}}
     </label>
   </div>
 
   <mchButton class="btn btn-block u-btn-primary g-font-size-12 text-uppercase g-py-12 g-px-25"
              [submitForm]="f"
-             [disabled]="!agreementAccepted">Signup
+             [disabled]="!agreementAccepted">{{'REGISTER.STEP_ONE.SIGNUP' | translate}}
   </mchButton>
 </form>
 <!-- End Form -->

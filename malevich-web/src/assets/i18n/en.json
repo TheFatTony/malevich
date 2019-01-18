@@ -30,6 +30,21 @@
       "RESET": "Reset"
     }
   },
+  "REGISTER": {
+    "TITLE": "Create New Account",
+    "WELCOME": "Welcome to Malevich",
+    "GALLERIES": "Glleries",
+    "ARTWORKS": "Artworks",
+    "ART_VALUE": "Art value",
+    "HAVE_AN_ACCOUNT": "Already have an account?",
+    "SIGNIN": "signin",
+    "STEP_ONE": {
+      "ACCEPT": "I accept the",
+      "TERMS_AND_CONDITIONS": "Terms and Conditions",
+      "SUBSCRIBE": "Subscribe to our newsletter",
+      "SIGNUP": "Signup"
+    }
+  },
   "PROFILE": {
     "TITLE": "Your Profile",
     "EDIT_PROFILE": "Edit Your Profile",
@@ -45,16 +60,16 @@
     },
     "SECURITY": {
       "LABEL": {
-        "FIRST_NAME": "First Name:",
-        "LAST_NAME": "Last Name:",
-        "UPLOAD_AVATAR": "Upload Profile Image:",
-        "EMAIL": "Email:",
-        "GENDER": "Gender:",
-        "COUNTRY": "Country of residence:",
-        "TITLE": "Title:",
-        "MOBILE": "Mobile Phone Number:",
-        "PASSWORD": "Password:",
-        "DATE_OF_BIRTH": "Date Of Birth:",
+        "FIRST_NAME": "First Name",
+        "LAST_NAME": "Last Name",
+        "UPLOAD_AVATAR": "Upload Profile Image",
+        "EMAIL": "Email",
+        "GENDER": "Gender",
+        "COUNTRY": "Country of residence",
+        "TITLE": "Title",
+        "MOBILE": "Mobile Phone Number",
+        "PASSWORD": "Password",
+        "DATE_OF_BIRTH": "Date Of Birth",
         "LEGAL_NAME": "Legal Name",
         "LOCATION": "Location",
         "LEGAL_NAME_EN": "Legal Name - English",
@@ -66,12 +81,13 @@
         "CAPTION_PERSON_INFO": "Personal info",
         "CAPTION_ORGANIZATION_INFO": "Legal entity info",
         "CAPTION_GALLERY_INFO": "Gallery info",
+        "CAPTION_ADDRESS": "Address",
         "ADDRESS": {
-          "COUNTRY": "Country:",
-          "STATE": "State/Province:",
-          "CITY": "City:",
-          "ZIP": "ZIP/PostalCode:",
-          "STREET": "Address:"
+          "COUNTRY": "Country",
+          "STATE": "State/Province",
+          "CITY": "City",
+          "ZIP": "ZIP/PostalCode",
+          "STREET": "Address"
         }
       },
       "PLACEHOLDER": {
@@ -94,9 +110,9 @@
       }
     },
     "STORAGE": {
-      "TITLE":"Stored artworks",
-      "ADD":{
-        "TITLE":"Add artwork",
+      "TITLE": "Stored artworks",
+      "ADD": {
+        "TITLE": "Add artwork",
         "CHOOSE": "Choose from existing",
         "TITLE_EN": "Title - English",
         "TITLE_RU": "Title - Russian",
@@ -105,13 +121,12 @@
         "ARTIST": "Artist",
         "CATEGORY": "Category"
       },
-      "EDIT":{
+      "EDIT": {
         "TITLE": "Edit artwork",
         "DESCRIPTION": "Description",
         "ARTIST": "Artist",
         "CATEGORY": "Category"
       }
-     
     },
     "ARTWORKS": {
       "TITLE": "Artworks",

@@ -21,16 +21,17 @@ export class OrdersComponent implements OnInit {
 
   public url = environment.baseUrl;
 
-  columns: any[] =
-    [
-      {datafield: this.translate.instant('PROFILE.GRID.DATE'), width: '20%', columntype: 'textbox'},
-      {datafield: this.translate.instant('PROFILE.GRID.AMOUNT'), width: '15%', columntype: 'textbox'},
-      {datafield: this.translate.instant('PROFILE.GRID.ARTWORK'), width: '25%', columntype: 'textbox'},
-      {datafield: this.translate.instant('PROFILE.GRID.TRADER_TYPE'), width: '15%', columntype: 'textbox'},
-      {datafield: this.translate.instant('PROFILE.GRID.TYPE'), width: '5%', columntype: 'textbox'},
-      {datafield: this.translate.instant('PROFILE.GRID.BEST_BID'), width: '10%', columntype: 'textbox'},
-      {datafield: this.translate.instant('PROFILE.GRID.CURRENT_ASK'), width: '10%', columntype: 'textbox'}
+  columns(names: any): any[] {
+    return [
+      {dataField: 'DATE', text: names['PROFILE.GRID.DATE'], width: '20%', columntype: 'textbox'},
+      {dataField: 'AMOUNT', text: names['PROFILE.GRID.AMOUNT'], width: '15%', columntype: 'textbox'},
+      {dataField: 'ARTWORK', text: names['PROFILE.GRID.ARTWORK'], width: '25%', columntype: 'textbox'},
+      {dataField: 'TRADER_TYPE', text: names['PROFILE.GRID.TRADER_TYPE'], width: '15%', columntype: 'textbox'},
+      {dataField: 'TYPE', text: names['PROFILE.GRID.TYPE'], width: '5%', columntype: 'textbox'},
+      {dataField: 'BEST_BID', text: names['PROFILE.GRID.BEST_BID'], width: '10%', columntype: 'textbox'},
+      {dataField: 'CURRENT_ASK', text: names['PROFILE.GRID.CURRENT_ASK'], width: '10%', columntype: 'textbox'}
     ];
+  }
 
   constructor(private orderService: OrderService,
               public translate: TranslateService,
@@ -40,9 +41,32 @@ export class OrdersComponent implements OnInit {
   ngOnInit() {
     this.getPlacedOrders();
     this.getTradeTypes();
+    this.updateGrid();
   }
 
   ngAfterViewInit(): void {
+  }
+
+  updateGrid() {
+    this.translate
+      .get([
+        'PROFILE.GRID.DATE',
+        'PROFILE.GRID.AMOUNT',
+        'PROFILE.GRID.ARTWORK',
+        'PROFILE.GRID.TRADER_TYPE',
+        'PROFILE.GRID.TYPE',
+        'PROFILE.GRID.BEST_BID',
+        'PROFILE.GRID.CURRENT_ASK'
+      ])
+      .subscribe(data => {
+        this.myGrid.hideloadelement();
+        this.myGrid.beginupdate();
+        this.myGrid.setOptions
+        ({
+          columns: this.columns(data)
+        });
+        this.myGrid.endupdate();
+      });
   }
 
   getPlacedOrders(): void {

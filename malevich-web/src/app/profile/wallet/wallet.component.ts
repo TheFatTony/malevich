@@ -34,18 +34,43 @@ export class WalletComponent implements OnInit {
   ngOnInit() {
     this.getAccountState();
     this.getPayments();
+    this.updateGrid();
   }
 
-  columns: any[] =
-    [
-      {datafield: this.translate.instant('PROFILE.GRID.PAYMENT_NO'), width: '20%', columntype: 'textbox'},
-      {datafield: this.translate.instant('PROFILE.GRID.DATE'), width: '20%', columntype: 'textbox'},
-      {datafield: this.translate.instant('PROFILE.GRID.AMOUNT'), width: '20%', columntype: 'textbox'},
-      {datafield: this.translate.instant('PROFILE.GRID.TYPE'), width: '20%', columntype: 'textbox'},
+  updateGrid() {
+    this.translate
+      .get([
+        'PROFILE.GRID.PAYMENT_NO',
+        'PROFILE.GRID.DATE',
+        'PROFILE.GRID.AMOUNT',
+        'PROFILE.GRID.TYPE',
+        'PROFILE.GRID.PRINT'
+      ])
+      .subscribe(data => {
+        this.myGrid.hideloadelement();
+        this.myGrid.beginupdate();
+        this.myGrid.setOptions
+        ({
+          columns: this.columns(data)
+        });
+        this.myGrid.endupdate();
+      });
+  }
+
+  columns(names: any): any[] {
+    return [
+      {dataField: 'PAYMENT_NO',text: names['PROFILE.GRID.PAYMENT_NO'], width: '20%', columntype: 'textbox'},
+      {dataField: 'DATE',text: names['PROFILE.GRID.DATE'], width: '20%', columntype: 'textbox'},
+      {dataField: 'AMOUNT',text: names['PROFILE.GRID.AMOUNT'], width: '20%', columntype: 'textbox'},
+      {dataField: 'TYPE',text: names['PROFILE.GRID.TYPE'], width: '20%', columntype: 'textbox'},
       {
-        datafield: this.translate.instant('PROFILE.GRID.PRINT'), width: '20%', columntype: 'button', cellsrenderer: (): string => {
-        return this.translate.instant('PROFILE.GRID.PRINT');
-      },
+        dataField: 'PRINT',
+        text: names['PROFILE.GRID.PRINT'],
+        width: '20%',
+        columntype: 'button',
+        cellsrenderer: (): string => {
+          return names['PROFILE.GRID.PRINT'];
+        },
         buttonclick: (row: number): void => {
           this.paymentsService.receiptPrint(this.myGrid.getrowdata(row).PaymentNo).subscribe((data) => {
             let file = new Blob([data], {type: 'application/pdf'});
@@ -55,6 +80,7 @@ export class WalletComponent implements OnInit {
         }
       }
     ];
+  }
 
   sendPayment() {
     this.paymentsService.insert(this.newPayment).subscribe(() => {

@@ -53,12 +53,11 @@
                  [columnsresize]="true"
                  [filterable]="true"
                  [autoshowfiltericon]="true"
-                 [columns]="columns"
                  (onRowselect)="onGridRowSelect($event)">
           <tr>
-            <th>{{'PROFILE.GRID.FILE_NAME' | translate}}</th>
-            <th>{{'PROFILE.GRID.DATE' | translate}}</th>
-            <th>{{'PROFILE.GRID.DOCUMENT_TYPE' | translate}}</th>
+            <th>FILE_NAME</th>
+            <th>DATE</th>
+            <th>DOCUMENT_TYPE</th>
           </tr>
           <tr *ngFor="let doc of documents">
             <td>

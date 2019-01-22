@@ -21,12 +21,13 @@ export class DocumentsComponent implements OnInit {
 
   public url = environment.baseUrl;
 
-  columns: any[] =
-    [
-      {datafield: this.translate.instant('PROFILE.GRID.FILE_NAME'), width: '35%', columntype: 'textbox'},
-      {datafield: this.translate.instant('PROFILE.GRID.DATE'), width: '35%', columntype: 'textbox'},
-      {datafield: this.translate.instant('PROFILE.GRID.DOCUMENT_TYPE'), width: '30%', columntype: 'textbox'}
+  columns(names: any): any[] {
+    return [
+      {dataField: 'FILE_NAME', text: names['PROFILE.GRID.FILE_NAME'], width: '35%', columntype: 'textbox'},
+      {dataField: 'DATE', text: names['PROFILE.GRID.DATE'], width: '35%', columntype: 'textbox'},
+      {dataField: 'DOCUMENT_TYPE', text: names['PROFILE.GRID.DOCUMENT_TYPE'], width: '30%', columntype: 'textbox'}
     ];
+  }
 
   constructor(public translate: TranslateService,
               private documentsService: DocumentsService,
@@ -38,6 +39,25 @@ export class DocumentsComponent implements OnInit {
   ngOnInit() {
     this.getCurrent();
     this.getDocs();
+    this.updateGrid();
+  }
+
+  updateGrid() {
+    this.translate
+      .get([
+        'PROFILE.GRID.FILE_NAME',
+        'PROFILE.GRID.DATE',
+        'PROFILE.GRID.DOCUMENT_TYPE'
+      ])
+      .subscribe(data => {
+        this.myGrid.hideloadelement();
+        this.myGrid.beginupdate();
+        this.myGrid.setOptions
+        ({
+          columns: this.columns(data)
+        });
+        this.myGrid.endupdate();
+      });
   }
 
   ngAfterViewInit(): void {

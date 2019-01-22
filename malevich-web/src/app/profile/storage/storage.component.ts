@@ -82,7 +82,12 @@ export class StorageComponent implements OnInit {
 
   updateGrid() {
     this.translate
-      .get(['PROFILE.GRID.IMAGE', 'PROFILE.GRID.TITLE', 'PROFILE.GRID.ARTIST', 'PROFILE.GRID.CATEGORY'])
+      .get([
+        'PROFILE.GRID.IMAGE',
+        'PROFILE.GRID.TITLE',
+        'PROFILE.GRID.ARTIST',
+        'PROFILE.GRID.CATEGORY'
+      ])
       .subscribe(data => {
         this.myGrid.hideloadelement();
         this.myGrid.beginupdate();

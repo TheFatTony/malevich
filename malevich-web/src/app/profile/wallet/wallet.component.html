@@ -75,14 +75,13 @@
                  [sortable]="true"
                  [columnsresize]="true"
                  [filterable]="true"
-                 [autoshowfiltericon]="true"
-                 [columns]="columns">
+                 [autoshowfiltericon]="true">
           <tr>
-            <th>{{"PROFILE.GRID.PAYMENT_NO" | translate}}</th>
-            <th>{{"PROFILE.GRID.DATE" | translate}}</th>
-            <th>{{"PROFILE.GRID.AMOUNT" | translate}}</th>
-            <th>{{"PROFILE.GRID.TYPE" | translate}}</th>
-            <th>{{"PROFILE.GRID.PRINT" | translate}}</th>
+            <th>PAYMENT_NO</th>
+            <th>DATE</th>
+            <th>AMOUNT</th>
+            <th>TYPE</th>
+            <th>PRINT</th>
           </tr>
           <tr *ngFor="let payment of payments">
             <td>

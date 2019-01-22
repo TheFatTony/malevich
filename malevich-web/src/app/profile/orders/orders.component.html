@@ -52,16 +52,15 @@
                  [columnsresize]="true"
                  [filterable]="true"
                  [autoshowfiltericon]="true"
-                 [columns]="columns"
                  (onRowselect)="onGridRowSelect($event)">
           <tr>
-            <th>{{'PROFILE.GRID.DATE' | translate}}</th>
-            <th>{{'PROFILE.GRID.AMOUNT' | translate}}</th>
-            <th>{{'PROFILE.GRID.ARTWORK' | translate}}</th>
-            <th>{{'PROFILE.GRID.TRADER_TYPE' | translate}}</th>
-            <th>{{'PROFILE.GRID.TYPE' | translate}}</th>
-            <th>{{'PROFILE.GRID.BEST_BID' | translate}}</th>
-            <th>{{'PROFILE.GRID.CURRENT_ASK' | translate}}</th>
+            <th>DATE</th>
+            <th>AMOUNT</th>
+            <th>ARTWORK</th>
+            <th>TRADER_TYPE</th>
+            <th>TYPE</th>
+            <th>BEST_BID</th>
+            <th>CURRENT_ASK</th>
           </tr>
           <tr *ngFor="let order of orders">
             <td>

@@ -43,7 +43,6 @@
 
         <jqxGrid #myGrid
                  class="g-mt-5 g-mb-15"
-                 [columns]="columns"
                  [rowsheight]="50"
                  (onRowselect)="onGridRowSelect($event)"
                  [width]="'100%'"
@@ -51,14 +50,12 @@
                  [sortable]="true"
                  [columnsresize]="true"
                  [filterable]="true"
-                 [autoshowfiltericon]="true"
-                 [rowdetails]="true"
-                 [rowdetailstemplate]="rowdetailstemplate">
+                 [autoshowfiltericon]="true">
           <tr>
-            <th>{{'PROFILE.GRID.IMAGE' | translate}}</th>
-            <th>{{'PROFILE.GRID.TITLE' | translate}}</th>
-            <th>{{'PROFILE.GRID.ARTIST' | translate}}</th>
-            <th>{{'PROFILE.GRID.CATEGORY' | translate}}</th>
+            <th>Image</th>
+            <th>Title</th>
+            <th>Artist</th>
+            <th>Category</th>
           </tr>
           <tr *ngFor="let a of artworkStocks">
             <td></td>

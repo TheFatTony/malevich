@@ -39,28 +39,59 @@ export class StorageComponent implements OnInit {
     return '<span style="margin-left: 4px; margin-top: 15px; float: left;">' + value + '</span>';
   };
 
-  rowdetailstemplate: any = {
-    rowdetails: '<div>{{a.artwork.descriptionMl[translate.currentLang]}}</div>',
-    rowdetailsheight: 50,
-    rowdetailshidden: true
-  };
-
-  columns: any[] =
-    [
-      {datafield: this.translate.instant('PROFILE.GRID.IMAGE'), width: '10%', cellsrenderer: this.photoRenderer},
-      {datafield: this.translate.instant('PROFILE.GRID.TITLE'), width: '40%', cellsrenderer: this.renderer},
-      {datafield: this.translate.instant('PROFILE.GRID.ARTIST'), width: '25%', cellsrenderer: this.renderer},
-      {datafield: this.translate.instant('PROFILE.GRID.CATEGORY'), width: '25%', cellsrenderer: this.renderer}
+  columns(names: any): any[] {
+    return [
+      {
+        dataField: 'Image',
+        text: names['PROFILE.GRID.IMAGE'],
+        width: '10%',
+        cellsrenderer: this.photoRenderer
+      },
+      {
+        dataField: 'Title',
+        text: names['PROFILE.GRID.TITLE'],
+        width: '40%',
+        cellsrenderer: this.renderer
+      },
+      {
+        dataField: 'Artist',
+        text: names['PROFILE.GRID.ARTIST'],
+        width: '25%',
+        cellsrenderer: this.renderer
+      },
+      {
+        dataField: 'Category',
+        text: names['PROFILE.GRID.CATEGORY'],
+        width: '25%',
+        cellsrenderer: this.renderer
+      }
     ];
+  }
 
   constructor(private router: Router,
               private galleryService: GalleryService,
               private artworkStockService: ArtworkStockService,
               public translate: TranslateService) {
+
   }
 
   ngOnInit() {
     this.getArtworkStock();
+    this.updateGrid();
+  }
+
+  updateGrid() {
+    this.translate
+      .get(['PROFILE.GRID.IMAGE', 'PROFILE.GRID.TITLE', 'PROFILE.GRID.ARTIST', 'PROFILE.GRID.CATEGORY'])
+      .subscribe(data => {
+        this.myGrid.hideloadelement();
+        this.myGrid.beginupdate();
+        this.myGrid.setOptions
+        ({
+          columns: this.columns(data)
+        });
+        this.myGrid.endupdate();
+      });
   }
 
   getArtworkStock(): void {

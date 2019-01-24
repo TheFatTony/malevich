@@ -17,6 +17,8 @@ import {DelayedChangeComponent} from './cms/delayed-change/delayed-change.compon
 import {NgxJsonViewerModule} from "ngx-json-viewer";
 import {YinyangCoreModule} from '../../../node_modules/yinyang-core';
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
+import {ArtistListComponent} from "./cms/artists/list/artist-list.component";
+import {ArtistEditComponent} from "./cms/artists/edit/artist-edit.component";
 
 @NgModule({
   imports: [
@@ -39,7 +41,9 @@ import {FormsModule, ReactiveFormsModule} from "@angular/forms";
     OrdersListComponent,
     HelpCategoryComponent,
     HelpTopicComponent,
-    DelayedChangeComponent],
+    DelayedChangeComponent,
+    ArtistListComponent,
+    ArtistEditComponent],
   providers: [UsersService]
 })
 export class AdminModule {

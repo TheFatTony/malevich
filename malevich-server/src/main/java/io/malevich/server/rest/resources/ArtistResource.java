@@ -3,10 +3,13 @@ package io.malevich.server.rest.resources;
 import io.malevich.server.domain.ArtistEntity;
 import io.malevich.server.services.artist.ArtistService;
 import io.malevich.server.transfer.ArtistDto;
+import io.malevich.server.transfer.HelpCategoryDto;
 import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -32,6 +35,14 @@ public class ArtistResource {
     public List<ArtistDto> list() {
         List<ArtistEntity> allEntries = this.artistService.findAll();
         return allEntries.stream().map(allEntry -> convertToDto(allEntry)).collect(Collectors.toList());
+    }
+
+    @PostMapping("/save")
+    @ResponseStatus(HttpStatus.OK)
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    public ResponseEntity<Void> save(@RequestBody ArtistDto artist) {
+        this.artistService.save(convertToEntity(artist));
+        return ResponseEntity.ok().build();
     }
 
     @RequestMapping(value = "/item/{id}", method = RequestMethod.GET)

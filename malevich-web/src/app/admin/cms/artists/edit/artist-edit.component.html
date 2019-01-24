@@ -1,0 +1,72 @@
+<ng-container *ngIf="editArtist">
+  <div class="container g-mt-20">
+    <div class="row justify-content-md-center">
+      <div class="col col-8">
+        <div class="g-mb-10">
+          <label>Upload artist image:</label>
+          <div>
+            <jqxFileUpload
+              [width]="'100%'" [uploadUrl]="url + 'files/uploadFile'" [fileInputName]="'file'"
+              (onUploadEnd)="onImageUploadEnd($event)" [multipleFilesUpload]="false" [autoUpload]="false">
+            </jqxFileUpload>
+          </div>
+        </div>
+
+        <div class="g-mb-10">
+          <label>Upload small artist image (thumbnail):</label>
+          <div>
+            <jqxFileUpload
+              [width]="'100%'" [uploadUrl]="url + 'files/uploadFile'" [fileInputName]="'file'"
+              (onUploadEnd)="onThumbnailUploadEnd($event)" [multipleFilesUpload]="false" [autoUpload]="false">
+            </jqxFileUpload>
+          </div>
+        </div>
+
+        <form #f="ngForm" (ngSubmit)="sendButton()" novalidate>
+          <div class="g-mb-10">
+            <label>Artist Name [En]:</label>
+            <div>
+              <mchInput name="nameEn"
+                        [ngModel]="!editArtist?.fullNameMl ? '' : editArtist?.fullNameMl['en']"
+                        (ngModelChange)="onNameChange($event, 'en')" mchRequired></mchInput>
+            </div>
+          </div>
+          <div class="g-mb-10">
+            <label>Artist Name [Ru]:</label>
+            <div>
+              <mchInput name="nameRu"
+                        [ngModel]="!editArtist?.fullNameMl ? '' : editArtist?.fullNameMl['ru']"
+                        (ngModelChange)="onNameChange($event, 'ru')"></mchInput>
+            </div>
+          </div>
+          <div class="g-mb-10">
+            <label>Description [En]:</label>
+            <div>
+              <mchTextArea
+                name="descriptionEn"
+                [ngModel]="!editArtist?.descriptionMl ? '' : editArtist.descriptionMl['en']"
+                (ngModelChange)="onDescriptionChange($event, 'en')"
+                [height]="'200px'" mchRequired></mchTextArea>
+            </div>
+          </div>
+          <div class="g-mb-10">
+            <label>Description [Ru]:</label>
+            <div>
+              <mchTextArea name="descriptionRu"
+                           [ngModel]="!editArtist?.descriptionMl ? '' : editArtist.descriptionMl['ru']"
+                           (ngModelChange)="onDescriptionChange($event, 'ru')"
+                           [height]="'200px'" [disabled]="false"></mchTextArea>
+            </div>
+          </div>
+        </form>
+        <div class="text-center">
+          <mchButton [submitForm]="f"
+                     style="text-align: center; margin-left: 8em;"
+                     [width]="60" [height]="25">
+            Send
+          </mchButton>
+        </div>
+      </div>
+    </div>
+  </div>
+</ng-container>

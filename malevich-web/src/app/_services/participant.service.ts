@@ -59,6 +59,7 @@ export class ParticipantService {
     }
 
     if (this.isGallery(dto)) {
+      dto.titleMl = dto.titleMl || new Map<string, string>();
       dto.descriptionMl = dto.descriptionMl || new Map<string, string>();
     }
 

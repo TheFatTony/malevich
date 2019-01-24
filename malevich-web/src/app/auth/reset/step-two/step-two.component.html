@@ -3,8 +3,8 @@
     <div class="col-sm-9 col-md-7 col-lg-5">
       <div class="g-brd-around g-brd-gray-light-v3 g-bg-white rounded g-px-30 g-py-50 mb-4">
         <header class="text-center mb-4">
-          <h1 class="h4 g-color-black g-font-weight-400">Changing password</h1>
-          <p>Set new password for your account</p>
+          <h1 class="h4 g-color-black g-font-weight-400">{{'RESET_PASSWORD.STEP_TWO.CAPTION' | translate}}</h1>
+          <p>{{'RESET_PASSWORD.STEP_TWO.APPEAL' | translate}}</p>
         </header>
 
         <!-- Form -->
@@ -15,7 +15,7 @@
                       mchRequired
                       mchPassword
                       [type]="'password'"
-                      [placeHolder]="'TRADER_PROFILE.SECURITY.PLACEHOLDER.PASSWORD' | translate"
+                      [placeHolder]="'PROFILE.SECURITY.PLACEHOLDER.PASSWORD' | translate"
                       [(ngModel)]="password">
             </mchInput>
           </div>
@@ -27,14 +27,14 @@
                       mchMatchTo="password"
                       mchMatchToMessage="Passwords should match"
                       [type]="'password'"
-                      [placeHolder]="'TRADER_PROFILE.SECURITY.PLACEHOLDER.CONFIRM_PASSWORD' | translate"
+                      [placeHolder]="'PROFILE.SECURITY.PLACEHOLDER.CONFIRM_PASSWORD' | translate"
                       [(ngModel)]="passwordConfirm">
             </mchInput>
           </div>
 
           <button class="btn btn-block u-btn-primary g-font-size-12 text-uppercase g-py-15 g-px-25"
                   type="button"
-                  (click)="submit()">Submit
+                  (click)="submit()">{{'PROFILE.BUTTON.SUBMIT' | translate}}
           </button>
         </div>
         <!-- End Form -->

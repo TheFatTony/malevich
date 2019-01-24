@@ -11,5 +11,7 @@ public interface ArtistService {
 
     List<ArtistEntity> findAll();
 
+    ArtistEntity save(ArtistEntity artist);
+
     ArtistEntity find(Long id);
 }

@@ -8,25 +8,25 @@
             <i class="g-color-gray-light-v2 g-ml-5 fa fa-angle-right"></i>
           </li>
           <li class="list-inline-item g-mr-5">
-            <a class="u-link-v5 g-color-text" routerLink="/profile/view">{{'TRADER_PROFILE.TITLE' |
+            <a class="u-link-v5 g-color-text" routerLink="/profile/view">{{'PROFILE.TITLE' |
               translate}}</a>
             <i class="g-color-gray-light-v2 g-ml-5 fa fa-angle-right"></i>
           </li>
           <li class="list-inline-item g-mr-5">
-            <a class="u-link-v5 g-color-text" routerLink="/profile/documents">{{'TRADER_PROFILE.DOCUMENTS.TITLE'
+            <a class="u-link-v5 g-color-text" routerLink="/profile/documents">{{'PROFILE.DOCUMENTS.TITLE'
               |
               translate}}</a>
             <i class="g-color-gray-light-v2 g-ml-5 fa fa-angle-right"></i>
           </li>
           <li class="list-inline-item g-color-primary">
-            <span>{{'TRADER_PROFILE.BUTTON.ADD' |
+            <span>{{'PROFILE.BUTTON.ADD' |
               translate}}</span>
           </li>
         </ul>
       </div>
 
       <div class="align-self-center ml-auto">
-        <h1 class="h3 mb-0">{{'TRADER_PROFILE.DOCUMENTS.ADD.TITLE' | translate}}</h1>
+        <h1 class="h3 mb-0">{{'PROFILE.DOCUMENTS.ADD.TITLE' | translate}}</h1>
       </div>
     </div>
   </div>
@@ -47,7 +47,7 @@
 
         <div class="row">
           <div class="col-12">
-            <span class="d-block g-color-text g-font-size-13 mb-1">{{'TRADER_PROFILE.DOCUMENTS.ADD.CHOOSE' | translate}}</span>
+            <span class="d-block g-color-text g-font-size-13 mb-1">{{'PROFILE.DOCUMENTS.ADD.CHOOSE' | translate}}</span>
             <mchComboBox #documentTypeComboBox
                          [objectSource]="documentTypes"
                          [displayFunc]="documentTypeDisplayFunc"
@@ -72,10 +72,10 @@
       </div>
       <!-- End Info -->
       <button class="btn u-btn-primary g-font-size-12 text-uppercase g-py-12 g-px-25 g-mr-20" type="submit"
-              (click)="submit()">{{'TRADER_PROFILE.SECURITY.BUTTON.SUBMIT' | translate}}
+              (click)="submit()">{{'PROFILE.SECURITY.BUTTON.SUBMIT' | translate}}
       </button>
       <button class="btn u-btn-primary g-font-size-12 text-uppercase g-py-12 g-px-25" type="button" (click)="cancel()">
-        {{'TRADER_PROFILE.SECURITY.BUTTON.CANCEL' | translate}}
+        {{'PROFILE.SECURITY.BUTTON.CANCEL' | translate}}
       </button>
     </div>
     <!-- End Add -->

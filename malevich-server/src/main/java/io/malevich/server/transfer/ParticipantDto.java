@@ -29,6 +29,8 @@ public class ParticipantDto {
 
     private FileDto image;
 
+    private Map<String, String> titleMl;
+
     private Map<String, String> descriptionMl;
 
     //trader

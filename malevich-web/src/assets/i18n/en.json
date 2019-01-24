@@ -4,8 +4,8 @@
   },
   "INDEX": {
     "LANG_MENU_ITEM": "Language",
-    "LANG_ENGLISH": "Английский",
-    "LANG_RUSSIAN": "Русский",
+    "LANG_ENGLISH": "English",
+    "LANG_RUSSIAN": "Russian",
     "LOGOUT_MENU_ITEM": "Logout",
     "MAIN_MENU_ITEM": "Home",
     "ARTHUNTER_MENU_ITEM": "Art-Hunter",
@@ -30,27 +30,75 @@
       "RESET": "Reset"
     }
   },
-  "TRADER_PROFILE": {
+  "REGISTER": {
+    "TITLE": "Create New Account",
+    "WELCOME": "Welcome to Malevich",
+    "GALLERIES": "Glleries",
+    "ARTWORKS": "Artworks",
+    "ART_VALUE": "Art value",
+    "HAVE_AN_ACCOUNT": "Already have an account?",
+    "SIGNIN": "signin",
+    "STEP_ONE": {
+      "ACCEPT": "I accept the",
+      "TERMS_AND_CONDITIONS": "Terms and Conditions",
+      "SUBSCRIBE": "Subscribe to our newsletter",
+      "SIGNUP": "Signup"
+    }
+  },
+  "RESET_PASSWORD": {
+    "STEP_ONE": {
+      "CAPTION": "Forgot Password?",
+      "APPEAL": "Enter your e-mail address to reset your password",
+      "RESET":"Reset password"
+    },
+    "STEP_TWO": {
+      "CAPTION": "Changing password",
+      "APPEAL": "Set new password for your account"
+    }
+  },
+  "PROFILE": {
     "TITLE": "Your Profile",
     "EDIT_PROFILE": "Edit Your Profile",
+    "NAVIGATION": {
+      "STORED_ARTWORKS": "Stored Artworks",
+      "YOUR_ARTWORKS": "Your Artworks",
+      "YOUR_ORDERS": "Your Orders",
+      "DOCUMENTS": "Documents",
+      "NOTIFICATION": "Notifications",
+      "YOUR_WALLET": "Your Wallet",
+      "PAYMENT_OPTIONS": "Payment Options",
+      "WISHLIST": "WishList"
+    },
     "SECURITY": {
       "LABEL": {
-        "FIRST_NAME": "First Name:",
-        "LAST_NAME": "Last Name:",
-        "UPLOAD_AVATAR": "Upload Profile Image:",
-        "EMAIL": "Email:",
-        "GENDER": "Gender:",
-        "COUNTRY": "Country:",
-        "TITLE": "Title:",
-        "MOBILE": "Mobile Phone Number:",
-        "PASSWORD": "Password:",
-        "DATE_OF_BIRTH": "Date Of Birth:",
+        "FIRST_NAME": "First Name",
+        "LAST_NAME": "Last Name",
+        "UPLOAD_AVATAR": "Upload Profile Image",
+        "EMAIL": "Email",
+        "GENDER": "Gender",
+        "COUNTRY": "Country of residence",
+        "TITLE": "Title",
+        "MOBILE": "Mobile Phone Number",
+        "PASSWORD": "Password",
+        "DATE_OF_BIRTH": "Date Of Birth",
+        "LEGAL_NAME": "Legal Name",
+        "LOCATION": "Location",
+        "LEGAL_NAME_EN": "Legal Name - English",
+        "LEGAL_NAME_RU": "Legal Name - Russian",
+        "PHONE_NUMBER": "Phone Number",
+        "DESCRIPTION": "Description",
+        "DESCRIPTION_EN": "Description - English",
+        "DESCRIPTION_RU": "Description - Russian",
+        "CAPTION_PERSON_INFO": "Personal info",
+        "CAPTION_ORGANIZATION_INFO": "Legal entity info",
+        "CAPTION_GALLERY_INFO": "Gallery info",
+        "CAPTION_ADDRESS": "Address",
         "ADDRESS": {
-          "COUNTRY": "Country:",
-          "STATE": "State/Province:",
-          "CITY": "City:",
-          "ZIP": "ZIP/PostalCode:",
-          "STREET": "Address:"
+          "COUNTRY": "Country",
+          "STATE": "State/Province",
+          "CITY": "City",
+          "ZIP": "ZIP/PostalCode",
+          "STREET": "Address"
         }
       },
       "PLACEHOLDER": {
@@ -72,6 +120,25 @@
         }
       }
     },
+    "STORAGE": {
+      "TITLE": "Stored artworks",
+      "ADD": {
+        "TITLE": "Add artwork",
+        "CHOOSE": "Choose from existing",
+        "TITLE_EN": "Title - English",
+        "TITLE_RU": "Title - Russian",
+        "DESCRIPTION_EN": "Description - English",
+        "DESCRIPTION_RU": "Description - Russian",
+        "ARTIST": "Artist",
+        "CATEGORY": "Category"
+      },
+      "EDIT": {
+        "TITLE": "Edit artwork",
+        "DESCRIPTION": "Description",
+        "ARTIST": "Artist",
+        "CATEGORY": "Category"
+      }
+    },
     "ARTWORKS": {
       "TITLE": "Artworks",
       "ADD": {
@@ -79,6 +146,7 @@
       }
     },
     "WALLET": {
+      "TITLE": "Wallet",
       "BALANCE": "Balance",
       "AVAILABLE": "Available"
     },
@@ -94,6 +162,7 @@
     },
     "DOCUMENTS": {
       "TITLE": "Documents",
+      "UPLOAD_FILE": "Upload document",
       "ADD": {
         "TITLE": "Add documents",
         "CHOOSE": "Choose from existing"
@@ -129,65 +198,6 @@
       "CANCEL_ORDER": "Cancel order"
     }
   },
-  "GALLERY_PROFILE": {
-    "TITLE": "Your Profile",
-    "NOTIFICATIONS": "Notifications",
-    "EDIT_PROFILE": "Edit Your Profile",
-    "SECURITY": {
-      "LEGAL_NAME": "Legal Name",
-      "UPLOAD_AVATAR": "Upload Profile Image:",
-      "LOCATION": "Location",
-      "LEGAL_NAME_EN": "Legal Name - English",
-      "LEGAL_NAME_RU": "Legal Name - Russian",
-      "PHONE_NUMBER": "Phone Number",
-      "DESCRIPTION": "Description",
-      "DESCRIPTION_EN": "Description - English",
-      "DESCRIPTION_RU": "Description - Russian"
-    },
-    "LABELS": {
-      "TITLE": "Title",
-      "DESCRIPTION": "Description",
-      "ARTIST": "Artist",
-      "CATEGORY": "Category"
-    },
-    "ARTWORKS": {
-      "TITLE": "Artworks",
-      "ADD": {
-        "TITLE": "Add artwork"
-      }
-    },
-    "ORDERS": {
-      "TITLE": "Orders"
-    },
-    "DOCUMENTS": {
-      "TITLE": "Documents",
-      "ADD": {
-        "TITLE": "Add documents",
-        "CHOOSE": "Choose from existing"
-      }
-    },
-    "BUTTON": {
-      "ADD": "Add",
-      "DELETE": "Delete",
-      "ASK_ADD": "Ask Add",
-      "CANCEL_ORDER": "Cancel order"
-    },
-    "GRID": {
-      "FILE_NAME": "File Name",
-      "DATE": "Date",
-      "DOCUMENT_TYPE": "Document Type",
-      "AMOUNT": "Amount",
-      "ARTWORK": "Artwork",
-      "TRADER_TYPE": "Trader Type",
-      "TYPE": "Type",
-      "BEST_BID": "Best Bid",
-      "CURRENT_ASK": "Current Ask",
-      "IMAGE": "Image",
-      "TITLE": "Title",
-      "ARTIST": "Artist",
-      "CATEGORY": "Category"
-    }
-  },
   "MAIN": {
     "GALLERY": {
       "POSTED": "Posted",
@@ -204,7 +214,7 @@
       "COST": "Cost",
       "BID": "Bid",
       "ASK": "Ask",
-      "TRADER_HISTORY": "Trader History",
+      "TRADE_HISTORY": "Trader History",
       "PLACE_A_BID": "Place a Bid",
       "ADD_TO_WISHLIST": "Add to WishList",
       "REVIEW": "Review",
@@ -221,18 +231,6 @@
   "404": {
     "NOT_FOUND": "Not found",
     "HOME_PAGE": "Home page"
-  },
-  "COMMON_PROFILE": {
-    "NAVIGATION": {
-      "STORED_ARTWORKS": "Stored Artworks",
-      "YOUR_ARTWORKS": "Your Artworks",
-      "YOUR_ORDERS": "Your Orders",
-      "DOCUMENTS": "Documents",
-      "NOTIFICATION": "Notifications",
-      "YOUR_WALLET": "Your Wallet",
-      "PAYMENT_OPTIONS": "Payment Options",
-      "WISHLIST": "WishList"
-    }
   },
   "EDIT": "Edit"
 }

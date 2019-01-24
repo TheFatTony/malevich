@@ -8,18 +8,18 @@
             <i class="g-color-gray-light-v2 g-ml-5 fa fa-angle-right"></i>
           </li>
           <li class="list-inline-item g-mr-5">
-            <a class="u-link-v5 g-color-text" routerLink="/profile/view">{{'GALLERY_PROFILE.TITLE' |
+            <a class="u-link-v5 g-color-text" routerLink="/profile/view">{{'PROFILE.TITLE' |
               translate}}</a>
             <i class="g-color-gray-light-v2 g-ml-5 fa fa-angle-right"></i>
           </li>
           <li class="list-inline-item g-color-primary">
-            <span>{{'COMMON_PROFILE.NAVIGATION.STORED_ARTWORKS' | translate}}</span>
+            <span>{{'PROFILE.NAVIGATION.STORED_ARTWORKS' | translate}}</span>
           </li>
         </ul>
       </div>
 
       <div class="align-self-center ml-auto">
-        <h1 class="h3 mb-0">{{'GALLERY_PROFILE.ARTWORKS.TITLE' | translate}}</h1>
+        <h1 class="h3 mb-0">{{'PROFILE.STORAGE.TITLE' | translate}}</h1>
       </div>
     </div>
   </div>
@@ -37,23 +37,22 @@
       <div class="g-brd-around g-brd-gray-light-v4 rounded g-pa-30 g-mb-30">
 
         <mchButton [width]="100" [height]="35" (click)="onAddButtonClick()">
-          {{'GALLERY_PROFILE.BUTTON.ADD' | translate}}
+          {{'PROFILE.BUTTON.ADD' | translate}}
         </mchButton>
 
         <mchButton [width]="100" [height]="35" [disabled]="selectedRowIndex >= 0 ? false : true"
                    (click)="onUpdateButtonClick()">
-          {{'TRADER_PROFILE.SECURITY.BUTTON.UPDATE' | translate}}
+          {{'PROFILE.BUTTON.UPDATE' | translate}}
         </mchButton>
 
         <mchButton [width]="100" [height]="35" [disabled]="selectedRowIndex >= 0 ? false : true"
                    (click)="onDeleteButtonClick()">
-          {{'GALLERY_PROFILE.BUTTON.DELETE' | translate}}
+          {{'PROFILE.BUTTON.DELETE' | translate}}
         </mchButton>
 
 
         <jqxGrid #myGrid
                  class="g-mt-5 g-mb-15"
-                 [columns]="columns"
                  [rowsheight]="50"
                  (onRowselect)="onGridRowSelect($event)"
                  [width]="'100%'"
@@ -61,14 +60,12 @@
                  [sortable]="true"
                  [columnsresize]="true"
                  [filterable]="true"
-                 [autoshowfiltericon]="true"
-                 [rowdetails]="true"
-                 [rowdetailstemplate]="rowdetailstemplate">
+                 [autoshowfiltericon]="true">
           <tr>
-            <th>{{"GALLERY_PROFILE.GRID.IMAGE" | translate}}</th>
-            <th>{{"GALLERY_PROFILE.GRID.TITLE" | translate}}</th>
-            <th>{{"GALLERY_PROFILE.GRID.ARTIST" | translate}}</th>
-            <th>{{"GALLERY_PROFILE.GRID.CATEGORY" | translate}}</th>
+            <th>Image</th>
+            <th>Title</th>
+            <th>Artist</th>
+            <th>Category</th>
           </tr>
           <tr *ngFor="let a of artworkStocks">
             <td></td>

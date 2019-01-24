@@ -8,18 +8,18 @@
             <i class="g-color-gray-light-v2 g-ml-5 fa fa-angle-right"></i>
           </li>
           <li class="list-inline-item g-mr-5">
-            <a class="u-link-v5 g-color-text" routerLink="/profile/view">{{'TRADER_PROFILE.TITLE' |
+            <a class="u-link-v5 g-color-text" routerLink="/profile/view">{{'PROFILE.TITLE' |
               translate}}</a>
             <i class="g-color-gray-light-v2 g-ml-5 fa fa-angle-right"></i>
           </li>
           <li class="list-inline-item g-color-primary">
-            <span>{{'TRADER_PROFILE.ORDERS.TITLE' | translate}}</span>
+            <span>{{'PROFILE.ORDERS.TITLE' | translate}}</span>
           </li>
         </ul>
       </div>
 
       <div class="align-self-center ml-auto">
-        <h1 class="h3 mb-0">{{'TRADER_PROFILE.ORDERS.TITLE' | translate}}</h1>
+        <h1 class="h3 mb-0">{{'PROFILE.ORDERS.TITLE' | translate}}</h1>
       </div>
     </div>
   </div>
@@ -41,7 +41,7 @@
         <!--</button>-->
 
         <mchButton [disabled]="selectedRowIndex < 0" (click)="onCancelOrderButton()">
-          {{'TRADER_PROFILE.BUTTON.CANCEL_ORDER' | translate}}
+          {{'PROFILE.BUTTON.CANCEL_ORDER' | translate}}
         </mchButton>
 
         <jqxGrid #myGrid
@@ -52,16 +52,15 @@
                  [columnsresize]="true"
                  [filterable]="true"
                  [autoshowfiltericon]="true"
-                 [columns]="columns"
                  (onRowselect)="onGridRowSelect($event)">
           <tr>
-            <th>{{'TRADER_PROFILE.GRID.DATE' | translate}}</th>
-            <th>{{'TRADER_PROFILE.GRID.AMOUNT' | translate}}</th>
-            <th>{{'TRADER_PROFILE.GRID.ARTWORK' | translate}}</th>
-            <th>{{'TRADER_PROFILE.GRID.TRADER_TYPE' | translate}}</th>
-            <th>{{'TRADER_PROFILE.GRID.TYPE' | translate}}</th>
-            <th>{{'TRADER_PROFILE.GRID.BEST_BID' | translate}}</th>
-            <th>{{'TRADER_PROFILE.GRID.CURRENT_ASK' | translate}}</th>
+            <th>DATE</th>
+            <th>AMOUNT</th>
+            <th>ARTWORK</th>
+            <th>TRADER_TYPE</th>
+            <th>TYPE</th>
+            <th>BEST_BID</th>
+            <th>CURRENT_ASK</th>
           </tr>
           <tr *ngFor="let order of orders">
             <td>

@@ -3,8 +3,8 @@
     <div class="col-sm-9 col-md-7 col-lg-5">
       <div class="g-brd-around g-brd-gray-light-v3 g-bg-white rounded g-px-30 g-py-50 mb-4">
         <header class="text-center mb-4">
-          <h1 class="h4 g-color-black g-font-weight-400">Forgot Password?</h1>
-          <p>Enter your e-mail address to reset your password.</p>
+          <h1 class="h4 g-color-black g-font-weight-400">{{'RESET_PASSWORD.STEP_ONE.CAPTION' | translate}}</h1>
+          <p>{{'RESET_PASSWORD.STEP_ONE.APPEAL' | translate}}</p>
         </header>
 
         <!-- Form -->
@@ -31,7 +31,7 @@
             </div>
 
             <mchButton class="btn btn-block u-btn-primary g-font-size-12 text-uppercase g-py-12 g-px-25"
-                       [submitForm]="f">Reset Password
+                       [submitForm]="f">{{'RESET_PASSWORD.STEP_ONE.RESET' | translate}}
             </mchButton>
           </form>
         </div>

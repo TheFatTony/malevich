@@ -1,4 +1,4 @@
-import {Component, OnInit, ViewChild} from '@angular/core';
+import {Component, OnDestroy, OnInit, ViewChild} from '@angular/core';
 import {jqxGridComponent} from 'jqwidgets-scripts/jqwidgets-ts/angular_jqxgrid';
 import {TranslateService} from '@ngx-translate/core';
 import {HelpCategoryDto} from '../../../../_transfer/helpCategoryDto';
@@ -12,7 +12,7 @@ import jqxInput = jqwidgets.jqxInput;
   templateUrl: './help-category.component.html',
   styleUrls: ['./help-category.component.css']
 })
-export class HelpCategoryComponent implements OnInit {
+export class HelpCategoryComponent implements OnInit, OnDestroy {
   @ViewChild('myWindow') myWindow: jqxWindowComponent;
   @ViewChild('myValidator') myValidator: jqxValidatorComponent;
   @ViewChild('myGrid') myGrid: jqxGridComponent;
@@ -30,6 +30,10 @@ export class HelpCategoryComponent implements OnInit {
 
   ngOnInit() {
     this.getCategories();
+  }
+
+  ngOnDestroy(): void {
+    this.myWindow.close();
   }
 
   getCategories(): void {

@@ -1,4 +1,4 @@
-import {Component, HostListener, OnInit, ViewChild} from '@angular/core';
+import {Component, HostListener, OnDestroy, OnInit, ViewChild} from '@angular/core';
 import {jqxGridComponent} from "jqwidgets-scripts/jqwidgets-ts/angular_jqxgrid";
 import {TranslateService} from "@ngx-translate/core";
 import {DelayedChangeDto} from "../../../_transfer/delayedChangeDto";
@@ -10,11 +10,11 @@ import {jqxWindowComponent} from "jqwidgets-scripts/jqwidgets-ts/angular_jqxwind
   templateUrl: './delayed-change.component.html',
   styleUrls: ['./delayed-change.component.css']
 })
-export class DelayedChangeComponent implements OnInit {
+export class DelayedChangeComponent implements OnInit, OnDestroy {
 
   @ViewChild('myGrid') myGrid: jqxGridComponent;
-  @ViewChild('myWindow') myWindow: jqxWindowComponent;
-  @ViewChild('myWindow1') myWindow1: jqxWindowComponent;
+  @ViewChild('viewWindow') viewWindow: jqxWindowComponent;
+  @ViewChild('declineWindow') declineWindow: jqxWindowComponent;
 
 
 
@@ -37,8 +37,8 @@ export class DelayedChangeComponent implements OnInit {
         },
         buttonclick: (row: number): void => {
           this.delayedChange = this.delayedChanges.find(data => data.id === this.myGrid.getrowdata(row).Id);
-          this.myWindow.position({x: this.x, y: this.y});
-          this.myWindow.open();
+          this.viewWindow.position({x: this.x, y: this.y});
+          this.viewWindow.open();
         }
       },
       {
@@ -61,8 +61,8 @@ export class DelayedChangeComponent implements OnInit {
         buttonclick: (row: number): void => {
           this.delayedChange = this.delayedChanges.find(data => data.id === this.myGrid.getrowdata(row).Id);
           this.comment = "";
-          this.myWindow1.position({x: this.x, y: this.y});
-          this.myWindow1.open();
+          this.declineWindow.position({x: this.x, y: this.y});
+          this.declineWindow.open();
         }
       }
     ];
@@ -72,6 +72,11 @@ export class DelayedChangeComponent implements OnInit {
 
   ngOnInit() {
     this.getDelayedChanges();
+  }
+
+  ngOnDestroy(): void {
+    this.viewWindow.close();
+    this.declineWindow.close();
   }
 
   getDelayedChanges(): void {
@@ -86,7 +91,7 @@ export class DelayedChangeComponent implements OnInit {
     this.delayedChange.comment = this.comment;
     this.delayedChangeService.declineChange(this.delayedChange).subscribe(() => {
       this.getDelayedChanges();
-      this.myWindow1.close();
+      this.declineWindow.close();
     });
   }
 

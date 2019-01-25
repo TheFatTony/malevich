@@ -34,8 +34,7 @@ public class ArtworkStockAssetServiceImpl extends GenericComposerServiceImpl<Art
     public void create(ArtworkStockEntity entity) {
         ArtworkStockAsset artworkStockAsset = new ArtworkStockAsset();
         artworkStockAsset.setId(entity.getId().toString());
-        artworkStockAsset.setArtwork("resource:io.malevich.network.Artwork#" + entity.getArtwork().getId().toString());
-        artworkStockAsset.setHolder("resource:io.malevich.network.Gallery#" + entity.getGallery().getId().toString());
+        artworkStockAsset.setToken(entity.getArtwork().getId().toString());
         artworkStockAsset.setOwner("resource:io.malevich.network.Gallery#" + entity.getGallery().getId().toString());
 
         doPost(artworkStockAsset);
@@ -53,7 +52,7 @@ public class ArtworkStockAssetServiceImpl extends GenericComposerServiceImpl<Art
         }
 
         try {
-            ResponseEntity<List<ArtworkStockAsset>> res = restTemplate.exchange(composerUrl + "/queries/selectOwnedArtworkStocks?owner={owner}", HttpMethod.GET, null, new ParameterizedTypeReference<List<ArtworkStockAsset>>() {
+            ResponseEntity<List<ArtworkStockAsset>> res = restTemplate.exchange(composerUrl + "/queries/getOwnedArtworkStocks?owner={owner}", HttpMethod.GET, null, new ParameterizedTypeReference<List<ArtworkStockAsset>>() {
             }, (fabricClass + participantEntity.getId()));
             return res.getBody();
         } catch (RestClientException e) {

@@ -1,7 +1,9 @@
 package io.malevich.server.services.accountstate;
 
+import com.yinyang.core.server.services.auth.AuthService;
 import io.malevich.server.domain.AccountStateEntity;
 import io.malevich.server.domain.ArtworkStockEntity;
+import io.malevich.server.domain.GalleryEntity;
 import io.malevich.server.domain.ParticipantEntity;
 import io.malevich.server.fabric.model.ArtworkStockAsset;
 import io.malevich.server.fabric.model.GalleryParticipant;
@@ -43,6 +45,7 @@ public class AccountStateServiceImpl implements AccountStateService {
     private ParticipantService participantService;
 
 
+
     @Override
     @Transactional(readOnly = true)
     public AccountStateEntity getWallet() {
@@ -67,13 +70,12 @@ public class AccountStateServiceImpl implements AccountStateService {
     @Override
     @Transactional(readOnly = true)
     public List<ArtworkStockEntity> getOwnArtworks() {
-        List<ArtworkStockEntity> result = new ArrayList<>();
+        // TODO refactor this crap above
 
-        for (ArtworkStockAsset asset : artworkStockAssetService.selectOwnedArtworkStocks()) {
-            result.add(artworkStockService.find(new Long(asset.getId().replace("resource:io.malevich.network.ArtworkStock#", ""))));
-        }
 
-        return result;
+        ParticipantEntity counterpartyEntity = participantService.getCurrent();
+
+        return artworkStockService.findAllByGalleryId(counterpartyEntity.getId());
     }
 
 

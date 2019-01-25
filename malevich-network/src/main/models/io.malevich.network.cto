@@ -16,7 +16,8 @@ enum OrderType {
   o BID
 }
 
-abstract participant User identified by email {
+abstract participant User identified by id {
+  o String id
   o String email
 }
 
@@ -33,15 +34,9 @@ participant Gallery extends Counterparty {
 participant Malevich extends Counterparty {
 }
 
-asset Artwork identified by token {
-  o String token
-  o String description
-  o Double estimatedPrice
-}
-
 asset ArtworkStock identified by id {
   o String id
-  --> Artwork artwork
+  o String token
   --> Counterparty holder
   --> Counterparty owner
 }

@@ -1,75 +1,236 @@
 {
   "ARTHUNTER": {
-    "CATEGORY_TITLE": "Категория"
+    "CATEGORY_TITLE": "Category"
   },
   "INDEX": {
-    "LANG_MENU_ITEM": "Язык",
+    "LANG_MENU_ITEM": "Language",
     "LANG_ENGLISH": "English",
     "LANG_RUSSIAN": "Russian",
-    "LOGOUT_MENU_ITEM": "Выход",
-    "MAIN_MENU_ITEM": "Домой",
-    "ARTHUNTER_MENU_ITEM": "Арт-Хантер",
-    "GALLERIES_MENU_ITEM": "Галереи",
-    "ARTISTS_MENU_ITEM": "Авторы",
-    "ABOUT_MENU_ITEM": "О Нас",
-    "ADMIN_MENU_ITEM": "Админ"
+    "LOGOUT_MENU_ITEM": "Logout",
+    "MAIN_MENU_ITEM": "Home",
+    "ARTHUNTER_MENU_ITEM": "Art-Hunter",
+    "GALLERIES_MENU_ITEM": "Gallery",
+    "ARTISTS_MENU_ITEM": "Artists",
+    "ABOUT_MENU_ITEM": "About",
+    "ADMIN_MENU_ITEM": "Admin"
   },
   "GRID": {
-    "FILTERS_SHOW": "Показывать",
-    "FILTERS_SHOW_ALL": "Все",
-    "FILTERS_SORT_BY": "Сортировать по",
-    "FILTERS_SORT_BS": "Бестселлер",
-    "FILTERS_SORT_TR": "Полулярные",
-    "FILTERS_SORT_PLTH": "Цена по возрастанию",
-    "FILTERS_SORT_PHTL": "Цена по убыванию",
-    "FILTERS_PAGE": "Страница",
-    "FILTERS_PAGE_OF": "из",
-    "FILTERS_FILTER": "Фильтровать"
+    "FILTERS_SHOW": "Show",
+    "FILTERS_SHOW_ALL": "All",
+    "FILTERS_SORT_BY": "Sort By",
+    "FILTERS_SORT_BS": "Bestseller",
+    "FILTERS_SORT_TR": "Trending",
+    "FILTERS_SORT_PLTH": "Price low to high",
+    "FILTERS_SORT_PHTL": "Price high to low",
+    "FILTERS_SORT_NAME": "Name",
+    "FILTERS_PAGE": "Page",
+    "FILTERS_PAGE_OF": "of",
+    "FILTERS_FILTER": "Filter",
+    "FILTERS_BUTTON": {
+      "RESET": "Reset"
+    }
+  },
+  "REGISTER": {
+    "TITLE": "Create New Account",
+    "WELCOME": "Welcome to Malevich",
+    "GALLERIES": "Glleries",
+    "ARTWORKS": "Artworks",
+    "ART_VALUE": "Art value",
+    "HAVE_AN_ACCOUNT": "Already have an account?",
+    "SIGNIN": "signin",
+    "STEP_ONE": {
+      "ACCEPT": "I accept the",
+      "TERMS_AND_CONDITIONS": "Terms and Conditions",
+      "SUBSCRIBE": "Subscribe to our newsletter",
+      "SIGNUP": "Signup"
+    }
+  },
+  "RESET_PASSWORD": {
+    "STEP_ONE": {
+      "CAPTION": "Forgot Password?",
+      "APPEAL": "Enter your e-mail address to reset your password",
+      "RESET":"Reset password"
+    },
+    "STEP_TWO": {
+      "CAPTION": "Changing password",
+      "APPEAL": "Set new password for your account"
+    }
   },
   "PROFILE": {
+    "TITLE": "Your Profile",
+    "EDIT_PROFILE": "Edit Your Profile",
+    "NAVIGATION": {
+      "STORED_ARTWORKS": "Stored Artworks",
+      "YOUR_ARTWORKS": "Your Artworks",
+      "YOUR_ORDERS": "Your Orders",
+      "DOCUMENTS": "Documents",
+      "NOTIFICATION": "Notifications",
+      "YOUR_WALLET": "Your Wallet",
+      "PAYMENT_OPTIONS": "Payment Options",
+      "WISHLIST": "WishList"
+    },
     "SECURITY": {
       "LABEL": {
-        "FIRST_NAME": "Имя:",
-        "LAST_NAME": "Фамилия:",
-        "EMAIL": "E-mail:",
-        "GENDER": "Пол:",
-        "COUNTRY": "Страна:",
-        "TITLE": "Обращение:",
-        "MOBILE": "Номер мобильного телефона:",
-        "DATE_OF_BIRTH": "Дата рождения",
-        "PASSWORD": "Пароль",
-        "CONFIRM_PASSWORD": "Подтверждение пароля",
+        "FIRST_NAME": "First Name",
+        "LAST_NAME": "Last Name",
+        "UPLOAD_AVATAR": "Upload Profile Image",
+        "EMAIL": "Email",
+        "GENDER": "Gender",
+        "COUNTRY": "Country of residence",
+        "TITLE": "Title",
+        "MOBILE": "Mobile Phone Number",
+        "PASSWORD": "Password",
+        "DATE_OF_BIRTH": "Date Of Birth",
+        "LEGAL_NAME": "Legal Name",
+        "LOCATION": "Location",
+        "LEGAL_NAME_EN": "Legal Name - English",
+        "LEGAL_NAME_RU": "Legal Name - Russian",
+        "PHONE_NUMBER": "Phone Number",
+        "DESCRIPTION": "Description",
+        "DESCRIPTION_EN": "Description - English",
+        "DESCRIPTION_RU": "Description - Russian",
+        "CAPTION_PERSON_INFO": "Personal info",
+        "CAPTION_ORGANIZATION_INFO": "Legal entity info",
+        "CAPTION_GALLERY_INFO": "Gallery info",
+        "CAPTION_ADDRESS": "Address",
         "ADDRESS": {
-          "COUNTRY": "Страна:",
-          "STATE": "Область/Край:",
-          "CITY": "Город:",
-          "ZIP": "Почтовый индекс:",
-          "STREET": "Адрес:"
+          "COUNTRY": "Country",
+          "STATE": "State/Province",
+          "CITY": "City",
+          "ZIP": "ZIP/PostalCode",
+          "STREET": "Address"
         }
       },
       "PLACEHOLDER": {
-        "FIRST_NAME": "Имя",
-        "LAST_NAME": "Фамилия",
-        "TITLE": "Как мы можем к вам обращаться?",
+        "FIRST_NAME": "First name",
+        "LAST_NAME": "Last name",
         "EMAIL": "Email",
-        "PASSWORD": "Пароль",
-        "CONFIRM_PASSWORD": "Подтверждение пароля",
-        "DATE_OF_BIRTH": "Дата рождения",
+        "OLD_PASSWORD": "Old Password",
+        "NEW_PASSWORD": "New Password",
+        "CONFIRM_NEW_PASSWORD": "Confirm New Password",
+        "PASSWORD": "Password",
+        "CONFIRM_PASSWORD": "Confirm Password",
+        "DATE_OF_BIRTH": "Date Of Birth:",
         "ADDRESS": {
-          "COUNTRY": "Страна",
-          "STATE": "Область, край, АО и пр.",
-          "CITY": "Годод",
-          "ZIP": "Почтовый индекс",
-          "STREET": "Адрес, например: ул. Тверская 5, кв. 10"
+          "COUNTRY": "Country",
+          "STATE": "State, Province etc.",
+          "CITY": "City",
+          "ZIP": "ZIP or Postal Code",
+          "STREET": "Address"
         }
-      },
-      "BUTTON": {
-        "EDIT_PROFILE": "Изменить",
-        "SUBMIT": "Сохранить",
-        "UPDATE": "Обновить",
-        "CANCEL": "Отменить",
-        "CHANGE_PASSWORD": "Сменить пароль"
       }
+    },
+    "STORAGE": {
+      "TITLE": "Stored artworks",
+      "ADD": {
+        "TITLE": "Add artwork",
+        "CHOOSE": "Choose from existing",
+        "TITLE_EN": "Title - English",
+        "TITLE_RU": "Title - Russian",
+        "DESCRIPTION_EN": "Description - English",
+        "DESCRIPTION_RU": "Description - Russian",
+        "ARTIST": "Artist",
+        "CATEGORY": "Category"
+      },
+      "EDIT": {
+        "TITLE": "Edit artwork",
+        "DESCRIPTION": "Description",
+        "ARTIST": "Artist",
+        "CATEGORY": "Category"
+      }
+    },
+    "ARTWORKS": {
+      "TITLE": "Artworks",
+      "ADD": {
+        "TITLE": "Add artwork"
+      }
+    },
+    "WALLET": {
+      "TITLE": "Wallet",
+      "BALANCE": "Balance",
+      "AVAILABLE": "Available"
+    },
+    "WISHLIST": {
+      "TITLE": "WishList",
+      "PRODUCT": "Product",
+      "PRICE": "Price",
+      "QUANTITY": "Qty",
+      "TOTAL": "Total"
+    },
+    "ORDERS": {
+      "TITLE": "Orders"
+    },
+    "DOCUMENTS": {
+      "TITLE": "Documents",
+      "UPLOAD_FILE": "Upload document",
+      "ADD": {
+        "TITLE": "Add documents",
+        "CHOOSE": "Choose from existing"
+      }
+    },
+    "GRID": {
+      "FILE_NAME": "File Name",
+      "DATE": "Date",
+      "DOCUMENT_TYPE": "Document Type",
+      "AMOUNT": "Amount",
+      "ARTWORK": "Artwork",
+      "TRADER_TYPE": "Trader Type",
+      "TYPE": "Type",
+      "BEST_BID": "Best Bid",
+      "CURRENT_ASK": "Current Ask",
+      "IMAGE": "Image",
+      "TITLE": "Title",
+      "ARTIST": "Artist",
+      "CATEGORY": "Category",
+      "PAYMENT_NO": "PaymentNo",
+      "PRINT": "Print"
+    },
+    "BUTTON": {
+      "EDIT_PROFILE": "Edit",
+      "SUBMIT": "Submit",
+      "UPDATE": "Update",
+      "CANCEL": "Cancel",
+      "ASK_ADD": "Ask Add",
+      "DELETE": "Delete",
+      "CHANGE_PASSWORD": "Change Password",
+      "ADD": "Add",
+      "WITHDRAW": "Withdraw",
+      "CANCEL_ORDER": "Cancel order"
     }
-  }
+  },
+  "MAIN": {
+    "GALLERY": {
+      "POSTED": "Posted",
+      "DAYS": "days",
+      "AGO": "ago",
+      "DAYS_AGO": "days ago",
+      "DESCRIPTION": "Description"
+    },
+    "ARTWORK": {
+      "DETAILS": "Details",
+      "DESCRIPTION": "Description",
+      "PROPERTY": "Property",
+      "EFFECTIVE_DATE": "Effective Date",
+      "COST": "Cost",
+      "BID": "Bid",
+      "ASK": "Ask",
+      "TRADE_HISTORY": "Trader History",
+      "PLACE_A_BID": "Place a Bid",
+      "ADD_TO_WISHLIST": "Add to WishList",
+      "REVIEW": "Review",
+      "ADD": "Add",
+      "COMMENT": "Comment",
+      "RATE": "Rate"
+    }
+  },
+  "PAGINATION": {
+    "PAGE": "Page",
+    "NEXT": "Next",
+    "OF": "Of"
+  },
+  "404": {
+    "NOT_FOUND": "Not found",
+    "HOME_PAGE": "Home page"
+  },
+  "EDIT": "Edit"
 }

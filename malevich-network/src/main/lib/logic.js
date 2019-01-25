@@ -31,6 +31,7 @@ async function placeOrder(order) { // eslint-disable-line no-unused-vars
 
     const registry = await getAssetRegistry('io.malevich.network.OrderAsset');
     const registryTrader = await getParticipantRegistry('io.malevich.network.Trader');
+    const registryGallery = await getParticipantRegistry('io.malevich.network.Gallery');
     const tradeHistoryRegistry = await getAssetRegistry('io.malevich.network.TradeHistory');
     const registryArtworkStock = await getAssetRegistry('io.malevich.network.ArtworkStock');
     const factory = getFactory();
@@ -88,9 +89,15 @@ async function placeOrder(order) { // eslint-disable-line no-unused-vars
         uptadeArtwork.owner = matchingBid.order.сounterparty;
         await registryArtworkStock.update(uptadeArtwork);
 
+        let uptadeParty = await registryGallery.get(matchingBid.order.artworkStock.owner.getIdentifier());
+        uptadeParty.balance = uptadeParty.balance + matchingBid.order.amount;
+        await registryGallery.update(uptadeParty);
+
         let uptadeCounterparty = await registryTrader.get(uptadeArtwork.owner.getIdentifier());
         uptadeCounterparty.balance = uptadeCounterparty.balance - matchingBid.order.amount;
         await registryTrader.update(uptadeCounterparty);
+
+        
 
     }
 }

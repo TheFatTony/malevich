@@ -11,8 +11,11 @@ import lombok.Setter;
 @NoArgsConstructor
 public class CounterpartyParticipant {
 
-    private Double balance;
+
+    private String id;
 
     private String email;
+
+    private Double balance;
 
 }

@@ -117,6 +117,7 @@ public class ParticipantServiceImpl implements ParticipantService {
         } else {
             participantEntity.setUsers(Lists.newArrayList(user));
         }
+
         participantEntity = dao.save(participantEntity);
 
         if ("G".equals(participantEntity.getType().getId()))

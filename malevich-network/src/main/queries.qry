@@ -1,9 +1,3 @@
-query selectArtworks {
-  description: "selectArtworks"
-  statement:
-      SELECT io.malevich.network.Artwork
-}
-
 query selectArtworkStocks {
   description: "selectArtworkStocks"
   statement:
@@ -38,6 +32,12 @@ query getOrdersByArtworkStock {
   description: "getOrdersByArtworkStock"
   statement:
       SELECT io.malevich.network.OrderAsset WHERE (order.artworkStock == _$artworkStock)
+}
+
+query getOpenOrdersByArtworkStock {
+  description: "getOpenOrdersByArtworkStock"
+  statement:
+      SELECT io.malevich.network.OrderAsset WHERE ((order.artworkStock == _$artworkStock) AND (order.orderStatus == 'OPEN'))
 }
 
 query getOrdersByCounterparty {

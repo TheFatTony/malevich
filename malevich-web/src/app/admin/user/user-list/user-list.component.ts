@@ -1,4 +1,4 @@
-import {Component, OnInit, ViewChild} from '@angular/core';
+import {Component, OnDestroy, OnInit, ViewChild} from '@angular/core';
 import {jqxGridComponent} from 'jqwidgets-scripts/jqwidgets-ts/angular_jqxgrid';
 import {UsersService} from '../../_services/users.service';
 import {jqxWindowComponent} from 'jqwidgets-scripts/jqwidgets-ts/angular_jqxwindow';
@@ -11,7 +11,7 @@ import {UserDto} from '../../../../../node_modules/yinyang-core';
   templateUrl: './user-list.component.html',
   styleUrls: ['./user-list.component.css']
 })
-export class UserListComponent implements OnInit {
+export class UserListComponent implements OnInit, OnDestroy {
   @ViewChild('myGrid') myGrid: jqxGridComponent;
   @ViewChild('lockWindow') lockWindow: jqxWindowComponent;
   @ViewChild('passwordWindow') passwordWindow: jqxWindowComponent;
@@ -32,6 +32,11 @@ export class UserListComponent implements OnInit {
     this.userPassword = new UserPasswordDto();
     this.user = new UserDto();
     this.getUsers();
+  }
+
+  ngOnDestroy(): void {
+    this.lockWindow.close();
+    this.passwordWindow.close();
   }
 
   getUsers(): void {

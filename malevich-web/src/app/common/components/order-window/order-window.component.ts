@@ -4,7 +4,7 @@ import {
   ElementRef,
   EventEmitter,
   HostListener,
-  Input,
+  Input, OnDestroy,
   OnInit,
   Output,
   ViewChild
@@ -23,7 +23,7 @@ import {AbstractControl, FormControl, FormControlDirective, FormGroup, NgForm, N
   templateUrl: './order-window.component.html',
   styleUrls: ['./order-window.component.css']
 })
-export class OrderWindowComponent implements OnInit, AfterViewInit {
+export class OrderWindowComponent implements OnInit, AfterViewInit, OnDestroy {
 
 
   @Input('artworkStock') attrArtWorkStock: ArtworkStockDto;
@@ -50,6 +50,10 @@ export class OrderWindowComponent implements OnInit, AfterViewInit {
   }
 
   ngAfterViewInit(): void {
+  }
+
+  ngOnDestroy(): void {
+    this.myWindow.close();
   }
 
   getTradeTypes(): void {

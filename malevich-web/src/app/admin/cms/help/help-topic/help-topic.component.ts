@@ -1,4 +1,4 @@
-import {AfterViewInit, Component, OnInit, ViewChild} from '@angular/core';
+import {AfterViewInit, Component, OnDestroy, OnInit, ViewChild} from '@angular/core';
 import {jqxGridComponent} from 'jqwidgets-scripts/jqwidgets-ts/angular_jqxgrid';
 import {TranslateService} from '@ngx-translate/core';
 import {HelpService} from '../../../../_services/help.service';
@@ -14,7 +14,7 @@ import jqxInput = jqwidgets.jqxInput;
   templateUrl: './help-topic.component.html',
   styleUrls: ['./help-topic.component.css']
 })
-export class HelpTopicComponent implements OnInit, AfterViewInit {
+export class HelpTopicComponent implements OnInit, AfterViewInit, OnDestroy {
   @ViewChild('myWindow') myWindow: jqxWindowComponent;
   @ViewChild('myValidator') myValidator: jqxValidatorComponent;
   @ViewChild('myGrid') myGrid: jqxGridComponent;
@@ -41,6 +41,10 @@ export class HelpTopicComponent implements OnInit, AfterViewInit {
   }
 
   ngAfterViewInit(): void {
+  }
+
+  ngOnDestroy(): void {
+    this.myWindow.close();
   }
 
   helpCategoryDisplayFunc = (helpCategory: HelpCategoryDto) => {

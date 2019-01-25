@@ -42,7 +42,7 @@
         <artifactId>exec-maven-plugin</artifactId>
         <executions>
           <execution>
-            <id>exec-npm</id>
+            <id>exec-build</id>
             <phase>process-resources</phase>
             <configuration>
               <executable>yarn</executable>

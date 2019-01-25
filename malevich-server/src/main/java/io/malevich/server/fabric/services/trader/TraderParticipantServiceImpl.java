@@ -31,11 +31,11 @@ public class TraderParticipantServiceImpl extends GenericComposerServiceImpl<Par
 
     @Override
     public void create(ParticipantEntity entity) {
-        GalleryParticipant galleryParticipant = new GalleryParticipant();
-        galleryParticipant.setBalance(0D);
-        galleryParticipant.setEmail(entity.getUser().getUsername());
+        TraderParticipant traderParticipant = new TraderParticipant();
+        traderParticipant.setBalance(0D);
+        traderParticipant.setEmail(entity.getUser().getUsername());
 
-        doPost(galleryParticipant);
+        doPost(traderParticipant);
     }
 
     @Override

@@ -1,4 +1,4 @@
-import {Component, HostListener, OnInit, ViewChild} from '@angular/core';
+import {Component, HostListener, OnDestroy, OnInit, ViewChild} from '@angular/core';
 import {PaymentsDto} from '../../_transfer/paymentsDto';
 import {jqxWindowComponent} from 'jqwidgets-scripts/jqwidgets-ts/angular_jqxwindow';
 import {PaymentsService} from '../../_services/payments.service';
@@ -6,13 +6,14 @@ import {AccountStateService} from '../../_services/account-state.service';
 import {AccountStateDto} from '../../_transfer/accountStateDto';
 import {jqxGridComponent} from 'jqwidgets-scripts/jqwidgets-ts/angular_jqxgrid';
 import {TranslateService} from '@ngx-translate/core';
+import {Message} from "@angular/compiler/src/i18n/i18n_ast";
 
 @Component({
   selector: 'app-profile-wallet',
   templateUrl: './wallet.component.html',
   styleUrls: ['./wallet.component.css']
 })
-export class WalletComponent implements OnInit {
+export class WalletComponent implements OnInit, OnDestroy {
 
   @ViewChild('myWindow') myWindow: jqxWindowComponent;
   @ViewChild('withdrawWindow') withdrawWindow: jqxWindowComponent;
@@ -37,6 +38,11 @@ export class WalletComponent implements OnInit {
     this.updateGrid();
   }
 
+  ngOnDestroy(): void {
+    this.myWindow.close();
+    this.withdrawWindow.close();
+  }
+
   updateGrid() {
     this.translate
       .get([
@@ -59,10 +65,10 @@ export class WalletComponent implements OnInit {
 
   columns(names: any): any[] {
     return [
-      {dataField: 'PAYMENT_NO',text: names['PROFILE.GRID.PAYMENT_NO'], width: '20%', columntype: 'textbox'},
-      {dataField: 'DATE',text: names['PROFILE.GRID.DATE'], width: '20%', columntype: 'textbox'},
-      {dataField: 'AMOUNT',text: names['PROFILE.GRID.AMOUNT'], width: '20%', columntype: 'textbox'},
-      {dataField: 'TYPE',text: names['PROFILE.GRID.TYPE'], width: '20%', columntype: 'textbox'},
+      {dataField: 'PAYMENT_NO', text: names['PROFILE.GRID.PAYMENT_NO'], width: '20%', columntype: 'textbox'},
+      {dataField: 'DATE', text: names['PROFILE.GRID.DATE'], width: '20%', columntype: 'textbox'},
+      {dataField: 'AMOUNT', text: names['PROFILE.GRID.AMOUNT'], width: '20%', columntype: 'textbox'},
+      {dataField: 'TYPE', text: names['PROFILE.GRID.TYPE'], width: '20%', columntype: 'textbox'},
       {
         dataField: 'PRINT',
         text: names['PROFILE.GRID.PRINT'],

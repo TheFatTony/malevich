@@ -1,4 +1,4 @@
-import {Component, OnInit, ViewChild} from '@angular/core';
+import {AfterViewInit, Component, OnInit, ViewChild} from '@angular/core';
 import {TranslateService} from '@ngx-translate/core';
 import {jqxComboBoxComponent} from 'jqwidgets-scripts/jqwidgets-ts/angular_jqxcombobox';
 import {Router} from '@angular/router';
@@ -15,7 +15,7 @@ import {map, mergeMap} from "rxjs/operators";
   templateUrl: './document-add.component.html',
   styleUrls: ['./document-add.component.css']
 })
-export class DocumentAddComponent implements OnInit {
+export class DocumentAddComponent implements OnInit, AfterViewInit {
 
   @ViewChild('documentTypeComboBox') documentTypeComboBox: jqxComboBoxComponent;
 
@@ -41,6 +41,11 @@ export class DocumentAddComponent implements OnInit {
     this.getInitValues();
   }
 
+  ngAfterViewInit(): void {
+    // set button types to 'button' to avoid unattended form submit
+    $('jqxfileupload').find('button').attr('type', 'button');;
+  }
+
   getInitValues() {
     this.participantService.getCurrent()
       .pipe(mergeMap(p => {
@@ -57,6 +62,9 @@ export class DocumentAddComponent implements OnInit {
   }
 
   submit() {
+    if(!this.document.files)
+      return;
+
     this.documentService.save(this.document).subscribe(() =>{
       this.router.navigate(['/profile/documents']);
     });

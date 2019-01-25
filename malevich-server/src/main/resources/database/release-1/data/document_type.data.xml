@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.6.xsd">
+
+    <changeSet author="toolstik" id="document_type-data" dbms="mysql">
+        <sql splitStatements="true" stripComments="true">
+            INSERT INTO document_type (user_type, name_ml)
+            VALUES ('trader', JSON_OBJECT('en', 'Passport', 'ru', 'Паспорт')),
+                   ('trader', JSON_OBJECT('en', 'Driving licence', 'ru', 'Водительские права')),
+                   ('trader', JSON_OBJECT('en', 'Utility bill', 'ru', 'Счет за коммунальные услуги')),
+                   ('gallery', JSON_OBJECT('en', 'Certificate/licence', 'ru', 'Лицензия'));
+        </sql>
+    </changeSet>
+
+</databaseChangeLog>

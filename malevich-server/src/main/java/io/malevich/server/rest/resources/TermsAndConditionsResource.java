@@ -7,6 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 
 @Slf4j
 @RestController
@@ -19,8 +21,8 @@ public class TermsAndConditionsResource {
 
     @RequestMapping(value = "/{lang}", method = RequestMethod.GET)
     @ResponseStatus(HttpStatus.OK)
-    public TermsAndConditionsDto getHtml(@PathVariable String lang) {
-        TermsAndConditionsDto result = termsAndConditionsService.getByLang(lang);
+    public List<TermsAndConditionsDto> getHtml(@PathVariable String lang) {
+        List<TermsAndConditionsDto> result = termsAndConditionsService.getByLang(lang);
         return result;
     }
 

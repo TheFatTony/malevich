@@ -1,11 +1,10 @@
 package io.malevich.server.rest.resources;
 
+import com.yinyang.core.server.rest.RestResource;
 import io.malevich.server.domain.ArtistEntity;
 import io.malevich.server.services.artist.ArtistService;
 import io.malevich.server.transfer.ArtistDto;
-import io.malevich.server.transfer.HelpCategoryDto;
 import lombok.extern.slf4j.Slf4j;
-import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -19,13 +18,14 @@ import java.util.stream.Collectors;
 @Slf4j
 @RestController
 @RequestMapping(value = "/artists")
-public class ArtistResource {
+public class ArtistResource extends RestResource<ArtistDto, ArtistEntity> {
 
     @Autowired
     private ArtistService artistService;
 
-    @Autowired
-    private ModelMapper modelMapper;
+    public ArtistResource() {
+        super(ArtistDto.class, ArtistEntity.class);
+    }
 
 
     //    @PreAuthorize("hasRole('ROLE_USER')")
@@ -51,16 +51,6 @@ public class ArtistResource {
     public ArtistDto item(@PathVariable("id") long id) {
         ArtistEntity allEntry = this.artistService.find(id);
         return convertToDto(allEntry);
-    }
-
-    private ArtistDto convertToDto(ArtistEntity files) {
-        ArtistDto filesDto = modelMapper.map(files, ArtistDto.class);
-        return filesDto;
-    }
-
-    private ArtistEntity convertToEntity(ArtistDto filesDto) {
-        ArtistEntity files = modelMapper.map(filesDto, ArtistEntity.class);
-        return files;
     }
 
 }

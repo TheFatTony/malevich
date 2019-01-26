@@ -3,13 +3,13 @@ package io.malevich.server.rest.resources;
 
 import com.yinyang.core.server.domain.RegisterTokenEntity;
 import com.yinyang.core.server.domain.UserEntity;
+import com.yinyang.core.server.rest.RestResource;
 import com.yinyang.core.server.services.user.UserService;
 import com.yinyang.core.server.transfer.AccessTokenDto;
 import com.yinyang.core.server.transfer.UserDto;
 import io.malevich.server.services.registertoken.RegisterService;
 import io.malevich.server.transfer.*;
 import lombok.extern.slf4j.Slf4j;
-import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -23,7 +23,8 @@ import java.util.stream.Collectors;
 @Slf4j
 @RestController
 @RequestMapping(value = "/user")
-public class UserResource {
+// TODO move most of the code into yinyang core
+public class UserResource extends RestResource<UserDto, UserEntity> {
 
 
     @Autowired
@@ -32,8 +33,9 @@ public class UserResource {
     @Autowired
     private RegisterService registerService;
 
-    @Autowired
-    private ModelMapper modelMapper;
+    public UserResource() {
+        super(UserDto.class, UserEntity.class);
+    }
 
 
     @PreAuthorize("hasRole('ROLE_ADMIN')")
@@ -99,7 +101,4 @@ public class UserResource {
         return ResponseEntity.ok().body("password changed");
     }
 
-    private UserDto convertToDto(UserEntity entity) {
-        return modelMapper.map(entity, UserDto.class);
-    }
 }

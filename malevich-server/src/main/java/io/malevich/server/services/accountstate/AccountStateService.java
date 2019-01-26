@@ -11,6 +11,4 @@ import java.util.List;
 public interface AccountStateService {
 
     AccountStateEntity getWallet();
-
-    List<ArtworkStockEntity> getOwnArtworks();
 }

@@ -1,5 +1,6 @@
 package io.malevich.server.rest.resources;
 
+import com.yinyang.core.server.rest.RestResource;
 import io.malevich.server.domain.DocumentEntity;
 import io.malevich.server.domain.DocumentTypeEntity;
 import io.malevich.server.services.document.DocumentService;
@@ -7,7 +8,6 @@ import io.malevich.server.services.documenttype.DocumentTypeService;
 import io.malevich.server.transfer.DocumentDto;
 import io.malevich.server.transfer.DocumentTypeDto;
 import lombok.extern.slf4j.Slf4j;
-import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -21,7 +21,7 @@ import java.util.stream.Collectors;
 @Slf4j
 @RestController
 @RequestMapping(value = "/document")
-public class DocumentResource {
+public class DocumentResource extends RestResource<DocumentDto, DocumentEntity> {
 
     @Autowired
     private DocumentTypeService documentTypeService;
@@ -29,8 +29,9 @@ public class DocumentResource {
     @Autowired
     private DocumentService documentService;
 
-    @Autowired
-    private ModelMapper modelMapper;
+    public DocumentResource() {
+        super(DocumentDto.class, DocumentEntity.class);
+    }
 
     @PreAuthorize("hasAnyRole('ROLE_TRADER','ROLE_GALLERY')")
     @GetMapping("/typeList/{userType}")
@@ -70,11 +71,4 @@ public class DocumentResource {
         return modelMapper.map(entity, DocumentTypeDto.class);
     }
 
-    private DocumentDto convertToDto(DocumentEntity entity) {
-        return modelMapper.map(entity, DocumentDto.class);
-    }
-
-    private DocumentEntity convertToEntity(DocumentDto dto) {
-        return modelMapper.map(dto, DocumentEntity.class);
-    }
 }

@@ -19,7 +19,7 @@ export class StepOneComponent implements OnInit, AfterViewInit {
   email: string = "";
   agreementAccepted: boolean = false;
   subscribe: boolean = false;
-  termsAndConditions: string;
+  termsAndConditions: { [type: string]: string } = {};
 
   userTypes: UserTypeDto[];
   userTypeSelected: UserTypeDto;
@@ -39,10 +39,16 @@ export class StepOneComponent implements OnInit, AfterViewInit {
   ngOnInit() {
     this.getUserTypes();
     this.termsAndConditionsService.getHtml(this.translate.currentLang)
-      .subscribe(data => (this.termsAndConditions = data.htmlText));
+      .subscribe(data => {
+        if (!data) return;
+
+        data.forEach(i => {
+          this.termsAndConditions[i.userType.typeName] = i.htmlText;
+        });
+      });
   }
 
-  getUserTypes(){
+  getUserTypes() {
     this.userTypeService.getAll().subscribe(data => (this.userTypes = data));
   }
 

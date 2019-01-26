@@ -63,6 +63,6 @@
   <button type="button" class="close" onclick="Custombox.modal.close();">
     <i class="hs-icon hs-icon-close"></i>
   </button>
-  <div [innerHTML]="termsAndConditions"></div>
+  <div [innerHTML]="termsAndConditions[userTypeSelected?.typeName]"></div>
 </div>
 <!-- End Demo modal window -->

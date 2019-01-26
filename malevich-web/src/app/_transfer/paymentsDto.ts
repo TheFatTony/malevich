@@ -7,4 +7,5 @@ export class PaymentsDto {
   paymentMethod: PaymentMethodDto;
   amount: number;
   paymentType: PaymentTypeDto;
+  transactionId: string;
 }

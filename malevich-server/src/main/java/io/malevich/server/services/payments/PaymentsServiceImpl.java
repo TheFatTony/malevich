@@ -37,18 +37,23 @@ public class PaymentsServiceImpl implements PaymentsService {
     @Override
     @Transactional(readOnly = true)
     public List<PaymentsEntity> findOwnPayments() {
-        List<PaymentsEntity> paymentsEntities = new ArrayList<>();
-        List<PaymentTransaction> list = paymentTransactionService.list();
-        for (PaymentTransaction p: list) {
-            PaymentsEntity paymentsEntity = new PaymentsEntity();
-            paymentsEntity.setAmount(p.getAmount());
-            paymentsEntity.setPaymentType(
-                    paymentTypeService.getValues().get(p.getPaymentType()));
+//        List<PaymentsEntity> paymentsEntities = new ArrayList<>();
+//        List<PaymentTransaction> list = paymentTransactionService.list();
+//        for (PaymentTransaction p: list) {
+//            PaymentsEntity paymentsEntity = new PaymentsEntity();
+//            paymentsEntity.setAmount(p.getAmount());
+//            paymentsEntity.setPaymentType(
+//                    paymentTypeService.getValues().get(p.getPaymentType()));
+//            paymentsEntity.setEffectiveDate(p.getTimestamp());
+//            paymentsEntity.setTransactionId(p.getTransactionId());
+//
+//            paymentsEntities.add(paymentsEntity);
+//        }
+//
+//        return paymentsEntities;
 
-            paymentsEntities.add(paymentsEntity);
-        }
-
-        return paymentsEntities;
+        ParticipantEntity current = participantService.getCurrent();
+        return this.paymentsDao.findAllByParticipant_Id(current.getId());
     }
 
     @Override

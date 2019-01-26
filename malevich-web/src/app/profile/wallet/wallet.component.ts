@@ -30,12 +30,12 @@ export class WalletComponent implements OnInit, OnDestroy {
   constructor(private paymentsService: PaymentsService,
               private accountStateService: AccountStateService,
               public translate: TranslateService) {
+    this.updateGrid();
   }
 
   ngOnInit() {
     this.getAccountState();
     this.getPayments();
-    this.updateGrid();
   }
 
   ngOnDestroy(): void {

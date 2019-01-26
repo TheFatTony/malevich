@@ -13,9 +13,7 @@ public class ArtworkStockAsset {
 
     private String id;
 
-    private String artwork;
-
-    private String holder;
+    private String token;
 
     private String owner;
 

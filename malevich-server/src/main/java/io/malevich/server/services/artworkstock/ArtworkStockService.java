@@ -1,6 +1,7 @@
 package io.malevich.server.services.artworkstock;
 
 import io.malevich.server.domain.ArtworkStockEntity;
+import io.malevich.server.domain.GalleryEntity;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
@@ -21,4 +22,6 @@ public interface ArtworkStockService {
     ArtworkStockEntity find(long id);
 
     Page<ArtworkStockEntity> findAll(Specification<ArtworkStockEntity> specification, Pageable pageable);
+
+    List<ArtworkStockEntity> findAllByGalleryId(Long galleryId);
 }

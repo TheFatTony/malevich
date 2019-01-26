@@ -3,7 +3,6 @@ package io.malevich.server.services.artwork;
 
 import com.yinyang.core.server.services.file.FileService;
 import io.malevich.server.domain.ArtworkEntity;
-import io.malevich.server.fabric.services.artwork.ArtworkAssetService;
 import io.malevich.server.repositories.artwork.ArtworkDao;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,8 +23,6 @@ public class ArtworkServiceImpl implements ArtworkService {
     @Autowired
     private FileService fileService;
 
-    @Autowired
-    private ArtworkAssetService artworkAssetService;
 
     protected ArtworkServiceImpl() {
     }
@@ -52,8 +49,6 @@ public class ArtworkServiceImpl implements ArtworkService {
             artwork.setImage(fileService.find(5L));
 
         ArtworkEntity savedArtworkEntity = this.artworkDao.save(artwork);
-        artworkAssetService.create(savedArtworkEntity);
-
         return savedArtworkEntity;
     }
 

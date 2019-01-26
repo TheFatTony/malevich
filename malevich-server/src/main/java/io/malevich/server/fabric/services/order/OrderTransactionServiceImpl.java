@@ -85,7 +85,7 @@ public class OrderTransactionServiceImpl extends GenericComposerServiceImpl<Orde
 
         try {
             ResponseEntity<List<OrderTransaction>> res = restTemplate.exchange(composerUrl + "/queries/getOrdersByCounterparty?сounterparty={сounterparty}", HttpMethod.GET, null, new ParameterizedTypeReference<List<OrderTransaction>>() {
-            }, (fabricClass + participantEntity.getUser().getUsername()));
+            }, (fabricClass + participantEntity.getId()));
             return res.getBody();
         } catch (RestClientException e) {
             String errorResponse = ((HttpStatusCodeException) e).getResponseBodyAsString();

@@ -84,4 +84,9 @@ public class ArtworkStockServiceImpl implements ArtworkStockService {
         return artworkStockDao.findAll(specification, pageable);
     }
 
+    @Override
+    public List<ArtworkStockEntity> findAllByGalleryId(Long galleryId) {
+        return artworkStockDao.findAllByGallery_Id(galleryId);
+    }
+
 }

@@ -6,6 +6,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -16,6 +17,8 @@ public interface ArtworkStockService {
     List<ArtworkStockEntity> findAll();
 
     void add(ArtworkStockEntity artworkStockEntity);
+
+    void save(ArtworkStockEntity artworkStockEntity);
 
     void delete(long id);
 

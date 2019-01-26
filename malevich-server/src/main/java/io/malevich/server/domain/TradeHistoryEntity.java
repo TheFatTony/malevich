@@ -22,7 +22,7 @@ public class TradeHistoryEntity extends YAbstractPersistable<Long> {
 
     @Getter
     @Setter
-    private java.sql.Timestamp effectiveDate;
+    private String effectiveDate;
 
     @Getter
     @Setter

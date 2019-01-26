@@ -1,19 +1,19 @@
 package io.malevich.server.domain;
 
-import com.yinyang.core.server.domain.YAbstractPersistable;
 import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
-import org.hibernate.annotations.Formula;
 
-import javax.persistence.*;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Positive;
+import javax.persistence.Column;
+import javax.persistence.Transient;
 
 
-public class OrderEntity extends YAbstractPersistable<Long> {
+public class OrderEntity {
 
+    @Getter
+    @Setter
+    private String id;
 
     @Getter
     @Setter

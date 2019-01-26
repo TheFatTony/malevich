@@ -3,6 +3,7 @@ package io.malevich.server.services.tradehistory;
 import io.malevich.server.domain.TradeHistoryEntity;
 import org.springframework.stereotype.Service;
 
+import java.text.ParseException;
 import java.util.List;
 
 

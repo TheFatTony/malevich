@@ -1,11 +1,11 @@
 package io.malevich.server.rest.resources;
 
+import com.yinyang.core.server.rest.RestResource;
 import io.malevich.server.domain.WishListEntity;
 import io.malevich.server.services.wishlist.WishListService;
 import io.malevich.server.transfer.PageRequestDto;
 import io.malevich.server.transfer.PageResponseDto;
 import io.malevich.server.transfer.WishListDto;
-import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -18,13 +18,14 @@ import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping(value = "/wishlist")
-public class WishListResource {
+public class WishListResource extends RestResource<WishListDto, WishListEntity> {
 
     @Autowired
     private WishListService wishListService;
 
-    @Autowired
-    private ModelMapper modelMapper;
+    public WishListResource() {
+        super(WishListDto.class, WishListEntity.class);
+    }
 
     @PreAuthorize("hasRole('ROLE_TRADER')")
     @PostMapping("/addWish")
@@ -47,14 +48,6 @@ public class WishListResource {
     public ResponseEntity<Void> delete(@PathVariable("id") Long id) {
         this.wishListService.delete(id);
         return ResponseEntity.ok().build();
-    }
-
-    private WishListEntity convertToEntity(WishListDto dto) {
-        return modelMapper.map(dto, WishListEntity.class);
-    }
-
-    private WishListDto convertToDto(WishListEntity entity) {
-        return modelMapper.map(entity, WishListDto.class);
     }
 
 }

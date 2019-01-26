@@ -1,10 +1,10 @@
 package io.malevich.server.rest.resources;
 
+import com.yinyang.core.server.rest.RestResource;
 import io.malevich.server.domain.DelayedChangeEntity;
 import io.malevich.server.services.delayedchange.DelayedChangeService;
 import io.malevich.server.transfer.DelayedChangeDto;
 import lombok.extern.slf4j.Slf4j;
-import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -17,13 +17,14 @@ import java.util.stream.Collectors;
 @Slf4j
 @RestController
 @RequestMapping(value = "/delayedChanges")
-public class DelayedChangeResource {
+public class DelayedChangeResource extends RestResource<DelayedChangeDto, DelayedChangeEntity> {
 
     @Autowired
     private DelayedChangeService delayedChangeService;
 
-    @Autowired
-    private ModelMapper modelMapper;
+    public DelayedChangeResource() {
+        super(DelayedChangeDto.class, DelayedChangeEntity.class);
+    }
 
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     @RequestMapping(value = "/list", method = RequestMethod.GET)
@@ -56,16 +57,6 @@ public class DelayedChangeResource {
     public Boolean findByTypeIdAndAndReferenceId(@PathVariable("typeId") String typeId, @PathVariable("referenceId") Long referenceId) {
         DelayedChangeEntity allEntry = this.delayedChangeService.findByTypeIdAndAndReferenceId(typeId, referenceId);
         return (allEntry != null);
-    }
-
-    private DelayedChangeDto convertToDto(DelayedChangeEntity files) {
-        DelayedChangeDto filesDto = modelMapper.map(files, DelayedChangeDto.class);
-        return filesDto;
-    }
-
-    private DelayedChangeEntity convertToEntity(DelayedChangeDto filesDto) {
-        DelayedChangeEntity files = modelMapper.map(filesDto, DelayedChangeEntity.class);
-        return files;
     }
 
 }

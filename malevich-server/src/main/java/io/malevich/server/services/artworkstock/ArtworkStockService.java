@@ -25,6 +25,7 @@ public interface ArtworkStockService {
 
     List<ArtworkStockEntity> findAllByGalleryId(Long galleryId);
 
+    List<ArtworkStockEntity> getStoredArtworks();
 
     List<ArtworkStockEntity> getOwnArtworks();
 }

@@ -14,7 +14,7 @@ export class TermsAndConditionsService {
   }
 
   getHtml(lang: string) {
-    return this.http.get<TermsAndConditionsDto>(this.url + '/' + lang);
+    return this.http.get<TermsAndConditionsDto[]>(this.url + '/' + lang);
   }
 
 }

@@ -1,5 +1,6 @@
 package io.malevich.server.rest.resources;
 
+import com.yinyang.core.server.rest.RestResource;
 import io.malevich.server.domain.ArtworkStockEntity;
 import io.malevich.server.repositories.artworkstock.filter.FilterSpecification;
 import io.malevich.server.services.artworkstock.ArtworkStockService;
@@ -7,13 +8,13 @@ import io.malevich.server.transfer.ArtworkStockDto;
 import io.malevich.server.transfer.FilterDto;
 import io.malevich.server.transfer.PageResponseDto;
 import lombok.extern.slf4j.Slf4j;
-import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -23,13 +24,14 @@ import java.util.stream.Collectors;
 @Slf4j
 @RestController
 @RequestMapping(value = "/artworkstock")
-public class ArtworkStockResource {
+public class ArtworkStockResource extends RestResource<ArtworkStockDto, ArtworkStockEntity> {
 
     @Autowired
     private ArtworkStockService artworkStockService;
 
-    @Autowired
-    private ModelMapper modelMapper;
+    public ArtworkStockResource() {
+        super(ArtworkStockDto.class, ArtworkStockEntity.class);
+    }
 
     @RequestMapping(value = "/list", method = RequestMethod.GET)
     @ResponseStatus(HttpStatus.OK)
@@ -45,6 +47,15 @@ public class ArtworkStockResource {
     public ArtworkStockDto item(@PathVariable("id") long id) {
         ArtworkStockEntity allEntry = this.artworkStockService.find(id);
         return convertToDto(allEntry);
+    }
+
+    @PreAuthorize("hasAnyRole('ROLE_GALLERY', 'ROLE_TRADER')")
+    @RequestMapping(value = "/getOwnArtworks", method = RequestMethod.GET)
+    @ResponseStatus(HttpStatus.OK)
+    @ResponseBody
+    public List<ArtworkStockDto> getOwnArtworks() {
+        List<ArtworkStockEntity> allEntries = this.artworkStockService.getOwnArtworks();
+        return convertListOfDto(allEntries);
     }
 
     @RequestMapping(value = "/add", method = RequestMethod.POST)
@@ -66,18 +77,11 @@ public class ArtworkStockResource {
 
     @PostMapping("/filter")
     @ResponseStatus(HttpStatus.OK)
+    // TODO exctarct to core
     public PageResponseDto filter(@RequestBody FilterDto filterDto) {
         Specification<ArtworkStockEntity> specification = new FilterSpecification(filterDto);
         Page<ArtworkStockEntity> resultPage = this.artworkStockService.findAll(specification, PageRequest.of(filterDto.getPage(), filterDto.getSize()));
         return new PageResponseDto(resultPage.getContent().stream().map(pageEntry -> convertToDto(pageEntry)).collect(Collectors.toList()), resultPage.getTotalElements(), resultPage.getTotalPages(), filterDto.getSort());
-    }
-
-    private ArtworkStockDto convertToDto(ArtworkStockEntity entity) {
-        return modelMapper.map(entity, ArtworkStockDto.class);
-    }
-
-    private ArtworkStockEntity convertToEntity(ArtworkStockDto dto) {
-        return modelMapper.map(dto, ArtworkStockEntity.class);
     }
 
 }

@@ -67,16 +67,7 @@ public class AccountStateServiceImpl implements AccountStateService {
         return accountStateEntity;
     }
 
-    @Override
-    @Transactional(readOnly = true)
-    public List<ArtworkStockEntity> getOwnArtworks() {
-        // TODO refactor this crap above
 
-
-        ParticipantEntity counterpartyEntity = participantService.getCurrent();
-
-        return artworkStockService.findAllByGalleryId(counterpartyEntity.getId());
-    }
 
 
 }

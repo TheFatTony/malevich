@@ -1,10 +1,10 @@
 package io.malevich.server.rest.resources;
 
+import com.yinyang.core.server.rest.RestResource;
 import io.malevich.server.domain.AddressEntity;
 import io.malevich.server.services.address.AddressService;
 import io.malevich.server.transfer.AddressDto;
 import lombok.extern.slf4j.Slf4j;
-import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -13,13 +13,14 @@ import org.springframework.web.bind.annotation.RestController;
 @Slf4j
 @RestController
 @RequestMapping(value = "/addresses")
-public class AddressResource {
+public class AddressResource extends RestResource<AddressDto, AddressEntity> {
 
     @Autowired
     private AddressService addressService;
 
-    @Autowired
-    private ModelMapper modelMapper;
+    public AddressResource() {
+        super(AddressDto.class, AddressEntity.class);
+    }
 
 //    @RequestMapping(value = "/trader/{id}", method = RequestMethod.GET)
 //    public List<AddressDto> findByTrader(@PathVariable(value = "id") long traderId) {
@@ -34,14 +35,5 @@ public class AddressResource {
 //        return ResponseEntity.ok().build();
 //    }
 
-    private AddressDto convertToDto(AddressEntity files) {
-        AddressDto filesDto = modelMapper.map(files, AddressDto.class);
-        return filesDto;
-    }
-
-    private AddressEntity convertToEntity(AddressDto filesDto) {
-        AddressEntity files = modelMapper.map(filesDto, AddressEntity.class);
-        return files;
-    }
 
 }

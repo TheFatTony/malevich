@@ -9,6 +9,7 @@ import {Router} from "@angular/router";
 import {AccountStateService} from "../../_services/account-state.service";
 import {OrderDto} from "../../_transfer/orderDto";
 import {OrderWindowComponent} from "../../common/components/order-window/order-window.component";
+import {ArtworkStockService} from "../../_services/artwork-stock.service";
 
 @Component({
   selector: 'app-profile-artwork-stock',
@@ -72,7 +73,7 @@ export class ArtworkStockComponent implements OnInit {
   }
 
   constructor(private router: Router,
-              private accountStateService: AccountStateService,
+              private artworkStockService: ArtworkStockService,
               public translate: TranslateService) {
   }
 
@@ -101,7 +102,7 @@ export class ArtworkStockComponent implements OnInit {
   }
 
   getArtworkStock(): void {
-    this.accountStateService
+    this.artworkStockService
       .getOwnArtworks()
       .subscribe(
         data => {

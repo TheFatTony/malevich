@@ -2,11 +2,11 @@ package io.malevich.server.rest.resources;
 
 import com.yinyang.core.server.domain.FileEntity;
 import com.yinyang.core.server.domain.LobStorageEntity;
+import com.yinyang.core.server.rest.RestResource;
 import com.yinyang.core.server.services.file.FileService;
 import com.yinyang.core.server.services.lobstorage.LobStorageService;
 import com.yinyang.core.server.transfer.FileDto;
 import lombok.extern.slf4j.Slf4j;
-import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -25,7 +25,7 @@ import java.util.stream.Collectors;
 @Slf4j
 @RestController
 @RequestMapping(value = "/files")
-public class FileResource {
+public class FileResource extends RestResource<FileDto, FileEntity> {
 
     @Autowired
     private FileService fileService;
@@ -33,8 +33,9 @@ public class FileResource {
     @Autowired
     private LobStorageService lobStorageService;
 
-    @Autowired
-    private ModelMapper modelMapper;
+    public FileResource() {
+        super(FileDto.class, FileEntity.class);
+    }
 
     private FileEntity uploadFileInternal(MultipartFile file) {
         FileEntity fileEntity = new FileEntity();
@@ -93,16 +94,6 @@ public class FileResource {
     public List<FileDto> list() {
         List<FileEntity> allEntries = this.fileService.findAll();
         return allEntries.stream().map(allEntry -> convertToDto(allEntry)).collect(Collectors.toList());
-    }
-
-    private FileDto convertToDto(FileEntity files) {
-        FileDto filesDto = modelMapper.map(files, FileDto.class);
-        return filesDto;
-    }
-
-    private FileEntity convertToEntity(FileDto filesDto) {
-        FileEntity files = modelMapper.map(filesDto, FileEntity.class);
-        return files;
     }
 
 }

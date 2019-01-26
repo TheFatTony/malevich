@@ -32,8 +32,9 @@ public class TraderParticipantServiceImpl extends GenericComposerServiceImpl<Par
     @Override
     public void create(ParticipantEntity entity) {
         TraderParticipant traderParticipant = new TraderParticipant();
-        traderParticipant.setBalance(0D);
+        traderParticipant.setId(entity.getId().toString());
         traderParticipant.setEmail(entity.getUser().getUsername());
+        traderParticipant.setBalance(0D);
 
         doPost(traderParticipant);
     }
@@ -42,7 +43,7 @@ public class TraderParticipantServiceImpl extends GenericComposerServiceImpl<Par
     public TraderParticipant getOne() {
         ParticipantEntity participantEntity = participantService.getCurrent();
         try {
-            ResponseEntity<TraderParticipant> res = restTemplate.exchange(composerUrl + "/Trader/{trader}", HttpMethod.GET, null, new ParameterizedTypeReference<TraderParticipant>() {}, participantEntity.getUser().getUsername());
+            ResponseEntity<TraderParticipant> res = restTemplate.exchange(composerUrl + "/Trader/{trader}", HttpMethod.GET, null, new ParameterizedTypeReference<TraderParticipant>() {}, participantEntity.getId());
             return res.getBody();
         } catch (RestClientException e) {
             String errorResponse = ((HttpStatusCodeException) e).getResponseBodyAsString();

@@ -4,20 +4,14 @@ query selectArtworkStocks {
       SELECT io.malevich.network.ArtworkStock
 }
 
-query selectOwnedArtworkStocks {
-  description: "selectOwnedArtworkStocks"
+query getOwnedArtworkStocks {
+  description: "getOwnedArtworkStocks"
   statement:
       SELECT io.malevich.network.ArtworkStock WHERE (owner == _$owner)
 }
 
-query selectStoredArtworkStocks {
-  description: "selectStoredArtworkStocks"
-  statement:
-      SELECT io.malevich.network.ArtworkStock WHERE (holder == _$holder)
-}
-
-query selectPaymentsByCounterparty {
-  description: "selectPaymentsByCounterparty"
+query getPaymentsByCounterparty {
+  description: "getPaymentsByCounterparty"
   statement:
       SELECT io.malevich.network.Payment WHERE (party == _$party)
 }

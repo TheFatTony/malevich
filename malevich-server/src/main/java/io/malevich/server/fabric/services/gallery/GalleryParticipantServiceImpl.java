@@ -30,8 +30,9 @@ public class GalleryParticipantServiceImpl extends GenericComposerServiceImpl<Pa
     @Override
     public void create(ParticipantEntity entity) {
         GalleryParticipant galleryParticipant = new GalleryParticipant();
-        galleryParticipant.setBalance(0D);
+        galleryParticipant.setId(entity.getId().toString());
         galleryParticipant.setEmail(entity.getUser().getUsername());
+        galleryParticipant.setBalance(0D);
 
         doPost(galleryParticipant);
     }
@@ -40,7 +41,7 @@ public class GalleryParticipantServiceImpl extends GenericComposerServiceImpl<Pa
     public GalleryParticipant getOne() {
         ParticipantEntity participantEntity = participantService.getCurrent();
         try {
-            ResponseEntity<GalleryParticipant> res = restTemplate.exchange(composerUrl + "/Gallery/{gallery}", HttpMethod.GET, null, new ParameterizedTypeReference<GalleryParticipant>() {}, participantEntity.getUser().getUsername());
+            ResponseEntity<GalleryParticipant> res = restTemplate.exchange(composerUrl + "/Gallery/{gallery}", HttpMethod.GET, null, new ParameterizedTypeReference<GalleryParticipant>() {}, participantEntity.getId());
             return res.getBody();
         } catch (RestClientException e) {
             String errorResponse = ((HttpStatusCodeException) e).getResponseBodyAsString();

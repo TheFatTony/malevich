@@ -30,7 +30,7 @@ public class TradeHistoryServiceImpl implements TradeHistoryService {
 
         for (TradeHistoryAsset asset: list){
             TradeHistoryEntity tradeHistoryEntity = new TradeHistoryEntity();
-            tradeHistoryEntity.setAmount(asset.getBidOrder().getAmount());
+            tradeHistoryEntity.setAmount(asset.getBidOrder().getOrder().getAmount());
 
             result.add(tradeHistoryEntity);
         }

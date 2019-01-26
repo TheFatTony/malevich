@@ -37,11 +37,20 @@ public class OrderResource extends RestResource<OrderDto, OrderEntity> {
         return allEntries.stream().map(allEntry -> convertToDto(allEntry)).collect(Collectors.toList());
     }
 
+    @PreAuthorize("hasAnyRole('ROLE_GALLERY', 'ROLE_TRADER')")
     @RequestMapping(value = "/getOrdersByArtworkId/{artworkId}", method = RequestMethod.GET)
     @ResponseStatus(HttpStatus.OK)
     @ResponseBody
     public List<OrderPublicDto> getOrdersByArtworkId(@PathVariable("artworkId") long artworkId) {
         List<OrderEntity> allEntries = this.orderService.getOrdersByArtworkStockId(artworkId);
+        return allEntries.stream().map(allEntry -> convertToPublicDto(allEntry)).collect(Collectors.toList());
+    }
+
+    @RequestMapping(value = "/getOpenOrdersByArtworkId/{artworkId}", method = RequestMethod.GET)
+    @ResponseStatus(HttpStatus.OK)
+    @ResponseBody
+    public List<OrderPublicDto> getOpenOrdersByArtworkId(@PathVariable("artworkId") long artworkId) {
+        List<OrderEntity> allEntries = this.orderService.getOpenOrdersByArtworkStockId(artworkId);
         return allEntries.stream().map(allEntry -> convertToPublicDto(allEntry)).collect(Collectors.toList());
     }
 

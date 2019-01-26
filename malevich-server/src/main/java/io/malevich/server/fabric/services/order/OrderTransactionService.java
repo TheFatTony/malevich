@@ -15,5 +15,7 @@ public interface OrderTransactionService extends GenericComposerService<OrderEnt
 
     List<OrderTransaction> getOrdersByArtworkStock(Long artworkId);
 
+    List<OrderTransaction> getOpenOrdersByArtworkStock(Long artworkId);
+
     List<OrderTransaction> getOrdersByCounterparty();
 }

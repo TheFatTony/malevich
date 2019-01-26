@@ -43,7 +43,7 @@ export class DocumentAddComponent implements OnInit, AfterViewInit {
 
   ngAfterViewInit(): void {
     // set button types to 'button' to avoid unattended form submit
-    $('jqxfileupload').find('button').attr('type', 'button');;
+    $('jqxfileupload').find('button').attr('type', 'button');
   }
 
   getInitValues() {
@@ -62,10 +62,10 @@ export class DocumentAddComponent implements OnInit, AfterViewInit {
   }
 
   submit() {
-    if(!this.document.files)
+    if (!this.document.files)
       return;
 
-    this.documentService.save(this.document).subscribe(() =>{
+    this.documentService.save(this.document).subscribe(() => {
       this.router.navigate(['/profile/documents']);
     });
   }

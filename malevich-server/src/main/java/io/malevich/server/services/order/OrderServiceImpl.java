@@ -83,6 +83,8 @@ public class OrderServiceImpl implements OrderService {
             orderEntity.setIsOwn(false);
             orderEntity.setArtworkStock(artworkStockEntity);
             orderEntity.setTradeType(tradeTypeService.getGtc());
+            orderEntity.setId(order.getTransactionId());
+            orderEntity.setEffectiveDate(order.getTimestamp());
             result.add(orderEntity);
         }
 
@@ -108,6 +110,8 @@ public class OrderServiceImpl implements OrderService {
             orderEntity.setIsOwn(false);
             orderEntity.setArtworkStock(artworkStockEntity);
             orderEntity.setTradeType(tradeTypeService.getGtc());
+            orderEntity.setId(order.getTransactionId());
+            orderEntity.setEffectiveDate(order.getTimestamp());
             result.add(orderEntity);
         }
 

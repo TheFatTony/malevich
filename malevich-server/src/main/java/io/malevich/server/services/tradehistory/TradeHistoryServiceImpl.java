@@ -9,6 +9,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.sql.Timestamp;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -31,6 +33,7 @@ public class TradeHistoryServiceImpl implements TradeHistoryService {
         for (TradeHistoryAsset asset: list){
             TradeHistoryEntity tradeHistoryEntity = new TradeHistoryEntity();
             tradeHistoryEntity.setAmount(asset.getBidOrder().getOrder().getAmount());
+            tradeHistoryEntity.setEffectiveDate(asset.getEffectiveDate());
 
             result.add(tradeHistoryEntity);
         }

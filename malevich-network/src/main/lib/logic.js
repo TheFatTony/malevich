@@ -84,6 +84,8 @@ async function placeOrder(order) { // eslint-disable-line no-unused-vars
         tradeHistoryAsset.askOrder = currentAsk;
         tradeHistoryAsset.bidOrder = matchingBid;
         tradeHistoryAsset.artworkStock = order.order.artworkStock;
+        tradeHistoryAsset.effectiveDate = order.timestamp.toString();
+        tradeHistoryAsset.amount = matchingBid.order.amount;
         await tradeHistoryRegistry.add(tradeHistoryAsset);
 
         let uptadeArtwork = await registryArtworkStock.get(matchingBid.order.artworkStock.getIdentifier());

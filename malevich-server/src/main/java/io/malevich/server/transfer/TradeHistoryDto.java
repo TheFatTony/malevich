@@ -13,7 +13,7 @@ public class TradeHistoryDto {
 
     private ArtworkStockDto artworkStock;
 
-    private java.sql.Timestamp effectiveDate;
+    private String effectiveDate;
 
     private OrderDto askOrder;
 

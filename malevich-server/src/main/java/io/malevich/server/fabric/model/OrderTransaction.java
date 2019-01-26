@@ -5,6 +5,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.sql.Timestamp;
+
 @Getter
 @Setter
 @AllArgsConstructor
@@ -12,6 +14,10 @@ import lombok.Setter;
 public class OrderTransaction  {
 
     private OrderConcept order;
+
+    private String transactionId;
+
+    private Timestamp timestamp;
 
 
 }

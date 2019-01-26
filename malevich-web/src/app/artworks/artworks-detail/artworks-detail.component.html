@@ -154,7 +154,7 @@
               </thead>
               <tbody>
               <tr class="g-color-gray-dark-v4 g-font-size-12" *ngFor="let tradeHistoryItem of tradeHistory">
-                <td class="align-top g-py-10">{{tradeHistoryItem.effectiveDate | date: 'full'}}</td>
+                <td class="align-top g-py-10">{{tradeHistoryItem.effectiveDate}}</td>
                 <td class="align-top g-py-10">${{tradeHistoryItem.amount}}</td>
               </tr>
               </tbody>

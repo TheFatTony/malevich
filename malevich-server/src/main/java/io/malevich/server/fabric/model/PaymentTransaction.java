@@ -5,6 +5,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.sql.Timestamp;
+
 @Getter
 @Setter
 @AllArgsConstructor
@@ -17,5 +19,8 @@ public class PaymentTransaction {
 
     private String party;
 
+    private String transactionId;
+
+    private Timestamp timestamp;
 
 }

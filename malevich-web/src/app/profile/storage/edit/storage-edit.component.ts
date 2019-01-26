@@ -8,6 +8,8 @@ import {jqxComboBoxComponent} from "jqwidgets-scripts/jqwidgets-ts/angular_jqxco
 import {ActivatedRoute, Params, Router} from "@angular/router";
 import {ArtistService} from "../../../_services/artist.service";
 import {CategoryService} from "../../../_services/category.service";
+import {FileDto} from "yinyang-core";
+import {environment} from "../../../../environments/environment.dev";
 
 @Component({
   selector: 'app-profile-storage-edit',
@@ -17,8 +19,8 @@ import {CategoryService} from "../../../_services/category.service";
 export class StorageEditComponent implements OnInit {
 
   @ViewChild('addArtWorkComboBox') addArtWorkComboBox: jqxComboBoxComponent;
-  @ViewChild('artistComboBox') artistComboBox: jqxComboBoxComponent;
-  @ViewChild('categoryComboBox') categoryComboBox: jqxComboBoxComponent;
+
+  public url = environment.baseUrl;
 
   gallery: GalleryDto;
 
@@ -76,7 +78,10 @@ export class StorageEditComponent implements OnInit {
   }
 
   submit() {
-    this.artworkStockService.addArtworkStock(this.artworkStock).subscribe();
+    if (!this.artwork || !this.artwork.image || !this.artwork.thumbnail || !this.artwork.artist || !this.artwork.category)
+      return;
+
+    this.artworkStockService.updateArtworkStock(this.artworkStock).subscribe();
     this.router.navigate(['/profile/storage']);
   }
 
@@ -128,5 +133,21 @@ export class StorageEditComponent implements OnInit {
       this.artwork.titleMl = new Map<string, string>();
 
     this.artwork.titleMl[lang] = $event
+  }
+
+  private parseUploadEvent(event: any): FileDto {
+    let args = event.args;
+    return JSON.parse(args.response.toString()
+      .replace('<pre style="word-wrap: break-word; white-space: pre-wrap;">', '')
+      .replace('<pre>', '')
+      .replace('</pre>', ''));
+  }
+
+  onUploadImage($event: any) {
+    this.artwork.image = this.parseUploadEvent($event);
+  }
+
+  onUploadThumbnail($event: any) {
+    this.artwork.thumbnail = this.parseUploadEvent($event);
   }
 }

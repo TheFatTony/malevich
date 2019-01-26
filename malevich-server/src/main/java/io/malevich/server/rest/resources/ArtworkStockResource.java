@@ -76,10 +76,19 @@ public class ArtworkStockResource extends RestResource<ArtworkStockDto, ArtworkS
         return ResponseEntity.ok().build();
     }
 
+    @RequestMapping(value = "/update", method = RequestMethod.PUT)
+    @ResponseStatus(HttpStatus.OK)
+    @ResponseBody
+    public ResponseEntity<Void> update(@RequestBody ArtworkStockDto artworkStockDto) {
+        ArtworkStockEntity entity = convertToEntity(artworkStockDto);
+        artworkStockService.save(entity);
+        return ResponseEntity.ok().build();
+    }
+
     @RequestMapping(value = "/delete/{id}", method = RequestMethod.DELETE)
     @ResponseStatus(HttpStatus.OK)
     @ResponseBody
-    public ResponseEntity<Void> add(@PathVariable("id") long id) {
+    public ResponseEntity<Void> delete(@PathVariable("id") long id) {
         artworkStockService.delete(id);
         return ResponseEntity.ok().build();
     }

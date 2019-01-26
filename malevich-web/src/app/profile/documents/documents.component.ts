@@ -34,12 +34,12 @@ export class DocumentsComponent implements OnInit {
               private delayedChangeService: DelayedChangeService,
               private participantService: ParticipantService,
               private router: Router) {
+    this.updateGrid();
   }
 
   ngOnInit() {
     this.getCurrent();
     this.getDocs();
-    this.updateGrid();
   }
 
   updateGrid() {

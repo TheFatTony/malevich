@@ -36,12 +36,12 @@ export class OrdersComponent implements OnInit {
   constructor(private orderService: OrderService,
               public translate: TranslateService,
               private tradeTypeService: TradeTypeService) {
+    this.updateGrid();
   }
 
   ngOnInit() {
     this.getPlacedOrders();
     this.getTradeTypes();
-    this.updateGrid();
   }
 
   ngAfterViewInit(): void {

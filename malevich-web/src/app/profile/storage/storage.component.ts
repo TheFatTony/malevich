@@ -72,12 +72,11 @@ export class StorageComponent implements OnInit {
               private galleryService: GalleryService,
               private artworkStockService: ArtworkStockService,
               public translate: TranslateService) {
-
+    this.updateGrid();
   }
 
   ngOnInit() {
     this.getArtworkStock();
-    this.updateGrid();
   }
 
   updateGrid() {

@@ -9,6 +9,8 @@ import {jqxComboBoxComponent} from "jqwidgets-scripts/jqwidgets-ts/angular_jqxco
 import {Router} from "@angular/router";
 import {ArtistService} from "../../../_services/artist.service";
 import {CategoryService} from "../../../_services/category.service";
+import {environment} from "../../../../environments/environment.dev";
+import {FileDto} from "yinyang-core";
 
 @Component({
   selector: 'app-profile-storage-add',
@@ -18,8 +20,8 @@ import {CategoryService} from "../../../_services/category.service";
 export class StorageAddComponent implements OnInit {
 
   @ViewChild('addArtWorkComboBox') addArtWorkComboBox: jqxComboBoxComponent;
-  @ViewChild('artistComboBox') artistComboBox: jqxComboBoxComponent;
-  @ViewChild('categoryComboBox') categoryComboBox: jqxComboBoxComponent;
+
+  public url = environment.baseUrl;
 
   gallery: GalleryDto;
 
@@ -33,11 +35,11 @@ export class StorageAddComponent implements OnInit {
     return artist.fullNameMl[this.translate.currentLang];
   };
 
-  categoryDisplayFunc = (category: CategoryDto) =>{
+  categoryDisplayFunc = (category: CategoryDto) => {
     return category.categoryNameMl[this.translate.currentLang];
   };
 
-  artworkDisplayFunc = (artwork:ArtworkDto) =>{
+  artworkDisplayFunc = (artwork: ArtworkDto) => {
     return artwork.titleMl[this.translate.currentLang];
   };
 
@@ -48,7 +50,7 @@ export class StorageAddComponent implements OnInit {
               private artistService: ArtistService,
               private categoryService: CategoryService,
               public translate: TranslateService) {
-    }
+  }
 
   ngOnInit() {
     this.getArtworks();
@@ -83,6 +85,9 @@ export class StorageAddComponent implements OnInit {
   }
 
   submit() {
+    if (!this.artwork || !this.artwork.image || !this.artwork.thumbnail || !this.artwork.artist || !this.artwork.category)
+      return;
+
     let addArtworkStock = new ArtworkStockDto();
     addArtworkStock.artwork = this.artwork;
     addArtworkStock.gallery = this.gallery;
@@ -147,5 +152,21 @@ export class StorageAddComponent implements OnInit {
       this.artwork.titleMl = new Map<string, string>();
 
     this.artwork.titleMl[lang] = $event
+  }
+
+  private parseUploadEvent(event: any): FileDto {
+    let args = event.args;
+    return JSON.parse(args.response.toString()
+      .replace('<pre style="word-wrap: break-word; white-space: pre-wrap;">', '')
+      .replace('<pre>', '')
+      .replace('</pre>', ''));
+  }
+
+  onUploadImage($event: any) {
+    this.artwork.image = this.parseUploadEvent($event);
+  }
+
+  onUploadThumbnail($event: any) {
+    this.artwork.thumbnail = this.parseUploadEvent($event);
   }
 }

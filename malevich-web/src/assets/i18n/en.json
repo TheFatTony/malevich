@@ -127,6 +127,8 @@
         "CHOOSE": "Choose from existing",
         "TITLE_EN": "Title - English",
         "TITLE_RU": "Title - Russian",
+        "IMAGE": "Upload the image of artwork",
+        "THUMBNAIL": "Upload the thumbnail image of artwork",
         "DESCRIPTION_EN": "Description - English",
         "DESCRIPTION_RU": "Description - Russian",
         "ARTIST": "Artist",
@@ -134,7 +136,12 @@
       },
       "EDIT": {
         "TITLE": "Edit artwork",
-        "DESCRIPTION": "Description",
+        "TITLE_EN": "Title - English",
+        "TITLE_RU": "Title - Russian",
+        "IMAGE": "Upload the image of artwork",
+        "THUMBNAIL": "Upload the thumbnail image of artwork",
+        "DESCRIPTION_EN": "Description - English",
+        "DESCRIPTION_RU": "Description - Russian",
         "ARTIST": "Artist",
         "CATEGORY": "Category"
       }

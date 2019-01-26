@@ -44,98 +44,171 @@
       <!-- Info -->
       <div class="g-brd-around g-brd-gray-light-v4 rounded g-pa-30 g-mb-30">
 
-        <div class="row">
-          <div class="col-12">
-            <span class="d-block g-color-text g-font-size-13 mb-1">{{'PROFILE.STORAGE.ADD.CHOOSE' | translate}}</span>
-            <mchComboBox #addArtWorkComboBox
-                         [objectSource]="artworks"
-                         [displayFunc]="artworkDisplayFunc"
-                         [renderer]="artworkService.comboboxRenderer"
-                         [ngModel]="artwork"
-                         (ngModelChange)="onArtworkComboBoxChange($event)">
-            </mchComboBox>
+        <form #f="ngForm" (ngSubmit)="submit()" novalidate>
+          <div class="row">
+            <div class="col-12">
+              <span class="d-block g-color-text g-font-size-13 mb-1">{{'PROFILE.STORAGE.ADD.CHOOSE' | translate}}</span>
+              <mchComboBox #addArtWorkComboBox
+                           name="artwork"
+                           [objectSource]="artworks"
+                           [displayFunc]="artworkDisplayFunc"
+                           [renderer]="artworkService.comboboxRenderer"
+                           [ngModel]="artwork"
+                           (ngModelChange)="onArtworkComboBoxChange($event)">
+              </mchComboBox>
+            </div>
           </div>
-        </div>
 
-        <hr class="g-brd-gray-light-v4 g-my-20">
+          <hr class="g-brd-gray-light-v4 g-my-20">
 
-        <div class="row">
-          <div class="col-12">
-            <span class="d-block g-color-text g-font-size-13 mb-1">{{'PROFILE.STORAGE.ADD.TITLE_EN' | translate}}:</span>
-            <mchInput [ngModel]="!artwork?.titleMl ? '' : artwork?.titleMl['en']"
-                      (ngModelChange)="onTitleEditorChange($event, 'en')"></mchInput>
+          <div class="row">
+            <div class="col-12">
+              <span
+                class="d-block g-color-text g-font-size-13 mb-1">{{'PROFILE.STORAGE.ADD.TITLE_EN' | translate}}:</span>
+              <mchInput
+                name="titleEn"
+                mchRequired
+                [ngModel]="!artwork?.titleMl ? '' : artwork?.titleMl['en']"
+                (ngModelChange)="onTitleEditorChange($event, 'en')"></mchInput>
+            </div>
           </div>
-        </div>
 
-        <hr class="g-brd-gray-light-v4 g-my-20">
+          <hr class="g-brd-gray-light-v4 g-my-20">
 
-        <div class="row">
-          <div class="col-12">
-            <span class="d-block g-color-text g-font-size-13 mb-1">{{'PROFILE.STORAGE.ADD.TITLE_RU' | translate}}:</span>
-            <mchInput [ngModel]="!artwork?.titleMl ? '' : artwork?.titleMl['ru']"
-                      (ngModelChange)="onTitleEditorChange($event, 'ru')"></mchInput>
+          <div class="row">
+            <div class="col-12">
+              <span
+                class="d-block g-color-text g-font-size-13 mb-1">{{'PROFILE.STORAGE.ADD.TITLE_RU' | translate}}:</span>
+              <mchInput
+                name="titleRu"
+                [ngModel]="!artwork?.titleMl ? '' : artwork?.titleMl['ru']"
+                (ngModelChange)="onTitleEditorChange($event, 'ru')"></mchInput>
+            </div>
           </div>
-        </div>
 
-        <hr class="g-brd-gray-light-v4 g-my-20">
+          <hr class="g-brd-gray-light-v4 g-my-20">
 
-        <div class="row">
-          <div class="col-12">
-            <span class="d-block g-color-text g-font-size-13 mb-1">{{'PROFILE.STORAGE.ADD.DESCRIPTION_EN' | translate}}:</span>
-            <mchInput [ngModel]="!artwork?.descriptionMl ? '' : artwork?.descriptionMl['en']"
-                      (ngModelChange)="onDescriptionEditorChange($event, 'en')"></mchInput>
+          <div class="row">
+            <div class="col-12">
+              <span class="d-block g-color-text g-font-size-13 mb-1">{{'PROFILE.STORAGE.ADD.IMAGE' | translate}}</span>
+              <jqxFileUpload
+                [width]="'100%'" [uploadUrl]="url + 'files/uploadFile'" [fileInputName]="'file'"
+                (onUploadEnd)="onUploadImage($event)" [multipleFilesUpload]="false">
+              </jqxFileUpload>
+              <div *ngIf="!artwork?.image"
+                   class="invalid-feedback d-block">
+                <ul class="mb-0">
+                  <li>
+                    Image required
+                  </li>
+                </ul>
+              </div>
+            </div>
           </div>
-        </div>
 
-        <hr class="g-brd-gray-light-v4 g-my-20">
+          <hr class="g-brd-gray-light-v4 g-my-20">
 
-        <div class="row">
-          <div class="col-12">
-            <span class="d-block g-color-text g-font-size-13 mb-1">{{'PROFILE.STORAGE.ADD.DESCRIPTION_RU' | translate}}:</span>
-            <mchInput [ngModel]="!artwork?.descriptionMl ? '' : artwork?.descriptionMl['ru']"
-                      (ngModelChange)="onDescriptionEditorChange($event, 'ru')"></mchInput>
+          <div class="row">
+            <div class="col-12">
+              <span
+                class="d-block g-color-text g-font-size-13 mb-1">{{'PROFILE.STORAGE.ADD.THUMBNAIL' | translate}}</span>
+              <jqxFileUpload
+                [width]="'100%'" [uploadUrl]="url + 'files/uploadFile'" [fileInputName]="'file'"
+                (onUploadEnd)="onUploadThumbnail($event)" [multipleFilesUpload]="false">
+              </jqxFileUpload>
+              <div *ngIf="!artwork?.thumbnail"
+                   class="invalid-feedback d-block">
+                <ul class="mb-0">
+                  <li>
+                    Image required
+                  </li>
+                </ul>
+              </div>
+            </div>
           </div>
-        </div>
 
-        <hr class="g-brd-gray-light-v4 g-my-20">
+          <hr class="g-brd-gray-light-v4 g-my-20">
 
-        <div class="row">
-          <div class="col-12">
+          <div class="row">
+            <div class="col-12">
+              <span class="d-block g-color-text g-font-size-13 mb-1">{{'PROFILE.STORAGE.ADD.DESCRIPTION_EN' | translate}}:</span>
+              <mchInput
+                name="descriptionEn"
+                [ngModel]="!artwork?.descriptionMl ? '' : artwork?.descriptionMl['en']"
+                (ngModelChange)="onDescriptionEditorChange($event, 'en')"></mchInput>
+            </div>
+          </div>
+
+          <hr class="g-brd-gray-light-v4 g-my-20">
+
+          <div class="row">
+            <div class="col-12">
+              <span class="d-block g-color-text g-font-size-13 mb-1">{{'PROFILE.STORAGE.ADD.DESCRIPTION_RU' | translate}}:</span>
+              <mchInput
+                name="descriptionRu"
+                [ngModel]="!artwork?.descriptionMl ? '' : artwork?.descriptionMl['ru']"
+                (ngModelChange)="onDescriptionEditorChange($event, 'ru')"></mchInput>
+            </div>
+          </div>
+
+          <hr class="g-brd-gray-light-v4 g-my-20">
+
+          <div class="row">
+            <div class="col-12">
             <span
               class="d-block g-color-text g-font-size-13 mb-1">{{'PROFILE.STORAGE.ADD.ARTIST' | translate}}:</span>
-            <mchComboBox #artistComboBox
-                         [objectSource]="artists"
-                         [displayFunc]="artistDisplayFunc"
-                         [ngModel]="artwork?.artist"
-                         (ngModelChange)="onArtistComboBoxChange($event)">
-            </mchComboBox>
+              <mchComboBox
+                name="artist"
+                [objectSource]="artists"
+                [displayFunc]="artistDisplayFunc"
+                [ngModel]="artwork?.artist"
+                (ngModelChange)="onArtistComboBoxChange($event)">
+              </mchComboBox>
+              <div *ngIf="!artwork?.artist"
+                   class="invalid-feedback d-block">
+                <ul class="mb-0">
+                  <li>
+                    Artist required
+                  </li>
+                </ul>
+              </div>
+            </div>
           </div>
-        </div>
 
-        <hr class="g-brd-gray-light-v4 g-my-20">
+          <hr class="g-brd-gray-light-v4 g-my-20">
 
-        <div class="row g-mb-30">
-          <div class="col-12">
+          <div class="row g-mb-30">
+            <div class="col-12">
             <span
               class="d-block g-color-text g-font-size-13 mb-1">{{'PROFILE.STORAGE.ADD.CATEGORY' | translate}}:</span>
-            <mchComboBox #categoryComboBox
-                         [objectSource]="categories"
-                         [displayFunc]="categoryDisplayFunc"
-                         [ngModel]="artwork?.category"
-                         (ngModelChange)="onCategoryComboBoxChange($event)">
-            </mchComboBox>
+              <mchComboBox
+                name="category"
+                [objectSource]="categories"
+                [displayFunc]="categoryDisplayFunc"
+                [ngModel]="artwork?.category"
+                (ngModelChange)="onCategoryComboBoxChange($event)">
+              </mchComboBox>
+              <div *ngIf="!artwork?.category"
+                   class="invalid-feedback d-block">
+                <ul class="mb-0">
+                  <li>
+                    Artist required
+                  </li>
+                </ul>
+              </div>
+            </div>
           </div>
-        </div>
 
-
+        </form>
       </div>
+
       <!-- End Info -->
-      <button class="btn u-btn-primary g-font-size-12 text-uppercase g-py-12 g-px-25 g-mr-20" type="submit"
-              (click)="submit()">{{'PROFILE.BUTTON.UPDATE' | translate}}
-      </button>
-      <button class="btn u-btn-primary g-font-size-12 text-uppercase g-py-12 g-px-25" type="button" (click)="cancel()">
+      <mchButton class="btn u-btn-primary g-font-size-12 text-uppercase g-py-12 g-px-25 g-mr-20"
+                 [submitForm]="f">{{'PROFILE.BUTTON.UPDATE' | translate}}
+      </mchButton>
+      <mchButton class="btn u-btn-primary g-font-size-12 text-uppercase g-py-12 g-px-25" (click)="cancel()">
         {{'PROFILE.BUTTON.CANCEL' | translate}}
-      </button>
+      </mchButton>
     </div>
     <!-- End Add -->
   </div>

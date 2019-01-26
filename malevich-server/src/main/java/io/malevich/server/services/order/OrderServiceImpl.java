@@ -90,6 +90,31 @@ public class OrderServiceImpl implements OrderService {
 
     }
 
+    @Override
+    @Transactional(readOnly = true)
+    public List<OrderEntity> getOpenOrdersByArtworkStockId(Long artworkId) {
+
+        ArtworkStockEntity artworkStockEntity = artworkStockService.find(artworkId);
+
+        List<OrderTransaction> fabricOrders = orderTransactionService.getOpenOrdersByArtworkStock(artworkId);
+
+        List<OrderEntity> result = new ArrayList<>();
+
+        for (OrderTransaction order : fabricOrders) {
+            OrderEntity orderEntity = new OrderEntity();
+            orderEntity.setStatus(orderStatusService.getValues().get(order.getOrder().getOrderStatus()));
+            orderEntity.setType(orderTypeService.getValues().get(order.getOrder().getOrderType()));
+            orderEntity.setAmount(order.getOrder().getAmount());
+            orderEntity.setIsOwn(false);
+            orderEntity.setArtworkStock(artworkStockEntity);
+            orderEntity.setTradeType(tradeTypeService.getGtc());
+            result.add(orderEntity);
+        }
+
+        return result;
+
+    }
+
     private Timestamp setEndOfDay(Timestamp date) {
         Calendar c = Calendar.getInstance();
         c.setTimeInMillis(date.getTime());

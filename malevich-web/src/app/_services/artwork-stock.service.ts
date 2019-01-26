@@ -35,6 +35,11 @@ export class ArtworkStockService {
       .get<ArtworkStockDto[]>(this.url + '/getOwnArtworks');
   }
 
+  getStoredArtworks() {
+    return this.http
+      .get<ArtworkStockDto[]>(this.url + '/getStoredArtworks');
+  }
+
   addArtworkStock(artworkStock: ArtworkStockDto) {
     return this.http
       .post<ArtworkStockDto>(this.url + '/add', artworkStock);

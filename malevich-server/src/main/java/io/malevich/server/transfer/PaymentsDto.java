@@ -21,4 +21,6 @@ public class PaymentsDto {
 
     private PaymentTypeDto paymentType;
 
+    private String transactionId;
+
 }

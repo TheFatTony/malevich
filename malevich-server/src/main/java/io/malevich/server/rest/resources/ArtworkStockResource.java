@@ -58,6 +58,15 @@ public class ArtworkStockResource extends RestResource<ArtworkStockDto, ArtworkS
         return convertListOfDto(allEntries);
     }
 
+    @PreAuthorize("hasAnyRole('ROLE_GALLERY')")
+    @RequestMapping(value = "/getStoredArtworks", method = RequestMethod.GET)
+    @ResponseStatus(HttpStatus.OK)
+    @ResponseBody
+    public List<ArtworkStockDto> getStoredArtworks() {
+        List<ArtworkStockEntity> allEntries = this.artworkStockService.getStoredArtworks();
+        return convertListOfDto(allEntries);
+    }
+
     @RequestMapping(value = "/add", method = RequestMethod.POST)
     @ResponseStatus(HttpStatus.OK)
     @ResponseBody

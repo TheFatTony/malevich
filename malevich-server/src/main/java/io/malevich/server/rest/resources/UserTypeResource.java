@@ -2,10 +2,10 @@ package io.malevich.server.rest.resources;
 
 
 import com.yinyang.core.server.domain.UserTypeEntity;
+import com.yinyang.core.server.rest.RestResource;
 import com.yinyang.core.server.services.usertype.UserTypeService;
 import com.yinyang.core.server.transfer.UserTypeDto;
 import lombok.extern.slf4j.Slf4j;
-import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
@@ -17,14 +17,15 @@ import java.util.stream.Collectors;
 @Slf4j
 @RestController
 @RequestMapping(value = "/userType")
-public class UserTypeResource {
+public class UserTypeResource extends RestResource<UserTypeDto, UserTypeEntity> {
 
 
     @Autowired
     private UserTypeService userTypeService;
 
-    @Autowired
-    private ModelMapper modelMapper;
+    public UserTypeResource() {
+        super(UserTypeDto.class, UserTypeEntity.class);
+    }
 
     @RequestMapping(value = "/list", method = RequestMethod.GET)
     @ResponseStatus(HttpStatus.OK)
@@ -34,7 +35,4 @@ public class UserTypeResource {
         return allEntries.stream().map(allEntry -> convertToDto(allEntry)).collect(Collectors.toList());
     }
 
-    private UserTypeDto convertToDto(UserTypeEntity entity) {
-        return modelMapper.map(entity, UserTypeDto.class);
-    }
 }

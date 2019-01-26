@@ -2,10 +2,12 @@ package io.malevich.server.services.artworkstock;
 
 import io.malevich.server.domain.ArtworkStockEntity;
 import io.malevich.server.domain.GalleryEntity;
+import io.malevich.server.domain.ParticipantEntity;
 import io.malevich.server.fabric.services.artworkstock.ArtworkStockAssetService;
 import io.malevich.server.repositories.artworkstock.ArtworkStockDao;
 import io.malevich.server.services.artwork.ArtworkService;
 import io.malevich.server.services.gallery.GalleryService;
+import io.malevich.server.services.participant.ParticipantService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -34,6 +36,9 @@ public class ArtworkStockServiceImpl implements ArtworkStockService {
     @Autowired
     private ArtworkStockAssetService artworkStockAssetService;
 
+    @Autowired
+    private ParticipantService participantService;
+
     @Override
     @Transactional(readOnly = true)
     public List<ArtworkStockEntity> findAll() {
@@ -54,6 +59,14 @@ public class ArtworkStockServiceImpl implements ArtworkStockService {
 
         artworkStockAssetService.create(artworkStockEntity);
 
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public List<ArtworkStockEntity> getOwnArtworks() {
+        ParticipantEntity counterpartyEntity = participantService.getCurrent();
+
+        return findAllByGalleryId(counterpartyEntity.getId());
     }
 
     @Override

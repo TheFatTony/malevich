@@ -1,12 +1,11 @@
 package io.malevich.server.rest.resources;
 
+import com.yinyang.core.server.rest.RestResource;
 import io.malevich.server.domain.OrderEntity;
-import io.malevich.server.exceptions.AccountStateException;
 import io.malevich.server.services.order.OrderService;
 import io.malevich.server.transfer.OrderDto;
 import io.malevich.server.transfer.OrderPublicDto;
 import lombok.extern.slf4j.Slf4j;
-import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -20,13 +19,14 @@ import java.util.stream.Collectors;
 @Slf4j
 @RestController
 @RequestMapping(value = "/orders")
-public class OrderResource {
+public class OrderResource extends RestResource<OrderDto, OrderEntity> {
 
     @Autowired
     private OrderService orderService;
 
-    @Autowired
-    private ModelMapper modelMapper;
+    public OrderResource() {
+        super(OrderDto.class, OrderEntity.class);
+    }
 
 
     @RequestMapping(value = "/getPlacedOrders", method = RequestMethod.GET)
@@ -75,16 +75,9 @@ public class OrderResource {
         return ResponseEntity.ok().build();
     }
 
-    private OrderDto convertToDto(OrderEntity entity) {
-        return modelMapper.map(entity, OrderDto.class);
-    }
-
     private OrderPublicDto convertToPublicDto(OrderEntity entity) {
         return modelMapper.map(entity, OrderPublicDto.class);
     }
 
-    private OrderEntity convertToEntity(OrderDto dto) {
-        return modelMapper.map(dto, OrderEntity.class);
-    }
 
 }

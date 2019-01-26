@@ -1,14 +1,13 @@
 package io.malevich.server.rest.resources;
 
 
+import com.yinyang.core.server.rest.RestResource;
 import io.malevich.server.domain.TraderPersonEntity;
 import io.malevich.server.services.trader.TraderService;
 import io.malevich.server.transfer.TraderPersonDto;
 import lombok.extern.slf4j.Slf4j;
-import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
@@ -16,13 +15,14 @@ import org.springframework.web.bind.annotation.*;
 @Slf4j
 @RestController
 @RequestMapping(value = "/traders")
-public class TraderResource {
+public class TraderResource extends RestResource<TraderPersonDto, TraderPersonEntity> {
 
     @Autowired
     private TraderService traderService;
 
-    @Autowired
-    private ModelMapper modelMapper;
+    public TraderResource() {
+        super(TraderPersonDto.class, TraderPersonEntity.class);
+    }
 
     @PreAuthorize("hasRole('ROLE_TRADER')")
     @RequestMapping(value = "/current", method = RequestMethod.GET)
@@ -30,7 +30,7 @@ public class TraderResource {
     @ResponseBody
     public TraderPersonDto getTrader() {
         TraderPersonEntity traderEntity = traderService.getCurrentTrader();
-        if(traderEntity == null)
+        if (traderEntity == null)
             return null;
         return convertToDto(traderEntity);
     }
@@ -44,15 +44,5 @@ public class TraderResource {
 //        this.traderService.update(newTraderEntity);
 //        return ResponseEntity.ok().build();
 //    }
-
-    private TraderPersonDto convertToDto(TraderPersonEntity entity) {
-        TraderPersonDto dto = modelMapper.map(entity, TraderPersonDto.class);
-        return dto;
-    }
-
-    private TraderPersonEntity convertToEntity(TraderPersonDto filesDto) {
-        TraderPersonEntity files = modelMapper.map(filesDto, TraderPersonEntity.class);
-        return files;
-    }
 
 }

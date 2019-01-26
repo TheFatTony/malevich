@@ -6,10 +6,7 @@ import lombok.Setter;
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.ManyToOne;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 
 @javax.persistence.Entity
@@ -43,5 +40,10 @@ public class PaymentsEntity extends YAbstractPersistable<Long> {
     @Fetch(FetchMode.JOIN)
     @ManyToOne(cascade = CascadeType.MERGE)
     private PaymentTypeEntity paymentType;
+
+    @Getter
+    @Setter
+    @Transient
+    private String transactionId;
 
 }

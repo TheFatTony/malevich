@@ -6,6 +6,7 @@
  * @transaction
  */
 async function processPayment(payment) { // eslint-disable-line no-unused-vars
+    console.log('### processPayment ' + payment.toString());
     const registryTrader = await getParticipantRegistry('io.malevich.network.Trader'); // eslint-disable-line no-undef
 
     let counterparty = await registryTrader.get(payment.party.getIdentifier());

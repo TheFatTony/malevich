@@ -73,6 +73,22 @@ public class OrderTransactionServiceImpl extends GenericComposerServiceImpl<Orde
     }
 
     @Override
+    public List<OrderTransaction> getOpenOrdersByArtworkStock(Long artworkId) {
+        String fabricClass = "resource:io.malevich.network.ArtworkStock#";
+
+
+        try {
+            ResponseEntity<List<OrderTransaction>> res = restTemplate.exchange(composerUrl + "/queries/getOpenOrdersByArtworkStock?artworkStock={artworkStock}", HttpMethod.GET, null, new ParameterizedTypeReference<List<OrderTransaction>>() {
+            }, (fabricClass + artworkId.toString()));
+            return res.getBody();
+        } catch (RestClientException e) {
+            String errorResponse = ((HttpStatusCodeException) e).getResponseBodyAsString();
+            log.trace(errorResponse);
+            throw e;
+        }
+    }
+
+    @Override
     public List<OrderTransaction> getOrdersByCounterparty() {
         ParticipantEntity participantEntity = participantService.getCurrent();
         String fabricClass = null;

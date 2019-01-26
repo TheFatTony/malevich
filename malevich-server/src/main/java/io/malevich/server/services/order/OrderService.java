@@ -17,6 +17,8 @@ public interface OrderService {
 
     List<OrderEntity> getOrdersByArtworkStockId(Long artworkId);
 
+    List<OrderEntity> getOpenOrdersByArtworkStockId(Long artworkId);
+
     void placeAsk(OrderEntity orderEntity);
 
     void placeBid(OrderEntity orderEntity);

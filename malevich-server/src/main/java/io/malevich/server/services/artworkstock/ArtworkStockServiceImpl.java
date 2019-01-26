@@ -3,6 +3,7 @@ package io.malevich.server.services.artworkstock;
 import io.malevich.server.domain.ArtworkStockEntity;
 import io.malevich.server.domain.GalleryEntity;
 import io.malevich.server.domain.ParticipantEntity;
+import io.malevich.server.fabric.model.ArtworkStockAsset;
 import io.malevich.server.fabric.services.artworkstock.ArtworkStockAssetService;
 import io.malevich.server.repositories.artworkstock.ArtworkStockDao;
 import io.malevich.server.services.artwork.ArtworkService;
@@ -16,6 +17,7 @@ import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -67,10 +69,21 @@ public class ArtworkStockServiceImpl implements ArtworkStockService {
 
     @Override
     @Transactional(readOnly = true)
-    public List<ArtworkStockEntity> getOwnArtworks() {
+    public List<ArtworkStockEntity> getStoredArtworks() {
         ParticipantEntity counterpartyEntity = participantService.getCurrent();
-
         return findAllByGalleryId(counterpartyEntity.getId());
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public List<ArtworkStockEntity> getOwnArtworks() {
+        List<ArtworkStockEntity> result = new ArrayList<>();
+
+        for (ArtworkStockAsset asset : artworkStockAssetService.selectOwnedArtworkStocks()) {
+            result.add(find(new Long(asset.getId().replace("resource:io.malevich.network.ArtworkStock#", ""))));
+        }
+
+        return result;
     }
 
     @Override

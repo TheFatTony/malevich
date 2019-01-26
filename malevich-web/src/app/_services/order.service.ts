@@ -44,5 +44,10 @@ export class OrderService {
       .get<OrderPublicDto[]>(this.url + '/getOrdersByArtworkId/' + artworkId);
   }
 
+  getOpenOrdersByArtworkId(artworkId: number) {
+    return this.http
+      .get<OrderPublicDto[]>(this.url + '/getOpenOrdersByArtworkId/' + artworkId);
+  }
+
 
 }

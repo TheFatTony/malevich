@@ -9,15 +9,10 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class TradeHistoryAsset {
+public class OrderAsset {
 
-    private String id;
+    private  String id;
 
-    private String artworkStock;
-
-    private OrderAsset askOrder;
-
-    private OrderAsset bidOrder;
-
+    private OrderConcept order;
 
 }

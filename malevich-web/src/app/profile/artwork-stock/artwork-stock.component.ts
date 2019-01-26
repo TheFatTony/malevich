@@ -75,11 +75,11 @@ export class ArtworkStockComponent implements OnInit {
   constructor(private router: Router,
               private artworkStockService: ArtworkStockService,
               public translate: TranslateService) {
+    this.updateGrid();
   }
 
   ngOnInit() {
     this.getArtworkStock();
-    this.updateGrid();
   }
 
   updateGrid() {

@@ -48,7 +48,7 @@ export class ArtworksDetailComponent implements OnInit, AfterViewInit {
       this.id = params['id'];
     });
     this.getArtworkStock();
-    this.getOrdersByArtworkId();
+    this.getOpenOrdersByArtworkId();
     this.getTradeHistoryByArtworkId();
   }
 
@@ -65,9 +65,9 @@ export class ArtworksDetailComponent implements OnInit, AfterViewInit {
       );
   }
 
-  getOrdersByArtworkId(): void {
+  getOpenOrdersByArtworkId(): void {
     this.orderService
-      .getOrdersByArtworkId(this.id)
+      .getOpenOrdersByArtworkId(this.id)
       .subscribe(
         data => (this.placedOrders = data)
       );
@@ -88,7 +88,7 @@ export class ArtworksDetailComponent implements OnInit, AfterViewInit {
 
 
   onOrderPlaced(order: OrderDto) {
-    this.getOrdersByArtworkId();
+    this.getOpenOrdersByArtworkId();
     this.getTradeHistoryByArtworkId();
   }
 

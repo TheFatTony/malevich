@@ -46,6 +46,11 @@ transaction Payment {
   --> Counterparty party
 }
 
+asset CommissionRule identified by id {
+  o String id
+  o Double percentage
+}
+
 concept OrderConcept {
   o String id
   o Double amount

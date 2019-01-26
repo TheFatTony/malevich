@@ -34,8 +34,7 @@ public class TradeHistoryAssetServiceImpl extends GenericComposerServiceImpl<Tra
             }, (fabricClass + artworkId));
             return res.getBody();
         } catch (RestClientException e) {
-            String errorResponse = ((HttpStatusCodeException) e).getResponseBodyAsString();
-            log.trace(errorResponse);
+            e.printStackTrace();
             throw e;
         }
     }

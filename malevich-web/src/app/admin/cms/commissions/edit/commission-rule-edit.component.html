@@ -1,0 +1,33 @@
+<ng-container *ngIf="editCommission">
+  <div class="container g-mt-20">
+    <div class="row justify-content-md-center">
+      <div class="col col-8">
+        <form #f="ngForm" (ngSubmit)="sendButton()" novalidate>
+          <div class="g-mb-10">
+            <label>Name</label>
+            <div>
+              <mchInput name="name"
+                        [(ngModel)]="editCommission.name"
+                        mchRequired></mchInput>
+            </div>
+          </div>
+          <div class="g-mb-10">
+            <label>Value</label>
+            <div>
+              <mchInput name="nameRu"
+                        [(ngModel)]="editCommission.value"
+                        mchRequired=""></mchInput>
+            </div>
+          </div>
+        </form>
+        <div class="text-center">
+          <mchButton [submitForm]="f"
+                     style="text-align: center; margin-left: 8em;"
+                     [width]="60" [height]="25">
+            Send
+          </mchButton>
+        </div>
+      </div>
+    </div>
+  </div>
+</ng-container>

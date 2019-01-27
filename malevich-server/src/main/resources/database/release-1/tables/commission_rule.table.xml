@@ -8,11 +8,21 @@
             <column name="id" type="bigint">
                 <constraints nullable="false"/>
             </column>
+            <column name="name" type="varchar(100)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="value" type="decimal(10,7)">
+                <constraints nullable="false"/>
+            </column>
         </createTable>
     </changeSet>
 
     <changeSet author="thefattony" id="commission_rule-pk">
         <addPrimaryKey columnNames="id" constraintName="commission_rule_pk" tableName="commission_rule"/>
+    </changeSet>
+
+    <changeSet author="toolstik" id="commission_rule-id-aa" dbms="mysql">
+        <addAutoIncrement columnDataType="bigint" columnName="id" tableName="commission_rule"/>
     </changeSet>
 
 </databaseChangeLog>

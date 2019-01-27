@@ -1,7 +1,6 @@
 package io.malevich.server.services.artwork;
 
 
-import com.yinyang.core.server.services.file.FileService;
 import io.malevich.server.domain.ArtworkEntity;
 import io.malevich.server.repositories.artwork.ArtworkDao;
 import lombok.extern.slf4j.Slf4j;
@@ -16,13 +15,8 @@ import java.util.List;
 @Service
 public class ArtworkServiceImpl implements ArtworkService {
 
-
     @Autowired
     private ArtworkDao artworkDao;
-
-    @Autowired
-    private FileService fileService;
-
 
     protected ArtworkServiceImpl() {
     }
@@ -42,12 +36,6 @@ public class ArtworkServiceImpl implements ArtworkService {
     @Override
     @Transactional
     public ArtworkEntity save(ArtworkEntity artwork) {
-        //TODO remove this stub
-        if (artwork.getThumbnail() == null)
-            artwork.setThumbnail(fileService.find(1L));
-        if (artwork.getImage() == null)
-            artwork.setImage(fileService.find(5L));
-
         ArtworkEntity savedArtworkEntity = this.artworkDao.save(artwork);
         return savedArtworkEntity;
     }

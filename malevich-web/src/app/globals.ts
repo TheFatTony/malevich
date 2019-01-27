@@ -8,4 +8,8 @@ export class Globals {
 
   currentUser$: Subject<UserDto> = new Subject<UserDto>();
 
+  isTrader$: Subject<boolean> = new Subject<boolean>();
+
+  isGallery$: Subject<boolean> = new Subject<boolean>();
+
 }

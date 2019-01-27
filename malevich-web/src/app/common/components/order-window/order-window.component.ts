@@ -1,10 +1,10 @@
 import {
   AfterViewInit,
   Component,
-  ElementRef,
   EventEmitter,
   HostListener,
-  Input, OnDestroy,
+  Input,
+  OnDestroy,
   OnInit,
   Output,
   ViewChild
@@ -16,7 +16,6 @@ import {TradeTypeService} from "../../../_services/trade-type.service";
 import {TradeTypeDto} from "../../../_transfer/tradeTypeDto";
 import {OrderDto} from "../../../_transfer/orderDto";
 import {jqxWindowComponent} from "jqwidgets-scripts/jqwidgets-ts/angular_jqxwindow";
-import {AbstractControl, FormControl, FormControlDirective, FormGroup, NgForm, NgModel} from "@angular/forms";
 
 @Component({
   selector: 'mch-order-window',

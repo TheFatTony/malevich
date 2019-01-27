@@ -25,7 +25,6 @@ export class ArtworksDetailComponent implements OnInit, AfterViewInit {
   @ViewChild('tradeTypeDropDown') tradeTypeDropDown: jqxDropDownListComponent;
 
   artworkStock: ArtworkStockDto;
-  wishList: WishListDto;
   id: number;
 
   placedOrders: OrderPublicDto[];
@@ -43,7 +42,6 @@ export class ArtworksDetailComponent implements OnInit, AfterViewInit {
   }
 
   ngOnInit() {
-    this.wishList = new WishListDto();
     this.route.params.forEach((params: Params) => {
       this.id = params['id'];
     });
@@ -93,8 +91,9 @@ export class ArtworksDetailComponent implements OnInit, AfterViewInit {
   }
 
   addToWishList(): void {
-    this.wishList.artworkStock = this.artworkStock;
-    this.wishListService.addToWishList(this.wishList).subscribe();
+    let wishList = new WishListDto();
+    wishList.artworkStock = this.artworkStock;
+    this.wishListService.addToWishList(wishList).subscribe();
   }
 
 }

@@ -111,11 +111,11 @@
                  <!--path="test_data/016_account_state.sql"/>-->
     <!--</changeSet>-->
 
-    <changeSet author="toolstik" id="017_commission_rule-data">
-        <sqlFile splitStatements="false" stripComments="false"
-                 relativeToChangelogFile="true"
-                 path="test_data/017_commission_rule.sql"/>
-    </changeSet>
+    <!--<changeSet author="toolstik" id="017_commission_rule-data">-->
+        <!--<sqlFile splitStatements="false" stripComments="false"-->
+                 <!--relativeToChangelogFile="true"-->
+                 <!--path="test_data/017_commission_rule.sql"/>-->
+    <!--</changeSet>-->
 
 </databaseChangeLog>
 

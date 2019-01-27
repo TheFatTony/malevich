@@ -2,6 +2,7 @@ package io.malevich.server.services.commissionrule;
 
 import io.malevich.server.domain.CommissionRuleEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -13,4 +14,7 @@ public interface CommissionRuleService {
 
     CommissionRuleEntity findByName(String name);
 
+    CommissionRuleEntity save(CommissionRuleEntity entity);
+
+    CommissionRuleEntity find(Long id);
 }

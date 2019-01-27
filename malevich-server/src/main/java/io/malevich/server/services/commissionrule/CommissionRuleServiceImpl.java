@@ -27,4 +27,16 @@ public class CommissionRuleServiceImpl implements CommissionRuleService {
     public CommissionRuleEntity findByName(String name) {
         return dao.findByName(name);
     }
+
+    @Override
+    @Transactional
+    public CommissionRuleEntity save(CommissionRuleEntity entity) {
+        return dao.save(entity);
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public CommissionRuleEntity find(Long id) {
+        return this.dao.findById(id).get();
+    }
 }

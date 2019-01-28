@@ -34,5 +34,6 @@
     <include relativeToChangelogFile="true" file="indexes/document_type.index.xml"/>
     <include relativeToChangelogFile="true" file="indexes/wish_list.index.xml"/>
     <include relativeToChangelogFile="true" file="indexes/delayed_change.index.xml"/>
+    <include relativeToChangelogFile="true" file="indexes/commission_rule.index.xml"/>
 
 </databaseChangeLog>

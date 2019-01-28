@@ -12,6 +12,8 @@ import {HelpTopicComponent} from './cms/help/help-topic/help-topic.component';
 import {DelayedChangeComponent} from "./cms/delayed-change/delayed-change.component";
 import {ArtistListComponent} from "./cms/artists/list/artist-list.component";
 import {ArtistEditComponent} from "./cms/artists/edit/artist-edit.component";
+import {CommissionRuleListComponent} from "./cms/commissions/list/commission-rule-list.component";
+import {CommissionRuleEditComponent} from "./cms/commissions/edit/commission-rule-edit.component";
 
 
 export const routes: Routes = [
@@ -27,7 +29,9 @@ export const routes: Routes = [
   {path: 'cms/help-topic/topicList', component: HelpTopicComponent},
   {path: 'cms/delayed-changes', component: DelayedChangeComponent},
   {path: 'cms/artists', component: ArtistListComponent},
-  {path: 'cms/artists/edit', component: ArtistEditComponent}
+  {path: 'cms/artists/edit', component: ArtistEditComponent},
+  {path: 'cms/commissions', component: CommissionRuleListComponent},
+  {path: 'cms/commissions/edit', component: CommissionRuleEditComponent}
 ];
 
 @NgModule({

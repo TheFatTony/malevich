@@ -16,12 +16,10 @@ enum OrderType {
   o BID
 }
 
-abstract participant User identified by id {
+
+abstract participant Counterparty identified by id {
   o String id
   o String email
-}
-
-abstract participant Counterparty extends User {
   o Double balance
 }
 
@@ -76,4 +74,12 @@ asset TradeHistory identified by id {
 
 transaction Order {
   o OrderConcept order
+}
+
+asset TestDataAsset identified by testData {
+  o String testData
+}
+
+transaction TestData {
+  o String testData
 }

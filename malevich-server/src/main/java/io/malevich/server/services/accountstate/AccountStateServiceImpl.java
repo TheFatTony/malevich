@@ -1,15 +1,13 @@
 package io.malevich.server.services.accountstate;
 
-import com.yinyang.core.server.services.auth.AuthService;
 import io.malevich.server.domain.AccountStateEntity;
-import io.malevich.server.domain.ArtworkStockEntity;
-import io.malevich.server.domain.GalleryEntity;
 import io.malevich.server.domain.ParticipantEntity;
-import io.malevich.server.fabric.model.ArtworkStockAsset;
 import io.malevich.server.fabric.model.GalleryParticipant;
+import io.malevich.server.fabric.model.MalevichParticipant;
 import io.malevich.server.fabric.model.TraderParticipant;
 import io.malevich.server.fabric.services.artworkstock.ArtworkStockAssetService;
 import io.malevich.server.fabric.services.gallery.GalleryParticipantService;
+import io.malevich.server.fabric.services.malevich.MalevichParticipantService;
 import io.malevich.server.fabric.services.trader.TraderParticipantService;
 import io.malevich.server.services.artworkstock.ArtworkStockService;
 import io.malevich.server.services.participant.ParticipantService;
@@ -18,15 +16,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.ArrayList;
-import java.util.List;
-
 
 @Slf4j
 @Service
 @Transactional(readOnly = true)
 public class AccountStateServiceImpl implements AccountStateService {
-
 
 
     @Autowired
@@ -36,6 +30,9 @@ public class AccountStateServiceImpl implements AccountStateService {
     private GalleryParticipantService galleryParticipantService;
 
     @Autowired
+    private MalevichParticipantService malevichParticipantService;
+
+    @Autowired
     private ArtworkStockAssetService artworkStockAssetService;
 
     @Autowired
@@ -43,7 +40,6 @@ public class AccountStateServiceImpl implements AccountStateService {
 
     @Autowired
     private ParticipantService participantService;
-
 
 
     @Override
@@ -57,6 +53,10 @@ public class AccountStateServiceImpl implements AccountStateService {
             GalleryParticipant galleryParticipant = galleryParticipantService.getOne();
             accountStateEntity.setParticipant(counterpartyEntity);
             accountStateEntity.setAmount(galleryParticipant.getBalance());
+        } else if ("M".equals(counterpartyEntity.getType().getId())) {
+            MalevichParticipant malevichParticipant = malevichParticipantService.getOne();
+            accountStateEntity.setParticipant(counterpartyEntity);
+            accountStateEntity.setAmount(malevichParticipant.getBalance());
         } else {
             TraderParticipant traderParticipant = traderParticipantService.getOne();
             accountStateEntity.setParticipant(counterpartyEntity);
@@ -66,8 +66,6 @@ public class AccountStateServiceImpl implements AccountStateService {
 
         return accountStateEntity;
     }
-
-
 
 
 }

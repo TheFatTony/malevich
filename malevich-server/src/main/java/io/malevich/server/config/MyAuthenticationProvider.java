@@ -22,12 +22,14 @@ public class MyAuthenticationProvider implements AuthenticationProvider {
     public static SimpleGrantedAuthority ROLE_USER = new SimpleGrantedAuthority("ROLE_USER");
     public static SimpleGrantedAuthority ROLE_GALLERY = new SimpleGrantedAuthority("ROLE_GALLERY");
     public static SimpleGrantedAuthority ROLE_TRADER = new SimpleGrantedAuthority("ROLE_TRADER");
+    public static SimpleGrantedAuthority ROLE_MALEVICH = new SimpleGrantedAuthority("ROLE_MALEVICH");
 
     static {
         AUTHORITIES.add(ROLE_ADMIN);
         AUTHORITIES.add(ROLE_USER);
         AUTHORITIES.add(ROLE_GALLERY);
         AUTHORITIES.add(ROLE_TRADER);
+        AUTHORITIES.add(ROLE_MALEVICH);
     }
 
     @Override

@@ -100,7 +100,39 @@ async function placeOrder(order) { // eslint-disable-line no-unused-vars
         uptadeCounterparty.balance = uptadeCounterparty.balance - matchingBid.order.amount;
         await registryTrader.update(uptadeCounterparty);
 
-        
-
     }
+}
+
+/**
+ * testData
+ * @param {io.malevich.network.TestData} testData - testData
+ * @transaction
+ */
+async function testData(testData) { // eslint-disable-line no-unused-vars
+    const factory = getFactory();
+
+    const registryMalevich = await getParticipantRegistry('io.malevich.network.Malevich');
+    const registryGallery = await getParticipantRegistry('io.malevich.network.Gallery');
+    const registryTrader = await getParticipantRegistry('io.malevich.network.Trader');
+
+    const malevichAsset = factory.newResource('io.malevich.network', 'Malevich', '1');
+    malevichAsset.email = 'malevich@malevich.io';
+    malevichAsset.balance = 0;
+    await registryMalevich.add(malevichAsset);
+
+    const gallery1Asset = factory.newResource('io.malevich.network', 'Gallery', '2');
+    gallery1Asset.email = 'gallery1@malevich.io';
+    gallery1Asset.balance = 0;
+    await registryGallery.add(gallery1Asset);
+
+    const trader1Asset = factory.newResource('io.malevich.network', 'Trader', '3');
+    trader1Asset.email = 'trader1@malevich.io';
+    trader1Asset.balance = 0;
+    await registryTrader.add(trader1Asset);
+
+    const trader2Asset = factory.newResource('io.malevich.network', 'Trader', '4');
+    trader2Asset.email = 'trader2@malevich.io';
+    trader2Asset.balance = 0;
+    await registryTrader.add(trader2Asset);
+
 }

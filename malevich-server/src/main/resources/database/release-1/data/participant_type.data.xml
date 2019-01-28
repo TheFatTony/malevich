@@ -8,7 +8,8 @@
             INSERT INTO participant_type (id, name_ml)
             VALUES ('TP', JSON_OBJECT('en', 'Trader (individual)', 'ru', 'Физ. лицо')),
                    ('TO', JSON_OBJECT('en', 'Trader (legal entity)', 'ru', 'Юр. лицо')),
-                   ('G', JSON_OBJECT('en', 'Gallery', 'ru', 'Галерея'));
+                   ('G', JSON_OBJECT('en', 'Gallery', 'ru', 'Галерея')),
+                   ('M', JSON_OBJECT('en', 'Malevich', 'ru', 'Malevich'));
         </sql>
     </changeSet>
 

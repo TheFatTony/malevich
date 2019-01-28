@@ -1,6 +1,11 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, Input, OnInit, ViewChild} from '@angular/core';
 import {TranslateService} from "@ngx-translate/core";
 import {environment} from "../../../../environments/environment.dev";
+import {ArtworkStockDto} from "../../../_transfer/artworkStockDto";
+import {OrderDto} from "../../../_transfer/orderDto";
+import {WishListDto} from "../../../_transfer/wishListDto";
+import {OrderWindowComponent} from "../../../common/components/order-window/order-window.component";
+import {WishListService} from "../../../_services/wish-list.service";
 
 @Component({
   selector: 'app-artworks-list-list',
@@ -9,14 +14,32 @@ import {environment} from "../../../../environments/environment.dev";
 })
 export class ListComponent implements OnInit {
 
+  @ViewChild('myWindow') myWindow: OrderWindowComponent;
+
   @Input() artworkStocks;
 
   private url = environment.baseUrl;
 
-  constructor(public translate: TranslateService) {
+  constructor(public translate: TranslateService,
+              private wishListService: WishListService) {
   }
 
   ngOnInit() {
   }
 
+  openWindow(artworkStock: ArtworkStockDto) {
+    this.myWindow.artworkStock(artworkStock);
+    this.myWindow.open();
+  }
+
+
+  onOrderPlaced(order: OrderDto) {
+
+  }
+
+  addToWishList(artworkStock: ArtworkStockDto): void {
+    let wishList = new WishListDto();
+    wishList.artworkStock = artworkStock;
+    this.wishListService.addToWishList(wishList).subscribe();
+  }
 }

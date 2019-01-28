@@ -42,7 +42,7 @@
         <!-- Product Info -->
         <div class="g-mb-30">
           <h1 class="g-font-weight-300 mb-4">{{artworkStock?.artwork?.titleMl[translate.currentLang]}}</h1>
-          <p>{{artworkStock?.artwork?.descriptionMl[translate.currentLang]}}</p>
+          <p *ngIf="artworkStock?.artwork?.descriptionMl">{{artworkStock.artwork.descriptionMl[translate.currentLang]}}</p>
         </div>
         <!-- End Product Info -->
 
@@ -82,7 +82,7 @@
             <button class="btn btn-block u-btn-primary g-font-size-12 text-uppercase g-py-15 g-px-25" type="button"
                     (click)="openWindow()">
               {{"MAIN.ARTWORK.PLACE_A_BID" | translate}} <i
-              class="align-middle ml-2 icon-finance-100 u-line-icon-pro"></i>
+              class="align-middle ml-2 icon-real-estate-089 u-line-icon-pro"></i>
             </button>
           </div>
           <div class="col g-px-5 g-mb-10">

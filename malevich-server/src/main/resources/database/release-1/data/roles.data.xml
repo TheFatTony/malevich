@@ -9,7 +9,8 @@
             values (0, 'Admin'),
                    (1, 'User'),
                    (2, 'Gallery'),
-                   (3, 'Trader');
+                   (3, 'Trader'),
+                   (4, 'Malevich');
         </sql>
     </changeSet>
 

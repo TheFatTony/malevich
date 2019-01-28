@@ -34,5 +34,6 @@
     <include relativeToChangelogFile="true" file="constraints/document_type.constraint.xml"/>
     <include relativeToChangelogFile="true" file="constraints/wish_list.constraint.xml"/>
     <include relativeToChangelogFile="true" file="constraints/delayed_change.constraint.xml"/>
+    <include relativeToChangelogFile="true" file="constraints/commission_rule.constraint.xml"/>
 
 </databaseChangeLog>

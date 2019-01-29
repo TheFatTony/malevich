@@ -33,8 +33,10 @@ async function placeOrder(order) { // eslint-disable-line no-unused-vars
     const registry = await getAssetRegistry('io.malevich.network.OrderAsset');
     const registryTrader = await getParticipantRegistry('io.malevich.network.Trader');
     const registryGallery = await getParticipantRegistry('io.malevich.network.Gallery');
+    const registryMalevich = await getParticipantRegistry('io.malevich.network.Malevich');
     const tradeHistoryRegistry = await getAssetRegistry('io.malevich.network.TradeHistory');
     const registryArtworkStock = await getAssetRegistry('io.malevich.network.ArtworkStock');
+    const registryCommissionRule = await getAssetRegistry('io.malevich.network.CommissionRule');
     const factory = getFactory();
 
 
@@ -67,18 +69,8 @@ async function placeOrder(order) { // eslint-disable-line no-unused-vars
 
     if (matchingBid != null) {
         var results = await query(ordersAskQuery, { artworkStock: 'resource:io.malevich.network.ArtworkStock#' + order.order.artworkStock.getIdentifier()});
-        // results.forEach(async existingOrders => {
-        //     if ((existingOrders != matchingBid) && (existingOrders != currentAsk)) {
-        //         let existingOrders1 = await registry.get(existingOrders.order.getIdentifier());
-        //         existingOrders1.order.orderStatus = 'CLOSE';
-        //         await registry.update(existingOrders1);
-        //     }
-        // });
         currentAsk.order.orderStatus = 'EXECUTED';
         await registry.update(currentAsk);
-
-        // matchingBid.order.orderStatus = 'EXECUTED';
-        // await registry.add(matchingBid);
 
         const tradeHistoryAsset = factory.newResource('io.malevich.network', 'TradeHistory', order.order.id);
         tradeHistoryAsset.askOrder = currentAsk;
@@ -88,17 +80,34 @@ async function placeOrder(order) { // eslint-disable-line no-unused-vars
         tradeHistoryAsset.amount = matchingBid.order.amount;
         await tradeHistoryRegistry.add(tradeHistoryAsset);
 
-        let uptadeArtwork = await registryArtworkStock.get(matchingBid.order.artworkStock.getIdentifier());
-        uptadeArtwork.owner = matchingBid.order.сounterparty;
-        await registryArtworkStock.update(uptadeArtwork);
 
-        let uptadeParty = await registryGallery.get(matchingBid.order.artworkStock.owner.getIdentifier());
-        uptadeParty.balance = uptadeParty.balance + matchingBid.order.amount;
+        const commissions = await registryCommissionRule.getAll();
+
+        let sumCommisions = 0;
+        let malevichCommisions = 0;
+        for (let i = 0; i < commissions.length; i++) {
+            if (commissions[i].name !== 'Malevich') {
+                sumCommisions += commissions[i].value;
+            } else {
+                malevichCommisions = commissions[i].value;
+            }
+        }
+
+        malevichParty = await registryMalevich.get('1');
+        malevichParty.balance = malevichParty.balance + (matchingBid.order.amount * malevichCommisions);
+        await registryMalevich.update(malevichParty);
+
+        let uptadeParty = await registryGallery.get(currentAsk.order.сounterparty.getIdentifier());
+        uptadeParty.balance = uptadeParty.balance + (matchingBid.order.amount - malevichParty.balance) + (matchingBid.order.amount * sumCommisions);
         await registryGallery.update(uptadeParty);
 
-        let uptadeCounterparty = await registryTrader.get(uptadeArtwork.owner.getIdentifier());
+        let uptadeCounterparty = await registryTrader.get(matchingBid.order.сounterparty.getIdentifier());
         uptadeCounterparty.balance = uptadeCounterparty.balance - matchingBid.order.amount;
         await registryTrader.update(uptadeCounterparty);
+
+        let uptadeArtwork = await registryArtworkStock.get(currentAsk.order.artworkStock.getIdentifier());
+        uptadeArtwork.owner = matchingBid.order.сounterparty;
+        await registryArtworkStock.update(uptadeArtwork);
 
     }
 }

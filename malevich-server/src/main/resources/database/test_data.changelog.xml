@@ -45,5 +45,23 @@
                  path="test_data/006_participant_user.sql"/>
     </changeSet>
 
+    <changeSet author="thefattony" id="007_commission_rule-data">
+        <sqlFile splitStatements="false" stripComments="false"
+                 relativeToChangelogFile="true"
+                 path="test_data/007_commission_rule.sql"/>
+    </changeSet>
+
+    <changeSet author="thefattony" id="008_organization-data">
+        <sqlFile splitStatements="false" stripComments="false"
+                 relativeToChangelogFile="true"
+                 path="test_data/008_organization.sql"/>
+    </changeSet>
+
+    <changeSet author="thefattony" id="009_gallery-data">
+        <sqlFile splitStatements="false" stripComments="false"
+                 relativeToChangelogFile="true"
+                 path="test_data/009_gallery.sql"/>
+    </changeSet>
+
 </databaseChangeLog>
 

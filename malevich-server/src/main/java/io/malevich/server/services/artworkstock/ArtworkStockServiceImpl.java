@@ -50,21 +50,18 @@ public class ArtworkStockServiceImpl implements ArtworkStockService {
     @Override
     @Transactional
     public void add(ArtworkStockEntity artworkStockEntity) {
-        save(artworkStockEntity);
-        artworkStockAssetService.create(artworkStockEntity);
+        ArtworkStockEntity entity = save(artworkStockEntity);
+        artworkStockAssetService.create(entity);
     }
 
     @Override
     @Transactional
-    public void save(ArtworkStockEntity artworkStockEntity) {
+    public ArtworkStockEntity save(ArtworkStockEntity artworkStockEntity) {
         GalleryEntity gallery = galleryService.getCurrent();
-
-        if (gallery == null)
-            return;
 
         artworkStockEntity.setGallery(gallery);
         artworkStockEntity.setArtwork(artworkService.save(artworkStockEntity.getArtwork()));
-        artworkStockEntity = this.artworkStockDao.save(artworkStockEntity);
+        return this.artworkStockDao.save(artworkStockEntity);
     }
 
     @Override

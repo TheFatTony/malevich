@@ -114,6 +114,7 @@ async function testData(testData) { // eslint-disable-line no-unused-vars
     const registryMalevich = await getParticipantRegistry('io.malevich.network.Malevich');
     const registryGallery = await getParticipantRegistry('io.malevich.network.Gallery');
     const registryTrader = await getParticipantRegistry('io.malevich.network.Trader');
+    const registryCommissionRule = await getAssetRegistry('io.malevich.network.CommissionRule');
 
     const malevichAsset = factory.newResource('io.malevich.network', 'Malevich', '1');
     malevichAsset.email = 'malevich@malevich.io';
@@ -134,5 +135,17 @@ async function testData(testData) { // eslint-disable-line no-unused-vars
     trader2Asset.email = 'trader2@malevich.io';
     trader2Asset.balance = 0;
     await registryTrader.add(trader2Asset);
+
+    const commissionRule1Asset = factory.newResource('io.malevich.network', 'CommissionRule', 'Gallery');
+    commissionRule1Asset.value = 0.005;
+    await registryCommissionRule.add(commissionRule1Asset);
+
+    const commissionRule2Asset = factory.newResource('io.malevich.network', 'CommissionRule', 'Malevich');
+    commissionRule2Asset.value = 0.024;
+    await registryCommissionRule.add(commissionRule2Asset);
+
+    const commissionRule3Asset = factory.newResource('io.malevich.network', 'CommissionRule', 'Endorser');
+    commissionRule3Asset.value = 0.001;
+    await registryCommissionRule.add(commissionRule3Asset);
 
 }

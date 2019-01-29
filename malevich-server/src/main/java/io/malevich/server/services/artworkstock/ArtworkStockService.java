@@ -18,7 +18,7 @@ public interface ArtworkStockService {
 
     void add(ArtworkStockEntity artworkStockEntity);
 
-    void save(ArtworkStockEntity artworkStockEntity);
+    ArtworkStockEntity save(ArtworkStockEntity artworkStockEntity);
 
     void delete(long id);
 

@@ -44,16 +44,11 @@ transaction Payment {
   --> Counterparty party
 }
 
-asset CommissionRule identified by id {
-  o String id
-  o Double percentage
-}
-
 concept OrderConcept {
   o String id
   o Double amount
   o OrderType orderType
-  o OrderStatus orderStatus
+  o OrderStatus orderStatus default = 'OPEN'
   --> ArtworkStock artworkStock
   --> Counterparty сounterparty
 }
@@ -74,6 +69,11 @@ asset TradeHistory identified by id {
 
 transaction Order {
   o OrderConcept order
+}
+
+asset CommissionRule identified by name {
+  o String name
+  o Double value
 }
 
 asset TestDataAsset identified by testData {

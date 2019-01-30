@@ -15,7 +15,7 @@ import java.util.stream.Collectors;
 
 @Slf4j
 @RestController
-@RequestMapping(value = "/payment_methods")
+@RequestMapping(value = "/payment_methods_account")
 public class PaymentMethodAccountResource extends RestResource<PaymentMethodDto, PaymentMethodEntity> {
 
     @Autowired

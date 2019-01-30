@@ -11,7 +11,7 @@ import javax.persistence.*;
 
 
 @Entity
-@Table(name = "payment_method")
+@Table(name = "payment_method_bitcoin")
 public class PaymentMethodBitcoinEntity extends PaymentMethodEntity {
 
 

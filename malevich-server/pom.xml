@@ -67,7 +67,15 @@
             <scope>test</scope>
         </dependency>
 
-        <!-- Test -->
+		<!-- BitcoinJ -->
+		<dependency>
+			<groupId>org.bitcoinj</groupId>
+			<artifactId>bitcoinj-core</artifactId>
+			<version>0.14.7</version>
+		</dependency>
+
+
+		<!-- Test -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>

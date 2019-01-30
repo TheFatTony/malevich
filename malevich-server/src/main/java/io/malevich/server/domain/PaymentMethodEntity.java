@@ -22,10 +22,5 @@ public class PaymentMethodEntity extends YAbstractPersistable<Long> {
     @ManyToOne(cascade = CascadeType.MERGE)
     private PaymentMethodTypeEntity type;
 
-    @Getter
-    @Setter
-    @Column(name = "payload")
-    @Convert(converter = JpaConverterJson.class)
-    private Object payload;
 
 }

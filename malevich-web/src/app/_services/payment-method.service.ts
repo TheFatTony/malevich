@@ -17,4 +17,9 @@ export class PaymentMethodService {
     return this.http
       .get<PaymentMethodDto[]>(this.url + '/list');
   }
+
+  saveCard(dto: PaymentMethodDto) {
+    return this.http
+      .put<PaymentMethodDto[]>(environment.baseUrl + 'payment_methods_card/save', dto);
+  }
 }

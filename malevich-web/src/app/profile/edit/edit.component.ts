@@ -31,7 +31,6 @@ export class EditComponent implements OnInit, AfterViewInit {
 
   public url = environment.baseUrl;
 
-
   constructor(private router: Router,
               public translate: TranslateService,
               private participantService: ParticipantService,

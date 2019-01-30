@@ -93,16 +93,21 @@ export class PaymentCardComponent implements OnInit, OnDestroy {
     if (this.selectedRowIndex < 0)
       return;
 
-    this.editMethod = this.cards[this.selectedRowIndex];
+    this.editMethod = this.clone(this.cards[this.selectedRowIndex]);
     this.openWindow();
   }
 
   save() {
     this.editMethod.type = {id: 'CRD', nameMl: new Map<string, string>()};
-    this.paymentMethodService.saveCard(this.editMethod).subscribe();
-    this.myWindow.close();
-    this.onMethodUpdated.emit(this.editMethod);
-    this.myGrid.refresh();
+    this.paymentMethodService.saveCard(this.editMethod).subscribe(()=>{
+      this.myWindow.close();
+      this.onMethodUpdated.emit(this.editMethod);
+    });
+
+  }
+
+  private clone<T>(obj:T): T {
+    return JSON.parse(JSON.stringify(obj));
   }
 
   @HostListener('mousedown', ['$event'])

@@ -12,7 +12,7 @@ import javax.persistence.*;
 
 @Entity
 @Table(name = "payment_method")
-public class PaymentMethodCardEntity extends YAbstractPersistable<Long> {
+public class PaymentMethodCardEntity extends PaymentMethodEntity {
 
 
     @Getter

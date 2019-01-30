@@ -5,7 +5,7 @@
 
     <changeSet author="thefattony" id="payment_method_type-table">
         <createTable tableName="payment_method_type">
-            <column name="id" type="char(1)">
+            <column name="id" type="char(3)">
                 <constraints nullable="false"/>
             </column>
         </createTable>

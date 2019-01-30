@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.6.xsd">
+
+    <changeSet author="toolstik" id="payment_type-data" dbms="mysql">
+        <sql splitStatements="true" stripComments="true">
+            INSERT INTO payment_method_type (id, name_ml)
+            VALUES ('CRD', JSON_OBJECT('en', 'Card', 'ru', 'Card')),
+                   ('ACC', JSON_OBJECT('en', 'Account', 'ru', 'Account')),
+                   ('BTC', JSON_OBJECT('en', 'Bitcoin', 'ru', 'Bitcoin'));
+        </sql>
+    </changeSet>
+
+</databaseChangeLog>

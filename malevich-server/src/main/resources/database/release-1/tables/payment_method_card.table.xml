@@ -3,23 +3,23 @@
 				   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 				   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.6.xsd">
 
-	<changeSet author="thefattony" id="payment_method-table">
-		<createTable tableName="payment_method">
+	<changeSet author="thefattony" id="payment_method_card-table">
+		<createTable tableName="payment_method_card">
 			<column name="id" type="bigint">
 				<constraints nullable="false"/>
 			</column>
-			<column name="type_id" type="char(1)">
+			<column name="card_number" type="varchar(100)">
 				<constraints nullable="false"/>
 			</column>
 		</createTable>
 	</changeSet>
 
-	<changeSet author="thefattony" id="payment_method-pk">
-		<addPrimaryKey columnNames="id" constraintName="payment_method_pk" tableName="payment_method"/>
+	<changeSet author="thefattony" id="payment_method_card-pk">
+		<addPrimaryKey columnNames="id" constraintName="payment_method_card_pk" tableName="payment_method_card"/>
 	</changeSet>
 
-	<changeSet author="thefattony" id="payment_method-id-aa" dbms="mysql">
-		<addAutoIncrement columnDataType="bigint" columnName="id" tableName="payment_method"/>
+	<changeSet author="thefattony" id="payment_method_card-id-aa" dbms="mysql">
+		<addAutoIncrement columnDataType="bigint" columnName="id" tableName="payment_method_card"/>
 	</changeSet>
 
 </databaseChangeLog>

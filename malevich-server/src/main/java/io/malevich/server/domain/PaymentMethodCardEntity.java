@@ -10,10 +10,9 @@ import org.hibernate.annotations.FetchMode;
 import javax.persistence.*;
 
 
-@javax.persistence.Entity
+@Entity
 @Table(name = "payment_method")
-@Inheritance(strategy = InheritanceType.JOINED)
-public class PaymentMethodEntity extends YAbstractPersistable<Long> {
+public class PaymentMethodCardEntity extends YAbstractPersistable<Long> {
 
 
     @Getter

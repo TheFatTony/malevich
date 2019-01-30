@@ -17,7 +17,13 @@ public class PaymentMethodEntity extends YAbstractPersistable<Long> {
     @Getter
     @Setter
     @Fetch(FetchMode.JOIN)
-    @ManyToOne(cascade = CascadeType.MERGE)
+    @ManyToOne(cascade = CascadeType.DETACH)
     private PaymentMethodTypeEntity type;
+
+    @Getter
+    @Setter
+    @Fetch(FetchMode.JOIN)
+    @ManyToOne(cascade = CascadeType.DETACH)
+    private ParticipantEntity participant;
 
 }

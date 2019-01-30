@@ -41,7 +41,7 @@
           <li>Bitcoin</li>
         </ul>
         <div>
-          <app-profile-payment-card></app-profile-payment-card>
+          <app-profile-payment-card [methods]="methods" (onUpdate)="onUpdate($event)"></app-profile-payment-card>
         </div>
         <div>
           account

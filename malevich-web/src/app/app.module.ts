@@ -63,6 +63,7 @@ import {DocumentAddComponent as ProfileDocumentAddComponent} from './profile/doc
 import {StorageComponent as ProfileStorageComponent} from './profile/storage/storage.component';
 import {StorageAddComponent as ProfileStorageAddComponent} from './profile/storage/add/storage-add.component';
 import {StorageEditComponent as ProfileStorageEditComponent} from './profile/storage/edit/storage-edit.component';
+import { PaymentCardComponent } from './profile/payment/payment-card/payment-card.component';
 
 
 export function createTranslateLoader(http: HttpClient) {
@@ -117,6 +118,7 @@ export function createTranslateLoader(http: HttpClient) {
     ProfileStorageComponent,
     ProfileStorageAddComponent,
     ProfileStorageEditComponent,
+    PaymentCardComponent,
 
   ],
   imports: [

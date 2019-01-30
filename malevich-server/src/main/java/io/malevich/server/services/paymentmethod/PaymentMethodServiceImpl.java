@@ -1,5 +1,6 @@
 package io.malevich.server.services.paymentmethod;
 
+import io.malevich.server.domain.PaymentMethodCardEntity;
 import io.malevich.server.repositories.paymentmethod.PaymentMethodDao;
 import io.malevich.server.domain.PaymentMethodEntity;
 import lombok.extern.slf4j.Slf4j;
@@ -21,7 +22,13 @@ public class PaymentMethodServiceImpl implements PaymentMethodService {
     @Override
     @Transactional(readOnly = true)
     public List<PaymentMethodEntity> findAll() {
-        return this.paymentMethodDao.findAll();
+        return paymentMethodDao.findAll();
+    }
+
+    @Override
+    @Transactional
+    public PaymentMethodCardEntity saveCard(PaymentMethodCardEntity paymentMethod) {
+        return paymentMethodDao.save(paymentMethod);
     }
 
 }

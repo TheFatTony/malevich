@@ -13,6 +13,11 @@ public class PaymentMethodDto {
 
     private PaymentMethodTypeDto type;
 
-    private Object payload;
+//    private Object payload;
+
+    private String cardNumber;
+    private String cardHolder;
+    private String cardExpiration;
+    private String cardCvv;
 
 }

@@ -15,6 +15,24 @@ import javax.persistence.*;
 public class PaymentMethodCardEntity extends PaymentMethodEntity {
 
 
+    @Getter
+    @Setter
+    @Column(name = "number")
+    private String cardNumber;
 
+    @Getter
+    @Setter
+    @Column(name = "holder")
+    private String cardHolder;
+
+    @Getter
+    @Setter
+    @Column(name = "expiration")
+    private String cardExpiration;
+
+    @Getter
+    @Setter
+    @Column(name = "cvv")
+    private String cardCvv;
 
 }

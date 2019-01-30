@@ -66,8 +66,8 @@
       "DOCUMENTS": "Documents",
       "NOTIFICATION": "Notifications",
       "YOUR_WALLET": "Your Wallet",
-      "PAYMENT_OPTIONS": "Payment Options",
-      "WISHLIST": "WishList"
+      "PAYMENT_OPTIONS": "Payment Methods",
+      "WISHLIST": "Wish List"
     },
     "SECURITY": {
       "LABEL": {

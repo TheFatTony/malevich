@@ -1,27 +1,36 @@
-import {Component, Input, OnInit, ViewChild} from '@angular/core';
+import {Component, EventEmitter, HostListener, Input, OnDestroy, OnInit, Output, ViewChild} from '@angular/core';
 import {PaymentMethodDto} from "../../../_transfer/paymentMethodDto";
 import {TranslateService} from "@ngx-translate/core";
 import {jqxGridComponent} from "jqwidgets-scripts/jqwidgets-ts/angular_jqxgrid";
 import {PaymentMethodService} from "../../../_services/payment-method.service";
+import {jqxWindowComponent} from "jqwidgets-scripts/jqwidgets-ts/angular_jqxwindow";
 
 @Component({
   selector: 'app-profile-payment-card',
   templateUrl: './payment-card.component.html',
   styleUrls: ['./payment-card.component.css']
 })
-export class PaymentCardComponent implements OnInit {
+export class PaymentCardComponent implements OnInit, OnDestroy {
 
   @ViewChild('myGrid') myGrid: jqxGridComponent;
+  @ViewChild('myWindow') myWindow: jqxWindowComponent;
 
   @Input('methods')
   set methods(list: PaymentMethodDto[]) {
+    if (!list) return;
     this.cards = list.filter(m => m.type.id == 'CRD');
   }
+
+  @Output('onUpdate') onMethodUpdated = new EventEmitter<PaymentMethodDto>();
+
 
   cards: PaymentMethodDto[];
   selectedRowIndex: number = -1;
 
   editMethod: PaymentMethodDto = new PaymentMethodDto();
+
+  x: number;
+  y: number;
 
   columns(names: any): any[] {
     return [
@@ -38,6 +47,12 @@ export class PaymentCardComponent implements OnInit {
 
 
   ngOnInit() {
+
+  }
+
+
+  ngOnDestroy(): void {
+    this.myWindow.close()
   }
 
   updateGrid() {
@@ -62,31 +77,37 @@ export class PaymentCardComponent implements OnInit {
     this.selectedRowIndex = $event.args.rowindex;
   }
 
+  private openWindow() {
+    this.myWindow.width(500);
+    this.myWindow.height(480);
+    this.myWindow.open();
+    this.myWindow.move(this.x, this.y);
+  }
+
   onAddButton() {
-    // this.router.navigate(['/admin/cms/artists/edit'], {
-    //   queryParams: {
-    //     "new": true
-    //   }
-    // });
+    this.editMethod = new PaymentMethodDto();
+    this.openWindow();
   }
 
   onEditButton() {
     if (this.selectedRowIndex < 0)
       return;
 
-    let card = this.cards[this.selectedRowIndex];
-
-    // this.router.navigate(['/admin/cms/artists/edit'], {
-    //   queryParams: {
-    //     "id": artist.id
-    //   }
-    // });
+    this.editMethod = this.cards[this.selectedRowIndex];
+    this.openWindow();
   }
 
   save() {
-    this.editMethod.type = {id:'CRD', nameMl:new Map<string, string>()};
+    this.editMethod.type = {id: 'CRD', nameMl: new Map<string, string>()};
     this.paymentMethodService.saveCard(this.editMethod).subscribe();
-    this.editMethod = new PaymentMethodDto();
+    this.myWindow.close();
+    this.onMethodUpdated.emit(this.editMethod);
+    this.myGrid.refresh();
   }
 
+  @HostListener('mousedown', ['$event'])
+  mouseHandling(event) {
+    this.x = event.pageX;
+    this.y = event.pageY;
+  }
 }

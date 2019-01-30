@@ -190,7 +190,10 @@
       "ARTIST": "Artist",
       "CATEGORY": "Category",
       "PAYMENT_NO": "PaymentNo",
-      "PRINT": "Print"
+      "PRINT": "Print",
+      "PAN": "Card PAN",
+      "CARD_HOLDER": "Card Holder",
+      "CARD_EXPIRATION": "Expiration"
     },
     "BUTTON": {
       "EDIT_PROFILE": "Edit",

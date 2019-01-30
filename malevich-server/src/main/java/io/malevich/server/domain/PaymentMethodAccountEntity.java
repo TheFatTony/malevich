@@ -15,16 +15,6 @@ import javax.persistence.*;
 public class PaymentMethodAccountEntity extends PaymentMethodEntity {
 
 
-    @Getter
-    @Setter
-    @Fetch(FetchMode.JOIN)
-    @ManyToOne(cascade = CascadeType.MERGE)
-    private PaymentMethodTypeEntity type;
 
-    @Getter
-    @Setter
-    @Column(name = "payload")
-    @Convert(converter = JpaConverterJson.class)
-    private Object payload;
 
 }

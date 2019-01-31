@@ -74,6 +74,20 @@
 			<version>0.14.7</version>
 		</dependency>
 
+		<!-- XChange -->
+		<dependency>
+			<groupId>org.knowm.xchange</groupId>
+			<artifactId>xchange-core</artifactId>
+			<version>4.3.14</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.knowm.xchange</groupId>
+			<artifactId>xchange-kraken</artifactId>
+			<version>4.3.14</version>
+		</dependency>
+
+
 
 		<!-- Test -->
         <dependency>

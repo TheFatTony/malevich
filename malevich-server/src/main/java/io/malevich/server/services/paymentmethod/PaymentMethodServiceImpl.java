@@ -32,7 +32,7 @@ public class PaymentMethodServiceImpl implements PaymentMethodService {
 
     @Override
     @Transactional
-    public PaymentMethodCardEntity saveCard(PaymentMethodCardEntity paymentMethod) {
+    public PaymentMethodEntity save(PaymentMethodEntity paymentMethod) {
         ParticipantEntity participantEntity = participantService.getCurrent();
         paymentMethod.setParticipant(participantEntity);
         return paymentMethodDao.save(paymentMethod);

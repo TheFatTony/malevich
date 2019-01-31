@@ -38,7 +38,7 @@ public class PaymentMethodCardResource extends RestResource<PaymentMethodDto, Pa
     @ResponseBody
     public ResponseEntity<Void> save(@RequestBody PaymentMethodDto dto) {
         PaymentMethodCardEntity entity = convertToEntity(dto);
-        paymentMethodService.saveCard(entity);
+        paymentMethodService.save(entity);
         return ResponseEntity.ok().build();
     }
 

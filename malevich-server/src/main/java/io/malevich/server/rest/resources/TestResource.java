@@ -4,6 +4,8 @@ package io.malevich.server.rest.resources;
 import io.malevich.server.services.trader.TraderService;
 import lombok.extern.slf4j.Slf4j;
 import org.bitcoinj.core.*;
+import org.bitcoinj.store.BlockStoreException;
+import org.bitcoinj.store.MemoryBlockStore;
 import org.bitcoinj.wallet.Wallet;
 import org.knowm.xchange.currency.CurrencyPair;
 import org.knowm.xchange.dto.marketdata.Ticker;
@@ -25,10 +27,7 @@ public class TestResource {
     NetworkParameters networkParameters;
 
     @Autowired
-    BlockChain blockChain;
-
-    @Autowired
-    Wallet wallet;
+    MemoryBlockStore memoryBlockStore;
 
     @Autowired
     KrakenExchange krakenExchange;
@@ -38,15 +37,26 @@ public class TestResource {
     @ResponseStatus(HttpStatus.OK)
     @ResponseBody
     public ResponseEntity<String> wallet() {
+        Wallet wallet = new Wallet(networkParameters);
+        BlockChain chain = null;
+        try {
+            chain = new BlockChain(networkParameters, wallet, memoryBlockStore);
+            PeerGroup peerGroup = new PeerGroup(networkParameters, chain);
+            peerGroup.addWallet(wallet);
+            peerGroup.start();
 
-        Address a = wallet.currentReceiveAddress();
-        ECKey b = wallet.currentReceiveKey();
-        Address c = wallet.freshReceiveAddress();
+            Address a = wallet.currentReceiveAddress();
+            ECKey b = wallet.currentReceiveKey();
+            Address c = wallet.freshReceiveAddress();
 
-        assert b.toAddress(wallet.getParams()).equals(a);
-        assert !c.equals(a);
+            assert b.toAddress(wallet.getParams()).equals(a);
+            assert !c.equals(a);
 
-        return ResponseEntity.ok().body(a.toString());
+            return ResponseEntity.ok().body(a.toString());
+        } catch (BlockStoreException e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 
 

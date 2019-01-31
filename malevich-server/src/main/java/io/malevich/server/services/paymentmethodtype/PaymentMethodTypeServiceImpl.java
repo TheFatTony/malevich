@@ -8,14 +8,24 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 
 @Slf4j
 @Service
 public class PaymentMethodTypeServiceImpl implements PaymentMethodTypeService {
 
-    @Autowired
+    private final Map<String, PaymentMethodTypeEntity> values;
+
     private PaymentMethodTypeDao paymentMethodTypeDao;
+
+    @Autowired
+    public PaymentMethodTypeServiceImpl(PaymentMethodTypeDao paymentMethodTypeDao) {
+        this.paymentMethodTypeDao = paymentMethodTypeDao;
+
+        values = paymentMethodTypeDao.findAll().stream().collect(Collectors.toMap(i -> i.getId(), i -> i));
+    }
 
 
     @Override
@@ -23,5 +33,8 @@ public class PaymentMethodTypeServiceImpl implements PaymentMethodTypeService {
     public List<PaymentMethodTypeEntity> findAll() {
         return this.paymentMethodTypeDao.findAll();
     }
+
+    @Override
+    public PaymentMethodTypeEntity getBitcoinType(){return values.get("BTC");}
 
 }

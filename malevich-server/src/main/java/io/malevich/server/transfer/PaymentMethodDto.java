@@ -20,4 +20,6 @@ public class PaymentMethodDto {
     private String cardExpiration;
     private String cardCvv;
 
+    private String btcAddress;
+
 }

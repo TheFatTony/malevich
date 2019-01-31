@@ -5,8 +5,10 @@ export class PaymentMethodDto {
   type: PaymentMethodTypeDto;
   // payload: Map<string, string>;
 
-  cardNumber:string;
-  cardHolder:string;
-  cardExpiration:string;
-  cardCvv:number;
+  cardNumber: string;
+  cardHolder: string;
+  cardExpiration: string;
+  cardCvv: number;
+
+  btcAddress: string;
 }

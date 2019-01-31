@@ -17,7 +17,6 @@ public class ParticipantTypeServiceImpl implements ParticipantTypeService {
 
     private final Map<String, ParticipantTypeEntity> values;
 
-    @Autowired
     private ParticipantTypeDao participantTypeDao;
 
     @Autowired

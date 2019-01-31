@@ -1,0 +1,22 @@
+<div class="g-my-10">
+  <mchButton [width]="100" [height]="35" (click)="onAddButton()">
+    Generate new
+  </mchButton>
+  <mchButton [width]="100" [height]="35" (click)="onDeleteButton()" [disabled]="selectedRowIndex < 0">
+    Delete
+  </mchButton>
+  <jqxGrid #myGrid
+           [width]="'100%'" [height]="'90%'" [pageable]="true" [sortable]="true" [filterable]="true"
+           [columnsresize]="false"
+           [pagermode]="'simple'" (onRowselect)="onGridRowSelect($event)"
+           (onRowdoubleclick)="onEditButton()">
+    <tr>
+      <th>ADDRESS</th>
+    </tr>
+    <tr *ngFor="let address of addresses;index as i">
+      <td>
+        {{address.btcAddress}}
+      </td>
+    </tr>
+  </jqxGrid>
+</div>

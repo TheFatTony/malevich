@@ -31,7 +31,7 @@ public class PaymentMethodResource extends RestResource<PaymentMethodDto, Paymen
     @ResponseBody
     public List<PaymentMethodDto> list() {
         List<PaymentMethodEntity> allEntries = this.paymentMethodService.findAll();
-        return allEntries.stream().map(allEntry -> convertToDto(allEntry)).collect(Collectors.toList());
+        return convertListOfDto(allEntries);
     }
 
 }

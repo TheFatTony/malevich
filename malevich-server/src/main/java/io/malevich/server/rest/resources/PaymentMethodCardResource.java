@@ -2,7 +2,7 @@ package io.malevich.server.rest.resources;
 
 import com.yinyang.core.server.rest.RestResource;
 import io.malevich.server.domain.PaymentMethodCardEntity;
-import io.malevich.server.services.paymentmethod.PaymentMethodService;
+import io.malevich.server.services.paymentmethodcard.PaymentMethodCardService;
 import io.malevich.server.transfer.PaymentMethodDto;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +11,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 
 @Slf4j
 @RestController
@@ -18,19 +20,19 @@ import org.springframework.web.bind.annotation.*;
 public class PaymentMethodCardResource extends RestResource<PaymentMethodDto, PaymentMethodCardEntity> {
 
     @Autowired
-    private PaymentMethodService paymentMethodService;
+    private PaymentMethodCardService paymentMethodCardService;
 
     public PaymentMethodCardResource() {
         super(PaymentMethodDto.class, PaymentMethodCardEntity.class);
     }
 
-//    @RequestMapping(value = "/list", method = RequestMethod.GET)
-//    @ResponseStatus(HttpStatus.OK)
-//    @ResponseBody
-//    public List<PaymentMethodDto> list() {
-//        List<PaymentMethodEntity> allEntries = this.paymentMethodService.findAll();
-//        return allEntries.stream().map(allEntry -> convertToDto(allEntry)).collect(Collectors.toList());
-//    }
+    @RequestMapping(value = "/list", method = RequestMethod.GET)
+    @ResponseStatus(HttpStatus.OK)
+    @ResponseBody
+    public List<PaymentMethodDto> list() {
+        List<PaymentMethodCardEntity> allEntries = this.paymentMethodCardService.findAll();
+        return convertListOfDto(allEntries);
+    }
 
     @PreAuthorize("hasRole('ROLE_USER')")
     @RequestMapping(value = "/save", method = RequestMethod.PUT)
@@ -38,7 +40,7 @@ public class PaymentMethodCardResource extends RestResource<PaymentMethodDto, Pa
     @ResponseBody
     public ResponseEntity<Void> save(@RequestBody PaymentMethodDto dto) {
         PaymentMethodCardEntity entity = convertToEntity(dto);
-        paymentMethodService.save(entity);
+        paymentMethodCardService.save(entity);
         return ResponseEntity.ok().build();
     }
 

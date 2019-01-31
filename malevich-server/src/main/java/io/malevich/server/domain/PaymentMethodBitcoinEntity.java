@@ -1,13 +1,11 @@
 package io.malevich.server.domain;
 
-import com.yinyang.core.server.core.jpa.JpaConverterJson;
-import com.yinyang.core.server.domain.YAbstractPersistable;
 import lombok.Getter;
 import lombok.Setter;
-import org.hibernate.annotations.Fetch;
-import org.hibernate.annotations.FetchMode;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Table;
 
 
 @Entity
@@ -15,6 +13,9 @@ import javax.persistence.*;
 public class PaymentMethodBitcoinEntity extends PaymentMethodEntity {
 
 
-
+    @Getter
+    @Setter
+    @Column(name = "address")
+    private String btcAddress;
 
 }

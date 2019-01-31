@@ -1,6 +1,5 @@
 package io.malevich.server.domain;
 
-import com.yinyang.core.server.core.jpa.JpaConverterJson;
 import com.yinyang.core.server.domain.YAbstractPersistable;
 import lombok.Getter;
 import lombok.Setter;
@@ -15,12 +14,16 @@ import javax.persistence.*;
 @Inheritance(strategy = InheritanceType.JOINED)
 public class PaymentMethodEntity extends YAbstractPersistable<Long> {
 
+    @Getter
+    @Setter
+    @Fetch(FetchMode.JOIN)
+    @ManyToOne(cascade = CascadeType.DETACH)
+    private PaymentMethodTypeEntity type;
 
     @Getter
     @Setter
     @Fetch(FetchMode.JOIN)
-    @ManyToOne(cascade = CascadeType.MERGE)
-    private PaymentMethodTypeEntity type;
-
+    @ManyToOne(cascade = CascadeType.DETACH)
+    private ParticipantEntity participant;
 
 }

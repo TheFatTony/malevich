@@ -46,8 +46,8 @@
         <div>
           account
         </div>
-        <div>
-          bitcoin
+        <div class="container align-content-center">
+          <app-profile-payment-bitcoin [methods]="methods" (onUpdate)="onUpdate($event)"></app-profile-payment-bitcoin>
         </div>
       </jqxTabs>
 

@@ -11,4 +11,5 @@ public interface PaymentMethodTypeService {
 
     List<PaymentMethodTypeEntity> findAll();
 
+    PaymentMethodTypeEntity getBitcoinType();
 }

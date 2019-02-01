@@ -1,8 +1,8 @@
-import {Component, EventEmitter, Input, OnInit, Output, ViewChild} from '@angular/core';
+import {Component, OnInit, ViewChild} from '@angular/core';
 import {jqxGridComponent} from "jqwidgets-scripts/jqwidgets-ts/angular_jqxgrid";
 import {PaymentMethodDto} from "../../../_transfer/paymentMethodDto";
 import {TranslateService} from "@ngx-translate/core";
-import {PaymentMethodService} from "../../../_services/payment-method.service";
+import {PaymentMethodBitcoinService} from "../../../_services/payment-method-bitcoin.service";
 
 @Component({
   selector: 'app-profile-payment-bitcoin',
@@ -12,14 +12,6 @@ import {PaymentMethodService} from "../../../_services/payment-method.service";
 export class PaymentBitcoinComponent implements OnInit {
 
   @ViewChild('myGrid') myGrid: jqxGridComponent;
-
-  @Input('methods')
-  set methods(list: PaymentMethodDto[]) {
-    if (!list) return;
-    this.addresses = list.filter(m => m.type.id == 'BTC');
-  }
-
-  @Output('onUpdate') onMethodUpdated = new EventEmitter<PaymentMethodDto>();
 
   addresses: PaymentMethodDto[];
   selectedRowIndex: number = -1;
@@ -31,11 +23,18 @@ export class PaymentBitcoinComponent implements OnInit {
   }
 
   constructor(private translate: TranslateService,
-              private paymentMethodService: PaymentMethodService) {
+              private paymentMethodBitcoinService: PaymentMethodBitcoinService) {
     this.updateGrid();
   }
 
   ngOnInit() {
+    this.getMethods();
+  }
+
+  getMethods() {
+    this.paymentMethodBitcoinService.getPaymentMethods().subscribe(data => {
+      this.addresses = data;
+    });
   }
 
   updateGrid() {
@@ -59,8 +58,8 @@ export class PaymentBitcoinComponent implements OnInit {
   }
 
   onAddButton() {
-    this.paymentMethodService.generateBtc().subscribe(data => {
-      this.onMethodUpdated.emit(data);
+    this.paymentMethodBitcoinService.generateBtc().subscribe(data => {
+      this.getMethods();
     });
   }
 

@@ -4,6 +4,7 @@ import {TranslateService} from "@ngx-translate/core";
 import {jqxGridComponent} from "jqwidgets-scripts/jqwidgets-ts/angular_jqxgrid";
 import {PaymentMethodService} from "../../../_services/payment-method.service";
 import {jqxWindowComponent} from "jqwidgets-scripts/jqwidgets-ts/angular_jqxwindow";
+import {PaymentMethodCardService} from "../../../_services/payment-method-card.service";
 
 @Component({
   selector: 'app-profile-payment-card',
@@ -14,15 +15,6 @@ export class PaymentCardComponent implements OnInit, OnDestroy {
 
   @ViewChild('myGrid') myGrid: jqxGridComponent;
   @ViewChild('myWindow') myWindow: jqxWindowComponent;
-
-  @Input('methods')
-  set methods(list: PaymentMethodDto[]) {
-    if (!list) return;
-    this.cards = list.filter(m => m.type.id == 'CRD');
-  }
-
-  @Output('onUpdate') onMethodUpdated = new EventEmitter<PaymentMethodDto>();
-
 
   cards: PaymentMethodDto[];
   selectedRowIndex: number = -1;
@@ -41,18 +33,24 @@ export class PaymentCardComponent implements OnInit, OnDestroy {
   }
 
   constructor(private translate: TranslateService,
-              private paymentMethodService: PaymentMethodService) {
+              private paymentMethodCardService: PaymentMethodCardService) {
     this.updateGrid();
   }
 
 
   ngOnInit() {
-
+    this.getMethods();
   }
 
 
   ngOnDestroy(): void {
     this.myWindow.close()
+  }
+
+  getMethods() {
+    this.paymentMethodCardService.getPaymentMethods().subscribe(data => {
+      this.cards = data;
+    });
   }
 
   updateGrid() {
@@ -98,15 +96,14 @@ export class PaymentCardComponent implements OnInit, OnDestroy {
   }
 
   save() {
-    this.editMethod.type = {id: 'CRD', nameMl: new Map<string, string>()};
-    this.paymentMethodService.saveCard(this.editMethod).subscribe(()=>{
+    this.paymentMethodCardService.save(this.editMethod).subscribe(() => {
       this.myWindow.close();
-      this.onMethodUpdated.emit(this.editMethod);
+      this.getMethods();
     });
 
   }
 
-  private clone<T>(obj:T): T {
+  private clone<T>(obj: T): T {
     return JSON.parse(JSON.stringify(obj));
   }
 

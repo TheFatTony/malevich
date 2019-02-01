@@ -1,4 +1,5 @@
 import {PaymentMethodTypeDto} from "./paymentMethodTypeDto";
+import {CountryDto} from "./countryDto";
 
 export class PaymentMethodDto {
   id: number;
@@ -11,4 +12,13 @@ export class PaymentMethodDto {
   cardCvv: number;
 
   btcAddress: string;
+
+  iban: string;
+  beneficiaryName: string;
+  beneficiaryCountry: CountryDto;
+  beneficiaryAddress: string;
+  bic: string;
+  bankName: string;
+  bankCountry: CountryDto;
+  bankAddress: string;
 }

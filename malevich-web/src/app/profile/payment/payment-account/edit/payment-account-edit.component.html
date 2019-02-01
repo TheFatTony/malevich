@@ -1,0 +1,106 @@
+<!-- Payment Details -->
+<div class="g-color-gray-dark-v5 rounded g-pa-30">
+  <!-- Card Number -->
+  <div class="g-mb-30">
+    <h4 class="h6 g-color-black g-font-weight-400 mb-3">Account No. / IBAN</h4>
+    <mchInput
+      mchRequired
+      [(ngModel)]="account.iban"
+      class="form-control u-form-control g-brd-around g-brd-gray-light-v3 g-brd-primary--focus g-font-size-13 g-rounded-3"
+      [type]="'tel'" [placeHolder]="'1234 5678 9012 3456'">
+    </mchInput>
+  </div>
+  <!-- End Card Number -->
+
+  <!--iban: string;-->
+  <!--beneficiaryName: string;-->
+  <!--beneficiaryCountry: CountryDto;-->
+  <!--beneficiaryAddress: string;-->
+  <!--bic: string;-->
+  <!--bankName: string;-->
+  <!--bankCountry: CountryDto;-->
+  <!--bankAddress: string;-->
+
+  <hr class="g-brd-gray-light-v4 g-my-20">
+
+  <div class="g-mb-30">
+    <h4 class="h6 g-color-black g-font-weight-400 mb-3">Beneficiary Name</h4>
+    <mchInput
+      mchRequired
+      [(ngModel)]="account.beneficiaryName"
+      class="form-control u-form-control g-brd-around g-brd-gray-light-v3 g-brd-primary--focus g-font-size-13 g-rounded-3"
+      [type]="'tel'" [placeHolder]="'ACCOUNT HOLDER'">
+    </mchInput>
+  </div>
+
+  <div class="g-mb-30">
+    <h4 class="h6 g-color-black g-font-weight-400 mb-3">Beneficiary Country</h4>
+    <mchComboBox name="country"
+                 class="form-control u-form-control g-brd-around g-brd-gray-light-v3 g-brd-primary--focus g-font-size-13 g-rounded-3"
+                 [objectSource]="countries"
+                 [displayFunc]="countryDisplayFunc"
+                 [(ngModel)]="account.beneficiaryCountry">
+    </mchComboBox>
+  </div>
+
+  <div class="g-mb-30">
+    <h4 class="h6 g-color-black g-font-weight-400 mb-3">Beneficiary Address</h4>
+    <mchInput
+      mchRequired
+      [(ngModel)]="account.beneficiaryAddress"
+      class="form-control u-form-control g-brd-around g-brd-gray-light-v3 g-brd-primary--focus g-font-size-13 g-rounded-3"
+      >
+    </mchInput>
+  </div>
+
+  <hr class="g-brd-gray-light-v4 g-my-20">
+
+  <div class="g-mb-30">
+    <h4 class="h6 g-color-black g-font-weight-400 mb-3">SWIFT/BIC</h4>
+    <mchInput
+      mchRequired
+      [(ngModel)]="account.bic"
+      class="form-control u-form-control g-brd-around g-brd-gray-light-v3 g-brd-primary--focus g-font-size-13 g-rounded-3"
+    >
+    </mchInput>
+  </div>
+
+  <div class="g-mb-30">
+    <h4 class="h6 g-color-black g-font-weight-400 mb-3">Bank Name</h4>
+    <mchInput
+      mchRequired
+      [(ngModel)]="account.bankName"
+      class="form-control u-form-control g-brd-around g-brd-gray-light-v3 g-brd-primary--focus g-font-size-13 g-rounded-3"
+    >
+    </mchInput>
+  </div>
+
+  <div class="g-mb-30">
+    <h4 class="h6 g-color-black g-font-weight-400 mb-3">Bank Country</h4>
+    <mchComboBox name="country"
+                 class="form-control u-form-control g-brd-around g-brd-gray-light-v3 g-brd-primary--focus g-font-size-13 g-rounded-3"
+                 [objectSource]="countries"
+                 [displayFunc]="countryDisplayFunc"
+                 [(ngModel)]="account.bankCountry">
+    </mchComboBox>
+  </div>
+
+  <div class="g-mb-30">
+    <h4 class="h6 g-color-black g-font-weight-400 mb-3">Bank Address</h4>
+    <mchInput
+      mchRequired
+      [(ngModel)]="account.bankAddress"
+      class="form-control u-form-control g-brd-around g-brd-gray-light-v3 g-brd-primary--focus g-font-size-13 g-rounded-3"
+    >
+    </mchInput>
+  </div>
+
+  <button class="btn u-btn-primary g-font-size-12 text-uppercase g-py-12 g-px-25" type="button" (click)="save()">
+    Update
+  </button>
+
+  <button class="btn u-btn-primary g-font-size-12 text-uppercase g-py-12 g-px-25" type="button" (click)="cancel()">
+    Cancel
+  </button>
+</div>
+<!-- End Payment Details -->

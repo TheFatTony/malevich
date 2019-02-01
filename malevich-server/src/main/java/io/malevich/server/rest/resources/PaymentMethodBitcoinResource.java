@@ -19,6 +19,7 @@ import java.util.List;
 
 @Slf4j
 @RestController
+@PreAuthorize("hasRole('ROLE_USER')")
 @RequestMapping(value = "/payment_methods_bitcoin")
 public class PaymentMethodBitcoinResource extends RestResource<PaymentMethodDto, PaymentMethodBitcoinEntity> {
 
@@ -37,7 +38,7 @@ public class PaymentMethodBitcoinResource extends RestResource<PaymentMethodDto,
         return convertListOfDto(allEntries);
     }
 
-    @PreAuthorize("hasRole('ROLE_USER')")
+
     @RequestMapping(value = "/generate", method = RequestMethod.GET)
     @ResponseStatus(HttpStatus.OK)
     @ResponseBody

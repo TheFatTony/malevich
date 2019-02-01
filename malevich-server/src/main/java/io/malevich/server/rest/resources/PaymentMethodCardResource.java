@@ -16,6 +16,7 @@ import java.util.List;
 
 @Slf4j
 @RestController
+@PreAuthorize("hasRole('ROLE_USER')")
 @RequestMapping(value = "/payment_methods_card")
 public class PaymentMethodCardResource extends RestResource<PaymentMethodDto, PaymentMethodCardEntity> {
 
@@ -34,7 +35,6 @@ public class PaymentMethodCardResource extends RestResource<PaymentMethodDto, Pa
         return convertListOfDto(allEntries);
     }
 
-    @PreAuthorize("hasRole('ROLE_USER')")
     @RequestMapping(value = "/save", method = RequestMethod.PUT)
     @ResponseStatus(HttpStatus.OK)
     @ResponseBody

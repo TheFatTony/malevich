@@ -35,69 +35,85 @@
   <div class="container">
     <!-- Payment Details -->
     <div class="g-color-gray-dark-v5 rounded g-pa-30">
-      <!-- Card Number -->
-      <div class="g-mb-30">
-        <h4 class="h6 g-color-black g-font-weight-400 mb-3">Card Number</h4>
-        <mchInput
-          mchRequired
-          [(ngModel)]="editMethod.cardNumber"
-          class="form-control u-form-control g-brd-around g-brd-gray-light-v3 g-brd-primary--focus g-font-size-13 g-rounded-3"
-          [type]="'tel'" [placeHolder]="'1234 5678 9012 3456'">
-        </mchInput>
-      </div>
-      <!-- End Card Number -->
+      <form #f="ngForm" (ngSubmit)="save()" novalidate>
+        <!-- Card Number -->
+        <div class="g-mb-30">
+          <h4 class="h6 g-color-black g-font-weight-400 mb-3">Card Number</h4>
+          <mchInput
+            name="cardNumber"
+            mchRequired
+            yycPattern="[0-9]{12,19}"
+            yycPatternMessage="From 12 to 19 digits"
+            [(ngModel)]="editMethod.cardNumber"
+            class="form-control u-form-control g-brd-around g-brd-gray-light-v3 g-brd-primary--focus g-font-size-13 g-rounded-3"
+            [type]="'tel'" [placeHolder]="'1234 5678 9012 3456'">
+          </mchInput>
+        </div>
+        <!-- End Card Number -->
 
-      <!-- Name on Card -->
-      <div class="g-mb-30">
-        <h4 class="h6 g-color-black g-font-weight-400 mb-3">Name on Card</h4>
-        <mchInput
-          mchRequired
-          [(ngModel)]="editMethod.cardHolder"
-          class="form-control u-form-control g-brd-around g-brd-gray-light-v3 g-brd-primary--focus g-font-size-13 g-rounded-3"
-          [type]="'tel'" [placeHolder]="'CARD HOLDER'">
-        </mchInput>
-      </div>
-      <!-- End Name on Card -->
+        <!-- Name on Card -->
+        <div class="g-mb-30">
+          <h4 class="h6 g-color-black g-font-weight-400 mb-3">Name on Card</h4>
+          <mchInput
+            name="cardHolder"
+            mchRequired
+            yycPattern="[ A-Z]+"
+            yycPatternMessage="Capital letters only"
+            [(ngModel)]="editMethod.cardHolder"
+            class="form-control u-form-control g-brd-around g-brd-gray-light-v3 g-brd-primary--focus g-font-size-13 g-rounded-3"
+            [type]="'tel'" [placeHolder]="'CARD HOLDER'">
+          </mchInput>
+        </div>
+        <!-- End Name on Card -->
 
-      <div class="row justify-content-between g-mb-30">
-        <!-- Expiration Date -->
-        <div class="col-7 col-sm-5">
-          <h4 class="h6 g-color-black g-font-weight-400 mb-3">Expiration Date</h4>
-          <div class="row g-mx-minus-2">
-            <div class="col g-px-2">
-              <mchMaskedInput
-                mchRequired
-                [(ngModel)]="editMethod.cardExpiration"
-                class="g-brd-around g-brd-gray-light-v3 g-brd-primary--focus g-font-size-13 g-rounded-3 g-rounded-right-0 g-pr-10"
-                [mask]="'##/##'"
-              >
-              </mchMaskedInput>
+        <div class="row justify-content-between g-mb-30">
+          <!-- Expiration Date -->
+          <div class="col-7 col-sm-5">
+            <h4 class="h6 g-color-black g-font-weight-400 mb-3">Expiration Date</h4>
+            <div class="row g-mx-minus-2">
+              <div class="col g-px-2">
+                <mchMaskedInput
+                  name="cardExpiration"
+                  mchRequired
+                  yycPattern="[0-1][0-9]/[1-9][0-9]"
+                  yycPatternMessage="Specify expiration date in MM/YY format"
+                  [(ngModel)]="editMethod.cardExpiration"
+                  class="g-brd-around g-brd-gray-light-v3 g-brd-primary--focus g-font-size-13 g-rounded-3 g-rounded-right-0 g-pr-10"
+                  [mask]="'##/##'"
+                >
+                </mchMaskedInput>
+              </div>
             </div>
           </div>
-        </div>
-        <!-- End Expiration Date -->
+          <!-- End Expiration Date -->
 
-        <!-- Security Code -->
-        <div class="col-5 col-sm-4">
-          <h4 class="h6 g-color-black g-font-weight-400 mb-3">Security Code</h4>
-          <div class="input-group g-pos-rel">
-            <mchInput
-              mchRequired
-              [(ngModel)]="editMethod.cardCvv"
-              class="form-control u-form-control g-brd-around g-brd-gray-light-v3 g-brd-primary--focus g-font-size-13 g-rounded-3 g-rounded-left-0 g-pr-40 g-ml-minus-1"
-              [type]="'tel'" [placeHolder]="'123'">
-            </mchInput>
-            <!--<div class="g-brd-gray-light-v3 g-absolute-centered&#45;&#45;y g-right-5 g-z-index-3 p-0">-->
-            <!--<img class="g-width-30" src="assets/img-temp/50x25/img1.jpg" alt="Image Description">-->
-            <!--</div>-->
+          <!-- Security Code -->
+          <div class="col-5 col-sm-4">
+            <h4 class="h6 g-color-black g-font-weight-400 mb-3">Security Code</h4>
+            <div class="input-group g-pos-rel">
+              <mchInput
+                name="cardCvv"
+                mchRequired
+                yycPattern="[0-9]{3,}"
+                yycPatternMessage="At least 3 digits"
+                [(ngModel)]="editMethod.cardCvv"
+                class="form-control u-form-control g-brd-around g-brd-gray-light-v3 g-brd-primary--focus g-font-size-13 g-rounded-3 g-rounded-left-0 g-pr-40 g-ml-minus-1"
+                [type]="'tel'" [placeHolder]="'123'">
+              </mchInput>
+              <!--<div class="g-brd-gray-light-v3 g-absolute-centered&#45;&#45;y g-right-5 g-z-index-3 p-0">-->
+              <!--<img class="g-width-30" src="assets/img-temp/50x25/img1.jpg" alt="Image Description">-->
+              <!--</div>-->
+            </div>
           </div>
+          <!-- End Security Code -->
         </div>
-        <!-- End Security Code -->
-      </div>
 
-      <button class="btn u-btn-primary g-font-size-12 text-uppercase g-py-12 g-px-25" type="button" (click)="save()">
-        Update
-      </button>
+        <mchButton class="btn u-btn-primary g-font-size-12 text-uppercase g-py-12 g-px-25"
+                   type="button"
+                   [submitForm]="f">
+          Update
+        </mchButton>
+      </form>
     </div>
     <!-- End Payment Details -->
   </div>

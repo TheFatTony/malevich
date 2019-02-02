@@ -28,7 +28,12 @@ export class PaymentCardComponent implements OnInit, OnDestroy {
     return [
       {dataField: 'PAN', text: names['PROFILE.GRID.PAN'], width: '40%', columntype: 'textbox'},
       {dataField: 'HOLDER', text: names['PROFILE.GRID.CARD_HOLDER'], width: '45%', columntype: 'textbox'},
-      {dataField: 'EXPIRATION', text: names['PROFILE.GRID.CARD_EXPIRATION'], width: '15%', columntype: 'textbox'}
+      {
+        dataField: 'EXPIRATION',
+        text: names['PROFILE.GRID.CARD_EXPIRATION'],
+        width: '15%',
+        columntype: 'textbox'
+      }
     ];
   }
 

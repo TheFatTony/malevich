@@ -1,4 +1,4 @@
-import {Component, HostListener, OnDestroy, OnInit, ViewChild} from '@angular/core';
+import {AfterViewInit, Component, HostListener, OnDestroy, OnInit, ViewChild} from '@angular/core';
 import {jqxGridComponent} from "jqwidgets-scripts/jqwidgets-ts/angular_jqxgrid";
 import {jqxWindowComponent} from "jqwidgets-scripts/jqwidgets-ts/angular_jqxwindow";
 import {PaymentMethodDto} from "../../../_transfer/paymentMethodDto";
@@ -10,7 +10,7 @@ import {PaymentMethodAccountService} from "../../../_services/payment-method-acc
   templateUrl: './payment-account.component.html',
   styleUrls: ['./payment-account.component.css']
 })
-export class PaymentAccountComponent implements OnInit, OnDestroy {
+export class PaymentAccountComponent implements OnInit, AfterViewInit, OnDestroy {
 
   @ViewChild('myGrid') myGrid: jqxGridComponent;
   @ViewChild('myWindow') myWindow: jqxWindowComponent;
@@ -32,7 +32,6 @@ export class PaymentAccountComponent implements OnInit, OnDestroy {
 
   constructor(private translate: TranslateService,
               private paymentMethodAccountService: PaymentMethodAccountService) {
-    this.updateGrid();
   }
 
 
@@ -40,6 +39,9 @@ export class PaymentAccountComponent implements OnInit, OnDestroy {
     this.getMethods();
   }
 
+  ngAfterViewInit(): void {
+    this.updateGrid();
+  }
 
   ngOnDestroy(): void {
     this.myWindow.close()
@@ -74,7 +76,7 @@ export class PaymentAccountComponent implements OnInit, OnDestroy {
 
   private openWindow() {
     this.myWindow.width(500);
-    this.myWindow.height(480);
+    this.myWindow.height(700);
     this.myWindow.open();
     this.myWindow.move(this.x, this.y);
   }
@@ -100,7 +102,7 @@ export class PaymentAccountComponent implements OnInit, OnDestroy {
 
   }
 
-  cancel(){
+  cancel() {
     this.myWindow.close();
   }
 

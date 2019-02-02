@@ -12,8 +12,8 @@
            (onRowdoubleclick)="onEditButton()">
     <tr>
       <th>PAN</th>
-      <th>HOLDER</th>
-      <th>EXPIRATION</th>
+      <th>CARD_HOLDER</th>
+      <th>CARD_EXPIRATION</th>
     </tr>
     <tr *ngFor="let card of cards;index as i">
       <td>
@@ -38,7 +38,8 @@
       <form #f="ngForm" (ngSubmit)="save()" novalidate>
         <!-- Card Number -->
         <div class="g-mb-30">
-          <h4 class="h6 g-color-black g-font-weight-400 mb-3">Card Number</h4>
+          <h4 class="h6 g-color-black g-font-weight-400 mb-3">
+            {{'PROFILE.PAYMENT_METHODS.LABEL.CARD_NUMBER' | translate}}</h4>
           <mchInput
             name="cardNumber"
             mchRequired
@@ -53,7 +54,7 @@
 
         <!-- Name on Card -->
         <div class="g-mb-30">
-          <h4 class="h6 g-color-black g-font-weight-400 mb-3">Name on Card</h4>
+          <h4 class="h6 g-color-black g-font-weight-400 mb-3">{{'PROFILE.PAYMENT_METHODS.LABEL.CARD_HOLDER' | translate}}</h4>
           <mchInput
             name="cardHolder"
             mchRequired
@@ -69,7 +70,7 @@
         <div class="row justify-content-between g-mb-30">
           <!-- Expiration Date -->
           <div class="col-7 col-sm-5">
-            <h4 class="h6 g-color-black g-font-weight-400 mb-3">Expiration Date</h4>
+            <h4 class="h6 g-color-black g-font-weight-400 mb-3">{{'PROFILE.PAYMENT_METHODS.LABEL.EXPIRATION' | translate}} (MM/DD)</h4>
             <div class="row g-mx-minus-2">
               <div class="col g-px-2">
                 <mchMaskedInput
@@ -89,7 +90,7 @@
 
           <!-- Security Code -->
           <div class="col-5 col-sm-4">
-            <h4 class="h6 g-color-black g-font-weight-400 mb-3">Security Code</h4>
+            <h4 class="h6 g-color-black g-font-weight-400 mb-3">{{'PROFILE.PAYMENT_METHODS.LABEL.CVV' | translate}}</h4>
             <div class="input-group g-pos-rel">
               <mchInput
                 name="cardCvv"
@@ -111,7 +112,7 @@
         <mchButton class="btn u-btn-primary g-font-size-12 text-uppercase g-py-12 g-px-25"
                    type="button"
                    [submitForm]="f">
-          Update
+          {{'PROFILE.BUTTON.UPDATE' | translate}}
         </mchButton>
       </form>
     </div>

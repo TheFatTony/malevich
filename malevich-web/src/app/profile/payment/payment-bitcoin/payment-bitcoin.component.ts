@@ -1,4 +1,4 @@
-import {Component, OnInit, ViewChild} from '@angular/core';
+import {AfterViewInit, Component, OnInit, ViewChild} from '@angular/core';
 import {jqxGridComponent} from "jqwidgets-scripts/jqwidgets-ts/angular_jqxgrid";
 import {PaymentMethodDto} from "../../../_transfer/paymentMethodDto";
 import {TranslateService} from "@ngx-translate/core";
@@ -9,7 +9,7 @@ import {PaymentMethodBitcoinService} from "../../../_services/payment-method-bit
   templateUrl: './payment-bitcoin.component.html',
   styleUrls: ['./payment-bitcoin.component.css']
 })
-export class PaymentBitcoinComponent implements OnInit {
+export class PaymentBitcoinComponent implements OnInit, AfterViewInit {
 
   @ViewChild('myGrid') myGrid: jqxGridComponent;
 
@@ -18,17 +18,20 @@ export class PaymentBitcoinComponent implements OnInit {
 
   columns(names: any): any[] {
     return [
-      {dataField: 'ADDRESS', text: names['PROFILE.GRID.ADDRESS'], width: '100%', columntype: 'textbox'},
+      {dataField: 'BITCOIN_ADDRESS', text: names['PROFILE.GRID.BITCOIN_ADDRESS'], width: '100%', columntype: 'textbox'},
     ];
   }
 
   constructor(private translate: TranslateService,
               private paymentMethodBitcoinService: PaymentMethodBitcoinService) {
-    this.updateGrid();
   }
 
   ngOnInit() {
     this.getMethods();
+  }
+
+  ngAfterViewInit(): void {
+    this.updateGrid();
   }
 
   getMethods() {
@@ -40,7 +43,7 @@ export class PaymentBitcoinComponent implements OnInit {
   updateGrid() {
     this.translate
       .get([
-        'PROFILE.GRID.ADDRESS'
+        'PROFILE.GRID.BITCOIN_ADDRESS'
       ])
       .subscribe(data => {
         this.myGrid.hideloadelement();

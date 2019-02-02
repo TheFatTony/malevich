@@ -6,6 +6,9 @@ import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
 
 
 @Entity
@@ -16,11 +19,13 @@ public class PaymentMethodAccountEntity extends PaymentMethodEntity {
     @Getter
     @Setter
     @Column(name = "iban")
+    @Pattern(regexp = "[0-9A-Z]+")
     private String iban;
 
     @Getter
     @Setter
     @Column(name = "beneficiary_name")
+    @NotBlank
     private String beneficiaryName;
 
     @Getter
@@ -28,16 +33,19 @@ public class PaymentMethodAccountEntity extends PaymentMethodEntity {
     @Fetch(FetchMode.JOIN)
     @ManyToOne(cascade = CascadeType.DETACH)
     @JoinColumn(name = "beneficiary_country_id")
+    @NotNull
     private CountryEntity beneficiaryCountry;
 
     @Getter
     @Setter
     @Column(name = "beneficiary_address")
+    @NotBlank
     private String beneficiaryAddress;
 
     @Getter
     @Setter
     @Column(name = "bic")
+    @Pattern(regexp = "[0-9A-Z]+")
     private String bic;
 
     @Getter
@@ -50,11 +58,13 @@ public class PaymentMethodAccountEntity extends PaymentMethodEntity {
     @Fetch(FetchMode.JOIN)
     @ManyToOne(cascade = CascadeType.DETACH)
     @JoinColumn(name = "bank_country_id")
+    @NotNull
     private CountryEntity bankCountry;
 
     @Getter
     @Setter
     @Column(name = "bank_address")
+    @NotBlank
     private String bankAddress;
 
 }

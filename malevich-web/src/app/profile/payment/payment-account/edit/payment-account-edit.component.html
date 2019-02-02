@@ -3,7 +3,7 @@
   <form #f="ngForm" (ngSubmit)="save()" novalidate>
     <!-- Card Number -->
     <div class="g-mb-30">
-      <h4 class="h6 g-color-black g-font-weight-400 mb-3">Account No. / IBAN</h4>
+      <h4 class="h6 g-color-black g-font-weight-400 mb-3">{{'PROFILE.PAYMENT_METHODS.LABEL.ACCOUNT_NUMBER' | translate}}</h4>
       <mchInput
         name="accountNum"
         yycPattern="[0-9A-Z]+"
@@ -19,7 +19,7 @@
     <hr class="g-brd-gray-light-v4 g-my-20">
 
     <div class="g-mb-30">
-      <h4 class="h6 g-color-black g-font-weight-400 mb-3">Beneficiary Name</h4>
+      <h4 class="h6 g-color-black g-font-weight-400 mb-3">{{'PROFILE.PAYMENT_METHODS.LABEL.BENEFICIARY_NAME' | translate}}</h4>
       <mchInput
         name="beneficiaryName"
         mchRequired
@@ -30,7 +30,7 @@
     </div>
 
     <div class="g-mb-30">
-      <h4 class="h6 g-color-black g-font-weight-400 mb-3">Beneficiary Country</h4>
+      <h4 class="h6 g-color-black g-font-weight-400 mb-3">{{'PROFILE.PAYMENT_METHODS.LABEL.BENEFICIARY_COUNTRY' | translate}}</h4>
       <mchComboBox name="beneficiaryCountry"
                    #beneficiaryCountry="ngModel"
                    mchRequired
@@ -43,7 +43,7 @@
     </div>
 
     <div class="g-mb-30">
-      <h4 class="h6 g-color-black g-font-weight-400 mb-3">Beneficiary Address</h4>
+      <h4 class="h6 g-color-black g-font-weight-400 mb-3">{{'PROFILE.PAYMENT_METHODS.LABEL.BENEFICIARY_ADDRESS' | translate}}</h4>
       <mchInput
         name="beneficiaryAddress"
         mchRequired
@@ -56,7 +56,7 @@
     <hr class="g-brd-gray-light-v4 g-my-20">
 
     <div class="g-mb-30">
-      <h4 class="h6 g-color-black g-font-weight-400 mb-3">SWIFT/BIC</h4>
+      <h4 class="h6 g-color-black g-font-weight-400 mb-3">{{'PROFILE.PAYMENT_METHODS.LABEL.BANK_NUMBER' | translate}}</h4>
       <mchInput
         name="bic"
         mchRequired
@@ -69,7 +69,7 @@
     </div>
 
     <div class="g-mb-30">
-      <h4 class="h6 g-color-black g-font-weight-400 mb-3">Bank Name</h4>
+      <h4 class="h6 g-color-black g-font-weight-400 mb-3">{{'PROFILE.PAYMENT_METHODS.LABEL.BANK_NAME' | translate}}</h4>
       <mchInput
         name="bankName"
         mchRequired
@@ -80,7 +80,7 @@
     </div>
 
     <div class="g-mb-30">
-      <h4 class="h6 g-color-black g-font-weight-400 mb-3">Bank Country</h4>
+      <h4 class="h6 g-color-black g-font-weight-400 mb-3">{{'PROFILE.PAYMENT_METHODS.LABEL.BANK_COUNTRY' | translate}}</h4>
       <mchComboBox name="bankCountry"
                    #bankCountry="ngModel"
                    mchRequired
@@ -93,7 +93,7 @@
     </div>
 
     <div class="g-mb-30">
-      <h4 class="h6 g-color-black g-font-weight-400 mb-3">Bank Address</h4>
+      <h4 class="h6 g-color-black g-font-weight-400 mb-3">{{'PROFILE.PAYMENT_METHODS.LABEL.BANK_ADDRESS' | translate}}</h4>
       <mchInput
         name="bankAddress"
         mchRequired
@@ -105,12 +105,12 @@
 
     <mchButton class="btn u-btn-primary g-font-size-12 text-uppercase g-py-12 g-px-25"
                [submitForm]="f">
-      Update
+      {{'PROFILE.BUTTON.SUBMIT' | translate}}
     </mchButton>
 
     <mchButton class="btn u-btn-primary g-font-size-12 text-uppercase g-py-12 g-px-25"
                (click)="cancel()">
-      Cancel
+      {{'PROFILE.BUTTON.CANCEL' | translate}}
     </mchButton>
   </form>
 </div>

@@ -49,7 +49,7 @@
     "STEP_ONE": {
       "CAPTION": "Forgot Password?",
       "APPEAL": "Enter your e-mail address to reset your password",
-      "RESET":"Reset password"
+      "RESET": "Reset password"
     },
     "STEP_TWO": {
       "CAPTION": "Changing password",
@@ -175,6 +175,24 @@
         "CHOOSE": "Choose from existing"
       }
     },
+    "PAYMENT_METHODS": {
+      "LABEL": {
+        "CARD_NUMBER": "Card Number",
+        "CARD_HOLDER": "Name on Card",
+        "EXPIRATION": "Expiration Date",
+        "CVV": "Security Code",
+        "ACCOUNT_NUMBER": "Account No. / IBAN",
+        "BENEFICIARY_NAME": "Beneficiary Name",
+        "BENEFICIARY_COUNTRY": "Beneficiary Country",
+        "BENEFICIARY_ADDRESS": "Beneficiary Address",
+        "BANK_NUMBER": "SWIFT/BIC",
+        "BANK_NAME": "Bank Name",
+        "BANK_COUNTRY": "Bank Country",
+        "BANK_ADDRESS": "Bank Address"
+      },
+      "PLACEHOLDER": {
+      }
+    },
     "GRID": {
       "FILE_NAME": "File Name",
       "DATE": "Date",
@@ -193,7 +211,10 @@
       "PRINT": "Print",
       "PAN": "Card PAN",
       "CARD_HOLDER": "Card Holder",
-      "CARD_EXPIRATION": "Expiration"
+      "CARD_EXPIRATION": "Expiration",
+      "BITCOIN_ADDRESS": "Bitcoin Address",
+      "BANK_NAME": "Bank Name",
+      "IBAN": "IBAN"
     },
     "BUTTON": {
       "EDIT_PROFILE": "Edit",
@@ -205,7 +226,8 @@
       "CHANGE_PASSWORD": "Change Password",
       "ADD": "Add",
       "WITHDRAW": "Withdraw",
-      "CANCEL_ORDER": "Cancel order"
+      "CANCEL_ORDER": "Cancel order",
+      "GENERATE_BITCOIN_ADDRESS":"Generate address"
     }
   },
   "MAIN": {

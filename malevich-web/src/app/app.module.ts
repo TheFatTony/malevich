@@ -67,6 +67,7 @@ import { PaymentCardComponent } from './profile/payment/payment-card/payment-car
 import { PaymentBitcoinComponent } from './profile/payment/payment-bitcoin/payment-bitcoin.component';
 import { PaymentAccountComponent } from './profile/payment/payment-account/payment-account.component';
 import { PaymentAccountEditComponent } from './profile/payment/payment-account/edit/payment-account-edit.component';
+import { PaymentAccountViewComponent } from './profile/payment/payment-account/view/payment-account-view.component';
 
 
 export function createTranslateLoader(http: HttpClient) {
@@ -125,6 +126,7 @@ export function createTranslateLoader(http: HttpClient) {
     PaymentBitcoinComponent,
     PaymentAccountComponent,
     PaymentAccountEditComponent,
+    PaymentAccountViewComponent,
 
   ],
   imports: [

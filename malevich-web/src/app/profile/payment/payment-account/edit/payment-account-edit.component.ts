@@ -22,6 +22,7 @@ export class PaymentAccountEditComponent implements OnInit {
   onCancel = new EventEmitter();
 
   countries: CountryDto[];
+  editAccount: PaymentMethodDto = new PaymentMethodDto();
 
   countryDisplayFunc = (country: CountryDto) => {
     return country.nameMl[this.translate.currentLang];
@@ -35,6 +36,7 @@ export class PaymentAccountEditComponent implements OnInit {
   getCountries() {
     this.countryService.getCountries().subscribe(data => {
       this.countries = data;
+      this.editAccount = this.account;
     });
   }
 
@@ -43,7 +45,9 @@ export class PaymentAccountEditComponent implements OnInit {
   }
 
   save(){
-    this.onSubmit.emit(this.account);
+    this.paymentMethodAccountService.save(this.editAccount).subscribe(() => {
+      this.onSubmit.emit(this.editAccount);
+    });
   }
 
   cancel(){

@@ -1,34 +1,9 @@
 <div class="g-my-10">
-  <mchButton [width]="100" [height]="35" (click)="onAddButton()">
-    Add
-  </mchButton>
-  <mchButton [width]="100" [height]="35" (click)="onEditButton()" [disabled]="selectedRowIndex < 0">
-    Edit
-  </mchButton>
-  <jqxGrid #myGrid
-           [width]="'100%'" [height]="'90%'" [pageable]="true" [sortable]="true" [filterable]="true"
-           [columnsresize]="false"
-           [pagermode]="'simple'" (onRowselect)="onGridRowSelect($event)"
-           (onRowdoubleclick)="onEditButton()">
-    <tr>
-      <th>BANK_NAME</th>
-      <th>IBAN</th>
-    </tr>
-    <tr *ngFor="let account of accounts;index as i">
-      <td>
-        {{account.bankName}}
-      </td>
-      <td>
-        {{account.iban}}
-      </td>
-    </tr>
-  </jqxGrid>
+  <ng-container *ngIf="!isEditing">
+    <app-profile-payment-account-view (onEdit)="onEdit($event)"></app-profile-payment-account-view>
+  </ng-container>
+  <ng-container *ngIf="isEditing">
+    <app-profile-payment-account-edit [account]="editMethod" (onSubmit)="onSubmit()"
+                                      (onCancel)="onCancel()"></app-profile-payment-account-edit>
+  </ng-container>
 </div>
-
-
-<jqxWindow #myWindow [autoOpen]="false" [resizable]="false">
-  <div>Payment method</div>
-  <div class="container">
-    <app-profile-payment-account-edit [account]="editMethod" (onSubmit)="save()" (onCancel)="cancel()"></app-profile-payment-account-edit>
-  </div>
-</jqxWindow>

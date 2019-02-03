@@ -6,6 +6,7 @@ import io.malevich.server.domain.PaymentMethodCardEntity;
 import io.malevich.server.domain.PaymentMethodEntity;
 import io.malevich.server.services.paymentmethod.PaymentMethodService;
 import io.malevich.server.services.paymentmethodaccount.PaymentMethodAccountService;
+import io.malevich.server.transfer.PaymentMethodAccountDto;
 import io.malevich.server.transfer.PaymentMethodDto;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,20 +23,20 @@ import java.util.stream.Collectors;
 @RestController
 @PreAuthorize("hasRole('ROLE_USER')")
 @RequestMapping(value = "/payment_methods_account")
-public class PaymentMethodAccountResource extends RestResource<PaymentMethodDto, PaymentMethodAccountEntity> {
+public class PaymentMethodAccountResource extends RestResource<PaymentMethodAccountDto, PaymentMethodAccountEntity> {
 
     @Autowired
     private PaymentMethodAccountService paymentMethodAccountService;
 
     public PaymentMethodAccountResource() {
-        super(PaymentMethodDto.class, PaymentMethodAccountEntity.class);
+        super(PaymentMethodAccountDto.class, PaymentMethodAccountEntity.class);
     }
 
 
     @RequestMapping(value = "/list", method = RequestMethod.GET)
     @ResponseStatus(HttpStatus.OK)
     @ResponseBody
-    public List<PaymentMethodDto> list() {
+    public List<PaymentMethodAccountDto> list() {
         List<PaymentMethodAccountEntity> allEntries = this.paymentMethodAccountService.findAll();
         return convertListOfDto(allEntries);
     }
@@ -43,7 +44,7 @@ public class PaymentMethodAccountResource extends RestResource<PaymentMethodDto,
     @RequestMapping(value = "/save", method = RequestMethod.PUT)
     @ResponseStatus(HttpStatus.OK)
     @ResponseBody
-    public ResponseEntity<Void> save(@RequestBody PaymentMethodDto dto) {
+    public ResponseEntity<Void> save(@RequestBody PaymentMethodAccountDto dto) {
         PaymentMethodAccountEntity entity = convertToEntity(dto);
         paymentMethodAccountService.save(entity);
         return ResponseEntity.ok().build();

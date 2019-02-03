@@ -9,7 +9,7 @@
         yycPattern="[0-9A-Z]+"
         yycPatternMessage="Digits and capital letters only"
         mchRequired
-        [(ngModel)]="account.iban"
+        [(ngModel)]="editAccount.iban"
         class="form-control u-form-control g-brd-around g-brd-gray-light-v3 g-brd-primary--focus g-font-size-13 g-rounded-3"
         [type]="'tel'" [placeHolder]="'DIGITS AND CAPITAL LETTERS'">
       </mchInput>
@@ -23,7 +23,7 @@
       <mchInput
         name="beneficiaryName"
         mchRequired
-        [(ngModel)]="account.beneficiaryName"
+        [(ngModel)]="editAccount.beneficiaryName"
         class="form-control u-form-control g-brd-around g-brd-gray-light-v3 g-brd-primary--focus g-font-size-13 g-rounded-3"
         [type]="'tel'" [placeHolder]="'ACCOUNT HOLDER'">
       </mchInput>
@@ -37,7 +37,7 @@
                    class="form-control u-form-control g-brd-around g-brd-gray-light-v3 g-brd-primary--focus g-font-size-13 g-rounded-3"
                    [objectSource]="countries"
                    [displayFunc]="countryDisplayFunc"
-                   [(ngModel)]="account.beneficiaryCountry">
+                   [(ngModel)]="editAccount.beneficiaryCountry">
       </mchComboBox>
       <mchErrors [component]="beneficiaryCountry"></mchErrors>
     </div>
@@ -47,7 +47,7 @@
       <mchInput
         name="beneficiaryAddress"
         mchRequired
-        [(ngModel)]="account.beneficiaryAddress"
+        [(ngModel)]="editAccount.beneficiaryAddress"
         class="form-control u-form-control g-brd-around g-brd-gray-light-v3 g-brd-primary--focus g-font-size-13 g-rounded-3"
       >
       </mchInput>
@@ -62,7 +62,7 @@
         mchRequired
         yycPattern="[0-9A-Z]+"
         yycPatternMessage="Digits and capital letters only"
-        [(ngModel)]="account.bic"
+        [(ngModel)]="editAccount.bic"
         class="form-control u-form-control g-brd-around g-brd-gray-light-v3 g-brd-primary--focus g-font-size-13 g-rounded-3"
       >
       </mchInput>
@@ -73,7 +73,7 @@
       <mchInput
         name="bankName"
         mchRequired
-        [(ngModel)]="account.bankName"
+        [(ngModel)]="editAccount.bankName"
         class="form-control u-form-control g-brd-around g-brd-gray-light-v3 g-brd-primary--focus g-font-size-13 g-rounded-3"
       >
       </mchInput>
@@ -87,7 +87,7 @@
                    class="form-control u-form-control g-brd-around g-brd-gray-light-v3 g-brd-primary--focus g-font-size-13 g-rounded-3"
                    [objectSource]="countries"
                    [displayFunc]="countryDisplayFunc"
-                   [(ngModel)]="account.bankCountry">
+                   [(ngModel)]="editAccount.bankCountry">
       </mchComboBox>
       <mchErrors [component]="bankCountry"></mchErrors>
     </div>
@@ -97,7 +97,7 @@
       <mchInput
         name="bankAddress"
         mchRequired
-        [(ngModel)]="account.bankAddress"
+        [(ngModel)]="editAccount.bankAddress"
         class="form-control u-form-control g-brd-around g-brd-gray-light-v3 g-brd-primary--focus g-font-size-13 g-rounded-3"
       >
       </mchInput>

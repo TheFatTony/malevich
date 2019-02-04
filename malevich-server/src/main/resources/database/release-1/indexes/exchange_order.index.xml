@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.6.xsd">
+
+    <changeSet author="toolstik" id="exchange_order-internal_status-index">
+        <createIndex indexName="exchange_order_internal_status_idx" tableName="exchange_order" unique="false">
+            <column name="internal_status" type="bigint"/>
+        </createIndex>
+    </changeSet>
+
+</databaseChangeLog>

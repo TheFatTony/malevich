@@ -17,4 +17,6 @@ public interface PaymentMethodDao extends JpaRepository<PaymentMethodEntity, Lon
 
     List<PaymentMethodEntity> findByParticipant_IdAndType_Id(Long participantId, String typeId);
 
+    List<PaymentMethodEntity> findByType_Id(String typeId);
+
 }

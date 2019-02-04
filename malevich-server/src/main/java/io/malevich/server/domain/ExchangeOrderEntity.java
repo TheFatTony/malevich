@@ -5,6 +5,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.math.BigDecimal;
 
 
 @javax.persistence.Entity
@@ -35,7 +36,7 @@ public class ExchangeOrderEntity extends YAbstractPersistable<Long> {
     @Getter
     @Setter
     @Column(name = "original_amount")
-    private double originalAmount;
+    private BigDecimal originalAmount;
 
     @Getter
     @Setter
@@ -60,21 +61,26 @@ public class ExchangeOrderEntity extends YAbstractPersistable<Long> {
     @Getter
     @Setter
     @Column(name = "cumulative_amount")
-    private double cumulativeAmount;
+    private BigDecimal cumulativeAmount;
 
     @Getter
     @Setter
     @Column(name = "average_price")
-    private double averagePrice;
+    private BigDecimal averagePrice;
 
     @Getter
     @Setter
     @Column(name = "fee")
-    private double fee;
+    private BigDecimal fee;
 
     @Getter
     @Setter
     @Column(name = "leverage")
     private String leverage;
+
+    @Getter
+    @Setter
+    @Column(name = "effective_date")
+    private java.sql.Timestamp effectiveDate;
 
 }

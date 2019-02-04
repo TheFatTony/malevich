@@ -28,4 +28,6 @@ export class ExchangeOrderDto {
   fee: number;
 
   leverage: string;
+
+  effectiveDate: Date;
 }

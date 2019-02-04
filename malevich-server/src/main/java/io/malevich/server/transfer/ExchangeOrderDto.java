@@ -38,4 +38,7 @@ public class ExchangeOrderDto {
 
     private String leverage;
 
+    @JsonFormat(pattern = "dd/MM/yyyy")
+    private java.sql.Timestamp effectiveDate;
+
 }

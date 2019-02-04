@@ -1,13 +1,13 @@
 <div class="g-my-10">
   <mchButton [width]="100" [height]="35" (click)="onAddButton()">
-    Generate new
+    Generate
   </mchButton>
   <mchButton [width]="100" [height]="35" (click)="onDeleteButton()" [disabled]="selectedRowIndex < 0">
     Delete
   </mchButton>
   <jqxGrid #myGrid
            [width]="'100%'" [height]="'90%'" [pageable]="true" [sortable]="true" [filterable]="true"
-           [columnsresize]="false"
+           [columnsresize]="false" [enablebrowserselection]="true"
            [pagermode]="'simple'" (onRowselect)="onGridRowSelect($event)"
            (onRowdoubleclick)="onEditButton()">
     <tr>

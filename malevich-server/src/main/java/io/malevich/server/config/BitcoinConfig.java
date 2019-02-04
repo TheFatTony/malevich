@@ -12,7 +12,7 @@ public class BitcoinConfig {
 
     @Bean
     public NetworkParameters networkParameters() {
-        return NetworkParameters.testNet();
+        return NetworkParameters.testNet3();
     }
 
     @Bean

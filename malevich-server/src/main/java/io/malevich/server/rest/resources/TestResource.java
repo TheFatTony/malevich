@@ -1,11 +1,11 @@
 package io.malevich.server.rest.resources;
 
 
-import io.malevich.server.services.trader.TraderService;
 import lombok.extern.slf4j.Slf4j;
 import org.bitcoinj.core.*;
 import org.bitcoinj.store.BlockStoreException;
 import org.bitcoinj.store.MemoryBlockStore;
+import org.bitcoinj.wallet.SendRequest;
 import org.bitcoinj.wallet.Wallet;
 import org.knowm.xchange.currency.CurrencyPair;
 import org.knowm.xchange.dto.marketdata.Ticker;
@@ -23,21 +23,19 @@ import java.io.IOException;
 @RequestMapping(value = "/test")
 public class TestResource {
 
+    private static Wallet wallet;
     @Autowired
     NetworkParameters networkParameters;
-
     @Autowired
     MemoryBlockStore memoryBlockStore;
-
     @Autowired
     KrakenExchange krakenExchange;
-
 
     @RequestMapping(value = "/wallet", method = RequestMethod.GET)
     @ResponseStatus(HttpStatus.OK)
     @ResponseBody
     public ResponseEntity<String> wallet() {
-        Wallet wallet = new Wallet(networkParameters);
+        wallet = new Wallet(networkParameters);
         BlockChain chain = null;
         try {
             chain = new BlockChain(networkParameters, wallet, memoryBlockStore);
@@ -70,10 +68,23 @@ public class TestResource {
         } catch (IOException e) {
             e.printStackTrace();
         }
-
-
         return ResponseEntity.ok().body(ticker.toString());
     }
+
+
+    @RequestMapping(value = "/addCoins", method = RequestMethod.GET)
+    @ResponseStatus(HttpStatus.OK)
+    @ResponseBody
+    public ResponseEntity<Void> addCoins() throws InsufficientMoneyException {
+        //https://coinfaucet.eu/en/btc-testnet/
+//        Wallet wallet = new Wallet(networkParameters);
+        Address a = new Address(networkParameters, "mtAwHN11WCquu9JL5bLVXo3vwxU7n2Z7p8");
+        SendRequest req = SendRequest.to(a, Coin.parseCoin("0.12"));
+//        req.aesKey = wallet.getKeyCrypter().deriveKey("password");
+        wallet.sendCoins(req);
+        return ResponseEntity.ok().build();
+    }
+
 
 
 }

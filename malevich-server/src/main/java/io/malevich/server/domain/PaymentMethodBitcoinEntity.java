@@ -18,4 +18,10 @@ public class PaymentMethodBitcoinEntity extends PaymentMethodEntity {
     @Column(name = "address")
     private String btcAddress;
 
+    @Getter
+    @Setter
+    @Column(name = "wallet")
+    private byte[] wallet;
+
+
 }

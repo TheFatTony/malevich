@@ -10,7 +10,7 @@ import {AlertService} from "yinyang-core";
 })
 export class DelayedChangeService {
 
-  private url = environment.baseUrl + 'delayedChanges';
+  private url = environment.baseUrl + 'exchangeOrders';
 
   constructor(private http: HttpClient,
               private alertService: AlertService) {

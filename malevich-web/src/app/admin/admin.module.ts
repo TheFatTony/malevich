@@ -21,6 +21,7 @@ import {ArtistListComponent} from "./cms/artists/list/artist-list.component";
 import {ArtistEditComponent} from "./cms/artists/edit/artist-edit.component";
 import {CommissionRuleListComponent} from "./cms/commissions/list/commission-rule-list.component";
 import {CommissionRuleEditComponent} from "./cms/commissions/edit/commission-rule-edit.component";
+import { ExchangeOrdersComponent } from './cms/exchange-orders/exchange-orders.component';
 
 @NgModule({
   imports: [
@@ -47,7 +48,8 @@ import {CommissionRuleEditComponent} from "./cms/commissions/edit/commission-rul
     ArtistListComponent,
     ArtistEditComponent,
     CommissionRuleListComponent,
-    CommissionRuleEditComponent],
+    CommissionRuleEditComponent,
+    ExchangeOrdersComponent],
   providers: [UsersService]
 })
 export class AdminModule {

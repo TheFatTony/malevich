@@ -13,7 +13,7 @@ public class PaymentMethodDto {
 
     private PaymentMethodTypeDto type;
 
-//    private Object payload;
+    private ParticipantDto participant;
 
 }
 

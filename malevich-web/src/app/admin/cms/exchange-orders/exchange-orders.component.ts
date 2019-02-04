@@ -27,8 +27,12 @@ export class ExchangeOrdersComponent implements OnInit {
 
   columns: any[] =
     [
-      {datafield: 'Id', width: '25%', columntype: 'textbox'},
-      {datafield: 'TypeId', width: '25%', columntype: 'textbox'}
+      {datafield: 'Date', width: '20%', columntype: 'textbox'},
+      {datafield: 'Exchange Name', width: '20%', columntype: 'textbox'},
+      {datafield: 'Currency Pair', width: '20%', columntype: 'textbox'},
+      {datafield: 'Amount', width: '20%', columntype: 'textbox'},
+      {datafield: 'Type', width: '10%', columntype: 'textbox'},
+      {datafield: 'Status', width: '10%', columntype: 'textbox'}
     ];
 
   constructor(private exchangeOrderService: ExchangeOrderService, public translate: TranslateService) {

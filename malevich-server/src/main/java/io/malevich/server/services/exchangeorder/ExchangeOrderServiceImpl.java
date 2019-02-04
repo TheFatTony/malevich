@@ -24,4 +24,9 @@ public class ExchangeOrderServiceImpl implements ExchangeOrderService {
         return this.dao.findAll();
     }
 
+    @Override
+    public ExchangeOrderEntity save(ExchangeOrderEntity entity) {
+        return this.dao.save(entity);
+    }
+
 }

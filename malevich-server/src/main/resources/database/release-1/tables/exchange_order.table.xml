@@ -27,25 +27,28 @@
                 <constraints nullable="false"/>
             </column>
             <column name="order_id" type="varchar(100)">
-                <constraints nullable="false"/>
+                <constraints nullable="true"/>
             </column>
             <column name="timestamp" type="timestamp">
-                <constraints nullable="false"/>
+                <constraints nullable="true"/>
             </column>
             <column name="status" type="varchar(100)">
-                <constraints nullable="false"/>
+                <constraints nullable="true"/>
             </column>
             <column name="cumulative_amount" type="decimal(21, 15)">
-                <constraints nullable="false"/>
+                <constraints nullable="true"/>
             </column>
             <column name="average_price" type="decimal(15, 6)">
-                <constraints nullable="false"/>
+                <constraints nullable="true"/>
             </column>
             <column name="fee" type="decimal(15, 6)">
-                <constraints nullable="false"/>
+                <constraints nullable="true"/>
             </column>
             <column name="leverage" type="varchar(1000)">
-                <constraints nullable="false"/>
+                <constraints nullable="true"/>
+            </column>
+            <column name="effective_date" type="timestamp">
+                <constraints nullable="true"/>
             </column>
         </createTable>
     </changeSet>

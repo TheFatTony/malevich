@@ -115,6 +115,10 @@ p {
   border-color: #e44235 !important;
 }
 
+.g-brd-primary--focus:focus {
+  border-color: #e44235 !important;
+}
+
 .g-brd-primary--active.active,
 .active .g-brd-primary--active {
   border-color: #e44235 !important;

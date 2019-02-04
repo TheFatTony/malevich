@@ -35,6 +35,12 @@ public class PaymentMethodTypeServiceImpl implements PaymentMethodTypeService {
     }
 
     @Override
+    public PaymentMethodTypeEntity getAccountType(){return values.get("ACC");}
+
+    @Override
+    public PaymentMethodTypeEntity getCardType(){return values.get("CRD");}
+
+    @Override
     public PaymentMethodTypeEntity getBitcoinType(){return values.get("BTC");}
 
 }

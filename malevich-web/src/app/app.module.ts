@@ -65,6 +65,9 @@ import {StorageAddComponent as ProfileStorageAddComponent} from './profile/stora
 import {StorageEditComponent as ProfileStorageEditComponent} from './profile/storage/edit/storage-edit.component';
 import { PaymentCardComponent } from './profile/payment/payment-card/payment-card.component';
 import { PaymentBitcoinComponent } from './profile/payment/payment-bitcoin/payment-bitcoin.component';
+import { PaymentAccountComponent } from './profile/payment/payment-account/payment-account.component';
+import { PaymentAccountEditComponent } from './profile/payment/payment-account/edit/payment-account-edit.component';
+import { PaymentAccountViewComponent } from './profile/payment/payment-account/view/payment-account-view.component';
 
 
 export function createTranslateLoader(http: HttpClient) {
@@ -121,6 +124,9 @@ export function createTranslateLoader(http: HttpClient) {
     ProfileStorageEditComponent,
     PaymentCardComponent,
     PaymentBitcoinComponent,
+    PaymentAccountComponent,
+    PaymentAccountEditComponent,
+    PaymentAccountViewComponent,
 
   ],
   imports: [

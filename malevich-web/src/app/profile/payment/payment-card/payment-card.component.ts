@@ -1,28 +1,19 @@
-import {Component, EventEmitter, HostListener, Input, OnDestroy, OnInit, Output, ViewChild} from '@angular/core';
+import {AfterViewInit, Component, HostListener, OnDestroy, OnInit, ViewChild} from '@angular/core';
 import {PaymentMethodDto} from "../../../_transfer/paymentMethodDto";
 import {TranslateService} from "@ngx-translate/core";
 import {jqxGridComponent} from "jqwidgets-scripts/jqwidgets-ts/angular_jqxgrid";
-import {PaymentMethodService} from "../../../_services/payment-method.service";
 import {jqxWindowComponent} from "jqwidgets-scripts/jqwidgets-ts/angular_jqxwindow";
+import {PaymentMethodCardService} from "../../../_services/payment-method-card.service";
 
 @Component({
   selector: 'app-profile-payment-card',
   templateUrl: './payment-card.component.html',
   styleUrls: ['./payment-card.component.css']
 })
-export class PaymentCardComponent implements OnInit, OnDestroy {
+export class PaymentCardComponent implements OnInit, AfterViewInit, OnDestroy {
 
   @ViewChild('myGrid') myGrid: jqxGridComponent;
   @ViewChild('myWindow') myWindow: jqxWindowComponent;
-
-  @Input('methods')
-  set methods(list: PaymentMethodDto[]) {
-    if (!list) return;
-    this.cards = list.filter(m => m.type.id == 'CRD');
-  }
-
-  @Output('onUpdate') onMethodUpdated = new EventEmitter<PaymentMethodDto>();
-
 
   cards: PaymentMethodDto[];
   selectedRowIndex: number = -1;
@@ -35,24 +26,37 @@ export class PaymentCardComponent implements OnInit, OnDestroy {
   columns(names: any): any[] {
     return [
       {dataField: 'PAN', text: names['PROFILE.GRID.PAN'], width: '40%', columntype: 'textbox'},
-      {dataField: 'HOLDER', text: names['PROFILE.GRID.CARD_HOLDER'], width: '45%', columntype: 'textbox'},
-      {dataField: 'EXPIRATION', text: names['PROFILE.GRID.CARD_EXPIRATION'], width: '15%', columntype: 'textbox'}
+      {dataField: 'CARD_HOLDER', text: names['PROFILE.GRID.CARD_HOLDER'], width: '45%', columntype: 'textbox'},
+      {
+        dataField: 'CARD_EXPIRATION',
+        text: names['PROFILE.GRID.CARD_EXPIRATION'],
+        width: '15%',
+        columntype: 'textbox'
+      }
     ];
   }
 
   constructor(private translate: TranslateService,
-              private paymentMethodService: PaymentMethodService) {
-    this.updateGrid();
+              private paymentMethodCardService: PaymentMethodCardService) {
   }
 
 
   ngOnInit() {
-
+    this.getMethods();
   }
 
+  ngAfterViewInit(): void {
+    this.updateGrid();
+  }
 
   ngOnDestroy(): void {
     this.myWindow.close()
+  }
+
+  getMethods() {
+    this.paymentMethodCardService.getPaymentMethods().subscribe(data => {
+      this.cards = data;
+    });
   }
 
   updateGrid() {
@@ -98,15 +102,14 @@ export class PaymentCardComponent implements OnInit, OnDestroy {
   }
 
   save() {
-    this.editMethod.type = {id: 'CRD', nameMl: new Map<string, string>()};
-    this.paymentMethodService.saveCard(this.editMethod).subscribe(()=>{
+    this.paymentMethodCardService.save(this.editMethod).subscribe(() => {
       this.myWindow.close();
-      this.onMethodUpdated.emit(this.editMethod);
+      this.getMethods();
     });
 
   }
 
-  private clone<T>(obj:T): T {
+  private clone<T>(obj: T): T {
     return JSON.parse(JSON.stringify(obj));
   }
 

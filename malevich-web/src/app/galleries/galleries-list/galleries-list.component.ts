@@ -29,9 +29,9 @@ export class GalleriesListComponent implements OnInit, AfterViewInit {
   getGalleries(): void {
     this.galleryService
       .getGalleries()
-      .subscribe(
-        data => (this.galleries = data)
-      );
+      .subscribe(data => {
+          this.galleries = data.filter(g => g.titleMl);
+        });
   }
 
 }

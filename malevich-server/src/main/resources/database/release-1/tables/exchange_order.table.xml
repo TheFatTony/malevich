@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.6.xsd">
+
+    <changeSet author="toolstik" id="exchange_order-table">
+        <createTable tableName="exchange_order">
+            <column name="id" type="bigint">
+                <constraints nullable="false"/>
+            </column>
+            <column name="payment_method_id" type="bigint">
+                <constraints nullable="false"/>
+            </column>
+            <column name="exchange_name" type="varchar(100)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="internal_status" type="char(10)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="type" type="varchar(10)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="original_amount" type="decimal(21, 15)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="currency_pair" type="varchar(10)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="order_id" type="varchar(100)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="timestamp" type="timestamp">
+                <constraints nullable="false"/>
+            </column>
+            <column name="status" type="varchar(100)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="cumulative_amount" type="decimal(21, 15)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="average_price" type="decimal(15, 6)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="fee" type="decimal(15, 6)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="leverage" type="varchar(1000)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+    <changeSet author="toolstik" id="exchange_order-pk">
+        <addPrimaryKey columnNames="id" constraintName="exchange_order_pk" tableName="exchange_order"/>
+    </changeSet>
+
+    <changeSet author="toolstik" id="exchange_order-id-aa" dbms="mysql">
+        <addAutoIncrement columnDataType="bigint" columnName="id" tableName="exchange_order"/>
+    </changeSet>
+
+</databaseChangeLog>

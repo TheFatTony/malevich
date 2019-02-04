@@ -65,15 +65,19 @@ public class BitcoinBalanceCheck {
     }
 
     private void placeOrder(Wallet wallet) {
-        MarketOrder limitOrder = new MarketOrder((Order.OrderType.ASK), new BigDecimal(wallet.getBalance().getValue()), CurrencyPair.BTC_EUR);
-        String limitOrderReturnValue = null;
+        MarketOrder order = new MarketOrder((Order.OrderType.ASK), new BigDecimal(wallet.getBalance().getValue()), CurrencyPair.BTC_EUR);
+        String orderReturnValue = null;
         try {
-            limitOrderReturnValue = krakenExchange.getTradeService().placeMarketOrder(limitOrder);
+            orderReturnValue = krakenExchange.getTradeService().placeMarketOrder(order);
             // TODO save this crap
         } catch (IOException e) {
             e.printStackTrace();
         }
-        System.out.println("Limit Order return value: " + limitOrderReturnValue);
+        System.out.println("Limit Order return value: " + orderReturnValue);
+    }
+
+    private void saveOrder(Order order){
+
     }
 
 }

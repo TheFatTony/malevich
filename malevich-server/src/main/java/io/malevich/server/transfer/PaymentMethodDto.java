@@ -15,11 +15,5 @@ public class PaymentMethodDto {
 
 //    private Object payload;
 
-    private String cardNumber;
-    private String cardHolder;
-    private String cardExpiration;
-    private String cardCvv;
-
-    private String btcAddress;
-
 }
+

@@ -1,0 +1,9 @@
+<div class="g-my-10">
+  <ng-container *ngIf="!isEditing">
+    <app-profile-payment-account-view (onEdit)="onEdit($event)"></app-profile-payment-account-view>
+  </ng-container>
+  <ng-container *ngIf="isEditing">
+    <app-profile-payment-account-edit [account]="editMethod" (onSubmit)="onSubmit()"
+                                      (onCancel)="onCancel()"></app-profile-payment-account-edit>
+  </ng-container>
+</div>

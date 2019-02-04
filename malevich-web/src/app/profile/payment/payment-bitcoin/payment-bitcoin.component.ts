@@ -1,47 +1,49 @@
-import {Component, EventEmitter, Input, OnInit, Output, ViewChild} from '@angular/core';
+import {AfterViewInit, Component, OnInit, ViewChild} from '@angular/core';
 import {jqxGridComponent} from "jqwidgets-scripts/jqwidgets-ts/angular_jqxgrid";
 import {PaymentMethodDto} from "../../../_transfer/paymentMethodDto";
 import {TranslateService} from "@ngx-translate/core";
-import {PaymentMethodService} from "../../../_services/payment-method.service";
+import {PaymentMethodBitcoinService} from "../../../_services/payment-method-bitcoin.service";
 
 @Component({
   selector: 'app-profile-payment-bitcoin',
   templateUrl: './payment-bitcoin.component.html',
   styleUrls: ['./payment-bitcoin.component.css']
 })
-export class PaymentBitcoinComponent implements OnInit {
+export class PaymentBitcoinComponent implements OnInit, AfterViewInit {
 
   @ViewChild('myGrid') myGrid: jqxGridComponent;
-
-  @Input('methods')
-  set methods(list: PaymentMethodDto[]) {
-    if (!list) return;
-    this.addresses = list.filter(m => m.type.id == 'BTC');
-  }
-
-  @Output('onUpdate') onMethodUpdated = new EventEmitter<PaymentMethodDto>();
 
   addresses: PaymentMethodDto[];
   selectedRowIndex: number = -1;
 
   columns(names: any): any[] {
     return [
-      {dataField: 'ADDRESS', text: names['PROFILE.GRID.ADDRESS'], width: '100%', columntype: 'textbox'},
+      {dataField: 'BITCOIN_ADDRESS', text: names['PROFILE.GRID.BITCOIN_ADDRESS'], width: '100%', columntype: 'textbox'},
     ];
   }
 
   constructor(private translate: TranslateService,
-              private paymentMethodService: PaymentMethodService) {
-    this.updateGrid();
+              private paymentMethodBitcoinService: PaymentMethodBitcoinService) {
   }
 
   ngOnInit() {
+    this.getMethods();
+  }
+
+  ngAfterViewInit(): void {
+    this.updateGrid();
+  }
+
+  getMethods() {
+    this.paymentMethodBitcoinService.getPaymentMethods().subscribe(data => {
+      this.addresses = data;
+    });
   }
 
   updateGrid() {
     this.translate
       .get([
-        'PROFILE.GRID.ADDRESS'
+        'PROFILE.GRID.BITCOIN_ADDRESS'
       ])
       .subscribe(data => {
         this.myGrid.hideloadelement();
@@ -59,8 +61,8 @@ export class PaymentBitcoinComponent implements OnInit {
   }
 
   onAddButton() {
-    this.paymentMethodService.generateBtc().subscribe(data => {
-      this.onMethodUpdated.emit(data);
+    this.paymentMethodBitcoinService.generateBtc().subscribe(data => {
+      this.getMethods();
     });
   }
 

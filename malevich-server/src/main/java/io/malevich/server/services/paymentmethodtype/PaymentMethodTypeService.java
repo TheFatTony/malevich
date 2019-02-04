@@ -11,5 +11,9 @@ public interface PaymentMethodTypeService {
 
     List<PaymentMethodTypeEntity> findAll();
 
+    PaymentMethodTypeEntity getAccountType();
+
+    PaymentMethodTypeEntity getCardType();
+
     PaymentMethodTypeEntity getBitcoinType();
 }

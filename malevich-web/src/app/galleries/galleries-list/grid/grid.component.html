@@ -2,7 +2,7 @@
   <div class="col-xl-4 col-md-6 g-mb-30" *ngFor="let gallery of galleries">
     <!-- Products -->
     <article *ngIf="gallery.titleMl">
-      <img class="img-fluid" src="{{url}}{{gallery.thumbnail.url}}" alt="Image Description">
+      <img *ngIf="gallery.thumbnail" class="img-fluid" src="{{url}}{{gallery.thumbnail.url}}" alt="Image Description">
 
       <div class="g-brd-around g-brd-top-none g-brd-gray-light-v3 g-bg-white">
         <!-- Products - Address -->

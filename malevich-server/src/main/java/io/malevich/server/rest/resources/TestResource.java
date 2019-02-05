@@ -1,21 +1,33 @@
 package io.malevich.server.rest.resources;
 
 
+import io.malevich.server.domain.PaymentMethodBitcoinEntity;
+import io.malevich.server.repositories.paymentmethod.PaymentMethodDao;
+import io.malevich.server.scheduling.BitcoinBalanceCheck;
+import io.malevich.server.services.paymentmethod.PaymentMethodService;
+import io.malevich.server.services.paymentmethodbitcoin.PaymentMethodBitcoinService;
 import lombok.extern.slf4j.Slf4j;
 import org.bitcoinj.core.*;
 import org.bitcoinj.store.BlockStoreException;
 import org.bitcoinj.store.MemoryBlockStore;
 import org.bitcoinj.wallet.SendRequest;
+import org.bitcoinj.wallet.UnreadableWalletException;
 import org.bitcoinj.wallet.Wallet;
 import org.knowm.xchange.currency.CurrencyPair;
+import org.knowm.xchange.dto.Order;
 import org.knowm.xchange.dto.marketdata.Ticker;
+import org.knowm.xchange.dto.trade.MarketOrder;
 import org.knowm.xchange.kraken.KrakenExchange;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.io.ByteArrayInputStream;
 import java.io.IOException;
+import java.math.BigDecimal;
+import java.util.List;
+import java.util.stream.Collectors;
 
 
 @Slf4j
@@ -30,6 +42,15 @@ public class TestResource {
     MemoryBlockStore memoryBlockStore;
     @Autowired
     KrakenExchange krakenExchange;
+
+    @Autowired
+    PaymentMethodBitcoinService paymentMethodBitcoinService;
+
+    @Autowired
+    PaymentMethodDao paymentMethodDao;
+
+    @Autowired
+    BitcoinBalanceCheck bitcoinBalanceCheck;
 
     @RequestMapping(value = "/wallet", method = RequestMethod.GET)
     @ResponseStatus(HttpStatus.OK)
@@ -85,6 +106,28 @@ public class TestResource {
         return ResponseEntity.ok().build();
     }
 
+    @RequestMapping(value = "/saveExchangeOrder", method = RequestMethod.GET)
+    @ResponseStatus(HttpStatus.OK)
+    @ResponseBody
+    public ResponseEntity<Void> saveExchangeOrder() {
+        List<PaymentMethodBitcoinEntity> accounts = paymentMethodDao.findByType_Id("BTC").stream().map(m -> (PaymentMethodBitcoinEntity) m).collect(Collectors.toList());
+
+        for (PaymentMethodBitcoinEntity account : accounts) {
+            Wallet wallet = null;
+            try {
+                wallet = Wallet.loadFromFileStream(new ByteArrayInputStream(account.getWallet()));
+                MarketOrder order = new MarketOrder(
+                        (Order.OrderType.ASK),
+                        new BigDecimal(wallet.getBalance().getValue()),
+                        CurrencyPair.BTC_EUR
+                );
+                bitcoinBalanceCheck.saveOrder(order, account);
+            } catch (UnreadableWalletException e) {
+                e.printStackTrace();
+            }
+        }
+        return ResponseEntity.ok().build();
+    }
 
 
 }

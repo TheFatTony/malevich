@@ -1,10 +1,11 @@
 import {PaymentMethodTypeDto} from "./paymentMethodTypeDto";
 import {CountryDto} from "./countryDto";
+import {ParticipantDto} from "./participantDto";
 
 export class PaymentMethodDto {
   id: number;
   type: PaymentMethodTypeDto;
-  // payload: Map<string, string>;
+  participant: ParticipantDto;
 
   cardNumber: string;
   cardHolder: string;

@@ -38,5 +38,6 @@
     <include relativeToChangelogFile="true" file="tables/wish_list.table.xml"/>
     <include relativeToChangelogFile="true" file="tables/delayed_change.table.xml"/>
     <include relativeToChangelogFile="true" file="tables/commission_rule.table.xml"/>
+    <include relativeToChangelogFile="true" file="tables/exchange_order.table.xml"/>
 
 </databaseChangeLog>

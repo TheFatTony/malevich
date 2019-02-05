@@ -36,6 +36,7 @@ public class PaymentsResource extends RestResource<PaymentsDto, PaymentsEntity> 
     }
 
     @PostMapping("/insert")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     public ResponseEntity<Void> insert(@RequestBody PaymentsDto paymentsDto) {
         this.paymentsService.insertPayment(convertToEntity(paymentsDto));
         return ResponseEntity.ok().build();

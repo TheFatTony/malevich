@@ -61,10 +61,10 @@ public class AccountStateServiceImpl implements AccountStateService {
         return accountStateEntity;
     }
 
-    private AccountStateEntity getAccountStateFromParticipant(CounterpartyParticipant fabricParticicpant, ParticipantEntity participantEntity) {
+    private AccountStateEntity getAccountStateFromParticipant(CounterpartyParticipant fabricParticipant, ParticipantEntity participantEntity) {
         AccountStateEntity accountStateEntity = new AccountStateEntity();
         accountStateEntity.setParticipant(participantEntity);
-        accountStateEntity.setAmount(fabricParticicpant.getBalance());
+        accountStateEntity.setAmount(fabricParticipant.getBalance());
         return accountStateEntity;
     }
 

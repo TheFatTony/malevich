@@ -1,8 +1,15 @@
-<mchButton [width]="100" [height]="35" (click)="onAddButton()">
-  Add
+<mchButton
+  class="g-brd-around g-brd-gray-light-v3 g-color-gray-dark-v3 g-bg-gray-light-v5 g-bg-gray-light-v4--hover g-font-size-13 rounded g-px-18 g-py-9 g-mr-15"
+  (click)="openPaymentWindow()">
+  <i class="align-middle g-font-size-16 mr-2 icon-finance-053 u-line-icon-pro"></i>
+  Add Balance
 </mchButton>
-<mchButton [width]="100" [height]="35" (click)="onEditButton()" [disabled]="selectedRowIndex < 0">
-  Edit
+
+<mchButton
+  class="g-brd-around g-brd-gray-light-v3 g-color-gray-dark-v3 g-bg-gray-light-v5 g-bg-gray-light-v4--hover g-font-size-13 rounded g-px-18 g-py-9"
+  (click)="openWithdrawWindow()">
+  <i class="align-middle g-font-size-16 mr-2 icon-finance-210 u-line-icon-pro"></i>
+  Withdraw Balance
 </mchButton>
 
 <jqxGrid #myGrid
@@ -26,3 +33,57 @@
     </td>
   </tr>
 </jqxGrid>
+
+<jqxWindow #myWindow [autoOpen]="false" [resizable]="false">
+  <div>Add balance</div>
+  <div style="overflow: hidden" style="width: 100%">
+    <table class="register-table" *ngIf="newPayment" style="width: 100%">
+      <tbody>
+      <tr>Amount:</tr>
+      <tr>
+        <mchNumberInput
+          class="amountInput"
+          [ngModel]="newPayment?.amount"
+          (ngModelChange)="newPayment.amount=$event"></mchNumberInput>
+      </tr>
+      <tr>
+        <td colspan="2" style="padding-left: 20px;">
+          <mchButton #SendButton
+                     (onClick)="sendPayment()"
+                     style="text-align: center; margin-left: 8em;"
+                     [width]="60" [height]="25">
+            Send
+          </mchButton>
+        </td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+</jqxWindow>
+
+<jqxWindow #withdrawWindow [autoOpen]="false" [resizable]="false">
+  <div>Withdraw balance</div>
+  <div style="overflow: hidden" style="width: 100%">
+    <table class="register-table" *ngIf="newWithdraw" style="width: 100%">
+      <tbody>
+      <tr>Amount:</tr>
+      <tr>
+        <mchNumberInput
+          class="amountInput"
+          [ngModel]="-newWithdraw?.amount"
+          (ngModelChange)="newWithdraw.amount=-$event"></mchNumberInput>
+      </tr>
+      <tr>
+        <td colspan="2" style="padding-left: 20px;">
+          <mchButton #SendButton
+                     (onClick)="sendWithdraw()"
+                     style="text-align: center; margin-left: 8em;"
+                     [width]="60" [height]="25">
+            Send
+          </mchButton>
+        </td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+</jqxWindow>

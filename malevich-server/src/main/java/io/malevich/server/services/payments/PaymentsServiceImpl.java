@@ -59,8 +59,6 @@ public class PaymentsServiceImpl implements PaymentsService {
     @Override
     @Transactional
     public void insertPayment(PaymentsEntity paymentsEntity) {
-        ParticipantEntity current = participantService.getCurrent();
-
         PaymentTypeEntity paymentType;
 
         if (paymentsEntity.getAmount() < 0) {
@@ -69,7 +67,6 @@ public class PaymentsServiceImpl implements PaymentsService {
             paymentType = paymentTypeService.getPaymentType();
         }
 
-        paymentsEntity.setParticipant(current);
         paymentsEntity.setPaymentType(paymentType);
 
         paymentsEntity = paymentsDao.save(paymentsEntity);

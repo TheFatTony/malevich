@@ -5,7 +5,6 @@ import io.malevich.server.domain.ParticipantEntity;
 import io.malevich.server.domain.PaymentsEntity;
 import io.malevich.server.fabric.model.PaymentTransaction;
 import io.malevich.server.services.participant.ParticipantService;
-import io.malevich.server.services.paymenttype.PaymentTypeService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.ParameterizedTypeReference;
@@ -27,9 +26,6 @@ public class PaymentTransactionServiceImpl extends GenericComposerServiceImpl<Pa
     private ParticipantService participantService;
 
 
-    @Autowired
-    private PaymentTypeService paymentTypeService;
-
     public PaymentTransactionServiceImpl() {
         super("Payment");
     }
@@ -37,8 +33,16 @@ public class PaymentTransactionServiceImpl extends GenericComposerServiceImpl<Pa
     @Override
     public void create(PaymentsEntity entity) {
         PaymentTransaction paymentTransaction = new PaymentTransaction();
-        paymentTransaction.setParty("resource:io.malevich.network.Trader#" + entity.getParticipant().getId());
-        paymentTransaction.setAmount(entity.getAmount());
+
+        String fabricClass = null;
+        if ("G".equals(entity.getParticipant().getType().getId())) {
+            fabricClass = "resource:io.malevich.network.Gallery#";
+        } else {
+            fabricClass = "resource:io.malevich.network.Trader#";
+        }
+
+        paymentTransaction.setParty(fabricClass + entity.getParticipant().getId());
+        paymentTransaction.setAmount(Math.abs(entity.getAmount()));
         paymentTransaction.setPaymentType(entity.getPaymentType().getId());
 
         doPost(paymentTransaction);
@@ -54,7 +58,6 @@ public class PaymentTransactionServiceImpl extends GenericComposerServiceImpl<Pa
         } else {
             fabricClass = "resource:io.malevich.network.Trader#";
         }
-
 
         try {
             ResponseEntity<List<PaymentTransaction>> res = restTemplate.exchange(composerUrl + "/queries/getPaymentsByCounterparty?party={party}", HttpMethod.GET, null, new ParameterizedTypeReference<List<PaymentTransaction>>() {

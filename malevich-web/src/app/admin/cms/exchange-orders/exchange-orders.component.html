@@ -1,0 +1,32 @@
+<jqxGrid #myGrid
+         [width]="'100%'" [height]="'100%'" [pageable]="true" [sortable]="true" [columnsresize]="true"
+         [pagermode]="'simple'" [columns]="columns">
+  <tr>
+    <th>Date</th>
+    <th>Exchange Name</th>
+    <th>Currency Pair</th>
+    <th>Amount</th>
+    <th>Type</th>
+    <th>Status</th>
+  </tr>
+  <tr *ngFor="let order of exchangeOrders">
+    <td>
+      {{order?.effectiveDate}}
+    </td>
+    <td>
+      {{order?.exchangeName}}
+    </td>
+    <td>
+      {{order?.currencyPair}}
+    </td>
+    <td>
+      {{order?.originalAmount}}
+    </td>
+    <td>
+      {{order?.type}}
+    </td>
+    <td>
+      {{order?.internalStatus}}
+    </td>
+  </tr>
+</jqxGrid>

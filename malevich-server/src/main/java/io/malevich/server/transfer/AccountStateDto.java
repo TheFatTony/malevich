@@ -11,7 +11,7 @@ public class AccountStateDto {
 
     private Long id;
 
-    private ParticipantDto party;
+    private ParticipantDto participant;
 
     private ArtworkStockDto artworkStock;
 

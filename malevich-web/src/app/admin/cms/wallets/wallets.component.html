@@ -1,0 +1,28 @@
+<mchButton [width]="100" [height]="35" (click)="onAddButton()">
+  Add
+</mchButton>
+<mchButton [width]="100" [height]="35" (click)="onEditButton()" [disabled]="selectedRowIndex < 0">
+  Edit
+</mchButton>
+
+<jqxGrid #myGrid
+         [width]="'100%'" [height]="'90%'" [pageable]="true" [sortable]="true" [filterable]="true"
+         [columnsresize]="true"
+         [pagermode]="'simple'" (onRowselect)="onGridRowSelect($event)">
+  <tr>
+    <th>User</th>
+    <th>User Type</th>
+    <th>Balance</th>
+  </tr>
+  <tr *ngFor="let wallet of wallets;index as i">
+    <td>
+      {{wallet.participant?.users[0].name}}
+    </td>
+    <td>
+      {{wallet.participant?.type.nameMl['en']}}
+    </td>
+    <td>
+      {{wallet.amount}}
+    </td>
+  </tr>
+</jqxGrid>

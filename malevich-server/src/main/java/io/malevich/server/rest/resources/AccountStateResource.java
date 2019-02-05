@@ -40,5 +40,14 @@ public class AccountStateResource extends RestResource<AccountStateDto, AccountS
         return convertToDto(allEntry);
     }
 
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @RequestMapping(value = "/list", method = RequestMethod.GET)
+    @ResponseStatus(HttpStatus.OK)
+    @ResponseBody
+    public List<AccountStateDto> list() {
+        List<AccountStateEntity> allEntry = this.accountStateService.getAll();
+        return convertListOfDto(allEntry);
+    }
+
 
 }

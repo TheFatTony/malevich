@@ -12,7 +12,9 @@ public class PaymentsDto {
 
     private Long id;
 
-    @JsonFormat(pattern = "dd/MM/yyyy")
+    private ParticipantDto participant;
+
+//    @JsonFormat(pattern = "dd/MM/yyyy")
     private java.sql.Timestamp effectiveDate;
 
     private PaymentMethodDto paymentMethod;

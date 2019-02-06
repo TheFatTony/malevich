@@ -3,7 +3,7 @@ import {ParticipantDto} from "./participantDto";
 
 export class AccountStateDto {
   id: number;
-  party: ParticipantDto;
+  participant: ParticipantDto;
   artworkStock: ArtworkStockDto;
   amount: number;
   quantity: number;

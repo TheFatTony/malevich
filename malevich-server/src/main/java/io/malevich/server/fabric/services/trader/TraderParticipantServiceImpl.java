@@ -2,8 +2,6 @@ package io.malevich.server.fabric.services.trader;
 
 import com.yinyang.core.server.fabric.GenericComposerServiceImpl;
 import io.malevich.server.domain.ParticipantEntity;
-import io.malevich.server.fabric.model.GalleryParticipant;
-import io.malevich.server.fabric.model.PaymentTransaction;
 import io.malevich.server.fabric.model.TraderParticipant;
 import io.malevich.server.services.participant.ParticipantService;
 import lombok.extern.slf4j.Slf4j;
@@ -44,6 +42,18 @@ public class TraderParticipantServiceImpl extends GenericComposerServiceImpl<Par
         ParticipantEntity participantEntity = participantService.getCurrent();
         try {
             ResponseEntity<TraderParticipant> res = restTemplate.exchange(composerUrl + "/Trader/{trader}", HttpMethod.GET, null, new ParameterizedTypeReference<TraderParticipant>() {}, participantEntity.getId());
+            return res.getBody();
+        } catch (RestClientException e) {
+            String errorResponse = ((HttpStatusCodeException) e).getResponseBodyAsString();
+            log.trace(errorResponse);
+            throw e;
+        }
+    }
+
+    @Override
+    public List<TraderParticipant> getAll(){
+        try {
+            ResponseEntity<List<TraderParticipant>> res = restTemplate.exchange(composerUrl + "/Trader", HttpMethod.GET, null, new ParameterizedTypeReference<List<TraderParticipant>>() {});
             return res.getBody();
         } catch (RestClientException e) {
             String errorResponse = ((HttpStatusCodeException) e).getResponseBodyAsString();

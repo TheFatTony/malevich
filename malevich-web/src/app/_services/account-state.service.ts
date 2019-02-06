@@ -24,6 +24,11 @@ export class AccountStateService {
       .get<AccountStateDto>(this.url + '/getWallet');
   }
 
+  getAllWallets() {
+    return this.http
+      .get<AccountStateDto[]>(this.url + '/list');
+  }
+
 
 
 }

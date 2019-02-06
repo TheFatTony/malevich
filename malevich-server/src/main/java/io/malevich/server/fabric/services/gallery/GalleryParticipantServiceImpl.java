@@ -14,6 +14,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.client.HttpStatusCodeException;
 import org.springframework.web.client.RestClientException;
 
+import java.util.List;
+
 
 @Slf4j
 @Service
@@ -42,6 +44,18 @@ public class GalleryParticipantServiceImpl extends GenericComposerServiceImpl<Pa
         ParticipantEntity participantEntity = participantService.getCurrent();
         try {
             ResponseEntity<GalleryParticipant> res = restTemplate.exchange(composerUrl + "/Gallery/{gallery}", HttpMethod.GET, null, new ParameterizedTypeReference<GalleryParticipant>() {}, participantEntity.getId());
+            return res.getBody();
+        } catch (RestClientException e) {
+            String errorResponse = ((HttpStatusCodeException) e).getResponseBodyAsString();
+            log.trace(errorResponse);
+            throw e;
+        }
+    }
+
+    @Override
+    public List<GalleryParticipant> getAll(){
+        try {
+            ResponseEntity<List<GalleryParticipant>> res = restTemplate.exchange(composerUrl + "/Gallery", HttpMethod.GET, null, new ParameterizedTypeReference<List<GalleryParticipant>>() {});
             return res.getBody();
         } catch (RestClientException e) {
             String errorResponse = ((HttpStatusCodeException) e).getResponseBodyAsString();

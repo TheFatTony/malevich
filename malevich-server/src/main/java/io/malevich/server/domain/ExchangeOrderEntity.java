@@ -1,6 +1,7 @@
 package io.malevich.server.domain;
 
 import com.yinyang.core.server.domain.YAbstractPersistable;
+import io.malevich.server.domain.enums.ExchangeOrderStatus;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -25,8 +26,9 @@ public class ExchangeOrderEntity extends YAbstractPersistable<Long> {
 
     @Getter
     @Setter
+    @Enumerated(EnumType.STRING)
     @Column(name = "internal_status")
-    private String internalStatus;
+    private ExchangeOrderStatus internalStatus;
 
     @Getter
     @Setter

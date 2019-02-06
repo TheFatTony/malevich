@@ -7,6 +7,8 @@ import io.malevich.server.services.participant.ParticipantService;
 import io.malevich.server.services.paymentmethodtype.PaymentMethodTypeService;
 import lombok.extern.slf4j.Slf4j;
 import org.bitcoinj.core.*;
+import org.bitcoinj.kits.WalletAppKit;
+import org.bitcoinj.net.discovery.DnsDiscovery;
 import org.bitcoinj.store.BlockStoreException;
 import org.bitcoinj.store.MemoryBlockStore;
 import org.bitcoinj.wallet.Wallet;
@@ -39,6 +41,9 @@ public class PaymentMethodBitcoinServiceImpl implements PaymentMethodBitcoinServ
     @Autowired
     private MemoryBlockStore memoryBlockStore;
 
+    @Autowired
+    private WalletAppKit walletAppKit;
+
     @Override
     @Transactional(readOnly = true)
     public List<PaymentMethodBitcoinEntity> findAll() {
@@ -55,7 +60,7 @@ public class PaymentMethodBitcoinServiceImpl implements PaymentMethodBitcoinServ
 
         PaymentMethodBitcoinEntity address;
 
-        if(existing.isPresent()){
+        if (existing.isPresent()) {
             address = existing.get();
         } else {
             address = new PaymentMethodBitcoinEntity();
@@ -64,7 +69,7 @@ public class PaymentMethodBitcoinServiceImpl implements PaymentMethodBitcoinServ
         }
 
         Wallet wallet = createWallet();
-        ByteArrayOutputStream walletDump =  new ByteArrayOutputStream();
+        ByteArrayOutputStream walletDump = new ByteArrayOutputStream();
         try {
             wallet.saveToFileStream(walletDump);
         } catch (IOException e) {
@@ -78,16 +83,7 @@ public class PaymentMethodBitcoinServiceImpl implements PaymentMethodBitcoinServ
 
     private Wallet createWallet() {
         Wallet wallet = new Wallet(networkParameters);
-        BlockChain chain = null;
-        try {
-            chain = new BlockChain(networkParameters, wallet, memoryBlockStore);
-            PeerGroup peerGroup = new PeerGroup(networkParameters, chain);
-            peerGroup.addWallet(wallet);
-            peerGroup.start();
-            return wallet;
-        } catch (BlockStoreException e) {
-            e.printStackTrace();
-        }
+        walletAppKit.peerGroup().addWallet(wallet);
         return wallet;
     }
 

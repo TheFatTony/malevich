@@ -32,7 +32,14 @@ public class PaymentsResource extends RestResource<PaymentsDto, PaymentsEntity> 
     @ResponseStatus(HttpStatus.OK)
     public List<PaymentsDto> list() {
         List<PaymentsEntity> allEntries = this.paymentsService.findOwnPayments();
-        return allEntries.stream().map(allEntry -> convertToDto(allEntry)).collect(Collectors.toList());
+        return convertListOfDto(allEntries);
+    }
+
+    @GetMapping("/listByParticipant/{id}")
+    @ResponseStatus(HttpStatus.OK)
+    public List<PaymentsDto> listByParticipant(@PathVariable("id") Long id) {
+        List<PaymentsEntity> allEntries = this.paymentsService.findAllByParticipant(id);
+        return convertListOfDto(allEntries);
     }
 
     @PostMapping("/insert")

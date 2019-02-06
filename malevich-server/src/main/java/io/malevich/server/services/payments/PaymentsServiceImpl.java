@@ -57,6 +57,12 @@ public class PaymentsServiceImpl implements PaymentsService {
     }
 
     @Override
+    @Transactional(readOnly = true)
+    public List<PaymentsEntity> findAllByParticipant(Long participantId) {
+        return this.paymentsDao.findAllByParticipant_Id(participantId);
+    }
+
+    @Override
     @Transactional
     public void insertPayment(PaymentsEntity paymentsEntity) {
         PaymentTypeEntity paymentType;

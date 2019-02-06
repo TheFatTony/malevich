@@ -15,7 +15,9 @@
 <jqxGrid #myGrid
          [width]="'100%'" [height]="'90%'" [pageable]="true" [sortable]="true" [filterable]="true"
          [columnsresize]="true"
-         [pagermode]="'simple'" (onRowselect)="onGridRowSelect($event)">
+         [pagermode]="'simple'" (onRowselect)="onGridRowSelect($event)"
+         [rowdetails]="true" [initrowdetails]="initRowDetails"
+         [ready]="gridReady" [rowdetailstemplate]="rowDetailsTemplate">
   <tr>
     <th>User</th>
     <th>User Type</th>

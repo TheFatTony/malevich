@@ -1,7 +1,6 @@
 import {Injectable} from '@angular/core';
 import {environment} from '../../environments/environment.dev';
 import {HttpClient} from '@angular/common/http';
-import {map} from 'rxjs/operators';
 import {PaymentsDto} from '../_transfer/paymentsDto';
 
 @Injectable({
@@ -16,6 +15,11 @@ export class PaymentsService {
   getPayments() {
     return this.http
       .get<PaymentsDto[]>(this.url + '/list');
+  }
+
+  getPaymentsByParticipant(participantId: number) {
+    return this.http
+      .get<PaymentsDto[]>(this.url + `/listByParticipant/${participantId}`);
   }
 
   insert(payments: PaymentsDto) {

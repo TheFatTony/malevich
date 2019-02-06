@@ -1,4 +1,4 @@
-import {Component, HostListener, OnDestroy, OnInit, ViewChild} from '@angular/core';
+import {AfterViewInit, Component, HostListener, OnDestroy, OnInit, ViewChild} from '@angular/core';
 import {PaymentsDto} from '../../_transfer/paymentsDto';
 import {jqxWindowComponent} from 'jqwidgets-scripts/jqwidgets-ts/angular_jqxwindow';
 import {PaymentsService} from '../../_services/payments.service';
@@ -6,17 +6,16 @@ import {AccountStateService} from '../../_services/account-state.service';
 import {AccountStateDto} from '../../_transfer/accountStateDto';
 import {jqxGridComponent} from 'jqwidgets-scripts/jqwidgets-ts/angular_jqxgrid';
 import {TranslateService} from '@ngx-translate/core';
-import {Message} from "@angular/compiler/src/i18n/i18n_ast";
 
 @Component({
   selector: 'app-profile-wallet',
   templateUrl: './wallet.component.html',
   styleUrls: ['./wallet.component.css']
 })
-export class WalletComponent implements OnInit, OnDestroy {
+export class WalletComponent implements OnInit, AfterViewInit, OnDestroy {
 
-  @ViewChild('myWindow') myWindow: jqxWindowComponent;
-  @ViewChild('withdrawWindow') withdrawWindow: jqxWindowComponent;
+  // @ViewChild('myWindow') myWindow: jqxWindowComponent;
+  // @ViewChild('withdrawWindow') withdrawWindow: jqxWindowComponent;
   @ViewChild('myGrid') myGrid: jqxGridComponent;
 
   public newPayment: PaymentsDto;
@@ -30,7 +29,6 @@ export class WalletComponent implements OnInit, OnDestroy {
   constructor(private paymentsService: PaymentsService,
               private accountStateService: AccountStateService,
               public translate: TranslateService) {
-    this.updateGrid();
   }
 
   ngOnInit() {
@@ -38,9 +36,13 @@ export class WalletComponent implements OnInit, OnDestroy {
     this.getPayments();
   }
 
+  ngAfterViewInit(): void {
+    this.updateGrid();
+  }
+
   ngOnDestroy(): void {
-    this.myWindow.close();
-    this.withdrawWindow.close();
+    // this.myWindow.close();
+    // this.withdrawWindow.close();
   }
 
   updateGrid() {
@@ -89,35 +91,35 @@ export class WalletComponent implements OnInit, OnDestroy {
   }
 
   sendPayment() {
-    this.paymentsService.insert(this.newPayment).subscribe(() => {
-      this.myWindow.close();
-      this.getPayments();
-      this.getAccountState();
-    });
+    // this.paymentsService.insert(this.newPayment).subscribe(() => {
+    //   this.myWindow.close();
+    //   this.getPayments();
+    //   this.getAccountState();
+    // });
   }
 
   sendWithdraw() {
-    this.paymentsService.insert(this.newWithdraw).subscribe(() => {
-      this.withdrawWindow.close();
-      this.getPayments();
-      this.getAccountState();
-    });
+    // this.paymentsService.insert(this.newWithdraw).subscribe(() => {
+    //   this.withdrawWindow.close();
+    //   this.getPayments();
+    //   this.getAccountState();
+    // });
   }
 
   openPaymentWindow() {
-    this.newPayment = new PaymentsDto();
-    this.myWindow.width(310);
-    this.myWindow.height(220);
-    this.myWindow.open();
-    this.myWindow.move(this.x, this.y);
+    // this.newPayment = new PaymentsDto();
+    // this.myWindow.width(310);
+    // this.myWindow.height(220);
+    // this.myWindow.open();
+    // this.myWindow.move(this.x, this.y);
   }
 
   openWithdrawWindow() {
-    this.newWithdraw = new PaymentsDto();
-    this.withdrawWindow.width(310);
-    this.withdrawWindow.height(220);
-    this.withdrawWindow.open();
-    this.withdrawWindow.move(this.x, this.y);
+    // this.newWithdraw = new PaymentsDto();
+    // this.withdrawWindow.width(310);
+    // this.withdrawWindow.height(220);
+    // this.withdrawWindow.open();
+    // this.withdrawWindow.move(this.x, this.y);
   }
 
   @HostListener('mousedown', ['$event'])
@@ -139,5 +141,7 @@ export class WalletComponent implements OnInit, OnDestroy {
       this.payments = data;
     });
   }
+
+
 
 }

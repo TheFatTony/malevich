@@ -32,10 +32,18 @@ public class PaymentsResource extends RestResource<PaymentsDto, PaymentsEntity> 
     @ResponseStatus(HttpStatus.OK)
     public List<PaymentsDto> list() {
         List<PaymentsEntity> allEntries = this.paymentsService.findOwnPayments();
-        return allEntries.stream().map(allEntry -> convertToDto(allEntry)).collect(Collectors.toList());
+        return convertListOfDto(allEntries);
+    }
+
+    @GetMapping("/listByParticipant/{id}")
+    @ResponseStatus(HttpStatus.OK)
+    public List<PaymentsDto> listByParticipant(@PathVariable("id") Long id) {
+        List<PaymentsEntity> allEntries = this.paymentsService.findAllByParticipant(id);
+        return convertListOfDto(allEntries);
     }
 
     @PostMapping("/insert")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     public ResponseEntity<Void> insert(@RequestBody PaymentsDto paymentsDto) {
         this.paymentsService.insertPayment(convertToEntity(paymentsDto));
         return ResponseEntity.ok().build();

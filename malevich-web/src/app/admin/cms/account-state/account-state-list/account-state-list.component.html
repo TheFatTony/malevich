@@ -8,13 +8,13 @@
     <th>Quantity</th>
   </tr>
   <tr *ngFor="let accountState of accountStates">
-    <td *ngIf="accountState?.party.gallery">
-      {{accountState?.party.gallery?.organization.legalNameMl[translate.currentLang]}}
+    <td *ngIf="accountState?.participant.gallery">
+      {{accountState?.participant.gallery?.organization.legalNameMl[translate.currentLang]}}
     </td>
-    <td *ngIf="accountState?.party.trader">
-      {{accountState?.party.trader?.person.fullName}}
+    <td *ngIf="accountState?.participant.trader">
+      {{accountState?.participant.trader?.person.fullName}}
     </td>
-    <td *ngIf="accountState?.party.id === 1">
+    <td *ngIf="accountState?.participant.id === 1">
       Malevich
     </td>
     <td *ngIf="accountState?.artworkStock?.artwork">

@@ -3,6 +3,7 @@ package io.malevich.server.scheduling;
 import io.malevich.server.domain.ExchangeOrderEntity;
 import io.malevich.server.domain.PaymentMethodBitcoinEntity;
 import io.malevich.server.domain.PaymentMethodEntity;
+import io.malevich.server.domain.enums.ExchangeOrderStatus;
 import io.malevich.server.repositories.paymentmethod.PaymentMethodDao;
 import io.malevich.server.services.exchangeorder.ExchangeOrderService;
 import io.malevich.server.services.paymentmethod.PaymentMethodService;
@@ -86,7 +87,7 @@ public class BitcoinBalanceCheck {
         ExchangeOrderEntity entity = new ExchangeOrderEntity();
         entity.setPaymentMethod(paymentMethodEntity);
         entity.setExchangeName(krakenExchange.getExchangeSpecification().getExchangeName());
-        entity.setInternalStatus("SUBMITTED");
+        entity.setInternalStatus(ExchangeOrderStatus.SUBMITTED);
         entity.setType(order.getType().name());
         entity.setOriginalAmount(order.getOriginalAmount());
         entity.setCurrencyPair(order.getCurrencyPair().toString());

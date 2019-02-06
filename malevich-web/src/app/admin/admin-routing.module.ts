@@ -15,6 +15,7 @@ import {ArtistEditComponent} from "./cms/artists/edit/artist-edit.component";
 import {CommissionRuleListComponent} from "./cms/commissions/list/commission-rule-list.component";
 import {CommissionRuleEditComponent} from "./cms/commissions/edit/commission-rule-edit.component";
 import {ExchangeOrdersComponent} from "./cms/exchange-orders/exchange-orders.component";
+import {WalletsComponent} from "./cms/wallets/wallets.component";
 
 
 export const routes: Routes = [
@@ -33,7 +34,8 @@ export const routes: Routes = [
   {path: 'cms/artists/edit', component: ArtistEditComponent},
   {path: 'cms/commissions', component: CommissionRuleListComponent},
   {path: 'cms/commissions/edit', component: CommissionRuleEditComponent},
-  {path: 'cms/exchange-orders', component: ExchangeOrdersComponent}
+  {path: 'cms/exchange-orders', component: ExchangeOrdersComponent},
+  {path: 'cms/wallets', component: WalletsComponent}
 ];
 
 @NgModule({

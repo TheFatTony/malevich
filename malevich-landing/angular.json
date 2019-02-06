@@ -23,9 +23,33 @@
               "src/assets"
             ],
             "styles": [
-              "src/styles.css"
+              "node_modules/bootstrap/dist/css/bootstrap.css",
+              "node_modules/font-awesome/css/font-awesome.css",
+              "src/assets/icon-line/css/simple-line-icons.css",
+              "src/assets/icon-line-pro/style.css",
+              "src/assets/icon-hs/style.css",
+              "src/assets/hamburgers/hamburgers.min.css",
+              "src/assets/chosen/chosen.css",
+              "src/assets/slick-carousel/slick/slick.css",
+              "src/assets/master-slider/source/assets/css/masterslider.main.css",
+              "src/assets/malevich/css/styles.op-real-estate.css"
             ],
-            "scripts": []
+            "scripts": [
+              "node_modules/jquery/dist/jquery.js",
+              "node_modules/jquery-migrate/dist/jquery-migrate.js",
+              "src/assets/popper.min.js",
+              "node_modules/bootstrap/dist/js/bootstrap.js",
+              "src/assets/appear.js",
+              "src/assets/slick-carousel/slick/slick.js",
+              "src/assets/master-slider/source/assets/js/masterslider.min.js",
+              "src/assets/js/hs.core.js",
+              "src/assets/js/components/hs.header.js",
+              "src/assets/js/helpers/hs.hamburgers.js",
+              "src/assets/js/components/hs.scroll-nav.js",
+              "src/assets/js/components/hs.rating.js",
+              "src/assets/js/components/hs.carousel.js",
+              "src/assets/js/components/hs.go-to.js"
+            ]
           },
           "configurations": {
             "production": {

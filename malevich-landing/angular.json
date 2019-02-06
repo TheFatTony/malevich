@@ -13,7 +13,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/malevich-landing",
+            "outputPath": "target/malevich-landing",
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": "src/polyfills.ts",
@@ -37,6 +37,7 @@
             "scripts": [
               "node_modules/jquery/dist/jquery.js",
               "node_modules/jquery-migrate/dist/jquery-migrate.js",
+              "node_modules/jquery-countdown/dist/jquery.countdown.js",
               "src/assets/popper.min.js",
               "node_modules/bootstrap/dist/js/bootstrap.js",
               "src/assets/appear.js",

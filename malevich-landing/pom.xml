@@ -49,7 +49,7 @@
               <arguments>
                 <argument>run</argument>
                 <argument>build</argument>
-                <argument>-c=${build.profile.id}</argument>
+                <argument>--prod</argument>
               </arguments>
             </configuration>
             <goals>

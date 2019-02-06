@@ -6,11 +6,9 @@ import io.malevich.server.domain.PaymentMethodEntity;
 import io.malevich.server.domain.enums.ExchangeOrderStatus;
 import io.malevich.server.repositories.paymentmethod.PaymentMethodDao;
 import io.malevich.server.services.exchangeorder.ExchangeOrderService;
-import io.malevich.server.services.paymentmethod.PaymentMethodService;
-import io.malevich.server.services.paymentmethodtype.PaymentMethodTypeService;
-import org.bitcoinj.core.BlockChain;
-import org.bitcoinj.core.NetworkParameters;
-import org.bitcoinj.core.PeerGroup;
+import org.bitcoinj.core.*;
+import org.bitcoinj.kits.WalletAppKit;
+import org.bitcoinj.net.discovery.DnsDiscovery;
 import org.bitcoinj.store.BlockStoreException;
 import org.bitcoinj.store.MemoryBlockStore;
 import org.bitcoinj.wallet.UnreadableWalletException;
@@ -35,10 +33,10 @@ public class BitcoinBalanceCheck {
 
 
     @Autowired
-    MemoryBlockStore memoryBlockStore;
+    private NetworkParameters networkParameters;
 
     @Autowired
-    private NetworkParameters networkParameters;
+    private ExchangeOrderService exchangeOrderService;
 
     @Autowired
     private PaymentMethodDao paymentMethodDao;
@@ -47,26 +45,25 @@ public class BitcoinBalanceCheck {
     private KrakenExchange krakenExchange;
 
     @Autowired
-    private ExchangeOrderService exchangeOrderService;
+    private WalletAppKit walletAppKit;
 
-    //    @Scheduled(initialDelay = 2000, fixedRate = 10000)
-    public void checkBalance() throws UnreadableWalletException, BlockStoreException {
+    @Autowired
+    private Context context;
+
+    @Autowired
+    private MemoryBlockStore memoryBlockStore;
+
+
+//    @Scheduled(initialDelay = 2000, fixedRate = 10000)
+    public void checkBalance() throws UnreadableWalletException {
+        Context.propagate(context);
         List<PaymentMethodBitcoinEntity> accounts = paymentMethodDao.findByType_Id("BTC").stream().map(m -> (PaymentMethodBitcoinEntity) m).collect(Collectors.toList());
 
         for (PaymentMethodBitcoinEntity account : accounts) {
             Wallet wallet = Wallet.loadFromFileStream(new ByteArrayInputStream(account.getWallet()));
-
-            BlockChain chain = new BlockChain(networkParameters, wallet, memoryBlockStore);
-
-            final PeerGroup peerGroup = new PeerGroup(networkParameters, chain);
-            peerGroup.startAsync();
-
-            peerGroup.downloadBlockChain();
-            peerGroup.stopAsync();
+            walletAppKit.peerGroup().downloadBlockChain();
 
             System.out.println("!!!! Fucking balance = " + wallet.getBalance());
-
-
         }
 
     }

@@ -121,7 +121,7 @@ public class TestResource {
                         new BigDecimal(wallet.getBalance().getValue()),
                         CurrencyPair.BTC_EUR
                 );
-                bitcoinBalanceCheck.saveOrder(order, account);
+//                bitcoinBalanceCheck.saveOrder(order, account);
             } catch (UnreadableWalletException e) {
                 e.printStackTrace();
             }

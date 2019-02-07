@@ -9,19 +9,19 @@
 				<constraints nullable="false"/>
 			</column>
 			<column name="street" type="varchar(500)">
-				<constraints nullable="false"/>
+				<constraints nullable="true"/>
 			</column>
 			<column name="postal_code" type="varchar(50)">
-				<constraints nullable="false"/>
+				<constraints nullable="true"/>
 			</column>
 			<column name="state" type="varchar(100)">
-				<constraints nullable="false"/>
+				<constraints nullable="true"/>
 			</column>
 			<column name="city" type="varchar(100)">
-				<constraints nullable="false"/>
+				<constraints nullable="true"/>
 			</column>
 			<column name="country_id" type="char(2)">
-				<constraints nullable="false"/>
+				<constraints nullable="true"/>
 			</column>
 		</createTable>
 	</changeSet>

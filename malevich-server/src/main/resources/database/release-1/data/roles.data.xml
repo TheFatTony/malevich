@@ -10,7 +10,8 @@
                    (1, 'User'),
                    (2, 'Gallery'),
                    (3, 'Trader'),
-                   (4, 'Malevich');
+                   (4, 'Malevich'),
+                   (5, 'Trader_Tier0');
         </sql>
     </changeSet>
 

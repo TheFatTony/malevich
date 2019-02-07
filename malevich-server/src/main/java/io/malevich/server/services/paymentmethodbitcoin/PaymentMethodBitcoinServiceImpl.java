@@ -41,9 +41,6 @@ public class PaymentMethodBitcoinServiceImpl implements PaymentMethodBitcoinServ
     @Autowired
     private MemoryBlockStore memoryBlockStore;
 
-    @Autowired
-    private WalletAppKit walletAppKit;
-
     @Override
     @Transactional(readOnly = true)
     public List<PaymentMethodBitcoinEntity> findAll() {
@@ -83,7 +80,6 @@ public class PaymentMethodBitcoinServiceImpl implements PaymentMethodBitcoinServ
 
     private Wallet createWallet() {
         Wallet wallet = new Wallet(networkParameters);
-        walletAppKit.peerGroup().addWallet(wallet);
         return wallet;
     }
 

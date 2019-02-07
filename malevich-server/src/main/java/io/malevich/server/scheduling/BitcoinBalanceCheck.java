@@ -1,12 +1,16 @@
 package io.malevich.server.scheduling;
 
+import io.malevich.server.config.Constants;
 import io.malevich.server.domain.ExchangeOrderEntity;
 import io.malevich.server.domain.PaymentMethodBitcoinEntity;
 import io.malevich.server.domain.PaymentMethodEntity;
 import io.malevich.server.domain.enums.ExchangeOrderStatus;
 import io.malevich.server.repositories.paymentmethod.PaymentMethodDao;
 import io.malevich.server.services.exchangeorder.ExchangeOrderService;
-import org.bitcoinj.core.*;
+import org.bitcoinj.core.Address;
+import org.bitcoinj.core.BlockChain;
+import org.bitcoinj.core.NetworkParameters;
+import org.bitcoinj.core.PeerGroup;
 import org.bitcoinj.kits.WalletAppKit;
 import org.bitcoinj.net.discovery.DnsDiscovery;
 import org.bitcoinj.store.BlockStoreException;
@@ -22,6 +26,7 @@ import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
 import java.io.ByteArrayInputStream;
+import java.io.File;
 import java.io.IOException;
 import java.math.BigDecimal;
 import java.sql.Timestamp;
@@ -36,6 +41,9 @@ public class BitcoinBalanceCheck {
     private NetworkParameters networkParameters;
 
     @Autowired
+    private MemoryBlockStore memoryBlockStore;
+
+    @Autowired
     private ExchangeOrderService exchangeOrderService;
 
     @Autowired
@@ -44,26 +52,41 @@ public class BitcoinBalanceCheck {
     @Autowired
     private KrakenExchange krakenExchange;
 
-    @Autowired
-    private WalletAppKit walletAppKit;
 
-    @Autowired
-    private Context context;
-
-    @Autowired
-    private MemoryBlockStore memoryBlockStore;
-
-
-//    @Scheduled(initialDelay = 2000, fixedRate = 10000)
+    @Scheduled(initialDelay = 2000, fixedRate = 10000)
     public void checkBalance() throws UnreadableWalletException {
-        Context.propagate(context);
+        WalletAppKit kit = null;
+
         List<PaymentMethodBitcoinEntity> accounts = paymentMethodDao.findByType_Id("BTC").stream().map(m -> (PaymentMethodBitcoinEntity) m).collect(Collectors.toList());
+
+        if (accounts.size() > 0) {
+            kit = new WalletAppKit(networkParameters, new File("."), "malevich-btc");
+            kit.startAsync();
+            kit.awaitRunning();
+        }
 
         for (PaymentMethodBitcoinEntity account : accounts) {
             Wallet wallet = Wallet.loadFromFileStream(new ByteArrayInputStream(account.getWallet()));
-            walletAppKit.peerGroup().downloadBlockChain();
+            wallet.addWatchedAddress(new Address(networkParameters, account.getBtcAddress()));
+            BlockChain chain;
+            try {
+                chain = new BlockChain(networkParameters, wallet, memoryBlockStore);
 
-            System.out.println("!!!! Fucking balance = " + wallet.getBalance());
+                PeerGroup peerGroup = new PeerGroup(networkParameters, chain);
+                peerGroup.addPeerDiscovery(new DnsDiscovery(networkParameters));
+                peerGroup.addWallet(wallet);
+                peerGroup.setFastCatchupTimeSecs(Constants.APPLICATION_RUN_TIME);
+                peerGroup.start();
+                peerGroup.downloadBlockChain();
+                System.out.println("!!!! Fucking balance = " + wallet.getBalance());
+                peerGroup.stop();
+            } catch (BlockStoreException e) {
+                e.printStackTrace();
+            }
+            if (accounts.size() > 0) {
+                kit.stopAsync();
+                kit.awaitTerminated();
+            }
         }
 
     }

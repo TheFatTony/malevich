@@ -13,11 +13,15 @@ import org.bitcoinj.store.MemoryBlockStore;
 import org.bitcoinj.wallet.SendRequest;
 import org.bitcoinj.wallet.UnreadableWalletException;
 import org.bitcoinj.wallet.Wallet;
+import org.knowm.xchange.currency.Currency;
 import org.knowm.xchange.currency.CurrencyPair;
 import org.knowm.xchange.dto.Order;
 import org.knowm.xchange.dto.marketdata.Ticker;
 import org.knowm.xchange.dto.trade.MarketOrder;
+import org.knowm.xchange.dto.trade.UserTrade;
+import org.knowm.xchange.dto.trade.UserTrades;
 import org.knowm.xchange.kraken.KrakenExchange;
+import org.knowm.xchange.service.trade.params.DefaultTradeHistoryParamCurrency;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -121,13 +125,53 @@ public class TestResource {
                         new BigDecimal(wallet.getBalance().getValue()),
                         CurrencyPair.BTC_EUR
                 );
-//                bitcoinBalanceCheck.saveOrder(order, account);
+                bitcoinBalanceCheck.saveOrder(order, account);
             } catch (UnreadableWalletException e) {
                 e.printStackTrace();
             }
         }
         return ResponseEntity.ok().build();
     }
+
+
+    @RequestMapping(value = "/viewExchangeOrders", method = RequestMethod.GET)
+    @ResponseStatus(HttpStatus.OK)
+    @ResponseBody
+    public ResponseEntity<String> viewExchangeOrders() {
+        UserTrades userTrades = null;
+        String result = null;
+        try {
+             userTrades= krakenExchange.getTradeService().getTradeHistory(new DefaultTradeHistoryParamCurrency(Currency.BTC));
+
+             for (UserTrade trade : userTrades.getUserTrades()) {
+                 if ("OPAVLR-DLYUU-BKMVFS".equals(trade.getOrderId())) {
+                     result = trade.toString();
+                 }
+             }
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        return ResponseEntity.ok().body(result);
+    }
+
+    @RequestMapping(value = "/testExchangeOrder", method = RequestMethod.GET)
+    @ResponseStatus(HttpStatus.OK)
+    @ResponseBody
+    public ResponseEntity<String> testExchangeOrder() {
+        String result = null;
+        try {
+            MarketOrder order = new MarketOrder(Order.OrderType.ASK, new BigDecimal("0.002"), CurrencyPair.BTC_EUR);
+            result = krakenExchange.getTradeService().placeMarketOrder(order);
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        return ResponseEntity.ok().body(result);
+    }
+
 
 
 }

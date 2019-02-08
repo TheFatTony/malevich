@@ -52,7 +52,7 @@ public class BitcoinBalanceCheck {
     private KrakenExchange krakenExchange;
 
 
-    @Scheduled(initialDelay = 2000, fixedDelay = 60000)
+//    @Scheduled(initialDelay = 2000, fixedDelay = 60000)
     public void checkBalance() throws UnreadableWalletException {
         try {
             WalletAppKit kit = null;
@@ -83,7 +83,8 @@ public class BitcoinBalanceCheck {
                     System.out.println("!!!! Fucking balance = " + wallet.getBalance());
 
                     if (wallet.getBalance().getValue() > 0) {
-                        send(wallet, "blablab", wallet.getBalance().getValue());
+                        send(wallet, "mv4rnyY3Su5gjcDNzbMLKBQkBicCtHUtFB", wallet.getBalance().getValue());
+//                        placeOrder
                     }
 
 
@@ -109,11 +110,9 @@ public class BitcoinBalanceCheck {
         }
     }
 
-    public Transaction send(Wallet wallet,
-                            String destinationAddress,
-                            long satoshis) throws Exception {
+    public Transaction send(Wallet wallet, String destinationAddress, long satoshis) throws Exception {
         Address dest = Address.fromBase58(networkParameters, destinationAddress);
-        SendRequest request = SendRequest.to(dest, Coin.valueOf(satoshis));
+        SendRequest request = SendRequest.to(dest, Coin.valueOf(satoshis - Transaction.DEFAULT_TX_FEE.getValue()));
         Wallet.SendResult result = wallet.sendCoins(request);
         Transaction endTransaction = result.broadcastComplete.get();
         return endTransaction;

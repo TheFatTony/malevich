@@ -179,3 +179,5 @@ docker volume create tomcat_data && docker run -d -p 80:8080 --restart=unless-st
 -v /tmp/conf/tomcat/conf:/usr/local/tomcat/conf \
 -v /tmp/conf/tomcat/logs:/usr/local/tomcat/logs \
 -v tomcat_data --name tomcat tomcat:jre9-slim
+
+docker run —name OracleXE —shm–size=1g –p 1521:1521 –p 8181:8080 –e ORACLE_PWD=oracle123 oracle/database:18.4.0–xe

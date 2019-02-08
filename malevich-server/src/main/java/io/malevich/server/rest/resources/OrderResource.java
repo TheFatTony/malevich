@@ -1,6 +1,7 @@
 package io.malevich.server.rest.resources;
 
 import com.yinyang.core.server.rest.RestResource;
+import io.malevich.server.aop.KycRequired;
 import io.malevich.server.domain.OrderEntity;
 import io.malevich.server.services.order.OrderService;
 import io.malevich.server.transfer.OrderDto;
@@ -28,7 +29,7 @@ public class OrderResource extends RestResource<OrderDto, OrderEntity> {
         super(OrderDto.class, OrderEntity.class);
     }
 
-
+    @KycRequired(level = "KYCLEVEL")
     @RequestMapping(value = "/getPlacedOrders", method = RequestMethod.GET)
     @ResponseStatus(HttpStatus.OK)
     @ResponseBody

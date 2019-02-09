@@ -50,7 +50,7 @@
         {{"PROFILE.NAVIGATION.YOUR_ARTWORKS" | translate}}
       </a>
     </li>
-    <li class="g-py-3">
+    <li *ngIf="hasKycLevel('T_TIER1')" class="g-py-3">
       <a
         class="d-block align-middle u-link-v5 g-color-text g-bg-gray-light-v5--hover g-color-primary--active g-bg-gray-light-v5--active rounded g-pa-3"
         routerLink="/profile/orders"

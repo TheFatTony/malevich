@@ -12,6 +12,8 @@ public interface KycLevelService {
 
     List<KycLevelEntity> findAll();
 
+    List<KycLevelEntity> getDetailing(String levelName);
+
     KycLevelEntity getByEnum(KycLevel enumLevel);
 
     void checkLevel(ParticipantEntity participantEntity, KycLevel[] requiredLevels);

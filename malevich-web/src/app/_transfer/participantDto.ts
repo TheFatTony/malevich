@@ -3,7 +3,8 @@ import {AddressDto} from "./addressDto";
 import {ParticipantTypeDto} from "./participantTypeDto";
 import {PersonDto} from "./personDto";
 import {OrganizationDto} from "./organizationDto";
-import {UserDto, FileDto} from "../../../node_modules/yinyang-core";
+import {FileDto, UserDto} from "../../../node_modules/yinyang-core";
+import {KycLevelDto} from "./kycLevelDto";
 
 export class ParticipantDto {
   id: number;
@@ -13,6 +14,7 @@ export class ParticipantDto {
   country: CountryDto;
   thumbnail: FileDto;
   addresses: AddressDto[];
+  kycLevel: KycLevelDto;
 
   organization: OrganizationDto;
   image: FileDto;
@@ -21,3 +23,4 @@ export class ParticipantDto {
 
   person: PersonDto;
 }
+

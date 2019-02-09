@@ -3,14 +3,12 @@ package io.malevich.server.services.kyc;
 import io.malevich.server.domain.*;
 import io.malevich.server.domain.enums.KycLevel;
 import io.malevich.server.exceptions.KycSecurityException;
-import io.malevich.server.fabric.model.GalleryParticipant;
 import io.malevich.server.repositories.kyclevel.KycLevelDao;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -32,6 +30,15 @@ public class KycLevelServiceImpl implements KycLevelService {
     @Transactional(readOnly = true)
     public List<KycLevelEntity> findAll() {
         return this.kycLevelDao.findAll();
+    }
+
+    @Override
+    public List<KycLevelEntity> getDetailing(String levelName) {
+        KycLevelEntity entity = values.get(levelName);
+        return values.values()
+                .stream()
+                .filter(l -> contains(entity, l))
+                .collect(Collectors.toList());
     }
 
     @Override

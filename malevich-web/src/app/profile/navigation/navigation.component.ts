@@ -3,8 +3,8 @@ import {environment} from "../../../environments/environment.dev";
 import {ParticipantService} from "../../_services/participant.service";
 import {TranslateService} from "@ngx-translate/core";
 import {ParticipantDto} from "../../_transfer/participantDto";
-import {TraderDto} from "../../_transfer/traderDto";
-import {GalleryDto} from "../../_transfer";
+import {KycLevelService} from "../../_services/kyc-level.service";
+import {KycLevelDto} from "../../_transfer/kycLevelDto";
 
 @Component({
   selector: 'app-profile-navigation',
@@ -14,23 +14,32 @@ import {GalleryDto} from "../../_transfer";
 export class NavigationComponent implements OnInit {
 
   participant: ParticipantDto;
-  traderPerson: TraderDto;
-  gallery: GalleryDto;
 
   isTrader: boolean = false;
   isGallery: boolean = false;
 
+  kycLevels: KycLevelDto[];
 
   titleName: string = "";
 
   public url = environment.baseUrl;
 
   constructor(private participantService: ParticipantService,
-              private translate: TranslateService) {
+              private translate: TranslateService,
+              private kycLevelService: KycLevelService) {
   }
 
   ngOnInit() {
     this.getCurrentMember();
+  }
+
+  hasKycLevel(level: string) {
+    if(!this.kycLevels)
+      return false;
+
+    if(!level) return false;
+
+    return !!this.kycLevels.find(l => l.id == level);
   }
 
   getCurrentMember(): void {
@@ -47,6 +56,11 @@ export class NavigationComponent implements OnInit {
           });
 
           this.participant = data;
+
+          this.kycLevelService.getDetailing(this.participant.kycLevel.id)
+            .subscribe(kycData => {
+              this.kycLevels = kycData;
+            });
 
           if (this.participant.person) {
             this.titleName = `${this.participant.person.firstName} ${this.participant.person.lastName}`

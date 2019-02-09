@@ -128,6 +128,7 @@ public class ParticipantServiceImpl implements ParticipantService {
             else
                 traderParticipantService.create(participantEntity);
         }
+
         participantEntity.setKycLevel(kycLevelService.getLevel(participantEntity));
         participantEntity = dao.save(participantEntity);
 

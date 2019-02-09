@@ -30,7 +30,7 @@ public class OrderResource extends RestResource<OrderDto, OrderEntity> {
         super(OrderDto.class, OrderEntity.class);
     }
 
-    @KycRequired(level = {KycLevel.G_TIER0, KycLevel.T_TIER1})
+    @KycRequired(level = {KycLevel.G_TIER1, KycLevel.T_TIER1})
     @RequestMapping(value = "/getPlacedOrders", method = RequestMethod.GET)
     @ResponseStatus(HttpStatus.OK)
     @ResponseBody

@@ -7,9 +7,10 @@
         <sql splitStatements="true" stripComments="true">
             INSERT INTO kyc_level (id, value)
             VALUES ('T_TIER0', 1),
-                   ('T_TIER1', 2 + 1),
-                   ('T_TIER2', 4 + 2 + 1),
-                   ('G_TIER0', 1024);
+                   ('T_TIER1', 1 + 2),
+                   ('T_TIER2', 1 + 2 + 4),
+                   ('G_TIER0', 1024),
+                   ('G_TIER1', 1024 + 2048);
         </sql>
     </changeSet>
 

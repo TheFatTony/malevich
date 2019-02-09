@@ -65,7 +65,7 @@ public class ParticipantEntity extends YAbstractPersistable<Long> {
     @Getter
     @Setter
     @Fetch(FetchMode.JOIN)
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.REFRESH)
     private KycLevelEntity kycLevel;
 
     @Transient

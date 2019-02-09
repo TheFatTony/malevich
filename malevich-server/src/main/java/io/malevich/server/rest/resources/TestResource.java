@@ -4,13 +4,8 @@ package io.malevich.server.rest.resources;
 import io.malevich.server.domain.PaymentMethodBitcoinEntity;
 import io.malevich.server.repositories.paymentmethod.PaymentMethodDao;
 import io.malevich.server.scheduling.BitcoinBalanceCheck;
-import io.malevich.server.services.paymentmethod.PaymentMethodService;
 import io.malevich.server.services.paymentmethodbitcoin.PaymentMethodBitcoinService;
 import lombok.extern.slf4j.Slf4j;
-import org.bitcoinj.core.*;
-import org.bitcoinj.store.BlockStoreException;
-import org.bitcoinj.store.MemoryBlockStore;
-import org.bitcoinj.wallet.SendRequest;
 import org.bitcoinj.wallet.UnreadableWalletException;
 import org.bitcoinj.wallet.Wallet;
 import org.knowm.xchange.currency.Currency;
@@ -39,11 +34,6 @@ import java.util.stream.Collectors;
 @RequestMapping(value = "/test")
 public class TestResource {
 
-    private static Wallet wallet;
-    @Autowired
-    NetworkParameters networkParameters;
-    @Autowired
-    MemoryBlockStore memoryBlockStore;
     @Autowired
     KrakenExchange krakenExchange;
 
@@ -55,32 +45,6 @@ public class TestResource {
 
     @Autowired
     BitcoinBalanceCheck bitcoinBalanceCheck;
-
-    @RequestMapping(value = "/wallet", method = RequestMethod.GET)
-    @ResponseStatus(HttpStatus.OK)
-    @ResponseBody
-    public ResponseEntity<String> wallet() {
-        wallet = new Wallet(networkParameters);
-        BlockChain chain = null;
-        try {
-            chain = new BlockChain(networkParameters, wallet, memoryBlockStore);
-            PeerGroup peerGroup = new PeerGroup(networkParameters, chain);
-            peerGroup.addWallet(wallet);
-            peerGroup.start();
-
-            Address a = wallet.currentReceiveAddress();
-            ECKey b = wallet.currentReceiveKey();
-            Address c = wallet.freshReceiveAddress();
-
-            assert b.toAddress(wallet.getParams()).equals(a);
-            assert !c.equals(a);
-
-            return ResponseEntity.ok().body(a.toString());
-        } catch (BlockStoreException e) {
-            e.printStackTrace();
-        }
-        return null;
-    }
 
 
     @RequestMapping(value = "/ticker", method = RequestMethod.GET)
@@ -96,19 +60,6 @@ public class TestResource {
         return ResponseEntity.ok().body(ticker.toString());
     }
 
-
-    @RequestMapping(value = "/addCoins", method = RequestMethod.GET)
-    @ResponseStatus(HttpStatus.OK)
-    @ResponseBody
-    public ResponseEntity<Void> addCoins() throws InsufficientMoneyException {
-        //https://coinfaucet.eu/en/btc-testnet/
-//        Wallet wallet = new Wallet(networkParameters);
-        Address a = new Address(networkParameters, "mtAwHN11WCquu9JL5bLVXo3vwxU7n2Z7p8");
-        SendRequest req = SendRequest.to(a, Coin.parseCoin("0.12"));
-//        req.aesKey = wallet.getKeyCrypter().deriveKey("password");
-        wallet.sendCoins(req);
-        return ResponseEntity.ok().build();
-    }
 
     @RequestMapping(value = "/saveExchangeOrder", method = RequestMethod.GET)
     @ResponseStatus(HttpStatus.OK)
@@ -141,13 +92,13 @@ public class TestResource {
         UserTrades userTrades = null;
         String result = null;
         try {
-             userTrades= krakenExchange.getTradeService().getTradeHistory(new DefaultTradeHistoryParamCurrency(Currency.BTC));
+            userTrades = krakenExchange.getTradeService().getTradeHistory(new DefaultTradeHistoryParamCurrency(Currency.BTC));
 
-             for (UserTrade trade : userTrades.getUserTrades()) {
-                 if ("OPAVLR-DLYUU-BKMVFS".equals(trade.getOrderId())) {
-                     result = trade.toString();
-                 }
-             }
+            for (UserTrade trade : userTrades.getUserTrades()) {
+                if ("OPAVLR-DLYUU-BKMVFS".equals(trade.getOrderId())) {
+                    result = trade.toString();
+                }
+            }
 
         } catch (IOException e) {
             e.printStackTrace();
@@ -171,7 +122,6 @@ public class TestResource {
 
         return ResponseEntity.ok().body(result);
     }
-
 
 
 }

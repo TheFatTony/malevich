@@ -39,7 +39,7 @@ public class PaymentMethodBitcoinServiceImpl implements PaymentMethodBitcoinServ
     private NetworkParameters networkParameters;
 
     @Autowired
-    private MemoryBlockStore memoryBlockStore;
+    private BlockChain blockChain;
 
     @Override
     @Transactional(readOnly = true)
@@ -80,6 +80,12 @@ public class PaymentMethodBitcoinServiceImpl implements PaymentMethodBitcoinServ
 
     private Wallet createWallet() {
         Wallet wallet = new Wallet(networkParameters);
+        PeerGroup peerGroup = new PeerGroup(networkParameters, blockChain);
+        peerGroup.addPeerDiscovery(new DnsDiscovery(networkParameters));
+        peerGroup.addWallet(wallet);
+        peerGroup.start();
+        peerGroup.stop();
+
         return wallet;
     }
 

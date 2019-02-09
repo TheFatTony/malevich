@@ -63,5 +63,17 @@
                  path="test_data/009_gallery.sql"/>
     </changeSet>
 
+    <changeSet author="thefattony" id="010_trader_person-data">
+        <sqlFile splitStatements="false" stripComments="false"
+                 relativeToChangelogFile="true"
+                 path="test_data/010_trader_person.sql"/>
+    </changeSet>
+
+    <changeSet author="thefattony" id="011_trader_organization-data">
+        <sqlFile splitStatements="false" stripComments="false"
+                 relativeToChangelogFile="true"
+                 path="test_data/011_trader_organization.sql"/>
+    </changeSet>
+
 </databaseChangeLog>
 

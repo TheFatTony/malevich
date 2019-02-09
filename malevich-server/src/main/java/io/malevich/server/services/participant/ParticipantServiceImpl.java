@@ -3,21 +3,16 @@ package io.malevich.server.services.participant;
 import com.google.common.collect.Lists;
 import com.yinyang.core.server.domain.UserEntity;
 import com.yinyang.core.server.services.auth.AuthService;
-import com.yinyang.core.server.services.user.UserService;
-import io.malevich.server.config.MyAuthenticationProvider;
 import io.malevich.server.domain.*;
 import io.malevich.server.fabric.services.gallery.GalleryParticipantService;
 import io.malevich.server.fabric.services.trader.TraderParticipantService;
 import io.malevich.server.repositories.participant.ParticipantDao;
 import io.malevich.server.services.delayedchange.DelayedChangeService;
+import io.malevich.server.services.kyc.KycLevelService;
 import io.malevich.server.services.participanttype.ParticipantTypeService;
 import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -39,13 +34,13 @@ public class ParticipantServiceImpl implements ParticipantService {
     private ParticipantTypeService participantTypeService;
 
     @Autowired
-    private UserService userService;
-
-    @Autowired
     private ModelMapper modelMapper;
 
     @Autowired
     private AuthService authService;
+
+    @Autowired
+    private KycLevelService kycLevelService;
 
     @Autowired
     private GalleryParticipantService galleryParticipantService;
@@ -94,37 +89,6 @@ public class ParticipantServiceImpl implements ParticipantService {
         return modelMapper.map(payload, ParticipantEntity.class);
     }
 
-    private static boolean isNullOrEmpty(String value) {
-        return value == null || "".equals(value);
-    }
-
-    private boolean isTraderPersonTier1(TraderPersonEntity participantEntity) {
-        if (participantEntity == null)
-            return false;
-
-        PersonEntity personEntity = participantEntity.getPerson();
-
-        if (personEntity == null)
-            return false;
-
-        if (isNullOrEmpty(personEntity.getFirstName()))
-            return false;
-
-        if (isNullOrEmpty(personEntity.getLastName()))
-            return false;
-
-        if (personEntity.getDateOfBirth() == null)
-            return false;
-
-        if (isNullOrEmpty(participantEntity.getPhoneNumber()))
-            return false;
-
-        if (participantEntity.getCountry() == null)
-            return false;
-
-        return true;
-    }
-
     @Override
     @Transactional
     public ParticipantEntity save(ParticipantEntity participantEntity, UserEntity user) {
@@ -132,6 +96,10 @@ public class ParticipantServiceImpl implements ParticipantService {
 
         boolean isNew = currentParticipant == null;
         if (!isNew) {
+            if (!currentParticipant.getClass().equals(participantEntity.getClass()))
+                // todo throw exception
+                return null;
+
             participantEntity.setId(currentParticipant.getId());
             participantEntity.setUsers(currentParticipant.getUsers());
 
@@ -141,15 +109,6 @@ public class ParticipantServiceImpl implements ParticipantService {
                 PersonEntity currentPerson = ((TraderPersonEntity) currentParticipant).getPerson();
                 if (person != null && currentPerson != null)
                     person.setId(currentPerson.getId());
-
-                //tier check
-                if (isTraderPersonTier1(traderPersonEntity)) {
-                    for (UserEntity userEntity : traderPersonEntity.getUsers()) {
-                        boolean changes = userEntity.getRoles().add(MyAuthenticationProvider.ROLE_TRADER_TIER0);
-                        if (changes)
-                            userService.save(userEntity);
-                    }
-                }
             } else if (participantEntity instanceof TraderOrganizationEntity && currentParticipant instanceof TraderOrganizationEntity) {
                 OrganizationEntity organization = ((TraderOrganizationEntity) participantEntity).getOrganization();
                 OrganizationEntity currentOrganization = ((TraderOrganizationEntity) currentParticipant).getOrganization();
@@ -169,7 +128,7 @@ public class ParticipantServiceImpl implements ParticipantService {
             else
                 traderParticipantService.create(participantEntity);
         }
-
+        participantEntity.setKycLevel(kycLevelService.getLevel(participantEntity));
         participantEntity = dao.save(participantEntity);
 
         return participantEntity;

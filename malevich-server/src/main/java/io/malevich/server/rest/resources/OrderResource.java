@@ -3,6 +3,7 @@ package io.malevich.server.rest.resources;
 import com.yinyang.core.server.rest.RestResource;
 import io.malevich.server.aop.KycRequired;
 import io.malevich.server.domain.OrderEntity;
+import io.malevich.server.domain.enums.KycLevel;
 import io.malevich.server.services.order.OrderService;
 import io.malevich.server.transfer.OrderDto;
 import io.malevich.server.transfer.OrderPublicDto;
@@ -29,13 +30,13 @@ public class OrderResource extends RestResource<OrderDto, OrderEntity> {
         super(OrderDto.class, OrderEntity.class);
     }
 
-    @KycRequired(level = "KYCLEVEL")
+    @KycRequired(level = {KycLevel.G_TIER0, KycLevel.T_TIER1})
     @RequestMapping(value = "/getPlacedOrders", method = RequestMethod.GET)
     @ResponseStatus(HttpStatus.OK)
     @ResponseBody
     public List<OrderDto> getPlacedOrders() {
         List<OrderEntity> allEntries = this.orderService.getPlacedOrders();
-        return allEntries.stream().map(allEntry -> convertToDto(allEntry)).collect(Collectors.toList());
+        return convertListOfDto(allEntries);
     }
 
     @PreAuthorize("hasAnyRole('ROLE_GALLERY', 'ROLE_TRADER')")

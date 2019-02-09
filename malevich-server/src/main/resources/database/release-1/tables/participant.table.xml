@@ -20,6 +20,9 @@
             <column name="thumbnail_id" type="bigint">
                 <constraints nullable="true"/>
             </column>
+            <column name="kyc_level_id" type="char(10)">
+                <constraints nullable="true"/>
+            </column>
         </createTable>
     </changeSet>
 

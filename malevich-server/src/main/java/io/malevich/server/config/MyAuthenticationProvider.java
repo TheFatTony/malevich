@@ -23,7 +23,6 @@ public class MyAuthenticationProvider implements AuthenticationProvider {
     public static SimpleGrantedAuthority ROLE_GALLERY = new SimpleGrantedAuthority("ROLE_GALLERY");
     public static SimpleGrantedAuthority ROLE_TRADER = new SimpleGrantedAuthority("ROLE_TRADER");
     public static SimpleGrantedAuthority ROLE_MALEVICH = new SimpleGrantedAuthority("ROLE_MALEVICH");
-    public static SimpleGrantedAuthority ROLE_TRADER_TIER0 = new SimpleGrantedAuthority("ROLE_TRADER_TIER0");
 
     static {
         AUTHORITIES.add(ROLE_ADMIN);
@@ -31,7 +30,6 @@ public class MyAuthenticationProvider implements AuthenticationProvider {
         AUTHORITIES.add(ROLE_GALLERY);
         AUTHORITIES.add(ROLE_TRADER);
         AUTHORITIES.add(ROLE_MALEVICH);
-        AUTHORITIES.add(ROLE_TRADER_TIER0);
     }
 
     @Override

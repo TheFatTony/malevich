@@ -6,11 +6,14 @@ import io.malevich.server.services.exchange.ExchangeService;
 import io.malevich.server.services.paymentmethodbitcoin.PaymentMethodBitcoinService;
 import org.bitcoinj.core.PeerGroup;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Profile;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
 import java.io.ByteArrayOutputStream;
 import java.util.List;
 
+@Profile({"test", "prod"})
 @Component
 public class BitcoinBalanceCheck {
 
@@ -24,7 +27,7 @@ public class BitcoinBalanceCheck {
     @Autowired
     private ExchangeService exchangeService;
 
-    //    @Scheduled(initialDelay = 2000, fixedDelay = 60000)
+    @Scheduled(initialDelay = 2000, fixedDelay = 10000)
     public void checkBalance() {
         try {
             List<PaymentMethodBitcoinEntity> accounts = paymentMethodBitcoinService.findAll();

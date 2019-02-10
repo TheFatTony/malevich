@@ -47,43 +47,6 @@ public class TestResource {
     BitcoinBalanceCheck bitcoinBalanceCheck;
 
 
-    @RequestMapping(value = "/ticker", method = RequestMethod.GET)
-    @ResponseStatus(HttpStatus.OK)
-    @ResponseBody
-    public ResponseEntity<String> ticker() {
-        Ticker ticker = null;
-        try {
-            ticker = krakenExchange.getMarketDataService().getTicker(CurrencyPair.BTC_EUR);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return ResponseEntity.ok().body(ticker.toString());
-    }
-
-
-    @RequestMapping(value = "/saveExchangeOrder", method = RequestMethod.GET)
-    @ResponseStatus(HttpStatus.OK)
-    @ResponseBody
-    public ResponseEntity<Void> saveExchangeOrder() {
-        List<PaymentMethodBitcoinEntity> accounts = paymentMethodDao.findByType_Id("BTC").stream().map(m -> (PaymentMethodBitcoinEntity) m).collect(Collectors.toList());
-
-        for (PaymentMethodBitcoinEntity account : accounts) {
-            Wallet wallet = null;
-            try {
-                wallet = Wallet.loadFromFileStream(new ByteArrayInputStream(account.getWallet()));
-                MarketOrder order = new MarketOrder(
-                        (Order.OrderType.ASK),
-                        new BigDecimal(wallet.getBalance().getValue()),
-                        CurrencyPair.BTC_EUR
-                );
-                bitcoinBalanceCheck.saveOrder(order, account);
-            } catch (UnreadableWalletException e) {
-                e.printStackTrace();
-            }
-        }
-        return ResponseEntity.ok().build();
-    }
-
 
     @RequestMapping(value = "/viewExchangeOrders", method = RequestMethod.GET)
     @ResponseStatus(HttpStatus.OK)

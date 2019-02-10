@@ -78,6 +78,11 @@ public class PaymentMethodBitcoinServiceImpl implements PaymentMethodBitcoinServ
         return paymentMethodDao.save(address);
     }
 
+    @Override
+    public void save(PaymentMethodBitcoinEntity account) {
+        paymentMethodDao.save(account);
+    }
+
     private Wallet createWallet() {
         Wallet wallet = new Wallet(networkParameters);
         PeerGroup peerGroup = new PeerGroup(networkParameters, blockChain);

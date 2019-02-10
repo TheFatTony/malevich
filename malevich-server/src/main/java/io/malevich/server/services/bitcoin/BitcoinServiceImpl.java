@@ -29,7 +29,8 @@ public class BitcoinServiceImpl implements BitcoinService {
     }
 
 
-    private PeerGroup startPeerGroup() {
+    @Override
+    public PeerGroup startPeerGroup() {
         PeerGroup peerGroup = new PeerGroup(networkParameters, blockChain);
         peerGroup.addPeerDiscovery(new DnsDiscovery(networkParameters));
         peerGroup.start();
@@ -45,6 +46,7 @@ public class BitcoinServiceImpl implements BitcoinService {
     }
 
 
+    @Override
     public Transaction sendCoins(Wallet wallet, String destinationAddress, long satoshis) throws InsufficientMoneyException, ExecutionException, InterruptedException {
         Address dest = Address.fromBase58(networkParameters, destinationAddress);
         SendRequest request = null;

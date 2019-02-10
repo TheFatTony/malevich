@@ -19,17 +19,24 @@ import java.util.List;
 public class ExchangeOrderServiceImpl implements ExchangeOrderService {
 
     @Autowired
-    private ExchangeOrderDao dao;
+    private ExchangeOrderDao exchangeOrderDao;
 
 
     @Override
     @Transactional(readOnly = true)
     public List<ExchangeOrderEntity> findAll() {
-        return this.dao.findAll();
+        return this.exchangeOrderDao.findAll();
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public ExchangeOrderEntity findByOrderId(String orderId) {
+        return this.exchangeOrderDao.findByOrderId(orderId).get();
     }
 
 
     @Override
+    @Transactional
     public void save(Order order, PaymentMethodEntity paymentMethodEntity, String exchangeName, String orderId) {
         ExchangeOrderEntity entity = new ExchangeOrderEntity();
         entity.setPaymentMethod(paymentMethodEntity);
@@ -44,8 +51,9 @@ public class ExchangeOrderServiceImpl implements ExchangeOrderService {
     }
 
     @Override
+    @Transactional
     public ExchangeOrderEntity save(ExchangeOrderEntity entity) {
-        return this.dao.save(entity);
+        return this.exchangeOrderDao.save(entity);
     }
 
 }

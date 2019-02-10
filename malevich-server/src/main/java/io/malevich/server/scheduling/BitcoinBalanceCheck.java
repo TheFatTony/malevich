@@ -16,6 +16,7 @@ import org.knowm.xchange.dto.Order;
 import org.knowm.xchange.dto.trade.MarketOrder;
 import org.knowm.xchange.kraken.KrakenExchange;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
 import java.io.ByteArrayInputStream;
@@ -42,13 +43,10 @@ public class BitcoinBalanceCheck {
     @Autowired
     private PaymentMethodDao paymentMethodDao;
 
-    @Autowired
-    private KrakenExchange krakenExchange;
-
     private long nextChainScanTime = System.currentTimeMillis() / 1000;
 
 
-    //    @Scheduled(initialDelay = 2000, fixedDelay = 60000)
+    @Scheduled(initialDelay = 2000, fixedDelay = 60000)
     public void checkBalance() throws UnreadableWalletException {
         List<PaymentMethodBitcoinEntity> accounts = paymentMethodDao.findByType_Id("BTC").stream().map(m -> (PaymentMethodBitcoinEntity) m).collect(Collectors.toList());
 
@@ -57,11 +55,12 @@ public class BitcoinBalanceCheck {
         peerGroup.setFastCatchupTimeSecs(nextChainScanTime);
         peerGroup.start();
         peerGroup.downloadBlockChain();
+        nextChainScanTime = System.currentTimeMillis() / 1000 - 10;
 
         for (PaymentMethodBitcoinEntity account : accounts) {
             Wallet wallet = Wallet.loadFromFileStream(new ByteArrayInputStream(account.getWallet()));
             wallet.addWatchedAddress(new Address(networkParameters, account.getBtcAddress()));
-            peerGroup.addWallet(wallet);
+//            peerGroup.addWallet(wallet);
 
             System.out.println("!!!! Fucking balance = " + wallet.getBalance());
 
@@ -81,60 +80,13 @@ public class BitcoinBalanceCheck {
 
         }
 
-        nextChainScanTime = System.currentTimeMillis() / 1000 - 10;
         peerGroup.stop();
     }
 
-    public Transaction send(Wallet wallet, String destinationAddress, long satoshis) throws Exception {
-        Address dest = Address.fromBase58(networkParameters, destinationAddress);
-        SendRequest request = null;
-        Wallet.SendResult result;
-
-        try {
-            request = SendRequest.to(dest, Coin.valueOf(satoshis - Transaction.DEFAULT_TX_FEE.getValue()));
-            result = wallet.sendCoins(request);
-        } catch (Throwable e) {
-            request = SendRequest.to(dest, Coin.valueOf(satoshis - Transaction.REFERENCE_DEFAULT_MIN_TX_FEE.getValue()));
-            result = wallet.sendCoins(request);
-        }
 
 
-        Transaction endTransaction = result.broadcastComplete.get();
-        // TODO dump wallet for the fucks sake
-        return endTransaction;
-    }
 
-    private void placeOrder(Wallet wallet, PaymentMethodEntity paymentMethodEntity) {
-        MarketOrder order = new MarketOrder((Order.OrderType.ASK), new BigDecimal(wallet.getBalance().getValue()), CurrencyPair.BTC_EUR);
-        String orderReturnValue = null;
-        try {
-            orderReturnValue = krakenExchange.getTradeService().placeMarketOrder(order);
-            saveOrder(order, paymentMethodEntity);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        System.out.println("Limit Order return value: " + orderReturnValue);
-    }
 
-    public void saveOrder(Order order, PaymentMethodEntity paymentMethodEntity) {
-        ExchangeOrderEntity entity = new ExchangeOrderEntity();
-        entity.setPaymentMethod(paymentMethodEntity);
-        entity.setExchangeName(krakenExchange.getExchangeSpecification().getExchangeName());
-        entity.setInternalStatus(ExchangeOrderStatus.SUBMITTED);
-        entity.setType(order.getType().name());
-        entity.setOriginalAmount(order.getOriginalAmount());
-        entity.setCurrencyPair(order.getCurrencyPair().toString());
-        entity.setOrderId(order.getId());
-        entity.setTimestamp(order.getTimestamp() != null ? new Timestamp(order.getTimestamp().getTime()) : null);
-        entity.setStatus(order.getStatus() != null ? order.getStatus().name() : null);
-        entity.setCumulativeAmount(order.getCumulativeAmount());
-        entity.setAveragePrice(order.getAveragePrice());
-        entity.setFee(order.getFee());
-        entity.setLeverage(order.getLeverage());
-        entity.setEffectiveDate(new Timestamp(System.currentTimeMillis()));
 
-        exchangeOrderService.save(entity);
-
-    }
 
 }

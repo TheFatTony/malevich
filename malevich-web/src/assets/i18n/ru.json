@@ -227,7 +227,7 @@
       "ADD": "Add",
       "WITHDRAW": "Withdraw",
       "CANCEL_ORDER": "Cancel order",
-      "GENERATE_BITCOIN_ADDRESS":"Generate address"
+      "GENERATE_BITCOIN_ADDRESS":"Generate"
     }
   },
   "MAIN": {

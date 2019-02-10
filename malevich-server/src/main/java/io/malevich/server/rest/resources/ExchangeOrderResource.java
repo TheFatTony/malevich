@@ -26,6 +26,7 @@ public class ExchangeOrderResource extends RestResource<ExchangeOrderDto, Exchan
         super(ExchangeOrderDto.class, ExchangeOrderEntity.class);
     }
 
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @RequestMapping(value = "/list", method = RequestMethod.GET)
     public List<ExchangeOrderDto> list() {
         List<ExchangeOrderEntity> allEntries = this.exchangeOrderService.findAll();

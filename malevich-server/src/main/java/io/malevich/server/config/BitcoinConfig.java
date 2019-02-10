@@ -1,7 +1,8 @@
 package io.malevich.server.config;
 
-import org.bitcoinj.core.Context;
+import org.bitcoinj.core.BlockChain;
 import org.bitcoinj.core.NetworkParameters;
+import org.bitcoinj.store.BlockStoreException;
 import org.bitcoinj.store.MemoryBlockStore;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -21,24 +22,10 @@ public class BitcoinConfig {
         return new MemoryBlockStore(networkParameters());
     }
 
+
     @Bean
-    public Context context() {
-        return new Context(networkParameters());
+    public BlockChain blockChain() throws BlockStoreException {
+        return new BlockChain(networkParameters(), memoryBlockStore());
     }
-
-
-//    @Bean
-//    public WalletAppKit walletAppKit() throws UnreadableWalletException {
-//        WalletAppKit kit = new WalletAppKit(context(), new File("."), "malevich-btc");
-//        kit.startAsync();
-//        kit.awaitRunning();
-//        kit.peerGroup().addPeerDiscovery(new DnsDiscovery(networkParameters()));
-//
-//        kit.peerGroup().setFastCatchupTimeSecs((System.currentTimeMillis() / 1000));
-//
-//
-//        return kit;
-//    }
-
 
 }

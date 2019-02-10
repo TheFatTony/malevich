@@ -39,5 +39,6 @@
     <include relativeToChangelogFile="true" file="tables/delayed_change.table.xml"/>
     <include relativeToChangelogFile="true" file="tables/commission_rule.table.xml"/>
     <include relativeToChangelogFile="true" file="tables/exchange_order.table.xml"/>
+    <include relativeToChangelogFile="true" file="tables/bitcoin_transfers.table.xml"/>
 
 </databaseChangeLog>

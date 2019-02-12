@@ -3,5 +3,5 @@ insert into participant
 values
     (1, 'M', 'RU', '+79175896086', null, null),
     (2, 'G', 'RU', '+77777777777', null, 'G_TIER1'),
-    (3, 'TP', 'RU', '+78888888888', null, 'T_TIER0'),
-    (4, 'TO', 'RU', '+70000000000', null, 'T_TIER0');
+    (3, 'TP', 'RU', '+78888888888', null, 'T_TIER2'),
+    (4, 'TO', 'RU', '+70000000000', null, 'T_TIER2');

@@ -12,9 +12,9 @@ public class ExchangesConfig {
     @Bean
     public KrakenExchange krakenExchange() {
         ExchangeSpecification spec = new ExchangeSpecification(KrakenExchange.class);
-        spec.setApiKey("xgJbeIwiCvYPX2jeb4cO4AUaKpvOVK6nu4mbFjWNqNnbIXR5L5G8H6km");
-        spec.setSecretKey("b+mpApiZdvLh31ONEEQQC9JP8StMxcrEpxVx8yOJordFGBaopGSkxzqUeKXNiOxeSOryWdjUHQiB4X2mWfsPFA==");
-        spec.setUserName("AntonTR");
+        spec.setApiKey("ub2kSjRtW87oViLK1iZgpDznDeQjkm9j9iMFHuDvlAehlKERlrd1HdM4");
+        spec.setSecretKey("CwU6v/UbnxNTgjAJ1RB3GZg1rcXC8lKNFp949YV+/gAICTvDvDXm0dsWEIzI2VcFkz6yW7/YkT+yAeJhl9ACGw==");
+        spec.setUserName("Vivin24");
 
         KrakenExchange krakenExchange = (KrakenExchange) ExchangeFactory.INSTANCE.createExchange(spec);
         return krakenExchange;

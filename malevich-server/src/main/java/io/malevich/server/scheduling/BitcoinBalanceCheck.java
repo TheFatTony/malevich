@@ -1,104 +1,60 @@
 package io.malevich.server.scheduling;
 
-import io.malevich.server.domain.ExchangeOrderEntity;
 import io.malevich.server.domain.PaymentMethodBitcoinEntity;
-import io.malevich.server.domain.PaymentMethodEntity;
-import io.malevich.server.domain.enums.ExchangeOrderStatus;
-import io.malevich.server.repositories.paymentmethod.PaymentMethodDao;
-import io.malevich.server.services.exchangeorder.ExchangeOrderService;
-import org.bitcoinj.core.*;
-import org.bitcoinj.kits.WalletAppKit;
-import org.bitcoinj.net.discovery.DnsDiscovery;
-import org.bitcoinj.store.BlockStoreException;
-import org.bitcoinj.store.MemoryBlockStore;
-import org.bitcoinj.wallet.UnreadableWalletException;
-import org.bitcoinj.wallet.Wallet;
-import org.knowm.xchange.currency.CurrencyPair;
-import org.knowm.xchange.dto.Order;
-import org.knowm.xchange.dto.trade.MarketOrder;
-import org.knowm.xchange.kraken.KrakenExchange;
+import io.malevich.server.services.bitcoin.BitcoinService;
+import io.malevich.server.services.exchange.ExchangeService;
+import io.malevich.server.services.paymentmethodbitcoin.PaymentMethodBitcoinService;
+import org.bitcoinj.core.PeerGroup;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Profile;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
-import java.io.ByteArrayInputStream;
-import java.io.IOException;
-import java.math.BigDecimal;
-import java.sql.Timestamp;
+import java.io.ByteArrayOutputStream;
 import java.util.List;
-import java.util.stream.Collectors;
 
+@Profile({"test", "prod"})
 @Component
 public class BitcoinBalanceCheck {
 
 
     @Autowired
-    private NetworkParameters networkParameters;
+    private PaymentMethodBitcoinService paymentMethodBitcoinService;
 
     @Autowired
-    private ExchangeOrderService exchangeOrderService;
+    private BitcoinService bitcoinService;
 
     @Autowired
-    private PaymentMethodDao paymentMethodDao;
+    private ExchangeService exchangeService;
 
-    @Autowired
-    private KrakenExchange krakenExchange;
-
-    @Autowired
-    private WalletAppKit walletAppKit;
-
-    @Autowired
-    private Context context;
-
-    @Autowired
-    private MemoryBlockStore memoryBlockStore;
-
-
-//    @Scheduled(initialDelay = 2000, fixedRate = 10000)
-    public void checkBalance() throws UnreadableWalletException {
-        Context.propagate(context);
-        List<PaymentMethodBitcoinEntity> accounts = paymentMethodDao.findByType_Id("BTC").stream().map(m -> (PaymentMethodBitcoinEntity) m).collect(Collectors.toList());
-
-        for (PaymentMethodBitcoinEntity account : accounts) {
-            Wallet wallet = Wallet.loadFromFileStream(new ByteArrayInputStream(account.getWallet()));
-            walletAppKit.peerGroup().downloadBlockChain();
-
-            System.out.println("!!!! Fucking balance = " + wallet.getBalance());
-        }
-
-    }
-
-    private void placeOrder(Wallet wallet, PaymentMethodEntity paymentMethodEntity) {
-        MarketOrder order = new MarketOrder((Order.OrderType.ASK), new BigDecimal(wallet.getBalance().getValue()), CurrencyPair.BTC_EUR);
-        String orderReturnValue = null;
+    @Scheduled(initialDelay = 2000, fixedDelay = 10000)
+    public void checkBalance() {
         try {
-            orderReturnValue = krakenExchange.getTradeService().placeMarketOrder(order);
-            saveOrder(order, paymentMethodEntity);
-        } catch (IOException e) {
+            List<PaymentMethodBitcoinEntity> accounts = paymentMethodBitcoinService.findAll();
+
+            PeerGroup peerGroup = bitcoinService.startPeerGroup();
+            bitcoinService.downloadBlockchain(peerGroup);
+
+            for (PaymentMethodBitcoinEntity account : accounts) {
+//            wallet.addWatchedAddress(new Address(networkParameters, account.getBtcAddress()));
+//            peerGroup.addWallet(wallet);
+
+                if (account.getBtcWallet().getBalance().getValue() > 0) {
+                    exchangeService.placeOrder(account.getBtcWallet(), account);
+                }
+
+                ByteArrayOutputStream walletDump = new ByteArrayOutputStream();
+                account.getBtcWallet().saveToFileStream(walletDump);
+                account.setWallet(walletDump.toByteArray());
+                paymentMethodBitcoinService.save(account);
+
+            }
+
+            peerGroup.stop();
+        } catch (Throwable e) {
             e.printStackTrace();
         }
-        System.out.println("Limit Order return value: " + orderReturnValue);
     }
 
-    public void saveOrder(Order order, PaymentMethodEntity paymentMethodEntity) {
-        ExchangeOrderEntity entity = new ExchangeOrderEntity();
-        entity.setPaymentMethod(paymentMethodEntity);
-        entity.setExchangeName(krakenExchange.getExchangeSpecification().getExchangeName());
-        entity.setInternalStatus(ExchangeOrderStatus.SUBMITTED);
-        entity.setType(order.getType().name());
-        entity.setOriginalAmount(order.getOriginalAmount());
-        entity.setCurrencyPair(order.getCurrencyPair().toString());
-        entity.setOrderId(order.getId());
-        entity.setTimestamp(order.getTimestamp() != null ? new Timestamp(order.getTimestamp().getTime()) : null);
-        entity.setStatus(order.getStatus() != null ? order.getStatus().name() : null);
-        entity.setCumulativeAmount(order.getCumulativeAmount());
-        entity.setAveragePrice(order.getAveragePrice());
-        entity.setFee(order.getFee());
-        entity.setLeverage(order.getLeverage());
-        entity.setEffectiveDate(new Timestamp(System.currentTimeMillis()));
-
-        exchangeOrderService.save(entity);
-
-    }
 
 }

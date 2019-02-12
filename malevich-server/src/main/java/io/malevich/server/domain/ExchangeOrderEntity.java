@@ -32,12 +32,7 @@ public class ExchangeOrderEntity extends YAbstractPersistable<Long> {
 
     @Getter
     @Setter
-    @Column(name = "type")
-    private String type;
-
-    @Getter
-    @Setter
-    @Column(name = "original_amount")
+    @Column(name = "amount")
     private BigDecimal originalAmount;
 
     @Getter
@@ -49,36 +44,6 @@ public class ExchangeOrderEntity extends YAbstractPersistable<Long> {
     @Setter
     @Column(name = "order_id")
     private String orderId;
-
-    @Getter
-    @Setter
-    @Column(name = "timestamp")
-    private java.sql.Timestamp timestamp;
-
-    @Getter
-    @Setter
-    @Column(name = "status")
-    private String status;
-
-    @Getter
-    @Setter
-    @Column(name = "cumulative_amount")
-    private BigDecimal cumulativeAmount;
-
-    @Getter
-    @Setter
-    @Column(name = "average_price")
-    private BigDecimal averagePrice;
-
-    @Getter
-    @Setter
-    @Column(name = "fee")
-    private BigDecimal fee;
-
-    @Getter
-    @Setter
-    @Column(name = "leverage")
-    private String leverage;
 
     @Getter
     @Setter

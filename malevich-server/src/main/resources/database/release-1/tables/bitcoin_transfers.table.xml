@@ -3,24 +3,18 @@
                    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
                    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.6.xsd">
 
-    <changeSet author="toolstik" id="exchange_order-table">
-        <createTable tableName="exchange_order">
+    <changeSet author="thefattony" id="bitcoin_transfers-table">
+        <createTable tableName="bitcoin_transfers">
             <column name="id" type="bigint">
                 <constraints nullable="false"/>
             </column>
             <column name="payment_method_id" type="bigint">
                 <constraints nullable="false"/>
             </column>
-            <column name="exchange_name" type="varchar(100)">
+            <column name="sender_address" type="varchar(100)">
                 <constraints nullable="false"/>
             </column>
-            <column name="internal_status" type="char(10)">
-                <constraints nullable="false"/>
-            </column>
-            <column name="currency_pair" type="varchar(10)">
-                <constraints nullable="false"/>
-            </column>
-            <column name="order_id" type="varchar(100)">
+            <column name="destination_address" type="varchar(100)">
                 <constraints nullable="false"/>
             </column>
             <column name="effective_date" type="timestamp">
@@ -32,12 +26,12 @@
         </createTable>
     </changeSet>
 
-    <changeSet author="toolstik" id="exchange_order-pk">
-        <addPrimaryKey columnNames="id" constraintName="exchange_order_pk" tableName="exchange_order"/>
+    <changeSet author="thefattony" id="bitcoin_transfers-pk">
+        <addPrimaryKey columnNames="id" constraintName="bitcoin_transfers_pk" tableName="bitcoin_transfers"/>
     </changeSet>
 
-    <changeSet author="toolstik" id="exchange_order-id-aa" dbms="mysql">
-        <addAutoIncrement columnDataType="bigint" columnName="id" tableName="exchange_order"/>
+    <changeSet author="thefattony" id="bitcoin_transfers-id-aa" dbms="mysql">
+        <addAutoIncrement columnDataType="bigint" columnName="id" tableName="bitcoin_transfers"/>
     </changeSet>
 
 </databaseChangeLog>

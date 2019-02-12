@@ -39,10 +39,7 @@ public class PaymentMethodBitcoinServiceImpl implements PaymentMethodBitcoinServ
     private NetworkParameters networkParameters;
 
     @Autowired
-    private MemoryBlockStore memoryBlockStore;
-
-    @Autowired
-    private WalletAppKit walletAppKit;
+    private BlockChain blockChain;
 
     @Override
     @Transactional(readOnly = true)
@@ -81,9 +78,19 @@ public class PaymentMethodBitcoinServiceImpl implements PaymentMethodBitcoinServ
         return paymentMethodDao.save(address);
     }
 
+    @Override
+    public void save(PaymentMethodBitcoinEntity account) {
+        paymentMethodDao.save(account);
+    }
+
     private Wallet createWallet() {
         Wallet wallet = new Wallet(networkParameters);
-        walletAppKit.peerGroup().addWallet(wallet);
+        PeerGroup peerGroup = new PeerGroup(networkParameters, blockChain);
+        peerGroup.addPeerDiscovery(new DnsDiscovery(networkParameters));
+        peerGroup.addWallet(wallet);
+        peerGroup.start();
+        peerGroup.stop();
+
         return wallet;
     }
 

@@ -11,4 +11,6 @@ public interface PaymentMethodBitcoinService {
     List<PaymentMethodBitcoinEntity> findAll();
 
     PaymentMethodBitcoinEntity generateBtc();
+
+    void save(PaymentMethodBitcoinEntity account);
 }

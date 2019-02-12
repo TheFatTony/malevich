@@ -5,16 +5,15 @@ import io.malevich.server.domain.*;
 import io.malevich.server.domain.enums.KycLevel;
 import io.malevich.server.exceptions.KycSecurityException;
 import io.malevich.server.repositories.kyclevel.KycLevelDao;
+import io.malevich.server.services.document.DocumentService;
+import io.malevich.server.services.participant.ParticipantService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.lang.reflect.Field;
-import java.util.Arrays;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Slf4j
@@ -23,6 +22,12 @@ public class KycLevelServiceImpl implements KycLevelService {
     private final Map<String, KycLevelEntity> values;
 
     private KycLevelDao kycLevelDao;
+
+    @Autowired
+    private DocumentService documentService;
+
+    @Autowired
+    private ParticipantService participantService;
 
     @Autowired
     public KycLevelServiceImpl(KycLevelDao kycLevelDao) {
@@ -59,6 +64,10 @@ public class KycLevelServiceImpl implements KycLevelService {
 
     private KycLevelEntity getTraderTier1() {
         return values.get("T_TIER1");
+    }
+
+    private KycLevelEntity getTraderTier2() {
+        return values.get("T_TIER2");
     }
 
     private KycLevelEntity getGalleryTier0() {
@@ -140,8 +149,25 @@ public class KycLevelServiceImpl implements KycLevelService {
 
             result = getTraderTier1();
 
+            if (!isTraderTier2(participantEntity))
+                return result;
+
+            result = getTraderTier2();
+
             return result;
         }
+    }
+
+    @Override
+    @Transactional
+    public void updateLevel(ParticipantEntity participantEntity){
+        KycLevelEntity newLevel = getLevel(participantEntity);
+
+        if(newLevel.equals(participantEntity.getKycLevel()))
+            return;
+
+        participantEntity.setKycLevel(newLevel);
+        participantService.saveAsIs(participantEntity);
     }
 
     private static List<Field> getAllFields(List<Field> fields, Class<?> type) {
@@ -184,6 +210,19 @@ public class KycLevelServiceImpl implements KycLevelService {
         return true;
     }
 
+    private boolean hasDocumentsOfType(ParticipantEntity participantEntity, String[] types) {
+        List<DocumentEntity> documents =
+                documentService.findByParticipantId(participantEntity.getId());
+
+        HashSet<String> docTypes = documents
+                .stream()
+                .map(d -> d.getDocumentType().getId())
+                .collect(Collectors.toCollection(HashSet::new));
+
+        return Arrays.stream(types).allMatch(i -> docTypes.contains(i));
+
+    }
+
     private boolean isGalleryTier1(GalleryEntity galleryEntity) {
         if (!hasLevel(galleryEntity, getGalleryTier1()))
             return false;
@@ -191,6 +230,16 @@ public class KycLevelServiceImpl implements KycLevelService {
         OrganizationEntity organizationEntity = galleryEntity.getOrganization();
 
         if (!hasLevel(organizationEntity, getGalleryTier1()))
+            return false;
+
+        List<AddressEntity> addresses = galleryEntity.getAddresses();
+        if (addresses == null || addresses.size() == 0)
+            return false;
+
+        if (!hasLevel(addresses.get(0), getTraderTier2()))
+            return false;
+
+        if (!hasDocumentsOfType(galleryEntity, new String[]{"GAL_LIC", "CERT_INC"}))
             return false;
 
         return true;
@@ -216,6 +265,25 @@ public class KycLevelServiceImpl implements KycLevelService {
             if (!hasLevel(organizationEntity, getTraderTier1()))
                 return false;
         }
+        return true;
+    }
+
+    private boolean isTraderTier2(ParticipantEntity participantEntity) {
+        List<AddressEntity> addresses = participantEntity.getAddresses();
+        if (addresses == null || addresses.size() == 0)
+            return false;
+
+        if (!hasLevel(addresses.get(0), getTraderTier2()))
+            return false;
+
+        if (participantEntity instanceof TraderPersonEntity) {
+            if (!hasDocumentsOfType(participantEntity, new String[]{"PASSPORT", "UTIL_BILL"}))
+                return false;
+        } else if (participantEntity instanceof TraderOrganizationEntity) {
+            if (!hasDocumentsOfType(participantEntity, new String[]{"CERT_INC"}))
+                return false;
+        }
+
         return true;
     }
 }

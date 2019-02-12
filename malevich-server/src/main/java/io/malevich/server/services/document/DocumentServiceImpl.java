@@ -3,6 +3,7 @@ package io.malevich.server.services.document;
 import io.malevich.server.domain.DocumentEntity;
 import io.malevich.server.domain.ParticipantEntity;
 import io.malevich.server.repositories.document.DocumentDao;
+import io.malevich.server.services.kyc.KycLevelService;
 import io.malevich.server.services.participant.ParticipantService;
 import io.malevich.server.services.delayedchange.DelayedChangeService;
 import lombok.extern.slf4j.Slf4j;
@@ -26,11 +27,20 @@ public class DocumentServiceImpl implements DocumentService {
     @Autowired
     private DelayedChangeService delayedChangeService;
 
+    @Autowired
+    private KycLevelService kycLevelService;
+
     @Override
     @Transactional(readOnly = true)
     public List<DocumentEntity> findDocs() {
         ParticipantEntity current = participantService.getCurrent();
         return this.documentDao.findByParticipant_Id(current.getId());
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public List<DocumentEntity> findByParticipantId(Long participantId) {
+        return this.documentDao.findByParticipant_Id(participantId);
     }
 
     @Override
@@ -46,7 +56,13 @@ public class DocumentServiceImpl implements DocumentService {
     @Override
     @Transactional
     public DocumentEntity save(DocumentEntity entity) {
-        return this.documentDao.save(entity);
+        DocumentEntity document = this.documentDao.save(entity);
+//        participantService.save(document.getParticipant(), document.getParticipant().getUser());
+        ParticipantEntity participantEntity =
+                participantService.findById(document.getParticipant().getId()).orElse(null);
+        kycLevelService.updateLevel(participantEntity);
+
+        return document;
     }
 
     @Override
@@ -55,7 +71,7 @@ public class DocumentServiceImpl implements DocumentService {
         ParticipantEntity current = participantService.getCurrent();
         DocumentEntity existing = documentDao.findById(id).orElse(null);
 
-        if(existing == null || existing.getParticipant().getId() != current.getId())
+        if (existing == null || existing.getParticipant().getId() != current.getId())
             return;
 
         this.documentDao.deleteById(id);

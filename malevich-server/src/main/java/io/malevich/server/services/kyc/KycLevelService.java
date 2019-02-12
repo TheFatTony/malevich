@@ -19,4 +19,6 @@ public interface KycLevelService {
     void checkLevelOrException(ParticipantEntity participantEntity, KycLevel[] requiredLevels);
 
     KycLevelEntity getLevel(ParticipantEntity participantEntity);
+
+    void updateLevel(ParticipantEntity participantEntity);
 }

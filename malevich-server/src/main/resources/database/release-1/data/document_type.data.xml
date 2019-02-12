@@ -9,6 +9,7 @@
             VALUES ('PASSPORT', JSON_OBJECT('en', 'Passport', 'ru', 'Паспорт')),
                    ('DRV_LIC', JSON_OBJECT('en', 'Driving licence', 'ru', 'Водительские права')),
                    ('UTIL_BILL', JSON_OBJECT('en', 'Utility bill', 'ru', 'Счет за коммунальные услуги')),
+                   ('CERT_INC', JSON_OBJECT('en', 'Certificate of Incorporation', 'ru', 'Certificate of Incorporation')),
                    ('GAL_LIC', JSON_OBJECT('en', 'Certificate/licence', 'ru', 'Лицензия'));
         </sql>
     </changeSet>

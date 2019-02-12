@@ -91,6 +91,12 @@ public class ParticipantServiceImpl implements ParticipantService {
 
     @Override
     @Transactional
+    public ParticipantEntity saveAsIs(ParticipantEntity participantEntity){
+        return dao.save(participantEntity);
+    }
+
+    @Override
+    @Transactional
     public ParticipantEntity save(ParticipantEntity participantEntity, UserEntity user) {
         ParticipantEntity currentParticipant = dao.findByUsers_Name(user.getName()).orElse(null);
 

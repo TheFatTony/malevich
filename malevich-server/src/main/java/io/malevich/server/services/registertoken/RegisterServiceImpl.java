@@ -97,7 +97,7 @@ public class RegisterServiceImpl implements RegisterService {
 
 
         VelocityContext context = new VelocityContext();
-        context.put("link", clientUrl + "/#/user/register?token=" + entity.getToken());
+        context.put("link", clientUrl + "/#/auth/register?token=" + entity.getToken());
 
         StringWriter stringWriter = new StringWriter();
         velocityEngine.mergeTemplate("templates/mail/user_activation_link_template_" + lang + ".vm", "UTF-8", context, stringWriter);

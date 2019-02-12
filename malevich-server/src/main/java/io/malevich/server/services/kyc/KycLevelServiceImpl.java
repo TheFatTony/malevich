@@ -129,7 +129,7 @@ public class KycLevelServiceImpl implements KycLevelService {
 
     @Override
     public void checkLevelOrException(ParticipantEntity participantEntity, KycLevel[] requiredLevels) {
-        KycLevelEntity currentLevel = participantEntity.getKycLevel();
+        KycLevelEntity currentLevel = participantEntity != null ? participantEntity.getKycLevel() : null;
         KycSecurityException exception = getCheckLevelException(currentLevel, requiredLevels);
         if (exception != null)
             throw exception;
@@ -160,10 +160,10 @@ public class KycLevelServiceImpl implements KycLevelService {
 
     @Override
     @Transactional
-    public void updateLevel(ParticipantEntity participantEntity){
+    public void updateLevel(ParticipantEntity participantEntity) {
         KycLevelEntity newLevel = getLevel(participantEntity);
 
-        if(newLevel.equals(participantEntity.getKycLevel()))
+        if (newLevel.equals(participantEntity.getKycLevel()))
             return;
 
         participantEntity.setKycLevel(newLevel);
@@ -181,6 +181,9 @@ public class KycLevelServiceImpl implements KycLevelService {
     }
 
     private boolean hasLevel(Object obj, KycLevelEntity testLevel) {
+
+        if(obj == null)
+            return false;
 
         for (Field field : getAllFields(new LinkedList<>(), obj.getClass())) {
             KycRequiredFor kycRequiredFor = field.getAnnotation(KycRequiredFor.class);

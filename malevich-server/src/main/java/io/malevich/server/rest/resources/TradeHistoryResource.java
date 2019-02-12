@@ -1,7 +1,9 @@
 package io.malevich.server.rest.resources;
 
 import com.yinyang.core.server.rest.RestResource;
+import io.malevich.server.aop.KycRequired;
 import io.malevich.server.domain.TradeHistoryEntity;
+import io.malevich.server.domain.enums.KycLevel;
 import io.malevich.server.services.tradehistory.TradeHistoryService;
 import io.malevich.server.transfer.TradeHistoryDto;
 import lombok.extern.slf4j.Slf4j;
@@ -27,7 +29,7 @@ public class TradeHistoryResource extends RestResource<TradeHistoryDto, TradeHis
         super(TradeHistoryDto.class, TradeHistoryEntity.class);
     }
 
-
+    @KycRequired(level = {KycLevel.G_TIER1, KycLevel.T_TIER1})
     @RequestMapping(value = "/findAllByArtworkId/{artworkId}", method = RequestMethod.GET)
     public List<TradeHistoryDto> findAllByArtworkId(@PathVariable("artworkId") long artworkId) {
         List<TradeHistoryEntity> allEntries = this.tradeHistoryService.findAllByArtworkId(artworkId);

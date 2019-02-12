@@ -62,7 +62,12 @@ public class ParticipantServiceImpl implements ParticipantService {
     @Override
     @Transactional(readOnly = true)
     public ParticipantEntity getCurrent() {
-        return dao.findByUsers_Name(authService.getUserEntity().getUsername()).orElse(null);
+        UserEntity userEntity = authService.getUserEntity();
+
+        if(userEntity == null)
+            return null;
+
+        return dao.findByUsers_Name(userEntity.getUsername()).orElse(null);
     }
 
     @Override

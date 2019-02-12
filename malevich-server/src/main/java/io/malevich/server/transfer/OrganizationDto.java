@@ -12,8 +12,6 @@ public class OrganizationDto {
 
     private Long id;
 
-    private String phoneNumber;
-
     private Map<String, String> legalNameMl;
 
 }

@@ -13,6 +13,11 @@ import {OrderPublicDto} from '../../_transfer/orderPublicDto';
 import {OrderWindowComponent} from '../../common/components/order-window/order-window.component';
 import {WishListService} from '../../_services/wish-list.service';
 import {WishListDto} from '../../_transfer/wishListDto';
+import {ParticipantService} from "../../_services/participant.service";
+import {KycLevelService} from "../../_services/kyc-level.service";
+import {Subject} from "rxjs";
+import {Globals} from "../../globals";
+import {map} from "rxjs/operators";
 
 @Component({
   selector: 'app-artworks-detail',
@@ -31,6 +36,8 @@ export class ArtworksDetailComponent implements OnInit, AfterViewInit {
 
   tradeHistory: TradeHistoryDto[];
 
+  tradingAccess: { read: boolean, write: boolean } = {read: false, write: false};
+
   public url = environment.baseUrl;
 
   constructor(private orderService: OrderService,
@@ -38,7 +45,10 @@ export class ArtworksDetailComponent implements OnInit, AfterViewInit {
               public translate: TranslateService,
               private artworkStockService: ArtworkStockService,
               private tradeHistoryService: TradeHistoryService,
-              private wishListService: WishListService) {
+              private wishListService: WishListService,
+              private participantService: ParticipantService,
+              private kycLevelService: KycLevelService,
+              private globals: Globals) {
   }
 
   ngOnInit() {
@@ -46,13 +56,42 @@ export class ArtworksDetailComponent implements OnInit, AfterViewInit {
       this.id = params['id'];
     });
     this.getArtworkStock();
-    this.getOpenOrdersByArtworkId();
-    this.getTradeHistoryByArtworkId();
+    this.checkTradingAccess();
   }
 
   ngAfterViewInit(): void {
     $['HSCore'].helpers.HSRating.init();
     $['HSCore'].components.HSTabs.init('[role="tablist"]');
+  }
+
+  checkTradingAccess() {
+    if (!this.globals.isAuthorised) {
+      const subj = new Subject();
+      subj.next({read: false, write: false});
+      return subj;
+    }
+
+    return this.participantService.getCurrent()
+      .pipe(map(participant => {
+        if (!participant)
+          return {read: false, write: false};
+
+        const level = participant.kycLevel.id;
+
+        return {
+          read: ['T_TIER1', 'T_TIER2', 'G_TIER1'].indexOf(level) >= 0,
+          write: ['T_TIER2', 'G_TIER1'].indexOf(level) >= 0
+        }
+      }))
+      .subscribe(r => {
+        this.tradingAccess = r;
+
+        if(this.tradingAccess.read)
+        {
+          this.getOpenOrdersByArtworkId();
+          this.getTradeHistoryByArtworkId();
+        }
+      });
   }
 
   getArtworkStock(): void {

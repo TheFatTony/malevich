@@ -1,7 +1,9 @@
 package io.malevich.server.rest.resources;
 
 import com.yinyang.core.server.rest.RestResource;
+import io.malevich.server.aop.KycRequired;
 import io.malevich.server.domain.PaymentsEntity;
+import io.malevich.server.domain.enums.KycLevel;
 import io.malevich.server.services.payments.PaymentsService;
 import io.malevich.server.transfer.PaymentsDto;
 import lombok.extern.slf4j.Slf4j;
@@ -27,7 +29,7 @@ public class PaymentsResource extends RestResource<PaymentsDto, PaymentsEntity> 
         super(PaymentsDto.class, PaymentsEntity.class);
     }
 
-
+    @KycRequired(level = {KycLevel.G_TIER1, KycLevel.T_TIER1})
     @GetMapping("/list")
     @ResponseStatus(HttpStatus.OK)
     public List<PaymentsDto> list() {
@@ -37,6 +39,7 @@ public class PaymentsResource extends RestResource<PaymentsDto, PaymentsEntity> 
 
     @GetMapping("/listByParticipant/{id}")
     @ResponseStatus(HttpStatus.OK)
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     public List<PaymentsDto> listByParticipant(@PathVariable("id") Long id) {
         List<PaymentsEntity> allEntries = this.paymentsService.findAllByParticipant(id);
         return convertListOfDto(allEntries);
@@ -49,6 +52,7 @@ public class PaymentsResource extends RestResource<PaymentsDto, PaymentsEntity> 
         return ResponseEntity.ok().build();
     }
 
+    @KycRequired(level = {KycLevel.G_TIER1, KycLevel.T_TIER1})
     @PreAuthorize("hasAnyRole('ROLE_TRADER','ROLE_GALLERY')")
     @GetMapping("/print/{id}")
     @ResponseStatus(HttpStatus.OK)

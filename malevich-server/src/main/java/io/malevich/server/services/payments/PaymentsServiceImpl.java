@@ -84,7 +84,13 @@ public class PaymentsServiceImpl implements PaymentsService {
     @Override
     @Transactional(readOnly = true)
     public PaymentsEntity getPayments(Long id) {
-        return this.paymentsDao.findById(id).orElse(null);
+        ParticipantEntity currentParticicpant = participantService.getCurrent();
+        PaymentsEntity paymentsEntity = this.paymentsDao.findById(id).orElse(null);
+
+        if(!paymentsEntity.getParticipant().equals(currentParticicpant))
+            return null;
+
+        return paymentsEntity;
     }
 
     @Override

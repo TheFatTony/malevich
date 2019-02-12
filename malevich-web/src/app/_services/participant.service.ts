@@ -51,7 +51,7 @@ export class ParticipantService {
 
     if (this.isOrganization(dto)) {
       dto.organization = dto.organization || new OrganizationDto();
-      dto.organization.legalNameMl = new Map<string, string>();
+      dto.organization.legalNameMl = dto.organization.legalNameMl || new Map<string, string>();
     }
 
     if (this.isPerson(dto) && !dto.person) {

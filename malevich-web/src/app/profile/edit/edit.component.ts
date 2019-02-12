@@ -65,7 +65,10 @@ export class EditComponent implements OnInit, AfterViewInit {
   }
 
   update(): void {
-    this.participant.person.gender = this.participant.person.gender || null;
+    if (this.participant.person) {
+      this.participant.person.gender = this.participant.person.gender || null;
+    }
+
     this.participant.addresses = this.participant.addresses.map(a => {
       a.country = a.country || null;
       return a;

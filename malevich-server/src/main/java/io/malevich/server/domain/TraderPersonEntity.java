@@ -1,6 +1,8 @@
 package io.malevich.server.domain;
 
 
+import io.malevich.server.aop.KycRequiredFor;
+import io.malevich.server.domain.enums.KycLevel;
 import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.annotations.Fetch;
@@ -20,6 +22,7 @@ public class TraderPersonEntity extends ParticipantEntity {
     @Setter
     @Fetch(FetchMode.JOIN)
     @OneToOne(cascade = CascadeType.ALL)
+    @KycRequiredFor(levels = KycLevel.T_TIER1)
     private PersonEntity person;
 
 }

@@ -1,5 +1,6 @@
 package io.malevich.server.services.kyc;
 
+import io.malevich.server.aop.KycRequiredFor;
 import io.malevich.server.domain.*;
 import io.malevich.server.domain.enums.KycLevel;
 import io.malevich.server.exceptions.KycSecurityException;
@@ -9,6 +10,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.lang.reflect.Field;
+import java.util.Arrays;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -41,8 +45,7 @@ public class KycLevelServiceImpl implements KycLevelService {
                 .collect(Collectors.toList());
     }
 
-    @Override
-    public KycLevelEntity getByEnum(KycLevel enumLevel) {
+    private KycLevelEntity getByEnum(KycLevel enumLevel) {
         return values.get(enumLevel.name());
     }
 
@@ -141,72 +144,76 @@ public class KycLevelServiceImpl implements KycLevelService {
         }
     }
 
-    private static boolean isNullOrEmpty(String value) {
-        return value == null || "".equals(value);
+    private static List<Field> getAllFields(List<Field> fields, Class<?> type) {
+        fields.addAll(Arrays.asList(type.getDeclaredFields()));
+
+        if (type.getSuperclass() != null) {
+            getAllFields(fields, type.getSuperclass());
+        }
+
+        return fields;
+    }
+
+    private boolean hasLevel(Object obj, KycLevelEntity testLevel) {
+
+        for (Field field : getAllFields(new LinkedList<>(), obj.getClass())) {
+            KycRequiredFor kycRequiredFor = field.getAnnotation(KycRequiredFor.class);
+
+            if (kycRequiredFor == null)
+                continue;
+
+            for (KycLevel level : kycRequiredFor.levels()) {
+                KycLevelEntity levelEntity = getByEnum(level);
+
+                if (!testLevel.equals(levelEntity))
+                    continue;
+
+                try {
+                    // todo crap
+                    field.setAccessible(true);
+                    if (field.get(obj) == null)
+                        return false;
+                } catch (IllegalAccessException e) {
+                    log.error("IllegalAccessException", e);
+//                    e.printStackTrace();
+                    return false;
+                }
+            }
+        }
+
+        return true;
     }
 
     private boolean isGalleryTier1(GalleryEntity galleryEntity) {
-        if (galleryEntity == null)
-            return false;
-
-        if (galleryEntity.getCountry() == null)
-            return false;
-
-        if (isNullOrEmpty(galleryEntity.getPhoneNumber()))
-            return false;
-
-        if (galleryEntity.getTitleMl() == null
-                || isNullOrEmpty(galleryEntity.getTitleMl().get("en")))
+        if (!hasLevel(galleryEntity, getGalleryTier1()))
             return false;
 
         OrganizationEntity organizationEntity = galleryEntity.getOrganization();
 
-        if (organizationEntity.getLegalNameMl() == null
-                || isNullOrEmpty(organizationEntity.getLegalNameMl().get("en")))
+        if (!hasLevel(organizationEntity, getGalleryTier1()))
             return false;
 
         return true;
     }
 
     private boolean isTraderTier1(ParticipantEntity participantEntity) {
-        if (participantEntity == null)
-            return false;
-
-        if (participantEntity.getCountry() == null)
-            return false;
-
-        if (isNullOrEmpty(participantEntity.getPhoneNumber()))
+        if (!hasLevel(participantEntity, getTraderTier1()))
             return false;
 
         if (participantEntity instanceof TraderPersonEntity) {
             TraderPersonEntity traderPersonEntity = (TraderPersonEntity) participantEntity;
             PersonEntity personEntity = traderPersonEntity.getPerson();
 
-            if (personEntity == null)
+            if (!hasLevel(personEntity, getTraderTier1()))
                 return false;
 
-            if (isNullOrEmpty(personEntity.getFirstName()))
-                return false;
-
-            if (isNullOrEmpty(personEntity.getLastName()))
-                return false;
-
-            if (personEntity.getDateOfBirth() == null)
-                return false;
-
-            if (isNullOrEmpty(participantEntity.getPhoneNumber()))
-                return false;
-
-            if (participantEntity.getCountry() == null)
-                return false;
         } else if (participantEntity instanceof TraderOrganizationEntity) {
             TraderOrganizationEntity traderOrganizationEntity =
                     (TraderOrganizationEntity) participantEntity;
 
             OrganizationEntity organizationEntity = traderOrganizationEntity.getOrganization();
 
-            if (organizationEntity.getLegalNameMl() == null
-                    || isNullOrEmpty(organizationEntity.getLegalNameMl().get("en")))
+            if (!hasLevel(organizationEntity, getTraderTier1()))
                 return false;
         }
         return true;

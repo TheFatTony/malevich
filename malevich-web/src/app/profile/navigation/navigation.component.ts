@@ -5,7 +5,7 @@ import {TranslateService} from "@ngx-translate/core";
 import {ParticipantDto} from "../../_transfer/participantDto";
 import {KycLevelService} from "../../_services/kyc-level.service";
 import {KycLevelDto} from "../../_transfer/kycLevelDto";
-import {ActivatedRoute, NavigationEnd, Router} from "@angular/router";
+import {ActivatedRoute} from "@angular/router";
 
 @Component({
   selector: 'app-profile-navigation',
@@ -35,11 +35,9 @@ export class NavigationComponent implements OnInit {
   ngOnInit() {
     this.getRoutingKycLevels();
     this.getCurrentMember();
-    console.log(this.routingKycLevels);
   }
 
   getRoutingKycLevels() {
-    // console.log(this.route.snapshot.parent.routeConfig.children);
     this.route.snapshot.parent.routeConfig.children
       .forEach(next => {
         if (next.data && next.data.kycLevels) {
@@ -64,15 +62,6 @@ export class NavigationComponent implements OnInit {
     return false;
   }
 
-  hasKycLevel(level: string) {
-    if (!this.kycLevels)
-      return false;
-
-    if (!level) return false;
-
-    return !!this.kycLevels.find(l => l.id == level);
-  }
-
   getCurrentMember(): void {
     this.participantService
       .getCurrent()
@@ -86,7 +75,7 @@ export class NavigationComponent implements OnInit {
             this.isGallery = this.isGallery || (r == "ROLE_GALLERY");
           });
 
-          this.participant = data;
+          this.participant = this.participantService.initInstance(data);;
 
           this.kycLevelService.getDetailing(this.participant.kycLevel.id)
             .subscribe(kycData => {

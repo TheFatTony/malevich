@@ -3,6 +3,8 @@ package io.malevich.server.domain;
 import com.yinyang.core.server.domain.FileEntity;
 import com.yinyang.core.server.domain.UserEntity;
 import com.yinyang.core.server.domain.YAbstractPersistable;
+import io.malevich.server.aop.KycRequiredFor;
+import io.malevich.server.domain.enums.KycLevel;
 import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.annotations.Fetch;
@@ -30,11 +32,13 @@ public class ParticipantEntity extends YAbstractPersistable<Long> {
     @Setter
     @Fetch(FetchMode.JOIN)
     @ManyToOne
+    @KycRequiredFor(levels = {KycLevel.T_TIER1, KycLevel.G_TIER1})
     private CountryEntity country;
 
     @Getter
     @Setter
     @Column(name = "phone_number")
+    @KycRequiredFor(levels = {KycLevel.T_TIER1, KycLevel.G_TIER1})
     private String phoneNumber;
 
     @Getter

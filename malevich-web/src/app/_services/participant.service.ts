@@ -49,8 +49,8 @@ export class ParticipantService {
     if (!dto.addresses || !dto.addresses.length)
       dto.addresses = [new AddressDto()];
 
-    if (this.isOrganization(dto) && !dto.organization) {
-      dto.organization = new OrganizationDto();
+    if (this.isOrganization(dto)) {
+      dto.organization = dto.organization || new OrganizationDto();
       dto.organization.legalNameMl = new Map<string, string>();
     }
 

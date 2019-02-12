@@ -5,6 +5,7 @@ import {TranslateService} from "@ngx-translate/core";
 import {ParticipantDto} from "../../_transfer/participantDto";
 import {KycLevelService} from "../../_services/kyc-level.service";
 import {KycLevelDto} from "../../_transfer/kycLevelDto";
+import {ActivatedRoute, NavigationEnd, Router} from "@angular/router";
 
 @Component({
   selector: 'app-profile-navigation',
@@ -19,6 +20,7 @@ export class NavigationComponent implements OnInit {
   isGallery: boolean = false;
 
   kycLevels: KycLevelDto[];
+  routingKycLevels: { [name: string]: string[] } = {};
 
   titleName: string = "";
 
@@ -26,18 +28,47 @@ export class NavigationComponent implements OnInit {
 
   constructor(private participantService: ParticipantService,
               private translate: TranslateService,
-              private kycLevelService: KycLevelService) {
+              private kycLevelService: KycLevelService,
+              private route: ActivatedRoute) {
   }
 
   ngOnInit() {
+    this.getRoutingKycLevels();
     this.getCurrentMember();
+    console.log(this.routingKycLevels);
+  }
+
+  getRoutingKycLevels() {
+    // console.log(this.route.snapshot.parent.routeConfig.children);
+    this.route.snapshot.parent.routeConfig.children
+      .forEach(next => {
+        if (next.data && next.data.kycLevels) {
+          this.routingKycLevels[next.path] = next.data.kycLevels;
+        }
+      });
+  }
+
+  hasKycAccess(path:string){
+    const levels = this.routingKycLevels[path];
+
+    if(!levels) return true;
+
+    if (!this.kycLevels)
+      return false;
+
+    for(let level of levels){
+      if(!!this.kycLevels.find(l => l.id == level))
+        return true;
+    }
+
+    return false;
   }
 
   hasKycLevel(level: string) {
-    if(!this.kycLevels)
+    if (!this.kycLevels)
       return false;
 
-    if(!level) return false;
+    if (!level) return false;
 
     return !!this.kycLevels.find(l => l.id == level);
   }

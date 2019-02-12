@@ -34,6 +34,7 @@ import {StorageComponent as ProfileStorageComponent} from './profile/storage/sto
 import {StorageAddComponent as ProfileStorageAddComponent} from './profile/storage/add/storage-add.component';
 import {StorageEditComponent as ProfileStorageEditComponent} from './profile/storage/edit/storage-edit.component';
 import {AdminGuard, AuthGuard} from '../../node_modules/yinyang-core';
+import {KycGuard} from "./_guards/kyc.guard";
 
 
 const routes: Routes = [
@@ -47,20 +48,20 @@ const routes: Routes = [
   {path: 'auth/reset', component: ResetComponent},
 
   {
-    path: 'profile', canActivate: [AuthGuard], children: [
+    path: 'profile', canActivate: [AuthGuard], canActivateChild: [KycGuard], children: [
       {path: 'view', component: ProfileViewComponent, canActivate: [AuthGuard]},
       {path: 'edit', component: ProfileEditComponent, canActivate: [AuthGuard]},
-      {path: 'payment', component: ProfilePaymentComponent, canActivate: [AuthGuard]},
-      {path: 'wallet', component: ProfileWalletComponent, canActivate: [AuthGuard]},
+      {path: 'payment', component: ProfilePaymentComponent, data: {kycLevels: ['T_TIER1', 'G_TIER1']}, canActivate: [AuthGuard]},
+      {path: 'wallet', component: ProfileWalletComponent, data: {kycLevels: ['T_TIER1', 'G_TIER1']}, canActivate: [AuthGuard]},
       {path: 'wishlist', component: ProfileWishlistComponent, canActivate: [AuthGuard]},
       {path: 'notifications', component: ProfileNotificationsComponent, canActivate: [AuthGuard]},
-      {path: 'orders', component: ProfileOrdersComponent, canActivate: [AuthGuard]},
-      {path: 'artworks', component: ProfileArtworkStockComponent, canActivate: [AuthGuard]},
+      {path: 'orders', component: ProfileOrdersComponent, data: {kycLevels: ['T_TIER2', 'G_TIER1']}, canActivate: [AuthGuard]},
+      {path: 'artworks', component: ProfileArtworkStockComponent, data: {kycLevels: ['T_TIER2', 'G_TIER1']}, canActivate: [AuthGuard]},
       {path: 'documents', component: ProfileDocumentsComponent, canActivate: [AuthGuard]},
       {path: 'documents/add', component: ProfileDocumentAddComponent, canActivate: [AuthGuard]},
-      {path: 'storage', component: ProfileStorageComponent, canActivate: [AuthGuard]},
-      {path: 'storage/add', component: ProfileStorageAddComponent, canActivate: [AuthGuard]},
-      {path: 'storage/edit/:id', component: ProfileStorageEditComponent, canActivate: [AuthGuard]},
+      {path: 'storage', component: ProfileStorageComponent, data: {kycLevels: ['G_TIER1']}, canActivate: [AuthGuard]},
+      {path: 'storage/add', component: ProfileStorageAddComponent, data: {kycLevels: ['G_TIER1']}, canActivate: [AuthGuard]},
+      {path: 'storage/edit/:id', component: ProfileStorageEditComponent, data: {kycLevels: ['G_TIER1']}, canActivate: [AuthGuard]},
     ]
   },
 

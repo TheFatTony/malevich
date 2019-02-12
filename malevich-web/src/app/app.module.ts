@@ -68,6 +68,7 @@ import { PaymentBitcoinComponent } from './profile/payment/payment-bitcoin/payme
 import { PaymentAccountComponent } from './profile/payment/payment-account/payment-account.component';
 import { PaymentAccountEditComponent } from './profile/payment/payment-account/edit/payment-account-edit.component';
 import { PaymentAccountViewComponent } from './profile/payment/payment-account/view/payment-account-view.component';
+import {KycGuard} from "./_guards/kyc.guard";
 
 
 export function createTranslateLoader(http: HttpClient) {
@@ -149,7 +150,7 @@ export function createTranslateLoader(http: HttpClient) {
     AdminModule
   ],
   providers:
-    [Globals, FileService, AuthGuard, AdminGuard,
+    [Globals, FileService, AuthGuard, AdminGuard, KycGuard,
       {provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true},
       {provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true}],
   bootstrap:

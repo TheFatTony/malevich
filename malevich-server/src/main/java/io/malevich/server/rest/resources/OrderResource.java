@@ -30,6 +30,7 @@ public class OrderResource extends RestResource<OrderDto, OrderEntity> {
         super(OrderDto.class, OrderEntity.class);
     }
 
+    @KycRequired(level = {KycLevel.G_TIER1, KycLevel.T_TIER2})
     @RequestMapping(value = "/getPlacedOrders", method = RequestMethod.GET)
     @ResponseStatus(HttpStatus.OK)
     @ResponseBody
@@ -69,6 +70,7 @@ public class OrderResource extends RestResource<OrderDto, OrderEntity> {
         return ResponseEntity.ok().build();
     }
 
+    @KycRequired(level = {KycLevel.G_TIER1, KycLevel.T_TIER2})
     @PreAuthorize("hasAnyRole('ROLE_GALLERY', 'ROLE_TRADER')")
     @RequestMapping(value = "/cancel", method = RequestMethod.POST)
     @ResponseStatus(HttpStatus.OK)

@@ -39,4 +39,11 @@ public class KycLevelResource extends RestResource<KycLevelDto, KycLevelEntity> 
         List<KycLevelEntity> allEntries = this.kycLevelService.getDetailing(level);
         return convertListOfDto(allEntries);
     }
+
+    @RequestMapping(value = "/testLevel/{level}", method = RequestMethod.PUT)
+    @ResponseStatus(HttpStatus.OK)
+    @ResponseBody
+    public boolean testLevel(@PathVariable String level, @RequestBody List<String> targetLevels) {
+        return this.kycLevelService.checkLevel(level, targetLevels);
+    }
 }

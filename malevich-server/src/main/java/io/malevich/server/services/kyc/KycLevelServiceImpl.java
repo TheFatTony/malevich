@@ -87,15 +87,12 @@ public class KycLevelServiceImpl implements KycLevelService {
         return null;
     }
 
-    @Override
-    public void checkLevel(ParticipantEntity participantEntity, KycLevel[] requiredLevels) {
+    private KycSecurityException getCheckLevelException(KycLevelEntity currentLevel, KycLevel[] requiredLevels) {
         if (requiredLevels == null || requiredLevels.length == 0)
-            return;
-
-        KycLevelEntity currentLevel = participantEntity.getKycLevel();
+            return null;
 
         if (currentLevel == null)
-            throw new KycSecurityException(requiredLevels[0], null, new String[]{});
+            return new KycSecurityException(requiredLevels[0], null, new String[]{});
 
         KycLevelEntity baseLevel = getBaseTier0(currentLevel);
 
@@ -106,8 +103,24 @@ public class KycLevelServiceImpl implements KycLevelService {
                 continue;
 
             if (!contains(currentLevel, requiredLevelEntity))
-                throw new KycSecurityException(requiredLevel, getEnum(currentLevel), new String[]{});
+                return new KycSecurityException(requiredLevel, getEnum(currentLevel), new String[]{});
         }
+
+        return null;
+    }
+
+    @Override
+    public boolean checkLevel(String testLevel, List<String> requiredLevels) {
+        KycLevelEntity testLevelEntity = getByEnum(KycLevel.valueOf(testLevel));
+        return getCheckLevelException(testLevelEntity, requiredLevels.stream().map(i -> KycLevel.valueOf(i)).toArray(KycLevel[]::new)) == null;
+    }
+
+    @Override
+    public void checkLevelOrException(ParticipantEntity participantEntity, KycLevel[] requiredLevels) {
+        KycLevelEntity currentLevel = participantEntity.getKycLevel();
+        KycSecurityException exception = getCheckLevelException(currentLevel, requiredLevels);
+        if (exception != null)
+            throw exception;
     }
 
     @Override

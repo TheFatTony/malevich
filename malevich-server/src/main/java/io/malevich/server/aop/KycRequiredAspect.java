@@ -29,7 +29,7 @@ public class KycRequiredAspect {
 
         ParticipantEntity participantEntity = participantService.getCurrent();
 
-        kycLevelService.checkLevel(participantEntity, kyc.level());
+        kycLevelService.checkLevelOrException(participantEntity, kyc.level());
 //        log.info("KYC level - {}", (Object) kyc.level());
 
         return joinPoint.proceed();

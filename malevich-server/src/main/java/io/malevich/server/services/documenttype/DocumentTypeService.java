@@ -6,5 +6,5 @@ import java.util.List;
 
 public interface DocumentTypeService {
 
-    List<DocumentTypeEntity> findByUserType(String userType);
+    List<DocumentTypeEntity> findByParticipantTypeId(String participantTypeId);
 }

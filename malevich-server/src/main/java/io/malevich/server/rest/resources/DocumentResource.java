@@ -34,10 +34,13 @@ public class DocumentResource extends RestResource<DocumentDto, DocumentEntity> 
     }
 
     @PreAuthorize("hasAnyRole('ROLE_TRADER','ROLE_GALLERY')")
-    @GetMapping("/typeList/{userType}")
+    @GetMapping("/typeList/{participantTypeId}")
     @ResponseStatus(HttpStatus.OK)
-    public List<DocumentTypeDto> typeList(@PathVariable("userType") String userType) {
-        return this.documentTypeService.findByUserType(userType).stream().map(allData -> convertToDto(allData))
+    public List<DocumentTypeDto> typeList(@PathVariable("participantTypeId") String participantTypeId) {
+        return this.documentTypeService
+                .findByParticipantTypeId(participantTypeId)
+                .stream()
+                .map(allData -> convertToDto(allData))
                 .collect(Collectors.toList());
     }
 

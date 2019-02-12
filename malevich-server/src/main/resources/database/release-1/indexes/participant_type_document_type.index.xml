@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.6.xsd">
+
+    <changeSet author="toolstik" id="participant_type_document_type-participant_type_id-index">
+        <createIndex indexName="participant_type_document_type_participant_type_id_idx" tableName="participant_type_document_type">
+            <column name="participant_type_id"/>
+        </createIndex>
+    </changeSet>
+
+    <changeSet author="toolstik" id="participant_type_document_type-document_type_id-index">
+        <createIndex indexName="participant_type_document_type_document_type_id_idx" tableName="participant_type_document_type">
+            <column name="document_type_id"/>
+        </createIndex>
+    </changeSet>
+
+</databaseChangeLog>

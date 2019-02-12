@@ -1,5 +1,7 @@
+import {ParticipantTypeDto} from "./participantTypeDto";
+
 export class DocumentTypeDto {
-  id: number;
+  id: string;
   nameMl: Map<string, string>;
-  userType: string;
+  participantTypes: ParticipantTypeDto[];
 }

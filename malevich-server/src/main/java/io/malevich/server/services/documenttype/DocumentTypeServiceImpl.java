@@ -18,7 +18,7 @@ public class DocumentTypeServiceImpl implements DocumentTypeService {
 
     @Override
     @Transactional(readOnly = true)
-    public List<DocumentTypeEntity> findByUserType(String userType) {
-        return this.documentTypeDao.findByUserType(userType);
+    public List<DocumentTypeEntity> findByParticipantTypeId(String participantTypeId) {
+        return this.documentTypeDao.findByParticipantTypes_Id(participantTypeId);
     }
 }

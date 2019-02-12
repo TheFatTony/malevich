@@ -19,5 +19,6 @@
     <include relativeToChangelogFile="true" file="data/participant_type.data.xml"/>
     <include relativeToChangelogFile="true" file="data/help_category.data.xml"/>
     <include relativeToChangelogFile="true" file="data/kyc_level.data.xml"/>
+    <include relativeToChangelogFile="true" file="data/participant_type_document_type.data.xml"/>
 
 </databaseChangeLog>

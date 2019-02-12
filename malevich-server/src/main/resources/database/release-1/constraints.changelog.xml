@@ -37,5 +37,6 @@
     <include relativeToChangelogFile="true" file="constraints/commission_rule.constraint.xml"/>
     <include relativeToChangelogFile="true" file="constraints/exchange_order.constraint.xml"/>
     <include relativeToChangelogFile="true" file="constraints/kyc_level.constraint.xml"/>
+    <include relativeToChangelogFile="true" file="constraints/participant_type_document_type.constraint.xml"/>
 
 </databaseChangeLog>

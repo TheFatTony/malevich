@@ -5,6 +5,7 @@ import io.malevich.server.domain.PaymentMethodBitcoinEntity;
 import io.malevich.server.repositories.paymentmethod.PaymentMethodDao;
 import io.malevich.server.scheduling.BitcoinBalanceCheck;
 import io.malevich.server.services.paymentmethodbitcoin.PaymentMethodBitcoinService;
+import io.malevich.server.services.sms.SmsService;
 import lombok.extern.slf4j.Slf4j;
 import org.bitcoinj.wallet.UnreadableWalletException;
 import org.bitcoinj.wallet.Wallet;
@@ -44,9 +45,16 @@ public class TestResource {
     PaymentMethodDao paymentMethodDao;
 
     @Autowired
-    BitcoinBalanceCheck bitcoinBalanceCheck;
+    SmsService smsService;
 
+    @RequestMapping(value = "/smsService", method = RequestMethod.GET)
+    @ResponseStatus(HttpStatus.OK)
+    @ResponseBody
+    public ResponseEntity<Void> smsService() {
+        smsService.sendSms("+14159352345", "Sample Twilio SMS using Java");
 
+        return ResponseEntity.ok().build();
+    }
 
     @RequestMapping(value = "/viewExchangeOrders", method = RequestMethod.GET)
     @ResponseStatus(HttpStatus.OK)

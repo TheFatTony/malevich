@@ -1,7 +1,9 @@
 package io.malevich.server.rest.resources;
 
 import com.yinyang.core.server.rest.RestResource;
+import io.malevich.server.aop.KycRequired;
 import io.malevich.server.domain.OrderEntity;
+import io.malevich.server.domain.enums.KycLevel;
 import io.malevich.server.services.order.OrderService;
 import io.malevich.server.transfer.OrderDto;
 import io.malevich.server.transfer.OrderPublicDto;
@@ -28,24 +30,16 @@ public class OrderResource extends RestResource<OrderDto, OrderEntity> {
         super(OrderDto.class, OrderEntity.class);
     }
 
-
+    @KycRequired(level = {KycLevel.G_TIER1, KycLevel.T_TIER2})
     @RequestMapping(value = "/getPlacedOrders", method = RequestMethod.GET)
     @ResponseStatus(HttpStatus.OK)
     @ResponseBody
     public List<OrderDto> getPlacedOrders() {
         List<OrderEntity> allEntries = this.orderService.getPlacedOrders();
-        return allEntries.stream().map(allEntry -> convertToDto(allEntry)).collect(Collectors.toList());
+        return convertListOfDto(allEntries);
     }
 
-    @PreAuthorize("hasAnyRole('ROLE_GALLERY', 'ROLE_TRADER')")
-    @RequestMapping(value = "/getOrdersByArtworkId/{artworkId}", method = RequestMethod.GET)
-    @ResponseStatus(HttpStatus.OK)
-    @ResponseBody
-    public List<OrderPublicDto> getOrdersByArtworkId(@PathVariable("artworkId") long artworkId) {
-        List<OrderEntity> allEntries = this.orderService.getOrdersByArtworkStockId(artworkId);
-        return allEntries.stream().map(allEntry -> convertToPublicDto(allEntry)).collect(Collectors.toList());
-    }
-
+    @KycRequired(level = {KycLevel.G_TIER1, KycLevel.T_TIER1})
     @RequestMapping(value = "/getOpenOrdersByArtworkId/{artworkId}", method = RequestMethod.GET)
     @ResponseStatus(HttpStatus.OK)
     @ResponseBody
@@ -54,6 +48,7 @@ public class OrderResource extends RestResource<OrderDto, OrderEntity> {
         return allEntries.stream().map(allEntry -> convertToPublicDto(allEntry)).collect(Collectors.toList());
     }
 
+    @KycRequired(level = {KycLevel.G_TIER1, KycLevel.T_TIER2})
     @PreAuthorize("hasAnyRole('ROLE_GALLERY', 'ROLE_TRADER')")
     @RequestMapping(value = "/placeAsk", method = RequestMethod.POST)
     @ResponseStatus(HttpStatus.OK)
@@ -64,6 +59,7 @@ public class OrderResource extends RestResource<OrderDto, OrderEntity> {
         return ResponseEntity.ok().build();
     }
 
+    @KycRequired(level = KycLevel.T_TIER2)
     @PreAuthorize("hasRole('ROLE_TRADER')")
     @RequestMapping(value = "/placeBid", method = RequestMethod.POST)
     @ResponseStatus(HttpStatus.OK)
@@ -73,6 +69,7 @@ public class OrderResource extends RestResource<OrderDto, OrderEntity> {
         this.orderService.placeBid(orderEntity);
         return ResponseEntity.ok().build();
     }
+
 
     @PreAuthorize("hasAnyRole('ROLE_GALLERY', 'ROLE_TRADER')")
     @RequestMapping(value = "/cancel", method = RequestMethod.POST)

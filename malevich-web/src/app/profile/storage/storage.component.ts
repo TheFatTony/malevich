@@ -1,4 +1,4 @@
-import {Component, HostListener, OnInit, ViewChild} from '@angular/core';
+import {AfterViewInit, Component, HostListener, OnInit, ViewChild} from '@angular/core';
 import {ArtworkStockService} from '../../_services/artwork-stock.service';
 import {TranslateService} from '@ngx-translate/core';
 import {ArtworkStockDto} from '../../_transfer/artworkStockDto';
@@ -14,7 +14,7 @@ import {Router} from '@angular/router';
   templateUrl: './storage.component.html',
   styleUrls: ['./storage.component.css']
 })
-export class StorageComponent implements OnInit {
+export class StorageComponent implements OnInit, AfterViewInit {
 
   @ViewChild('myGrid') myGrid: jqxGridComponent;
   @ViewChild('addArtWorkComboBox') addArtWorkComboBox: jqxComboBoxComponent;
@@ -72,11 +72,15 @@ export class StorageComponent implements OnInit {
               private galleryService: GalleryService,
               private artworkStockService: ArtworkStockService,
               public translate: TranslateService) {
-    this.updateGrid();
+
   }
 
   ngOnInit() {
     this.getArtworkStock();
+  }
+
+  ngAfterViewInit(): void {
+    this.updateGrid();
   }
 
   updateGrid() {

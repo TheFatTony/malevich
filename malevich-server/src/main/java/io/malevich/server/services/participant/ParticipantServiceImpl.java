@@ -8,13 +8,11 @@ import io.malevich.server.fabric.services.gallery.GalleryParticipantService;
 import io.malevich.server.fabric.services.trader.TraderParticipantService;
 import io.malevich.server.repositories.participant.ParticipantDao;
 import io.malevich.server.services.delayedchange.DelayedChangeService;
+import io.malevich.server.services.kyc.KycLevelService;
 import io.malevich.server.services.participanttype.ParticipantTypeService;
 import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -42,6 +40,9 @@ public class ParticipantServiceImpl implements ParticipantService {
     private AuthService authService;
 
     @Autowired
+    private KycLevelService kycLevelService;
+
+    @Autowired
     private GalleryParticipantService galleryParticipantService;
 
     @Autowired
@@ -61,7 +62,12 @@ public class ParticipantServiceImpl implements ParticipantService {
     @Override
     @Transactional(readOnly = true)
     public ParticipantEntity getCurrent() {
-        return dao.findByUsers_Name(authService.getUserEntity().getUsername()).orElse(null);
+        UserEntity userEntity = authService.getUserEntity();
+
+        if(userEntity == null)
+            return null;
+
+        return dao.findByUsers_Name(userEntity.getUsername()).orElse(null);
     }
 
     @Override
@@ -90,16 +96,27 @@ public class ParticipantServiceImpl implements ParticipantService {
 
     @Override
     @Transactional
+    public ParticipantEntity saveAsIs(ParticipantEntity participantEntity){
+        return dao.save(participantEntity);
+    }
+
+    @Override
+    @Transactional
     public ParticipantEntity save(ParticipantEntity participantEntity, UserEntity user) {
         ParticipantEntity currentParticipant = dao.findByUsers_Name(user.getName()).orElse(null);
 
         boolean isNew = currentParticipant == null;
         if (!isNew) {
+            if (!currentParticipant.getClass().equals(participantEntity.getClass()))
+                // todo throw exception
+                return null;
+
             participantEntity.setId(currentParticipant.getId());
             participantEntity.setUsers(currentParticipant.getUsers());
 
             if (participantEntity instanceof TraderPersonEntity && currentParticipant instanceof TraderPersonEntity) {
-                PersonEntity person = ((TraderPersonEntity) participantEntity).getPerson();
+                TraderPersonEntity traderPersonEntity = ((TraderPersonEntity) participantEntity);
+                PersonEntity person = traderPersonEntity.getPerson();
                 PersonEntity currentPerson = ((TraderPersonEntity) currentParticipant).getPerson();
                 if (person != null && currentPerson != null)
                     person.setId(currentPerson.getId());
@@ -116,14 +133,15 @@ public class ParticipantServiceImpl implements ParticipantService {
             }
         } else {
             participantEntity.setUsers(Lists.newArrayList(user));
+
+            if ("G".equals(participantEntity.getType().getId()))
+                galleryParticipantService.create(participantEntity);
+            else
+                traderParticipantService.create(participantEntity);
         }
 
+        participantEntity.setKycLevel(kycLevelService.getLevel(participantEntity));
         participantEntity = dao.save(participantEntity);
-
-        if ("G".equals(participantEntity.getType().getId()))
-            galleryParticipantService.create(participantEntity);
-        else
-            traderParticipantService.create(participantEntity);
 
         return participantEntity;
     }

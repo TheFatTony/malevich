@@ -65,6 +65,14 @@ export class EditComponent implements OnInit, AfterViewInit {
   }
 
   update(): void {
+    if (this.participant.person) {
+      this.participant.person.gender = this.participant.person.gender || null;
+    }
+
+    this.participant.addresses = this.participant.addresses.map(a => {
+      a.country = a.country || null;
+      return a;
+    });
     this.participantService.update(this.participant)
       .subscribe(data => this.router.navigate(['/profile/view']));
   }

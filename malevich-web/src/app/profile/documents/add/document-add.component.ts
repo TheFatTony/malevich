@@ -24,7 +24,6 @@ export class DocumentAddComponent implements OnInit, AfterViewInit {
   document: DocumentsDto;
   participant: ParticipantDto;
   documentTypes: any[];
-  userType: string = 'trader';
 
   documentTypeDisplayFunc = (documentType: DocumentTypeDto) => {
     return documentType.nameMl[this.translate.currentLang];
@@ -50,9 +49,8 @@ export class DocumentAddComponent implements OnInit, AfterViewInit {
     this.participantService.getCurrent()
       .pipe(mergeMap(p => {
           this.participant = p;
-          this.userType = this.participantService.isGallery(this.participant) ? "gallery" : "trader";
 
-          return this.documentService.getDocumentTypes(this.userType)
+          return this.documentService.getDocumentTypes(this.participant.type.id)
             .pipe(map(data => {
               this.documentTypes = data;
             }));

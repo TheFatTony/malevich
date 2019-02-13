@@ -4,17 +4,18 @@ import com.yinyang.core.server.core.jpa.JpaConverterJson;
 import com.yinyang.core.server.domain.YAbstractPersistable;
 import lombok.Getter;
 import lombok.Setter;
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
 
-import javax.persistence.Column;
-import javax.persistence.Convert;
-import javax.persistence.Table;
+import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import java.util.List;
 import java.util.Map;
 
 
 @javax.persistence.Entity
 @Table(name = "document_type")
-public class DocumentTypeEntity extends YAbstractPersistable<Long> {
+public class DocumentTypeEntity extends YAbstractPersistable<String> {
 
 
     @Getter
@@ -27,7 +28,11 @@ public class DocumentTypeEntity extends YAbstractPersistable<Long> {
 
     @Getter
     @Setter
-    @Column(name = "user_type")
-    private String userType;
+    @LazyCollection(LazyCollectionOption.FALSE)
+    @ManyToMany(cascade = {CascadeType.REFRESH})
+    @JoinTable(name = "participant_type_document_type",
+            joinColumns = @JoinColumn(name = "document_type_id"),
+            inverseJoinColumns = @JoinColumn(name = "participant_type_id"))
+    private List<ParticipantTypeEntity> participantTypes;
 
 }

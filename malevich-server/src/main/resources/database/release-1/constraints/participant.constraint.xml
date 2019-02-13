@@ -22,5 +22,11 @@
                                  referencedColumnNames="id" referencedTableName="country"/>
     </changeSet>
 
+    <changeSet author="toolstik" id="participant-kyc_level-fk">
+        <addForeignKeyConstraint baseColumnNames="kyc_level_id" baseTableName="participant"
+                                 constraintName="participant_kyc_level_fk"
+                                 referencedColumnNames="id" referencedTableName="kyc_level"/>
+    </changeSet>
+
 
 </databaseChangeLog>

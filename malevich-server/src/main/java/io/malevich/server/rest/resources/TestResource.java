@@ -44,6 +44,8 @@ public class TestResource {
     @Autowired
     PaymentMethodDao paymentMethodDao;
 
+//    @Autowired
+//    BitcoinBalanceCheck bitcoinBalanceCheck;
     @Autowired
     SmsService smsService;
 

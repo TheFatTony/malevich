@@ -1,6 +1,5 @@
 import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
-import {map} from 'rxjs/operators';
 import {environment} from '../../environments/environment.dev';
 import {DocumentsDto} from '../_transfer/documentsDto';
 import {DocumentTypeDto} from '../_transfer/documentTypeDto';
@@ -15,8 +14,8 @@ export class DocumentsService {
   constructor(private http: HttpClient) {
   }
 
-  getDocumentTypes(userType: string) {
-    return this.http.get<DocumentTypeDto[]>(this.url + '/typeList/' + userType);
+  getDocumentTypes(participantTypeId: string) {
+    return this.http.get<DocumentTypeDto[]>(this.url + '/typeList/' + participantTypeId);
   }
 
   getDocs() {

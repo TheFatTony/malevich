@@ -62,6 +62,12 @@ public class ParticipantEntity extends YAbstractPersistable<Long> {
     )
     private List<UserEntity> users;
 
+    @Getter
+    @Setter
+    @Fetch(FetchMode.JOIN)
+    @ManyToOne(cascade = CascadeType.REFRESH)
+    private KycLevelEntity kycLevel;
+
     @Transient
     public UserEntity getUser() {
         List<UserEntity> usersList = getUsers();

@@ -24,6 +24,8 @@ public class ParticipantDto {
 
     private List<AddressDto> addresses;
 
+    private KycLevelDto kycLevel;
+
     //gallery
     private OrganizationDto organization;
 

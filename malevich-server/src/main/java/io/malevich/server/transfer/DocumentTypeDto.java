@@ -3,6 +3,7 @@ package io.malevich.server.transfer;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.List;
 import java.util.Map;
 
 
@@ -10,10 +11,10 @@ import java.util.Map;
 @Setter
 public class DocumentTypeDto {
 
-    private Long id;
+    private String id;
 
     private Map<String, String> nameMl;
 
-    private String userType;
+    private List<ParticipantTypeDto> participantTypes;
 
 }

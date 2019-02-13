@@ -9,8 +9,8 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
-public interface DocumentTypeDao extends JpaRepository<DocumentTypeEntity, Long> {
+public interface DocumentTypeDao extends JpaRepository<DocumentTypeEntity, String> {
 
-    List<DocumentTypeEntity> findByUserType(String userType);
+    List<DocumentTypeEntity> findByParticipantTypes_Id(String participantTypeId);
 
 }

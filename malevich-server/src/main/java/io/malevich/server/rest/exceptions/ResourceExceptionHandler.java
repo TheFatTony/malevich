@@ -3,6 +3,7 @@ package io.malevich.server.rest.exceptions;
 
 import com.yinyang.core.server.exceptions.InvalidOldPasswordException;
 import io.malevich.server.exceptions.AccountStateException;
+import io.malevich.server.exceptions.KycSecurityException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.BadCredentialsException;
@@ -52,7 +53,7 @@ public class ResourceExceptionHandler {
     }
 
     @ExceptionHandler(MethodArgumentNotValidException.class)
-    public ResponseEntity<StandardError> accountStateException(MethodArgumentNotValidException e, HttpServletRequest request) {
+    public ResponseEntity<StandardError> methodArgumentNotValidException(MethodArgumentNotValidException e, HttpServletRequest request) {
         List<String> errosList = e.getBindingResult()
                 .getAllErrors().stream()
                 .map(ObjectError::getDefaultMessage)
@@ -60,6 +61,12 @@ public class ResourceExceptionHandler {
 
         StandardError err = new StandardError(System.currentTimeMillis(), HttpStatus.BAD_REQUEST.value(), "Validation fieled", errosList.toString(), request.getRequestURI());
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(err);
+    }
+
+    @ExceptionHandler({ KycSecurityException.class })
+    public ResponseEntity<Object> handleInvalidOldPassword(final KycSecurityException e, final HttpServletRequest request) {
+        StandardError err = new StandardError(System.currentTimeMillis(), HttpStatus.FORBIDDEN.value(), "KYC level up required", e.getMessage(), request.getRequestURI());
+        return ResponseEntity.status(HttpStatus.FORBIDDEN).body(err);
     }
 
 }

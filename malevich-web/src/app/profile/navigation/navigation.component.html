@@ -18,7 +18,7 @@
 
   <!-- Profile Settings List -->
   <ul class="list-unstyled mb-0">
-    <li *ngIf="isGallery" class="g-py-3">
+    <li *ngIf="isGallery && hasKycAccess('storage')" class="g-py-3">
       <a
         class="d-block align-middle g-bg-gray-light-v5--active u-link-v5 g-color-text g-color-primary--hover g-bg-gray-light-v5--hover rounded g-pa-3"
         routerLink="/profile/storage" routerLinkActive="active">
@@ -28,7 +28,7 @@
         {{"PROFILE.NAVIGATION.STORED_ARTWORKS" | translate}}
       </a>
     </li>
-    <li class="g-pb-3">
+    <li *ngIf="hasKycAccess('wallet')" class="g-pb-3">
       <a
         class="d-block align-middle u-link-v5 g-color-text g-bg-gray-light-v5--hover g-color-primary--active g-bg-gray-light-v5--active rounded g-pa-3"
         routerLink="/profile/wallet" href="javascript:void(0)"
@@ -39,7 +39,7 @@
         {{"PROFILE.NAVIGATION.YOUR_WALLET" | translate}}
       </a>
     </li>
-    <li class="g-py-3">
+    <li *ngIf="hasKycAccess('artworks')" class="g-py-3">
       <a
         class="d-block align-middle g-bg-gray-light-v5--active u-link-v5 g-color-text g-color-primary--hover g-bg-gray-light-v5--hover rounded g-pa-3"
         routerLink="/profile/artworks"
@@ -50,7 +50,7 @@
         {{"PROFILE.NAVIGATION.YOUR_ARTWORKS" | translate}}
       </a>
     </li>
-    <li class="g-py-3">
+    <li *ngIf="hasKycAccess('orders')" class="g-py-3">
       <a
         class="d-block align-middle u-link-v5 g-color-text g-bg-gray-light-v5--hover g-color-primary--active g-bg-gray-light-v5--active rounded g-pa-3"
         routerLink="/profile/orders"
@@ -69,24 +69,12 @@
         href="javascript:void(0)"
         routerLinkActive="active">
         <span class="u-icon-v1 g-color-gray-dark-v5 mr-2">
-          <i class="icon-finance-114 u-line-icon-pro"></i>
+          <i class="icon-hotel-restaurant-002 u-line-icon-pro"></i>
         </span>
         {{"PROFILE.NAVIGATION.DOCUMENTS" | translate}}
       </a>
     </li>
-    <li class="g-py-3">
-      <a
-        class="d-block align-middle u-link-v5 g-color-text g-bg-gray-light-v5--hover g-color-primary--active g-bg-gray-light-v5--active rounded g-pa-3"
-        routerLink="/profile/wishlist"
-        href="javascript:void(0)"
-        routerLinkActive="active">
-        <span class="u-icon-v1 g-color-gray-dark-v5 mr-2">
-          <i class="icon-medical-022 u-line-icon-pro"></i>
-        </span>
-        {{"PROFILE.NAVIGATION.WISHLIST" | translate}}
-      </a>
-    </li>
-    <li class="g-py-3">
+    <li *ngIf="hasKycAccess('payment')" class="g-py-3">
       <a
         class="d-block align-middle u-link-v5 g-color-text g-bg-gray-light-v5--hover g-color-primary--active g-bg-gray-light-v5--active rounded g-pa-3"
         routerLink="/profile/payment"
@@ -98,7 +86,19 @@
         {{"PROFILE.NAVIGATION.PAYMENT_OPTIONS" | translate}}
       </a>
     </li>
-    <li class="g-pt-3">
+    <li *ngIf="hasKycAccess('wishlist')" class="g-py-3">
+      <a
+        class="d-block align-middle u-link-v5 g-color-text g-bg-gray-light-v5--hover g-color-primary--active g-bg-gray-light-v5--active rounded g-pa-3"
+        routerLink="/profile/wishlist"
+        href="javascript:void(0)"
+        routerLinkActive="active">
+        <span class="u-icon-v1 g-color-gray-dark-v5 mr-2">
+          <i class="icon-medical-022 u-line-icon-pro"></i>
+        </span>
+        {{"PROFILE.NAVIGATION.WISHLIST" | translate}}
+      </a>
+    </li>
+    <li *ngIf="hasKycAccess('notifications')" class="g-pt-3">
       <a
         class="d-block align-middle u-link-v5 g-color-text g-bg-gray-light-v5--hover g-color-primary--active g-bg-gray-light-v5--active rounded g-pa-3"
         routerLink="/profile/notifications"

@@ -8,7 +8,6 @@ import lombok.Setter;
 import javax.persistence.Column;
 import javax.persistence.Convert;
 import javax.persistence.Table;
-import javax.validation.constraints.NotNull;
 import java.util.Map;
 
 
@@ -21,7 +20,6 @@ public class OrganizationEntity extends YAbstractPersistable<Long> {
     @Setter
     @Convert(converter = JpaConverterJson.class)
     @Column(name = "legal_name_ml")
-    @NotNull
     private Map<String, String> legalNameMl;
 
 

@@ -1,8 +1,10 @@
 package io.malevich.server.rest.resources;
 
 import com.yinyang.core.server.rest.RestResource;
+import io.malevich.server.aop.KycRequired;
 import io.malevich.server.domain.AccountStateEntity;
 import io.malevich.server.domain.ArtworkStockEntity;
+import io.malevich.server.domain.enums.KycLevel;
 import io.malevich.server.services.accountstate.AccountStateService;
 import io.malevich.server.transfer.AccountStateDto;
 import io.malevich.server.transfer.ArtworkStockDto;
@@ -29,6 +31,7 @@ public class AccountStateResource extends RestResource<AccountStateDto, AccountS
     }
 
 
+    @KycRequired(level = {KycLevel.G_TIER1, KycLevel.T_TIER1})
     @PreAuthorize("hasRole('ROLE_USER')")
     @RequestMapping(value = "/getWallet", method = RequestMethod.GET)
     @ResponseStatus(HttpStatus.OK)

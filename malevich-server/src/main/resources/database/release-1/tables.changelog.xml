@@ -40,5 +40,7 @@
     <include relativeToChangelogFile="true" file="tables/commission_rule.table.xml"/>
     <include relativeToChangelogFile="true" file="tables/exchange_order.table.xml"/>
     <include relativeToChangelogFile="true" file="tables/bitcoin_transfers.table.xml"/>
+    <include relativeToChangelogFile="true" file="tables/kyc_level.table.xml"/>
+    <include relativeToChangelogFile="true" file="tables/participant_type_document_type.table.xml"/>
 
 </databaseChangeLog>

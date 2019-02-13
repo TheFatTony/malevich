@@ -6,8 +6,10 @@ import com.yinyang.core.server.rest.RestResource;
 import com.yinyang.core.server.services.file.FileService;
 import com.yinyang.core.server.services.lobstorage.LobStorageService;
 import com.yinyang.core.server.transfer.FileDto;
+import io.malevich.server.aws.S3Wrapper;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -16,6 +18,7 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.ws.rs.core.Response;
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
@@ -32,6 +35,12 @@ public class FileResource extends RestResource<FileDto, FileEntity> {
 
     @Autowired
     private LobStorageService lobStorageService;
+
+    @Autowired
+    private S3Wrapper s3Wrapper;
+
+    @Value("${use.amazon.aws}")
+    private boolean useAWS;
 
     public FileResource() {
         super(FileDto.class, FileEntity.class);
@@ -79,7 +88,16 @@ public class FileResource extends RestResource<FileDto, FileEntity> {
     @RequestMapping(value = "/downloadFile/{fileId}", method = RequestMethod.GET)
     public ResponseEntity<byte[]> downloadFile(@PathVariable Long fileId) {
         LobStorageEntity resource = lobStorageService.findByFileId(fileId);
-
+        if (useAWS) {
+//            try {
+//                ResponseEntity<byte[]> items = s3Wrapper.download(id.toString());
+//                return Response.ok(items.getBody(), MediaType.APPLICATION_OCTET_STREAM)
+//                        .header("content-disposition", "attachment; filename = " + itemDb.getName()).build();
+//            } catch (IOException e) {
+//                e.printStackTrace();
+//                return null;
+//            }
+        }
         return ResponseEntity.ok()
                 .contentType(MediaType.parseMediaType("application/octet-stream"))
                 .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + resource.getFile().getFileName() + "\"")

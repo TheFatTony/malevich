@@ -10,7 +10,8 @@
                    ('TP', 'DRV_LIC'),
                    ('TP', 'UTIL_BILL'),
                    ('TO', 'CERT_INC'),
-                   ('G',  'GAL_LIC');
+                   ('G',  'GAL_LIC'),
+                   ('G',  'CERT_INC');
         </sql>
     </changeSet>
 

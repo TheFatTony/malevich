@@ -2,8 +2,6 @@ package io.malevich.server.domain;
 
 import com.yinyang.core.server.core.jpa.JpaConverterJson;
 import com.yinyang.core.server.domain.FileEntity;
-import io.malevich.server.aop.KycRequiredFor;
-import io.malevich.server.domain.enums.KycLevel;
 import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.annotations.Fetch;
@@ -21,7 +19,6 @@ public class GalleryEntity extends ParticipantEntity {
     @Setter
     @Fetch(FetchMode.JOIN)
     @OneToOne(cascade = CascadeType.MERGE)
-    @KycRequiredFor(levels = KycLevel.G_TIER1)
     private OrganizationEntity organization;
 
 

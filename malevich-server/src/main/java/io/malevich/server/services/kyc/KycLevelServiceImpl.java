@@ -1,6 +1,5 @@
 package io.malevich.server.services.kyc;
 
-import io.malevich.server.aop.KycRequiredFor;
 import io.malevich.server.domain.*;
 import io.malevich.server.domain.enums.KycLevel;
 import io.malevich.server.exceptions.KycSecurityException;
@@ -12,8 +11,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.lang.reflect.Field;
-import java.util.*;
+import java.util.Arrays;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 @Slf4j
@@ -170,50 +171,11 @@ public class KycLevelServiceImpl implements KycLevelService {
         participantService.saveAsIs(participantEntity);
     }
 
-    private static List<Field> getAllFields(List<Field> fields, Class<?> type) {
-        fields.addAll(Arrays.asList(type.getDeclaredFields()));
-
-        if (type.getSuperclass() != null) {
-            getAllFields(fields, type.getSuperclass());
-        }
-
-        return fields;
+    private boolean check(Object obj){
+        return obj != null;
     }
 
-    private boolean hasLevel(Object obj, KycLevelEntity testLevel) {
-
-        if(obj == null)
-            return false;
-
-        for (Field field : getAllFields(new LinkedList<>(), obj.getClass())) {
-            KycRequiredFor kycRequiredFor = field.getAnnotation(KycRequiredFor.class);
-
-            if (kycRequiredFor == null)
-                continue;
-
-            for (KycLevel level : kycRequiredFor.levels()) {
-                KycLevelEntity levelEntity = getByEnum(level);
-
-                if (!testLevel.equals(levelEntity))
-                    continue;
-
-                try {
-                    // todo crap
-                    field.setAccessible(true);
-                    if (field.get(obj) == null)
-                        return false;
-                } catch (IllegalAccessException e) {
-                    log.error("IllegalAccessException", e);
-//                    e.printStackTrace();
-                    return false;
-                }
-            }
-        }
-
-        return true;
-    }
-
-    private boolean hasDocumentsOfType(ParticipantEntity participantEntity, String[] types) {
+    private boolean checkDocumentsOfType(ParticipantEntity participantEntity, String[] types) {
         List<DocumentEntity> documents =
                 documentService.findByParticipantId(participantEntity.getId());
 
@@ -223,40 +185,80 @@ public class KycLevelServiceImpl implements KycLevelService {
                 .collect(Collectors.toCollection(HashSet::new));
 
         return Arrays.stream(types).allMatch(i -> docTypes.contains(i));
-
     }
 
     private boolean isGalleryTier1(GalleryEntity galleryEntity) {
-        if (!hasLevel(galleryEntity, getGalleryTier1()))
+        if(!check(galleryEntity.getCountry()))
+            return false;
+
+        if(!check(galleryEntity.getPhoneNumber()))
+            return false;
+
+        if(!check(galleryEntity.getTitleMl()))
+            return false;
+
+        if(!check(galleryEntity.getOrganization()))
             return false;
 
         OrganizationEntity organizationEntity = galleryEntity.getOrganization();
 
-        if (!hasLevel(organizationEntity, getGalleryTier1()))
+        if(!check(organizationEntity.getLegalNameMl()))
             return false;
 
         List<AddressEntity> addresses = galleryEntity.getAddresses();
         if (addresses == null || addresses.size() == 0)
             return false;
 
-        if (!hasLevel(addresses.get(0), getTraderTier2()))
+        AddressEntity address = addresses.get(0);
+
+        if (!check(address))
             return false;
 
-        if (!hasDocumentsOfType(galleryEntity, new String[]{"GAL_LIC", "CERT_INC"}))
+        if (!check(address.getStreet()))
+            return false;
+
+        if (!check(address.getPostalCode()))
+            return false;
+
+        if (!check(address.getState()))
+            return false;
+
+        if (!check(address.getCity()))
+            return false;
+
+        if (!check(address.getCountry()))
+            return false;
+
+        if (!checkDocumentsOfType(galleryEntity, new String[]{"GAL_LIC", "CERT_INC"}))
             return false;
 
         return true;
     }
 
     private boolean isTraderTier1(ParticipantEntity participantEntity) {
-        if (!hasLevel(participantEntity, getTraderTier1()))
+        if(!check(participantEntity.getCountry()))
+            return false;
+
+        if(!check(participantEntity.getPhoneNumber()))
             return false;
 
         if (participantEntity instanceof TraderPersonEntity) {
             TraderPersonEntity traderPersonEntity = (TraderPersonEntity) participantEntity;
             PersonEntity personEntity = traderPersonEntity.getPerson();
 
-            if (!hasLevel(personEntity, getTraderTier1()))
+            if (!check(personEntity))
+                return false;
+
+            if (!check(personEntity.getFirstName()))
+                return false;
+
+            if (!check(personEntity.getLastName()))
+                return false;
+
+            if (!check(personEntity.getGender()))
+                return false;
+
+            if (!check(personEntity.getDateOfBirth()))
                 return false;
 
         } else if (participantEntity instanceof TraderOrganizationEntity) {
@@ -265,9 +267,13 @@ public class KycLevelServiceImpl implements KycLevelService {
 
             OrganizationEntity organizationEntity = traderOrganizationEntity.getOrganization();
 
-            if (!hasLevel(organizationEntity, getTraderTier1()))
+            if (!check(organizationEntity))
+                return false;
+
+            if (!check(organizationEntity.getLegalNameMl()))
                 return false;
         }
+
         return true;
     }
 
@@ -276,14 +282,31 @@ public class KycLevelServiceImpl implements KycLevelService {
         if (addresses == null || addresses.size() == 0)
             return false;
 
-        if (!hasLevel(addresses.get(0), getTraderTier2()))
+        AddressEntity address = addresses.get(0);
+
+        if (!check(address))
+            return false;
+
+        if (!check(address.getStreet()))
+            return false;
+
+        if (!check(address.getPostalCode()))
+            return false;
+
+        if (!check(address.getState()))
+            return false;
+
+        if (!check(address.getCity()))
+            return false;
+
+        if (!check(address.getCountry()))
             return false;
 
         if (participantEntity instanceof TraderPersonEntity) {
-            if (!hasDocumentsOfType(participantEntity, new String[]{"PASSPORT", "UTIL_BILL"}))
+            if (!checkDocumentsOfType(participantEntity, new String[]{"PASSPORT", "UTIL_BILL"}))
                 return false;
         } else if (participantEntity instanceof TraderOrganizationEntity) {
-            if (!hasDocumentsOfType(participantEntity, new String[]{"CERT_INC"}))
+            if (!checkDocumentsOfType(participantEntity, new String[]{"CERT_INC"}))
                 return false;
         }
 

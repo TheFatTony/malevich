@@ -24,6 +24,8 @@ public class ParticipantDto {
 
     private List<AddressDto> addresses;
 
+    private FileDto thumbnail;
+
     private KycLevelDto kycLevel;
 
     //gallery

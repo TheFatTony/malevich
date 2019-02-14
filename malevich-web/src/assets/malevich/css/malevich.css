@@ -256,6 +256,22 @@ p {
 }
 
 /*------------------------------------
+  Checkboxes v7
+------------------------------------*/
+.u-check input[type="checkbox"]:checked + .u-check-icon-checkbox-v7,
+.u-check input[type="checkbox"]:checked + .u-check-icon-radio-v7,
+.u-check input[type="checkbox"]:checked + * .u-check-icon-checkbox-v7,
+.u-check input[type="checkbox"]:checked + * .u-check-icon-radio-v7,
+.u-check input[type="radio"]:checked + .u-check-icon-checkbox-v7,
+.u-check input[type="radio"]:checked + .u-check-icon-radio-v7,
+.u-check input[type="radio"]:checked + * .u-check-icon-checkbox-v7,
+.u-check input[type="radio"]:checked + * .u-check-icon-radio-v7 {
+  color: #fff;
+  background-color: #e44235;
+  border-color: #e44235;
+}
+
+/*------------------------------------
   Sliders v1
 ------------------------------------*/
 .u-slider-v1-3.ui-slider .ui-slider-handle {

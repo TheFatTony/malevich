@@ -28,13 +28,9 @@ public class AWSConfiguration {
 
     @Bean
     public AmazonS3Client amazonS3Client() {
-        try {
-            AmazonS3Client amazonS3Client = new AmazonS3Client(basicAWSCredentials());
-            amazonS3Client.setRegion(Region.getRegion(Regions.fromName(region)));
-            return amazonS3Client;
-        } catch (Exception e) {
-            return null;
-        }
+        AmazonS3Client amazonS3Client = new AmazonS3Client(basicAWSCredentials());
+        amazonS3Client.setRegion(Region.getRegion(Regions.fromName(region)));
+        return amazonS3Client;
     }
 
 }

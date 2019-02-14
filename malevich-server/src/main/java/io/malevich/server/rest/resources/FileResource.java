@@ -1,5 +1,6 @@
 package io.malevich.server.rest.resources;
 
+import com.amazonaws.services.s3.model.PutObjectResult;
 import com.yinyang.core.server.domain.FileEntity;
 import com.yinyang.core.server.domain.LobStorageEntity;
 import com.yinyang.core.server.rest.RestResource;
@@ -48,20 +49,28 @@ public class FileResource extends RestResource<FileDto, FileEntity> {
 
     private FileEntity uploadFileInternal(MultipartFile file) {
         FileEntity fileEntity = new FileEntity();
-        try {
-            fileEntity.setFileName(file.getOriginalFilename());
-            fileEntity = fileService.save(fileEntity);
-            fileEntity.setUrl("files/downloadFile/" + fileEntity.getId());
-            fileEntity = fileService.save(fileEntity);
+        fileEntity.setFileName(file.getOriginalFilename());
+        fileEntity = fileService.save(fileEntity);
+        fileEntity.setUrl("files/downloadFile/" + fileEntity.getId());
+        fileEntity = fileService.save(fileEntity);
 
-            byte[] bytes = file.getBytes();
-            LobStorageEntity lobStorageEntity = new LobStorageEntity();
-            lobStorageEntity.setContent(bytes);
-            lobStorageEntity.setFile(fileEntity);
-            lobStorageService.save(lobStorageEntity);
+        if (useAWS) {
+            try {
+                PutObjectResult uploadResult = s3Wrapper.upload(file.getInputStream(), file.getOriginalFilename());
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        } else {
+            try {
+                byte[] bytes = file.getBytes();
+                LobStorageEntity lobStorageEntity = new LobStorageEntity();
+                lobStorageEntity.setContent(bytes);
+                lobStorageEntity.setFile(fileEntity);
+                lobStorageService.save(lobStorageEntity);
 
-        } catch (IOException e) {
-            e.printStackTrace();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
         return fileEntity;
     }
@@ -87,17 +96,22 @@ public class FileResource extends RestResource<FileDto, FileEntity> {
 
     @RequestMapping(value = "/downloadFile/{fileId}", method = RequestMethod.GET)
     public ResponseEntity<byte[]> downloadFile(@PathVariable Long fileId) {
-        LobStorageEntity resource = lobStorageService.findByFileId(fileId);
-        if (useAWS) {
+
+//        if (useAWS) {
 //            try {
-//                ResponseEntity<byte[]> items = s3Wrapper.download(id.toString());
-//                return Response.ok(items.getBody(), MediaType.APPLICATION_OCTET_STREAM)
-//                        .header("content-disposition", "attachment; filename = " + itemDb.getName()).build();
+//                FileEntity fileEntity = fileService.find(fileId);
+//                ResponseEntity<byte[]> items = s3Wrapper.download(fileId.toString());
+//                return ResponseEntity.ok()
+//                        .contentType(MediaType.APPLICATION_OCTET_STREAM)
+//                        .header("content-disposition", "attachment; filename = \"" + fileEntity.getFileName() + "\"")
+//                        .body(items.getBody());
 //            } catch (IOException e) {
 //                e.printStackTrace();
 //                return null;
 //            }
-        }
+//        }
+
+        LobStorageEntity resource = lobStorageService.findByFileId(fileId);
         return ResponseEntity.ok()
                 .contentType(MediaType.parseMediaType("application/octet-stream"))
                 .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + resource.getFile().getFileName() + "\"")

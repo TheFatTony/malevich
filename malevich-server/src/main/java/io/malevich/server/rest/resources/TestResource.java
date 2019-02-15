@@ -1,18 +1,13 @@
 package io.malevich.server.rest.resources;
 
 
-import io.malevich.server.domain.PaymentMethodBitcoinEntity;
 import io.malevich.server.repositories.paymentmethod.PaymentMethodDao;
-import io.malevich.server.scheduling.BitcoinBalanceCheck;
 import io.malevich.server.services.paymentmethodbitcoin.PaymentMethodBitcoinService;
 import io.malevich.server.services.sms.SmsService;
 import lombok.extern.slf4j.Slf4j;
-import org.bitcoinj.wallet.UnreadableWalletException;
-import org.bitcoinj.wallet.Wallet;
 import org.knowm.xchange.currency.Currency;
 import org.knowm.xchange.currency.CurrencyPair;
 import org.knowm.xchange.dto.Order;
-import org.knowm.xchange.dto.marketdata.Ticker;
 import org.knowm.xchange.dto.trade.MarketOrder;
 import org.knowm.xchange.dto.trade.UserTrade;
 import org.knowm.xchange.dto.trade.UserTrades;
@@ -23,11 +18,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.math.BigDecimal;
-import java.util.List;
-import java.util.stream.Collectors;
 
 
 @Slf4j
@@ -44,8 +36,8 @@ public class TestResource {
     @Autowired
     PaymentMethodDao paymentMethodDao;
 
-//    @Autowired
-//    BitcoinBalanceCheck bitcoinBalanceCheck;
+//    https://coinfaucet.eu/en/btc-testnet/
+
     @Autowired
     SmsService smsService;
 

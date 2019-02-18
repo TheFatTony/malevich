@@ -8,19 +8,14 @@
             <column name="id" type="bigint">
                 <constraints nullable="false"/>
             </column>
-            <column name="description" type="longtext"/>
+            <column name="category_name_ml" type="json">
+                <constraints nullable="false"/>
+            </column>
+            <column name="description" type="clob"/>
         </createTable>
         <modifySql dbms="mysql">
             <replace replace="clob" with="longtext"/>
         </modifySql>
-    </changeSet>
-
-    <changeSet author="thefattony" id="category-table-ml" dbms="mysql">
-        <addColumn tableName="category">
-            <column name="category_name_ml" type="json">
-                <constraints nullable="false"/>
-            </column>
-        </addColumn>
     </changeSet>
 
     <changeSet author="thefattony" id="category-pk">

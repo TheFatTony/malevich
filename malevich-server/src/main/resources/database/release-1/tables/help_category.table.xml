@@ -8,15 +8,10 @@
             <column name="id" type="bigint">
                 <constraints nullable="false"/>
             </column>
-        </createTable>
-    </changeSet>
-
-    <changeSet author="harshilmelegant" id="help_category-table-ml" dbms="mysql">
-        <addColumn tableName="help_category">
             <column name="help_category_name_ml" type="json">
                 <constraints nullable="false"/>
             </column>
-        </addColumn>
+        </createTable>
     </changeSet>
 
     <changeSet author="harshilmelegant" id="help_category-pk">

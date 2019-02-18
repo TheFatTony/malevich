@@ -8,15 +8,10 @@
             <column name="id" type="char(10)">
                 <constraints nullable="false"/>
             </column>
-        </createTable>
-    </changeSet>
-
-    <changeSet author="harshilmelegant" id="document_type-table-ml" dbms="mysql">
-        <addColumn tableName="document_type">
             <column name="name_ml" type="json">
                 <constraints nullable="false"/>
             </column>
-        </addColumn>
+        </createTable>
     </changeSet>
 
     <changeSet author="harshilmelegant" id="document_type-pk">

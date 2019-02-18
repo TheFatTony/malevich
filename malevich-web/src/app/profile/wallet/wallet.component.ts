@@ -24,16 +24,22 @@ export class WalletComponent implements OnInit, AfterViewInit, OnDestroy {
   public newPayment: PaymentsDto;
   public newWithdraw: PaymentsDto;
   public accountState: AccountStateDto;
+
   payments: PaymentsDto[];
+  paymentMethods: PaymentMethodDto[];
 
   x: number;
   y: number;
-  private paymentMethods: PaymentMethodDto[];
+
 
   paymentMethodDisplayFunc = (paymMeth: PaymentMethodDto) => {
     switch (paymMeth.type.id) {
       case 'ACC':
-        return `${paymMeth.bankName} ${paymMeth.iban}`
+        return `${paymMeth.bankName} ${paymMeth.iban}`;
+      case 'BTC':
+        return `Bitcoin ${paymMeth.btcAddress}`;
+      case 'CRD':
+        return `Card ${paymMeth.cardNumber}`;
       default:
         return paymMeth.type.nameMl[this.translate.currentLang] + ' ' + paymMeth.id;
     }

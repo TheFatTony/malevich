@@ -12,7 +12,7 @@ import java.sql.Timestamp;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class PaymentResponceModel {
+public class PaymentModel {
 
     @JsonProperty("id")
     private String id;

@@ -25,6 +25,7 @@
     <include relativeToChangelogFile="true" file="indexes/trade_type.index.xml"/>
     <include relativeToChangelogFile="true" file="indexes/payment_method_type.index.xml"/>
     <include relativeToChangelogFile="true" file="indexes/payment_method.index.xml"/>
+    <include relativeToChangelogFile="true" file="indexes/payment_method_account.index.xml"/>
     <include relativeToChangelogFile="true" file="indexes/payments.index.xml"/>
     <include relativeToChangelogFile="true" file="indexes/help_category.index.xml"/>
     <include relativeToChangelogFile="true" file="indexes/help_topic.index.xml"/>

@@ -4,7 +4,10 @@ import io.malevich.server.domain.*;
 import io.malevich.server.fabric.model.PaymentTransaction;
 import io.malevich.server.fabric.services.payment.PaymentTransactionService;
 import io.malevich.server.repositories.payments.PaymentsDao;
+import io.malevich.server.revolut.services.payments.PaymentsBankService;
 import io.malevich.server.services.participant.ParticipantService;
+import io.malevich.server.services.paymentmethod.PaymentMethodService;
+import io.malevich.server.services.paymentmethodtype.PaymentMethodTypeService;
 import io.malevich.server.services.paymenttype.PaymentTypeService;
 import io.malevich.server.util.PaymentFop;
 import lombok.extern.slf4j.Slf4j;
@@ -13,6 +16,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -28,11 +32,19 @@ public class PaymentsServiceImpl implements PaymentsService {
     private PaymentTypeService paymentTypeService;
 
     @Autowired
+    private PaymentMethodService paymentMethodService;
+
+    @Autowired
+    private PaymentMethodTypeService paymentMethodTypeService;
+
+    @Autowired
     private PaymentTransactionService paymentTransactionService;
 
     @Autowired
     private ParticipantService participantService;
 
+    @Autowired
+    private PaymentsBankService paymentsBankService;
 
     @Override
     @Transactional(readOnly = true)
@@ -65,20 +77,29 @@ public class PaymentsServiceImpl implements PaymentsService {
     @Override
     @Transactional
     public void insertPayment(PaymentsEntity paymentsEntity) {
-        PaymentTypeEntity paymentType;
+        paymentsEntity.setAmount(paymentsEntity.getAmount().abs());
+        paymentsEntity.setPaymentType(paymentTypeService.getPaymentType());
+        paymentsEntity.setPaymentMethod(paymentMethodService.findById(paymentsEntity.getPaymentMethod().getId()));
 
-        if (paymentsEntity.getAmount() < 0) {
-            paymentType = paymentTypeService.getWithdrawalType();
-        } else {
-            paymentType = paymentTypeService.getPaymentType();
-        }
+        paymentsEntity = paymentsDao.save(paymentsEntity);
+        paymentTransactionService.create(paymentsEntity);
+    }
 
-        paymentsEntity.setPaymentType(paymentType);
+    @Override
+    @Transactional
+    public void withdrawPayment(PaymentsEntity paymentsEntity) {
+        paymentsEntity.setAmount(paymentsEntity.getAmount().abs().negate());
+        paymentsEntity.setPaymentType(paymentTypeService.getWithdrawalType());
+        paymentsEntity.setPaymentMethod(paymentMethodService.findById(paymentsEntity.getPaymentMethod().getId()));
+
+        paymentsEntity.setParticipant(participantService.getCurrent());
 
         paymentsEntity = paymentsDao.save(paymentsEntity);
 
-        paymentTransactionService.create(paymentsEntity);
+        if (paymentsEntity.getPaymentMethod() != null && paymentMethodTypeService.getAccountType().equals(paymentsEntity.getPaymentMethod().getType()))
+            paymentsBankService.create(paymentsEntity);
 
+        paymentTransactionService.create(paymentsEntity);
     }
 
     @Override
@@ -87,7 +108,7 @@ public class PaymentsServiceImpl implements PaymentsService {
         ParticipantEntity currentParticicpant = participantService.getCurrent();
         PaymentsEntity paymentsEntity = this.paymentsDao.findById(id).orElse(null);
 
-        if(!paymentsEntity.getParticipant().equals(currentParticicpant))
+        if (!paymentsEntity.getParticipant().equals(currentParticicpant))
             return null;
 
         return paymentsEntity;
@@ -98,4 +119,6 @@ public class PaymentsServiceImpl implements PaymentsService {
         String fileName = "receipt.pdf";
         return new PaymentFop().create(entity, fileName);
     }
+
+
 }

@@ -3,6 +3,8 @@ package io.malevich.server.services.paymentmethodaccount;
 import io.malevich.server.domain.ParticipantEntity;
 import io.malevich.server.domain.PaymentMethodAccountEntity;
 import io.malevich.server.repositories.paymentmethod.PaymentMethodDao;
+import io.malevich.server.revolut.model.CounterpartyModel;
+import io.malevich.server.revolut.services.counterparty.CounterpartyBankService;
 import io.malevich.server.services.participant.ParticipantService;
 import io.malevich.server.services.paymentmethodaccount.PaymentMethodAccountService;
 import io.malevich.server.services.paymentmethodtype.PaymentMethodTypeService;
@@ -27,6 +29,9 @@ public class PaymentMethodAccountServiceImpl implements PaymentMethodAccountServ
     @Autowired
     private PaymentMethodTypeService paymentMethodTypeService;
 
+    @Autowired
+    private CounterpartyBankService counterpartyBankService;
+
     @Override
     @Transactional(readOnly = true)
     public List<PaymentMethodAccountEntity> findAll() {
@@ -41,6 +46,10 @@ public class PaymentMethodAccountServiceImpl implements PaymentMethodAccountServ
         ParticipantEntity participantEntity = participantService.getCurrent();
         paymentMethod.setParticipant(participantEntity);
         paymentMethod.setType(paymentMethodTypeService.getAccountType());
+
+        CounterpartyModel counterpartyModel = counterpartyBankService.create(paymentMethod);
+        paymentMethod.setRevolutCounterpartyId(counterpartyModel.getId());
+
         return paymentMethodDao.save(paymentMethod);
     }
 }

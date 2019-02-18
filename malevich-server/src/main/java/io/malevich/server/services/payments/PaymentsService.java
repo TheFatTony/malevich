@@ -20,4 +20,6 @@ public interface PaymentsService {
     PaymentsEntity getPayments(Long id);
 
     ResponseEntity<byte[]> createFop(PaymentsEntity entity);
+
+    void withdrawPayment(PaymentsEntity paymentsEntity);
 }

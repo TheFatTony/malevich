@@ -17,7 +17,7 @@ public class PaymentsDto {
 //    @JsonFormat(pattern = "dd/MM/yyyy")
     private java.sql.Timestamp effectiveDate;
 
-    private PaymentMethodDto paymentMethod;
+    private PaymentMethodSuperDto paymentMethod;
 
     private Double amount;
 

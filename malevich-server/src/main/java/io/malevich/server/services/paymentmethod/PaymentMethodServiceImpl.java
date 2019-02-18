@@ -30,6 +30,12 @@ public class PaymentMethodServiceImpl implements PaymentMethodService {
     }
 
     @Override
+    @Transactional(readOnly = true)
+    public PaymentMethodEntity findById(Long paymentMethodId) {
+        return paymentMethodDao.findById(paymentMethodId).orElse(null);
+    }
+
+    @Override
     @Transactional
     public PaymentMethodEntity save(PaymentMethodEntity paymentMethod) {
         ParticipantEntity participantEntity = participantService.getCurrent();

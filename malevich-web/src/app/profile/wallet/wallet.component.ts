@@ -6,6 +6,9 @@ import {AccountStateService} from '../../_services/account-state.service';
 import {AccountStateDto} from '../../_transfer/accountStateDto';
 import {jqxGridComponent} from 'jqwidgets-scripts/jqwidgets-ts/angular_jqxgrid';
 import {TranslateService} from '@ngx-translate/core';
+import {PaymentMethodService} from "../../_services/payment-method.service";
+import {PaymentMethodDto} from "../../_transfer/paymentMethodDto";
+import {GenderDto} from "../../_transfer/genderDto";
 
 @Component({
   selector: 'app-profile-wallet',
@@ -15,7 +18,7 @@ import {TranslateService} from '@ngx-translate/core';
 export class WalletComponent implements OnInit, AfterViewInit, OnDestroy {
 
   // @ViewChild('myWindow') myWindow: jqxWindowComponent;
-  // @ViewChild('withdrawWindow') withdrawWindow: jqxWindowComponent;
+  @ViewChild('withdrawWindow') withdrawWindow: jqxWindowComponent;
   @ViewChild('myGrid') myGrid: jqxGridComponent;
 
   public newPayment: PaymentsDto;
@@ -25,8 +28,15 @@ export class WalletComponent implements OnInit, AfterViewInit, OnDestroy {
 
   x: number;
   y: number;
+  private paymentMethods: PaymentMethodDto[];
+
+  paymentMethodDisplayFunc = (paymMeth: PaymentMethodDto) => {
+    return paymMeth.type.nameMl[this.translate.currentLang] + ' ' + paymMeth.id;
+  };
+
 
   constructor(private paymentsService: PaymentsService,
+              private paymentMethodService: PaymentMethodService,
               private accountStateService: AccountStateService,
               public translate: TranslateService) {
   }
@@ -34,6 +44,7 @@ export class WalletComponent implements OnInit, AfterViewInit, OnDestroy {
   ngOnInit() {
     this.getAccountState();
     this.getPayments();
+    this.getPaymentMethods();
   }
 
   ngAfterViewInit(): void {
@@ -42,7 +53,14 @@ export class WalletComponent implements OnInit, AfterViewInit, OnDestroy {
 
   ngOnDestroy(): void {
     // this.myWindow.close();
-    // this.withdrawWindow.close();
+    this.withdrawWindow.close();
+  }
+
+  getPaymentMethods(){
+    this.paymentMethodService.getPaymentMethods()
+      .subscribe(data =>{
+        this.paymentMethods = data;
+      })
   }
 
   updateGrid() {
@@ -80,7 +98,7 @@ export class WalletComponent implements OnInit, AfterViewInit, OnDestroy {
           return names['PROFILE.GRID.PRINT'];
         },
         buttonclick: (row: number): void => {
-          this.paymentsService.receiptPrint(this.myGrid.getrowdata(row).PaymentNo).subscribe((data) => {
+          this.paymentsService.receiptPrint(this.myGrid.getrowdata(row).PAYMENT_NO).subscribe((data) => {
             let file = new Blob([data], {type: 'application/pdf'});
             let fileURL = URL.createObjectURL(file);
             window.open(fileURL);
@@ -99,11 +117,11 @@ export class WalletComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   sendWithdraw() {
-    // this.paymentsService.insert(this.newWithdraw).subscribe(() => {
-    //   this.withdrawWindow.close();
-    //   this.getPayments();
-    //   this.getAccountState();
-    // });
+    this.paymentsService.withdraw(this.newWithdraw).subscribe(() => {
+      this.withdrawWindow.close();
+      this.getPayments();
+      this.getAccountState();
+    });
   }
 
   openPaymentWindow() {
@@ -115,11 +133,11 @@ export class WalletComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   openWithdrawWindow() {
-    // this.newWithdraw = new PaymentsDto();
-    // this.withdrawWindow.width(310);
-    // this.withdrawWindow.height(220);
-    // this.withdrawWindow.open();
-    // this.withdrawWindow.move(this.x, this.y);
+    this.newWithdraw = new PaymentsDto();
+    this.withdrawWindow.width(310);
+    this.withdrawWindow.height(220);
+    this.withdrawWindow.open();
+    this.withdrawWindow.move(this.x, this.y);
   }
 
   @HostListener('mousedown', ['$event'])
@@ -141,7 +159,6 @@ export class WalletComponent implements OnInit, AfterViewInit, OnDestroy {
       this.payments = data;
     });
   }
-
 
 
 }

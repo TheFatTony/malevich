@@ -52,6 +52,13 @@ public class PaymentsResource extends RestResource<PaymentsDto, PaymentsEntity> 
         return ResponseEntity.ok().build();
     }
 
+    @PostMapping("/withdraw")
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN','ROLE_TRADER','ROLE_GALLERY')")
+    public ResponseEntity<Void> withdraw(@RequestBody PaymentsDto paymentsDto) {
+        this.paymentsService.withdrawPayment(convertToEntity(paymentsDto));
+        return ResponseEntity.ok().build();
+    }
+
     @KycRequired(level = {KycLevel.G_TIER1, KycLevel.T_TIER1})
     @PreAuthorize("hasAnyRole('ROLE_TRADER','ROLE_GALLERY')")
     @GetMapping("/print/{id}")

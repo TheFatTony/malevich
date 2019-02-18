@@ -1,8 +1,10 @@
 package io.malevich.server.revolut.services.counterparty;
 
-import io.malevich.server.domain.PaymentMethodAccountEntity;
+import io.malevich.server.domain.*;
 import io.malevich.server.revolut.GenericBankServiceImpl;
 import io.malevich.server.revolut.model.BankCounterpartyModel;
+import io.malevich.server.revolut.model.BankIndividualNameModel;
+import io.malevich.server.revolut.model.CounterpartyModel;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
@@ -17,17 +19,34 @@ public class CounterpartyBankServiceImpl extends GenericBankServiceImpl implemen
     }
 
     @Override
-    public void create(Object entity) {
-        PaymentMethodAccountEntity cEntity = (PaymentMethodAccountEntity) entity;
-
+    public CounterpartyModel create(PaymentMethodAccountEntity entity) {
         BankCounterpartyModel bankCounterpartyModel = new BankCounterpartyModel();
-        bankCounterpartyModel.setBankCountry(cEntity.getBankCountry().getNameMl().get("en"));
-        bankCounterpartyModel.setCompanyName(cEntity.getParticipant().getUser().getUsername());
-        bankCounterpartyModel.setCurrency("EUR");
-        bankCounterpartyModel.setBic(cEntity.getBic());
-        bankCounterpartyModel.setIban(cEntity.getIban());
+        bankCounterpartyModel.setBankCountry(entity.getBankCountry().getId());
 
-        doPost(bankCounterpartyModel);
+        if (entity.getParticipant() instanceof TraderPersonEntity) {
+            TraderPersonEntity traderPersonEntity = (TraderPersonEntity) entity.getParticipant();
+            bankCounterpartyModel.setIndividualName(
+                    new BankIndividualNameModel(
+                            traderPersonEntity.getPerson().getFirstName(),
+                            traderPersonEntity.getPerson().getLastName()
+                    )
+            );
+        } else {
+            OrganizationEntity organizationEntity;
+
+            if (entity.getParticipant() instanceof TraderOrganizationEntity)
+                organizationEntity = ((TraderOrganizationEntity) entity.getParticipant()).getOrganization();
+            else
+                organizationEntity = ((GalleryEntity) entity.getParticipant()).getOrganization();
+
+            bankCounterpartyModel.setCompanyName(organizationEntity.getLegalNameMl().get("en"));
+        }
+
+        bankCounterpartyModel.setCurrency("EUR");
+        bankCounterpartyModel.setBic(entity.getBic());
+        bankCounterpartyModel.setIban(entity.getIban());
+
+        return (CounterpartyModel) doPost(bankCounterpartyModel);
     }
 
 

@@ -65,7 +65,7 @@ export class WalletsComponent implements OnInit, OnDestroy {
   }
 
   sendWithdraw() {
-    this.paymentsService.insert(this.newWithdraw).subscribe(() => {
+    this.paymentsService.withdraw(this.newWithdraw).subscribe(() => {
       this.withdrawWindow.close();
       this.getWallets();
     });

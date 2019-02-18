@@ -27,6 +27,12 @@ export class PaymentsService {
       .post<PaymentsDto>(this.url + '/insert', payments);
   }
 
+  withdraw(payments: PaymentsDto) {
+    return this.http
+      .post<PaymentsDto>(this.url + '/withdraw', payments);
+  }
+
+
   receiptPrint(id: number) {
     const httpOptions = {
       'responseType': 'arraybuffer' as 'json'

@@ -59,9 +59,13 @@ async function placeOrder(order) { // eslint-disable-line no-unused-vars
         orderAsset.order = order.order;
         orderAsset.order.orderStatus = 'OPEN';
 
-        if ((currentAsk != null) && (currentAsk.order.amount === order.order.amount)) {
-            orderAsset.order.orderStatus = 'EXECUTED';
-            matchingBid = orderAsset;
+        if (order.order.orderType === 'BID') {
+            let chargeParty = await registryTrader.get(order.order.counterparty.id);
+            chargeParty.balance - order.order.amount;
+            if (chargeParty.balance < 0) {
+                throw new Error('Insufficient Funds ');
+            }
+            await registryTrader.update(chargeParty);
         }
 
         await registry.add(orderAsset);
@@ -86,7 +90,7 @@ async function placeOrder(order) { // eslint-disable-line no-unused-vars
         let sumCommisions = 0;
         let malevichCommisions = 0;
         for (let i = 0; i < commissions.length; i++) {
-            if (commissions[i].name !== 'Malevich') {
+            if (commissions[i].name !== 'Gallery') {
                 sumCommisions += commissions[i].value;
             } else {
                 malevichCommisions = commissions[i].value;
@@ -94,17 +98,41 @@ async function placeOrder(order) { // eslint-disable-line no-unused-vars
         }
 
         malevichParty = await registryMalevich.get('1');
-        malevichParty.balance = malevichParty.balance + (matchingBid.order.amount * malevichCommisions);
+        malevichParty.balance = malevichParty.balance + matchingBid.order.amount;
         await registryMalevich.update(malevichParty);
 
-        let uptadeParty = await registryGallery.get(currentAsk.order.сounterparty.getIdentifier());
-        uptadeParty.balance = uptadeParty.balance + (matchingBid.order.amount - malevichParty.balance) + (matchingBid.order.amount * sumCommisions);
-        await registryGallery.update(uptadeParty);
 
-        let uptadeCounterparty = await registryTrader.get(matchingBid.order.сounterparty.getIdentifier());
+        let uptadeCounterparty = null;
+        if (matchingBid.order.сounterparty.getFullyQualifiedType() === "io.malevich.network.Gallery") 
+            uptadeCounterparty = await registryGallery.get(matchingBid.order.сounterparty.getIdentifier());
+        else if (matchingBid.order.сounterparty.getFullyQualifiedType() === "io.malevich.network.Trader") 
+            uptadeCounterparty = await registryTrader.get(matchingBid.order.сounterparty.getIdentifier());
+        
+        if (uptadeCounterparty.balance < matchingBid.order.amount) {
+            throw new Error('Insufficient Funds ');
+        }
+        
         uptadeCounterparty.balance = uptadeCounterparty.balance - matchingBid.order.amount;
-        await registryTrader.update(uptadeCounterparty);
 
+        if (matchingBid.order.сounterparty.getFullyQualifiedType() === "io.malevich.network.Gallery") 
+            await registryGallery.update(uptadeCounterparty);
+        else if (matchingBid.order.сounterparty.getFullyQualifiedType() === "io.malevich.network.Trader") 
+            await registryTrader.update(uptadeCounterparty);
+
+        let uptadeParty = null;
+        if (currentAsk.order.сounterparty.getFullyQualifiedType() === "io.malevich.network.Gallery") 
+            uptadeParty = await registryGallery.get(currentAsk.order.сounterparty.getIdentifier());
+        else if (currentAsk.order.сounterparty.getFullyQualifiedType() === "io.malevich.network.Trader") 
+            uptadeParty = await registryTrader.get(currentAsk.order.сounterparty.getIdentifier());
+
+
+        uptadeParty.balance = uptadeParty.balance + matchingBid.order.amount;
+
+        if (currentAsk.order.сounterparty.getFullyQualifiedType() === "io.malevich.network.Gallery") 
+            await registryGallery.update(uptadeParty);
+        else if (currentAsk.order.сounterparty.getFullyQualifiedType() === "io.malevich.network.Trader") 
+            await registryTrader.update(uptadeParty);
+        
         let uptadeArtwork = await registryArtworkStock.get(currentAsk.order.artworkStock.getIdentifier());
         uptadeArtwork.owner = matchingBid.order.сounterparty;
         await registryArtworkStock.update(uptadeArtwork);

@@ -11,10 +11,13 @@
 			<column name="address" type="varchar(100)">
 				<constraints nullable="false"/>
 			</column>
-			<column name="wallet" type="mediumblob">
+			<column name="wallet" type="blob">
 				<constraints nullable="false"/>
 			</column>
 		</createTable>
+		<modifySql dbms="mysql">
+			<replace replace="clob" with="longblob"/>
+		</modifySql>
 	</changeSet>
 
 	<changeSet author="thefattony" id="payment_method_bitcoin-pk">

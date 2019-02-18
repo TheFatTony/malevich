@@ -8,16 +8,12 @@
             <column name="id" type="char(10)">
                 <constraints nullable="false"/>
             </column>
-        </createTable>
-    </changeSet>
-
-    <changeSet author="toolstik" id="order_status-table-ml" dbms="mysql">
-        <addColumn tableName="order_status">
             <column name="name_ml" type="json">
                 <constraints nullable="false"/>
             </column>
-        </addColumn>
+        </createTable>
     </changeSet>
+
 
     <changeSet author="toolstik" id="order_status-pk">
         <addPrimaryKey columnNames="id" constraintName="order_status_pk" tableName="order_status"/>

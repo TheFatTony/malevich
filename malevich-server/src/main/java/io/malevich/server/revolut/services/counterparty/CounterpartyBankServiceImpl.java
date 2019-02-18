@@ -46,7 +46,7 @@ public class CounterpartyBankServiceImpl extends GenericBankServiceImpl implemen
         bankCounterpartyModel.setBic(entity.getBic());
         bankCounterpartyModel.setIban(entity.getIban());
 
-        return (CounterpartyModel) doPost(bankCounterpartyModel);
+        return doPost(bankCounterpartyModel, CounterpartyModel.class);
     }
 
 

@@ -31,7 +31,12 @@ export class WalletComponent implements OnInit, AfterViewInit, OnDestroy {
   private paymentMethods: PaymentMethodDto[];
 
   paymentMethodDisplayFunc = (paymMeth: PaymentMethodDto) => {
-    return paymMeth.type.nameMl[this.translate.currentLang] + ' ' + paymMeth.id;
+    switch (paymMeth.type.id) {
+      case 'ACC':
+        return `${paymMeth.bankName} ${paymMeth.iban}`
+      default:
+        return paymMeth.type.nameMl[this.translate.currentLang] + ' ' + paymMeth.id;
+    }
   };
 
 
@@ -56,9 +61,9 @@ export class WalletComponent implements OnInit, AfterViewInit, OnDestroy {
     this.withdrawWindow.close();
   }
 
-  getPaymentMethods(){
+  getPaymentMethods() {
     this.paymentMethodService.getPaymentMethods()
-      .subscribe(data =>{
+      .subscribe(data => {
         this.paymentMethods = data;
       })
   }
@@ -117,7 +122,7 @@ export class WalletComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   sendWithdraw() {
-    this.paymentsService.withdraw(this.newWithdraw).subscribe(() => {
+    this.paymentsService.insert(this.newWithdraw).subscribe(() => {
       this.withdrawWindow.close();
       this.getPayments();
       this.getAccountState();

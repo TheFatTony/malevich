@@ -50,24 +50,7 @@ public class PaymentsBankServiceImpl extends GenericBankServiceImpl implements P
         request.setAmount(entity.getAmount().abs());
         request.setCurrency("EUR");
 
-        return (PaymentResponceModel) doPost2(request);
-    }
-
-    protected Object doPost2(Object arg) {
-        HttpHeaders headers = new HttpHeaders();
-        headers.add("Accept", MediaType.APPLICATION_JSON_VALUE);
-        headers.setContentType(MediaType.APPLICATION_JSON);
-        headers.set( "Authorization", "Bearer " + accessToken);
-
-        HttpEntity<Object> requestBody = new HttpEntity(arg, headers);
-        try {
-            ResponseEntity<PaymentResponceModel> res = restTemplate.exchange(bankUrl + "/" + endpoint, HttpMethod.POST, requestBody, PaymentResponceModel.class);
-            return res.getBody();
-        } catch (RestClientException e) {
-            String errorResponse = ((HttpStatusCodeException) e).getResponseBodyAsString();
-            log.trace(errorResponse);
-            throw e;
-        }
+        return doPost(request, PaymentResponceModel.class);
     }
 
 

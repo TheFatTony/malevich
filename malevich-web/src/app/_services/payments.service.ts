@@ -27,11 +27,10 @@ export class PaymentsService {
       .post<PaymentsDto>(this.url + '/insert', payments);
   }
 
-  withdraw(payments: PaymentsDto) {
+  insertAdmin(payments: PaymentsDto) {
     return this.http
-      .post<PaymentsDto>(this.url + '/withdraw', payments);
+      .post<PaymentsDto>(this.url + '/insertAdmin', payments);
   }
-
 
   receiptPrint(id: number) {
     const httpOptions = {

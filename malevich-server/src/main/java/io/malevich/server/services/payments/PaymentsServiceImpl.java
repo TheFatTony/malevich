@@ -76,28 +76,43 @@ public class PaymentsServiceImpl implements PaymentsService {
 
     @Override
     @Transactional
-    public void insertPayment(PaymentsEntity paymentsEntity) {
-        paymentsEntity.setAmount(paymentsEntity.getAmount().abs());
-        paymentsEntity.setPaymentType(paymentTypeService.getPaymentType());
-        paymentsEntity.setPaymentMethod(paymentMethodService.findById(paymentsEntity.getPaymentMethod().getId()));
-
-        paymentsEntity = paymentsDao.save(paymentsEntity);
-        paymentTransactionService.create(paymentsEntity);
+    public void insert(PaymentsEntity paymentsEntity) {
+        paymentsEntity.setParticipant(participantService.getCurrent());
+        insertInternal(paymentsEntity);
     }
 
     @Override
     @Transactional
-    public void withdrawPayment(PaymentsEntity paymentsEntity) {
-        paymentsEntity.setAmount(paymentsEntity.getAmount().abs().negate());
-        paymentsEntity.setPaymentType(paymentTypeService.getWithdrawalType());
-        paymentsEntity.setPaymentMethod(paymentMethodService.findById(paymentsEntity.getPaymentMethod().getId()));
+    public void insertAdmin(PaymentsEntity paymentsEntity) {
+        insertInternal(paymentsEntity);
+    }
 
-        paymentsEntity.setParticipant(participantService.getCurrent());
+    private void insertInternal(PaymentsEntity paymentsEntity) {
+
+        if (paymentsEntity.getPaymentMethod() != null)
+            paymentsEntity.setPaymentMethod(paymentMethodService.findById(paymentsEntity.getPaymentMethod().getId()));
+
+        if (paymentsEntity.getPaymentType() == null) {
+            PaymentTypeEntity paymentType;
+
+            if (paymentsEntity.getAmount().compareTo(BigDecimal.valueOf(0)) < 0) {
+                paymentType = paymentTypeService.getWithdrawalType();
+            } else {
+                paymentType = paymentTypeService.getPaymentType();
+            }
+
+            paymentsEntity.setPaymentType(paymentType);
+        }
+
+        paymentsEntity.setAmount(paymentsEntity.getAmount().abs());
 
         paymentsEntity = paymentsDao.save(paymentsEntity);
 
-        if (paymentsEntity.getPaymentMethod() != null && paymentMethodTypeService.getAccountType().equals(paymentsEntity.getPaymentMethod().getType()))
-            paymentsBankService.create(paymentsEntity);
+        if (paymentsEntity.getPaymentType().equals(paymentTypeService.getWithdrawalType())) {
+            if (paymentsEntity.getPaymentMethod() != null &&
+                    paymentMethodTypeService.getAccountType().equals(paymentsEntity.getPaymentMethod().getType()))
+                paymentsBankService.create(paymentsEntity);
+        }
 
         paymentTransactionService.create(paymentsEntity);
     }

@@ -30,7 +30,7 @@ public abstract class GenericBankServiceImpl {
     }
 
 
-    protected Object doPost(Object arg) {
+    protected <TRequest, TResponse> TResponse doPost(TRequest arg, Class<TResponse> responceClass) {
         HttpHeaders headers = new HttpHeaders();
         headers.add("Accept", MediaType.APPLICATION_JSON_VALUE);
         headers.setContentType(MediaType.APPLICATION_JSON);
@@ -38,7 +38,7 @@ public abstract class GenericBankServiceImpl {
 
         HttpEntity<Object> requestBody = new HttpEntity(arg, headers);
         try {
-            ResponseEntity<CounterpartyModel> res = restTemplate.exchange(bankUrl + "/" + endpoint, HttpMethod.POST, requestBody, CounterpartyModel.class);
+            ResponseEntity<TResponse> res = restTemplate.exchange(bankUrl + "/" + endpoint, HttpMethod.POST, requestBody, responceClass);
             return res.getBody();
         } catch (RestClientException e) {
             String errorResponse = ((HttpStatusCodeException) e).getResponseBodyAsString();

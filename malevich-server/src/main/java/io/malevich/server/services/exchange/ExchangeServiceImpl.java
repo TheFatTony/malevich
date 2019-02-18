@@ -78,7 +78,7 @@ public class ExchangeServiceImpl implements ExchangeService {
                 paymentsEntity.setPaymentMethod(exchangeOrderEntity.getPaymentMethod());
                 paymentsEntity.setParticipant(exchangeOrderEntity.getPaymentMethod().getParticipant());
 
-                paymentsService.insertPayment(paymentsEntity);
+                paymentsService.insert(paymentsEntity);
 
                 exchangeOrderEntity.setInternalStatus(ExchangeOrderStatus.EXECUTED);
                 exchangeOrderService.save(exchangeOrderEntity);

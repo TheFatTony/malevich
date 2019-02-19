@@ -68,8 +68,16 @@ async function placeOrder(order) { // eslint-disable-line no-unused-vars
             await registryTrader.update(chargeParty);
         }
 
+        if (currentAsk != null) {
+            if (currentAsk.order.amount === order.order.amount) {
+                orderAsset.order.orderStatus = 'EXECUTED';
+                matchingBid = orderAsset;
+            }
+        }
+
         await registry.add(orderAsset);
     }
+
 
     if (matchingBid != null) {
         var results = await query(ordersAskQuery, { artworkStock: 'resource:io.malevich.network.ArtworkStock#' + order.order.artworkStock.getIdentifier()});
@@ -98,8 +106,8 @@ async function placeOrder(order) { // eslint-disable-line no-unused-vars
         }
 
         malevichParty = await registryMalevich.get('1');
-        malevichParty.balance = malevichParty.balance + matchingBid.order.amount;
-        await registryMalevich.update(malevichParty);
+        // malevichParty.balance = malevichParty.balance + matchingBid.order.amount;
+        // await registryMalevich.update(malevichParty);
 
 
         let uptadeCounterparty = null;

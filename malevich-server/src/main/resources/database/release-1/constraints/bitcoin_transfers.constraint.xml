@@ -3,15 +3,10 @@
                    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
                    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.6.xsd">
 
-    <changeSet author="thefattony" id="user_type-data">
-        <sql splitStatements="true" stripComments="true">
-            insert into roles (id, role_name)
-            values (0, 'ROLE_ADMIN'),
-                   (1, 'ROLE_USER'),
-                   (2, 'ROLE_GALLERY'),
-                   (3, 'ROLE_TRADER'),
-                   (4, 'ROLE_MALEVICH');
-        </sql>
+    <changeSet author="thefattony" id="bitcoin_transfers-payment_method_id-fk">
+        <addForeignKeyConstraint baseColumnNames="payment_method_id" baseTableName="bitcoin_transfers"
+                                 constraintName="bt_payment_method_id_id_fk"
+                                 referencedColumnNames="id" referencedTableName="payment_method"/>
     </changeSet>
 
 </databaseChangeLog>

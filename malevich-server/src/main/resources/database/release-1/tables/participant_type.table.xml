@@ -8,15 +8,10 @@
             <column name="id" type="char(3)">
                 <constraints nullable="false"/>
             </column>
-        </createTable>
-    </changeSet>
-
-    <changeSet author="toolstik" id="participant_type-table-ml" dbms="mysql">
-        <addColumn tableName="participant_type">
             <column name="name_ml" type="json">
                 <constraints nullable="false"/>
             </column>
-        </addColumn>
+        </createTable>
     </changeSet>
 
     <changeSet author="toolstik" id="participant_type-pk">

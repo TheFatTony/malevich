@@ -8,7 +8,7 @@
             <column name="user_id" type="bigint">
                 <constraints nullable="false"/>
             </column>
-            <column name="roles" type="tinyblob">
+            <column name="roles_id" type="bigint">
                 <constraints nullable="false"/>
             </column>
         </createTable>

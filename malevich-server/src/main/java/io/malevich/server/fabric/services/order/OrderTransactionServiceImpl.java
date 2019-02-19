@@ -51,7 +51,7 @@ public class OrderTransactionServiceImpl extends GenericComposerServiceImpl<Orde
         orderTransaction.getOrder().setOrderType(entity.getType().getId());
         orderTransaction.getOrder().setOrderStatus(entity.getStatus().getId());
         orderTransaction.getOrder().setArtworkStock("resource:io.malevich.network.ArtworkStock#" + entity.getArtworkStock().getId().toString());
-        orderTransaction.getOrder().setСounterparty(fabricClass + participantEntity.getId());
+        orderTransaction.getOrder().setCounterparty(fabricClass + participantEntity.getId());
 
         doPost(orderTransaction);
     }
@@ -67,8 +67,7 @@ public class OrderTransactionServiceImpl extends GenericComposerServiceImpl<Orde
             return res.getBody();
         } catch (RestClientException e) {
             String errorResponse = ((HttpStatusCodeException) e).getResponseBodyAsString();
-            log.trace(errorResponse);
-            throw e;
+            throw new RuntimeException(errorResponse);
         }
     }
 
@@ -83,8 +82,7 @@ public class OrderTransactionServiceImpl extends GenericComposerServiceImpl<Orde
             return res.getBody();
         } catch (RestClientException e) {
             String errorResponse = ((HttpStatusCodeException) e).getResponseBodyAsString();
-            log.trace(errorResponse);
-            throw e;
+            throw new RuntimeException(errorResponse);
         }
     }
 
@@ -105,8 +103,7 @@ public class OrderTransactionServiceImpl extends GenericComposerServiceImpl<Orde
             return res.getBody();
         } catch (RestClientException e) {
             String errorResponse = ((HttpStatusCodeException) e).getResponseBodyAsString();
-            log.trace(errorResponse);
-            throw e;
+            throw new RuntimeException(errorResponse);
         }
     }
 

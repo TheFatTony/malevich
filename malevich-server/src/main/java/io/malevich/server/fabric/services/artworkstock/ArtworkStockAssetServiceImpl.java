@@ -57,8 +57,7 @@ public class ArtworkStockAssetServiceImpl extends GenericComposerServiceImpl<Art
             return res.getBody();
         } catch (RestClientException e) {
             String errorResponse = ((HttpStatusCodeException) e).getResponseBodyAsString();
-            log.trace(errorResponse);
-            throw e;
+            throw new RuntimeException(errorResponse);
         }
     }
 

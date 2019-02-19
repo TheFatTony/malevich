@@ -45,8 +45,7 @@ public class TraderParticipantServiceImpl extends GenericComposerServiceImpl<Par
             return res.getBody();
         } catch (RestClientException e) {
             String errorResponse = ((HttpStatusCodeException) e).getResponseBodyAsString();
-            log.trace(errorResponse);
-            throw e;
+            throw new RuntimeException(errorResponse);
         }
     }
 
@@ -57,8 +56,7 @@ public class TraderParticipantServiceImpl extends GenericComposerServiceImpl<Par
             return res.getBody();
         } catch (RestClientException e) {
             String errorResponse = ((HttpStatusCodeException) e).getResponseBodyAsString();
-            log.trace(errorResponse);
-            throw e;
+            throw new RuntimeException(errorResponse);
         }
     }
 }

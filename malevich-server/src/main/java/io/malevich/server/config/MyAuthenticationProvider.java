@@ -1,5 +1,6 @@
 package io.malevich.server.config;
 
+import com.yinyang.core.server.domain.Role;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.BadCredentialsException;
@@ -15,14 +16,14 @@ import java.util.List;
 @Configuration
 public class MyAuthenticationProvider implements AuthenticationProvider {
 
-    private static final List<GrantedAuthority> AUTHORITIES
-            = new ArrayList<GrantedAuthority>();
+    private static final List<Role> AUTHORITIES
+            = new ArrayList<Role>();
 
-    public static SimpleGrantedAuthority ROLE_ADMIN = new SimpleGrantedAuthority("ROLE_ADMIN");
-    public static SimpleGrantedAuthority ROLE_USER = new SimpleGrantedAuthority("ROLE_USER");
-    public static SimpleGrantedAuthority ROLE_GALLERY = new SimpleGrantedAuthority("ROLE_GALLERY");
-    public static SimpleGrantedAuthority ROLE_TRADER = new SimpleGrantedAuthority("ROLE_TRADER");
-    public static SimpleGrantedAuthority ROLE_MALEVICH = new SimpleGrantedAuthority("ROLE_MALEVICH");
+    public static Role ROLE_ADMIN = new Role(0L, "ROLE_ADMIN");
+    public static Role ROLE_USER = new Role(1L,"ROLE_USER");
+    public static Role ROLE_GALLERY = new Role(2L,"ROLE_GALLERY");
+    public static Role ROLE_TRADER = new Role(3L,"ROLE_TRADER");
+    public static Role ROLE_MALEVICH = new Role(4L,"ROLE_MALEVICH");
 
     static {
         AUTHORITIES.add(ROLE_ADMIN);

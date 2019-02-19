@@ -1,10 +1,7 @@
 package io.malevich.server.services.registertoken;
 
 import com.google.common.collect.Lists;
-import com.yinyang.core.server.domain.MailQueueEntity;
-import com.yinyang.core.server.domain.RegisterTokenEntity;
-import com.yinyang.core.server.domain.UserEntity;
-import com.yinyang.core.server.domain.UserTypeEntity;
+import com.yinyang.core.server.domain.*;
 import com.yinyang.core.server.repositories.registertoken.RegisterTokenDao;
 import com.yinyang.core.server.services.auth.AuthService;
 import com.yinyang.core.server.services.mailqueue.MailQueueService;
@@ -123,7 +120,7 @@ public class RegisterServiceImpl implements RegisterService {
     public AccessTokenDto register2(String token, RegisterFormStepTwoDto registerInfo) {
         RegisterTokenEntity registerTokenEntity = findToken(token).get();
 
-        List<SimpleGrantedAuthority> roles = Lists.newArrayList(MyAuthenticationProvider.ROLE_USER);
+        List<Role> roles = Lists.newArrayList(MyAuthenticationProvider.ROLE_USER);
         if (isGallery(registerTokenEntity.getUserType()))
             roles.add(MyAuthenticationProvider.ROLE_GALLERY);
         else
@@ -132,7 +129,7 @@ public class RegisterServiceImpl implements RegisterService {
         UserEntity user = new UserEntity(
                 registerTokenEntity.getUserName(),
                 bCryptPasswordEncoder.encode(registerInfo.getPassword()),
-                new HashSet<>(roles),
+                new HashSet<Role>(roles),
                 true);
 
         user = userService.save(user);

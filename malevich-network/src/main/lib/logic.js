@@ -104,10 +104,10 @@ async function placeOrder(order) { // eslint-disable-line no-unused-vars
 
 
         let uptadeCounterparty = null;
-        if (matchingBid.order.сounterparty.getFullyQualifiedType() === "io.malevich.network.Gallery") 
-            uptadeCounterparty = await registryGallery.get(matchingBid.order.сounterparty.getIdentifier());
-        else if (matchingBid.order.сounterparty.getFullyQualifiedType() === "io.malevich.network.Trader") 
-            uptadeCounterparty = await registryTrader.get(matchingBid.order.сounterparty.getIdentifier());
+        if (matchingBid.order.counterparty.getFullyQualifiedType() === "io.malevich.network.Gallery") 
+            uptadeCounterparty = await registryGallery.get(matchingBid.order.counterparty.getIdentifier());
+        else if (matchingBid.order.counterparty.getFullyQualifiedType() === "io.malevich.network.Trader") 
+            uptadeCounterparty = await registryTrader.get(matchingBid.order.counterparty.getIdentifier());
         
         if (uptadeCounterparty.balance < matchingBid.order.amount) {
             throw new Error('Insufficient Funds ');
@@ -115,27 +115,27 @@ async function placeOrder(order) { // eslint-disable-line no-unused-vars
         
         uptadeCounterparty.balance = uptadeCounterparty.balance - matchingBid.order.amount;
 
-        if (matchingBid.order.сounterparty.getFullyQualifiedType() === "io.malevich.network.Gallery") 
+        if (matchingBid.order.counterparty.getFullyQualifiedType() === "io.malevich.network.Gallery") 
             await registryGallery.update(uptadeCounterparty);
-        else if (matchingBid.order.сounterparty.getFullyQualifiedType() === "io.malevich.network.Trader") 
+        else if (matchingBid.order.counterparty.getFullyQualifiedType() === "io.malevich.network.Trader") 
             await registryTrader.update(uptadeCounterparty);
 
         let uptadeParty = null;
-        if (currentAsk.order.сounterparty.getFullyQualifiedType() === "io.malevich.network.Gallery") 
-            uptadeParty = await registryGallery.get(currentAsk.order.сounterparty.getIdentifier());
-        else if (currentAsk.order.сounterparty.getFullyQualifiedType() === "io.malevich.network.Trader") 
-            uptadeParty = await registryTrader.get(currentAsk.order.сounterparty.getIdentifier());
+        if (currentAsk.order.counterparty.getFullyQualifiedType() === "io.malevich.network.Gallery") 
+            uptadeParty = await registryGallery.get(currentAsk.order.counterparty.getIdentifier());
+        else if (currentAsk.order.counterparty.getFullyQualifiedType() === "io.malevich.network.Trader") 
+            uptadeParty = await registryTrader.get(currentAsk.order.counterparty.getIdentifier());
 
 
         uptadeParty.balance = uptadeParty.balance + matchingBid.order.amount;
 
-        if (currentAsk.order.сounterparty.getFullyQualifiedType() === "io.malevich.network.Gallery") 
+        if (currentAsk.order.counterparty.getFullyQualifiedType() === "io.malevich.network.Gallery") 
             await registryGallery.update(uptadeParty);
-        else if (currentAsk.order.сounterparty.getFullyQualifiedType() === "io.malevich.network.Trader") 
+        else if (currentAsk.order.counterparty.getFullyQualifiedType() === "io.malevich.network.Trader") 
             await registryTrader.update(uptadeParty);
         
         let uptadeArtwork = await registryArtworkStock.get(currentAsk.order.artworkStock.getIdentifier());
-        uptadeArtwork.owner = matchingBid.order.сounterparty;
+        uptadeArtwork.owner = matchingBid.order.counterparty;
         await registryArtworkStock.update(uptadeArtwork);
 
     }

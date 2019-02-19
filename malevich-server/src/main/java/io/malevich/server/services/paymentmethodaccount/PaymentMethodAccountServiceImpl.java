@@ -49,6 +49,15 @@ public class PaymentMethodAccountServiceImpl implements PaymentMethodAccountServ
 
         CounterpartyModel counterpartyModel = counterpartyBankService.create(paymentMethod);
         paymentMethod.setRevolutCounterpartyId(counterpartyModel.getId());
+        paymentMethod.setRevolutAccountId(
+                counterpartyModel
+                        .getAccounts()
+                        .stream()
+                        .filter(a -> "EUR".equals(a.getCurrency()))
+                        .findFirst()
+                        .get()
+                        .getId()
+        );
 
         return paymentMethodDao.save(paymentMethod);
     }

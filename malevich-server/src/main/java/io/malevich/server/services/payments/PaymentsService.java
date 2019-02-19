@@ -22,4 +22,6 @@ public interface PaymentsService {
     PaymentsEntity getPayments(Long id);
 
     ResponseEntity<byte[]> createFop(PaymentsEntity entity);
+
 }
+

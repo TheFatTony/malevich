@@ -39,5 +39,6 @@
     <include relativeToChangelogFile="true" file="indexes/exchange_order.index.xml"/>
     <include relativeToChangelogFile="true" file="indexes/kyc_level.index.xml"/>
     <include relativeToChangelogFile="true" file="indexes/participant_type_document_type.index.xml"/>
+    <include relativeToChangelogFile="true" file="indexes/revolut_withdrawal_history.index.xml"/>
 
 </databaseChangeLog>

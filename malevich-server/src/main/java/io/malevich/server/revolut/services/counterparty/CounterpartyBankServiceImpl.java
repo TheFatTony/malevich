@@ -6,7 +6,13 @@ import io.malevich.server.revolut.model.BankCounterpartyModel;
 import io.malevich.server.revolut.model.BankIndividualNameModel;
 import io.malevich.server.revolut.model.CounterpartyModel;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.core.ParameterizedTypeReference;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpMethod;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.HttpStatusCodeException;
+import org.springframework.web.client.RestClientException;
 
 
 @Slf4j
@@ -49,5 +55,15 @@ public class CounterpartyBankServiceImpl extends GenericBankServiceImpl implemen
         return doPost(bankCounterpartyModel);
     }
 
+    private CounterpartyModel doPost(Object arg) {
+        HttpEntity<Object> requestBody = getHttpEntity(arg);
+        try {
+            ResponseEntity<CounterpartyModel> res = restTemplate.exchange(bankUrl + "/" + endpoint, HttpMethod.POST, requestBody, new ParameterizedTypeReference<CounterpartyModel>() {});
+            return res.getBody();
+        } catch (RestClientException e) {
+            String errorResponse = ((HttpStatusCodeException) e).getResponseBodyAsString();
+            throw new RuntimeException(errorResponse);
+        }
+    }
 
 }

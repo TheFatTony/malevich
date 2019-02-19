@@ -98,11 +98,11 @@ public class TestResource {
     @RequestMapping(value = "/testRevolutTransactions", method = RequestMethod.GET)
     @ResponseStatus(HttpStatus.OK)
     @ResponseBody
-    public ResponseEntity<String> testRevolutTransactions() {
+    public ResponseEntity<List<TransactionModel>> testRevolutTransactions() {
         List<TransactionModel> transactionModels =
-                transactionsBankService.get(Timestamp.valueOf("2019-02-17 00:00:00"), Timestamp.valueOf("2019-02-19 00:00:00"));
+                transactionsBankService.getTransactions(Timestamp.valueOf("2019-02-17 00:00:00"), Timestamp.valueOf("2019-02-19 00:00:00"));
 
-        return ResponseEntity.ok().body("");
+        return ResponseEntity.ok().body(transactionModels);
     }
 
 

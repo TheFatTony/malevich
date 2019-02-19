@@ -10,5 +10,5 @@ import java.util.List;
 @Service
 public interface TransactionsBankService extends GenericBankService {
 
-    List<TransactionModel> get(Timestamp from, Timestamp to);
+    List<TransactionModel> getTransactions(Timestamp from, Timestamp to);
 }

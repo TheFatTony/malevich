@@ -142,6 +142,7 @@
         <mchDropDownList name="paymentMethods"
                          [objectSource]="paymentMethods"
                          [displayFunc]="paymentMethodDisplayFunc"
+                         [width]="'100%'"
                          [ngModel]="newWithdraw.paymentMethod"
                          (ngModelChange)="newWithdraw.paymentMethod=$event">
         </mchDropDownList>

@@ -42,30 +42,6 @@ public abstract class GenericBankServiceImpl {
         return new HttpEntity(arg, headers);
     }
 
-    protected <TResponse> TResponse doPost(Object arg) {
-        HttpEntity<Object> requestBody = getHttpEntity(arg);
-        try {
-            ResponseEntity<TResponse> res = restTemplate.exchange(bankUrl + "/" + endpoint, HttpMethod.POST, requestBody, new ParameterizedTypeReference<TResponse>() {});
-            return res.getBody();
-        } catch (RestClientException e) {
-            String errorResponse = ((HttpStatusCodeException) e).getResponseBodyAsString();
-            log.trace(errorResponse);
-            throw e;
-        }
-    }
-
-    protected <TResponse> TResponse doGet(Object... arguments) {
-        HttpEntity<Object> requestBody = getHttpEntity(null);
-        try {
-            ResponseEntity<TResponse> res = restTemplate.exchange(bankUrl + "/" + endpoint, HttpMethod.GET, requestBody, new ParameterizedTypeReference<TResponse>(){}, arguments);
-            return res.getBody();
-        } catch (RestClientException e) {
-            String errorResponse = ((HttpStatusCodeException) e).getResponseBodyAsString();
-            log.trace(errorResponse);
-            throw e;
-        }
-    }
-
     public String getEndpoint() {
         return endpoint;
     }

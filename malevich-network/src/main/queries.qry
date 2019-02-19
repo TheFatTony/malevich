@@ -37,7 +37,7 @@ query getOpenOrdersByArtworkStock {
 query getOrdersByCounterparty {
   description: "getOrdersByCounterparty"
   statement:
-      SELECT io.malevich.network.OrderAsset WHERE (order.сounterparty == _$сounterparty)
+      SELECT io.malevich.network.OrderAsset WHERE (order.counterparty == _$counterparty)
 }
 
 query getTradeHistoryByArtworkStock {

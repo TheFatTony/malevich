@@ -59,13 +59,25 @@ async function placeOrder(order) { // eslint-disable-line no-unused-vars
         orderAsset.order = order.order;
         orderAsset.order.orderStatus = 'OPEN';
 
-        if ((currentAsk != null) && (currentAsk.order.amount === order.order.amount)) {
-            orderAsset.order.orderStatus = 'EXECUTED';
-            matchingBid = orderAsset;
+        if (orderAsset.order.orderType === 'BID') {
+            let chargeParty = await registryTrader.get(orderAsset.order.counterparty.id);
+            chargeParty.balance = chargeParty.balance - orderAsset.order.amount;
+            if (chargeParty.balance < 0) {
+                throw new Error('Insufficient Funds');
+            }
+            await registryTrader.update(chargeParty);
+        }
+
+        if (currentAsk != null) {
+            if (currentAsk.order.amount === order.order.amount) {
+                orderAsset.order.orderStatus = 'EXECUTED';
+                matchingBid = orderAsset;
+            }
         }
 
         await registry.add(orderAsset);
     }
+
 
     if (matchingBid != null) {
         var results = await query(ordersAskQuery, { artworkStock: 'resource:io.malevich.network.ArtworkStock#' + order.order.artworkStock.getIdentifier()});
@@ -86,7 +98,7 @@ async function placeOrder(order) { // eslint-disable-line no-unused-vars
         let sumCommisions = 0;
         let malevichCommisions = 0;
         for (let i = 0; i < commissions.length; i++) {
-            if (commissions[i].name !== 'Malevich') {
+            if (commissions[i].name !== 'Gallery') {
                 sumCommisions += commissions[i].value;
             } else {
                 malevichCommisions = commissions[i].value;
@@ -94,19 +106,43 @@ async function placeOrder(order) { // eslint-disable-line no-unused-vars
         }
 
         malevichParty = await registryMalevich.get('1');
-        malevichParty.balance = malevichParty.balance + (matchingBid.order.amount * malevichCommisions);
-        await registryMalevich.update(malevichParty);
+        // malevichParty.balance = malevichParty.balance + matchingBid.order.amount;
+        // await registryMalevich.update(malevichParty);
 
-        let uptadeParty = await registryGallery.get(currentAsk.order.сounterparty.getIdentifier());
-        uptadeParty.balance = uptadeParty.balance + (matchingBid.order.amount - malevichParty.balance) + (matchingBid.order.amount * sumCommisions);
-        await registryGallery.update(uptadeParty);
 
-        let uptadeCounterparty = await registryTrader.get(matchingBid.order.сounterparty.getIdentifier());
+        let uptadeCounterparty = null;
+        if (matchingBid.order.counterparty.getFullyQualifiedType() === "io.malevich.network.Gallery") 
+            uptadeCounterparty = await registryGallery.get(matchingBid.order.counterparty.getIdentifier());
+        else if (matchingBid.order.counterparty.getFullyQualifiedType() === "io.malevich.network.Trader") 
+            uptadeCounterparty = await registryTrader.get(matchingBid.order.counterparty.getIdentifier());
+        
+        if (uptadeCounterparty.balance < matchingBid.order.amount) {
+            throw new Error('Insufficient Funds ');
+        }
+        
         uptadeCounterparty.balance = uptadeCounterparty.balance - matchingBid.order.amount;
-        await registryTrader.update(uptadeCounterparty);
 
+        if (matchingBid.order.counterparty.getFullyQualifiedType() === "io.malevich.network.Gallery") 
+            await registryGallery.update(uptadeCounterparty);
+        else if (matchingBid.order.counterparty.getFullyQualifiedType() === "io.malevich.network.Trader") 
+            await registryTrader.update(uptadeCounterparty);
+
+        let uptadeParty = null;
+        if (currentAsk.order.counterparty.getFullyQualifiedType() === "io.malevich.network.Gallery") 
+            uptadeParty = await registryGallery.get(currentAsk.order.counterparty.getIdentifier());
+        else if (currentAsk.order.counterparty.getFullyQualifiedType() === "io.malevich.network.Trader") 
+            uptadeParty = await registryTrader.get(currentAsk.order.counterparty.getIdentifier());
+
+
+        uptadeParty.balance = uptadeParty.balance + matchingBid.order.amount;
+
+        if (currentAsk.order.counterparty.getFullyQualifiedType() === "io.malevich.network.Gallery") 
+            await registryGallery.update(uptadeParty);
+        else if (currentAsk.order.counterparty.getFullyQualifiedType() === "io.malevich.network.Trader") 
+            await registryTrader.update(uptadeParty);
+        
         let uptadeArtwork = await registryArtworkStock.get(currentAsk.order.artworkStock.getIdentifier());
-        uptadeArtwork.owner = matchingBid.order.сounterparty;
+        uptadeArtwork.owner = matchingBid.order.counterparty;
         await registryArtworkStock.update(uptadeArtwork);
 
     }

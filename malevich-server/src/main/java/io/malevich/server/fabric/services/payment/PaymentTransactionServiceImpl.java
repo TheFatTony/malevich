@@ -65,8 +65,7 @@ public class PaymentTransactionServiceImpl extends GenericComposerServiceImpl<Pa
             return res.getBody();
         } catch (RestClientException e) {
             String errorResponse = ((HttpStatusCodeException) e).getResponseBodyAsString();
-            log.trace(errorResponse);
-            throw e;
+            throw new RuntimeException(errorResponse);
         }
     }
 }

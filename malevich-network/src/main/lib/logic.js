@@ -25,6 +25,7 @@ async function processPayment(payment) { // eslint-disable-line no-unused-vars
  * @transaction
  */
 async function placeOrder(order) { // eslint-disable-line no-unused-vars
+    throw new Error(order.order.counterparty);
 
     if (order.order.amount <= 0) {
         throw new Error('Zero or negative amount is not allowed');
@@ -59,16 +60,16 @@ async function placeOrder(order) { // eslint-disable-line no-unused-vars
         orderAsset.order = order.order;
         orderAsset.order.orderStatus = 'OPEN';
 
-        if (order.order.orderType === 'BID') {
-            let chargeParty = await registryTrader.get(order.order.counterparty.id);
-            chargeParty.balance - order.order.amount;
+        await registry.add(orderAsset);
+
+        if (orderAsset.order.orderType === 'BID') {
+            let chargeParty = await registryTrader.get(orderAsset.order.counterparty.id);
+            chargeParty.balance - orderAsset.order.amount;
             if (chargeParty.balance < 0) {
                 throw new Error('Insufficient Funds ');
             }
             await registryTrader.update(chargeParty);
         }
-
-        await registry.add(orderAsset);
     }
 
     if (matchingBid != null) {

@@ -50,7 +50,7 @@ concept OrderConcept {
   o OrderType orderType
   o OrderStatus orderStatus default = 'OPEN'
   --> ArtworkStock artworkStock
-  --> Counterparty сounterparty
+  --> Counterparty counterparty
 }
 
 asset OrderAsset identified by id {

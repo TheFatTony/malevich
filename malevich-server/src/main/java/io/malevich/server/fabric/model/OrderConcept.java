@@ -21,7 +21,7 @@ public class OrderConcept  {
 
     private String artworkStock;
 
-    private String сounterparty;
+    private String counterparty;
 
 
 }

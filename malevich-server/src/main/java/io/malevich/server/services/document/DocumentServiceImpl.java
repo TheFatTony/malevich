@@ -1,5 +1,6 @@
 package io.malevich.server.services.document;
 
+import com.yinyang.core.server.services.auth.AuthService;
 import io.malevich.server.domain.DocumentEntity;
 import io.malevich.server.domain.ParticipantEntity;
 import io.malevich.server.repositories.document.DocumentDao;
@@ -30,6 +31,9 @@ public class DocumentServiceImpl implements DocumentService {
     @Autowired
     private KycLevelService kycLevelService;
 
+    @Autowired
+    private AuthService authService;
+
     @Override
     @Transactional(readOnly = true)
     public List<DocumentEntity> findDocs() {
@@ -48,6 +52,7 @@ public class DocumentServiceImpl implements DocumentService {
     public DocumentEntity trySave(DocumentEntity entity) {
         ParticipantEntity current = participantService.getCurrent();
         entity.setParticipant(current);
+        entity.getFiles().setUser(authService.getUserEntity());
         entity.setEffectiveDate(new Timestamp(System.currentTimeMillis()));
         delayedChangeService.saveEntity(entity);
         return entity;

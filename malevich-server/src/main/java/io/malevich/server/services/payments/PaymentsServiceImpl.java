@@ -115,6 +115,13 @@ public class PaymentsServiceImpl implements PaymentsService {
                     paymentMethodTypeService.getAccountType().equals(paymentsEntity.getPaymentMethod().getType()))
                 paymentsBankService.create(paymentsEntity);
         }
+
+        if (paymentsEntity.getPaymentType().equals(paymentTypeService.getPaymentType())) {
+            if (paymentsEntity.getPaymentMethod() != null &&
+                    paymentMethodTypeService.getCardType().equals(paymentsEntity.getPaymentMethod().getType())) {
+                // todo hit stripe api
+            }
+        }
     }
 
     @Override

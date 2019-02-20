@@ -48,6 +48,10 @@ export class WalletComponent implements OnInit, AfterViewInit, OnDestroy {
   x: number;
   y: number;
 
+  get cards(){
+    return this.paymentMethods.filter(p => p.type.id == 'CRD');
+  }
+
   paymentTypeDisplayFunc = (paymType: PaymentType) => {
     return paymType.name;
   };
@@ -158,9 +162,9 @@ export class WalletComponent implements OnInit, AfterViewInit, OnDestroy {
   openPaymentWindow() {
     this.newPayment = new PaymentsDto();
     this.myWindow.width(310);
-    this.myWindow.height(220);
+    this.myWindow.height(500);
     this.myWindow.open();
-    this.myWindow.move(this.x, this.y);
+    // this.myWindow.move(this.x, this.y);
   }
 
   openWithdrawWindow() {

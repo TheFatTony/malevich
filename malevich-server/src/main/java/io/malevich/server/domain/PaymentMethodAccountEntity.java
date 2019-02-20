@@ -67,4 +67,14 @@ public class PaymentMethodAccountEntity extends PaymentMethodEntity {
     @NotBlank
     private String bankAddress;
 
+    @Getter
+    @Setter
+    @Column(name = "revolut_counterparty_id")
+    private String revolutCounterpartyId;
+
+    @Getter
+    @Setter
+    @Column(name = "revolut_account_id")
+    private String revolutAccountId;
+
 }

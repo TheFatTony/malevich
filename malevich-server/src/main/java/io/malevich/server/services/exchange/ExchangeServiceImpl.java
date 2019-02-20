@@ -74,11 +74,11 @@ public class ExchangeServiceImpl implements ExchangeService {
 
                 PaymentsEntity paymentsEntity = new PaymentsEntity();
                 paymentsEntity.setEffectiveDate(new Timestamp(System.currentTimeMillis()));
-                paymentsEntity.setAmount(trade.getOriginalAmount().doubleValue());
+                paymentsEntity.setAmount(trade.getOriginalAmount());
                 paymentsEntity.setPaymentMethod(exchangeOrderEntity.getPaymentMethod());
                 paymentsEntity.setParticipant(exchangeOrderEntity.getPaymentMethod().getParticipant());
 
-                paymentsService.insertPayment(paymentsEntity);
+                paymentsService.insert(paymentsEntity);
 
                 exchangeOrderEntity.setInternalStatus(ExchangeOrderStatus.EXECUTED);
                 exchangeOrderService.save(exchangeOrderEntity);

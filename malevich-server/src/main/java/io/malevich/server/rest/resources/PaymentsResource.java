@@ -14,7 +14,6 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 
 @Slf4j
@@ -45,10 +44,17 @@ public class PaymentsResource extends RestResource<PaymentsDto, PaymentsEntity> 
         return convertListOfDto(allEntries);
     }
 
-    @PostMapping("/insert")
+    @PostMapping("/insertAdmin")
     @PreAuthorize("hasRole('ROLE_ADMIN')")
+    public ResponseEntity<Void> insertAdmin(@RequestBody PaymentsDto paymentsDto) {
+        this.paymentsService.insertAdmin(convertToEntity(paymentsDto));
+        return ResponseEntity.ok().build();
+    }
+
+    @PostMapping("/insert")
+    @PreAuthorize("hasAnyRole('ROLE_TRADER','ROLE_GALLERY')")
     public ResponseEntity<Void> insert(@RequestBody PaymentsDto paymentsDto) {
-        this.paymentsService.insertPayment(convertToEntity(paymentsDto));
+        this.paymentsService.insert(convertToEntity(paymentsDto));
         return ResponseEntity.ok().build();
     }
 

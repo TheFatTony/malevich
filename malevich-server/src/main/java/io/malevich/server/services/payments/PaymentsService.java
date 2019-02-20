@@ -15,9 +15,13 @@ public interface PaymentsService {
 
     List<PaymentsEntity> findAllByParticipant(Long participantId);
 
-    void insertPayment(PaymentsEntity paymentsEntity);
+    void insert(PaymentsEntity paymentsEntity);
+
+    void insertAdmin(PaymentsEntity paymentsEntity);
 
     PaymentsEntity getPayments(Long id);
 
     ResponseEntity<byte[]> createFop(PaymentsEntity entity);
+
 }
+

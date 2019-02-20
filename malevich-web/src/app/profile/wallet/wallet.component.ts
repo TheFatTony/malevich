@@ -6,6 +6,13 @@ import {AccountStateService} from '../../_services/account-state.service';
 import {AccountStateDto} from '../../_transfer/accountStateDto';
 import {jqxGridComponent} from 'jqwidgets-scripts/jqwidgets-ts/angular_jqxgrid';
 import {TranslateService} from '@ngx-translate/core';
+import {PaymentMethodService} from "../../_services/payment-method.service";
+import {PaymentMethodDto} from "../../_transfer/paymentMethodDto";
+
+type PaymentType = {
+  value: string
+  name: string
+};
 
 @Component({
   selector: 'app-profile-wallet',
@@ -14,19 +21,53 @@ import {TranslateService} from '@ngx-translate/core';
 })
 export class WalletComponent implements OnInit, AfterViewInit, OnDestroy {
 
-  // @ViewChild('myWindow') myWindow: jqxWindowComponent;
-  // @ViewChild('withdrawWindow') withdrawWindow: jqxWindowComponent;
+  @ViewChild('myWindow') myWindow: jqxWindowComponent;
+  @ViewChild('withdrawWindow') withdrawWindow: jqxWindowComponent;
   @ViewChild('myGrid') myGrid: jqxGridComponent;
 
   public newPayment: PaymentsDto;
   public newWithdraw: PaymentsDto;
   public accountState: AccountStateDto;
+
   payments: PaymentsDto[];
+  paymentMethods: PaymentMethodDto[];
+
+
+  paymentTypes: PaymentType[] = [
+    {
+      value: 'transfer',
+      name: 'Wire Transfer'
+    },
+    {
+      value: 'saved_card',
+      name: 'Saved Card'
+    }
+  ];
+  selectedPaymentType: PaymentType;
 
   x: number;
   y: number;
 
+  paymentTypeDisplayFunc = (paymType: PaymentType) => {
+    return paymType.name;
+  };
+
+  paymentMethodDisplayFunc = (paymMeth: PaymentMethodDto) => {
+    switch (paymMeth.type.id) {
+      case 'ACC':
+        return `${paymMeth.bankName} ${paymMeth.iban}`;
+      case 'BTC':
+        return `Bitcoin ${paymMeth.btcAddress}`;
+      case 'CRD':
+        return `Card ${paymMeth.cardNumber}`;
+      default:
+        return paymMeth.type.nameMl[this.translate.currentLang] + ' ' + paymMeth.id;
+    }
+  };
+
+
   constructor(private paymentsService: PaymentsService,
+              private paymentMethodService: PaymentMethodService,
               private accountStateService: AccountStateService,
               public translate: TranslateService) {
   }
@@ -34,6 +75,7 @@ export class WalletComponent implements OnInit, AfterViewInit, OnDestroy {
   ngOnInit() {
     this.getAccountState();
     this.getPayments();
+    this.getPaymentMethods();
   }
 
   ngAfterViewInit(): void {
@@ -41,8 +83,15 @@ export class WalletComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    // this.myWindow.close();
-    // this.withdrawWindow.close();
+    this.myWindow.close();
+    this.withdrawWindow.close();
+  }
+
+  getPaymentMethods() {
+    this.paymentMethodService.getPaymentMethods()
+      .subscribe(data => {
+        this.paymentMethods = data;
+      })
   }
 
   updateGrid() {
@@ -80,7 +129,7 @@ export class WalletComponent implements OnInit, AfterViewInit, OnDestroy {
           return names['PROFILE.GRID.PRINT'];
         },
         buttonclick: (row: number): void => {
-          this.paymentsService.receiptPrint(this.myGrid.getrowdata(row).PaymentNo).subscribe((data) => {
+          this.paymentsService.receiptPrint(this.myGrid.getrowdata(row).PAYMENT_NO).subscribe((data) => {
             let file = new Blob([data], {type: 'application/pdf'});
             let fileURL = URL.createObjectURL(file);
             window.open(fileURL);
@@ -91,35 +140,35 @@ export class WalletComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   sendPayment() {
-    // this.paymentsService.insert(this.newPayment).subscribe(() => {
-    //   this.myWindow.close();
-    //   this.getPayments();
-    //   this.getAccountState();
-    // });
+    this.paymentsService.insert(this.newPayment).subscribe(() => {
+      this.myWindow.close();
+      this.getPayments();
+      this.getAccountState();
+    });
   }
 
   sendWithdraw() {
-    // this.paymentsService.insert(this.newWithdraw).subscribe(() => {
-    //   this.withdrawWindow.close();
-    //   this.getPayments();
-    //   this.getAccountState();
-    // });
+    this.paymentsService.insert(this.newWithdraw).subscribe(() => {
+      this.withdrawWindow.close();
+      this.getPayments();
+      this.getAccountState();
+    });
   }
 
   openPaymentWindow() {
-    // this.newPayment = new PaymentsDto();
-    // this.myWindow.width(310);
-    // this.myWindow.height(220);
-    // this.myWindow.open();
-    // this.myWindow.move(this.x, this.y);
+    this.newPayment = new PaymentsDto();
+    this.myWindow.width(310);
+    this.myWindow.height(220);
+    this.myWindow.open();
+    this.myWindow.move(this.x, this.y);
   }
 
   openWithdrawWindow() {
-    // this.newWithdraw = new PaymentsDto();
-    // this.withdrawWindow.width(310);
-    // this.withdrawWindow.height(220);
-    // this.withdrawWindow.open();
-    // this.withdrawWindow.move(this.x, this.y);
+    this.newWithdraw = new PaymentsDto();
+    this.withdrawWindow.width(310);
+    this.withdrawWindow.height(220);
+    this.withdrawWindow.open();
+    this.withdrawWindow.move(this.x, this.y);
   }
 
   @HostListener('mousedown', ['$event'])
@@ -141,7 +190,6 @@ export class WalletComponent implements OnInit, AfterViewInit, OnDestroy {
       this.payments = data;
     });
   }
-
 
 
 }

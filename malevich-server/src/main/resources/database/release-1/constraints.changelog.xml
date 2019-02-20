@@ -39,5 +39,6 @@
     <include relativeToChangelogFile="true" file="constraints/bitcoin_transfers.constraint.xml"/>
     <include relativeToChangelogFile="true" file="constraints/kyc_level.constraint.xml"/>
     <include relativeToChangelogFile="true" file="constraints/participant_type_document_type.constraint.xml"/>
+    <include relativeToChangelogFile="true" file="constraints/revolut_withdrawal_history.constraint.xml"/>
 
 </databaseChangeLog>

@@ -42,7 +42,7 @@ public class PaymentTransactionServiceImpl extends GenericComposerServiceImpl<Pa
         }
 
         paymentTransaction.setParty(fabricClass + entity.getParticipant().getId());
-        paymentTransaction.setAmount(Math.abs(entity.getAmount()));
+        paymentTransaction.setAmount(Math.abs(entity.getAmount().doubleValue()));
         paymentTransaction.setPaymentType(entity.getPaymentType().getId());
 
         doPost(paymentTransaction);

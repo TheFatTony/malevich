@@ -13,8 +13,6 @@ import lombok.Setter;
 @NoArgsConstructor
 public class BankIndividualNameModel {
 
-
-
     @JsonProperty("first_name")
     private String firstName;
 

@@ -7,6 +7,7 @@ import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
 
 import javax.persistence.*;
+import java.math.BigDecimal;
 
 
 @javax.persistence.Entity
@@ -33,7 +34,7 @@ public class PaymentsEntity extends YAbstractPersistable<Long> {
     @Getter
     @Setter
     @Column(name = "amount")
-    private Double amount;
+    private BigDecimal amount;
 
     @Getter
     @Setter

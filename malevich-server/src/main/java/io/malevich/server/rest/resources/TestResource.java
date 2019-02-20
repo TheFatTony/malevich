@@ -2,6 +2,8 @@ package io.malevich.server.rest.resources;
 
 
 import io.malevich.server.repositories.paymentmethod.PaymentMethodDao;
+import io.malevich.server.revolut.model.TransactionModel;
+import io.malevich.server.revolut.services.transactions.TransactionsBankService;
 import io.malevich.server.services.paymentmethodbitcoin.PaymentMethodBitcoinService;
 import io.malevich.server.services.sms.SmsService;
 import lombok.extern.slf4j.Slf4j;
@@ -20,6 +22,8 @@ import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
 import java.math.BigDecimal;
+import java.sql.Timestamp;
+import java.util.List;
 
 
 @Slf4j
@@ -35,6 +39,9 @@ public class TestResource {
 
     @Autowired
     PaymentMethodDao paymentMethodDao;
+
+    @Autowired
+    TransactionsBankService transactionsBankService;
 
 //    https://coinfaucet.eu/en/btc-testnet/
 
@@ -86,6 +93,16 @@ public class TestResource {
         }
 
         return ResponseEntity.ok().body(result);
+    }
+
+    @RequestMapping(value = "/testRevolutTransactions", method = RequestMethod.GET)
+    @ResponseStatus(HttpStatus.OK)
+    @ResponseBody
+    public ResponseEntity<List<TransactionModel>> testRevolutTransactions() {
+        List<TransactionModel> transactionModels =
+                transactionsBankService.getTransactions(Timestamp.valueOf("2019-02-17 00:00:00"), Timestamp.valueOf("2019-02-19 00:00:00"));
+
+        return ResponseEntity.ok().body(transactionModels);
     }
 
 

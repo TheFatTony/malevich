@@ -32,6 +32,12 @@
             <column name="bank_address" type="varchar(200)">
                 <constraints nullable="false"/>
             </column>
+            <column name="revolut_counterparty_id" type="varchar(50)">
+                <constraints nullable="true"/>
+            </column>
+            <column name="revolut_account_id" type="varchar(50)">
+                <constraints nullable="true"/>
+            </column>
         </createTable>
     </changeSet>
 

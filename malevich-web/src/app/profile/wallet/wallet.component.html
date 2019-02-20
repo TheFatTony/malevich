@@ -43,8 +43,8 @@
         <div class="row justify-content-between">
           <div class="col-sm-4 g-mb-30">
             <div class="g-bg-gray-dark-v3 text-center rounded g-px-20 g-py-30">
-              <span class="d-block g-color-white g-font-weight-600 g-font-size-25 mb-1">${{accountState?.amount}}</span>
-              <span class="d-block g-color-white-opacity-0_8 g-font-size-18">{{"PROFILE.WALLET.AVAILABLE" | translate}} {{"PROFILE.WALLET.BALANCE" | translate}}</span>
+              <span class="d-block g-color-white-opacity-0_8 g-font-size-18 mb-1">{{"PROFILE.WALLET.AVAILABLE" | translate}} {{"PROFILE.WALLET.BALANCE" | translate}}</span>
+              <span class="d-block g-color-white g-font-weight-600 g-font-size-25">SQR {{accountState?.amount | number:'1.0-2'}}</span>
             </div>
           </div>
         </div>
@@ -105,58 +105,108 @@
   </div>
 </div>
 
-<!--<jqxWindow #myWindow [autoOpen]="false" [resizable]="false">-->
-  <!--<div>Add balance</div>-->
-  <!--<div style="overflow: hidden" style="width: 100%">-->
-    <!--<table class="register-table" *ngIf="newPayment" style="width: 100%">-->
-      <!--<tbody>-->
-      <!--<tr>Amount:</tr>-->
-      <!--<tr>-->
-        <!--<mchNumberInput-->
-          <!--class="amountInput"-->
-          <!--[ngModel]="newPayment?.amount"-->
-          <!--(ngModelChange)="newPayment.amount=$event"></mchNumberInput>-->
-      <!--</tr>-->
-      <!--<tr>-->
-        <!--<td colspan="2" style="padding-left: 20px;">-->
-          <!--<mchButton #SendButton-->
-                     <!--(onClick)="sendPayment()"-->
-                     <!--style="text-align: center; margin-left: 8em;"-->
-                     <!--[width]="60" [height]="25">-->
-            <!--Send-->
-          <!--</mchButton>-->
-        <!--</td>-->
-      <!--</tr>-->
-      <!--</tbody>-->
-    <!--</table>-->
-  <!--</div>-->
-<!--</jqxWindow>-->
+<jqxWindow #myWindow [autoOpen]="false" [resizable]="false">
+  <div>Add balance</div>
+  <div style="overflow: hidden">
 
-<!--<jqxWindow #withdrawWindow [autoOpen]="false" [resizable]="false">-->
-  <!--<div>Add balance</div>-->
-  <!--<div style="overflow: hidden" style="width: 100%">-->
-    <!--<table class="register-table" *ngIf="newWithdraw" style="width: 100%">-->
-      <!--<tbody>-->
-      <!--<tr>Amount:</tr>-->
-      <!--<tr>-->
-        <!--<mchNumberInput-->
-          <!--class="amountInput"-->
-          <!--[ngModel]="-newWithdraw?.amount"-->
-          <!--(ngModelChange)="newWithdraw.amount=-$event"></mchNumberInput>-->
-      <!--</tr>-->
-      <!--<tr>-->
-        <!--<td colspan="2" style="padding-left: 20px;">-->
-          <!--<mchButton #SendButton-->
-                     <!--(onClick)="sendWithdraw()"-->
-                     <!--style="text-align: center; margin-left: 8em;"-->
-                     <!--[width]="60" [height]="25">-->
-            <!--Send-->
-          <!--</mchButton>-->
-        <!--</td>-->
-      <!--</tr>-->
-      <!--</tbody>-->
+    <div *ngIf="newPayment" class="container">
+      <div class="row">
+        <div class="col">
+          <span>Select payment method</span>
+          <mchDropDownList name="paymentMethods"
+                           [objectSource]="paymentTypes"
+                           [displayFunc]="paymentTypeDisplayFunc"
+                           [width]="'100%'"
+                           [(ngModel)]="selectedPaymentType">
+          </mchDropDownList>
+        </div>
+      </div>
+      <div class="row">
+        <ng-container *ngIf="selectedPaymentType?.value == 'transfer'">
+          <div class="col">
+            <div class="AccountDetails-accountDetailsWrapper-1z5zx">
+              <div class="row">
+                <div class="AccountDetails-detailTitle-ugXQ5">IBAN</div>
+                <div class="AccountDetails-detailValue-1p3GW">GB98LOYD30801286568290</div>
+              </div>
+              <div class="row">
+                <div class="AccountDetails-detailTitle-ugXQ5">BIC / SWIFT</div>
+                <div class="AccountDetails-detailValue-1p3GW">LOYDGB2L</div>
+              </div>
+              <div class="row">
+                <div class="AccountDetails-detailTitle-ugXQ5">Beneficiary address</div>
+                <div class="AccountDetails-detailValue-1p3GW">Revolut LTD, Level39, 1 Canada Square, London, E14 5AB,
+                  United Kingdom
+                </div>
+              </div>
+              <div class="row">
+                <div class="AccountDetails-detailTitle-ugXQ5">Bank / Payment institution</div>
+                <div class="AccountDetails-detailValue-1p3GW">Revolut</div>
+              </div>
+            </div>
+          </div>
+        </ng-container>
+      </div>
+    </div>
+    <!--<table class="register-table" *ngIf="newPayment" style="width: 100%">-->
+    <!--<tbody>-->
+    <!--<tr>Amount:</tr>-->
+    <!--<tr>-->
+    <!--<mchNumberInput-->
+    <!--class="amountInput"-->
+    <!--[ngModel]="newPayment?.amount"-->
+    <!--(ngModelChange)="newPayment.amount=$event"></mchNumberInput>-->
+    <!--</tr>-->
+    <!--<tr>-->
+    <!--<td colspan="2" style="padding-left: 20px;">-->
+    <!--<mchButton #SendButton-->
+    <!--(onClick)="sendPayment()"-->
+    <!--style="text-align: center; margin-left: 8em;"-->
+    <!--[width]="60" [height]="25">-->
+    <!--Send-->
+    <!--</mchButton>-->
+    <!--</td>-->
+    <!--</tr>-->
+    <!--</tbody>-->
     <!--</table>-->
-  <!--</div>-->
-<!--</jqxWindow>-->
+  </div>
+</jqxWindow>
+
+<jqxWindow #withdrawWindow [autoOpen]="false" [resizable]="false">
+  <div>Add balance</div>
+  <div style="overflow: hidden" style="width: 100%">
+    <table class="register-table" *ngIf="newWithdraw" style="width: 100%">
+      <tbody>
+      <tr>Payment method:</tr>
+      <tr>
+        <mchDropDownList name="paymentMethods"
+                         [objectSource]="paymentMethods"
+                         [displayFunc]="paymentMethodDisplayFunc"
+                         [width]="'100%'"
+                         [ngModel]="newWithdraw.paymentMethod"
+                         (ngModelChange)="newWithdraw.paymentMethod=$event">
+        </mchDropDownList>
+      </tr>
+      <tr>Amount:</tr>
+      <tr>
+        <mchNumberInput
+          class="amountInput"
+          [ngModel]="-newWithdraw?.amount"
+          (ngModelChange)="newWithdraw.amount=-$event"></mchNumberInput>
+      </tr>
+      <tr>
+        <td colspan="2" style="padding-left: 20px;">
+          <mchButton #SendButton
+                     (onClick)="sendWithdraw()"
+                     style="text-align: center; margin-left: 8em;"
+                     [width]="60" [height]="25">
+            Send
+          </mchButton>
+        </td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+</jqxWindow>
 
 

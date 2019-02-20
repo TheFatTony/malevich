@@ -41,7 +41,7 @@ public class JsonViewConfiguration extends AbstractMappingJacksonResponseBodyAdv
             if (authorities.stream().anyMatch(o -> o.getAuthority().equals(MyAuthenticationProvider.ROLE_TRADER))) {
                 viewClass = View.Trader.class;
             }
-            if (authorities.stream().anyMatch(o -> o.getAuthority().equals(MyAuthenticationProvider.ROLE_TRADER))) {
+            if (authorities.stream().anyMatch(o -> o.getAuthority().equals(MyAuthenticationProvider.ROLE_GALLERY))) {
                 viewClass = View.Gallery.class;
             }
         }

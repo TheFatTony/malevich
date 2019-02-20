@@ -133,8 +133,7 @@ async function placeOrder(order) { // eslint-disable-line no-unused-vars
         else if (currentAsk.order.counterparty.getFullyQualifiedType() === "io.malevich.network.Trader") 
             uptadeParty = await registryTrader.get(currentAsk.order.counterparty.getIdentifier());
 
-
-        uptadeParty.balance = uptadeParty.balance + (matchingBid.order.amount - matchingBid.order.amount * sumCommisions - matchingBid.order.amount *  galleryCommisions);
+        uptadeParty.balance = uptadeParty.balance + matchingBid.order.amount - matchingBid.order.amount * sumCommisions - matchingBid.order.amount * galleryCommisions;
 
         if (currentAsk.order.counterparty.getFullyQualifiedType() === "io.malevich.network.Gallery") 
             await registryGallery.update(uptadeParty);
@@ -146,9 +145,13 @@ async function placeOrder(order) { // eslint-disable-line no-unused-vars
         await registryArtworkStock.update(uptadeArtwork);
 
         let galleryParty = await registryGallery.get(uptadeArtwork.holder.getIdentifier());
-        galleryParty.balance = galleryParty.balance + (matchingBid.order.amount * galleryCommisions);
-        await registryMalevich.update(malevichParty);
-
+        if (uptadeParty.getIdentifier() === galleryParty.getIdentifier()) {
+            uptadeParty.balance = uptadeParty.balance + (matchingBid.order.amount * galleryCommisions);
+            await registryGallery.update(uptadeParty);
+        } else {
+            galleryParty.balance = galleryParty.balance + (matchingBid.order.amount * galleryCommisions);
+            await registryGallery.update(galleryParty);
+        }
     }
 }
 

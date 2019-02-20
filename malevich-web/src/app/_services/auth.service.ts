@@ -42,8 +42,8 @@ export class AuthService {
   getUser() {
     this.http.get<UserDto>(this.url)
       .subscribe((user: UserDto) => {
-        let isTrader = user.roles.some(value => value == "ROLE_TRADER");
-        let isGallery = user.roles.some(value => value == "ROLE_GALLERY");
+        let isTrader = user.roles.some(value => value === "ROLE_TRADER");
+        let isGallery = user.roles.some(value => value === "ROLE_GALLERY");
         this.globals.currentUser$.next(user);
         this.globals.isTrader$.next(isTrader);
         this.globals.isGallery$.next(isGallery);

@@ -12,4 +12,8 @@ export class Globals {
 
   isGallery$: Subject<boolean> = new Subject<boolean>();
 
+  isTrader: boolean;
+
+  isGallery: boolean;
+
 }

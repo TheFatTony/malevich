@@ -36,6 +36,7 @@ asset ArtworkStock identified by id {
   o String id
   o String token
   --> Counterparty owner
+  --> Counterparty holder
 }
 
 transaction Payment {

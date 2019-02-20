@@ -6,6 +6,8 @@ import {ParticipantDto} from "../../_transfer/participantDto";
 import {KycLevelService} from "../../_services/kyc-level.service";
 import {KycLevelDto} from "../../_transfer/kycLevelDto";
 import {ActivatedRoute} from "@angular/router";
+import {HttpClient} from "@angular/common/http";
+import {Globals} from "../../globals";
 
 @Component({
   selector: 'app-profile-navigation',
@@ -29,10 +31,13 @@ export class NavigationComponent implements OnInit {
   constructor(private participantService: ParticipantService,
               private translate: TranslateService,
               private kycLevelService: KycLevelService,
-              private route: ActivatedRoute) {
+              private route: ActivatedRoute,
+              public globals: Globals) {
   }
 
   ngOnInit() {
+    this.isGallery = this.globals.isGallery;
+    this.isTrader = this.globals.isTrader;
     this.getRoutingKycLevels();
     this.getCurrentMember();
   }
@@ -71,8 +76,7 @@ export class NavigationComponent implements OnInit {
             return;
 
           data.users[0].roles.forEach(r => {
-            this.isTrader = this.isTrader || (r == "ROLE_TRADER");
-            this.isGallery = this.isGallery || (r == "ROLE_GALLERY");
+            // this.isGallery = this.isGallery || (r === "ROLE_GALLERY");
           });
 
           this.participant = this.participantService.initInstance(data);;

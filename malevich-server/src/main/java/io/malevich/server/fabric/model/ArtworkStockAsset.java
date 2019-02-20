@@ -17,4 +17,6 @@ public class ArtworkStockAsset {
 
     private String owner;
 
+    private String holder;
+
 }

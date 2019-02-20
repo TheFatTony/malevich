@@ -108,22 +108,22 @@ public class PaymentsServiceImpl implements PaymentsService {
 
         paymentsEntity = paymentsDao.save(paymentsEntity);
 
+        paymentTransactionService.create(paymentsEntity);
+
         if (paymentsEntity.getPaymentType().equals(paymentTypeService.getWithdrawalType())) {
             if (paymentsEntity.getPaymentMethod() != null &&
                     paymentMethodTypeService.getAccountType().equals(paymentsEntity.getPaymentMethod().getType()))
                 paymentsBankService.create(paymentsEntity);
         }
-
-        paymentTransactionService.create(paymentsEntity);
     }
 
     @Override
     @Transactional(readOnly = true)
     public PaymentsEntity getPayments(Long id) {
-        ParticipantEntity currentParticicpant = participantService.getCurrent();
+        ParticipantEntity currentParticipant = participantService.getCurrent();
         PaymentsEntity paymentsEntity = this.paymentsDao.findById(id).orElse(null);
 
-        if (!paymentsEntity.getParticipant().equals(currentParticicpant))
+        if (!paymentsEntity.getParticipant().equals(currentParticipant))
             return null;
 
         return paymentsEntity;

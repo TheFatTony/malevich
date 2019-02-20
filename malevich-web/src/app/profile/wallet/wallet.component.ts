@@ -8,7 +8,11 @@ import {jqxGridComponent} from 'jqwidgets-scripts/jqwidgets-ts/angular_jqxgrid';
 import {TranslateService} from '@ngx-translate/core';
 import {PaymentMethodService} from "../../_services/payment-method.service";
 import {PaymentMethodDto} from "../../_transfer/paymentMethodDto";
-import {GenderDto} from "../../_transfer/genderDto";
+
+type PaymentType = {
+  value: string
+  name: string
+};
 
 @Component({
   selector: 'app-profile-wallet',
@@ -17,7 +21,7 @@ import {GenderDto} from "../../_transfer/genderDto";
 })
 export class WalletComponent implements OnInit, AfterViewInit, OnDestroy {
 
-  // @ViewChild('myWindow') myWindow: jqxWindowComponent;
+  @ViewChild('myWindow') myWindow: jqxWindowComponent;
   @ViewChild('withdrawWindow') withdrawWindow: jqxWindowComponent;
   @ViewChild('myGrid') myGrid: jqxGridComponent;
 
@@ -28,9 +32,25 @@ export class WalletComponent implements OnInit, AfterViewInit, OnDestroy {
   payments: PaymentsDto[];
   paymentMethods: PaymentMethodDto[];
 
+
+  paymentTypes: PaymentType[] = [
+    {
+      value: 'transfer',
+      name: 'Wire Transfer'
+    },
+    {
+      value: 'saved_card',
+      name: 'Saved Card'
+    }
+  ];
+  selectedPaymentType: PaymentType;
+
   x: number;
   y: number;
 
+  paymentTypeDisplayFunc = (paymType: PaymentType) => {
+    return paymType.name;
+  };
 
   paymentMethodDisplayFunc = (paymMeth: PaymentMethodDto) => {
     switch (paymMeth.type.id) {
@@ -63,7 +83,7 @@ export class WalletComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    // this.myWindow.close();
+    this.myWindow.close();
     this.withdrawWindow.close();
   }
 
@@ -120,11 +140,11 @@ export class WalletComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   sendPayment() {
-    // this.paymentsService.insert(this.newPayment).subscribe(() => {
-    //   this.myWindow.close();
-    //   this.getPayments();
-    //   this.getAccountState();
-    // });
+    this.paymentsService.insert(this.newPayment).subscribe(() => {
+      this.myWindow.close();
+      this.getPayments();
+      this.getAccountState();
+    });
   }
 
   sendWithdraw() {
@@ -136,11 +156,11 @@ export class WalletComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   openPaymentWindow() {
-    // this.newPayment = new PaymentsDto();
-    // this.myWindow.width(310);
-    // this.myWindow.height(220);
-    // this.myWindow.open();
-    // this.myWindow.move(this.x, this.y);
+    this.newPayment = new PaymentsDto();
+    this.myWindow.width(310);
+    this.myWindow.height(220);
+    this.myWindow.open();
+    this.myWindow.move(this.x, this.y);
   }
 
   openWithdrawWindow() {

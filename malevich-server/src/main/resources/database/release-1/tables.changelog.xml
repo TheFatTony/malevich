@@ -43,5 +43,6 @@
     <include relativeToChangelogFile="true" file="tables/kyc_level.table.xml"/>
     <include relativeToChangelogFile="true" file="tables/participant_type_document_type.table.xml"/>
     <include relativeToChangelogFile="true" file="tables/revolut_withdrawal_history.table.xml"/>
+    <include relativeToChangelogFile="true" file="tables/parameter.table.xml"/>
 
 </databaseChangeLog>

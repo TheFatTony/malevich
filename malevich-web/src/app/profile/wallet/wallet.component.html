@@ -133,33 +133,31 @@
         <div class="row mb-3">
           <div class="col">
             <span class="d-block g-color-text g-font-size-13 mb-1">Beneficiary</span>
-            <span class="d-block">Revolut LTD</span>
+            <span class="d-block">{{parameters['revolut.account.beneficiary.name']}}</span>
           </div>
         </div>
         <div class="row mb-3">
           <div class="col">
             <span class="d-block g-color-text g-font-size-13 mb-1">IBAN</span>
-            <span class="d-block">GB98LOYD30801286568290</span>
+            <span class="d-block">{{parameters['revolut.account.iban']}}</span>
           </div>
         </div>
         <div class="row mb-3">
           <div class="col">
             <span class="d-block g-color-text g-font-size-13 mb-1">BIC / SWIFT</span>
-            <span class="d-block">LOYDGB2L</span>
+            <span class="d-block">{{parameters['revolut.account.bic']}}</span>
           </div>
         </div>
         <div class="row mb-3">
           <div class="col">
             <span class="d-block g-color-text g-font-size-13 mb-1">Beneficiary address</span>
-            <span class="d-block">Revolut LTD, Level39, 1 Canada Square, London, E14 5AB,
-                  United Kingdom
-                </span>
+            <span class="d-block">{{parameters['revolut.account.beneficiary.address']}}</span>
           </div>
         </div>
         <div class="row mb-3">
           <div class="col">
             <span class="d-block g-color-text g-font-size-13 mb-1">Bank / Payment institution</span>
-            <span class="d-block">Revolut</span>
+            <span class="d-block">{{parameters['revolut.account.bank.name']}}</span>
           </div>
         </div>
         <div class="row mb-3">
@@ -205,27 +203,6 @@
 
 
     </div>
-    <!--<table class="register-table" *ngIf="newPayment" style="width: 100%">-->
-    <!--<tbody>-->
-    <!--<tr>Amount:</tr>-->
-    <!--<tr>-->
-    <!--<mchNumberInput-->
-    <!--class="amountInput"-->
-    <!--[ngModel]="newPayment?.amount"-->
-    <!--(ngModelChange)="newPayment.amount=$event"></mchNumberInput>-->
-    <!--</tr>-->
-    <!--<tr>-->
-    <!--<td colspan="2" style="padding-left: 20px;">-->
-    <!--<mchButton #SendButton-->
-    <!--(onClick)="sendPayment()"-->
-    <!--style="text-align: center; margin-left: 8em;"-->
-    <!--[width]="60" [height]="25">-->
-    <!--Send-->
-    <!--</mchButton>-->
-    <!--</td>-->
-    <!--</tr>-->
-    <!--</tbody>-->
-    <!--</table>-->
   </div>
 </jqxWindow>
 

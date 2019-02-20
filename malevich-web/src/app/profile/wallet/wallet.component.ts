@@ -8,6 +8,7 @@ import {jqxGridComponent} from 'jqwidgets-scripts/jqwidgets-ts/angular_jqxgrid';
 import {TranslateService} from '@ngx-translate/core';
 import {PaymentMethodService} from "../../_services/payment-method.service";
 import {PaymentMethodDto} from "../../_transfer/paymentMethodDto";
+import {ParameterService} from "../../_services/parameter.service";
 
 type PaymentType = {
   value: string
@@ -31,7 +32,7 @@ export class WalletComponent implements OnInit, AfterViewInit, OnDestroy {
 
   payments: PaymentsDto[];
   paymentMethods: PaymentMethodDto[];
-
+  parameters: Map<string, string>;
 
   paymentTypes: PaymentType[] = [
     {
@@ -48,7 +49,7 @@ export class WalletComponent implements OnInit, AfterViewInit, OnDestroy {
   x: number;
   y: number;
 
-  get cards(){
+  get cards() {
     return this.paymentMethods.filter(p => p.type.id == 'CRD');
   }
 
@@ -73,6 +74,7 @@ export class WalletComponent implements OnInit, AfterViewInit, OnDestroy {
   constructor(private paymentsService: PaymentsService,
               private paymentMethodService: PaymentMethodService,
               private accountStateService: AccountStateService,
+              private parameterService: ParameterService,
               public translate: TranslateService) {
   }
 
@@ -80,6 +82,7 @@ export class WalletComponent implements OnInit, AfterViewInit, OnDestroy {
     this.getAccountState();
     this.getPayments();
     this.getPaymentMethods();
+    this.getParameters();
   }
 
   ngAfterViewInit(): void {
@@ -96,6 +99,13 @@ export class WalletComponent implements OnInit, AfterViewInit, OnDestroy {
       .subscribe(data => {
         this.paymentMethods = data;
       })
+  }
+
+  getParameters() {
+    this.parameterService.getParameters()
+      .subscribe(data => {
+        this.parameters = data;
+      });
   }
 
   updateGrid() {

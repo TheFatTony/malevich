@@ -96,18 +96,18 @@ async function placeOrder(order) { // eslint-disable-line no-unused-vars
         const commissions = await registryCommissionRule.getAll();
 
         let sumCommisions = 0;
-        let malevichCommisions = 0;
+        let galleryCommisions = 0;
         for (let i = 0; i < commissions.length; i++) {
             if (commissions[i].name !== 'Gallery') {
                 sumCommisions += commissions[i].value;
             } else {
-                malevichCommisions = commissions[i].value;
+                galleryCommisions = commissions[i].value;
             }
         }
 
-        malevichParty = await registryMalevich.get('1');
-        // malevichParty.balance = malevichParty.balance + matchingBid.order.amount;
-        // await registryMalevich.update(malevichParty);
+        let malevichParty = await registryMalevich.get('1');
+        malevichParty.balance = malevichParty.balance + (matchingBid.order.amount * sumCommisions);
+        await registryMalevich.update(malevichParty);
 
 
         let uptadeCounterparty = null;
@@ -134,7 +134,7 @@ async function placeOrder(order) { // eslint-disable-line no-unused-vars
             uptadeParty = await registryTrader.get(currentAsk.order.counterparty.getIdentifier());
 
 
-        uptadeParty.balance = uptadeParty.balance + matchingBid.order.amount;
+        uptadeParty.balance = uptadeParty.balance + (matchingBid.order.amount - matchingBid.order.amount * sumCommisions - matchingBid.order.amount *  galleryCommisions);
 
         if (currentAsk.order.counterparty.getFullyQualifiedType() === "io.malevich.network.Gallery") 
             await registryGallery.update(uptadeParty);
@@ -144,6 +144,10 @@ async function placeOrder(order) { // eslint-disable-line no-unused-vars
         let uptadeArtwork = await registryArtworkStock.get(currentAsk.order.artworkStock.getIdentifier());
         uptadeArtwork.owner = matchingBid.order.counterparty;
         await registryArtworkStock.update(uptadeArtwork);
+
+        let galleryParty = await registryGallery.get(uptadeArtwork.holder.getIdentifier());
+        galleryParty.balance = galleryParty.balance + (matchingBid.order.amount * galleryCommisions);
+        await registryMalevich.update(malevichParty);
 
     }
 }

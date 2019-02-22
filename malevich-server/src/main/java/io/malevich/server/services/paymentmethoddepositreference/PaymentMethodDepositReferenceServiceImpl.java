@@ -70,7 +70,7 @@ public class PaymentMethodDepositReferenceServiceImpl implements PaymentMethodDe
         for (int i = 0; i < length; i++) {
             sb.append(randomString[i]);
 
-            if (i % 4 == 3)
+            if (i % 4 == 3 && i != length - 1)
                 sb.append(' ');
         }
 

@@ -69,7 +69,7 @@ public class RevolutTransactionServiceImpl implements RevolutTransactionService 
         return revolutTransactionDao.findById(id).orElse(null);
     }
 
-    private void processRevolutTopUpTransaction(TransactionModel transaction) {
+    public void processRevolutTopUpTransaction(TransactionModel transaction) {
         TransactionLegModel leg = transaction.getLegs().get(0);
 
         PaymentMethodDepositReferenceEntity paymentMethod = getPaymentMethodByReference(transaction.getReference());

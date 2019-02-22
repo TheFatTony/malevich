@@ -1,6 +1,7 @@
 package io.malevich.server.services.revoluttransaction;
 
 import io.malevich.server.domain.ParticipantEntity;
+import io.malevich.server.domain.PaymentMethodDepositReferenceEntity;
 import io.malevich.server.domain.PaymentsEntity;
 import io.malevich.server.domain.RevolutTransactionEntity;
 import io.malevich.server.fabric.services.payment.PaymentTransactionService;
@@ -8,6 +9,8 @@ import io.malevich.server.repositories.revoluttransaction.RevolutTransactionDao;
 import io.malevich.server.revolut.model.TransactionLegModel;
 import io.malevich.server.revolut.model.TransactionModel;
 import io.malevich.server.revolut.services.transactions.TransactionsBankService;
+import io.malevich.server.services.paymentmethoddepositreference.PaymentMethodDepositReferenceService;
+import io.malevich.server.services.paymentmethodtype.PaymentMethodTypeService;
 import io.malevich.server.services.payments.PaymentsService;
 import io.malevich.server.services.paymenttype.PaymentTypeService;
 import lombok.extern.slf4j.Slf4j;
@@ -18,6 +21,8 @@ import org.springframework.transaction.annotation.Transactional;
 import java.math.BigDecimal;
 import java.sql.Timestamp;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import static io.malevich.server.util.DateUtils.addDay;
 import static io.malevich.server.util.DateUtils.getDateWithoutTime;
@@ -26,6 +31,8 @@ import static io.malevich.server.util.DateUtils.getDateWithoutTime;
 @Service
 @Slf4j
 public class RevolutTransactionServiceImpl implements RevolutTransactionService {
+
+    private final Pattern pattern;
 
     @Autowired
     private RevolutTransactionDao revolutTransactionDao;
@@ -45,6 +52,13 @@ public class RevolutTransactionServiceImpl implements RevolutTransactionService 
     @Autowired
     private PaymentTransactionService paymentTransactionService;
 
+    @Autowired
+    private PaymentMethodDepositReferenceService paymentMethodDepositReferenceService;
+
+    public RevolutTransactionServiceImpl(){
+        pattern = Pattern.compile("([0-9A-Z]{4} [0-9A-Z]{4} [0-9A-Z]{4} [0-9A-Z]{4}) malevich.io");
+    }
+
     @Override
     @Transactional
     public RevolutTransactionEntity save(RevolutTransactionEntity entity) {
@@ -57,21 +71,17 @@ public class RevolutTransactionServiceImpl implements RevolutTransactionService 
         return revolutTransactionDao.findById(id).orElse(null);
     }
 
-    private ParticipantEntity getParticipantByReference(String reference) {
-        return null;
-    }
-
     private void processRevolutTopUpTransaction(TransactionModel transaction) {
         TransactionLegModel leg = transaction.getLegs().get(0);
 
-        ParticipantEntity participantEntity = getParticipantByReference(transaction.getReference());
+        PaymentMethodDepositReferenceEntity paymentMethod = getPaymentMethodByReference(transaction.getReference());
 
-        if (participantEntity == null)
+        if (paymentMethod == null)
             return;
 
         PaymentsEntity paymentEntity = new PaymentsEntity();
-        paymentEntity.setParticipant(participantEntity);
-        paymentEntity.setPaymentMethod(null); // get payment method
+        paymentEntity.setParticipant(paymentMethod.getParticipant());
+        paymentEntity.setPaymentMethod(paymentMethod);
         paymentEntity.setAmount(leg.getAmount());
         paymentEntity.setPaymentType(paymentTypeService.getPaymentType());
 
@@ -123,5 +133,17 @@ public class RevolutTransactionServiceImpl implements RevolutTransactionService 
 
             processRevolutTopUpTransaction(transaction);
         }
+    }
+
+    private PaymentMethodDepositReferenceEntity getPaymentMethodByReference(String reference) {
+
+        Matcher matcher = pattern.matcher(reference);
+
+        if(!matcher.find())
+            return null;
+
+        String referenceToSearch = matcher.group(1);
+
+        return paymentMethodDepositReferenceService.findByReference(referenceToSearch);
     }
 }

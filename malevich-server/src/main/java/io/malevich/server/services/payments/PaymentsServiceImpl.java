@@ -1,7 +1,8 @@
 package io.malevich.server.services.payments;
 
-import io.malevich.server.domain.*;
-import io.malevich.server.fabric.model.PaymentTransaction;
+import io.malevich.server.domain.ParticipantEntity;
+import io.malevich.server.domain.PaymentTypeEntity;
+import io.malevich.server.domain.PaymentsEntity;
 import io.malevich.server.fabric.services.payment.PaymentTransactionService;
 import io.malevich.server.repositories.payments.PaymentsDao;
 import io.malevich.server.revolut.services.payments.PaymentsBankService;
@@ -17,7 +18,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
-import java.util.ArrayList;
+import java.sql.Timestamp;
 import java.util.List;
 
 
@@ -87,8 +88,7 @@ public class PaymentsServiceImpl implements PaymentsService {
         insertInternal(paymentsEntity);
     }
 
-    private void insertInternal(PaymentsEntity paymentsEntity) {
-
+    private PaymentsEntity adjustPayment(PaymentsEntity paymentsEntity) {
         if (paymentsEntity.getPaymentMethod() != null)
             paymentsEntity.setPaymentMethod(paymentMethodService.findById(paymentsEntity.getPaymentMethod().getId()));
 
@@ -104,24 +104,55 @@ public class PaymentsServiceImpl implements PaymentsService {
             paymentsEntity.setPaymentType(paymentType);
         }
 
+        if (paymentsEntity.getEffectiveDate() == null)
+            paymentsEntity.setEffectiveDate(new Timestamp(System.currentTimeMillis()));
+
         paymentsEntity.setAmount(paymentsEntity.getAmount().abs());
 
-        paymentsEntity = paymentsDao.save(paymentsEntity);
+        return paymentsEntity;
+    }
+
+    @Override
+    @Transactional
+    public PaymentsEntity save(PaymentsEntity paymentsEntity) {
+        paymentsEntity = adjustPayment(paymentsEntity);
+        return paymentsDao.save(paymentsEntity);
+    }
+
+    private void insertInternal(PaymentsEntity paymentsEntity) {
+
+        paymentsEntity = adjustPayment(paymentsEntity);
+
+        if (paymentTypeService.getWithdrawalType().equals(paymentsEntity.getPaymentType())) {
+            insertWithdrawal(paymentsEntity);
+        }
+
+        if (paymentTypeService.getPaymentType().equals(paymentsEntity.getPaymentType())) {
+            insertDeposit(paymentsEntity);
+        }
+    }
+
+    private void insertWithdrawal(PaymentsEntity paymentsEntity) {
 
         paymentTransactionService.create(paymentsEntity);
 
-        if (paymentsEntity.getPaymentType().equals(paymentTypeService.getWithdrawalType())) {
-            if (paymentsEntity.getPaymentMethod() != null &&
-                    paymentMethodTypeService.getAccountType().equals(paymentsEntity.getPaymentMethod().getType()))
-                paymentsBankService.create(paymentsEntity);
+        paymentsEntity = save(paymentsEntity);
+
+        if (paymentsEntity.getPaymentMethod() != null &&
+                paymentMethodTypeService.getAccountType().equals(paymentsEntity.getPaymentMethod().getType()))
+            paymentsBankService.create(paymentsEntity);
+    }
+
+    private void insertDeposit(PaymentsEntity paymentsEntity) {
+
+        paymentsEntity = save(paymentsEntity);
+
+        if (paymentsEntity.getPaymentMethod() != null &&
+                paymentMethodTypeService.getCardType().equals(paymentsEntity.getPaymentMethod().getType())) {
+            // todo hit stripe api
         }
 
-        if (paymentsEntity.getPaymentType().equals(paymentTypeService.getPaymentType())) {
-            if (paymentsEntity.getPaymentMethod() != null &&
-                    paymentMethodTypeService.getCardType().equals(paymentsEntity.getPaymentMethod().getType())) {
-                // todo hit stripe api
-            }
-        }
+        paymentTransactionService.create(paymentsEntity);
     }
 
     @Override
@@ -130,11 +161,15 @@ public class PaymentsServiceImpl implements PaymentsService {
         ParticipantEntity currentParticipant = participantService.getCurrent();
         PaymentsEntity paymentsEntity = this.paymentsDao.findById(id).orElse(null);
 
+        if (paymentsEntity == null)
+            return null;
+
         if (!paymentsEntity.getParticipant().equals(currentParticipant))
             return null;
 
         return paymentsEntity;
     }
+
 
     @Override
     public ResponseEntity<byte[]> createFop(PaymentsEntity entity) {

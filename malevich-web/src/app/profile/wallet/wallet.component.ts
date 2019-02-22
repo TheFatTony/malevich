@@ -171,8 +171,8 @@ export class WalletComponent implements OnInit, AfterViewInit, OnDestroy {
 
   openPaymentWindow() {
     this.newPayment = new PaymentsDto();
-    this.myWindow.width(310);
-    this.myWindow.height(500);
+    this.myWindow.width(410);
+    this.myWindow.height(550);
     this.myWindow.open();
     // this.myWindow.move(this.x, this.y);
   }

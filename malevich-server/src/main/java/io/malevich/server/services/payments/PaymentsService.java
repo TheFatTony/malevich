@@ -23,5 +23,6 @@ public interface PaymentsService {
 
     ResponseEntity<byte[]> createFop(PaymentsEntity entity);
 
+    PaymentsEntity save(PaymentsEntity paymentEntity);
 }
 

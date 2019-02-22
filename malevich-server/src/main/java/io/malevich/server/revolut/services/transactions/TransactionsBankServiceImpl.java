@@ -25,7 +25,7 @@ public class TransactionsBankServiceImpl extends GenericBankServiceImpl implemen
     private String toIsoFormat(Timestamp timestamp) {
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
         //        sdf.setTimeZone(TimeZone.getTimeZone("CET"));
-        String text = sdf.format(new Date(timestamp.getTime()));
+        String text = sdf.format(timestamp);
         return text;
     }
 

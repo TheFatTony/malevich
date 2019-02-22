@@ -22,4 +22,6 @@ public class PaymentMethodSuperDto extends PaymentMethodDto {
     private CountryDto bankCountry;
     private String bankAddress;
 
+    private String reference;
+
 }

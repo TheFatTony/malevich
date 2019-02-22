@@ -22,4 +22,6 @@ export class PaymentMethodDto {
   bankName: string;
   bankCountry: CountryDto;
   bankAddress: string;
+
+  reference: string;
 }

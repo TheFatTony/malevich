@@ -1,6 +1,5 @@
 package io.malevich.server.services.revoluttransaction;
 
-import io.malevich.server.domain.ParticipantEntity;
 import io.malevich.server.domain.PaymentMethodDepositReferenceEntity;
 import io.malevich.server.domain.PaymentsEntity;
 import io.malevich.server.domain.RevolutTransactionEntity;
@@ -10,7 +9,6 @@ import io.malevich.server.revolut.model.TransactionLegModel;
 import io.malevich.server.revolut.model.TransactionModel;
 import io.malevich.server.revolut.services.transactions.TransactionsBankService;
 import io.malevich.server.services.paymentmethoddepositreference.PaymentMethodDepositReferenceService;
-import io.malevich.server.services.paymentmethodtype.PaymentMethodTypeService;
 import io.malevich.server.services.payments.PaymentsService;
 import io.malevich.server.services.paymenttype.PaymentTypeService;
 import lombok.extern.slf4j.Slf4j;

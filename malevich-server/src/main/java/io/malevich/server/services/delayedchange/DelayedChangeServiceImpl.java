@@ -1,5 +1,7 @@
 package io.malevich.server.services.delayedchange;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.yinyang.core.server.domain.MailQueueEntity;
 import com.yinyang.core.server.domain.UserEntity;
 import com.yinyang.core.server.domain.YAbstractPersistable;
@@ -9,8 +11,10 @@ import io.malevich.server.domain.DelayedChangeEntity;
 import io.malevich.server.domain.DocumentEntity;
 import io.malevich.server.domain.ParticipantEntity;
 import io.malevich.server.repositories.delayedchange.DelayedChangeDao;
+import io.malevich.server.revolut.model.TransactionModel;
 import io.malevich.server.services.document.DocumentService;
 import io.malevich.server.services.participant.ParticipantService;
+import io.malevich.server.services.revoluttransaction.RevolutTransactionService;
 import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +22,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.io.IOException;
 import java.util.List;
 
 
@@ -32,6 +37,9 @@ public class DelayedChangeServiceImpl implements DelayedChangeService {
     private ModelMapper modelMapper;
 
     @Autowired
+    private ObjectMapper objectMapper;
+
+    @Autowired
     private MailQueueService mailQueueService;
 
     @Autowired
@@ -39,6 +47,9 @@ public class DelayedChangeServiceImpl implements DelayedChangeService {
 
     @Autowired
     private DocumentService documentService;
+
+    @Autowired
+    private RevolutTransactionService revolutTransactionService;
 
     @Autowired
     private AuthService authService;
@@ -52,12 +63,12 @@ public class DelayedChangeServiceImpl implements DelayedChangeService {
     @Override
     // TODO total crap
     @Transactional(propagation = Propagation.NOT_SUPPORTED)
-    public DelayedChangeEntity saveEntity(YAbstractPersistable<Long> entity) {
+    public DelayedChangeEntity saveEntity(YAbstractPersistable entity) {
         UserEntity currentUser = authService.getUserEntity();
 
         DelayedChangeEntity delayedChangeEntity = new DelayedChangeEntity();
         delayedChangeEntity.setPayload(entity);
-        delayedChangeEntity.setReferenceId(entity.getId());
+        delayedChangeEntity.setReferenceId(entity.getId().toString());
         delayedChangeEntity.setUser(currentUser);
 
         if (entity instanceof ParticipantEntity)
@@ -68,7 +79,7 @@ public class DelayedChangeServiceImpl implements DelayedChangeService {
             // link document to participant, to show alert in profile
             // todo seems to be not the best solution
             ParticipantEntity currentParticipant = participantService.getCurrent();
-            delayedChangeEntity.setReferenceId(currentParticipant.getId());
+            delayedChangeEntity.setReferenceId(currentParticipant.getId().toString());
         } else
             return null;
 
@@ -94,6 +105,21 @@ public class DelayedChangeServiceImpl implements DelayedChangeService {
                     modelMapper.map(delayedChangeEntity.getPayload(), DocumentEntity.class);
             documentService.save(document);
             delayedChangeDao.delete(delayedChangeEntity);
+        } else if (delayedChangeEntity.getTypeId().equals("REVOLUT_DEPOSIT")) {
+
+            try {
+                String payloadString = objectMapper.writeValueAsString(delayedChangeEntity.getPayload());
+                TransactionModel transaction = objectMapper.readValue(payloadString, TransactionModel.class);
+                revolutTransactionService.processRevolutTopUpTransaction(transaction, true);
+                delayedChangeDao.delete(delayedChangeEntity);
+            } catch (JsonProcessingException e) {
+                e.printStackTrace();
+                return;
+            } catch (IOException e) {
+                e.printStackTrace();
+                return;
+            }
+
         }
     }
 
@@ -114,7 +140,7 @@ public class DelayedChangeServiceImpl implements DelayedChangeService {
 
     @Override
     @Transactional(readOnly = true)
-    public DelayedChangeEntity findByTypeIdAndAndReferenceId(String typeId, Long referenceId) {
+    public DelayedChangeEntity findByTypeIdAndAndReferenceId(String typeId, String referenceId) {
         return delayedChangeDao.findFirstByTypeIdAndAndReferenceId(typeId, referenceId).orElse(null);
     }
 

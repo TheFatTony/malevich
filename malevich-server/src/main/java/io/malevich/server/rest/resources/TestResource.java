@@ -110,18 +110,18 @@ public class TestResource {
         transactionModel.setId(UUID.randomUUID().toString());
         transactionModel.setType("topup");
         transactionModel.setState("completed");
-        transactionModel.setReference("Hello! VC3O BUOF DZSO W4OM malevich.iosome words");
+        transactionModel.setReference("Hello! HTL9 EXGE TCE2 48SN malevich.iosome words");
 
         TransactionLegModel legModel = new TransactionLegModel();
         legModel.setId(UUID.randomUUID().toString());
         legModel.setAccountId(UUID.randomUUID().toString());
         legModel.setAmount(BigDecimal.valueOf(10001));
         legModel.setCurrency("EUR");
-        legModel.setDescription("It is description");
+        legModel.setDescription("Payment from First Trader");
 
         transactionModel.setLegs(Lists.newArrayList(legModel));
 
-        revolutTransactionService.processRevolutTopUpTransaction(transactionModel);
+        revolutTransactionService.processRevolutTopUpTransaction(transactionModel, false);
 
         return ResponseEntity.ok().body("");
     }

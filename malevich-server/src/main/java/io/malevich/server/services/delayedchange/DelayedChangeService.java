@@ -21,5 +21,5 @@ public interface DelayedChangeService {
 
     List<DelayedChangeEntity> findAll();
 
-    DelayedChangeEntity findByTypeIdAndAndReferenceId(String typeId, Long referenceId);
+    DelayedChangeEntity findByTypeIdAndAndReferenceId(String typeId, String referenceId);
 }

@@ -1,4 +1,4 @@
-package io.malevich.server.services.registertoken;
+package io.malevich.server.services.register;
 
 import com.google.common.collect.Lists;
 import com.yinyang.core.server.domain.*;
@@ -19,7 +19,6 @@ import org.apache.velocity.app.VelocityEngine;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.MessageSource;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

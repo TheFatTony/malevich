@@ -1,4 +1,4 @@
-package io.malevich.server.services.registertoken;
+package io.malevich.server.services.register;
 
 import com.yinyang.core.server.domain.RegisterTokenEntity;
 import com.yinyang.core.server.transfer.AccessTokenDto;

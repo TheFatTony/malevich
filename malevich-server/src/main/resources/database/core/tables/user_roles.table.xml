@@ -14,8 +14,8 @@
         </createTable>
     </changeSet>
 
-    <!--<changeSet author="thefattony" id="user_roles-pk">-->
-        <!--<addPrimaryKey columnNames="user_id, roles" constraintName="user_roles_pk" tableName="user_roles"/>-->
-    <!--</changeSet>-->
+    <changeSet author="thefattony" id="user_roles-pk">
+        <addPrimaryKey columnNames="user_id, roles_id" constraintName="user_roles_pk" tableName="user_roles"/>
+    </changeSet>
 
 </databaseChangeLog>

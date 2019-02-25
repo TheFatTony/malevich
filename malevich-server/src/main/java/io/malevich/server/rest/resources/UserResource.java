@@ -7,7 +7,7 @@ import com.yinyang.core.server.rest.RestResource;
 import com.yinyang.core.server.services.user.UserService;
 import com.yinyang.core.server.transfer.AccessTokenDto;
 import com.yinyang.core.server.transfer.UserDto;
-import io.malevich.server.services.registertoken.RegisterService;
+import io.malevich.server.services.register.RegisterService;
 import io.malevich.server.transfer.*;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;

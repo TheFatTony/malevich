@@ -173,7 +173,7 @@
         <div class="row mb-3">
           <div class="col">
             <span class="d-block g-color-text g-font-size-13 mb-1">Select card</span>
-            <mchDropDownList name="paymentMethods"
+            <mchDropDownList name="cards"
                              [objectSource]="cards"
                              [displayFunc]="paymentMethodDisplayFunc"
                              [width]="'100%'"
@@ -213,9 +213,9 @@
     <table class="register-table" *ngIf="newWithdraw" style="width: 100%">
       <tbody>
       <tr>Payment method:</tr>
-      <tr>
+      <tr *ngIf="paymentMethods">
         <mchDropDownList name="paymentMethods"
-                         [objectSource]="paymentMethods"
+                         [objectSource]="withdrawMethods"
                          [displayFunc]="paymentMethodDisplayFunc"
                          [width]="'100%'"
                          [ngModel]="newWithdraw.paymentMethod"

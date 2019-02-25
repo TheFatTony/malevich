@@ -1,6 +1,7 @@
 package io.malevich.server.revolut.services.counterparty;
 
-import io.malevich.server.domain.*;
+import io.malevich.server.domain.PaymentMethodAccountEntity;
+import io.malevich.server.domain.TraderPersonEntity;
 import io.malevich.server.revolut.GenericBankServiceImpl;
 import io.malevich.server.revolut.model.BankCounterpartyModel;
 import io.malevich.server.revolut.model.BankIndividualNameModel;
@@ -30,27 +31,22 @@ public class CounterpartyBankServiceImpl extends GenericBankServiceImpl implemen
         bankCounterpartyModel.setBankCountry(entity.getBankCountry().getId());
 
         if (entity.getParticipant() instanceof TraderPersonEntity) {
-            TraderPersonEntity traderPersonEntity = (TraderPersonEntity) entity.getParticipant();
+            String[] split = entity.getBeneficiaryName().split(" ", 2);
             bankCounterpartyModel.setIndividualName(
                     new BankIndividualNameModel(
-                            traderPersonEntity.getPerson().getFirstName(),
-                            traderPersonEntity.getPerson().getLastName()
+                            split[0],
+                            split[1]
                     )
             );
         } else {
-            OrganizationEntity organizationEntity;
-
-            if (entity.getParticipant() instanceof TraderOrganizationEntity)
-                organizationEntity = ((TraderOrganizationEntity) entity.getParticipant()).getOrganization();
-            else
-                organizationEntity = ((GalleryEntity) entity.getParticipant()).getOrganization();
-
-            bankCounterpartyModel.setCompanyName(organizationEntity.getLegalNameMl().get("en"));
+            bankCounterpartyModel.setCompanyName(entity.getBeneficiaryName());
         }
 
         bankCounterpartyModel.setCurrency("EUR");
         bankCounterpartyModel.setBic(entity.getBic());
         bankCounterpartyModel.setIban(entity.getIban());
+
+        //todo check if iban is iban or account num?
 
         return doPost(bankCounterpartyModel);
     }
@@ -58,7 +54,8 @@ public class CounterpartyBankServiceImpl extends GenericBankServiceImpl implemen
     private CounterpartyModel doPost(Object arg) {
         HttpEntity<Object> requestBody = getHttpEntity(arg);
         try {
-            ResponseEntity<CounterpartyModel> res = restTemplate.exchange(bankUrl + "/" + endpoint, HttpMethod.POST, requestBody, new ParameterizedTypeReference<CounterpartyModel>() {});
+            ResponseEntity<CounterpartyModel> res = restTemplate.exchange(bankUrl + "/" + endpoint, HttpMethod.POST, requestBody, new ParameterizedTypeReference<CounterpartyModel>() {
+            });
             return res.getBody();
         } catch (RestClientException e) {
             String errorResponse = ((HttpStatusCodeException) e).getResponseBodyAsString();

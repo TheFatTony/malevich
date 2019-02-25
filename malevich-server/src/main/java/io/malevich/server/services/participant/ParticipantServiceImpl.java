@@ -64,7 +64,7 @@ public class ParticipantServiceImpl implements ParticipantService {
     public ParticipantEntity getCurrent() {
         UserEntity userEntity = authService.getUserEntity();
 
-        if(userEntity == null)
+        if (userEntity == null)
             return null;
 
         return dao.findByUsers_Name(userEntity.getUsername()).orElse(null);
@@ -96,7 +96,7 @@ public class ParticipantServiceImpl implements ParticipantService {
 
     @Override
     @Transactional
-    public ParticipantEntity saveAsIs(ParticipantEntity participantEntity){
+    public ParticipantEntity saveAsIs(ParticipantEntity participantEntity) {
         return dao.save(participantEntity);
     }
 
@@ -149,13 +149,7 @@ public class ParticipantServiceImpl implements ParticipantService {
     @Override
     @Transactional
     public ParticipantEntity update(ParticipantEntity participantEntity) {
-        UserEntity user = authService.getUserEntity();
-        DelayedChangeEntity delayedChangeEntity = new DelayedChangeEntity();
-        delayedChangeEntity.setTypeId("PARTICIPANT");
-        delayedChangeEntity.setPayload(participantEntity);
-        delayedChangeEntity.setReferenceId(participantEntity.getId());
-        delayedChangeEntity.setUser(user);
-        delayedChangeService.save(delayedChangeEntity);
+        delayedChangeService.saveEntity(participantEntity);
         return participantEntity;
     }
 }

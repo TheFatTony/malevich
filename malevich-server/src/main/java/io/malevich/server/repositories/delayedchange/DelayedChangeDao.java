@@ -12,5 +12,5 @@ public interface DelayedChangeDao extends JpaRepository<DelayedChangeEntity, Lon
 
     List<DelayedChangeEntity> findByTypeId(String typeId);
 
-    Optional<DelayedChangeEntity> findFirstByTypeIdAndAndReferenceId(String typeId, Long referenceId);
+    Optional<DelayedChangeEntity> findFirstByTypeIdAndAndReferenceId(String typeId, String referenceId);
 }

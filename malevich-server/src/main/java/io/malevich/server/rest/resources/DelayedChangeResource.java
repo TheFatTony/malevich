@@ -54,7 +54,7 @@ public class DelayedChangeResource extends RestResource<DelayedChangeDto, Delaye
     @RequestMapping(value = "/findByTypeIdAndAndReferenceId/{typeId}/{referenceId}", method = RequestMethod.GET)
     @ResponseStatus(HttpStatus.OK)
     @ResponseBody
-    public Boolean findByTypeIdAndAndReferenceId(@PathVariable("typeId") String typeId, @PathVariable("referenceId") Long referenceId) {
+    public Boolean findByTypeIdAndAndReferenceId(@PathVariable("typeId") String typeId, @PathVariable("referenceId") String referenceId) {
         DelayedChangeEntity allEntry = this.delayedChangeService.findByTypeIdAndAndReferenceId(typeId, referenceId);
         return (allEntry != null);
     }

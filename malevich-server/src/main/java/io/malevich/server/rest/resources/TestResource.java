@@ -1,10 +1,14 @@
 package io.malevich.server.rest.resources;
 
 
+import com.google.common.collect.Lists;
 import io.malevich.server.repositories.paymentmethod.PaymentMethodDao;
+import io.malevich.server.revolut.model.TransactionLegModel;
 import io.malevich.server.revolut.model.TransactionModel;
 import io.malevich.server.revolut.services.transactions.TransactionsBankService;
 import io.malevich.server.services.paymentmethodbitcoin.PaymentMethodBitcoinService;
+import io.malevich.server.services.revoluttransaction.RevolutTransactionService;
+import io.malevich.server.services.revoluttransaction.RevolutTransactionServiceImpl;
 import io.malevich.server.services.sms.SmsService;
 import lombok.extern.slf4j.Slf4j;
 import org.knowm.xchange.currency.Currency;
@@ -23,7 +27,9 @@ import org.springframework.web.bind.annotation.*;
 import java.io.IOException;
 import java.math.BigDecimal;
 import java.sql.Timestamp;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 
 @Slf4j
@@ -41,7 +47,7 @@ public class TestResource {
     PaymentMethodDao paymentMethodDao;
 
     @Autowired
-    TransactionsBankService transactionsBankService;
+    RevolutTransactionServiceImpl revolutTransactionService;
 
 //    https://coinfaucet.eu/en/btc-testnet/
 
@@ -98,11 +104,26 @@ public class TestResource {
     @RequestMapping(value = "/testRevolutTransactions", method = RequestMethod.GET)
     @ResponseStatus(HttpStatus.OK)
     @ResponseBody
-    public ResponseEntity<List<TransactionModel>> testRevolutTransactions() {
-        List<TransactionModel> transactionModels =
-                transactionsBankService.getTransactions(Timestamp.valueOf("2019-02-17 00:00:00"), Timestamp.valueOf("2019-02-19 00:00:00"));
+    public ResponseEntity<String> testRevolutTransactions() {
 
-        return ResponseEntity.ok().body(transactionModels);
+        TransactionModel transactionModel = new TransactionModel();
+        transactionModel.setId(UUID.randomUUID().toString());
+        transactionModel.setType("topup");
+        transactionModel.setState("completed");
+        transactionModel.setReference("Hello! VC3O BUOF DZSO W4OM malevich.iosome words");
+
+        TransactionLegModel legModel = new TransactionLegModel();
+        legModel.setId(UUID.randomUUID().toString());
+        legModel.setAccountId(UUID.randomUUID().toString());
+        legModel.setAmount(BigDecimal.valueOf(10001));
+        legModel.setCurrency("EUR");
+        legModel.setDescription("It is description");
+
+        transactionModel.setLegs(Lists.newArrayList(legModel));
+
+        revolutTransactionService.processRevolutTopUpTransaction(transactionModel);
+
+        return ResponseEntity.ok().body("");
     }
 
 

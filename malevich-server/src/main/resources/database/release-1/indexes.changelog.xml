@@ -26,6 +26,7 @@
     <include relativeToChangelogFile="true" file="indexes/payment_method_type.index.xml"/>
     <include relativeToChangelogFile="true" file="indexes/payment_method.index.xml"/>
     <include relativeToChangelogFile="true" file="indexes/payment_method_account.index.xml"/>
+    <include relativeToChangelogFile="true" file="indexes/payment_method_deposit_reference.index.xml"/>
     <include relativeToChangelogFile="true" file="indexes/payments.index.xml"/>
     <include relativeToChangelogFile="true" file="indexes/help_category.index.xml"/>
     <include relativeToChangelogFile="true" file="indexes/help_topic.index.xml"/>
@@ -41,5 +42,6 @@
     <include relativeToChangelogFile="true" file="indexes/kyc_level.index.xml"/>
     <include relativeToChangelogFile="true" file="indexes/participant_type_document_type.index.xml"/>
     <include relativeToChangelogFile="true" file="indexes/revolut_withdrawal_history.index.xml"/>
+    <include relativeToChangelogFile="true" file="indexes/revolut_transaction.index.xml"/>
 
 </databaseChangeLog>

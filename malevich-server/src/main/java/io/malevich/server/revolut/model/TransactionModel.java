@@ -21,6 +21,9 @@ public class TransactionModel {
     @JsonProperty("type")
     private String type;
 
+    @JsonProperty("request_id")
+    private String requestId;
+
     @JsonProperty("state")
     private String state;
 
@@ -29,6 +32,12 @@ public class TransactionModel {
 
     @JsonProperty("updated_at")
     private Timestamp updatedAt;
+
+    @JsonProperty("completed_at")
+    private Timestamp completedAt;
+
+    @JsonProperty("reference")
+    private String reference;
 
     @JsonProperty("legs")
     private List<TransactionLegModel> legs;

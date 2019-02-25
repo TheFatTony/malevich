@@ -68,6 +68,7 @@
             </mchButton>
           </div>
         </div>
+
         <jqxGrid #myGrid
                  [width]="'100%'"
                  [height]="'320px'"
@@ -105,12 +106,12 @@
   </div>
 </div>
 
-<jqxWindow #myWindow [autoOpen]="false" [resizable]="false">
+<jqxWindow #myWindow [autoOpen]="false" [resizable]="false" [position]="'center'">
   <div>Add balance</div>
   <div style="overflow: hidden">
 
     <div *ngIf="newPayment" class="container">
-      <div class="row">
+      <div class="row mb-3">
         <div class="col">
           <span>Select payment method</span>
           <mchDropDownList name="paymentMethods"
@@ -121,54 +122,88 @@
           </mchDropDownList>
         </div>
       </div>
-      <div class="row">
-        <ng-container *ngIf="selectedPaymentType?.value == 'transfer'">
+
+      <ng-container *ngIf="selectedPaymentType?.value == 'transfer'">
+
+        <div class="row mb-3">
           <div class="col">
-            <div class="AccountDetails-accountDetailsWrapper-1z5zx">
-              <div class="row">
-                <div class="AccountDetails-detailTitle-ugXQ5">IBAN</div>
-                <div class="AccountDetails-detailValue-1p3GW">GB98LOYD30801286568290</div>
-              </div>
-              <div class="row">
-                <div class="AccountDetails-detailTitle-ugXQ5">BIC / SWIFT</div>
-                <div class="AccountDetails-detailValue-1p3GW">LOYDGB2L</div>
-              </div>
-              <div class="row">
-                <div class="AccountDetails-detailTitle-ugXQ5">Beneficiary address</div>
-                <div class="AccountDetails-detailValue-1p3GW">Revolut LTD, Level39, 1 Canada Square, London, E14 5AB,
-                  United Kingdom
-                </div>
-              </div>
-              <div class="row">
-                <div class="AccountDetails-detailTitle-ugXQ5">Bank / Payment institution</div>
-                <div class="AccountDetails-detailValue-1p3GW">Revolut</div>
-              </div>
-            </div>
+            <span class="d-block h3">Use this details to make transfer</span>
           </div>
-        </ng-container>
-      </div>
+        </div>
+        <div class="row mb-3">
+          <div class="col">
+            <span class="d-block g-color-text g-font-size-13 mb-1">Beneficiary</span>
+            <span class="d-block">{{parameters['revolut.account.beneficiary.name']}}</span>
+          </div>
+        </div>
+        <div class="row mb-3">
+          <div class="col">
+            <span class="d-block g-color-text g-font-size-13 mb-1">IBAN</span>
+            <span class="d-block">{{parameters['revolut.account.iban']}}</span>
+          </div>
+        </div>
+        <div class="row mb-3">
+          <div class="col">
+            <span class="d-block g-color-text g-font-size-13 mb-1">BIC / SWIFT</span>
+            <span class="d-block">{{parameters['revolut.account.bic']}}</span>
+          </div>
+        </div>
+        <div class="row mb-3">
+          <div class="col">
+            <span class="d-block g-color-text g-font-size-13 mb-1">Beneficiary address</span>
+            <span class="d-block">{{parameters['revolut.account.beneficiary.address']}}</span>
+          </div>
+        </div>
+        <div class="row mb-3">
+          <div class="col">
+            <span class="d-block g-color-text g-font-size-13 mb-1">Bank / Payment institution</span>
+            <span class="d-block">{{parameters['revolut.account.bank.name']}}</span>
+          </div>
+        </div>
+        <div class="row mb-3">
+          <div class="col">
+            <span class="d-block g-color-text g-font-size-13 mb-1">Reference text</span>
+            <span class="d-block mb-1">{{reference}} malevich.io</span>
+            <p>IMPORTANT: This code identifies your deposit with your account. Include this code including "malevich.io" when submitting the wire transfer.</p>
+          </div>
+        </div>
+      </ng-container>
+
+      <ng-container *ngIf="selectedPaymentType?.value == 'saved_card'">
+        <div class="row mb-3">
+          <div class="col">
+            <span class="d-block g-color-text g-font-size-13 mb-1">Select card</span>
+            <mchDropDownList name="paymentMethods"
+                             [objectSource]="cards"
+                             [displayFunc]="paymentMethodDisplayFunc"
+                             [width]="'100%'"
+                             [ngModel]="newPayment.paymentMethod"
+                             (ngModelChange)="newPayment.paymentMethod=$event">
+            </mchDropDownList>
+          </div>
+        </div>
+        <div class="row mb-3">
+          <div class="col">
+            <span class="d-block g-color-text g-font-size-13 mb-1">Set amount</span>
+            <mchNumberInput
+              class="amountInput"
+              [(ngModel)]="newPayment.amount"></mchNumberInput>
+          </div>
+        </div>
+        <div class="row mb-3">
+          <div class="col">
+            <mchButton #SendButton
+                       (onClick)="sendPayment()"
+                       style="text-align: center; margin-left: 8em;"
+                       [width]="60" [height]="25">
+              Send
+            </mchButton>
+          </div>
+        </div>
+      </ng-container>
+
+
     </div>
-    <!--<table class="register-table" *ngIf="newPayment" style="width: 100%">-->
-    <!--<tbody>-->
-    <!--<tr>Amount:</tr>-->
-    <!--<tr>-->
-    <!--<mchNumberInput-->
-    <!--class="amountInput"-->
-    <!--[ngModel]="newPayment?.amount"-->
-    <!--(ngModelChange)="newPayment.amount=$event"></mchNumberInput>-->
-    <!--</tr>-->
-    <!--<tr>-->
-    <!--<td colspan="2" style="padding-left: 20px;">-->
-    <!--<mchButton #SendButton-->
-    <!--(onClick)="sendPayment()"-->
-    <!--style="text-align: center; margin-left: 8em;"-->
-    <!--[width]="60" [height]="25">-->
-    <!--Send-->
-    <!--</mchButton>-->
-    <!--</td>-->
-    <!--</tr>-->
-    <!--</tbody>-->
-    <!--</table>-->
   </div>
 </jqxWindow>
 

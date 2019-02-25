@@ -28,6 +28,7 @@
     <include relativeToChangelogFile="true" file="tables/payment_method_account.table.xml"/>
     <include relativeToChangelogFile="true" file="tables/payment_method_bitcoin.table.xml"/>
     <include relativeToChangelogFile="true" file="tables/payment_method_card.table.xml"/>
+    <include relativeToChangelogFile="true" file="tables/payment_method_deposit_reference.table.xml"/>
     <include relativeToChangelogFile="true" file="tables/payments.table.xml"/>
     <include relativeToChangelogFile="true" file="tables/help_category.table.xml"/>
     <include relativeToChangelogFile="true" file="tables/help_topic.table.xml"/>
@@ -43,5 +44,7 @@
     <include relativeToChangelogFile="true" file="tables/kyc_level.table.xml"/>
     <include relativeToChangelogFile="true" file="tables/participant_type_document_type.table.xml"/>
     <include relativeToChangelogFile="true" file="tables/revolut_withdrawal_history.table.xml"/>
+    <include relativeToChangelogFile="true" file="tables/revolut_transaction.table.xml"/>
+    <include relativeToChangelogFile="true" file="tables/parameter.table.xml"/>
 
 </databaseChangeLog>

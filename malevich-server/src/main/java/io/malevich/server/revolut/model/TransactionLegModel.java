@@ -28,4 +28,7 @@ public class TransactionLegModel{
 
     @JsonProperty("currency")
     private String currency;
+
+    @JsonProperty("description")
+    private String description;
 }

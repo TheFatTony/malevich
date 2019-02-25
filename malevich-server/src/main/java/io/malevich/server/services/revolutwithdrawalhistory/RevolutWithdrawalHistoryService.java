@@ -8,3 +8,4 @@ public interface RevolutWithdrawalHistoryService {
 
     RevolutWithdrawalHistoryEntity save(RevolutWithdrawalHistoryEntity entity);
 }
+

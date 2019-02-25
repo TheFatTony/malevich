@@ -43,4 +43,7 @@ public class PaymentMethodTypeServiceImpl implements PaymentMethodTypeService {
     @Override
     public PaymentMethodTypeEntity getBitcoinType(){return values.get("BTC");}
 
+    @Override
+    public PaymentMethodTypeEntity getDepositReferenceType(){return values.get("REF");}
+
 }

@@ -4,13 +4,13 @@
                    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.6.xsd">
 
     <changeSet author="toolstik" id="revolut_withdrawal_history-payments_id-index">
-        <createIndex indexName="revolut_withdrawal_history_organization_id_idx" tableName="revolut_withdrawal_history" unique="true">
+        <createIndex indexName="revolut_withdrawal_history_payments_id_idx" tableName="revolut_withdrawal_history" unique="true">
             <column name="payments_id"/>
         </createIndex>
     </changeSet>
 
     <changeSet author="toolstik" id="revolut_withdrawal_history-request_id-index">
-        <createIndex indexName="revolut_withdrawal_history_thumbnail_id_idx" tableName="revolut_withdrawal_history" unique="false">
+        <createIndex indexName="revolut_withdrawal_history_request_id_idx" tableName="revolut_withdrawal_history" unique="true">
             <column name="request_id"/>
         </createIndex>
     </changeSet>

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.6.xsd">
+
+    <changeSet author="toolstik" id="parameter-data" dbms="mysql">
+        <sql splitStatements="true" stripComments="true">
+            INSERT INTO parameter (id, value)
+            VALUES ('revolut.account.beneficiary.name', 'Revolut LTD'),
+                   ('revolut.account.iban', 'GB98LOYD30801286568290'),
+                   ('revolut.account.bic', 'LOYDGB2L'),
+                   ('revolut.account.beneficiary.address', 'Revolut LTD, Level39, 1 Canada Square, London, E14 5AB, United Kingdom'),
+                   ('revolut.account.bank.name', 'Revolut');
+        </sql>
+    </changeSet>
+
+</databaseChangeLog>

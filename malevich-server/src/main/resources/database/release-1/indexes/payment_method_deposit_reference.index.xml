@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.6.xsd">
+
+    <changeSet author="toolstik" id="payment_method_deposit_reference-reference-index">
+        <createIndex indexName="payment_method_deposit_reference_reference_idx" tableName="payment_method_deposit_reference" unique="true">
+            <column name="reference"/>
+        </createIndex>
+    </changeSet>
+    
+</databaseChangeLog>

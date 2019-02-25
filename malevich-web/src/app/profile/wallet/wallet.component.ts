@@ -8,6 +8,9 @@ import {jqxGridComponent} from 'jqwidgets-scripts/jqwidgets-ts/angular_jqxgrid';
 import {TranslateService} from '@ngx-translate/core';
 import {PaymentMethodService} from "../../_services/payment-method.service";
 import {PaymentMethodDto} from "../../_transfer/paymentMethodDto";
+import {ParameterService} from "../../_services/parameter.service";
+import {Observable, Subject} from "rxjs";
+import {PaymentMethodDepositReferenceService} from "../../_services/payment-method-deposit-reference.service";
 
 type PaymentType = {
   value: string
@@ -29,9 +32,11 @@ export class WalletComponent implements OnInit, AfterViewInit, OnDestroy {
   public newWithdraw: PaymentsDto;
   public accountState: AccountStateDto;
 
+  private referenceState: string;
+
   payments: PaymentsDto[];
   paymentMethods: PaymentMethodDto[];
-
+  parameters: Map<string, string>;
 
   paymentTypes: PaymentType[] = [
     {
@@ -47,6 +52,32 @@ export class WalletComponent implements OnInit, AfterViewInit, OnDestroy {
 
   x: number;
   y: number;
+
+  get reference(){
+    console.log('reference');
+
+    if(this.referenceState)
+      return this.referenceState;
+
+    const subj = new Subject<string>();
+    const ref = this.paymentMethods.filter(p => p.type.id == 'REF')[0];
+
+    if (ref != null) {
+      this.referenceState = ref.reference;
+      return this.referenceState;
+    }
+
+    this.paymentMethodDepositReferenceService.get()
+      .subscribe(data => {
+        this.referenceState = data.reference;
+      });
+
+    return this.referenceState;
+  }
+
+  get cards() {
+    return this.paymentMethods.filter(p => p.type.id == 'CRD');
+  }
 
   paymentTypeDisplayFunc = (paymType: PaymentType) => {
     return paymType.name;
@@ -68,7 +99,9 @@ export class WalletComponent implements OnInit, AfterViewInit, OnDestroy {
 
   constructor(private paymentsService: PaymentsService,
               private paymentMethodService: PaymentMethodService,
+              private paymentMethodDepositReferenceService: PaymentMethodDepositReferenceService,
               private accountStateService: AccountStateService,
+              private parameterService: ParameterService,
               public translate: TranslateService) {
   }
 
@@ -76,6 +109,7 @@ export class WalletComponent implements OnInit, AfterViewInit, OnDestroy {
     this.getAccountState();
     this.getPayments();
     this.getPaymentMethods();
+    this.getParameters();
   }
 
   ngAfterViewInit(): void {
@@ -92,6 +126,13 @@ export class WalletComponent implements OnInit, AfterViewInit, OnDestroy {
       .subscribe(data => {
         this.paymentMethods = data;
       })
+  }
+
+  getParameters() {
+    this.parameterService.getParameters()
+      .subscribe(data => {
+        this.parameters = data;
+      });
   }
 
   updateGrid() {
@@ -157,10 +198,10 @@ export class WalletComponent implements OnInit, AfterViewInit, OnDestroy {
 
   openPaymentWindow() {
     this.newPayment = new PaymentsDto();
-    this.myWindow.width(310);
-    this.myWindow.height(220);
+    this.myWindow.width(410);
+    this.myWindow.height(550);
     this.myWindow.open();
-    this.myWindow.move(this.x, this.y);
+    // this.myWindow.move(this.x, this.y);
   }
 
   openWithdrawWindow() {

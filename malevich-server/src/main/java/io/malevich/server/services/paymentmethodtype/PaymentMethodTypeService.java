@@ -16,4 +16,6 @@ public interface PaymentMethodTypeService {
     PaymentMethodTypeEntity getCardType();
 
     PaymentMethodTypeEntity getBitcoinType();
+
+    PaymentMethodTypeEntity getDepositReferenceType();
 }

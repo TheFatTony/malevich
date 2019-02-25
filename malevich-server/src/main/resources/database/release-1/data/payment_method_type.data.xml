@@ -8,7 +8,8 @@
             INSERT INTO payment_method_type (id, name_ml)
             VALUES ('CRD', JSON_OBJECT('en', 'Card', 'ru', 'Card')),
                    ('ACC', JSON_OBJECT('en', 'Account', 'ru', 'Account')),
-                   ('BTC', JSON_OBJECT('en', 'Bitcoin', 'ru', 'Bitcoin'));
+                   ('BTC', JSON_OBJECT('en', 'Bitcoin', 'ru', 'Bitcoin')),
+                   ('REF', JSON_OBJECT('en', 'Deposit reference', 'ru', 'Deposit reference'));
         </sql>
     </changeSet>
 

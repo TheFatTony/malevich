@@ -36,6 +36,7 @@ export class WalletComponent implements OnInit, AfterViewInit, OnDestroy {
 
   payments: PaymentsDto[];
   paymentMethods: PaymentMethodDto[];
+  withdrawMethods: PaymentMethodDto[];
   parameters: Map<string, string>;
 
   paymentTypes: PaymentType[] = [
@@ -54,12 +55,9 @@ export class WalletComponent implements OnInit, AfterViewInit, OnDestroy {
   y: number;
 
   get reference(){
-    console.log('reference');
-
     if(this.referenceState)
       return this.referenceState;
 
-    const subj = new Subject<string>();
     const ref = this.paymentMethods.filter(p => p.type.id == 'REF')[0];
 
     if (ref != null) {
@@ -125,6 +123,7 @@ export class WalletComponent implements OnInit, AfterViewInit, OnDestroy {
     this.paymentMethodService.getPaymentMethods()
       .subscribe(data => {
         this.paymentMethods = data;
+        this.withdrawMethods = this.paymentMethods.filter(p => p.type.id != 'REF');
       })
   }
 

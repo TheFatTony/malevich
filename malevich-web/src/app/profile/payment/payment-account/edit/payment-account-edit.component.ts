@@ -4,6 +4,7 @@ import {CountryDto} from "../../../../_transfer/countryDto";
 import {TranslateService} from "@ngx-translate/core";
 import {PaymentMethodAccountService} from "../../../../_services/payment-method-account.service";
 import {CountryService} from "../../../../_services/country.service";
+import {ParticipantService} from "../../../../_services/participant.service";
 
 @Component({
   selector: 'app-profile-payment-account-edit',
@@ -30,7 +31,8 @@ export class PaymentAccountEditComponent implements OnInit {
 
   constructor(private translate: TranslateService,
               private paymentMethodAccountService: PaymentMethodAccountService,
-              private countryService: CountryService) {
+              private countryService: CountryService,
+              private participantService: ParticipantService) {
   }
 
   getCountries() {
@@ -40,17 +42,33 @@ export class PaymentAccountEditComponent implements OnInit {
     });
   }
 
-  ngOnInit() {
-    this.getCountries();
+  getParticipant(){
+    this.participantService.getCurrent()
+      .subscribe(data =>{
+        if(!data) return;
+
+        if(!this.account.beneficiaryName){
+          if(data.person){
+            this.account.beneficiaryName = `${data.person.firstName} ${data.person.lastName}`;
+          } else if(data.organization){
+            this.account.beneficiaryName = data.organization.legalNameMl['en'];
+          }
+        }
+      });
   }
 
-  save(){
+  ngOnInit() {
+    this.getCountries();
+    this.getParticipant();
+  }
+
+  save() {
     this.paymentMethodAccountService.save(this.editAccount).subscribe(() => {
       this.onSubmit.emit(this.editAccount);
     });
   }
 
-  cancel(){
+  cancel() {
     this.onCancel.emit();
   }
 

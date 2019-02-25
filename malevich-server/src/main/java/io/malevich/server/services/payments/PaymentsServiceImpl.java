@@ -149,7 +149,7 @@ public class PaymentsServiceImpl implements PaymentsService {
 
         if (paymentsEntity.getPaymentMethod() != null &&
                 paymentMethodTypeService.getCardType().equals(paymentsEntity.getPaymentMethod().getType())) {
-            // todo hit stripe api
+            // todo hit stripe api ?
         }
 
         paymentTransactionService.create(paymentsEntity);

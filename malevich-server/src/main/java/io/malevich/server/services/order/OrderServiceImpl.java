@@ -25,7 +25,6 @@ import java.util.List;
 public class OrderServiceImpl implements OrderService {
 
 
-
     @Autowired
     private TradeTypeService tradeTypeService;
 
@@ -57,6 +56,7 @@ public class OrderServiceImpl implements OrderService {
             orderEntity.setType(orderTypeService.getValues().get(order.getOrder().getOrderType()));
             orderEntity.setAmount(order.getOrder().getAmount());
             orderEntity.setIsOwn(false);
+            orderEntity.setId(order.getOrder().getId());
             orderEntity.setArtworkStock(artworkStockService.find(new Long(order.getOrder().getArtworkStock().replace("resource:io.malevich.network.ArtworkStock#", ""))));
             orderEntity.setTradeType(tradeTypeService.getGtc());
             result.add(orderEntity);
@@ -83,7 +83,7 @@ public class OrderServiceImpl implements OrderService {
             orderEntity.setIsOwn(false);
             orderEntity.setArtworkStock(artworkStockEntity);
             orderEntity.setTradeType(tradeTypeService.getGtc());
-            orderEntity.setId(order.getTransactionId());
+            orderEntity.setId(order.getOrder().getId());
             orderEntity.setEffectiveDate(order.getTimestamp());
             result.add(orderEntity);
         }
@@ -110,7 +110,7 @@ public class OrderServiceImpl implements OrderService {
             orderEntity.setIsOwn(false);
             orderEntity.setArtworkStock(artworkStockEntity);
             orderEntity.setTradeType(tradeTypeService.getGtc());
-            orderEntity.setId(order.getTransactionId());
+            orderEntity.setId(order.getOrder().getId());
             orderEntity.setEffectiveDate(order.getTimestamp());
             result.add(orderEntity);
         }
@@ -169,12 +169,16 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     public void cancelOrder(OrderEntity orderEntity) {
-
+        orderEntity.setStatus(orderStatusService.getCanceled());
+        orderEntity.setParticipant(participantService.getCurrent());
+        orderTransactionService.create(orderEntity);
     }
 
     @Override
     public void cancelOwnOrder(OrderEntity orderEntity) {
-
+        orderEntity.setStatus(orderStatusService.getCanceled());
+        orderEntity.setParticipant(participantService.getCurrent());
+        orderTransactionService.create(orderEntity);
     }
 
 }

@@ -29,6 +29,7 @@ async function placeOrder(order) { // eslint-disable-line no-unused-vars
     if (order.order.amount <= 0) {
         throw new Error('Zero or negative amount is not allowed');
     }
+    
 
     const registry = await getAssetRegistry('io.malevich.network.OrderAsset');
     const registryTrader = await getParticipantRegistry('io.malevich.network.Trader');
@@ -39,23 +40,53 @@ async function placeOrder(order) { // eslint-disable-line no-unused-vars
     const registryCommissionRule = await getAssetRegistry('io.malevich.network.CommissionRule');
     const factory = getFactory();
 
+    if (order.order.orderStatus === 'CANCELED') {
+        var updateOrder = await registry.get(order.order.id);
+        updateOrder.order.orderStatus = 'CANCELED';
+        await registry.update(updateOrder);
+        if (updateOrder.order.counterparty.getFullyQualifiedType() === "io.malevich.network.Trader") {
+            let uptadeParty = null;
+            uptadeParty = await registryTrader.get(updateOrder.order.counterparty.getIdentifier());
+            uptadeParty.balance = uptadeParty.balance + updateOrder.order.amount;
+            await registryTrader.update(uptadeParty);
+        }
+        
+        return;
+    }
 
     var ordersAskQuery = buildQuery('SELECT io.malevich.network.OrderAsset WHERE ((order.artworkStock == _$artworkStock))');
     var results = await query(ordersAskQuery, { artworkStock: 'resource:io.malevich.network.ArtworkStock#' + order.order.artworkStock.getIdentifier()});
     var askCount = 0;
     var currentAsk = null;
     var matchingBid = null;
+    var orderToCancel = null;
+
     results.forEach(async existingOrders => {
         if ((order.order.orderType === 'ASK') && (existingOrders.order.orderType === 'ASK') && (existingOrders.order.orderStatus === 'OPEN')) {
             askCount++;
         } else if ((order.order.orderType === 'BID') && (existingOrders.order.orderType === 'ASK') && (existingOrders.order.orderStatus === 'OPEN')) {
             currentAsk = existingOrders;
+        } else if ((existingOrders.order.orderType === 'BID') && (order.order.orderType === 'BID') 
+            && (existingOrders.order.orderStatus === 'OPEN') 
+            && (existingOrders.order.counterparty.getIdentifier() === order.order.counterparty.getIdentifier())) {
+            orderToCancel = existingOrders;
         }
+
     });
     if (askCount > 0) {
         throw new Error('Ask already exists for this ArtWork');
     } else {
-        const orderAsset = factory.newResource('io.malevich.network', 'OrderAsset', order.order.id);
+        let uptadeCounterparty = null;
+        if (orderToCancel != null) {
+            var updateCancelOrder = await registry.get(orderToCancel.order.id);
+            updateCancelOrder.order.orderStatus = 'CANCELED';
+            await registry.update(updateCancelOrder);
+            uptadeCounterparty = await registryTrader.get(updateCancelOrder.order.counterparty.getIdentifier());
+            uptadeCounterparty.balance = uptadeCounterparty.balance + updateCancelOrder.order.amount;
+            await registryTrader.update(uptadeCounterparty);
+        }
+
+        var orderAsset = factory.newResource('io.malevich.network', 'OrderAsset', order.order.id);
         orderAsset.order = order.order;
         orderAsset.order.orderStatus = 'OPEN';
 
@@ -80,7 +111,10 @@ async function placeOrder(order) { // eslint-disable-line no-unused-vars
 
 
     if (matchingBid != null) {
-        var results = await query(ordersAskQuery, { artworkStock: 'resource:io.malevich.network.ArtworkStock#' + order.order.artworkStock.getIdentifier()});
+        if (matchingBid.order.counterparty == currentAsk.order.counterparty) {
+            throw new Error('You cant sell work to yourself');
+        }
+        
         currentAsk.order.orderStatus = 'EXECUTED';
         await registry.update(currentAsk);
 
@@ -110,7 +144,7 @@ async function placeOrder(order) { // eslint-disable-line no-unused-vars
         await registryMalevich.update(malevichParty);
 
 
-        let uptadeCounterparty = null;
+        
         if (matchingBid.order.counterparty.getFullyQualifiedType() === "io.malevich.network.Gallery") 
             uptadeCounterparty = await registryGallery.get(matchingBid.order.counterparty.getIdentifier());
         else if (matchingBid.order.counterparty.getFullyQualifiedType() === "io.malevich.network.Trader") 

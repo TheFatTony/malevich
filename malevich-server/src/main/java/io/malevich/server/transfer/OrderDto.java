@@ -11,7 +11,7 @@ public class OrderDto {
 
     // this annotation breaks field serialization even for authorized users
 //    @JsonView({View.Admin.class, View.Gallery.class, View.Trader.class})
-    private Long id;
+    private String id;
 
     private OrderTypeDto type;
 

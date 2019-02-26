@@ -106,7 +106,7 @@ export class ArtworksDetailComponent implements OnInit, AfterViewInit {
     this.orderService
       .getOpenOrdersByArtworkId(this.id)
       .subscribe(
-        data => (this.placedOrders = data)
+        data => (this.placedOrders = data.sort((a, b) => b.amount - a.amount))
       );
   }
 

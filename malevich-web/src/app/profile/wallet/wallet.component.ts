@@ -35,6 +35,7 @@ export class WalletComponent implements OnInit, AfterViewInit, OnDestroy {
 
   payments: PaymentsDto[];
   paymentMethods: PaymentMethodDto[];
+  cards: PaymentMethodDto[];
   withdrawMethods: PaymentMethodDto[];
   parameters: Map<string, string>;
 
@@ -70,10 +71,6 @@ export class WalletComponent implements OnInit, AfterViewInit, OnDestroy {
       });
 
     return this.referenceState;
-  }
-
-  get cards() {
-    return this.paymentMethods.filter(p => p.type.id == 'CRD');
   }
 
   paymentTypeDisplayFunc = (paymType: PaymentType) => {
@@ -123,6 +120,7 @@ export class WalletComponent implements OnInit, AfterViewInit, OnDestroy {
       .subscribe(data => {
         this.paymentMethods = data;
         this.withdrawMethods = this.paymentMethods.filter(p => p.type.id != 'REF');
+        this.cards = this.paymentMethods.filter(p => p.type.id == 'CRD');
       })
   }
 

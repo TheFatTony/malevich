@@ -177,8 +177,7 @@
                              [objectSource]="cards"
                              [displayFunc]="paymentMethodDisplayFunc"
                              [width]="'100%'"
-                             [ngModel]="newPayment.paymentMethod"
-                             (ngModelChange)="newPayment.paymentMethod=$event">
+                             [(ngModel)]="newPayment.paymentMethod">
             </mchDropDownList>
           </div>
         </div>

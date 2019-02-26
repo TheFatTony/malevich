@@ -1,4 +1,4 @@
-import {Component, OnInit, ViewChild} from '@angular/core';
+import {AfterViewInit, Component, OnInit, ViewChild} from '@angular/core';
 import {TranslateService} from "@ngx-translate/core";
 import {ArtworkStockDto} from "../../_transfer/artworkStockDto";
 import {environment} from "../../../environments/environment.dev";
@@ -6,7 +6,6 @@ import {ArtworkDto} from "../../_transfer/index";
 import {jqxGridComponent} from "jqwidgets-scripts/jqwidgets-ts/angular_jqxgrid";
 import {jqxComboBoxComponent} from "jqwidgets-scripts/jqwidgets-ts/angular_jqxcombobox";
 import {Router} from "@angular/router";
-import {AccountStateService} from "../../_services/account-state.service";
 import {OrderDto} from "../../_transfer/orderDto";
 import {OrderWindowComponent} from "../../common/components/order-window/order-window.component";
 import {ArtworkStockService} from "../../_services/artwork-stock.service";
@@ -16,7 +15,7 @@ import {ArtworkStockService} from "../../_services/artwork-stock.service";
   templateUrl: './artwork-stock.component.html',
   styleUrls: ['./artwork-stock.component.css']
 })
-export class ArtworkStockComponent implements OnInit {
+export class ArtworkStockComponent implements OnInit, AfterViewInit {
 
   @ViewChild('myGrid') myGrid: jqxGridComponent;
   @ViewChild('addArtWorkComboBox') addArtWorkComboBox: jqxComboBoxComponent;
@@ -75,11 +74,14 @@ export class ArtworkStockComponent implements OnInit {
   constructor(private router: Router,
               private artworkStockService: ArtworkStockService,
               public translate: TranslateService) {
-    this.updateGrid();
   }
 
   ngOnInit() {
     this.getArtworkStock();
+  }
+
+  ngAfterViewInit(): void {
+    this.updateGrid();
   }
 
   updateGrid() {
@@ -128,4 +130,6 @@ export class ArtworkStockComponent implements OnInit {
   onAskPlaced(order: OrderDto) {
     this.getArtworkStock();
   }
+
+
 }

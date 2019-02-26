@@ -1,31 +1,35 @@
-import {Component, OnInit, ViewChild} from '@angular/core';
-import {ArtistDto, ArtworkDto, CategoryDto, GalleryDto} from "../../../_transfer";
-import {ArtworkStockDto} from "../../../_transfer/artworkStockDto";
-import {ArtworkStockService} from "../../../_services/artwork-stock.service";
+import {Component, EventEmitter, Input, OnInit, Output, ViewChild} from '@angular/core';
+import {ArtistDto, ArtworkDto, CategoryDto} from "../../../_transfer";
 import {ArtworkService} from "../../../_services/artwork.service";
-import {TranslateService} from "@ngx-translate/core";
-import {jqxComboBoxComponent} from "jqwidgets-scripts/jqwidgets-ts/angular_jqxcombobox";
-import {ActivatedRoute, Params, Router} from "@angular/router";
 import {ArtistService} from "../../../_services/artist.service";
 import {CategoryService} from "../../../_services/category.service";
+import {TranslateService} from "@ngx-translate/core";
 import {FileDto} from "yinyang-core";
-import {environment} from "../../../../environments/environment.dev";
+// import {ComboBoxComponent} from "../../../../../node_modules/yinyang-core/lib/components/combobox.component";
 
 @Component({
-  selector: 'app-profile-storage-edit',
-  templateUrl: './storage-edit.component.html',
-  styleUrls: ['./storage-edit.component.css']
+  selector: 'app-artwork-edit',
+  templateUrl: './artwork-edit.component.html',
+  styleUrls: ['./artwork-edit.component.css']
 })
-export class StorageEditComponent implements OnInit {
+export class ArtworkEditComponent implements OnInit {
 
-  @ViewChild('addArtWorkComboBox') addArtWorkComboBox: jqxComboBoxComponent;
+  @Output() onSubmit = new EventEmitter();
+  @Output() onCancel = new EventEmitter();
 
-  public url = environment.baseUrl;
+  @Input('artwork')
+  set artworkSetter(value: ArtworkDto) {
+    this.artwork = value;
+    if(this.artwork) {
+      this.syncComboBoxValue(this.artistComboBox, this.artwork.artist);
+      this.syncComboBoxValue(this.categoryComboBox, this.artwork.category);
+    }
+  }
 
-  gallery: GalleryDto;
+  @ViewChild('artist') artistComboBox: any;
+  @ViewChild('category') categoryComboBox: any;
 
-  artworkStock: ArtworkStockDto;
-  public artwork: ArtworkDto;
+  artwork: ArtworkDto;
 
   artists: ArtistDto[];
   categories: CategoryDto[];
@@ -34,56 +38,59 @@ export class StorageEditComponent implements OnInit {
     return artist.fullNameMl[this.translate.currentLang];
   };
 
-  categoryDisplayFunc = (category: CategoryDto) =>{
+  categoryDisplayFunc = (category: CategoryDto) => {
     return category.categoryNameMl[this.translate.currentLang];
   };
 
-  constructor(private router: Router,
-              private route: ActivatedRoute,
-              private artworkStockService: ArtworkStockService,
-              private artworkService: ArtworkService,
+  constructor(private artworkService: ArtworkService,
               private artistService: ArtistService,
               private categoryService: CategoryService,
-              public translate: TranslateService) {
-    }
+              private translate: TranslateService) {
+  }
 
   ngOnInit() {
     this.getArtists();
     this.getCategories();
-
-    this.route.params.subscribe((params: Params) => {
-      let id = params['id'];
-      this.artworkStockService.getArtworkStock(id)
-        .subscribe(a => {
-          this.artworkStock = a;
-          this.artwork = a.artwork;
-        })
-    });
   }
 
   getArtists() {
     this.artistService
       .getArtists()
-      .subscribe(data => (
-        this.artists = data
-      ));
+      .subscribe(data => {
+        this.artists = data;
+        this.syncComboBoxValue(this.artistComboBox, this.artwork.artist);
+      });
   }
 
   getCategories() {
     this.categoryService
       .getCategories()
-      .subscribe(data => (
-        this.categories = data
-      ));
+      .subscribe(data => {
+        this.categories = data;
+        this.syncComboBoxValue(this.categoryComboBox, this.artwork.category);
+      });
+  }
+
+  private syncComboBoxValue(control: any, value: any) {
+    if(!value || !control || !control.attrObjectSource)
+      return;
+
+    const index = control.attrObjectSource.findIndex(v => control.attrValueEqualFunc(v, value));
+
+    if (index >= 0) {
+      control.selectedIndex(index);
+    }
   }
 
   submit() {
-    this.artworkStockService.updateArtworkStock(this.artworkStock).subscribe();
-    this.router.navigate(['/profile/storage']);
+    if (!this.artwork || !this.artwork.image || !this.artwork.thumbnail || !this.artwork.artist || !this.artwork.category)
+      return;
+
+    this.onSubmit.emit(this.artwork);
   }
 
   cancel() {
-    this.router.navigate(['/profile/storage']);
+    this.onCancel.emit();
   }
 
   onArtistComboBoxChange($event) {
@@ -147,4 +154,5 @@ export class StorageEditComponent implements OnInit {
   onUploadThumbnail($event: any) {
     this.artwork.thumbnail = this.parseUploadEvent($event);
   }
+
 }

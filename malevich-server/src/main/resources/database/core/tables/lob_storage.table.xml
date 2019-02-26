@@ -14,7 +14,7 @@
 			<column name="content" type="blob"/>
 		</createTable>
 		<modifySql dbms="mysql">
-			<regExpReplace replace="blob" with="longblob"/>
+			<regExpReplace replace="BLOB" with="LONGBLOB"/>
 		</modifySql>
 	</changeSet>
 

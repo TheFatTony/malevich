@@ -69,6 +69,7 @@ import { PaymentAccountComponent } from './profile/payment/payment-account/payme
 import { PaymentAccountEditComponent } from './profile/payment/payment-account/edit/payment-account-edit.component';
 import { PaymentAccountViewComponent } from './profile/payment/payment-account/view/payment-account-view.component';
 import {KycGuard} from "./_guards/kyc.guard";
+import { ArtworkEditComponent } from './common/components/artwork-edit/artwork-edit.component';
 
 
 export function createTranslateLoader(http: HttpClient) {
@@ -128,6 +129,7 @@ export function createTranslateLoader(http: HttpClient) {
     PaymentAccountComponent,
     PaymentAccountEditComponent,
     PaymentAccountViewComponent,
+    ArtworkEditComponent,
 
   ],
   imports: [

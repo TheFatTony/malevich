@@ -131,8 +131,12 @@
                   <tbody>
                   <tr class="g-color-gray-dark-v4 g-font-size-12" *ngFor="let placedOrder of placedOrders">
                     <td class="align-top g-py-10" *ngIf="placedOrder.type.id === 'ASK'"></td>
-                    <td class="align-top g-py-10" *ngIf="placedOrder.type.id === 'ASK'">{{placedOrder.amount}}</td>
-                    <td class="align-top g-py-10" *ngIf="placedOrder.type.id === 'BID'">{{placedOrder.amount}}</td>
+                    <td class="align-top g-py-10" *ngIf="placedOrder.type.id === 'ASK'">
+                      <a class="u-tags-v1 g-color-main g-brd-around g-brd-gray-light-v3 g-bg-gray-dark-v2--hover g-brd-gray-dark-v2--hover g-color-white--hover g-rounded-50 g-py-4 g-px-15" href="#!">{{placedOrder.amount}}</a>
+                    </td>
+                    <td class="align-top g-py-10" *ngIf="placedOrder.type.id === 'BID'">
+                        <a class="u-tags-v1 g-color-main g-brd-around g-brd-gray-light-v3 g-bg-gray-dark-v2--hover g-brd-gray-dark-v2--hover g-color-white--hover g-rounded-50 g-py-4 g-px-15" href="#!">{{placedOrder.amount}}</a>
+                    </td>
                     <td class="align-top g-py-10" *ngIf="placedOrder.type.id === 'BID'"></td>
                   </tr>
                   <!--<tr class="g-color-gray-dark-v4 g-font-size-12" *ngFor="let placedOrder of placedOrders">-->

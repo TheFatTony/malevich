@@ -44,7 +44,7 @@ async function placeOrder(order) { // eslint-disable-line no-unused-vars
         var updateOrder = await registry.get(order.order.id);
         updateOrder.order.orderStatus = 'CANCELED';
         await registry.update(updateOrder);
-        if (currentAsk.order.counterparty.getFullyQualifiedType() === "io.malevich.network.Trader") {
+        if (updateOrder.order.counterparty.getFullyQualifiedType() === "io.malevich.network.Trader") {
             let uptadeParty = null;
             uptadeParty = await registryTrader.get(updateOrder.order.counterparty.getIdentifier());
             uptadeParty.balance = uptadeParty.balance + updateOrder.order.amount;

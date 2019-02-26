@@ -129,21 +129,26 @@
                   </tr>
                   </thead>
                   <tbody>
-
                   <tr class="g-color-gray-dark-v4 g-font-size-12" *ngFor="let placedOrder of placedOrders">
-                    <td *ngIf="placedOrder.type.id === 'ASK'" class="align-top g-py-10"></td>
-
-                    <td *ngIf="!placedOrder.isOwn" class="align-top g-py-10">
-                      <span>{{placedOrder.amount}}</span>
-                    </td>
-
-                    <td *ngIf="placedOrder.isOwn" class="align-top g-py-10">
-                  <span class="g-color-primary" data-toggle="tooltip" data-placement="top"
-                        data-original-title="This is your order">*{{placedOrder.amount}}</span>
-                    </td>
-
-                    <td *ngIf="placedOrder.type.id === 'BID'" class="align-top g-py-10"></td>
+                    <td class="align-top g-py-10" *ngIf="placedOrder.type.id === 'ASK'"></td>
+                    <td class="align-top g-py-10" *ngIf="placedOrder.type.id === 'ASK'">{{placedOrder.amount}}</td>
+                    <td class="align-top g-py-10" *ngIf="placedOrder.type.id === 'BID'">{{placedOrder.amount}}</td>
+                    <td class="align-top g-py-10" *ngIf="placedOrder.type.id === 'BID'"></td>
                   </tr>
+                  <!--<tr class="g-color-gray-dark-v4 g-font-size-12" *ngFor="let placedOrder of placedOrders">-->
+                    <!--<td *ngIf="placedOrder.type.id === 'ASK'" class="align-top g-py-10"></td>-->
+
+                    <!--<td *ngIf="!placedOrder.isOwn" class="align-top g-py-10">-->
+                      <!--<span>{{placedOrder.amount}}</span>-->
+                    <!--</td>-->
+
+                    <!--<td *ngIf="placedOrder.isOwn" class="align-top g-py-10">-->
+                  <!--<span class="g-color-primary" data-toggle="tooltip" data-placement="top"-->
+                        <!--data-original-title="This is your order">*{{placedOrder.amount}}</span>-->
+                    <!--</td>-->
+
+                    <!--<td *ngIf="placedOrder.type.id === 'BID'" class="align-top g-py-10"></td>-->
+                  <!--</tr>-->
                   </tbody>
                 </table>
                 <!-- End Shipping Method -->

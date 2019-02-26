@@ -72,6 +72,10 @@ transaction Order {
   o OrderConcept order
 }
 
+transaction CancelOrder {
+  o OrderConcept order
+}
+
 asset CommissionRule identified by name {
   o String name
   o Double value

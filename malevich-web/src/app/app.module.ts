@@ -70,6 +70,7 @@ import { PaymentAccountEditComponent } from './profile/payment/payment-account/e
 import { PaymentAccountViewComponent } from './profile/payment/payment-account/view/payment-account-view.component';
 import {KycGuard} from "./_guards/kyc.guard";
 import { ArtworkEditComponent } from './common/components/artwork-edit/artwork-edit.component';
+import {CommonComponentsModule} from "./common/components/common-components.module";
 
 
 export function createTranslateLoader(http: HttpClient) {
@@ -108,7 +109,6 @@ export function createTranslateLoader(http: HttpClient) {
     ResetStepOneComponent,
     ResetStepTwoComponent,
     PageNotFoundComponent,
-    OrderWindowComponent,
 
     ProfileNavigationComponent,
     ProfileViewComponent,
@@ -129,7 +129,6 @@ export function createTranslateLoader(http: HttpClient) {
     PaymentAccountComponent,
     PaymentAccountEditComponent,
     PaymentAccountViewComponent,
-    ArtworkEditComponent,
 
   ],
   imports: [
@@ -149,7 +148,8 @@ export function createTranslateLoader(http: HttpClient) {
     HttpClientModule,
     AppRoutingModule,
     NgxPaginationModule,
-    AdminModule
+    AdminModule,
+    CommonComponentsModule
   ],
   providers:
     [Globals, FileService, AuthGuard, AdminGuard, KycGuard,

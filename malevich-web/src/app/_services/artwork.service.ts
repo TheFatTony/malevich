@@ -29,6 +29,11 @@ export class ArtworkService {
       .pipe(map(data => data));
   }
 
+  saveArtwork(artwork: ArtworkDto): Observable<ArtworkDto> {
+    return this.http
+      .post<ArtworkDto>(this.url + '/save', artwork);
+  }
+
   get comboboxRenderer() {
     return (index: number, label: string, artwork: ArtworkDto) => {
       if (!artwork)

@@ -1,4 +1,4 @@
-import {Component, EventEmitter, Input, OnInit, Output, ViewChild} from '@angular/core';
+import {AfterViewInit, Component, EventEmitter, Input, OnInit, Output, ViewChild} from '@angular/core';
 import {ArtistDto, ArtworkDto, CategoryDto} from "../../../_transfer";
 import {ArtworkService} from "../../../_services/artwork.service";
 import {ArtistService} from "../../../_services/artist.service";
@@ -11,7 +11,7 @@ import {FileDto} from "yinyang-core/lib/_transfer/fileDto";
   templateUrl: './artwork-edit.component.html',
   styleUrls: ['./artwork-edit.component.css']
 })
-export class ArtworkEditComponent implements OnInit {
+export class ArtworkEditComponent implements OnInit, AfterViewInit {
 
   @Output() onSubmit = new EventEmitter();
   @Output() onCancel = new EventEmitter();
@@ -46,6 +46,11 @@ export class ArtworkEditComponent implements OnInit {
   ngOnInit() {
     this.getArtists();
     this.getCategories();
+  }
+
+  ngAfterViewInit(): void {
+    // set button types to 'button' to avoid unattended form submit
+    $('jqxfileupload').find('button').attr('type', 'button');
   }
 
   getArtists() {

@@ -1,0 +1,32 @@
+<mchButton [width]="100" [height]="35" (click)="onAddButton()">
+  Add
+</mchButton>
+<mchButton [width]="100" [height]="35" (click)="onEditButton()" [disabled]="selectedRowIndex < 0">
+  Edit
+</mchButton>
+
+<jqxGrid #myGrid
+         [width]="'100%'" [height]="'90%'" [pageable]="true" [sortable]="true" [filterable]="true"
+         [columnsresize]="true"
+         [pagermode]="'simple'" (onRowselect)="onGridRowSelect($event)">
+  <tr>
+    <th>ID</th>
+    <th>Name</th>
+    <th>Artist</th>
+    <th>Category</th>
+  </tr>
+  <tr *ngFor="let artwork of artworks">
+    <td>
+      {{artwork.id}}
+    </td>
+    <td>
+      {{artwork.titleMl[translate.currentLang]}}
+    </td>
+    <td>
+      {{artwork.artist.fullNameMl[translate.currentLang]}}
+    </td>
+    <td>
+      {{artwork.category.categoryNameMl[translate.currentLang]}}
+    </td>
+  </tr>
+</jqxGrid>

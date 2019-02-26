@@ -4,8 +4,7 @@ import {ArtworkService} from "../../../_services/artwork.service";
 import {ArtistService} from "../../../_services/artist.service";
 import {CategoryService} from "../../../_services/category.service";
 import {TranslateService} from "@ngx-translate/core";
-import {FileDto} from "yinyang-core";
-// import {ComboBoxComponent} from "../../../../../node_modules/yinyang-core/lib/components/combobox.component";
+import {FileDto} from "yinyang-core/lib/_transfer/fileDto";
 
 @Component({
   selector: 'app-artwork-edit',
@@ -20,10 +19,6 @@ export class ArtworkEditComponent implements OnInit {
   @Input('artwork')
   set artworkSetter(value: ArtworkDto) {
     this.artwork = value;
-    if(this.artwork) {
-      this.syncComboBoxValue(this.artistComboBox, this.artwork.artist);
-      this.syncComboBoxValue(this.categoryComboBox, this.artwork.category);
-    }
   }
 
   @ViewChild('artist') artistComboBox: any;
@@ -58,7 +53,6 @@ export class ArtworkEditComponent implements OnInit {
       .getArtists()
       .subscribe(data => {
         this.artists = data;
-        this.syncComboBoxValue(this.artistComboBox, this.artwork.artist);
       });
   }
 
@@ -67,19 +61,7 @@ export class ArtworkEditComponent implements OnInit {
       .getCategories()
       .subscribe(data => {
         this.categories = data;
-        this.syncComboBoxValue(this.categoryComboBox, this.artwork.category);
       });
-  }
-
-  private syncComboBoxValue(control: any, value: any) {
-    if(!value || !control || !control.attrObjectSource)
-      return;
-
-    const index = control.attrObjectSource.findIndex(v => control.attrValueEqualFunc(v, value));
-
-    if (index >= 0) {
-      control.selectedIndex(index);
-    }
   }
 
   submit() {

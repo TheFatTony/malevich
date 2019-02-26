@@ -56,7 +56,7 @@ public class RevolutTransactionServiceImpl implements RevolutTransactionService 
     private DelayedChangeService delayedChangeService;
 
     public RevolutTransactionServiceImpl() {
-        pattern = Pattern.compile("([0-9A-Z]{4} [0-9A-Z]{4} [0-9A-Z]{4} [0-9A-Z]{4}) malevich.io");
+        pattern = Pattern.compile("([0-9A-Z]{4} [0-9A-Z]{4} [0-9A-Z]{4} [0-9A-Z]{4}) malevich\\.io");
     }
 
     @Override

@@ -9,7 +9,6 @@ import {TranslateService} from '@ngx-translate/core';
 import {PaymentMethodService} from "../../_services/payment-method.service";
 import {PaymentMethodDto} from "../../_transfer/paymentMethodDto";
 import {ParameterService} from "../../_services/parameter.service";
-import {Observable, Subject} from "rxjs";
 import {PaymentMethodDepositReferenceService} from "../../_services/payment-method-deposit-reference.service";
 
 type PaymentType = {
@@ -42,7 +41,7 @@ export class WalletComponent implements OnInit, AfterViewInit, OnDestroy {
   paymentTypes: PaymentType[] = [
     {
       value: 'transfer',
-      name: 'Wire Transfer'
+      name: 'SEPA Transfer'
     },
     {
       value: 'saved_card',

@@ -51,9 +51,9 @@ export class StorageAddComponent implements OnInit {
       );
   }
 
-  submit() {
+  submit(obj: ArtworkDto) {
     let addArtworkStock = new ArtworkStockDto();
-    addArtworkStock.artwork = this.artwork;
+    addArtworkStock.artwork = obj;
     addArtworkStock.gallery = this.gallery;
     this.artworkStockService.addArtworkStock(addArtworkStock).subscribe(() => {
       this.router.navigate(['/profile/storage']);

@@ -5,6 +5,7 @@ import {ArtistService} from "../../../_services/artist.service";
 import {CategoryService} from "../../../_services/category.service";
 import {TranslateService} from "@ngx-translate/core";
 import {FileDto} from "yinyang-core/lib/_transfer/fileDto";
+import {environment} from "../../../../environments/environment.dev";
 
 @Component({
   selector: 'app-artwork-edit',
@@ -23,6 +24,8 @@ export class ArtworkEditComponent implements OnInit, AfterViewInit {
 
   @ViewChild('artist') artistComboBox: any;
   @ViewChild('category') categoryComboBox: any;
+
+  public url = environment.baseUrl;
 
   artwork: ArtworkDto;
 

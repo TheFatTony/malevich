@@ -44,8 +44,8 @@ export class ArtworkEditComponent implements OnInit {
   }
 
 
-  submit() {
-    this.artworkService.saveArtwork(this.editArtwork).subscribe(
+  submit(obj:ArtworkDto) {
+    this.artworkService.saveArtwork(obj).subscribe(
       () => {
         this.router.navigate(['/admin/cms/artworks']);
       }

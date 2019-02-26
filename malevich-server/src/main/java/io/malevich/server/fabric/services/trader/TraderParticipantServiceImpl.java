@@ -30,7 +30,7 @@ public class TraderParticipantServiceImpl extends GenericComposerServiceImpl<Par
     @Override
     public void create(ParticipantEntity entity) {
         TraderParticipant traderParticipant = new TraderParticipant();
-        traderParticipant.setId(entity.getId().toString());
+        traderParticipant.setId(entity.getUser().getId().toString());
         traderParticipant.setEmail(entity.getUser().getUsername());
         traderParticipant.setBalance(0D);
 

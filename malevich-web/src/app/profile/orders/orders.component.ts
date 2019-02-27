@@ -1,4 +1,4 @@
-import {Component, OnInit, ViewChild} from '@angular/core';
+import {AfterViewInit, Component, OnInit, ViewChild} from '@angular/core';
 import {OrderDto} from '../../_transfer/orderDto';
 import {OrderService} from '../../_services/order.service';
 import {TranslateService} from '@ngx-translate/core';
@@ -12,7 +12,7 @@ import {environment} from '../../../environments/environment.dev';
   templateUrl: './orders.component.html',
   styleUrls: ['./orders.component.css']
 })
-export class OrdersComponent implements OnInit {
+export class OrdersComponent implements OnInit, AfterViewInit {
   @ViewChild('myGrid') myGrid: jqxGridComponent;
 
   orders: OrderDto[];
@@ -36,7 +36,6 @@ export class OrdersComponent implements OnInit {
   constructor(private orderService: OrderService,
               public translate: TranslateService,
               private tradeTypeService: TradeTypeService) {
-    this.updateGrid();
   }
 
   ngOnInit() {
@@ -45,6 +44,7 @@ export class OrdersComponent implements OnInit {
   }
 
   ngAfterViewInit(): void {
+    this.updateGrid();
   }
 
   updateGrid() {

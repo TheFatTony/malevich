@@ -1,4 +1,4 @@
-import {Component, OnInit, ViewChild} from '@angular/core';
+import {AfterViewInit, Component, OnInit, ViewChild} from '@angular/core';
 import {TranslateService} from '@ngx-translate/core';
 import {jqxGridComponent} from 'jqwidgets-scripts/jqwidgets-ts/angular_jqxgrid';
 import {environment} from '../../../environments/environment.dev';
@@ -13,7 +13,7 @@ import {ParticipantService} from "../../_services/participant.service";
   templateUrl: './documents.component.html',
   styleUrls: ['./documents.component.css']
 })
-export class DocumentsComponent implements OnInit {
+export class DocumentsComponent implements OnInit, AfterViewInit {
   @ViewChild('myGrid') myGrid: jqxGridComponent;
 
   selectedRowIndex: number = -1;
@@ -34,7 +34,6 @@ export class DocumentsComponent implements OnInit {
               private delayedChangeService: DelayedChangeService,
               private participantService: ParticipantService,
               private router: Router) {
-    this.updateGrid();
   }
 
   ngOnInit() {
@@ -61,6 +60,7 @@ export class DocumentsComponent implements OnInit {
   }
 
   ngAfterViewInit(): void {
+    this.updateGrid();
   }
 
   getDocs(): void {

@@ -20,7 +20,7 @@ export class KycLevelService {
 
   getDetailing(level: string) {
     return this.http
-      .get<KycLevelDto[]>(this.url + `/detailed/${level}`);
+      .get<Map<string, boolean>>(this.url + `/detailed/${level}`);
   }
 
   testLevel(testLevel: string, targetLevels: string[]) {

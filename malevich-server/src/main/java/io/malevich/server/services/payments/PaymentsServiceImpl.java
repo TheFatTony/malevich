@@ -3,9 +3,11 @@ package io.malevich.server.services.payments;
 import io.malevich.server.domain.ParticipantEntity;
 import io.malevich.server.domain.PaymentTypeEntity;
 import io.malevich.server.domain.PaymentsEntity;
+import io.malevich.server.domain.enums.KycLevel;
 import io.malevich.server.fabric.services.payment.PaymentTransactionService;
 import io.malevich.server.repositories.payments.PaymentsDao;
 import io.malevich.server.revolut.services.payments.PaymentsBankService;
+import io.malevich.server.services.kyc.KycLevelService;
 import io.malevich.server.services.participant.ParticipantService;
 import io.malevich.server.services.paymentmethod.PaymentMethodService;
 import io.malevich.server.services.paymentmethodtype.PaymentMethodTypeService;
@@ -19,6 +21,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
 import java.sql.Timestamp;
+import java.util.Arrays;
 import java.util.List;
 
 
@@ -46,6 +49,9 @@ public class PaymentsServiceImpl implements PaymentsService {
 
     @Autowired
     private PaymentsBankService paymentsBankService;
+
+    @Autowired
+    private KycLevelService kycLevelService;
 
     @Override
     @Transactional(readOnly = true)
@@ -79,6 +85,14 @@ public class PaymentsServiceImpl implements PaymentsService {
     @Transactional
     public void insert(PaymentsEntity paymentsEntity) {
         paymentsEntity.setParticipant(participantService.getCurrent());
+
+        if (paymentTypeService.getWithdrawalType().equals(paymentsEntity.getPaymentType())) {
+            kycLevelService.checkLevelOrException(
+                    paymentsEntity.getParticipant(),
+                    new KycLevel[]{KycLevel.T_TIER2, KycLevel.G_TIER1}
+            );
+        }
+
         insertInternal(paymentsEntity);
     }
 

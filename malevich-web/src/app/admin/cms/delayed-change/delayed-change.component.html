@@ -3,17 +3,21 @@
          [pagermode]="'simple'" [columns]="columns">
   <tr>
     <th>Id</th>
+    <th>User</th>
     <th>TypeId</th>
     <th>View</th>
     <th>Approve</th>
     <th>Decline</th>
   </tr>
-  <tr *ngFor="let delayedChanges of delayedChanges">
+  <tr *ngFor="let d of delayedChanges">
     <td>
-      {{delayedChanges?.id}}
+      {{d?.id}}
     </td>
     <td>
-      {{delayedChanges?.typeId}}
+      {{d?.typeId}}
+    </td>
+    <td>
+      {{d?.user?.name}}
     </td>
     <td>
     </td>

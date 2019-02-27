@@ -10,6 +10,8 @@ import {PaymentMethodService} from "../../_services/payment-method.service";
 import {PaymentMethodDto} from "../../_transfer/paymentMethodDto";
 import {ParameterService} from "../../_services/parameter.service";
 import {PaymentMethodDepositReferenceService} from "../../_services/payment-method-deposit-reference.service";
+import {ParticipantService} from "../../_services/participant.service";
+import {KycLevelService} from "../../_services/kyc-level.service";
 
 type PaymentType = {
   value: string
@@ -38,6 +40,8 @@ export class WalletComponent implements OnInit, AfterViewInit, OnDestroy {
   cards: PaymentMethodDto[];
   withdrawMethods: PaymentMethodDto[];
   parameters: Map<string, string>;
+  private kycLevels: Map<string, boolean>;
+  hasWithdrawalAccess = false;
 
   paymentTypes: PaymentType[] = [
     {
@@ -54,8 +58,9 @@ export class WalletComponent implements OnInit, AfterViewInit, OnDestroy {
   x: number;
   y: number;
 
-  get reference(){
-    if(this.referenceState)
+
+  get reference() {
+    if (this.referenceState)
       return this.referenceState;
 
     const ref = this.paymentMethods.filter(p => p.type.id == 'REF')[0];
@@ -96,6 +101,8 @@ export class WalletComponent implements OnInit, AfterViewInit, OnDestroy {
               private paymentMethodDepositReferenceService: PaymentMethodDepositReferenceService,
               private accountStateService: AccountStateService,
               private parameterService: ParameterService,
+              private participantService: ParticipantService,
+              private kycLevelService: KycLevelService,
               public translate: TranslateService) {
   }
 
@@ -104,6 +111,7 @@ export class WalletComponent implements OnInit, AfterViewInit, OnDestroy {
     this.getPayments();
     this.getPaymentMethods();
     this.getParameters();
+    this.getKycAccess();
   }
 
   ngAfterViewInit(): void {
@@ -113,6 +121,34 @@ export class WalletComponent implements OnInit, AfterViewInit, OnDestroy {
   ngOnDestroy(): void {
     this.myWindow.close();
     this.withdrawWindow.close();
+  }
+
+  getKycAccess() {
+    this.participantService.getCurrent()
+      .subscribe(participant => {
+        if (!participant)
+          return;
+
+        this.kycLevelService.getDetailing(participant.kycLevel.id)
+          .subscribe(data => {
+            this.kycLevels = data;
+            this.hasWithdrawalAccess = this.hasKycAccess(['T_TIER2', 'G_TIER1']);
+          });
+      });
+  }
+
+  hasKycAccess(levels: string[]) {
+    if (!levels) return true;
+    console.log(this.kycLevels);
+    if (!this.kycLevels)
+      return false;
+
+    for (let level of levels) {
+      if (!!this.kycLevels[level])
+        return true;
+    }
+
+    return false;
   }
 
   getPaymentMethods() {

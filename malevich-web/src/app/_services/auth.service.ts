@@ -22,16 +22,16 @@ export class AuthService {
   setUser = (user: any) => {
     if (user && user.token) {
       localStorage.setItem('currentUser', JSON.stringify(user));
-      this.globals.isAuthorised = true;
+      this.globals.isAuthorised$.next(true);
       this.getUser();
     }
 
     return user;
-  }
+  };
 
   refreshToken() {
     if (localStorage.getItem('currentUser')) {
-      this.globals.isAuthorised = true;
+      this.globals.isAuthorised$.next(true);
       this.getUser();
       if (!localStorage.getItem('user')) {
         this.logout();
@@ -42,11 +42,13 @@ export class AuthService {
   getUser() {
     this.http.get<UserDto>(this.url)
       .subscribe((user: UserDto) => {
-        let isTrader = user.roles.some(value => value === "ROLE_TRADER");
-        let isGallery = user.roles.some(value => value === "ROLE_GALLERY");
+        const isTrader = user.roles.some(value => value === "ROLE_TRADER");
+        const isGallery = user.roles.some(value => value === "ROLE_GALLERY");
+        const isAdmin = user.roles.some(value => value === "ROLE_ADMIN");
         this.globals.currentUser$.next(user);
         this.globals.isTrader$.next(isTrader);
         this.globals.isGallery$.next(isGallery);
+        this.globals.isAdmin$.next(isAdmin);
         localStorage.setItem('user', JSON.stringify(user));
       });
   }
@@ -58,7 +60,13 @@ export class AuthService {
   logout() {
     localStorage.removeItem('currentUser');
     localStorage.removeItem('user');
-    this.globals.isAuthorised = false;
+    this.globals.isAuthorised$.next(false);
+
+    this.globals.currentUser$.next(null);
+    this.globals.isTrader$.next(false);
+    this.globals.isGallery$.next(false);
+    this.globals.isAdmin$.next(false);
+
   }
 
 }

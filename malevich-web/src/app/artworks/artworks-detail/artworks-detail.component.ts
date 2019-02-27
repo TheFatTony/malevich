@@ -65,7 +65,7 @@ export class ArtworksDetailComponent implements OnInit, AfterViewInit {
   }
 
   checkTradingAccess() {
-    if (!this.globals.isAuthorised) {
+    if (!this.globals.isAuthorised$) {
       const subj = new Subject();
       subj.next({read: false, write: false});
       return subj;
@@ -79,8 +79,8 @@ export class ArtworksDetailComponent implements OnInit, AfterViewInit {
         const level = participant.kycLevel.id;
 
         return {
-          read: ['T_TIER1', 'T_TIER2', 'G_TIER1'].indexOf(level) >= 0,
-          write: ['T_TIER2', 'G_TIER1'].indexOf(level) >= 0
+          read: ['T_TIER0', 'T_TIER1', 'T_TIER2', 'G_TIER0', 'G_TIER1'].indexOf(level) >= 0,
+          write: ['T_TIER1', 'T_TIER2', 'G_TIER1'].indexOf(level) >= 0
         }
       }))
       .subscribe(r => {

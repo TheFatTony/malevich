@@ -43,12 +43,11 @@ public class KycLevelServiceImpl implements KycLevelService {
     }
 
     @Override
-    public List<KycLevelEntity> getDetailing(String levelName) {
+    public Map<String, Boolean> getDetailing(String levelName) {
         KycLevelEntity entity = values.get(levelName);
         return values.values()
                 .stream()
-                .filter(l -> contains(entity, l))
-                .collect(Collectors.toList());
+                .collect(Collectors.toMap(i -> i.getId(), i -> contains(entity, i)));
     }
 
     private KycLevelEntity getByEnum(KycLevel enumLevel) {
@@ -171,7 +170,7 @@ public class KycLevelServiceImpl implements KycLevelService {
         participantService.saveAsIs(participantEntity);
     }
 
-    private boolean check(Object obj){
+    private boolean check(Object obj) {
         return obj != null;
     }
 
@@ -188,21 +187,21 @@ public class KycLevelServiceImpl implements KycLevelService {
     }
 
     private boolean isGalleryTier1(GalleryEntity galleryEntity) {
-        if(!check(galleryEntity.getCountry()))
+        if (!check(galleryEntity.getCountry()))
             return false;
 
-        if(!check(galleryEntity.getPhoneNumber()))
+        if (!check(galleryEntity.getPhoneNumber()))
             return false;
 
-        if(!check(galleryEntity.getTitleMl()))
+        if (!check(galleryEntity.getTitleMl()))
             return false;
 
-        if(!check(galleryEntity.getOrganization()))
+        if (!check(galleryEntity.getOrganization()))
             return false;
 
         OrganizationEntity organizationEntity = galleryEntity.getOrganization();
 
-        if(!check(organizationEntity.getLegalNameMl()))
+        if (!check(organizationEntity.getLegalNameMl()))
             return false;
 
         List<AddressEntity> addresses = galleryEntity.getAddresses();
@@ -236,10 +235,10 @@ public class KycLevelServiceImpl implements KycLevelService {
     }
 
     private boolean isTraderTier1(ParticipantEntity participantEntity) {
-        if(!check(participantEntity.getCountry()))
+        if (!check(participantEntity.getCountry()))
             return false;
 
-        if(!check(participantEntity.getPhoneNumber()))
+        if (!check(participantEntity.getPhoneNumber()))
             return false;
 
         if (participantEntity instanceof TraderPersonEntity) {

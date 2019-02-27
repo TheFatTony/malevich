@@ -14,8 +14,7 @@ import {UserDto} from '../../../../node_modules/yinyang-core';
 export class MainHeaderComponent implements OnInit, AfterViewInit {
 
   user: UserDto;
-  isTrader: boolean;
-  isGallery: boolean;
+  isAdmin: boolean;
 
   constructor(
     public router: Router,
@@ -25,13 +24,12 @@ export class MainHeaderComponent implements OnInit, AfterViewInit {
   }
 
   ngOnInit() {
-    this.globals.currentUser$.pipe(distinctUntilChanged()).subscribe(data => {
+    this.globals.currentUser$.subscribe(data => {
       this.user = data;
-      this.isTrader = this.user.roles.some(value => value === "ROLE_TRADER");
-      this.isGallery = this.user.roles.some(value => value === "ROLE_GALLERY");
-      this.globals.isGallery = this.isGallery;
-      this.globals.isTrader = this.isTrader;
+    });
 
+    this.globals.isAdmin$.subscribe(data => {
+      this.isAdmin = data;
     });
   }
 

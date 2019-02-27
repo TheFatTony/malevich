@@ -29,11 +29,11 @@ public class TradeHistoryResource extends RestResource<TradeHistoryDto, TradeHis
         super(TradeHistoryDto.class, TradeHistoryEntity.class);
     }
 
-    @KycRequired(level = {KycLevel.G_TIER1, KycLevel.T_TIER1})
+    @KycRequired(level = {KycLevel.G_TIER0, KycLevel.T_TIER0})
     @RequestMapping(value = "/findAllByArtworkId/{artworkId}", method = RequestMethod.GET)
     public List<TradeHistoryDto> findAllByArtworkId(@PathVariable("artworkId") long artworkId) {
         List<TradeHistoryEntity> allEntries = this.tradeHistoryService.findAllByArtworkId(artworkId);
-        return allEntries.stream().map(allEntry -> convertToDto(allEntry)).collect(Collectors.toList());
+        return convertListOfDto(allEntries);
     }
 
 }

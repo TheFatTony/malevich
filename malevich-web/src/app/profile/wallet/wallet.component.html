@@ -62,7 +62,8 @@
 
             <mchButton
               class="g-brd-around g-brd-gray-light-v3 g-color-gray-dark-v3 g-bg-gray-light-v5 g-bg-gray-light-v4--hover g-font-size-13 rounded g-px-18 g-py-9"
-              (click)="openWithdrawWindow()">
+              (click)="openWithdrawWindow()"
+              [disabled]="!hasWithdrawalAccess">
               <i class="align-middle g-font-size-16 mr-2 icon-finance-210 u-line-icon-pro"></i>
               {{"PROFILE.BUTTON.WITHDRAW" | translate}} {{"PROFILE.WALLET.BALANCE" | translate}}
             </mchButton>
@@ -164,7 +165,8 @@
           <div class="col">
             <span class="d-block g-color-text g-font-size-13 mb-1">Reference text</span>
             <span class="d-block mb-1">{{reference}} malevich.io</span>
-            <p>IMPORTANT: This code identifies your deposit with your account. Include this code including "malevich.io" when submitting the wire transfer.</p>
+            <p>IMPORTANT: This code identifies your deposit with your account. Include this code including "malevich.io"
+              when submitting the wire transfer.</p>
           </div>
         </div>
       </ng-container>

@@ -30,7 +30,7 @@ public class OrderResource extends RestResource<OrderDto, OrderEntity> {
         super(OrderDto.class, OrderEntity.class);
     }
 
-    @KycRequired(level = {KycLevel.G_TIER1, KycLevel.T_TIER2})
+    @KycRequired(level = {KycLevel.G_TIER1, KycLevel.T_TIER1})
     @RequestMapping(value = "/getPlacedOrders", method = RequestMethod.GET)
     @ResponseStatus(HttpStatus.OK)
     @ResponseBody
@@ -39,7 +39,7 @@ public class OrderResource extends RestResource<OrderDto, OrderEntity> {
         return convertListOfDto(allEntries);
     }
 
-    @KycRequired(level = {KycLevel.G_TIER1, KycLevel.T_TIER1})
+    @KycRequired(level = {KycLevel.G_TIER0, KycLevel.T_TIER0})
     @RequestMapping(value = "/getOpenOrdersByArtworkId/{artworkId}", method = RequestMethod.GET)
     @ResponseStatus(HttpStatus.OK)
     @ResponseBody
@@ -48,7 +48,7 @@ public class OrderResource extends RestResource<OrderDto, OrderEntity> {
         return allEntries.stream().map(allEntry -> convertToPublicDto(allEntry)).collect(Collectors.toList());
     }
 
-    @KycRequired(level = {KycLevel.G_TIER1, KycLevel.T_TIER2})
+    @KycRequired(level = {KycLevel.G_TIER1, KycLevel.T_TIER1})
     @PreAuthorize("hasAnyRole('ROLE_GALLERY', 'ROLE_TRADER')")
     @RequestMapping(value = "/placeAsk", method = RequestMethod.POST)
     @ResponseStatus(HttpStatus.OK)
@@ -59,7 +59,7 @@ public class OrderResource extends RestResource<OrderDto, OrderEntity> {
         return ResponseEntity.ok().build();
     }
 
-    @KycRequired(level = KycLevel.T_TIER2)
+    @KycRequired(level = KycLevel.T_TIER1)
     @PreAuthorize("hasRole('ROLE_TRADER')")
     @RequestMapping(value = "/placeBid", method = RequestMethod.POST)
     @ResponseStatus(HttpStatus.OK)

@@ -68,7 +68,8 @@ public class DelayedChangeServiceImpl implements DelayedChangeService {
 
         DelayedChangeEntity delayedChangeEntity = new DelayedChangeEntity();
         delayedChangeEntity.setPayload(entity);
-        delayedChangeEntity.setReferenceId(entity.getId().toString());
+        if (entity.getId() != null)
+            delayedChangeEntity.setReferenceId(entity.getId().toString());
         delayedChangeEntity.setUser(currentUser);
 
         if (entity instanceof ParticipantEntity)

@@ -29,13 +29,20 @@ export class ArtworkService {
       .pipe(map(data => data));
   }
 
+  saveArtwork(artwork: ArtworkDto): Observable<ArtworkDto> {
+    return this.http
+      .post<ArtworkDto>(this.url + '/save', artwork);
+  }
+
   get comboboxRenderer() {
     return (index: number, label: string, artwork: ArtworkDto) => {
       if (!artwork)
         return '';
 
+      let imgurl = environment.baseUrl + artwork.thumbnail.url;
+
       return '<table style="min-width: 50px;"><tr><td style="width: 50px; height: 50px;" rowspan="2">' +
-        '<img class="img-fluid" src="https://via.placeholder.com/50x50/img8.jpg">' +
+        '<img class="img-fluid" src="' + imgurl + '">' +
         '</td><td>' + '<span class="d-block g-color-gray-dark-v4">' + artwork.titleMl[this.translate.currentLang] + '</span>' + '</td></tr><tr><td>' +
         '<span class="d-block g-color-lightred">' + artwork.category.categoryNameMl[this.translate.currentLang] + '</span>' + '</td></tr></table>';
     };

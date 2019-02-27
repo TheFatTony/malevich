@@ -16,6 +16,8 @@ import {CommissionRuleListComponent} from "./cms/commissions/list/commission-rul
 import {CommissionRuleEditComponent} from "./cms/commissions/edit/commission-rule-edit.component";
 import {ExchangeOrdersComponent} from "./cms/exchange-orders/exchange-orders.component";
 import {WalletsComponent} from "./cms/wallets/wallets.component";
+import {ArtworkEditComponent} from "./cms/artworks/edit/artwork-edit.component";
+import {ArtworkListComponent} from "./cms/artworks/list/artwork-list.component";
 
 
 export const routes: Routes = [
@@ -32,6 +34,8 @@ export const routes: Routes = [
   {path: 'cms/delayed-changes', component: DelayedChangeComponent},
   {path: 'cms/artists', component: ArtistListComponent},
   {path: 'cms/artists/edit', component: ArtistEditComponent},
+  {path: 'cms/artworks', component: ArtworkListComponent},
+  {path: 'cms/artworks/edit', component: ArtworkEditComponent},
   {path: 'cms/commissions', component: CommissionRuleListComponent},
   {path: 'cms/commissions/edit', component: CommissionRuleEditComponent},
   {path: 'cms/exchange-orders', component: ExchangeOrdersComponent},

@@ -7,6 +7,8 @@ import io.malevich.server.transfer.ArtworkDto;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -41,6 +43,14 @@ public class ArtworkResource extends RestResource<ArtworkDto, ArtworkEntity> {
     public ArtworkDto item(@PathVariable("id") long id) {
         ArtworkEntity allEntry = this.artworkService.find(id);
         return convertToDto(allEntry);
+    }
+
+    @PostMapping("/save")
+    @ResponseStatus(HttpStatus.OK)
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    public ResponseEntity<Void> save(@RequestBody ArtworkDto artwork) {
+        this.artworkService.save(convertToEntity(artwork));
+        return ResponseEntity.ok().build();
     }
 
 }

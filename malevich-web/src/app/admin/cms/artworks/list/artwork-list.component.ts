@@ -1,39 +1,28 @@
 import {AfterViewInit, Component, OnInit, ViewChild} from '@angular/core';
-import {TranslateService} from "@ngx-translate/core";
-import {ArtworkStockDto} from "../../_transfer/artworkStockDto";
-import {environment} from "../../../environments/environment.dev";
-import {ArtworkDto} from "../../_transfer/index";
 import {jqxGridComponent} from "jqwidgets-scripts/jqwidgets-ts/angular_jqxgrid";
-import {jqxComboBoxComponent} from "jqwidgets-scripts/jqwidgets-ts/angular_jqxcombobox";
+import {ArtworkDto} from "../../../../_transfer";
 import {Router} from "@angular/router";
-import {OrderDto} from "../../_transfer/orderDto";
-import {OrderWindowComponent} from "../../common/components/order-window/order-window.component";
-import {ArtworkStockService} from "../../_services/artwork-stock.service";
+import {TranslateService} from "@ngx-translate/core";
+import {ArtworkService} from "../../../../_services/artwork.service";
+import {environment} from "../../../../../environments/environment.dev";
 
 @Component({
-  selector: 'app-profile-artwork-stock',
-  templateUrl: './artwork-stock.component.html',
-  styleUrls: ['./artwork-stock.component.css']
+  selector: 'app-artworks-list',
+  templateUrl: './artwork-list.component.html',
+  styleUrls: ['./artwork-list.component.css']
 })
-export class ArtworkStockComponent implements OnInit, AfterViewInit {
-
+export class ArtworkListComponent implements OnInit, AfterViewInit {
   @ViewChild('myGrid') myGrid: jqxGridComponent;
-  @ViewChild('addArtWorkComboBox') addArtWorkComboBox: jqxComboBoxComponent;
-  @ViewChild('askWindow') askWindow: OrderWindowComponent
 
   artworks: ArtworkDto[];
-  artworkStocks: ArtworkStockDto[];
 
   selectedRowIndex: number = -1;
-
-  x: number;
-  y: number;
 
   public url = environment.baseUrl;
 
   photoRenderer = (row: number, column: any, value: string): string => {
-    let data = this.artworkStocks[row];
-    let imgurl = this.url + data.artwork.thumbnail.url;
+    let data = this.artworks[row];
+    let imgurl = this.url + data.thumbnail.url;
     let img = '<div style="background: white;"><img style="margin: 2px; margin-left: 10px;" width="48" height="48" src="' + imgurl + '"></div>';
     return img;
   };
@@ -71,13 +60,13 @@ export class ArtworkStockComponent implements OnInit, AfterViewInit {
     ];
   }
 
-  constructor(private router: Router,
-              private artworkStockService: ArtworkStockService,
+  constructor(private artworkService: ArtworkService,
+              private router: Router,
               public translate: TranslateService) {
   }
 
   ngOnInit() {
-    this.getArtworkStock();
+    this.getArtworks();
   }
 
   ngAfterViewInit(): void {
@@ -103,33 +92,37 @@ export class ArtworkStockComponent implements OnInit, AfterViewInit {
       });
   }
 
-  getArtworkStock(): void {
-    this.artworkStockService
-      .getOwnArtworks()
+  getArtworks(): void {
+    this.artworkService
+      .getArtworks()
       .subscribe(
-        data => {
-          this.artworkStocks = data;
-        }
+        data => (this.artworks = data)
       );
   }
 
-  openAskWindow() {
-    if (this.selectedRowIndex < 0)
-      return;
-
-    let artwork = this.artworkStocks[this.selectedRowIndex];
-
-    this.askWindow.artworkStock(artwork);
-    this.askWindow.open();
-  }
 
   onGridRowSelect($event: any) {
     this.selectedRowIndex = $event.args.rowindex;
   }
 
-  onAskPlaced(order: OrderDto) {
-    this.getArtworkStock();
+  onAddButton() {
+    this.router.navigate(['/admin/cms/artworks/edit'], {
+      queryParams: {
+        "new": true
+      }
+    });
   }
 
+  onEditButton() {
+    if (this.selectedRowIndex < 0)
+      return;
 
+    const artwork = this.artworks[this.selectedRowIndex];
+
+    this.router.navigate(['/admin/cms/artworks/edit'], {
+      queryParams: {
+        "id": artwork.id
+      }
+    });
+  }
 }

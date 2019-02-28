@@ -7,5 +7,5 @@ import org.springframework.stereotype.Service;
 public interface StripeCardService {
 
 
-    void createCharge(String currency, Integer amount, String token) throws StripeException;
+    void createCharge(String currency, Double amount, String token) throws StripeException;
 }

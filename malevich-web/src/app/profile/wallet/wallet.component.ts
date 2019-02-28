@@ -41,6 +41,8 @@ export class WalletComponent implements OnInit, AfterViewInit, OnDestroy {
 
   private referenceState: string;
 
+  public amount: number = 10;
+
   payments: PaymentsDto[];
   paymentMethods: PaymentMethodDto[];
   cards: PaymentMethodDto[];
@@ -159,7 +161,7 @@ export class WalletComponent implements OnInit, AfterViewInit, OnDestroy {
       .createToken(this.card.getCard(), { name })
       .subscribe(result => {
         if (result.token) {
-          this.malevichStripeService.pay(result.token.id).subscribe(()=>{
+          this.malevichStripeService.pay(result.token.id, this.amount).subscribe(()=>{
             this.myWindow.close();
             this.getAccountState();
             this.getPayments();

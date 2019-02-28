@@ -19,11 +19,11 @@ public class StripeResource {
     private StripeCardService stripeCardService;
 
 
-    @PostMapping("/pay/{token}")
+    @PostMapping("/pay/{token}/{amount}")
     @ResponseStatus(HttpStatus.OK)
     @PreAuthorize("hasAnyRole('ROLE_GALLERY', 'ROLE_TRADER')")
-    public ResponseEntity<Void> pay(@PathVariable("token") String token) throws StripeException {
-        stripeCardService.createCharge("usd", 1000, token);
+    public ResponseEntity<Void> pay(@PathVariable("token") String token, @PathVariable("amount") Double amount) throws StripeException {
+        stripeCardService.createCharge("usd", amount, token);
         return ResponseEntity.ok().build();
     }
 

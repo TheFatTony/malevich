@@ -34,11 +34,11 @@ public class StripeCardServiceImpl implements StripeCardService {
     private ParticipantService participantService;
 
     @Override
-    public void createCharge(String currency, Integer amount, String token) throws StripeException {
+    public void createCharge(String currency, Double amount, String token) throws StripeException {
         Stripe.apiKey = apiKey;
 
         Map<String, Object> params = new HashMap<String, Object>();
-        params.put("amount", amount);
+        params.put("amount", amount.intValue() * 100);
         params.put("currency", currency);
         params.put("description", "Example charge");
         params.put("source", token);
@@ -49,7 +49,7 @@ public class StripeCardServiceImpl implements StripeCardService {
             PaymentsEntity paymentsEntity = new PaymentsEntity();
             paymentsEntity.setParticipant(participantService.getCurrent());
             paymentsEntity.setEffectiveDate(new Timestamp(System.currentTimeMillis()));
-            paymentsEntity.setAmount(new BigDecimal(amount/100));
+            paymentsEntity.setAmount(new BigDecimal(amount));
             paymentsService.insert(paymentsEntity);
         }
     }

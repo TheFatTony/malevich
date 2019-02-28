@@ -13,8 +13,8 @@ export class MalevichStripeService {
   }
 
 
-  pay(token: string) {
-    return this.http.post<any>(this.url + `/pay/${token}`, {})
+  pay(token: string, amount: number) {
+    return this.http.post<any>(this.url + `/pay/${token}/${amount}`, {})
       .pipe();
   }
 }

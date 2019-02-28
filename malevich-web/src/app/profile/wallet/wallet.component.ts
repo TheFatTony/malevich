@@ -13,6 +13,9 @@ import {PaymentMethodDepositReferenceService} from "../../_services/payment-meth
 import {ParticipantService} from "../../_services/participant.service";
 import {KycLevelService} from "../../_services/kyc-level.service";
 
+import { StripeService, StripeCardComponent, ElementOptions, ElementsOptions } from "ngx-stripe";
+import {FormBuilder, FormGroup, Validators} from "@angular/forms";
+
 type PaymentType = {
   value: string
   name: string
@@ -96,6 +99,31 @@ export class WalletComponent implements OnInit, AfterViewInit, OnDestroy {
   };
 
 
+  @ViewChild(StripeCardComponent) card: StripeCardComponent;
+
+  cardOptions: ElementOptions = {
+    style: {
+      base: {
+        iconColor: '#666EE8',
+        color: '#31325F',
+        lineHeight: '40px',
+        fontWeight: 300,
+        fontFamily: '"Helvetica Neue", Helvetica, sans-serif',
+        fontSize: '18px',
+        '::placeholder': {
+          color: '#CFD7E0'
+        }
+      }
+    }
+  };
+
+  elementsOptions: ElementsOptions = {
+    locale: 'es'
+  };
+
+  stripeTest: FormGroup;
+
+
   constructor(private paymentsService: PaymentsService,
               private paymentMethodService: PaymentMethodService,
               private paymentMethodDepositReferenceService: PaymentMethodDepositReferenceService,
@@ -103,7 +131,9 @@ export class WalletComponent implements OnInit, AfterViewInit, OnDestroy {
               private parameterService: ParameterService,
               private participantService: ParticipantService,
               private kycLevelService: KycLevelService,
-              public translate: TranslateService) {
+              public translate: TranslateService,
+              private fb: FormBuilder,
+              private stripeService: StripeService) {
   }
 
   ngOnInit() {
@@ -112,6 +142,25 @@ export class WalletComponent implements OnInit, AfterViewInit, OnDestroy {
     this.getPaymentMethods();
     this.getParameters();
     this.getKycAccess();
+    this.stripeTest = this.fb.group({
+      name: ['', [Validators.required]]
+    });
+  }
+
+  buy() {
+    const name = this.stripeTest.get('name').value;
+    this.stripeService
+      .createToken(this.card.getCard(), { name })
+      .subscribe(result => {
+        if (result.token) {
+          // Use the token to create a charge or a customer
+          // https://stripe.com/docs/charges
+          console.log(result.token.id);
+        } else if (result.error) {
+          // Error creating the token
+          console.log(result.error.message);
+        }
+      });
   }
 
   ngAfterViewInit(): void {

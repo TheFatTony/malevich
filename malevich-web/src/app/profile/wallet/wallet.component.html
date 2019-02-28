@@ -172,35 +172,13 @@
       </ng-container>
 
       <ng-container *ngIf="selectedPaymentType?.value == 'saved_card'">
-        <div class="row mb-3">
-          <div class="col">
-            <span class="d-block g-color-text g-font-size-13 mb-1">Select card</span>
-            <mchDropDownList name="cards"
-                             [objectSource]="cards"
-                             [displayFunc]="paymentMethodDisplayFunc"
-                             [width]="'100%'"
-                             [(ngModel)]="newPayment.paymentMethod">
-            </mchDropDownList>
-          </div>
-        </div>
-        <div class="row mb-3">
-          <div class="col">
-            <span class="d-block g-color-text g-font-size-13 mb-1">Set amount</span>
-            <mchNumberInput
-              class="amountInput"
-              [(ngModel)]="newPayment.amount"></mchNumberInput>
-          </div>
-        </div>
-        <div class="row mb-3">
-          <div class="col">
-            <mchButton #SendButton
-                       (onClick)="sendPayment()"
-                       style="text-align: center; margin-left: 8em;"
-                       [width]="60" [height]="25">
-              Send
-            </mchButton>
-          </div>
-        </div>
+        <form novalidate (ngSubmit)="buy()" [formGroup]="stripeTest">
+          <input type="text" formControlName="name" placeholder="Jane Doe">
+          <ngx-stripe-card [options]="cardOptions" [elementsOptions]="elementsOptions"></ngx-stripe-card>
+          <button type="submit">
+            BUY
+          </button>
+        </form>
       </ng-container>
 
 

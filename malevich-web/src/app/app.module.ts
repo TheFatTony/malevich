@@ -71,6 +71,7 @@ import { PaymentAccountViewComponent } from './profile/payment/payment-account/v
 import {KycGuard} from "./_guards/kyc.guard";
 import { ArtworkEditComponent } from './common/components/artwork-edit/artwork-edit.component';
 import {CommonComponentsModule} from "./common/components/common-components.module";
+import {NgxStripeModule} from "ngx-stripe";
 
 
 export function createTranslateLoader(http: HttpClient) {
@@ -135,6 +136,7 @@ export function createTranslateLoader(http: HttpClient) {
     BrowserModule,
     CommonModule,
     YinyangCoreModule,
+    NgxStripeModule.forRoot('pk_test_M7nK7roFFAJEZPiw9jRKV60w'),
     TranslateModule.forRoot({
       loader: {
         provide: TranslateLoader,

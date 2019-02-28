@@ -73,7 +73,7 @@ public class AccountStateServiceImpl implements AccountStateService {
     public List<AccountStateEntity> getAll() {
         Map<String, ParticipantEntity> entityMap = participantService.findAll()
                 .stream()
-                .collect(Collectors.toMap(p -> p.getId().toString(), p -> p));
+                .collect(Collectors.toMap(p -> p.getUser().getId().toString(), p -> p));
 
         List<TraderParticipant> fabricTraders = traderParticipantService.getAll();
         List<GalleryParticipant> fabricGalleries = galleryParticipantService.getAll();

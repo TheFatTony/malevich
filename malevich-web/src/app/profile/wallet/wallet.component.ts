@@ -41,7 +41,7 @@ export class WalletComponent implements OnInit, AfterViewInit, OnDestroy {
 
   private referenceState: string;
 
-  public amount: number = 10;
+  public amount: number = 0;
 
   payments: PaymentsDto[];
   paymentMethods: PaymentMethodDto[];

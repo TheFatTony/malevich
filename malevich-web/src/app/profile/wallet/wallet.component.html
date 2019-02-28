@@ -172,7 +172,7 @@
       </ng-container>
 
       <ng-container *ngIf="selectedPaymentType?.value == 'saved_card'">
-        <form novalidate (ngSubmit)="buy()" [formGroup]="stripeTest">
+        <form #stripeTest="ngForm" (ngSubmit)="buy()" novalidate >
           <mchNumberInput
             mchRequired
             mchGreaterThan="0"
@@ -180,9 +180,9 @@
             [(ngModel)]="amount"></mchNumberInput>
           <!--<input type="text" formControlName="name" placeholder="Jane Doe">-->
           <ngx-stripe-card [options]="cardOptions" [elementsOptions]="elementsOptions"></ngx-stripe-card>
-          <button type="submit">
+          <mchButton [submitForm]="stripeTest">
             BUY
-          </button>
+          </mchButton>
         </form>
       </ng-container>
 

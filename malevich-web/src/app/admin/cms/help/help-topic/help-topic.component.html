@@ -48,22 +48,10 @@
                   (ngModelChange)="onTitleChange($event, 'en')" mchRequired></mchInput>
       </div>
     </div>
-    <div><label>Title Name[Ru]:</label>
-      <div>
-        <mchInput #nameRu [ngModel]="!helpTopic?.topicNameMl ? '' : helpTopic?.topicNameMl['ru']"
-                  (ngModelChange)="onTitleChange($event, 'ru')" mchRequired></mchInput>
-      </div>
-    </div>
     <div><label>Body[En]:</label>
       <div>
         <mchInput #bodyEn [ngModel]="!helpTopic?.bodyMl ? '' : helpTopic?.bodyMl['en']"
                   (ngModelChange)="onBodyChange($event, 'en')" mchRequired></mchInput>
-      </div>
-    </div>
-    <div><label>Body[Ru]:</label>
-      <div>
-        <mchInput #bodyRu [ngModel]="!helpTopic?.bodyMl ? '' : helpTopic?.bodyMl['ru']"
-                  (ngModelChange)="onBodyChange($event, 'ru')" mchRequired></mchInput>
       </div>
     </div>
     <div>

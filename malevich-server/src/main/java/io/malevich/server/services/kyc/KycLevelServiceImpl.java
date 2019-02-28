@@ -219,9 +219,6 @@ public class KycLevelServiceImpl implements KycLevelService {
         if (!check(address.getPostalCode()))
             return false;
 
-        if (!check(address.getState()))
-            return false;
-
         if (!check(address.getCity()))
             return false;
 
@@ -290,9 +287,6 @@ public class KycLevelServiceImpl implements KycLevelService {
             return false;
 
         if (!check(address.getPostalCode()))
-            return false;
-
-        if (!check(address.getState()))
             return false;
 
         if (!check(address.getCity()))

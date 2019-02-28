@@ -48,6 +48,8 @@ export class EditComponent implements OnInit, AfterViewInit {
   }
 
   ngAfterViewInit(): void {
+    // set button types to 'button' to avoid unattended form submit
+    $('jqxfileupload').find('button').attr('type', 'button');
   }
 
   initFields() {

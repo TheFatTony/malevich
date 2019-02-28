@@ -15,6 +15,9 @@ import {KycLevelService} from "../../_services/kyc-level.service";
 
 import { StripeService, StripeCardComponent, ElementOptions, ElementsOptions } from "ngx-stripe";
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
+import {environment} from "../../../environments/environment.dev";
+import {MalevichStripeService} from "../../_services/malevich-stripe.service";
+import {AlertService} from "yinyang-core";
 
 type PaymentType = {
   value: string
@@ -118,7 +121,7 @@ export class WalletComponent implements OnInit, AfterViewInit, OnDestroy {
   };
 
   elementsOptions: ElementsOptions = {
-    locale: 'es'
+    locale: 'en'
   };
 
   stripeTest: FormGroup;
@@ -133,7 +136,9 @@ export class WalletComponent implements OnInit, AfterViewInit, OnDestroy {
               private kycLevelService: KycLevelService,
               public translate: TranslateService,
               private fb: FormBuilder,
-              private stripeService: StripeService) {
+              private stripeService: StripeService,
+              private malevichStripeService: MalevichStripeService,
+              private alertService: AlertService) {
   }
 
   ngOnInit() {
@@ -142,6 +147,7 @@ export class WalletComponent implements OnInit, AfterViewInit, OnDestroy {
     this.getPaymentMethods();
     this.getParameters();
     this.getKycAccess();
+    this.stripeService.setKey(environment.stripeKey);
     this.stripeTest = this.fb.group({
       name: ['', [Validators.required]]
     });
@@ -153,12 +159,13 @@ export class WalletComponent implements OnInit, AfterViewInit, OnDestroy {
       .createToken(this.card.getCard(), { name })
       .subscribe(result => {
         if (result.token) {
-          // Use the token to create a charge or a customer
-          // https://stripe.com/docs/charges
-          console.log(result.token.id);
+          this.malevichStripeService.pay(result.token.id).subscribe(()=>{
+            this.myWindow.close();
+            this.getAccountState();
+            this.getPayments();
+          });
         } else if (result.error) {
-          // Error creating the token
-          console.log(result.error.message);
+          this.alertService.error(result.error.message);
         }
       });
   }

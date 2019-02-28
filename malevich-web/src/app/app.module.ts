@@ -136,7 +136,7 @@ export function createTranslateLoader(http: HttpClient) {
     BrowserModule,
     CommonModule,
     YinyangCoreModule,
-    NgxStripeModule.forRoot('pk_test_M7nK7roFFAJEZPiw9jRKV60w'),
+    NgxStripeModule.forRoot(),
     TranslateModule.forRoot({
       loader: {
         provide: TranslateLoader,

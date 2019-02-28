@@ -23,7 +23,7 @@ public class StripeResource {
     @ResponseStatus(HttpStatus.OK)
     @PreAuthorize("hasAnyRole('ROLE_GALLERY', 'ROLE_TRADER')")
     public ResponseEntity<Void> pay(@PathVariable("token") String token, @PathVariable("amount") Double amount) throws StripeException {
-        stripeCardService.createCharge("usd", amount, token);
+        stripeCardService.createCharge("eur", amount, token);
         return ResponseEntity.ok().build();
     }
 

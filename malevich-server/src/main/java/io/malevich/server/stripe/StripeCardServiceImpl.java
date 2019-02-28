@@ -51,6 +51,8 @@ public class StripeCardServiceImpl implements StripeCardService {
             paymentsEntity.setEffectiveDate(new Timestamp(System.currentTimeMillis()));
             paymentsEntity.setAmount(new BigDecimal(amount));
             paymentsService.insert(paymentsEntity);
+        } else {
+            new RuntimeException("Payment imposable");
         }
     }
 

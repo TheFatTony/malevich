@@ -133,15 +133,20 @@ public class ParticipantServiceImpl implements ParticipantService {
             }
         } else {
             participantEntity.setUsers(Lists.newArrayList(user));
+        }
 
+        participantEntity.setKycLevel(kycLevelService.getLevel(participantEntity));
+
+        boolean isNew1 = participantEntity.isNew();
+
+        participantEntity = dao.save(participantEntity);
+
+        if (isNew1) {
             if ("G".equals(participantEntity.getType().getId()))
                 galleryParticipantService.create(participantEntity);
             else
                 traderParticipantService.create(participantEntity);
         }
-
-        participantEntity.setKycLevel(kycLevelService.getLevel(participantEntity));
-        participantEntity = dao.save(participantEntity);
 
         return participantEntity;
     }

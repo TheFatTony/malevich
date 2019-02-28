@@ -6,13 +6,14 @@ import io.malevich.server.domain.enums.KycLevel;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Map;
 
 @Service
 public interface KycLevelService {
 
     List<KycLevelEntity> findAll();
 
-    List<KycLevelEntity> getDetailing(String levelName);
+    Map<String, Boolean> getDetailing(String levelName);
 
     boolean checkLevel(String testLevel, List<String> requiredLevels);
 

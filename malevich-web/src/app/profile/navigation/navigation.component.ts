@@ -21,7 +21,7 @@ export class NavigationComponent implements OnInit {
   isTrader: boolean = false;
   isGallery: boolean = false;
 
-  kycLevels: KycLevelDto[];
+  kycLevels: Map<string, boolean>;
   routingKycLevels: { [name: string]: string[] } = {};
 
   titleName: string = "";
@@ -36,8 +36,14 @@ export class NavigationComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.isGallery = this.globals.isGallery;
-    this.isTrader = this.globals.isTrader;
+    this.globals.isGallery$.subscribe(data => {
+      this.isGallery = data;
+    });
+
+    this.globals.isTrader$.subscribe(data => {
+      this.isTrader = data;
+    });
+
     this.getRoutingKycLevels();
     this.getCurrentMember();
   }
@@ -51,16 +57,16 @@ export class NavigationComponent implements OnInit {
       });
   }
 
-  hasKycAccess(path:string){
+  hasKycAccess(path: string) {
     const levels = this.routingKycLevels[path];
 
-    if(!levels) return true;
+    if (!levels) return true;
 
     if (!this.kycLevels)
       return false;
 
-    for(let level of levels){
-      if(!!this.kycLevels.find(l => l.id == level))
+    for (let level of levels) {
+      if (!!this.kycLevels[level])
         return true;
     }
 

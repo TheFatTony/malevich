@@ -17,7 +17,6 @@ export class DelayedChangeComponent implements OnInit, OnDestroy {
   @ViewChild('declineWindow') declineWindow: jqxWindowComponent;
 
 
-
   delayedChanges: DelayedChangeDto[];
   delayedChange: DelayedChangeDto;
 
@@ -28,8 +27,9 @@ export class DelayedChangeComponent implements OnInit, OnDestroy {
 
   columns: any[] =
     [
-      {datafield: 'Id', width: '25%', columntype: 'textbox'},
-      {datafield: 'TypeId', width: '25%', columntype: 'textbox'},
+      {datafield: 'Id', width: '5%', columntype: 'textbox'},
+      {datafield: 'TypeId', width: '40%', columntype: 'textbox'},
+      {datafield: 'User', width: '40%', columntype: 'textbox'},
       {
         datafield: 'View', width: '5%', columntype: 'button',
         cellsrenderer: (): string => {

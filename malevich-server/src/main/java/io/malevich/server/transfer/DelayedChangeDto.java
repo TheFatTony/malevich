@@ -1,5 +1,6 @@
 package io.malevich.server.transfer;
 
+import com.yinyang.core.server.transfer.UserDto;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -9,12 +10,14 @@ import lombok.Setter;
 public class DelayedChangeDto {
 
 
-  private Long id;
+    private Long id;
 
-  private String typeId;
+    private String typeId;
 
-  private Object payload;
+    private UserDto user;
 
-  private String comment;
+    private Object payload;
+
+    private String comment;
 
 }

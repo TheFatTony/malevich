@@ -49,7 +49,7 @@
             <div class="col-12">
               <span
                 class="d-block g-color-text g-font-size-13 mb-1">{{'PROFILE.DOCUMENTS.ADD.CHOOSE' | translate}}</span>
-              <mchComboBox #documentTypeComboBox
+              <mchDropDownList #documentTypeComboBox
                            #documentType="ngModel"
                            name="documentType"
                            mchRequired
@@ -57,7 +57,7 @@
                            [displayFunc]="documentTypeDisplayFunc"
                            [ngModel]="document?.documentType"
                            (ngModelChange)="document.documentType=$event">
-              </mchComboBox>
+              </mchDropDownList>
               <mchErrors [component]="documentType"></mchErrors>
             </div>
           </div>

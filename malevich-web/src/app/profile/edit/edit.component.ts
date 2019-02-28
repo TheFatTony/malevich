@@ -13,6 +13,7 @@ import {GenderDto} from "../../_transfer/genderDto";
 import {ParticipantService} from "../../_services/participant.service";
 import {ParticipantDto} from "../../_transfer/participantDto";
 import {UserDto} from '../../../../node_modules/yinyang-core';
+import {Globals} from "../../globals";
 
 @Component({
   selector: 'app-profile-edit',
@@ -36,8 +37,8 @@ export class EditComponent implements OnInit, AfterViewInit {
               private participantService: ParticipantService,
               private countryService: CountryService,
               private genderService: GenderService,
-              private authService: AuthService) {
-    this.authService.getCurrentUser().subscribe(data => {
+              private globals: Globals) {
+    this.globals.currentUser$.subscribe(data => {
       this.user = data
     });
   }

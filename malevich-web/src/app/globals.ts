@@ -1,19 +1,17 @@
 import {Injectable} from '@angular/core';
-import {Subject} from "rxjs";
+import {BehaviorSubject, Subject} from "rxjs";
 import {UserDto} from '../../node_modules/yinyang-core';
 
 @Injectable()
 export class Globals {
-  isAuthorised = false;
+  isAuthorised$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
 
-  currentUser$: Subject<UserDto> = new Subject<UserDto>();
+  currentUser$: BehaviorSubject<UserDto> = new BehaviorSubject<UserDto>(null);
 
-  isTrader$: Subject<boolean> = new Subject<boolean>();
+  isTrader$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
 
-  isGallery$: Subject<boolean> = new Subject<boolean>();
+  isGallery$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
 
-  isTrader: boolean;
-
-  isGallery: boolean;
+  isAdmin$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
 
 }

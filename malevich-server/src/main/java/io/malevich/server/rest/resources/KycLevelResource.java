@@ -10,6 +10,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 
 
 @Slf4j
@@ -35,9 +36,8 @@ public class KycLevelResource extends RestResource<KycLevelDto, KycLevelEntity> 
     @RequestMapping(value = "/detailed/{level}", method = RequestMethod.GET)
     @ResponseStatus(HttpStatus.OK)
     @ResponseBody
-    public List<KycLevelDto> detailed(@PathVariable String level) {
-        List<KycLevelEntity> allEntries = this.kycLevelService.getDetailing(level);
-        return convertListOfDto(allEntries);
+    public Map<String, Boolean> detailed(@PathVariable String level) {
+        return this.kycLevelService.getDetailing(level);
     }
 
     @RequestMapping(value = "/testLevel/{level}", method = RequestMethod.PUT)

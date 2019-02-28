@@ -268,6 +268,18 @@
 
             <div class="row">
               <div class="col-12">
+                <span class="d-block g-color-text g-font-size-13 mb-1">{{'PROFILE.SECURITY.LABEL.TITLE_EN' | translate}}:</span>
+                <mchInput name="titleEn"
+                          mchRequired
+                          [(ngModel)]="participant.titleMl['en']">
+                </mchInput>
+              </div>
+            </div>
+
+            <hr class="g-brd-gray-light-v4 g-my-20">
+
+            <div class="row">
+              <div class="col-12">
                 <span class="d-block g-color-text g-font-size-13 mb-1">{{'PROFILE.SECURITY.LABEL.DESCRIPTION_EN' | translate}}:</span>
                 <mchInput name="descriptionEn"
                           mchRequired

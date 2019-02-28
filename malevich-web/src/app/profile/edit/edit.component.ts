@@ -76,6 +76,10 @@ export class EditComponent implements OnInit, AfterViewInit {
       a.country = a.country || null;
       return a;
     });
+
+    if(this.participantService.isOrganization(this.participant))
+      this.participant.country = this.participant.addresses[0].country;
+
     this.participantService.update(this.participant)
       .subscribe(data => this.router.navigate(['/profile/view']));
   }

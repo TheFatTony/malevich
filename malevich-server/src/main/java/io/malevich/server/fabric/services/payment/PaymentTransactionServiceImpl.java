@@ -41,7 +41,7 @@ public class PaymentTransactionServiceImpl extends GenericComposerServiceImpl<Pa
             fabricClass = "resource:io.malevich.network.Trader#";
         }
 
-        paymentTransaction.setParty(fabricClass + entity.getParticipant().getUser().getId());
+        paymentTransaction.setParty(fabricClass + entity.getParticipant().getId());
         paymentTransaction.setAmount(Math.abs(entity.getAmount().doubleValue()));
         paymentTransaction.setPaymentType(entity.getPaymentType().getId());
 
@@ -61,7 +61,7 @@ public class PaymentTransactionServiceImpl extends GenericComposerServiceImpl<Pa
 
         try {
             ResponseEntity<List<PaymentTransaction>> res = restTemplate.exchange(composerUrl + "/queries/getPaymentsByCounterparty?party={party}", HttpMethod.GET, null, new ParameterizedTypeReference<List<PaymentTransaction>>() {
-            }, (fabricClass + participantEntity.getUser().getId()));
+            }, (fabricClass + participantEntity.getId()));
             return res.getBody();
         } catch (RestClientException e) {
             String errorResponse = ((HttpStatusCodeException) e).getResponseBodyAsString();

@@ -56,7 +56,7 @@ public class OrderTransactionServiceImpl extends GenericComposerServiceImpl<Orde
         orderTransaction.getOrder().setOrderType(entity.getType().getId());
         orderTransaction.getOrder().setOrderStatus(entity.getStatus().getId());
         orderTransaction.getOrder().setArtworkStock("resource:io.malevich.network.ArtworkStock#" + entity.getArtworkStock().getId().toString());
-        orderTransaction.getOrder().setCounterparty(fabricClass + participantEntity.getUser().getId());
+        orderTransaction.getOrder().setCounterparty(fabricClass + participantEntity.getId());
 
         doPost(orderTransaction);
     }
@@ -104,7 +104,7 @@ public class OrderTransactionServiceImpl extends GenericComposerServiceImpl<Orde
 
         try {
             ResponseEntity<List<OrderTransaction>> res = restTemplate.exchange(composerUrl + "/queries/getOrdersByCounterparty?counterparty={counterparty}", HttpMethod.GET, null, new ParameterizedTypeReference<List<OrderTransaction>>() {
-            }, (fabricClass + participantEntity.getUser().getId()));
+            }, (fabricClass + participantEntity.getId()));
             return res.getBody();
         } catch (RestClientException e) {
             String errorResponse = ((HttpStatusCodeException) e).getResponseBodyAsString();

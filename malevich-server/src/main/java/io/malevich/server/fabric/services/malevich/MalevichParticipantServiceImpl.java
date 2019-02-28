@@ -41,7 +41,7 @@ public class MalevichParticipantServiceImpl extends GenericComposerServiceImpl<P
         ParticipantEntity participantEntity = participantService.getCurrent();
         try {
             ResponseEntity<MalevichParticipant> res = restTemplate.exchange(composerUrl + "/Malevich/{malevich}", HttpMethod.GET, null, new ParameterizedTypeReference<MalevichParticipant>() {
-            }, participantEntity.getUser().getId());
+            }, participantEntity.getId());
             return res.getBody();
         } catch (RestClientException e) {
             String errorResponse = ((HttpStatusCodeException) e).getResponseBodyAsString();

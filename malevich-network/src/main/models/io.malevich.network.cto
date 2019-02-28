@@ -21,6 +21,7 @@ abstract participant Counterparty identified by id {
   o String id
   o String email
   o Double balance
+  o Double bonuses
 }
 
 participant Trader extends Counterparty {
@@ -42,6 +43,11 @@ asset ArtworkStock identified by id {
 transaction Payment {
   o Double amount
   o PaymentType paymentType
+  --> Counterparty party
+}
+
+transaction Bonuses {
+  o Double amount
   --> Counterparty party
 }
 

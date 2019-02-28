@@ -6,17 +6,48 @@
  * @transaction
  */
 async function processPayment(payment) { // eslint-disable-line no-unused-vars
-    console.log('### processPayment ' + payment.toString());
     const registryTrader = await getParticipantRegistry('io.malevich.network.Trader'); // eslint-disable-line no-undef
+    const registryGallery = await getParticipantRegistry('io.malevich.network.Gallery');
 
-    let counterparty = await registryTrader.get(payment.party.getIdentifier());
+    let counterparty = null;
+        if (payment.party.getFullyQualifiedType() === "io.malevich.network.Gallery") 
+            counterparty = await registryGallery.get(payment.party.getIdentifier());
+        else if (payment.party.getFullyQualifiedType() === "io.malevich.network.Trader") 
+            counterparty = await registryTrader.get(payment.party.getIdentifier());
 
     if (payment.paymentType === 'IN') {
         counterparty.balance = counterparty.balance + payment.amount;
     } else if (payment.paymentType === 'OUT') {
         counterparty.balance = counterparty.balance - payment.amount;
     }
-    await registryTrader.update(counterparty);
+    
+    if (payment.party.getFullyQualifiedType() === "io.malevich.network.Gallery") 
+            await registryGallery.update(counterparty);
+        else if (payment.party.getFullyQualifiedType() === "io.malevich.network.Trader") 
+            await registryTrader.update(counterparty);
+}
+
+/**
+ * processBonuses
+ * @param {io.malevich.network.Bonuses} payment - payment
+ * @transaction
+ */
+async function processBonuses(bonuses) { // eslint-disable-line no-unused-vars
+    const registryTrader = await getParticipantRegistry('io.malevich.network.Trader'); // eslint-disable-line no-undef
+    const registryGallery = await getParticipantRegistry('io.malevich.network.Gallery');
+
+    let counterparty = null;
+    if (bonuses.party.getFullyQualifiedType() === "io.malevich.network.Gallery") 
+        counterparty = await registryGallery.get(bonuses.party.getIdentifier());
+    else if (bonuses.party.getFullyQualifiedType() === "io.malevich.network.Trader") 
+        counterparty = await registryTrader.get(bonuses.party.getIdentifier());
+
+    counterparty.bonuses = counterparty.bonuses + bonuses.bonuses;
+        
+    if (bonuses.party.getFullyQualifiedType() === "io.malevich.network.Gallery") 
+        await registryGallery.update(counterparty);
+    else if (bonuses.party.getFullyQualifiedType() === "io.malevich.network.Trader") 
+        await registryTrader.update(counterparty);
 }
 
 /**
@@ -167,7 +198,13 @@ async function placeOrder(order) { // eslint-disable-line no-unused-vars
         else if (currentAsk.order.counterparty.getFullyQualifiedType() === "io.malevich.network.Trader") 
             uptadeParty = await registryTrader.get(currentAsk.order.counterparty.getIdentifier());
 
-        uptadeParty.balance = uptadeParty.balance + matchingBid.order.amount - matchingBid.order.amount * sumCommisions - matchingBid.order.amount * galleryCommisions;
+
+        if (uptadeParty.bonuses >= (matchingBid.order.amount * sumCommisions + matchingBid.order.amount * galleryCommisions)) {
+            uptadeParty.bonuses = uptadeParty.bonuses - matchingBid.order.amount * sumCommisions - matchingBid.order.amount * galleryCommisions;
+            uptadeParty.balance = uptadeParty.balance + matchingBid.order.amount;
+        } else {
+            uptadeParty.balance = uptadeParty.balance + matchingBid.order.amount - matchingBid.order.amount * sumCommisions - matchingBid.order.amount * galleryCommisions;
+        }
 
         if (currentAsk.order.counterparty.getFullyQualifiedType() === "io.malevich.network.Gallery") 
             await registryGallery.update(uptadeParty);
@@ -180,7 +217,7 @@ async function placeOrder(order) { // eslint-disable-line no-unused-vars
 
         let galleryParty = await registryGallery.get(uptadeArtwork.holder.getIdentifier());
         if (uptadeParty.getIdentifier() === galleryParty.getIdentifier()) {
-            uptadeParty.balance = uptadeParty.balance + (matchingBid.order.amount * galleryCommisions);
+                uptadeParty.balance = uptadeParty.balance + (matchingBid.order.amount * galleryCommisions);
             await registryGallery.update(uptadeParty);
         } else {
             galleryParty.balance = galleryParty.balance + (matchingBid.order.amount * galleryCommisions);

@@ -41,7 +41,7 @@ public class PaymentTransactionServiceImpl extends GenericComposerServiceImpl<Pa
             fabricClass = "resource:io.malevich.network.Trader#";
         }
 
-        paymentTransaction.setParty(fabricClass + entity.getParticipant().getId());
+        paymentTransaction.setParty(fabricClass + entity.getParticipant().getUser().getId());
         paymentTransaction.setAmount(Math.abs(entity.getAmount().doubleValue()));
         paymentTransaction.setPaymentType(entity.getPaymentType().getId());
 

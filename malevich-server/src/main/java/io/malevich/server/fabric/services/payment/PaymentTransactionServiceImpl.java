@@ -61,7 +61,7 @@ public class PaymentTransactionServiceImpl extends GenericComposerServiceImpl<Pa
 
         try {
             ResponseEntity<List<PaymentTransaction>> res = restTemplate.exchange(composerUrl + "/queries/getPaymentsByCounterparty?party={party}", HttpMethod.GET, null, new ParameterizedTypeReference<List<PaymentTransaction>>() {
-            }, (fabricClass + participantEntity.getId()));
+            }, (fabricClass + participantEntity.getUser().getId()));
             return res.getBody();
         } catch (RestClientException e) {
             String errorResponse = ((HttpStatusCodeException) e).getResponseBodyAsString();

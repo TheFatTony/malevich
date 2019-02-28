@@ -1,4 +1,13 @@
-import {AfterViewInit, Component, HostListener, OnDestroy, OnInit, ViewChild} from '@angular/core';
+import {
+  AfterViewInit,
+  ChangeDetectorRef,
+  Component,
+  ElementRef,
+  HostListener,
+  OnDestroy,
+  OnInit,
+  ViewChild
+} from '@angular/core';
 import {PaymentsDto} from '../../_transfer/paymentsDto';
 import {jqxWindowComponent} from 'jqwidgets-scripts/jqwidgets-ts/angular_jqxwindow';
 import {PaymentsService} from '../../_services/payments.service';
@@ -12,11 +21,15 @@ import {ParameterService} from "../../_services/parameter.service";
 import {PaymentMethodDepositReferenceService} from "../../_services/payment-method-deposit-reference.service";
 import {ParticipantService} from "../../_services/participant.service";
 import {KycLevelService} from "../../_services/kyc-level.service";
+import {NgForm} from "@angular/forms";
 
 type PaymentType = {
   value: string
   name: string
 };
+
+declare var stripe: any;
+declare var elements: any;
 
 @Component({
   selector: 'app-profile-wallet',
@@ -28,6 +41,14 @@ export class WalletComponent implements OnInit, AfterViewInit, OnDestroy {
   @ViewChild('myWindow') myWindow: jqxWindowComponent;
   @ViewChild('withdrawWindow') withdrawWindow: jqxWindowComponent;
   @ViewChild('myGrid') myGrid: jqxGridComponent;
+
+  @ViewChild('cardInfo') cardInfo: ElementRef;
+
+  card: any;
+  cardHandler = this.onChange.bind(this);
+  error: string;
+
+
 
   public newPayment: PaymentsDto;
   public newWithdraw: PaymentsDto;
@@ -103,7 +124,8 @@ export class WalletComponent implements OnInit, AfterViewInit, OnDestroy {
               private parameterService: ParameterService,
               private participantService: ParticipantService,
               private kycLevelService: KycLevelService,
-              public translate: TranslateService) {
+              public translate: TranslateService,
+              private cd: ChangeDetectorRef) {
   }
 
   ngOnInit() {
@@ -116,11 +138,40 @@ export class WalletComponent implements OnInit, AfterViewInit, OnDestroy {
 
   ngAfterViewInit(): void {
     this.updateGrid();
+
+    this.card = elements.create('card');
+    this.card.mount(this.cardInfo.nativeElement);
+
+    this.card.addEventListener('change', this.cardHandler);
+
+  }
+
+  onChange({ error }) {
+    if (error) {
+      this.error = error.message;
+    } else {
+      this.error = null;
+    }
+    this.cd.detectChanges();
+  }
+
+  async onSubmit(form: NgForm) {
+    const { token, error } = await stripe.createToken(this.card);
+
+    if (error) {
+      console.log('Something is wrong:', error);
+    } else {
+      console.log('Success!', token);
+      // ...send the token to the your backend to process the charge
+    }
   }
 
   ngOnDestroy(): void {
     this.myWindow.close();
     this.withdrawWindow.close();
+
+    this.card.removeEventListener('change', this.cardHandler);
+    this.card.destroy();
   }
 
   getKycAccess() {

@@ -174,31 +174,16 @@
       <ng-container *ngIf="selectedPaymentType?.value == 'saved_card'">
         <div class="row mb-3">
           <div class="col">
-            <span class="d-block g-color-text g-font-size-13 mb-1">Select card</span>
-            <mchDropDownList name="cards"
-                             [objectSource]="cards"
-                             [displayFunc]="paymentMethodDisplayFunc"
-                             [width]="'100%'"
-                             [(ngModel)]="newPayment.paymentMethod">
-            </mchDropDownList>
-          </div>
-        </div>
-        <div class="row mb-3">
-          <div class="col">
-            <span class="d-block g-color-text g-font-size-13 mb-1">Set amount</span>
-            <mchNumberInput
-              class="amountInput"
-              [(ngModel)]="newPayment.amount"></mchNumberInput>
-          </div>
-        </div>
-        <div class="row mb-3">
-          <div class="col">
-            <mchButton #SendButton
-                       (onClick)="sendPayment()"
-                       style="text-align: center; margin-left: 8em;"
-                       [width]="60" [height]="25">
-              Send
-            </mchButton>
+            <form #checkout="ngForm" (ngSubmit)="onSubmit(checkout)" class="checkout">
+              <div class="form-row">
+                <label for="card-info">Card Info</label>
+                <div id="card-info" #cardInfo></div>
+
+                <div id="card-errors" role="alert" *ngIf="error">{{ error }}</div>
+              </div>
+
+              <button type="submit">Pay $777</button>
+            </form>
           </div>
         </div>
       </ng-container>

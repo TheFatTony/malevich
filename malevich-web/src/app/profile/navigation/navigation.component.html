@@ -1,12 +1,17 @@
 <aside class="g-brd-around g-brd-gray-light-v4 rounded g-px-20 g-py-30">
   <!-- Profile Picture -->
   <div class="text-center g-pos-rel g-mb-30">
-    <div *ngIf="participant?.thumbnail" class="g-width-100 g-height-100 mx-auto mb-3">
+    <div class="g-width-100 g-height-100 mx-auto mb-3">
       <a routerLink="/profile/view">
-        <img class="img-fluid rounded-circle" src="{{url}}{{participant?.thumbnail?.url}}"
-             alt="Image Decor">
+        <img *ngIf="participant?.thumbnail" class="img-fluid rounded-circle" src="{{url}}{{participant?.thumbnail?.url}}"
+             alt="Profile Image">
+        <img *ngIf="!participant?.thumbnail" class="img-fluid rounded-circle" src="https://secondchancetinyhomes.org/wp-content/uploads/2016/09/empty-profile.png"
+             alt="Profile Image">
       </a>
     </div>
+    <!--<span class="u-icon-v3 u-icon-size&#45;&#45;xs g-color-white&#45;&#45;hover g-bg-primary&#45;&#45;hover rounded-circle g-pos-abs g-top-0 g-right-15 g-cursor-pointer" title="" data-toggle="tooltip" data-placement="top" data-original-title="Change Profile Picture">-->
+      <!--<i class="icon-finance-067 u-line-icon-pro"></i>-->
+    <!--</span>-->
 
     <a class="d-block g-font-weight-500" routerLink="/profile/view">
       {{titleName}}
@@ -18,6 +23,18 @@
 
   <!-- Profile Settings List -->
   <ul class="list-unstyled mb-0">
+    <li class="g-py-3">
+      <a
+        class="d-block align-middle u-link-v5 g-color-text g-bg-gray-light-v5--hover g-color-primary--active g-bg-gray-light-v5--active rounded g-pa-3"
+        routerLink="/profile/view"
+        href="javascript:void(0)"
+        routerLinkActive="active">
+        <span class="u-icon-v1 g-color-gray-dark-v5 mr-2">
+          <i class="icon-finance-135 u-line-icon-pro"></i>
+        </span>
+        {{"PROFILE.NAVIGATION.PROFILE" | translate}}
+      </a>
+    </li>
     <li *ngIf="isGallery && hasKycAccess('storage')" class="g-py-3">
       <a
         class="d-block align-middle g-bg-gray-light-v5--active u-link-v5 g-color-text g-color-primary--hover g-bg-gray-light-v5--hover rounded g-pa-3"

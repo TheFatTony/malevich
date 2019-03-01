@@ -30,12 +30,6 @@
                     (ngModelChange)="onNameChange($event, 'en')" mchRequired></mchInput>
         </div>
       </div>
-      <div><label>Category Name[Ru]:</label>
-        <div>
-          <mchInput #nameRu [ngModel]="!newHelpCategory?.categoryNameMl ? '' : newHelpCategory?.categoryNameMl['ru']"
-                    (ngModelChange)="onNameChange($event, 'ru')" mchRequired></mchInput>
-        </div>
-      </div>
       <div>
         <mchButton #SendButton
                    (onClick)="sendButton()"

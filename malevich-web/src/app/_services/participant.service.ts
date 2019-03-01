@@ -32,7 +32,7 @@ export class ParticipantService {
     return participant != null && participant.type != null && participant.type.id == 'G';
   }
 
-  private isOrganization(participant: ParticipantDto) {
+  isOrganization(participant: ParticipantDto) {
     return this.isGallery(participant) || this.isTraderOrganization(participant);
   }
 

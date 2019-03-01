@@ -32,14 +32,6 @@
             </div>
           </div>
           <div class="g-mb-10">
-            <label>Artist Name [Ru]:</label>
-            <div>
-              <mchInput name="nameRu"
-                        [ngModel]="!editArtist?.fullNameMl ? '' : editArtist?.fullNameMl['ru']"
-                        (ngModelChange)="onNameChange($event, 'ru')"></mchInput>
-            </div>
-          </div>
-          <div class="g-mb-10">
             <label>Description [En]:</label>
             <div>
               <mchTextArea
@@ -47,15 +39,6 @@
                 [ngModel]="!editArtist?.descriptionMl ? '' : editArtist.descriptionMl['en']"
                 (ngModelChange)="onDescriptionChange($event, 'en')"
                 [height]="'200px'" mchRequired></mchTextArea>
-            </div>
-          </div>
-          <div class="g-mb-10">
-            <label>Description [Ru]:</label>
-            <div>
-              <mchTextArea name="descriptionRu"
-                           [ngModel]="!editArtist?.descriptionMl ? '' : editArtist.descriptionMl['ru']"
-                           (ngModelChange)="onDescriptionChange($event, 'ru')"
-                           [height]="'200px'" [disabled]="false"></mchTextArea>
             </div>
           </div>
         </form>

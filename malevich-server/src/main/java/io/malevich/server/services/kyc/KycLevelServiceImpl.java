@@ -219,9 +219,6 @@ public class KycLevelServiceImpl implements KycLevelService {
         if (!check(address.getPostalCode()))
             return false;
 
-        if (!check(address.getState()))
-            return false;
-
         if (!check(address.getCity()))
             return false;
 
@@ -235,15 +232,15 @@ public class KycLevelServiceImpl implements KycLevelService {
     }
 
     private boolean isTraderTier1(ParticipantEntity participantEntity) {
-        if (!check(participantEntity.getCountry()))
-            return false;
-
         if (!check(participantEntity.getPhoneNumber()))
             return false;
 
         if (participantEntity instanceof TraderPersonEntity) {
             TraderPersonEntity traderPersonEntity = (TraderPersonEntity) participantEntity;
             PersonEntity personEntity = traderPersonEntity.getPerson();
+
+            if (!check(participantEntity.getCountry()))
+                return false;
 
             if (!check(personEntity))
                 return false;
@@ -277,6 +274,9 @@ public class KycLevelServiceImpl implements KycLevelService {
     }
 
     private boolean isTraderTier2(ParticipantEntity participantEntity) {
+        if (!check(participantEntity.getCountry()))
+            return false;
+
         List<AddressEntity> addresses = participantEntity.getAddresses();
         if (addresses == null || addresses.size() == 0)
             return false;
@@ -290,9 +290,6 @@ public class KycLevelServiceImpl implements KycLevelService {
             return false;
 
         if (!check(address.getPostalCode()))
-            return false;
-
-        if (!check(address.getState()))
             return false;
 
         if (!check(address.getCity()))

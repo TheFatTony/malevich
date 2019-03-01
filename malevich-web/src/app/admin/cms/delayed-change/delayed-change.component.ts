@@ -37,7 +37,7 @@ export class DelayedChangeComponent implements OnInit, OnDestroy {
         },
         buttonclick: (row: number): void => {
           this.delayedChange = this.delayedChanges.find(data => data.id === this.myGrid.getrowdata(row).Id);
-          this.viewWindow.position({x: this.x, y: this.y});
+          // this.viewWindow.position({x: this.x, y: this.y});
           this.viewWindow.open();
         }
       },
@@ -61,7 +61,7 @@ export class DelayedChangeComponent implements OnInit, OnDestroy {
         buttonclick: (row: number): void => {
           this.delayedChange = this.delayedChanges.find(data => data.id === this.myGrid.getrowdata(row).Id);
           this.comment = "";
-          this.declineWindow.position({x: this.x, y: this.y});
+          // this.declineWindow.position({x: this.x, y: this.y});
           this.declineWindow.open();
         }
       }

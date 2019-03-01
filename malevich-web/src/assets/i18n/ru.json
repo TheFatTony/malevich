@@ -60,6 +60,7 @@
     "TITLE": "Your Profile",
     "EDIT_PROFILE": "Edit Your Profile",
     "NAVIGATION": {
+      "PROFILE": "Your Profile",
       "STORED_ARTWORKS": "Stored Artworks",
       "YOUR_ARTWORKS": "Your Artworks",
       "YOUR_ORDERS": "Your Orders",
@@ -84,11 +85,9 @@
         "LEGAL_NAME": "Legal Name",
         "LOCATION": "Location",
         "LEGAL_NAME_EN": "Legal Name - English",
-        "LEGAL_NAME_RU": "Legal Name - Russian",
         "PHONE_NUMBER": "Phone Number",
         "DESCRIPTION": "Description",
         "DESCRIPTION_EN": "Description - English",
-        "DESCRIPTION_RU": "Description - Russian",
         "CAPTION_PERSON_INFO": "Personal info",
         "CAPTION_ORGANIZATION_INFO": "Legal entity info",
         "CAPTION_GALLERY_INFO": "Gallery info",
@@ -130,7 +129,6 @@
         "IMAGE": "Upload the image of artwork",
         "THUMBNAIL": "Upload the thumbnail image of artwork",
         "DESCRIPTION_EN": "Description - English",
-        "DESCRIPTION_RU": "Description - Russian",
         "ARTIST": "Artist",
         "CATEGORY": "Category"
       },
@@ -141,7 +139,6 @@
         "IMAGE": "Upload the image of artwork",
         "THUMBNAIL": "Upload the thumbnail image of artwork",
         "DESCRIPTION_EN": "Description - English",
-        "DESCRIPTION_RU": "Description - Russian",
         "ARTIST": "Artist",
         "CATEGORY": "Category"
       }

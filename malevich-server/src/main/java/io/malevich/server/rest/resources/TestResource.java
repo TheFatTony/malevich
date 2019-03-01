@@ -5,11 +5,9 @@ import com.google.common.collect.Lists;
 import io.malevich.server.repositories.paymentmethod.PaymentMethodDao;
 import io.malevich.server.revolut.model.TransactionLegModel;
 import io.malevich.server.revolut.model.TransactionModel;
-import io.malevich.server.revolut.services.transactions.TransactionsBankService;
 import io.malevich.server.services.paymentmethodbitcoin.PaymentMethodBitcoinService;
-import io.malevich.server.services.revoluttransaction.RevolutTransactionService;
 import io.malevich.server.services.revoluttransaction.RevolutTransactionServiceImpl;
-import io.malevich.server.services.sms.SmsService;
+import io.malevich.server.twilio.SmsService;
 import lombok.extern.slf4j.Slf4j;
 import org.knowm.xchange.currency.Currency;
 import org.knowm.xchange.currency.CurrencyPair;
@@ -26,9 +24,6 @@ import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
 import java.math.BigDecimal;
-import java.sql.Timestamp;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.UUID;
 
 
@@ -58,7 +53,7 @@ public class TestResource {
     @ResponseStatus(HttpStatus.OK)
     @ResponseBody
     public ResponseEntity<Void> smsService() {
-        smsService.sendSms("+14159352345", "Sample Twilio SMS using Java");
+        smsService.sendSms("+447900687552", "Привет от malevich.io");
 
         return ResponseEntity.ok().build();
     }

@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.6.xsd">
+
+    <changeSet author="thefattony" id="sms_queue-table">
+        <createTable tableName="sms_queue">
+            <column name="id" type="bigint">
+                <constraints nullable="false"/>
+            </column>
+            <column name="recipient" type="varchar(20)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="body" type="clob"/>
+            <column name="effective_date" type="datetime">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+        <modifySql dbms="mysql">
+            <replace replace="clob" with="longtext"/>
+        </modifySql>
+    </changeSet>
+
+    <changeSet author="thefattony" id="sms_queue-pk">
+        <addPrimaryKey columnNames="id" constraintName="sms_queue_pk" tableName="sms_queue"/>
+    </changeSet>
+
+    <changeSet author="thefattony" id="sms_queue-id-aa" dbms="mysql">
+        <addAutoIncrement columnDataType="bigint" columnName="id" tableName="sms_queue"/>
+    </changeSet>
+
+</databaseChangeLog>

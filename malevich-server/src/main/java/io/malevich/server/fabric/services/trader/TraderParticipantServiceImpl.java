@@ -33,6 +33,7 @@ public class TraderParticipantServiceImpl extends GenericComposerServiceImpl<Par
         traderParticipant.setId(entity.getId().toString());
         traderParticipant.setEmail(entity.getUser().getUsername());
         traderParticipant.setBalance(0D);
+        traderParticipant.setBonuses(0D);
 
         doPost(traderParticipant);
     }

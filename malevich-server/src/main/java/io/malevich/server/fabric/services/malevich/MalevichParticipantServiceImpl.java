@@ -32,6 +32,7 @@ public class MalevichParticipantServiceImpl extends GenericComposerServiceImpl<P
         galleryParticipant.setId(entity.getId().toString());
         galleryParticipant.setEmail(entity.getUser().getUsername());
         galleryParticipant.setBalance(0D);
+        galleryParticipant.setBonuses(0D);
 
         doPost(galleryParticipant);
     }

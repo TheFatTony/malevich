@@ -18,4 +18,6 @@ public class CounterpartyParticipant {
 
     private Double balance;
 
+    private Double bonuses;
+
 }

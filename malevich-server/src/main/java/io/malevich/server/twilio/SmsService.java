@@ -1,4 +1,4 @@
-package io.malevich.server.services.sms;
+package io.malevich.server.twilio;
 
 
 import org.springframework.stereotype.Service;

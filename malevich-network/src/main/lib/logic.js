@@ -242,21 +242,25 @@ async function testData(testData) { // eslint-disable-line no-unused-vars
     const malevichAsset = factory.newResource('io.malevich.network', 'Malevich', '1');
     malevichAsset.email = 'malevich@malevich.io';
     malevichAsset.balance = 0;
+    malevichAsset.bonuses = 0;
     await registryMalevich.add(malevichAsset);
 
     const gallery1Asset = factory.newResource('io.malevich.network', 'Gallery', '2');
     gallery1Asset.email = 'gallery1@malevich.io';
     gallery1Asset.balance = 0;
+    gallery1Asset.bonuses = 0;
     await registryGallery.add(gallery1Asset);
 
     const trader1Asset = factory.newResource('io.malevich.network', 'Trader', '3');
     trader1Asset.email = 'trader1@malevich.io';
     trader1Asset.balance = 0;
+    trader1Asset.bonuses = 0;
     await registryTrader.add(trader1Asset);
 
     const trader2Asset = factory.newResource('io.malevich.network', 'Trader', '4');
     trader2Asset.email = 'trader2@malevich.io';
     trader2Asset.balance = 0;
+    trader2Asset.bonuses = 0;
     await registryTrader.add(trader2Asset);
 
     const commissionRule1Asset = factory.newResource('io.malevich.network', 'CommissionRule', 'Gallery');

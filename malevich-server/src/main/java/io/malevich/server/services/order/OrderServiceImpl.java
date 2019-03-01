@@ -2,6 +2,7 @@ package io.malevich.server.services.order;
 
 import io.malevich.server.domain.ArtworkStockEntity;
 import io.malevich.server.domain.OrderEntity;
+import io.malevich.server.domain.ParticipantEntity;
 import io.malevich.server.fabric.model.OrderTransaction;
 import io.malevich.server.fabric.services.order.OrderTransactionService;
 import io.malevich.server.services.artworkstock.ArtworkStockService;
@@ -46,6 +47,8 @@ public class OrderServiceImpl implements OrderService {
     @Override
     @Transactional(readOnly = true)
     public List<OrderEntity> getPlacedOrders() {
+        ParticipantEntity participantEntity = participantService.getCurrent();
+
         List<OrderTransaction> fabricOrders = orderTransactionService.getOrdersByCounterparty();
 
         List<OrderEntity> result = new ArrayList<>();
@@ -55,7 +58,9 @@ public class OrderServiceImpl implements OrderService {
             orderEntity.setStatus(orderStatusService.getValues().get(order.getOrder().getOrderStatus()));
             orderEntity.setType(orderTypeService.getValues().get(order.getOrder().getOrderType()));
             orderEntity.setAmount(order.getOrder().getAmount());
-            orderEntity.setIsOwn(false);
+
+            orderEntity.setIsOwn(participantEntity.getId().toString().equals(order.getOrder().getCounterparty().replace("resource:io.malevich.network.Trader#", "").replace("resource:io.malevich.network.Gallery#", "")));
+
             orderEntity.setId(order.getOrder().getId());
             orderEntity.setArtworkStock(artworkStockService.find(new Long(order.getOrder().getArtworkStock().replace("resource:io.malevich.network.ArtworkStock#", ""))));
             orderEntity.setTradeType(tradeTypeService.getGtc());
@@ -68,6 +73,7 @@ public class OrderServiceImpl implements OrderService {
     @Override
     @Transactional(readOnly = true)
     public List<OrderEntity> getOrdersByArtworkStockId(Long artworkId) {
+        ParticipantEntity participantEntity = participantService.getCurrent();
 
         ArtworkStockEntity artworkStockEntity = artworkStockService.find(artworkId);
 
@@ -80,7 +86,9 @@ public class OrderServiceImpl implements OrderService {
             orderEntity.setStatus(orderStatusService.getValues().get(order.getOrder().getOrderStatus()));
             orderEntity.setType(orderTypeService.getValues().get(order.getOrder().getOrderType()));
             orderEntity.setAmount(order.getOrder().getAmount());
-            orderEntity.setIsOwn(false);
+
+            orderEntity.setIsOwn(participantEntity.getId().toString().equals(order.getOrder().getCounterparty().replace("resource:io.malevich.network.Trader#", "").replace("resource:io.malevich.network.Gallery#", "")));
+
             orderEntity.setArtworkStock(artworkStockEntity);
             orderEntity.setTradeType(tradeTypeService.getGtc());
             orderEntity.setId(order.getOrder().getId());
@@ -95,6 +103,7 @@ public class OrderServiceImpl implements OrderService {
     @Override
     @Transactional(readOnly = true)
     public List<OrderEntity> getOpenOrdersByArtworkStockId(Long artworkId) {
+        ParticipantEntity participantEntity = participantService.getCurrent();
 
         ArtworkStockEntity artworkStockEntity = artworkStockService.find(artworkId);
 
@@ -107,7 +116,9 @@ public class OrderServiceImpl implements OrderService {
             orderEntity.setStatus(orderStatusService.getValues().get(order.getOrder().getOrderStatus()));
             orderEntity.setType(orderTypeService.getValues().get(order.getOrder().getOrderType()));
             orderEntity.setAmount(order.getOrder().getAmount());
-            orderEntity.setIsOwn(false);
+
+            orderEntity.setIsOwn(participantEntity.getId().toString().equals(order.getOrder().getCounterparty().replace("resource:io.malevich.network.Trader#", "").replace("resource:io.malevich.network.Gallery#", "")));
+
             orderEntity.setArtworkStock(artworkStockEntity);
             orderEntity.setTradeType(tradeTypeService.getGtc());
             orderEntity.setId(order.getOrder().getId());

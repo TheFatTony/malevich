@@ -57,6 +57,7 @@ public class SmsQueueServiceImpl implements SmsQueueService {
     public void sendAllMessages() {
         for (SmsQueueEntity item : this.findAll()) {
             smsService.sendSms(item.getRecipient(), item.getBody());
+            delete(item.getId());
         }
     }
 }

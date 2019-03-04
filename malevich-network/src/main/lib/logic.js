@@ -78,20 +78,6 @@ async function placeOrder(order) { // eslint-disable-line no-unused-vars
     const registryArtworkStock = await getAssetRegistry('io.malevich.network.ArtworkStock');
     const registryCommissionRule = await getAssetRegistry('io.malevich.network.CommissionRule');
     const factory = getFactory();
-    
-    if (order.order.orderStatus === 'CANCELED') {
-        var updateOrder = await registry.get(order.order.id);
-        updateOrder.order.orderStatus = 'CANCELED';
-        await registry.update(updateOrder);
-        if (updateOrder.order.counterparty.getFullyQualifiedType() === "io.malevich.network.Trader") {
-            let uptadeParty = null;
-            uptadeParty = await registryTrader.get(updateOrder.order.counterparty.getIdentifier());
-            uptadeParty.balance = uptadeParty.balance + updateOrder.order.amount;
-            await registryTrader.update(uptadeParty);
-        }
-        
-        return;
-    }
 
     if (order.order.orderStatus !== 'OPEN') {
         throw new Error('!#{Go fuck yourself}#!');
@@ -156,13 +142,13 @@ async function placeOrder(order) { // eslint-disable-line no-unused-vars
         }
 
         results.forEach(async existingOrders => {
-            if (currentAsk.order.amount === existingOrders.order.amount) {
+            if ((currentAsk.order.amount === existingOrders.order.amount) && (existingOrders.order.orderStatus === 'OPEN')) {
                 matchingBid = existingOrders;
             }
         });
     } else if ((orderAsset.order.orderType === 'BID')) {
         results.forEach(async existingOrders => {
-            if (order.order.amount === existingOrders.order.amount) {
+            if ((order.order.amount === existingOrders.order.amount) && (existingOrders.order.orderStatus === 'OPEN')) {
                 matchingBid = orderAsset;
             }
         });
@@ -246,11 +232,27 @@ async function placeOrder(order) { // eslint-disable-line no-unused-vars
 
 /**
  * cancelOrder
- * @param {io.malevich.network.Order} order - order
+ * @param {io.malevich.network.CancelOrder} cancelOrder - cancelOrder
  * @transaction
  */
-async function cancelOrder(order) { // eslint-disable-line no-unused-vars
+async function cancelOrder(cancelOrder) { // eslint-disable-line no-unused-vars
+    const registry = await getAssetRegistry('io.malevich.network.OrderAsset');
+    const registryTrader = await getParticipantRegistry('io.malevich.network.Trader');
 
+    
+    if (cancelOrder.order.orderStatus === 'CANCELED') {
+        var updateOrder = await registry.get(cancelOrder.order.id);
+        updateOrder.order.orderStatus = 'CANCELED';
+        await registry.update(updateOrder);
+        if (updateOrder.order.counterparty.getFullyQualifiedType() === "io.malevich.network.Trader") {
+            let uptadeParty = null;
+            uptadeParty = await registryTrader.get(updateOrder.order.counterparty.getIdentifier());
+            uptadeParty.balance = uptadeParty.balance + updateOrder.order.amount;
+            await registryTrader.update(uptadeParty);
+        }
+        
+        return;
+    }
 }
 
 /**

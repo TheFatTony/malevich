@@ -4,6 +4,7 @@ import io.malevich.server.domain.ArtworkStockEntity;
 import io.malevich.server.domain.OrderEntity;
 import io.malevich.server.domain.ParticipantEntity;
 import io.malevich.server.fabric.model.OrderTransaction;
+import io.malevich.server.fabric.services.cancelorder.CancelOrderTransactionService;
 import io.malevich.server.fabric.services.order.OrderTransactionService;
 import io.malevich.server.services.artworkstock.ArtworkStockService;
 import io.malevich.server.services.orderstatus.OrderStatusService;
@@ -37,6 +38,9 @@ public class OrderServiceImpl implements OrderService {
 
     @Autowired
     private OrderTransactionService orderTransactionService;
+
+    @Autowired
+    private CancelOrderTransactionService cancelOrderTransactionService;
 
     @Autowired
     private ArtworkStockService artworkStockService;
@@ -182,14 +186,14 @@ public class OrderServiceImpl implements OrderService {
     public void cancelOrder(OrderEntity orderEntity) {
         orderEntity.setStatus(orderStatusService.getCanceled());
         orderEntity.setParticipant(participantService.getCurrent());
-        orderTransactionService.create(orderEntity);
+        cancelOrderTransactionService.create(orderEntity);
     }
 
     @Override
     public void cancelOwnOrder(OrderEntity orderEntity) {
         orderEntity.setStatus(orderStatusService.getCanceled());
         orderEntity.setParticipant(participantService.getCurrent());
-        orderTransactionService.create(orderEntity);
+        cancelOrderTransactionService.create(orderEntity);
     }
 
 }

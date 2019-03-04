@@ -182,6 +182,46 @@ async function placeOrder(order) { // eslint-disable-line no-unused-vars
         tradeHistoryAsset.amount = matchingBid.order.amount;
         await tradeHistoryRegistry.add(tradeHistoryAsset);
 
+        const commissions = await registryCommissionRule.getAll();
+
+        let sumCommisions = 0;
+        let galleryCommisions = 0;
+        for (let i = 0; i < commissions.length; i++) {
+            if (commissions[i].name !== 'Gallery') {
+                sumCommisions += commissions[i].value;
+            } else {
+                galleryCommisions = commissions[i].value;
+            }
+        }
+
+        let malevichParty = await registryMalevich.get('1');
+        malevichParty.balance = malevichParty.balance + (matchingBid.order.amount * sumCommisions);
+        await registryMalevich.update(malevichParty);
+
+        let uptadeParty = await getCounterparty(currentAsk.order.counterparty);
+
+        if (uptadeParty.bonuses >= (matchingBid.order.amount * sumCommisions + matchingBid.order.amount * galleryCommisions)) {
+            uptadeParty.bonuses = uptadeParty.bonuses - matchingBid.order.amount * sumCommisions - matchingBid.order.amount * galleryCommisions;
+            uptadeParty.balance = uptadeParty.balance + matchingBid.order.amount;
+        } else {
+            uptadeParty.balance = uptadeParty.balance + matchingBid.order.amount - matchingBid.order.amount * sumCommisions - matchingBid.order.amount * galleryCommisions;
+        }
+
+        await updateCounterparty(uptadeParty);
+        
+        let uptadeArtwork = await registryArtworkStock.get(currentAsk.order.artworkStock.getIdentifier());
+        uptadeArtwork.owner = matchingBid.order.counterparty;
+        await registryArtworkStock.update(uptadeArtwork);
+
+        let galleryParty = await registryGallery.get(uptadeArtwork.holder.getIdentifier());
+        if (uptadeParty.getIdentifier() === galleryParty.getIdentifier()) {
+                uptadeParty.balance = uptadeParty.balance + (matchingBid.order.amount * galleryCommisions);
+            await registryGallery.update(uptadeParty);
+        } else {
+            galleryParty.balance = galleryParty.balance + (matchingBid.order.amount * galleryCommisions);
+            await registryGallery.update(galleryParty);
+        }
+
     } else {
         await registry.add(orderAsset);
     }

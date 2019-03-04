@@ -1,5 +1,35 @@
 'use strict';
 
+
+/**
+ * test
+ * @param {io.malevich.network.Test} test - test
+ * @transaction
+ */
+async function test(test) { // eslint-disable-line no-unused-vars
+    const factory = getFactory();
+
+    const registry = await getAssetRegistry('io.malevich.network.TestAsset');
+    var testAsset = factory.newResource('io.malevich.network', 'TestAsset', test.id);
+    testAsset.amount = test.amount;
+    await registry.add(testAsset);
+
+    testAsset = await transfersTest(testAsset);
+}
+
+
+/**
+ * Determine the net transfer between a banking pair, accounting for exchange rates
+ * @param {io.malevich.network.TestAsset} testAsset array of TransferRequest objects
+ * @return {io.malevich.network.TestAsset} net amount in USD
+ */
+async function transfersTest(testAsset) { // eslint-disable-line no-unused-vars
+    const registry = await getAssetRegistry('io.malevich.network.TestAsset');
+    testAsset.amount = testAsset.amount + 1200;
+    await registry.update(testAsset);
+    return testAsset;
+}
+
 /**
  * processPayment
  * @param {io.malevich.network.Payment} payment - payment
@@ -71,57 +101,29 @@ async function placeOrder(order) { // eslint-disable-line no-unused-vars
     const registryCommissionRule = await getAssetRegistry('io.malevich.network.CommissionRule');
     const factory = getFactory();
 
-    if (order.order.orderStatus === 'CANCELED') {
-        var updateOrder = await registry.get(order.order.id);
-        updateOrder.order.orderStatus = 'CANCELED';
-        await registry.update(updateOrder);
-        if (updateOrder.order.counterparty.getFullyQualifiedType() === "io.malevich.network.Trader") {
-            let uptadeParty = null;
-            uptadeParty = await registryTrader.get(updateOrder.order.counterparty.getIdentifier());
-            uptadeParty.balance = uptadeParty.balance + updateOrder.order.amount;
-            await registryTrader.update(uptadeParty);
-        }
-        
-        return;
-    }
-
     var ordersAskQuery = buildQuery('SELECT io.malevich.network.OrderAsset WHERE ((order.artworkStock == _$artworkStock))');
     var results = await query(ordersAskQuery, { artworkStock: 'resource:io.malevich.network.ArtworkStock#' + order.order.artworkStock.getIdentifier()});
     var askCount = 0;
     var currentAsk = null;
     var matchingBid = null;
-    var orderToCancel = null;
 
     results.forEach(async existingOrders => {
         if ((order.order.orderType === 'ASK') && (existingOrders.order.orderType === 'ASK') && (existingOrders.order.orderStatus === 'OPEN')) {
             askCount++;
         } else if ((order.order.orderType === 'BID') && (existingOrders.order.orderType === 'ASK') && (existingOrders.order.orderStatus === 'OPEN')) {
             currentAsk = existingOrders;
-        } else if ((existingOrders.order.orderType === 'BID') && (order.order.orderType === 'BID') 
-            && (existingOrders.order.orderStatus === 'OPEN') 
-            && (existingOrders.order.counterparty.getIdentifier() === order.order.counterparty.getIdentifier())) {
-            orderToCancel = existingOrders;
         }
 
     });
     if (askCount > 0) {
         throw new Error('Ask already exists for this ArtWork');
     } else {
-        let uptadeCounterparty = null;
-        if (orderToCancel != null) {
-            var updateCancelOrder = await registry.get(orderToCancel.order.id);
-            updateCancelOrder.order.orderStatus = 'CANCELED';
-            await registry.update(updateCancelOrder);
-            uptadeCounterparty = await registryTrader.get(updateCancelOrder.order.counterparty.getIdentifier());
-            uptadeCounterparty.balance = uptadeCounterparty.balance + updateCancelOrder.order.amount;
-            await registryTrader.update(uptadeCounterparty);
-        }
 
         var orderAsset = factory.newResource('io.malevich.network', 'OrderAsset', order.order.id);
         orderAsset.order = order.order;
         orderAsset.order.orderStatus = 'OPEN';
 
-        if (orderAsset.order.orderType === 'BID') {
+        if (orderAsset.order.orderType === 'BID' && currentAsk == null) {
             let chargeParty = await registryTrader.get(orderAsset.order.counterparty.id);
             chargeParty.balance = chargeParty.balance - orderAsset.order.amount;
             if (chargeParty.balance < 0) {
@@ -142,7 +144,7 @@ async function placeOrder(order) { // eslint-disable-line no-unused-vars
 
 
     if (matchingBid != null) {
-        if (matchingBid.order.counterparty == currentAsk.order.counterparty) {
+        if (matchingBid.order.counterparty.getIdentifier() === currentAsk.order.counterparty.getIdentifier()) {
             throw new Error('You cant sell work to yourself');
         }
         

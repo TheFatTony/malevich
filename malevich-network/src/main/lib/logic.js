@@ -1,33 +1,38 @@
 'use strict';
 
-
 /**
- * test
- * @param {io.malevich.network.Test} test - test
- * @transaction
+ * Determine the net transfer between a banking pair, accounting for exchange rates
+ * @param {io.malevich.network.Counterparty} party array of TransferRequest objects
+ * @return {io.malevich.network.Counterparty} net amount in USD
  */
-async function test(test) { // eslint-disable-line no-unused-vars
-    const factory = getFactory();
+async function getCounterparty(party) { // eslint-disable-line no-unused-vars
+    const registryTrader = await getParticipantRegistry('io.malevich.network.Trader');
+    const registryGallery = await getParticipantRegistry('io.malevich.network.Gallery');
+    
+    let counterparty = null;
+    if (party.getFullyQualifiedType() === "io.malevich.network.Gallery") 
+        counterparty = await registryGallery.get(party.getIdentifier());
+    else if (party.getFullyQualifiedType() === "io.malevich.network.Trader") 
+        counterparty = await registryTrader.get(party.getIdentifier());
 
-    const registry = await getAssetRegistry('io.malevich.network.TestAsset');
-    var testAsset = factory.newResource('io.malevich.network', 'TestAsset', test.id);
-    testAsset.amount = test.amount;
-    await registry.add(testAsset);
-
-    testAsset = await transfersTest(testAsset);
+    return counterparty;
 }
-
 
 /**
  * Determine the net transfer between a banking pair, accounting for exchange rates
- * @param {io.malevich.network.TestAsset} testAsset array of TransferRequest objects
- * @return {io.malevich.network.TestAsset} net amount in USD
+ * @param {io.malevich.network.Counterparty} party array of TransferRequest objects
+ * @return {io.malevich.network.Counterparty} net amount in USD
  */
-async function transfersTest(testAsset) { // eslint-disable-line no-unused-vars
-    const registry = await getAssetRegistry('io.malevich.network.TestAsset');
-    testAsset.amount = testAsset.amount + 1200;
-    await registry.update(testAsset);
-    return testAsset;
+async function updateCounterparty(party) { // eslint-disable-line no-unused-vars
+    const registryTrader = await getParticipantRegistry('io.malevich.network.Trader');
+    const registryGallery = await getParticipantRegistry('io.malevich.network.Gallery');
+
+    if (party.getFullyQualifiedType() === "io.malevich.network.Gallery") 
+            await registryGallery.update(party);
+        else if (party.getFullyQualifiedType() === "io.malevich.network.Trader") 
+            await registryTrader.update(party);
+
+    return party;
 }
 
 /**
@@ -36,14 +41,8 @@ async function transfersTest(testAsset) { // eslint-disable-line no-unused-vars
  * @transaction
  */
 async function processPayment(payment) { // eslint-disable-line no-unused-vars
-    const registryTrader = await getParticipantRegistry('io.malevich.network.Trader'); // eslint-disable-line no-undef
-    const registryGallery = await getParticipantRegistry('io.malevich.network.Gallery');
 
-    let counterparty = null;
-        if (payment.party.getFullyQualifiedType() === "io.malevich.network.Gallery") 
-            counterparty = await registryGallery.get(payment.party.getIdentifier());
-        else if (payment.party.getFullyQualifiedType() === "io.malevich.network.Trader") 
-            counterparty = await registryTrader.get(payment.party.getIdentifier());
+    let counterparty = await getCounterparty(payment.party);
 
     if (payment.paymentType === 'IN') {
         counterparty.balance = counterparty.balance + payment.amount;
@@ -51,10 +50,7 @@ async function processPayment(payment) { // eslint-disable-line no-unused-vars
         counterparty.balance = counterparty.balance - payment.amount;
     }
     
-    if (payment.party.getFullyQualifiedType() === "io.malevich.network.Gallery") 
-            await registryGallery.update(counterparty);
-        else if (payment.party.getFullyQualifiedType() === "io.malevich.network.Trader") 
-            await registryTrader.update(counterparty);
+    await updateCounterparty(counterparty);
 }
 
 /**

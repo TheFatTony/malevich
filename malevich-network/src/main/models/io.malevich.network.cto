@@ -65,11 +65,6 @@ asset OrderAsset identified by id {
   o OrderConcept order
 }
 
-asset TestAsset identified by id {
-  o String id
-  o Double amount
-}
-
 asset TradeHistory identified by id {
   o String id
   o String effectiveDate
@@ -77,11 +72,6 @@ asset TradeHistory identified by id {
   --> ArtworkStock artworkStock
   o OrderAsset askOrder
   o OrderAsset bidOrder 
-}
-
-transaction Test {
-  o String id
-  o Double amount
 }
 
 transaction Order {

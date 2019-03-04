@@ -41,7 +41,6 @@ async function updateCounterparty(party) { // eslint-disable-line no-unused-vars
  * @transaction
  */
 async function processPayment(payment) { // eslint-disable-line no-unused-vars
-
     let counterparty = await getCounterparty(payment.party);
 
     if (payment.paymentType === 'IN') {
@@ -59,21 +58,9 @@ async function processPayment(payment) { // eslint-disable-line no-unused-vars
  * @transaction
  */
 async function processBonuses(bonuses) { // eslint-disable-line no-unused-vars
-    const registryTrader = await getParticipantRegistry('io.malevich.network.Trader'); // eslint-disable-line no-undef
-    const registryGallery = await getParticipantRegistry('io.malevich.network.Gallery');
-
-    let counterparty = null;
-    if (bonuses.party.getFullyQualifiedType() === "io.malevich.network.Gallery") 
-        counterparty = await registryGallery.get(bonuses.party.getIdentifier());
-    else if (bonuses.party.getFullyQualifiedType() === "io.malevich.network.Trader") 
-        counterparty = await registryTrader.get(bonuses.party.getIdentifier());
-
+    let counterparty = await getCounterparty(bonuses.party);
     counterparty.bonuses = counterparty.bonuses + bonuses.bonuses;
-        
-    if (bonuses.party.getFullyQualifiedType() === "io.malevich.network.Gallery") 
-        await registryGallery.update(counterparty);
-    else if (bonuses.party.getFullyQualifiedType() === "io.malevich.network.Trader") 
-        await registryTrader.update(counterparty);
+    await updateCounterparty(counterparty);
 }
 
 /**

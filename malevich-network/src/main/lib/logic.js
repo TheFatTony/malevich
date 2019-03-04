@@ -70,6 +70,29 @@ async function processBonuses(bonuses) { // eslint-disable-line no-unused-vars
  */
 async function placeOrder(order) { // eslint-disable-line no-unused-vars
 
+    const registry = await getAssetRegistry('io.malevich.network.OrderAsset');
+    const registryTrader = await getParticipantRegistry('io.malevich.network.Trader');
+    const registryGallery = await getParticipantRegistry('io.malevich.network.Gallery');
+    const registryMalevich = await getParticipantRegistry('io.malevich.network.Malevich');
+    const tradeHistoryRegistry = await getAssetRegistry('io.malevich.network.TradeHistory');
+    const registryArtworkStock = await getAssetRegistry('io.malevich.network.ArtworkStock');
+    const registryCommissionRule = await getAssetRegistry('io.malevich.network.CommissionRule');
+    const factory = getFactory();
+    
+    if (order.order.orderStatus === 'CANCELED') {
+        var updateOrder = await registry.get(order.order.id);
+        updateOrder.order.orderStatus = 'CANCELED';
+        await registry.update(updateOrder);
+        if (updateOrder.order.counterparty.getFullyQualifiedType() === "io.malevich.network.Trader") {
+            let uptadeParty = null;
+            uptadeParty = await registryTrader.get(updateOrder.order.counterparty.getIdentifier());
+            uptadeParty.balance = uptadeParty.balance + updateOrder.order.amount;
+            await registryTrader.update(uptadeParty);
+        }
+        
+        return;
+    }
+
     if (order.order.orderStatus !== 'OPEN') {
         throw new Error('!#{Go fuck yourself}#!');
     }
@@ -79,14 +102,7 @@ async function placeOrder(order) { // eslint-disable-line no-unused-vars
     }
     
 
-    const registry = await getAssetRegistry('io.malevich.network.OrderAsset');
-    const registryTrader = await getParticipantRegistry('io.malevich.network.Trader');
-    const registryGallery = await getParticipantRegistry('io.malevich.network.Gallery');
-    const registryMalevich = await getParticipantRegistry('io.malevich.network.Malevich');
-    const tradeHistoryRegistry = await getAssetRegistry('io.malevich.network.TradeHistory');
-    const registryArtworkStock = await getAssetRegistry('io.malevich.network.ArtworkStock');
-    const registryCommissionRule = await getAssetRegistry('io.malevich.network.CommissionRule');
-    const factory = getFactory();
+    
 
     var ordersAskQuery = buildQuery('SELECT io.malevich.network.OrderAsset WHERE ((order.artworkStock == _$artworkStock))');
     var results = await query(ordersAskQuery, { artworkStock: 'resource:io.malevich.network.ArtworkStock#' + order.order.artworkStock.getIdentifier()});
@@ -234,6 +250,7 @@ async function placeOrder(order) { // eslint-disable-line no-unused-vars
  * @transaction
  */
 async function cancelOrder(order) { // eslint-disable-line no-unused-vars
+
 }
 
 /**

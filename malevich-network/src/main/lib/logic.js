@@ -133,9 +133,47 @@ async function placeOrder(order) { // eslint-disable-line no-unused-vars
         }
         await registryTrader.update(chargeParty);
     }
+    
+    if ((orderAsset.order.orderType === 'ASK')) {
+        if ((currentAsk == null)) {
+            currentAsk = orderAsset;
+        }
+
+        results.forEach(async existingOrders => {
+            if (currentAsk.order.amount === existingOrders.order.amount) {
+                matchingBid = existingOrders;
+                existingOrders.order.orderStatus = 'EXECUTED';
+                await registry.update(existingOrders);
+
+                orderAsset.order.orderStatus = 'EXECUTED';
+            }
+        });
+    } else if ((orderAsset.order.orderType === 'BID')) {
+        results.forEach(async existingOrders => {
+            if (orderAsset.order.amount === existingOrders.order.amount) {
+                matchingBid = orderAsset;
+                orderAsset.order.orderStatus = 'EXECUTED';
+            }
+        });
+    }
 
     await registry.add(orderAsset);
-    
+
+    if ((matchingBid != null) && (currentAsk != null)) {
+        if (matchingBid.order.counterparty.getIdentifier() === currentAsk.order.counterparty.getIdentifier()) {
+            throw new Error('!#{You cant sell work to yourself}#!');
+        }
+
+        const tradeHistoryAsset = factory.newResource('io.malevich.network', 'TradeHistory', order.order.id);
+        tradeHistoryAsset.askOrder = currentAsk;
+        tradeHistoryAsset.bidOrder = matchingBid;
+        tradeHistoryAsset.artworkStock = order.order.artworkStock;
+        tradeHistoryAsset.effectiveDate = order.timestamp.toString();
+        tradeHistoryAsset.amount = matchingBid.order.amount;
+        await tradeHistoryRegistry.add(tradeHistoryAsset);
+
+    }
+
 }
 
 /**

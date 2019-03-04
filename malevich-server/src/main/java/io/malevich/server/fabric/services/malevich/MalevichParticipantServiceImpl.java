@@ -46,7 +46,12 @@ public class MalevichParticipantServiceImpl extends GenericComposerServiceImpl<P
             return res.getBody();
         } catch (RestClientException e) {
             String errorResponse = ((HttpStatusCodeException) e).getResponseBodyAsString();
-            throw new RuntimeException(errorResponse);
+
+            String prettyError = errorResponse.substring(errorResponse.indexOf("!#{") + 3, errorResponse.indexOf("}#!"));
+            if (prettyError == null)
+                throw new RuntimeException(errorResponse);
+            else
+                throw new RuntimeException(prettyError);
         }
     }
 

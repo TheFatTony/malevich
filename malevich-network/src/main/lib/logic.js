@@ -1,19 +1,47 @@
 'use strict';
 
 /**
+ * Determine the net transfer between a banking pair, accounting for exchange rates
+ * @param {io.malevich.network.Counterparty} party array of TransferRequest objects
+ * @return {io.malevich.network.Counterparty} net amount in USD
+ */
+async function getCounterparty(party) { // eslint-disable-line no-unused-vars
+    const registryTrader = await getParticipantRegistry('io.malevich.network.Trader');
+    const registryGallery = await getParticipantRegistry('io.malevich.network.Gallery');
+    
+    let counterparty = null;
+    if (party.getFullyQualifiedType() === "io.malevich.network.Gallery") 
+        counterparty = await registryGallery.get(party.getIdentifier());
+    else if (party.getFullyQualifiedType() === "io.malevich.network.Trader") 
+        counterparty = await registryTrader.get(party.getIdentifier());
+
+    return counterparty;
+}
+
+/**
+ * Determine the net transfer between a banking pair, accounting for exchange rates
+ * @param {io.malevich.network.Counterparty} party array of TransferRequest objects
+ * @return {io.malevich.network.Counterparty} net amount in USD
+ */
+async function updateCounterparty(party) { // eslint-disable-line no-unused-vars
+    const registryTrader = await getParticipantRegistry('io.malevich.network.Trader');
+    const registryGallery = await getParticipantRegistry('io.malevich.network.Gallery');
+
+    if (party.getFullyQualifiedType() === "io.malevich.network.Gallery") 
+            await registryGallery.update(party);
+        else if (party.getFullyQualifiedType() === "io.malevich.network.Trader") 
+            await registryTrader.update(party);
+
+    return party;
+}
+
+/**
  * processPayment
  * @param {io.malevich.network.Payment} payment - payment
  * @transaction
  */
 async function processPayment(payment) { // eslint-disable-line no-unused-vars
-    const registryTrader = await getParticipantRegistry('io.malevich.network.Trader'); // eslint-disable-line no-undef
-    const registryGallery = await getParticipantRegistry('io.malevich.network.Gallery');
-
-    let counterparty = null;
-        if (payment.party.getFullyQualifiedType() === "io.malevich.network.Gallery") 
-            counterparty = await registryGallery.get(payment.party.getIdentifier());
-        else if (payment.party.getFullyQualifiedType() === "io.malevich.network.Trader") 
-            counterparty = await registryTrader.get(payment.party.getIdentifier());
+    let counterparty = await getCounterparty(payment.party);
 
     if (payment.paymentType === 'IN') {
         counterparty.balance = counterparty.balance + payment.amount;
@@ -21,10 +49,7 @@ async function processPayment(payment) { // eslint-disable-line no-unused-vars
         counterparty.balance = counterparty.balance - payment.amount;
     }
     
-    if (payment.party.getFullyQualifiedType() === "io.malevich.network.Gallery") 
-            await registryGallery.update(counterparty);
-        else if (payment.party.getFullyQualifiedType() === "io.malevich.network.Trader") 
-            await registryTrader.update(counterparty);
+    await updateCounterparty(counterparty);
 }
 
 /**
@@ -33,21 +58,9 @@ async function processPayment(payment) { // eslint-disable-line no-unused-vars
  * @transaction
  */
 async function processBonuses(bonuses) { // eslint-disable-line no-unused-vars
-    const registryTrader = await getParticipantRegistry('io.malevich.network.Trader'); // eslint-disable-line no-undef
-    const registryGallery = await getParticipantRegistry('io.malevich.network.Gallery');
-
-    let counterparty = null;
-    if (bonuses.party.getFullyQualifiedType() === "io.malevich.network.Gallery") 
-        counterparty = await registryGallery.get(bonuses.party.getIdentifier());
-    else if (bonuses.party.getFullyQualifiedType() === "io.malevich.network.Trader") 
-        counterparty = await registryTrader.get(bonuses.party.getIdentifier());
-
+    let counterparty = await getCounterparty(bonuses.party);
     counterparty.bonuses = counterparty.bonuses + bonuses.bonuses;
-        
-    if (bonuses.party.getFullyQualifiedType() === "io.malevich.network.Gallery") 
-        await registryGallery.update(counterparty);
-    else if (bonuses.party.getFullyQualifiedType() === "io.malevich.network.Trader") 
-        await registryTrader.update(counterparty);
+    await updateCounterparty(counterparty);
 }
 
 /**
@@ -56,11 +69,6 @@ async function processBonuses(bonuses) { // eslint-disable-line no-unused-vars
  * @transaction
  */
 async function placeOrder(order) { // eslint-disable-line no-unused-vars
-
-    if (order.order.amount <= 0) {
-        throw new Error('Zero or negative amount is not allowed');
-    }
-    
 
     const registry = await getAssetRegistry('io.malevich.network.OrderAsset');
     const registryTrader = await getParticipantRegistry('io.malevich.network.Trader');
@@ -71,26 +79,25 @@ async function placeOrder(order) { // eslint-disable-line no-unused-vars
     const registryCommissionRule = await getAssetRegistry('io.malevich.network.CommissionRule');
     const factory = getFactory();
 
-    if (order.order.orderStatus === 'CANCELED') {
-        var updateOrder = await registry.get(order.order.id);
-        updateOrder.order.orderStatus = 'CANCELED';
-        await registry.update(updateOrder);
-        if (updateOrder.order.counterparty.getFullyQualifiedType() === "io.malevich.network.Trader") {
-            let uptadeParty = null;
-            uptadeParty = await registryTrader.get(updateOrder.order.counterparty.getIdentifier());
-            uptadeParty.balance = uptadeParty.balance + updateOrder.order.amount;
-            await registryTrader.update(uptadeParty);
-        }
-        
-        return;
+    if (order.order.orderStatus !== 'OPEN') {
+        throw new Error('!#{Go fuck yourself}#!');
     }
+
+    if (order.order.amount <= 0) {
+        throw new Error('!#{Zero or negative amount is not allowed}#!');
+    }
+    
+
+    
 
     var ordersAskQuery = buildQuery('SELECT io.malevich.network.OrderAsset WHERE ((order.artworkStock == _$artworkStock))');
     var results = await query(ordersAskQuery, { artworkStock: 'resource:io.malevich.network.ArtworkStock#' + order.order.artworkStock.getIdentifier()});
     var askCount = 0;
+    var orderToCancel = null;
+
+
     var currentAsk = null;
     var matchingBid = null;
-    var orderToCancel = null;
 
     results.forEach(async existingOrders => {
         if ((order.order.orderType === 'ASK') && (existingOrders.order.orderType === 'ASK') && (existingOrders.order.orderStatus === 'OPEN')) {
@@ -98,56 +105,76 @@ async function placeOrder(order) { // eslint-disable-line no-unused-vars
         } else if ((order.order.orderType === 'BID') && (existingOrders.order.orderType === 'ASK') && (existingOrders.order.orderStatus === 'OPEN')) {
             currentAsk = existingOrders;
         } else if ((existingOrders.order.orderType === 'BID') && (order.order.orderType === 'BID') 
-            && (existingOrders.order.orderStatus === 'OPEN') 
-            && (existingOrders.order.counterparty.getIdentifier() === order.order.counterparty.getIdentifier())) {
+        && (existingOrders.order.orderStatus === 'OPEN') 
+        && (existingOrders.order.counterparty.getIdentifier() === order.order.counterparty.getIdentifier())) {
             orderToCancel = existingOrders;
         }
 
     });
-    if (askCount > 0) {
-        throw new Error('Ask already exists for this ArtWork');
-    } else {
-        let uptadeCounterparty = null;
-        if (orderToCancel != null) {
-            var updateCancelOrder = await registry.get(orderToCancel.order.id);
-            updateCancelOrder.order.orderStatus = 'CANCELED';
-            await registry.update(updateCancelOrder);
-            uptadeCounterparty = await registryTrader.get(updateCancelOrder.order.counterparty.getIdentifier());
-            uptadeCounterparty.balance = uptadeCounterparty.balance + updateCancelOrder.order.amount;
-            await registryTrader.update(uptadeCounterparty);
-        }
 
-        var orderAsset = factory.newResource('io.malevich.network', 'OrderAsset', order.order.id);
-        orderAsset.order = order.order;
-        orderAsset.order.orderStatus = 'OPEN';
-
-        if (orderAsset.order.orderType === 'BID') {
-            let chargeParty = await registryTrader.get(orderAsset.order.counterparty.id);
-            chargeParty.balance = chargeParty.balance - orderAsset.order.amount;
-            if (chargeParty.balance < 0) {
-                throw new Error('Insufficient Funds');
-            }
-            await registryTrader.update(chargeParty);
-        }
-
-        if (currentAsk != null) {
-            if (currentAsk.order.amount === order.order.amount) {
-                orderAsset.order.orderStatus = 'EXECUTED';
-                matchingBid = orderAsset;
-            }
-        }
-
-        await registry.add(orderAsset);
+    if (orderToCancel != null) {
+        throw new Error('!#{Bid already exists for this ArtWork}#!');
     }
 
+    if (askCount > 0) {
+        throw new Error('!#{Ask already exists for this ArtWork}#!');
+    }
 
-    if (matchingBid != null) {
-        if (matchingBid.order.counterparty == currentAsk.order.counterparty) {
-            throw new Error('You cant sell work to yourself');
+    if ((currentAsk != null) && (order.order.amount > currentAsk.order.amount))  {
+        throw new Error('!#{Bid higher then an Ask}#!');
+    }
+
+    var orderAsset = factory.newResource('io.malevich.network', 'OrderAsset', order.order.id);
+    orderAsset.order = order.order;
+    orderAsset.order.orderStatus = 'OPEN';
+    if (orderAsset.order.orderType === 'BID') {
+        let chargeParty = await registryTrader.get(orderAsset.order.counterparty.id);
+        chargeParty.balance = chargeParty.balance - orderAsset.order.amount;
+        if (chargeParty.balance < 0) {
+            throw new Error('!#{Insufficient Funds}#!');
         }
-        
-        currentAsk.order.orderStatus = 'EXECUTED';
-        await registry.update(currentAsk);
+        await registryTrader.update(chargeParty);
+    }
+    
+    if ((orderAsset.order.orderType === 'ASK')) {
+        if ((currentAsk == null)) {
+            currentAsk = orderAsset;
+        }
+
+        results.forEach(async existingOrders => {
+            if ((currentAsk.order.amount === existingOrders.order.amount) && (existingOrders.order.orderStatus === 'OPEN')) {
+                matchingBid = existingOrders;
+            }
+        });
+    } else if ((orderAsset.order.orderType === 'BID')) {
+        results.forEach(async existingOrders => {
+            if ((order.order.amount === existingOrders.order.amount) && (existingOrders.order.orderStatus === 'OPEN')) {
+                matchingBid = orderAsset;
+            }
+        });
+    }
+
+    if ((matchingBid != null) && (currentAsk != null)) {
+        if (matchingBid.order.counterparty.getIdentifier() === currentAsk.order.counterparty.getIdentifier()) {
+            throw new Error('!#{You cant sell work to yourself}#!');
+        }
+
+        if (currentAsk.getIdentifier() === orderAsset.getIdentifier()) {
+            orderAsset.order.orderStatus = 'EXECUTED';
+            await registry.add(orderAsset);
+        } else {
+            currentAsk.order.orderStatus = 'EXECUTED';
+            await registry.update(currentAsk);
+        }
+
+        if (matchingBid.getIdentifier() === orderAsset.getIdentifier()) {
+            orderAsset.order.orderStatus = 'EXECUTED';
+            await registry.add(orderAsset);
+        } else {
+            matchingBid.order.orderStatus = 'EXECUTED';
+            await registry.update(matchingBid);
+        }
+
 
         const tradeHistoryAsset = factory.newResource('io.malevich.network', 'TradeHistory', order.order.id);
         tradeHistoryAsset.askOrder = currentAsk;
@@ -156,7 +183,6 @@ async function placeOrder(order) { // eslint-disable-line no-unused-vars
         tradeHistoryAsset.effectiveDate = order.timestamp.toString();
         tradeHistoryAsset.amount = matchingBid.order.amount;
         await tradeHistoryRegistry.add(tradeHistoryAsset);
-
 
         const commissions = await registryCommissionRule.getAll();
 
@@ -174,30 +200,7 @@ async function placeOrder(order) { // eslint-disable-line no-unused-vars
         malevichParty.balance = malevichParty.balance + (matchingBid.order.amount * sumCommisions);
         await registryMalevich.update(malevichParty);
 
-
-        
-        if (matchingBid.order.counterparty.getFullyQualifiedType() === "io.malevich.network.Gallery") 
-            uptadeCounterparty = await registryGallery.get(matchingBid.order.counterparty.getIdentifier());
-        else if (matchingBid.order.counterparty.getFullyQualifiedType() === "io.malevich.network.Trader") 
-            uptadeCounterparty = await registryTrader.get(matchingBid.order.counterparty.getIdentifier());
-        
-        if (uptadeCounterparty.balance < matchingBid.order.amount) {
-            throw new Error('Insufficient Funds ');
-        }
-        
-        uptadeCounterparty.balance = uptadeCounterparty.balance - matchingBid.order.amount;
-
-        if (matchingBid.order.counterparty.getFullyQualifiedType() === "io.malevich.network.Gallery") 
-            await registryGallery.update(uptadeCounterparty);
-        else if (matchingBid.order.counterparty.getFullyQualifiedType() === "io.malevich.network.Trader") 
-            await registryTrader.update(uptadeCounterparty);
-
-        let uptadeParty = null;
-        if (currentAsk.order.counterparty.getFullyQualifiedType() === "io.malevich.network.Gallery") 
-            uptadeParty = await registryGallery.get(currentAsk.order.counterparty.getIdentifier());
-        else if (currentAsk.order.counterparty.getFullyQualifiedType() === "io.malevich.network.Trader") 
-            uptadeParty = await registryTrader.get(currentAsk.order.counterparty.getIdentifier());
-
+        let uptadeParty = await getCounterparty(currentAsk.order.counterparty);
 
         if (uptadeParty.bonuses >= (matchingBid.order.amount * sumCommisions + matchingBid.order.amount * galleryCommisions)) {
             uptadeParty.bonuses = uptadeParty.bonuses - matchingBid.order.amount * sumCommisions - matchingBid.order.amount * galleryCommisions;
@@ -206,10 +209,7 @@ async function placeOrder(order) { // eslint-disable-line no-unused-vars
             uptadeParty.balance = uptadeParty.balance + matchingBid.order.amount - matchingBid.order.amount * sumCommisions - matchingBid.order.amount * galleryCommisions;
         }
 
-        if (currentAsk.order.counterparty.getFullyQualifiedType() === "io.malevich.network.Gallery") 
-            await registryGallery.update(uptadeParty);
-        else if (currentAsk.order.counterparty.getFullyQualifiedType() === "io.malevich.network.Trader") 
-            await registryTrader.update(uptadeParty);
+        await updateCounterparty(uptadeParty);
         
         let uptadeArtwork = await registryArtworkStock.get(currentAsk.order.artworkStock.getIdentifier());
         uptadeArtwork.owner = matchingBid.order.counterparty;
@@ -223,6 +223,35 @@ async function placeOrder(order) { // eslint-disable-line no-unused-vars
             galleryParty.balance = galleryParty.balance + (matchingBid.order.amount * galleryCommisions);
             await registryGallery.update(galleryParty);
         }
+
+    } else {
+        await registry.add(orderAsset);
+    }
+
+}
+
+/**
+ * cancelOrder
+ * @param {io.malevich.network.CancelOrder} cancelOrder - cancelOrder
+ * @transaction
+ */
+async function cancelOrder(cancelOrder) { // eslint-disable-line no-unused-vars
+    const registry = await getAssetRegistry('io.malevich.network.OrderAsset');
+    const registryTrader = await getParticipantRegistry('io.malevich.network.Trader');
+
+    
+    if (cancelOrder.order.orderStatus === 'CANCELED') {
+        var updateOrder = await registry.get(cancelOrder.order.id);
+        updateOrder.order.orderStatus = 'CANCELED';
+        await registry.update(updateOrder);
+        if (updateOrder.order.counterparty.getFullyQualifiedType() === "io.malevich.network.Trader") {
+            let uptadeParty = null;
+            uptadeParty = await registryTrader.get(updateOrder.order.counterparty.getIdentifier());
+            uptadeParty.balance = uptadeParty.balance + updateOrder.order.amount;
+            await registryTrader.update(uptadeParty);
+        }
+        
+        return;
     }
 }
 

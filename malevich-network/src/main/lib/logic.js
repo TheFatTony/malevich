@@ -142,27 +142,37 @@ async function placeOrder(order) { // eslint-disable-line no-unused-vars
         results.forEach(async existingOrders => {
             if (currentAsk.order.amount === existingOrders.order.amount) {
                 matchingBid = existingOrders;
-                existingOrders.order.orderStatus = 'EXECUTED';
-                await registry.update(existingOrders);
-
-                orderAsset.order.orderStatus = 'EXECUTED';
             }
         });
     } else if ((orderAsset.order.orderType === 'BID')) {
         results.forEach(async existingOrders => {
-            if (orderAsset.order.amount === existingOrders.order.amount) {
+            if (order.order.amount === existingOrders.order.amount) {
                 matchingBid = orderAsset;
-                orderAsset.order.orderStatus = 'EXECUTED';
             }
         });
     }
-
-    await registry.add(orderAsset);
 
     if ((matchingBid != null) && (currentAsk != null)) {
         if (matchingBid.order.counterparty.getIdentifier() === currentAsk.order.counterparty.getIdentifier()) {
             throw new Error('!#{You cant sell work to yourself}#!');
         }
+
+        if (currentAsk.getIdentifier() === orderAsset.getIdentifier()) {
+            orderAsset.order.orderStatus = 'EXECUTED';
+            await registry.add(orderAsset);
+        } else {
+            currentAsk.order.orderStatus = 'EXECUTED';
+            await registry.update(currentAsk);
+        }
+
+        if (matchingBid.getIdentifier() === orderAsset.getIdentifier()) {
+            orderAsset.order.orderStatus = 'EXECUTED';
+            await registry.add(orderAsset);
+        } else {
+            matchingBid.order.orderStatus = 'EXECUTED';
+            await registry.update(matchingBid);
+        }
+
 
         const tradeHistoryAsset = factory.newResource('io.malevich.network', 'TradeHistory', order.order.id);
         tradeHistoryAsset.askOrder = currentAsk;
@@ -172,6 +182,8 @@ async function placeOrder(order) { // eslint-disable-line no-unused-vars
         tradeHistoryAsset.amount = matchingBid.order.amount;
         await tradeHistoryRegistry.add(tradeHistoryAsset);
 
+    } else {
+        await registry.add(orderAsset);
     }
 
 }

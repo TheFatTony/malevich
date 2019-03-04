@@ -229,6 +229,14 @@ async function placeOrder(order) { // eslint-disable-line no-unused-vars
 }
 
 /**
+ * cancelOrder
+ * @param {io.malevich.network.Order} order - order
+ * @transaction
+ */
+async function cancelOrder(order) { // eslint-disable-line no-unused-vars
+}
+
+/**
  * testData
  * @param {io.malevich.network.TestData} testData - testData
  * @transaction

@@ -88,7 +88,9 @@ async function placeOrder(order) { // eslint-disable-line no-unused-vars
     }
     
 
-    
+    if ((order.order.counterparty.getIdentifier() === order.order.artworkStock.owner.getIdentifier()) && (order.order.orderType === 'BID')) {
+        throw new Error('!#{Bid on owned artwork is not allowed}#!');
+    }
 
     var ordersAskQuery = buildQuery('SELECT io.malevich.network.OrderAsset WHERE ((order.artworkStock == _$artworkStock))');
     var results = await query(ordersAskQuery, { artworkStock: 'resource:io.malevich.network.ArtworkStock#' + order.order.artworkStock.getIdentifier()});
@@ -111,6 +113,8 @@ async function placeOrder(order) { // eslint-disable-line no-unused-vars
         }
 
     });
+
+   
 
     if (orderToCancel != null) {
         throw new Error('!#{Bid already exists for this ArtWork}#!');
@@ -242,9 +246,13 @@ async function cancelOrder(cancelOrder) { // eslint-disable-line no-unused-vars
     
     if (cancelOrder.order.orderStatus === 'CANCELED') {
         var updateOrder = await registry.get(cancelOrder.order.id);
+        if (updateOrder.orderStatus !== 'OPEN'){
+            throw new Error('!#{Only open Order can be canceled}#!');
+        }
+
         updateOrder.order.orderStatus = 'CANCELED';
         await registry.update(updateOrder);
-        if (updateOrder.order.counterparty.getFullyQualifiedType() === "io.malevich.network.Trader") {
+        if ((updateOrder.order.counterparty.getFullyQualifiedType() === "io.malevich.network.Trader") && (cancelOrder.order.orderType === 'BID'))  {
             let uptadeParty = null;
             uptadeParty = await registryTrader.get(updateOrder.order.counterparty.getIdentifier());
             uptadeParty.balance = uptadeParty.balance + updateOrder.order.amount;

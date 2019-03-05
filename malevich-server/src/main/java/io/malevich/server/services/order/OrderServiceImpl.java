@@ -53,7 +53,7 @@ public class OrderServiceImpl implements OrderService {
     public List<OrderEntity> getPlacedOrders() {
         ParticipantEntity participantEntity = participantService.getCurrent();
 
-        List<OrderTransaction> fabricOrders = orderTransactionService.getOrdersByCounterparty();
+        List<OrderTransaction> fabricOrders = orderTransactionService.getOpenOrdersByCounterparty();
 
         List<OrderEntity> result = new ArrayList<>();
 

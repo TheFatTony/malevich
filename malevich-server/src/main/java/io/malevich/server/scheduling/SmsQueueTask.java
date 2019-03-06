@@ -13,8 +13,8 @@ public class SmsQueueTask {
     @Autowired
     private SmsQueueService smsQueueService;
 
-    @Scheduled(initialDelay = 2000, fixedRate = 10000)
-    public void reportCurrentTime() {
+//    @Scheduled(initialDelay = 2000, fixedRate = 10000)
+    public void sendAllMessages() {
         smsQueueService.sendAllMessages();
     }
 }

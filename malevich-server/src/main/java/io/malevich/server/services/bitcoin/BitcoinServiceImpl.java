@@ -7,6 +7,7 @@ import org.bitcoinj.net.discovery.DnsDiscovery;
 import org.bitcoinj.wallet.SendRequest;
 import org.bitcoinj.wallet.Wallet;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Service;
 
 import java.util.concurrent.ExecutionException;

@@ -8,6 +8,8 @@ import java.util.List;
 @Service
 public interface PaymentMethodBitcoinService {
 
+    List<PaymentMethodBitcoinEntity> findAllAll();
+
     List<PaymentMethodBitcoinEntity> findAll();
 
     PaymentMethodBitcoinEntity generateBtc();

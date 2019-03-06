@@ -1,6 +1,7 @@
 package io.malevich.server.config;
 
 import org.bitcoinj.core.BlockChain;
+import org.bitcoinj.core.Context;
 import org.bitcoinj.core.NetworkParameters;
 import org.bitcoinj.store.BlockStoreException;
 import org.bitcoinj.store.MemoryBlockStore;
@@ -22,10 +23,14 @@ public class BitcoinConfig {
         return new MemoryBlockStore(networkParameters());
     }
 
+    @Bean
+    public Context context() {
+        return new Context(networkParameters());
+    }
 
     @Bean
     public BlockChain blockChain() throws BlockStoreException {
-        return new BlockChain(networkParameters(), memoryBlockStore());
+        return new BlockChain(context(), memoryBlockStore());
     }
 
 }

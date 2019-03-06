@@ -16,7 +16,7 @@ public class MarketOrdersCheck {
     @Autowired
     private ExchangeService exchangeService;
 
-    @Scheduled(initialDelay = 2000, fixedRate = 10000)
+//    @Scheduled(initialDelay = 2000, fixedRate = 10000)
     public void checkExecution() {
         try {
             exchangeService.processExecution();

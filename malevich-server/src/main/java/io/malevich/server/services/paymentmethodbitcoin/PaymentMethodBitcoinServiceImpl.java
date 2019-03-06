@@ -43,6 +43,12 @@ public class PaymentMethodBitcoinServiceImpl implements PaymentMethodBitcoinServ
 
     @Override
     @Transactional(readOnly = true)
+    public List<PaymentMethodBitcoinEntity> findAllAll() {
+        return paymentMethodDao.findByType_Id(paymentMethodTypeService.getBitcoinType().getId()).stream().map(m -> (PaymentMethodBitcoinEntity) m).collect(Collectors.toList());
+    }
+
+    @Override
+    @Transactional(readOnly = true)
     public List<PaymentMethodBitcoinEntity> findAll() {
         ParticipantEntity participantEntity = participantService.getCurrent();
         return paymentMethodDao.findByParticipant_IdAndType_Id(participantEntity.getId(), paymentMethodTypeService.getBitcoinType().getId())

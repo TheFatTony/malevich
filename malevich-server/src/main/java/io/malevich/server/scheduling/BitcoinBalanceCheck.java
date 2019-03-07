@@ -7,8 +7,9 @@ import io.malevich.server.services.bitcoin.BitcoinService;
 import io.malevich.server.services.exchange.ExchangeService;
 import io.malevich.server.services.paymentmethodbitcoin.PaymentMethodBitcoinService;
 import io.malevich.server.services.payments.PaymentsService;
-import org.bitcoinj.core.Context;
-import org.bitcoinj.core.PeerGroup;
+import lombok.extern.slf4j.Slf4j;
+import org.bitcoinj.core.*;
+import org.bitcoinj.wallet.Wallet;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Profile;
 import org.springframework.scheduling.annotation.Scheduled;
@@ -18,8 +19,9 @@ import java.io.ByteArrayOutputStream;
 import java.math.BigDecimal;
 import java.sql.Timestamp;
 import java.util.List;
+import java.util.Set;
 
-@Profile({"test", "prod"})
+@Slf4j
 @Component
 public class BitcoinBalanceCheck {
 
@@ -29,6 +31,9 @@ public class BitcoinBalanceCheck {
 
     @Autowired
     private BitcoinService bitcoinService;
+
+    @Autowired
+    private NetworkParameters networkParameters;
 
     @Autowired
     private ExchangeService exchangeService;
@@ -51,8 +56,9 @@ public class BitcoinBalanceCheck {
             bitcoinService.downloadBlockchain(peerGroup);
 
             for (PaymentMethodBitcoinEntity account : accounts) {
-//            wallet.addWatchedAddress(new Address(networkParameters, account.getBtcAddress()));
-//            peerGroup.addWallet(wallet);
+                peerGroup.addWallet(account.getBtcWallet());
+                txHistory(account.getBtcWallet());
+                log.info("!!!! wallet = " + account.getBtcAddress() + "balance = "+ account.getBtcWallet().getBalance().getValue());
 
                 if (account.getBtcWallet().getBalance().getValue() > 0) {
                     // real code
@@ -81,5 +87,33 @@ public class BitcoinBalanceCheck {
         }
     }
 
+    private void txHistory(Wallet wallet)
+    {
+        Set<Transaction> txx = wallet.getTransactions(true);
+        if (!txx.isEmpty())
+        {
+            int i = 1;
+            for (Transaction tx : txx)
+            {
+                System.out.println(i + "  ________________________");
+                System.out.println("Date and Time: " + tx.getUpdateTime().toString());
+                System.out.println("From Address: " + tx.getOutput(0).getAddressFromP2PKHScript(networkParameters));
+                System.out.println("To Address: " + tx.getOutput(0).getAddressFromP2PKHScript(networkParameters));
+                System.out.println("Amount Sent to me: " + tx.getValueSentToMe(wallet).toFriendlyString());
+                System.out.println("Amount Sent from me: " + tx.getValueSentFromMe(wallet).toFriendlyString());
+                long fee = (tx.getInputSum().getValue() > 0 ? tx.getInputSum().getValue() - tx.getOutputSum().getValue() : 0);
+                System.out.println("Fee: " + Coin.valueOf(fee).toFriendlyString());
+                System.out.println("Transaction Depth: " + tx.getConfidence().getDepthInBlocks());
+                System.out.println("Transaction Blocks: " + tx.getConfidence().toString());
+                System.out.println("Tx Hex: " + tx.getHashAsString());
+                System.out.println("Tx: " + tx.toString());
+                i++;
+            }
+        }
+        else
+        {
+            System.err.println("No Transaction Found");
+        }
+    }
 
 }

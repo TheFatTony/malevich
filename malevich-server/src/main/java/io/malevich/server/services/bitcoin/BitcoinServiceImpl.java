@@ -23,7 +23,7 @@ public class BitcoinServiceImpl implements BitcoinService {
     @Autowired
     private BlockChain blockChain;
 
-    private long nextChainScanTime = System.currentTimeMillis() / 1000;
+    private long nextChainScanTime = System.currentTimeMillis() / 1000 - 86400;
 
 
     protected BitcoinServiceImpl() {
@@ -34,7 +34,7 @@ public class BitcoinServiceImpl implements BitcoinService {
     public PeerGroup startPeerGroup() {
         PeerGroup peerGroup = new PeerGroup(networkParameters, blockChain);
         peerGroup.addPeerDiscovery(new DnsDiscovery(networkParameters));
-        peerGroup.start();
+        peerGroup.startAsync();
 
         return peerGroup;
     }

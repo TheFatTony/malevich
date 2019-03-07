@@ -51,12 +51,13 @@ public class BitcoinBalanceCheck {
     @Autowired
     private PaymentsService paymentsService;
 
+    private long nextChainScanTime = System.currentTimeMillis() / 1000 - 86400;
+
 //    @Scheduled(initialDelay = 2000, fixedDelay = 10000)
     public void checkBalance() {
         NetworkParameters params = TestNet3Params.get();
         String filePrefix = "peer2-testnet";
         WalletAppKit kit = new WalletAppKit(params, new java.io.File("."), filePrefix);
-        // Download the block chain and wait until it's done.
         kit.startAsync();
         kit.awaitRunning();
         BlockChain chain;
@@ -77,6 +78,7 @@ public class BitcoinBalanceCheck {
                 peerGroup.addWallet(account.getBtcWallet());
                 peerGroup.start();
 
+                peerGroup.setFastCatchupTimeSecs(nextChainScanTime);
                 peerGroup.downloadBlockChain();
 
                 txHistory(account.getBtcWallet());
@@ -103,6 +105,7 @@ public class BitcoinBalanceCheck {
 
                 peerGroup.stop();
             }
+            nextChainScanTime = System.currentTimeMillis() / 1000 - 10;
 
         } catch (Throwable e) {
             e.printStackTrace();

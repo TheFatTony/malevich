@@ -5,7 +5,7 @@ import io.malevich.server.domain.ExchangeOrderEntity;
 import io.malevich.server.domain.PaymentMethodEntity;
 import io.malevich.server.domain.PaymentsEntity;
 import io.malevich.server.domain.enums.ExchangeOrderStatus;
-import io.malevich.server.services.bitcoin.BitcoinService;
+import io.malevich.server.bitcoin.BitcoinService;
 import io.malevich.server.services.exchangeorder.ExchangeOrderService;
 import io.malevich.server.services.payments.PaymentsService;
 import lombok.extern.slf4j.Slf4j;

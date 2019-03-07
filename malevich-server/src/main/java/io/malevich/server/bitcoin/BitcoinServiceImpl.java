@@ -1,13 +1,11 @@
-package io.malevich.server.services.bitcoin;
+package io.malevich.server.bitcoin;
 
 
 import lombok.extern.slf4j.Slf4j;
 import org.bitcoinj.core.*;
-import org.bitcoinj.net.discovery.DnsDiscovery;
 import org.bitcoinj.wallet.SendRequest;
 import org.bitcoinj.wallet.Wallet;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Service;
 
 import java.util.concurrent.ExecutionException;
@@ -21,7 +19,7 @@ public class BitcoinServiceImpl implements BitcoinService {
     private NetworkParameters networkParameters;
 
     @Autowired
-    private BlockChain blockChain;
+    private PeerGroup peerGroup;
 
     private long nextChainScanTime = System.currentTimeMillis() / 1000 - 86400;
 
@@ -29,18 +27,8 @@ public class BitcoinServiceImpl implements BitcoinService {
     protected BitcoinServiceImpl() {
     }
 
-
     @Override
-    public PeerGroup startPeerGroup() {
-        PeerGroup peerGroup = new PeerGroup(networkParameters, blockChain);
-        peerGroup.addPeerDiscovery(new DnsDiscovery(networkParameters));
-        peerGroup.startAsync();
-
-        return peerGroup;
-    }
-
-    @Override
-    public void downloadBlockchain(PeerGroup peerGroup) {
+    public void downloadBlockchain() {
         peerGroup.setFastCatchupTimeSecs(nextChainScanTime);
         peerGroup.downloadBlockChain();
         nextChainScanTime = System.currentTimeMillis() / 1000 - 10;

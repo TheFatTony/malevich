@@ -39,7 +39,7 @@ public class PaymentMethodBitcoinServiceImpl implements PaymentMethodBitcoinServ
     private NetworkParameters networkParameters;
 
     @Autowired
-    private BlockChain blockChain;
+    private PeerGroup peerGroup;
 
     @Override
     @Transactional(readOnly = true)
@@ -72,13 +72,13 @@ public class PaymentMethodBitcoinServiceImpl implements PaymentMethodBitcoinServ
         }
 
         Wallet wallet = createWallet();
+        address.setBtcAddress(getBtcAddress(wallet));
         ByteArrayOutputStream walletDump = new ByteArrayOutputStream();
         try {
             wallet.saveToFileStream(walletDump);
         } catch (IOException e) {
             new RuntimeException("Unable to save wallet seed");
         }
-        address.setBtcAddress(getBtcAddress(wallet));
         address.setWallet(walletDump.toByteArray());
 
         return paymentMethodDao.save(address);
@@ -91,12 +91,6 @@ public class PaymentMethodBitcoinServiceImpl implements PaymentMethodBitcoinServ
 
     private Wallet createWallet() {
         Wallet wallet = new Wallet(networkParameters);
-        PeerGroup peerGroup = new PeerGroup(networkParameters, blockChain);
-        peerGroup.addPeerDiscovery(new DnsDiscovery(networkParameters));
-        peerGroup.addWallet(wallet);
-        peerGroup.start();
-        peerGroup.stop();
-
         return wallet;
     }
 

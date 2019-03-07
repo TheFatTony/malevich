@@ -38,10 +38,10 @@ public class BitcoinConfig {
         return new BlockChain(context(), memoryBlockStore());
     }
 
-    @Override
-    public PeerGroup startPeerGroup() {
-        PeerGroup peerGroup = new PeerGroup(networkParameters, blockChain);
-        peerGroup.addPeerDiscovery(new DnsDiscovery(networkParameters));
+    @Bean
+    public PeerGroup peerGroup() throws BlockStoreException {
+        PeerGroup peerGroup = new PeerGroup(networkParameters(), blockChain());
+        peerGroup.addPeerDiscovery(new DnsDiscovery(networkParameters()));
         peerGroup.start();
 
         return peerGroup;

@@ -1,18 +1,19 @@
 package io.malevich.server.scheduling;
 
+import io.malevich.server.bitcoin.BitcoinService;
 import io.malevich.server.domain.PaymentMethodBitcoinEntity;
 import io.malevich.server.domain.PaymentsEntity;
-import io.malevich.server.domain.enums.ExchangeOrderStatus;
-import io.malevich.server.services.bitcoin.BitcoinService;
 import io.malevich.server.services.exchange.ExchangeService;
 import io.malevich.server.services.paymentmethodbitcoin.PaymentMethodBitcoinService;
 import io.malevich.server.services.payments.PaymentsService;
 import lombok.extern.slf4j.Slf4j;
 import org.bitcoinj.core.*;
+import org.bitcoinj.kits.WalletAppKit;
+import org.bitcoinj.net.discovery.DnsDiscovery;
+import org.bitcoinj.params.TestNet3Params;
+import org.bitcoinj.store.MemoryBlockStore;
 import org.bitcoinj.wallet.Wallet;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Profile;
-import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
 import java.io.ByteArrayOutputStream;
@@ -38,6 +39,10 @@ public class BitcoinBalanceCheck {
     @Autowired
     private ExchangeService exchangeService;
 
+
+    @Autowired
+    private BlockChain blockChain;
+
     @Autowired
     public Context context;
 
@@ -48,15 +53,32 @@ public class BitcoinBalanceCheck {
 
 //    @Scheduled(initialDelay = 2000, fixedDelay = 10000)
     public void checkBalance() {
-        Context.propagate(context);
+        NetworkParameters params = TestNet3Params.get();
+        String filePrefix = "peer2-testnet";
+        WalletAppKit kit = new WalletAppKit(params, new java.io.File("."), filePrefix);
+        // Download the block chain and wait until it's done.
+        kit.startAsync();
+        kit.awaitRunning();
+        BlockChain chain;
         try {
+
+
             List<PaymentMethodBitcoinEntity> accounts = paymentMethodBitcoinService.findAllAll();
 
-            PeerGroup peerGroup = bitcoinService.startPeerGroup();
-            bitcoinService.downloadBlockchain(peerGroup);
+
 
             for (PaymentMethodBitcoinEntity account : accounts) {
+                chain = new BlockChain(params, account.getBtcWallet(),
+                        new MemoryBlockStore(params));
+                account.getBtcWallet().addWatchedAddress(new Address(networkParameters, account.getBtcAddress()), 0);
+
+                PeerGroup peerGroup = new PeerGroup(params, chain);
+                peerGroup.addPeerDiscovery(new DnsDiscovery(params));
                 peerGroup.addWallet(account.getBtcWallet());
+                peerGroup.start();
+
+                peerGroup.downloadBlockChain();
+
                 txHistory(account.getBtcWallet());
                 log.info("!!!! wallet = " + account.getBtcAddress() + "balance = "+ account.getBtcWallet().getBalance().getValue());
 
@@ -79,9 +101,9 @@ public class BitcoinBalanceCheck {
                 account.setWallet(walletDump.toByteArray());
                 paymentMethodBitcoinService.save(account);
 
+                peerGroup.stop();
             }
 
-            peerGroup.stop();
         } catch (Throwable e) {
             e.printStackTrace();
         }

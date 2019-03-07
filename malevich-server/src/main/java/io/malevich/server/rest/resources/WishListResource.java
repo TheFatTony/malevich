@@ -14,6 +14,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.stream.Collectors;
 
 @RestController
@@ -39,8 +40,15 @@ public class WishListResource extends RestResource<WishListDto, WishListEntity> 
     @PostMapping("/list")
     @ResponseStatus(HttpStatus.OK)
     public PageResponseDto list(@RequestBody PageRequestDto requestDto) {
-        Page<WishListEntity> resultPage = this.wishListService.findAll(PageRequest.of(requestDto.getPage(), requestDto.getSize()));
+        Page<WishListEntity> resultPage = this.wishListService.findAllPageable(PageRequest.of(requestDto.getPage(), requestDto.getSize()));
         return new PageResponseDto(resultPage.getContent().stream().map(pageEntry -> convertToDto(pageEntry)).collect(Collectors.toList()), resultPage.getTotalElements(), resultPage.getTotalPages(), requestDto.getSort());
+    }
+
+    @GetMapping("/list_all")
+    @ResponseStatus(HttpStatus.OK)
+    public List<WishListDto> listAll() {
+        List<WishListEntity> listEntities = this.wishListService.findAll();
+        return convertListOfDto(listEntities);
     }
 
     @DeleteMapping("/remove/{id}")

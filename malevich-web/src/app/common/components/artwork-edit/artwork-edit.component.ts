@@ -32,6 +32,8 @@ export class ArtworkEditComponent implements OnInit, AfterViewInit {
   artists: ArtistDto[];
   categories: CategoryDto[];
 
+  buttonsDisabled = false;
+
   artistDisplayFunc = (artist: ArtistDto) => {
     return artist.fullNameMl[this.translate.currentLang];
   };
@@ -77,10 +79,13 @@ export class ArtworkEditComponent implements OnInit, AfterViewInit {
       return;
 
     this.onSubmit.emit(this.artwork);
+
+    this.buttonsDisabled = true;
   }
 
   cancel() {
     this.onCancel.emit();
+    this.buttonsDisabled = true;
   }
 
   onArtistComboBoxChange($event) {

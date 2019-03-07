@@ -32,6 +32,9 @@ export class ArtworksDetailComponent implements OnInit, AfterViewInit {
   artworkStock: ArtworkStockDto;
   id: number;
 
+  instantPrice: number;
+  lastPrice: number;
+
   placedOrders: OrderPublicDto[];
 
   tradeHistory: TradeHistoryDto[];
@@ -86,8 +89,7 @@ export class ArtworksDetailComponent implements OnInit, AfterViewInit {
       .subscribe(r => {
         this.tradingAccess = r;
 
-        if(this.tradingAccess.read)
-        {
+        if (this.tradingAccess.read) {
           this.getOpenOrdersByArtworkId();
           this.getTradeHistoryByArtworkId();
         }
@@ -106,7 +108,13 @@ export class ArtworksDetailComponent implements OnInit, AfterViewInit {
     this.orderService
       .getOpenOrdersByArtworkId(this.id)
       .subscribe(
-        data => (this.placedOrders = data.sort((a, b) => b.amount - a.amount))
+        data => {
+          this.placedOrders = data.sort((a, b) => b.amount - a.amount);
+          const ask = this.placedOrders.find(i => i.type.id == 'ASK');
+
+          if (ask)
+            this.instantPrice = ask.amount;
+        }
       );
   }
 
@@ -114,7 +122,12 @@ export class ArtworksDetailComponent implements OnInit, AfterViewInit {
     this.tradeHistoryService
       .findAllByArtworkId(this.id)
       .subscribe(
-        data => (this.tradeHistory = data)
+        data => {
+          this.tradeHistory = data;
+          const lastTrade = this.tradeHistory[0];
+          if (lastTrade)
+            this.lastPrice = lastTrade.amount;
+        }
       );
   }
 
@@ -125,6 +138,8 @@ export class ArtworksDetailComponent implements OnInit, AfterViewInit {
 
 
   onOrderPlaced(order: OrderDto) {
+    this.lastPrice = null;
+    this.instantPrice = null;
     this.getOpenOrdersByArtworkId();
     this.getTradeHistoryByArtworkId();
   }

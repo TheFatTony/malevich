@@ -10,6 +10,8 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 @Service
 public class WishListServiceImpl implements WishListService {
 
@@ -33,13 +35,23 @@ public class WishListServiceImpl implements WishListService {
 
     @Override
     @Transactional(readOnly = true)
-    public Page<WishListEntity> findAll(Pageable pageable) {
+    public Page<WishListEntity> findAllPageable(Pageable pageable) {
         ParticipantEntity current = participantService.getCurrent();
         if (current == null)
             return null;
 
         return this.wishListDao.findAll(pageable, current.getId());
     }
+    @Override
+    @Transactional(readOnly = true)
+    public List<WishListEntity> findAll() {
+        ParticipantEntity current = participantService.getCurrent();
+        if (current == null)
+            return null;
+
+        return this.wishListDao.findAll(current.getId());
+    }
+
 
     @Override
     @Transactional

@@ -2,7 +2,7 @@ import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {environment} from '../../environments/environment.dev';
 import {WishListDto} from '../_transfer/wishListDto';
-import {BehaviorSubject, forkJoin} from "rxjs";
+import {BehaviorSubject} from "rxjs";
 import {mergeMap} from "rxjs/operators";
 
 @Injectable({

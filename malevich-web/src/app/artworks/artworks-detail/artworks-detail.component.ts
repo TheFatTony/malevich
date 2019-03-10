@@ -15,7 +15,7 @@ import {WishListService} from '../../_services/wish-list.service';
 import {WishListDto} from '../../_transfer/wishListDto';
 import {ParticipantService} from "../../_services/participant.service";
 import {KycLevelService} from "../../_services/kyc-level.service";
-import {Subject} from "rxjs";
+import {forkJoin, Subject} from "rxjs";
 import {Globals} from "../../globals";
 import {map} from "rxjs/operators";
 
@@ -30,13 +30,15 @@ export class ArtworksDetailComponent implements OnInit, AfterViewInit {
   @ViewChild('tradeTypeDropDown') tradeTypeDropDown: jqxDropDownListComponent;
 
   artworkStock: ArtworkStockDto;
+  isOwnArtwork: boolean;
   id: number;
 
   instantPrice: number;
   lastPrice: number;
 
-  placedOrders: OrderPublicDto[];
+  placeOrderMode: boolean = false;
 
+  placedOrders: OrderPublicDto[];
   tradeHistory: TradeHistoryDto[];
 
   tradingAccess: { read: boolean, write: boolean } = {read: false, write: false};
@@ -97,11 +99,18 @@ export class ArtworksDetailComponent implements OnInit, AfterViewInit {
   }
 
   getArtworkStock(): void {
-    this.artworkStockService
-      .getArtworkStock(this.id)
-      .subscribe(
-        data => (this.artworkStock = data)
-      );
+
+    forkJoin(
+      this.artworkStockService.getArtworkStock(this.id),
+      this.artworkStockService.getOwnArtworks()
+    ).pipe(map(([artwork, ownedArtworks]) => {
+      this.artworkStock = artwork;
+      const owned = ownedArtworks.find(a => a.id == artwork.id);
+
+
+      this.isOwnArtwork = owned ? true : false;
+
+    })).subscribe();
   }
 
   getOpenOrdersByArtworkId(): void {
@@ -131,15 +140,19 @@ export class ArtworksDetailComponent implements OnInit, AfterViewInit {
       );
   }
 
-  openWindow() {
-    this.myWindow.artworkStock(this.artworkStock);
-    this.myWindow.open();
+  placeOrder() {
+    // this.myWindow.artworkStock(this.artworkStock);
+    // this.myWindow.open();
+    this.placeOrderMode = true;
   }
 
 
   onOrderPlaced(order: OrderDto) {
+    this.placeOrderMode = false;
     this.lastPrice = null;
     this.instantPrice = null;
+    this.isOwnArtwork = null;
+    this.getArtworkStock();
     this.getOpenOrdersByArtworkId();
     this.getTradeHistoryByArtworkId();
   }
@@ -150,4 +163,7 @@ export class ArtworksDetailComponent implements OnInit, AfterViewInit {
     this.wishListService.addToWishList(wishList).subscribe();
   }
 
+  onOrderCanceled() {
+    this.placeOrderMode = false;
+  }
 }

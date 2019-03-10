@@ -43,29 +43,21 @@
 
       <!-- Info -->
       <div class="g-brd-around g-brd-gray-light-v4 rounded g-pa-30 g-mb-30">
-        <!--<div class="btn-group">-->
-          <!--<button class="btn u-btn-primary g-font-size-12 text-uppercase g-py-12 g-px-25">-->
-            <!--{{'PROFILE.BUTTON.UPDATE' | translate}}-->
-          <!--</button>-->
-          <!--<button class="btn u-btn-primary g-font-size-12 text-uppercase g-py-12 g-px-25">-->
-            <!--{{'PROFILE.BUTTON.CANCEL' | translate}}-->
-          <!--</button>-->
+        <!--<div class="row">-->
+          <!--<div class="col-12">-->
+            <!--<span class="d-block g-color-text g-font-size-13 mb-1">{{'PROFILE.STORAGE.ADD.CHOOSE' | translate}}</span>-->
+            <!--<mchComboBox #addArtWorkComboBox-->
+                         <!--name="artwork"-->
+                         <!--[objectSource]="artworks"-->
+                         <!--[displayFunc]="artworkDisplayFunc"-->
+                         <!--[renderer]="artworkService.comboboxRenderer"-->
+                         <!--[ngModel]="artwork"-->
+                         <!--(ngModelChange)="onArtworkComboBoxChange($event)">-->
+            <!--</mchComboBox>-->
+          <!--</div>-->
         <!--</div>-->
-        <div class="row">
-          <div class="col-12">
-            <span class="d-block g-color-text g-font-size-13 mb-1">{{'PROFILE.STORAGE.ADD.CHOOSE' | translate}}</span>
-            <mchComboBox #addArtWorkComboBox
-                         name="artwork"
-                         [objectSource]="artworks"
-                         [displayFunc]="artworkDisplayFunc"
-                         [renderer]="artworkService.comboboxRenderer"
-                         [ngModel]="artwork"
-                         (ngModelChange)="onArtworkComboBoxChange($event)">
-            </mchComboBox>
-          </div>
-        </div>
 
-        <hr class="g-brd-gray-light-v4 g-my-20">
+        <!--<hr class="g-brd-gray-light-v4 g-my-20">-->
 
         <div class="row">
           <div class="col-12">

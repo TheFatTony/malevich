@@ -150,8 +150,6 @@ public class OrderServiceImpl implements OrderService {
     @Override
     @Transactional
     public void placeAsk(OrderEntity orderEntity) {
-
-
         orderEntity.setEffectiveDate(new Timestamp(System.currentTimeMillis()));
         orderEntity.setParticipant(participantService.getCurrent());
         if (orderEntity.getTradeType() == null)
@@ -162,7 +160,6 @@ public class OrderServiceImpl implements OrderService {
             setEndOfDay(orderEntity.getExpirationDate());
 
         orderTransactionService.create(orderEntity);
-
     }
 
 
@@ -179,7 +176,6 @@ public class OrderServiceImpl implements OrderService {
             setEndOfDay(orderEntity.getExpirationDate());
 
         orderTransactionService.create(orderEntity);
-
     }
 
     @Override
@@ -191,6 +187,7 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     public void cancelOwnOrder(OrderEntity orderEntity) {
+        // check if canceled order is of your own
         orderEntity.setStatus(orderStatusService.getCanceled());
         orderEntity.setParticipant(participantService.getCurrent());
         cancelOrderTransactionService.create(orderEntity);

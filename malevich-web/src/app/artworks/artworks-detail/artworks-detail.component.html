@@ -54,9 +54,11 @@
             <h2 class="g-color-gray-dark-v5 g-font-weight-400 g-font-size-12 text-uppercase mb-2">
               Instant Price
             </h2>
+            <a href="javascript:void(0)" (click)="instantPriceClick()">
             <span class="g-color-black g-font-weight-500 g-font-size-30 mr-2">
                 {{instantPrice | number:'1.0-2'}} SQR
               </span>
+            </a>
           </div>
           <div *ngIf="!instantPrice && lastPrice" class="g-mb-30">
             <h2 class="g-color-gray-dark-v5 g-font-weight-400 g-font-size-12 text-uppercase mb-2">
@@ -75,25 +77,25 @@
             <button class="btn btn-block u-btn-primary g-font-size-12 text-uppercase g-py-15 g-px-25" type="button"
                     [disabled]="!tradingAccess.write"
                     (click)="placeOrder()">
-              {{ (isOwnArtwork ? 'MAIN.ARTWORK.PLACE_ASK' : 'MAIN.ARTWORK.PLACE_BID') | translate}}<i
+              {{ placeOrderButtonCaption | translate}}<i
               class="align-middle ml-2 icon-real-estate-089 u-line-icon-pro"></i>
             </button>
           </div>
           <div class="col g-px-5 g-mb-10">
             <button
               class="btn btn-block u-btn-outline-black g-brd-gray-dark-v5 g-brd-black--hover g-color-gray-dark-v4 g-color-white--hover g-font-size-12 text-uppercase g-py-15 g-px-25"
-              type="button" (click)="addToWishList()">
-              {{"MAIN.ARTWORK.ADD_TO_WISHLIST" | translate}} <i
+              type="button" (click)="wishListClick()">
+              {{"MAIN.ARTWORK.ADD_TO_WISHLIST" | translate}} <i *ngIf="!wishListItem"
               class="align-middle ml-2 icon-medical-022 u-line-icon-pro"></i><i
-              class="align-middle ml-2 g-color-lightred fa fa-heart g-mb-4"></i>
+              *ngIf="wishListItem" class="align-middle ml-2 g-color-lightred fa fa-heart g-mb-4"></i>
             </button>
           </div>
         </div>
         <div *ngIf="placeOrderMode" class="row g-mx-minus-5 g-mb-20">
           <div class="col g-px-5 g-mb-10">
-            <mch-order-edit
+            <mch-order-edit #orderEdit
               [artworkStock]="artworkStock"
-              [amount]="instantPrice ? instantPrice : 0"
+              [amount]="orderDefaultAmount"
               [orderType]="isOwnArtwork ? 'ask' : 'bid'"
               (onOrderPlaced)="onOrderPlaced($event)"
               (onCancel)="onOrderCanceled()"
@@ -138,8 +140,11 @@
                   </td>
                   <td class="align-top g-py-10" *ngIf="placedOrder.type.id === 'BID'">
                     <a *ngIf="placedOrder.isOwn"
-                       class="u-tags-v1 g-color-main g-brd-around g-brd-gray-light-v3 g-bg-gray-dark-v2--hover g-brd-gray-dark-v2--hover g-color-white--hover g-rounded-50 g-py-4 g-px-15"
-                       href="#!">{{placedOrder.amount}}</a>
+                       (click)="ownOrderClick()"
+                       class="u-tags-v1 g-color-main g-brd-around g-brd-gray-light-v3 g-bg-primary--hover g-brd-primary--hover g-color-white--hover g-rounded-50 g-py-4 g-px-15"
+                       data-toggle="tooltip" data-placement="top" title=""
+                       data-original-title="This is your bid. Click to cancel"
+                       >{{placedOrder.amount}}</a>
                     <span *ngIf="!placedOrder.isOwn">{{placedOrder.amount}}</span>
                   </td>
                   <td class="align-top g-py-10" *ngIf="placedOrder.type.id === 'BID'"></td>

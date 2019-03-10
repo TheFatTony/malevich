@@ -31,10 +31,14 @@ export class ArtworksDetailComponent implements OnInit, AfterViewInit {
 
   artworkStock: ArtworkStockDto;
   isOwnArtwork: boolean;
+  wishListItem: WishListDto;
+  ownOrder: OrderPublicDto;
   id: number;
 
   instantPrice: number;
   lastPrice: number;
+
+  orderDefaultAmount = 0;
 
   placeOrderMode: boolean = false;
 
@@ -69,6 +73,15 @@ export class ArtworksDetailComponent implements OnInit, AfterViewInit {
     $['HSCore'].components.HSTabs.init('[role="tablist"]');
   }
 
+  get placeOrderButtonCaption() {
+    if (!this.ownOrder) {
+      return this.isOwnArtwork ? 'MAIN.ARTWORK.PLACE_ASK' : 'MAIN.ARTWORK.PLACE_BID';
+    } else {
+      return this.isOwnArtwork ? 'MAIN.ARTWORK.REPLACE_ASK' : 'MAIN.ARTWORK.REPLACE_BID';
+
+    }
+  }
+
   checkTradingAccess() {
     if (!this.globals.isAuthorised$) {
       const subj = new Subject();
@@ -99,35 +112,48 @@ export class ArtworksDetailComponent implements OnInit, AfterViewInit {
   }
 
   getArtworkStock(): void {
+    this.isOwnArtwork = null;
+    this.wishListItem = null;
 
     forkJoin(
       this.artworkStockService.getArtworkStock(this.id),
-      this.artworkStockService.getOwnArtworks()
-    ).pipe(map(([artwork, ownedArtworks]) => {
+      this.artworkStockService.getOwnArtworks(),
+      this.wishListService.getWishListAll()
+    ).pipe(map(([artwork, ownedArtworks, wishList]) => {
       this.artworkStock = artwork;
       const owned = ownedArtworks.find(a => a.id == artwork.id);
 
+      this.isOwnArtwork = !!owned;
 
-      this.isOwnArtwork = owned ? true : false;
+      this.wishListItem = wishList.find(i => i.artworkStock.id == artwork.id);
 
     })).subscribe();
   }
 
   getOpenOrdersByArtworkId(): void {
+    this.instantPrice = null;
+    this.ownOrder = null;
+
     this.orderService
       .getOpenOrdersByArtworkId(this.id)
       .subscribe(
         data => {
           this.placedOrders = data.sort((a, b) => b.amount - a.amount);
-          const ask = this.placedOrders.find(i => i.type.id == 'ASK');
 
-          if (ask)
-            this.instantPrice = ask.amount;
+          for (let order of this.placedOrders) {
+            if (order.type.id == 'ASK')
+              this.instantPrice = order.amount;
+
+            if (order.isOwn)
+              this.ownOrder = order;
+          }
         }
       );
   }
 
   getTradeHistoryByArtworkId(): void {
+    this.lastPrice = null;
+
     this.tradeHistoryService
       .findAllByArtworkId(this.id)
       .subscribe(
@@ -141,29 +167,42 @@ export class ArtworksDetailComponent implements OnInit, AfterViewInit {
   }
 
   placeOrder() {
-    // this.myWindow.artworkStock(this.artworkStock);
-    // this.myWindow.open();
+    this.orderDefaultAmount = 0;
     this.placeOrderMode = true;
   }
 
-
   onOrderPlaced(order: OrderDto) {
-    this.placeOrderMode = false;
-    this.lastPrice = null;
-    this.instantPrice = null;
-    this.isOwnArtwork = null;
     this.getArtworkStock();
     this.getOpenOrdersByArtworkId();
     this.getTradeHistoryByArtworkId();
   }
 
-  addToWishList(): void {
+  wishListClick(): void {
     let wishList = new WishListDto();
     wishList.artworkStock = this.artworkStock;
-    this.wishListService.addToWishList(wishList).subscribe();
+    this.wishListService.addToWishList(wishList).subscribe(() => {
+      this.getArtworkStock();
+    });
   }
 
   onOrderCanceled() {
     this.placeOrderMode = false;
+  }
+
+  instantPriceClick() {
+    this.orderDefaultAmount = this.instantPrice | 0;
+    this.placeOrderMode = true;
+  }
+
+  ownOrderClick() {
+    const cancelOrder = new OrderDto();
+    cancelOrder.id = this.ownOrder.id;
+    cancelOrder.amount = this.ownOrder.amount;
+    cancelOrder.artworkStock = this.ownOrder.artworkStock;
+    cancelOrder.type = this.ownOrder.type;
+
+    this.orderService.cancel(cancelOrder).subscribe(() => {
+      this.getOpenOrdersByArtworkId();
+    });
   }
 }

@@ -14,8 +14,8 @@ import {ArtworkStockDto} from "../../../_transfer/artworkStockDto";
 export class OrderEditComponent implements OnInit {
 
   @Input() artworkStock: ArtworkStockDto;
-  @Input() amount: number;
-  @Input() orderType: string;
+  @Input() amount: number = 0;
+  @Input() orderType: string = 'bid';
 
   @Output() onOrderPlaced = new EventEmitter();
   @Output() onCancel = new EventEmitter();

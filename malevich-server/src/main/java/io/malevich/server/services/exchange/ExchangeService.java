@@ -13,7 +13,7 @@ import java.util.concurrent.ExecutionException;
 public interface ExchangeService {
 
 
-    void placeOrder(Wallet wallet, PaymentMethodEntity paymentMethodEntity) throws IOException, InterruptedException, InsufficientMoneyException, ExecutionException;
+    void placeOrder(Long balance, Wallet wallet, PaymentMethodEntity paymentMethodEntity) throws IOException, InterruptedException, InsufficientMoneyException, ExecutionException;
 
     void processExecution() throws IOException;
 }

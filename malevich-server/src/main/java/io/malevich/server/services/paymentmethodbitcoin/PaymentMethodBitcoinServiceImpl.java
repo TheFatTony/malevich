@@ -1,16 +1,15 @@
 package io.malevich.server.services.paymentmethodbitcoin;
 
+import io.malevich.server.blockonomics.services.addresses.AddressesService;
 import io.malevich.server.domain.ParticipantEntity;
 import io.malevich.server.domain.PaymentMethodBitcoinEntity;
 import io.malevich.server.repositories.paymentmethod.PaymentMethodDao;
 import io.malevich.server.services.participant.ParticipantService;
 import io.malevich.server.services.paymentmethodtype.PaymentMethodTypeService;
 import lombok.extern.slf4j.Slf4j;
-import org.bitcoinj.core.*;
-import org.bitcoinj.kits.WalletAppKit;
-import org.bitcoinj.net.discovery.DnsDiscovery;
-import org.bitcoinj.store.BlockStoreException;
-import org.bitcoinj.store.MemoryBlockStore;
+import org.bitcoinj.core.Address;
+import org.bitcoinj.core.ECKey;
+import org.bitcoinj.core.NetworkParameters;
 import org.bitcoinj.wallet.Wallet;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -38,6 +37,9 @@ public class PaymentMethodBitcoinServiceImpl implements PaymentMethodBitcoinServ
     @Autowired
     private NetworkParameters networkParameters;
 
+    @Autowired
+    private AddressesService addressesService;
+
     @Override
     @Transactional(readOnly = true)
     public List<PaymentMethodBitcoinEntity> findAllAll() {
@@ -53,6 +55,7 @@ public class PaymentMethodBitcoinServiceImpl implements PaymentMethodBitcoinServ
     }
 
     @Override
+    @Transactional
     public PaymentMethodBitcoinEntity generateBtc() {
         ParticipantEntity participantEntity = participantService.getCurrent();
 
@@ -78,10 +81,19 @@ public class PaymentMethodBitcoinServiceImpl implements PaymentMethodBitcoinServ
         }
         address.setWallet(walletDump.toByteArray());
 
-        return paymentMethodDao.save(address);
+        if (existing.isPresent()) {
+            addressesService.delete(existing.get());
+        }
+
+        PaymentMethodBitcoinEntity newAddress = paymentMethodDao.save(address);
+        addressesService.create(newAddress);
+
+
+        return newAddress;
     }
 
     @Override
+    @Transactional
     public void save(PaymentMethodBitcoinEntity account) {
         paymentMethodDao.save(account);
     }

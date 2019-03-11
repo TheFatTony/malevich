@@ -1,26 +1,20 @@
 package io.malevich.server.scheduling;
 
-import io.malevich.server.bitcoin.BitcoinService;
+import io.malevich.server.blockonomics.model.BalanceResponseModel;
+import io.malevich.server.blockonomics.services.balance.BalanceService;
 import io.malevich.server.domain.PaymentMethodBitcoinEntity;
-import io.malevich.server.domain.PaymentsEntity;
 import io.malevich.server.services.exchange.ExchangeService;
 import io.malevich.server.services.paymentmethodbitcoin.PaymentMethodBitcoinService;
-import io.malevich.server.services.payments.PaymentsService;
 import lombok.extern.slf4j.Slf4j;
-import org.bitcoinj.core.*;
-import org.bitcoinj.kits.WalletAppKit;
-import org.bitcoinj.net.discovery.DnsDiscovery;
-import org.bitcoinj.params.TestNet3Params;
-import org.bitcoinj.store.MemoryBlockStore;
-import org.bitcoinj.wallet.Wallet;
+import org.bitcoinj.core.InsufficientMoneyException;
+import org.bitcoinj.wallet.UnreadableWalletException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.io.ByteArrayOutputStream;
-import java.math.BigDecimal;
-import java.sql.Timestamp;
+import java.io.IOException;
 import java.util.List;
-import java.util.Set;
+import java.util.concurrent.ExecutionException;
 
 @Slf4j
 @Component
@@ -31,107 +25,34 @@ public class BitcoinBalanceCheck {
     private PaymentMethodBitcoinService paymentMethodBitcoinService;
 
     @Autowired
-    private BitcoinService bitcoinService;
-
-    @Autowired
-    private NetworkParameters networkParameters;
-
-    @Autowired
     private ExchangeService exchangeService;
 
-    private BigDecimal exchangeRate = new BigDecimal("4000");
-
     @Autowired
-    private PaymentsService paymentsService;
+    private BalanceService balanceService;
 
-    private long nextChainScanTime = System.currentTimeMillis() / 1000 - 43200;
 
     //    @Scheduled(initialDelay = 2000, fixedDelay = 10000)
-    public void checkBalance() {
-        NetworkParameters params = TestNet3Params.get();
-        String filePrefix = "peer2-testnet";
-        WalletAppKit kit = new WalletAppKit(params, new java.io.File("."), filePrefix);
+    public void checkBalance() throws UnreadableWalletException, IOException, InterruptedException, InsufficientMoneyException, ExecutionException {
+        List<PaymentMethodBitcoinEntity> accounts = paymentMethodBitcoinService.findAllAll();
 
+        for (PaymentMethodBitcoinEntity account : accounts) {
 
-        new java.io.File("peer2-testnet.spvchain").delete();
-        new java.io.File("peer2-testnet.wallet").delete();
-        kit.startAsync();
-        kit.awaitRunning();
-        BlockChain chain;
-        try {
+            BalanceResponseModel balance = balanceService.get(account);
 
+            log.info("address = " + balance.getResponse().get(0).getAddress() + " balance = " + balance.getResponse().get(0).getConfirmed().toString());
 
-            List<PaymentMethodBitcoinEntity> accounts = paymentMethodBitcoinService.findAllAll();
-
-
-            for (PaymentMethodBitcoinEntity account : accounts) {
-                chain = new BlockChain(params, account.getBtcWallet(),
-                        new MemoryBlockStore(params));
-                account.getBtcWallet().addWatchedAddress(new Address(networkParameters, account.getBtcAddress()), 0);
-
-                PeerGroup peerGroup = new PeerGroup(params, chain);
-                peerGroup.addPeerDiscovery(new DnsDiscovery(params));
-                peerGroup.addWallet(account.getBtcWallet());
-                peerGroup.start();
-
-                peerGroup.setFastCatchupTimeSecs(account.getBtcWallet().getEarliestKeyCreationTime());
-                peerGroup.downloadBlockChain();
-
-                txHistory(account.getBtcWallet());
-                log.info("!!!! wallet = " + account.getBtcAddress() + "balance = " + account.getBtcWallet().getBalance().getValue());
-
-                if (account.getBtcWallet().getBalance().getValue() > 0) {
-                    // real code
-//                    exchangeService.placeOrder(account.getBtcWallet(), account);
-
-                    // current mock begin
-                    PaymentsEntity paymentsEntity = new PaymentsEntity();
-                    paymentsEntity.setEffectiveDate(new Timestamp(System.currentTimeMillis()));
-                    paymentsEntity.setAmount(new BigDecimal(account.getBtcWallet().getBalance().getValue()).multiply(exchangeRate));
-                    paymentsEntity.setPaymentMethod(account);
-                    paymentsEntity.setParticipant(account.getParticipant());
-                    paymentsService.insert(paymentsEntity);
-                    // current mock end
-                }
-
-                ByteArrayOutputStream walletDump = new ByteArrayOutputStream();
-                account.getBtcWallet().saveToFileStream(walletDump);
-                account.setWallet(walletDump.toByteArray());
-                paymentMethodBitcoinService.save(account);
-
-                peerGroup.stop();
+            if (balance.getResponse().get(0).getConfirmed() > 0) {
+                exchangeService.placeOrder(balance.getResponse().get(0).getConfirmed(), account.getBtcWallet(), account);
             }
-            nextChainScanTime = System.currentTimeMillis() / 1000 - 10;
-            kit.stopAsync();
-            kit.awaitTerminated();
 
-        } catch (Throwable e) {
-            e.printStackTrace();
+            ByteArrayOutputStream walletDump = new ByteArrayOutputStream();
+            account.getBtcWallet().saveToFileStream(walletDump);
+            account.setWallet(walletDump.toByteArray());
+            paymentMethodBitcoinService.save(account);
+
         }
+
     }
 
-    private void txHistory(Wallet wallet) {
-        Set<Transaction> txx = wallet.getTransactions(true);
-        if (!txx.isEmpty()) {
-            int i = 1;
-            for (Transaction tx : txx) {
-                System.out.println(i + "  ________________________");
-                System.out.println("Date and Time: " + tx.getUpdateTime().toString());
-                System.out.println("From Address: " + tx.getOutput(0).getAddressFromP2PKHScript(networkParameters));
-                System.out.println("To Address: " + tx.getOutput(0).getAddressFromP2PKHScript(networkParameters));
-                System.out.println("Amount Sent to me: " + tx.getValueSentToMe(wallet).toFriendlyString());
-                System.out.println("Amount Sent from me: " + tx.getValueSentFromMe(wallet).toFriendlyString());
-                long fee = (tx.getInputSum().getValue() > 0 ? tx.getInputSum().getValue() - tx.getOutputSum().getValue() : 0);
-                System.out.println("Fee: " + Coin.valueOf(fee).toFriendlyString());
-                System.out.println("Transaction Depth: " + tx.getConfidence().getDepthInBlocks());
-                System.out.println("Transaction Blocks: " + tx.getConfidence().toString());
-                System.out.println("Tx Hex: " + tx.getHashAsString());
-                System.out.println("Tx: " + tx.toString());
-                i++;
-            }
-        } else {
-            System.err.println("No Transaction Found");
-        }
-    }
 
 }

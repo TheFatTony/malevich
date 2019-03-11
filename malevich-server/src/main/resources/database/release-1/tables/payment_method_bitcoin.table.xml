@@ -16,7 +16,7 @@
 			</column>
 		</createTable>
 		<modifySql dbms="mysql">
-			<replace replace="clob" with="longblob"/>
+			<replace replace="blob" with="longblob"/>
 		</modifySql>
 	</changeSet>
 

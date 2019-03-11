@@ -36,6 +36,8 @@ participant Malevich extends Counterparty {
 asset ArtworkStock identified by id {
   o String id
   o String token
+  o Double currentAsk
+  o Double lastPrice
   --> Counterparty owner
   --> Counterparty holder
 }

@@ -101,6 +101,8 @@ async function placeOrder(order) { // eslint-disable-line no-unused-vars
     var currentAsk = null;
     var matchingBid = null;
 
+    var uptadeArtwork = null;
+
     results.forEach(async existingOrders => {
         if ((order.order.orderType === 'ASK') && (existingOrders.order.orderType === 'ASK') && (existingOrders.order.orderStatus === 'OPEN')) {
             askCount++;
@@ -144,6 +146,9 @@ async function placeOrder(order) { // eslint-disable-line no-unused-vars
         if ((currentAsk == null)) {
             currentAsk = orderAsset;
         }
+
+        uptadeArtwork = await registryArtworkStock.get(currentAsk.order.artworkStock.getIdentifier());
+        uptadeArtwork.currentAsk = currentAsk.order.amount;
 
         results.forEach(async existingOrders => {
             if ((currentAsk.order.amount === existingOrders.order.amount) && (existingOrders.order.orderStatus === 'OPEN')) {
@@ -215,8 +220,11 @@ async function placeOrder(order) { // eslint-disable-line no-unused-vars
 
         await updateCounterparty(uptadeParty);
         
-        let uptadeArtwork = await registryArtworkStock.get(currentAsk.order.artworkStock.getIdentifier());
+        if (uptadeArtwork == null) {
+            uptadeArtwork = await registryArtworkStock.get(currentAsk.order.artworkStock.getIdentifier());
+        }
         uptadeArtwork.owner = matchingBid.order.counterparty;
+        uptadeArtwork.lastPrice = matchingBid.order.amount;
         await registryArtworkStock.update(uptadeArtwork);
 
         let galleryParty = await registryGallery.get(uptadeArtwork.holder.getIdentifier());

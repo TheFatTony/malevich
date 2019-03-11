@@ -69,11 +69,11 @@ asset OrderAsset identified by id {
 
 asset TradeHistory identified by id {
   o String id
-  o String effectiveDate
+  o DateTime effectiveDate
   o Double amount
   --> ArtworkStock artworkStock
   o OrderAsset askOrder
-  o OrderAsset bidOrder 
+  o OrderAsset bidOrder
 }
 
 transaction Order {

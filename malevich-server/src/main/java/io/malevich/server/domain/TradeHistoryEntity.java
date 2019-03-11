@@ -12,6 +12,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Positive;
+import java.sql.Timestamp;
 
 
 public class TradeHistoryEntity extends YAbstractPersistable<Long> {
@@ -22,7 +23,7 @@ public class TradeHistoryEntity extends YAbstractPersistable<Long> {
 
     @Getter
     @Setter
-    private String effectiveDate;
+    private Timestamp effectiveDate;
 
     @Getter
     @Setter

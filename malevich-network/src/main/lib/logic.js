@@ -189,7 +189,7 @@ async function placeOrder(order) { // eslint-disable-line no-unused-vars
         tradeHistoryAsset.askOrder = currentAsk;
         tradeHistoryAsset.bidOrder = matchingBid;
         tradeHistoryAsset.artworkStock = order.order.artworkStock;
-        tradeHistoryAsset.effectiveDate = order.timestamp.toString();
+        tradeHistoryAsset.effectiveDate = order.timestamp;
         tradeHistoryAsset.amount = matchingBid.order.amount;
         await tradeHistoryRegistry.add(tradeHistoryAsset);
 

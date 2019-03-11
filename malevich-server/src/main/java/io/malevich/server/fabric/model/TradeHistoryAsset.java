@@ -15,7 +15,7 @@ public class TradeHistoryAsset {
 
     private String id;
 
-    private String effectiveDate;
+    private Timestamp effectiveDate;
 
     private String artworkStock;
 

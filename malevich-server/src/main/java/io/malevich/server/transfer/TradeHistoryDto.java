@@ -3,6 +3,8 @@ package io.malevich.server.transfer;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.sql.Timestamp;
+
 
 @Getter
 @Setter
@@ -13,7 +15,7 @@ public class TradeHistoryDto {
 
     private ArtworkStockDto artworkStock;
 
-    private String effectiveDate;
+    private Timestamp effectiveDate;
 
     private OrderDto askOrder;
 

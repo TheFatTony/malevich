@@ -35,6 +35,8 @@ public class ArtworkStockAssetServiceImpl extends GenericComposerServiceImpl<Art
         ArtworkStockAsset artworkStockAsset = new ArtworkStockAsset();
         artworkStockAsset.setId(entity.getId().toString());
         artworkStockAsset.setToken(entity.getArtwork().getId().toString());
+        artworkStockAsset.setCurrentAsk(0D);
+        artworkStockAsset.setLastPrice(0D);
         artworkStockAsset.setOwner("resource:io.malevich.network.Gallery#" + entity.getGallery().getId().toString());
         artworkStockAsset.setHolder("resource:io.malevich.network.Gallery#" + entity.getGallery().getId().toString());
 

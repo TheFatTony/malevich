@@ -4,7 +4,7 @@ import {OrderDto} from "./orderDto";
 export class TradeHistoryDto {
   id: number;
   artworkStock: ArtworkStockDto;
-  effectiveDate: string;
+  effectiveDate: Date;
   askOrder: OrderDto;
   bidOrder: OrderDto;
   amount: number;

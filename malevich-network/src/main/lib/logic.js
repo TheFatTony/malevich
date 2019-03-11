@@ -149,6 +149,7 @@ async function placeOrder(order) { // eslint-disable-line no-unused-vars
 
         uptadeArtwork = await registryArtworkStock.get(currentAsk.order.artworkStock.getIdentifier());
         uptadeArtwork.currentAsk = currentAsk.order.amount;
+        await registryArtworkStock.update(uptadeArtwork);
 
         results.forEach(async existingOrders => {
             if ((currentAsk.order.amount === existingOrders.order.amount) && (existingOrders.order.orderStatus === 'OPEN')) {
@@ -250,13 +251,18 @@ async function placeOrder(order) { // eslint-disable-line no-unused-vars
 async function cancelOrder(cancelOrder) { // eslint-disable-line no-unused-vars
     const registry = await getAssetRegistry('io.malevich.network.OrderAsset');
     const registryTrader = await getParticipantRegistry('io.malevich.network.Trader');
+    const registryArtworkStock = await getAssetRegistry('io.malevich.network.ArtworkStock');
 
     
     if (cancelOrder.order.orderStatus === 'CANCELED') {
         var updateOrder = await registry.get(cancelOrder.order.id);
-        if (updateOrder.orderStatus !== 'OPEN'){
+        
+        if (updateOrder.order.orderStatus !== 'OPEN') {
             throw new Error('!#{Only open Order can be canceled}#!');
         }
+        var uptadeArtwork = await registryArtworkStock.get(updateOrder.order.artworkStock.getIdentifier());
+        uptadeArtwork.currentAsk = 0;
+        await registryArtworkStock.update(uptadeArtwork);
 
         updateOrder.order.orderStatus = 'CANCELED';
         await registry.update(updateOrder);
@@ -266,8 +272,6 @@ async function cancelOrder(cancelOrder) { // eslint-disable-line no-unused-vars
             uptadeParty.balance = uptadeParty.balance + updateOrder.order.amount;
             await registryTrader.update(uptadeParty);
         }
-        
-        return;
     }
 }
 

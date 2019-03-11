@@ -40,11 +40,8 @@ public class CancelOrderTransactionServiceImpl extends GenericComposerServiceImp
         OrderTransaction orderTransaction = new OrderTransaction();
         orderTransaction.setOrder(new OrderConcept());
 
-        if (entity.getId() == null)
-            orderTransaction.getOrder().setId(UUID.randomUUID().toString());
-        else
-            orderTransaction.getOrder().setId(entity.getId());
 
+        orderTransaction.getOrder().setId(entity.getId());
         orderTransaction.getOrder().setAmount(entity.getAmount());
         orderTransaction.getOrder().setOrderType(entity.getType().getId());
         orderTransaction.getOrder().setOrderStatus(entity.getStatus().getId());

@@ -28,7 +28,6 @@ public class WishListResource extends RestResource<WishListDto, WishListEntity> 
         super(WishListDto.class, WishListEntity.class);
     }
 
-    @PreAuthorize("hasRole('ROLE_TRADER')")
     @PostMapping("/addWish")
     @ResponseStatus(HttpStatus.OK)
     public ResponseEntity<Void> save(@RequestBody WishListDto dto) {
@@ -36,7 +35,6 @@ public class WishListResource extends RestResource<WishListDto, WishListEntity> 
         return ResponseEntity.ok().build();
     }
 
-    //@PreAuthorize("hasRole('ROLE_TRADER')")
     @PostMapping("/list")
     @ResponseStatus(HttpStatus.OK)
     public PageResponseDto list(@RequestBody PageRequestDto requestDto) {

@@ -83,7 +83,7 @@ export class ArtworksDetailComponent implements OnInit, AfterViewInit {
   }
 
   checkTradingAccess() {
-    if (!this.globals.isAuthorised$) {
+    if (!this.globals.isAuthorised$.getValue()) {
       const subj = new Subject();
       subj.next({read: false, write: false});
       return subj;
@@ -172,17 +172,24 @@ export class ArtworksDetailComponent implements OnInit, AfterViewInit {
   }
 
   onOrderPlaced(order: OrderDto) {
+    this.placeOrderMode = false;
     this.getArtworkStock();
     this.getOpenOrdersByArtworkId();
     this.getTradeHistoryByArtworkId();
   }
 
   wishListClick(): void {
-    let wishList = new WishListDto();
-    wishList.artworkStock = this.artworkStock;
-    this.wishListService.addToWishList(wishList).subscribe(() => {
-      this.getArtworkStock();
-    });
+    if (this.wishListItem) {
+      this.wishListService.removeWish(this.wishListItem.id).subscribe(() => {
+        this.getArtworkStock();
+      });
+    } else {
+      let wishList = new WishListDto();
+      wishList.artworkStock = this.artworkStock;
+      this.wishListService.addToWishList(wishList).subscribe(() => {
+        this.getArtworkStock();
+      });
+    }
   }
 
   onOrderCanceled() {

@@ -61,10 +61,11 @@
     <div class="col-12">
         <span
           class="d-block g-color-text g-font-size-13 mb-1">{{'PROFILE.STORAGE.EDIT.DESCRIPTION_EN' | translate}}:</span>
-      <mchInput
+      <mchTextArea
         name="descriptionEn"
         [ngModel]="!artwork?.descriptionMl ? '' : artwork?.descriptionMl['en']"
-        (ngModelChange)="onDescriptionEditorChange($event, 'en')"></mchInput>
+        (ngModelChange)="onDescriptionEditorChange($event, 'en')"
+        [height]="'200px'"></mchTextArea>
     </div>
   </div>
 

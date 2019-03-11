@@ -9,4 +9,11 @@
         </createIndex>
     </changeSet>
 
+    <changeSet author="toolstik" id="wish_list-participant_id-artwork_stock_id-index">
+        <createIndex indexName="wish_list_participant_id_artwork_stock_id_idx" tableName="wish_list" unique="true">
+            <column name="participant_id"/>
+            <column name="artwork_stock_id"/>
+        </createIndex>
+    </changeSet>
+
 </databaseChangeLog>

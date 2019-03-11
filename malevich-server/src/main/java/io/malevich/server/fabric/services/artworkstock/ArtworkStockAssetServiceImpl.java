@@ -15,6 +15,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.client.HttpStatusCodeException;
 import org.springframework.web.client.RestClientException;
 
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -44,6 +45,10 @@ public class ArtworkStockAssetServiceImpl extends GenericComposerServiceImpl<Art
     @Override
     public List<ArtworkStockAsset> selectOwnedArtworkStocks() {
         ParticipantEntity participantEntity = participantService.getCurrent();
+
+        if (participantEntity == null)
+            return new ArrayList<>();
+
         String fabricClass = null;
 
         if ("G".equals(participantEntity.getType().getId())) {

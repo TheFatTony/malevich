@@ -49,7 +49,7 @@ public class ArtworkStockResource extends RestResource<ArtworkStockDto, ArtworkS
         return convertToDto(allEntry);
     }
 
-    @PreAuthorize("hasAnyRole('ROLE_GALLERY', 'ROLE_TRADER')")
+//    @PreAuthorize("hasAnyRole('ROLE_GALLERY', 'ROLE_TRADER')")
     @RequestMapping(value = "/getOwnArtworks", method = RequestMethod.GET)
     @ResponseStatus(HttpStatus.OK)
     @ResponseBody

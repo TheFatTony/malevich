@@ -18,4 +18,7 @@ public interface WishListDao extends JpaRepository<WishListEntity, Long> {
 
     @Query("select wle from WishListEntity wle where wle.participant.id =:id")
     List<WishListEntity> findAll(@Param("id") Long id);
+
+    WishListEntity findByParticipant_IdAndArtworkStock_Id(Long participantId, Long artworkStockId);
+
 }

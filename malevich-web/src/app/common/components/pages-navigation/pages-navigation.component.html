@@ -1,0 +1,24 @@
+<nav class="g-mb-100" aria-label="Page Navigation">
+  <ul class="list-inline mb-0" *ngIf="pager.pages && pager.pages.length">
+
+    <li class="list-inline-item hidden-down" *ngFor="let page of pager.pages"
+        [ngClass]="{active:pager.currentPage === page}">
+      <a
+        class="active u-pagination-v1__item g-width-30 g-height-30 g-brd-gray-light-v3 g-brd-primary--active g-color-white g-bg-primary--active g-font-size-12 rounded-circle g-pa-5"
+        href="javascript:void(0);" (click)="setPage(page-1)">{{page}}</a>
+    </li>
+    <li class="list-inline-item" [ngClass]="{'disable': pager.currentPage === pager.totalPages-1 }">
+      <a
+        class="u-pagination-v1__item g-width-30 g-height-30 g-brd-gray-light-v3 g-brd-primary--hover g-color-gray-dark-v5 g-color-primary--hover g-font-size-12 rounded-circle g-pa-5 g-ml-15"
+        href="javascript:void(0);" aria-label="Next" (click)="setPage(pager.currentPage + 1)">
+                      <span aria-hidden="true">
+                        <i class="fa fa-angle-right"></i>
+                      </span>
+        <span class="sr-only">{{"PAGINATION.NEXT"|translate}}</span>
+      </a>
+    </li>
+    <li class="list-inline-item float-right">
+      <span class="u-pagination-v1__item-info g-color-gray-dark-v4 g-font-size-12 g-pa-5">{{"PAGINATION.PAGE"|translate}} {{pager.currentPage + 1}} {{"PAGINATION.OF"|translate}} {{pager.totalPages}}</span>
+    </li>
+  </ul>
+</nav>

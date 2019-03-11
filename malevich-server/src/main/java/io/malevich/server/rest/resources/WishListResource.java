@@ -39,7 +39,13 @@ public class WishListResource extends RestResource<WishListDto, WishListEntity> 
     @ResponseStatus(HttpStatus.OK)
     public PageResponseDto list(@RequestBody PageRequestDto requestDto) {
         Page<WishListEntity> resultPage = this.wishListService.findAllPageable(PageRequest.of(requestDto.getPage(), requestDto.getSize()));
-        return new PageResponseDto(resultPage.getContent().stream().map(pageEntry -> convertToDto(pageEntry)).collect(Collectors.toList()), resultPage.getTotalElements(), resultPage.getTotalPages(), requestDto.getSort());
+        return new PageResponseDto(
+                convertListOfDto(resultPage.getContent()),
+                resultPage.getTotalElements(),
+                resultPage.getTotalPages(),
+                requestDto.getSort(),
+                resultPage.getNumber(),
+                resultPage.getSize());
     }
 
     @GetMapping("/list_all")

@@ -5,7 +5,7 @@ import {ArtworkStockService} from '../../_services/artwork-stock.service';
 import {ArtworkStockDto} from '../../_transfer/artworkStockDto';
 import {PageSortableRequestDto} from '../../_transfer/pageSortableRequestDto';
 import {FilterDto} from '../../_transfer/filterDto';
-import {PageService} from '../../_services/page.service';
+import {PageResponseDto} from "../../_transfer/pageResponseDto";
 
 @Component({
   selector: 'app-artworks-list',
@@ -13,17 +13,14 @@ import {PageService} from '../../_services/page.service';
   styleUrls: ['./artworks-list.component.css']
 })
 export class ArtworksListComponent implements OnInit {
-  showGrid: boolean = true;
-  artworkStocks: ArtworkStockDto[];
   pageSortable: PageSortableRequestDto;
   filterDto: FilterDto;
-  stockData: any = {};
+  stockData: PageResponseDto<ArtworkStockDto>;
   pager: any = {};
   private url = environment.baseUrl;
 
   constructor(public translate: TranslateService,
-              private artworkStockService: ArtworkStockService,
-              private pageService: PageService) {
+              private artworkStockService: ArtworkStockService) {
     this.pageSortable = new PageSortableRequestDto();
     this.filterDto = new FilterDto();
   }
@@ -42,14 +39,6 @@ export class ArtworksListComponent implements OnInit {
     this.filterDto = filterDto;
   }
 
-  getArtworkStock(): void {
-    this.artworkStockService
-      .getArtworkStocks()
-      .subscribe(
-        data => (this.artworkStocks = data)
-      );
-  }
-
   setPage(page: number) {
     this.filterDto.page = page;
     this.stocksByFilter(this.filterDto);
@@ -60,7 +49,7 @@ export class ArtworksListComponent implements OnInit {
     this.stocksByFilter(this.filterDto);
   }
 
-  setSize(size: number) {
+  setPageSize(size: number) {
     this.filterDto.size = size;
     this.stocksByFilter(this.filterDto);
   }
@@ -69,7 +58,6 @@ export class ArtworksListComponent implements OnInit {
     this.artworkStockService.stocksByFilter(filterDtoObj).subscribe(
       (data) => {
         this.stockData = data.body;
-        this.pager = this.pageService.getPager(this.stockData.totalElements, filterDtoObj.page, this.filterDto.size);
       }
     );
   }

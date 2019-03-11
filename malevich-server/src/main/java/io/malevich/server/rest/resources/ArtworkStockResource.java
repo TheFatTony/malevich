@@ -49,7 +49,7 @@ public class ArtworkStockResource extends RestResource<ArtworkStockDto, ArtworkS
         return convertToDto(allEntry);
     }
 
-//    @PreAuthorize("hasAnyRole('ROLE_GALLERY', 'ROLE_TRADER')")
+    //    @PreAuthorize("hasAnyRole('ROLE_GALLERY', 'ROLE_TRADER')")
     @RequestMapping(value = "/getOwnArtworks", method = RequestMethod.GET)
     @ResponseStatus(HttpStatus.OK)
     @ResponseBody
@@ -95,11 +95,18 @@ public class ArtworkStockResource extends RestResource<ArtworkStockDto, ArtworkS
 
     @PostMapping("/filter")
     @ResponseStatus(HttpStatus.OK)
-    // TODO exctarct to core
+    // TODO extract to core
     public PageResponseDto filter(@RequestBody FilterDto filterDto) {
         Specification<ArtworkStockEntity> specification = new FilterSpecification(filterDto);
-        Page<ArtworkStockEntity> resultPage = this.artworkStockService.findAll(specification, PageRequest.of(filterDto.getPage(), filterDto.getSize()));
-        return new PageResponseDto(resultPage.getContent().stream().map(pageEntry -> convertToDto(pageEntry)).collect(Collectors.toList()), resultPage.getTotalElements(), resultPage.getTotalPages(), filterDto.getSort());
+        Page<ArtworkStockEntity> resultPage =
+                this.artworkStockService.findAll(specification, PageRequest.of(filterDto.getPage(), filterDto.getSize()));
+        return new PageResponseDto(
+                convertListOfDto(resultPage.getContent()),
+                resultPage.getTotalElements(),
+                resultPage.getTotalPages(),
+                filterDto.getSort(),
+                resultPage.getNumber(),
+                resultPage.getSize());
     }
 
 }

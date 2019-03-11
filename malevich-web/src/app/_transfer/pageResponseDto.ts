@@ -1,5 +1,8 @@
-export class PageResponseDto {
-  totalElements: number;
+import {PageParamsDto} from "./pageParamsDto";
+
+export class PageResponseDto<T> extends PageParamsDto{
   totalPages: number;
-  stockSto: any[];
+  sortBy: string;
+  data: T[];
 }
+

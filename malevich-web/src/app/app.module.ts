@@ -72,6 +72,7 @@ import {KycGuard} from "./_guards/kyc.guard";
 import { ArtworkEditComponent } from './common/components/artwork-edit/artwork-edit.component';
 import {CommonComponentsModule} from "./common/components/common-components.module";
 import {NgxStripeModule} from "ngx-stripe";
+import { ArtworksViewComponent } from './artworks/artworks-list/artworks-view/artworks-view.component';
 
 
 export function createTranslateLoader(http: HttpClient) {
@@ -130,6 +131,7 @@ export function createTranslateLoader(http: HttpClient) {
     PaymentAccountComponent,
     PaymentAccountEditComponent,
     PaymentAccountViewComponent,
+    ArtworksViewComponent,
 
   ],
   imports: [

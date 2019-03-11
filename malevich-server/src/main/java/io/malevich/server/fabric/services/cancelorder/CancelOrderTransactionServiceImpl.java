@@ -17,11 +17,6 @@ import java.util.UUID;
 @Service
 public class CancelOrderTransactionServiceImpl extends GenericComposerServiceImpl<OrderEntity> implements CancelOrderTransactionService {
 
-
-    @Autowired
-    private ParticipantService participantService;
-
-
     public CancelOrderTransactionServiceImpl() {
         super("CancelOrder");
     }

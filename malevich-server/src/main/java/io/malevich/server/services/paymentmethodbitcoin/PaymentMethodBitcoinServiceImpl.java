@@ -38,9 +38,6 @@ public class PaymentMethodBitcoinServiceImpl implements PaymentMethodBitcoinServ
     @Autowired
     private NetworkParameters networkParameters;
 
-    @Autowired
-    private PeerGroup peerGroup;
-
     @Override
     @Transactional(readOnly = true)
     public List<PaymentMethodBitcoinEntity> findAllAll() {

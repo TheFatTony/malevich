@@ -39,25 +39,22 @@ public class BitcoinBalanceCheck {
     @Autowired
     private ExchangeService exchangeService;
 
-
-    @Autowired
-    private BlockChain blockChain;
-
-    @Autowired
-    public Context context;
-
     private BigDecimal exchangeRate = new BigDecimal("4000");
 
     @Autowired
     private PaymentsService paymentsService;
 
-    private long nextChainScanTime = System.currentTimeMillis() / 1000 - 86400;
+    private long nextChainScanTime = System.currentTimeMillis() / 1000 - 43200;
 
-//    @Scheduled(initialDelay = 2000, fixedDelay = 10000)
+    //    @Scheduled(initialDelay = 2000, fixedDelay = 10000)
     public void checkBalance() {
         NetworkParameters params = TestNet3Params.get();
         String filePrefix = "peer2-testnet";
         WalletAppKit kit = new WalletAppKit(params, new java.io.File("."), filePrefix);
+
+
+        new java.io.File("peer2-testnet.spvchain").delete();
+        new java.io.File("peer2-testnet.wallet").delete();
         kit.startAsync();
         kit.awaitRunning();
         BlockChain chain;
@@ -65,7 +62,6 @@ public class BitcoinBalanceCheck {
 
 
             List<PaymentMethodBitcoinEntity> accounts = paymentMethodBitcoinService.findAllAll();
-
 
 
             for (PaymentMethodBitcoinEntity account : accounts) {
@@ -78,11 +74,11 @@ public class BitcoinBalanceCheck {
                 peerGroup.addWallet(account.getBtcWallet());
                 peerGroup.start();
 
-                peerGroup.setFastCatchupTimeSecs(nextChainScanTime);
+                peerGroup.setFastCatchupTimeSecs(account.getBtcWallet().getEarliestKeyCreationTime());
                 peerGroup.downloadBlockChain();
 
                 txHistory(account.getBtcWallet());
-                log.info("!!!! wallet = " + account.getBtcAddress() + "balance = "+ account.getBtcWallet().getBalance().getValue());
+                log.info("!!!! wallet = " + account.getBtcAddress() + "balance = " + account.getBtcWallet().getBalance().getValue());
 
                 if (account.getBtcWallet().getBalance().getValue() > 0) {
                     // real code
@@ -106,20 +102,19 @@ public class BitcoinBalanceCheck {
                 peerGroup.stop();
             }
             nextChainScanTime = System.currentTimeMillis() / 1000 - 10;
+            kit.stopAsync();
+            kit.awaitTerminated();
 
         } catch (Throwable e) {
             e.printStackTrace();
         }
     }
 
-    private void txHistory(Wallet wallet)
-    {
+    private void txHistory(Wallet wallet) {
         Set<Transaction> txx = wallet.getTransactions(true);
-        if (!txx.isEmpty())
-        {
+        if (!txx.isEmpty()) {
             int i = 1;
-            for (Transaction tx : txx)
-            {
+            for (Transaction tx : txx) {
                 System.out.println(i + "  ________________________");
                 System.out.println("Date and Time: " + tx.getUpdateTime().toString());
                 System.out.println("From Address: " + tx.getOutput(0).getAddressFromP2PKHScript(networkParameters));
@@ -134,9 +129,7 @@ public class BitcoinBalanceCheck {
                 System.out.println("Tx: " + tx.toString());
                 i++;
             }
-        }
-        else
-        {
+        } else {
             System.err.println("No Transaction Found");
         }
     }

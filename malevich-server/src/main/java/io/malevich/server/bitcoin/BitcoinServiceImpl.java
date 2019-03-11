@@ -18,21 +18,12 @@ public class BitcoinServiceImpl implements BitcoinService {
     @Autowired
     private NetworkParameters networkParameters;
 
-    @Autowired
-    private PeerGroup peerGroup;
-
-    private long nextChainScanTime = System.currentTimeMillis() / 1000 - 86400;
 
 
     protected BitcoinServiceImpl() {
     }
 
-    @Override
-    public void downloadBlockchain() {
-        peerGroup.setFastCatchupTimeSecs(nextChainScanTime);
-        peerGroup.downloadBlockChain();
-        nextChainScanTime = System.currentTimeMillis() / 1000 - 10;
-    }
+
 
 
     @Override

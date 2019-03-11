@@ -11,7 +11,5 @@ import java.util.concurrent.ExecutionException;
 @Service
 public interface BitcoinService {
 
-    void downloadBlockchain();
-
     Transaction sendCoins(Wallet wallet, String destinationAddress, long satoshis) throws InsufficientMoneyException, ExecutionException, InterruptedException;
 }

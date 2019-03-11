@@ -10,11 +10,8 @@ import org.springframework.stereotype.Component;
 public class ApplicationShutdown implements ApplicationListener<ContextClosedEvent> {
 
 
-    @Autowired
-    private PeerGroup peerGroup;
 
     @Override
     public void onApplicationEvent(ContextClosedEvent event) {
-        peerGroup.stop();
     }
 }

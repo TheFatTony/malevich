@@ -23,28 +23,8 @@ public class BitcoinConfig {
         return NetworkParameters.testNet3();
     }
 
-    @Bean
-    public SPVBlockStore memoryBlockStore() throws BlockStoreException {
-        return new SPVBlockStore(networkParameters(), BLOCKCHAIN_FILE);
-    }
 
-    @Bean
-    public Context context() {
-        return new Context(networkParameters());
-    }
 
-    @Bean
-    public BlockChain blockChain() throws BlockStoreException {
-        return new BlockChain(context(), memoryBlockStore());
-    }
 
-    @Bean
-    public PeerGroup peerGroup() throws BlockStoreException {
-        PeerGroup peerGroup = new PeerGroup(networkParameters(), blockChain());
-        peerGroup.addPeerDiscovery(new DnsDiscovery(networkParameters()));
-        peerGroup.start();
-
-        return peerGroup;
-    }
 
 }

@@ -35,9 +35,10 @@
         <li class="list-inline-item align-middle mx-0">
           <a
             class="u-icon-v1 u-icon-size--sm g-color-gray-dark-v5 g-color-primary--hover g-font-size-15 rounded-circle"
-            (click)="addToWishList(artworkStock)" data-toggle="tooltip" data-placement="top" title=""
+            (click)="toggleWishList(artworkStock)" data-toggle="tooltip" data-placement="top" title=""
             data-original-title="Add to Wishlist">
-            <i class="icon-medical-022 u-line-icon-pro"></i>
+            <i *ngIf="wishListMap[artworkStock.id] == null" class="icon-medical-022 u-line-icon-pro "></i>
+            <i *ngIf="wishListMap[artworkStock.id] != null" class="fa fa-heart g-color-lightred" style="line-height: 1.5"></i>
           </a>
         </li>
       </ul>

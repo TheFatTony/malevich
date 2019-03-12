@@ -16,7 +16,6 @@ export class ArtworksListComponent implements OnInit {
   pageSortable: PageSortableRequestDto;
   filterDto: FilterDto;
   stockData: PageResponseDto<ArtworkStockDto>;
-  pager: any = {};
   private url = environment.baseUrl;
 
   constructor(public translate: TranslateService,

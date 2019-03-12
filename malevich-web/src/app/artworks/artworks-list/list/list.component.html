@@ -26,16 +26,22 @@
         <li class="list-inline-item align-middle g-pr-20 g-mr-20">
           <button class="btn btn-block u-btn-primary g-font-size-12 text-uppercase g-py-15 g-px-25" type="button"
                   (click)="openWindow(artworkStock)">
-            {{"MAIN.ARTWORK.PLACE_A_BID" | translate}} <i
+            {{"MAIN.ARTWORK.PLACE_BID" | translate}} <i
             class="align-middle ml-2 icon-real-estate-089 u-line-icon-pro"></i>
           </button>
         </li>
         <li class="list-inline-item align-middle">
-          <button
-            class="btn btn-block u-btn-outline-black g-brd-gray-dark-v5 g-brd-black--hover g-color-gray-dark-v4 g-color-white--hover g-font-size-12 text-uppercase g-py-15 g-px-25"
-            type="button" (click)="addToWishList(artworkStock)">
+          <button *ngIf="wishListMap[artworkStock.id] == null"
+                  class="btn btn-block u-btn-outline-black g-brd-gray-dark-v5 g-brd-black--hover g-color-gray-dark-v4 g-color-white--hover g-font-size-12 text-uppercase g-py-15 g-px-25"
+                  type="button" (click)="toggleWishList(artworkStock)">
             {{"MAIN.ARTWORK.ADD_TO_WISHLIST" | translate}} <i
             class="align-middle ml-2 icon-medical-022 u-line-icon-pro"></i>
+          </button>
+          <button *ngIf="wishListMap[artworkStock.id] != null"
+                  class="btn btn-block u-btn-outline-black g-brd-gray-dark-v5 g-brd-black--hover g-color-gray-dark-v4 g-color-white--hover g-font-size-12 text-uppercase g-py-15 g-px-25"
+                  type="button" (click)="toggleWishList(artworkStock)">
+            {{"MAIN.ARTWORK.REMOVE_FROM_WISHLIST" | translate}} <i
+            class="ml-2 g-color-lightred fa fa-heart" style="line-height: 1.5"></i>
           </button>
         </li>
       </ul>

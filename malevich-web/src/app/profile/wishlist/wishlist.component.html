@@ -36,78 +36,12 @@
     <!-- End Profile Settings -->
 
     <div class="col-lg-9 g-mb-50">
-      <!-- Payment Options -->
       <!-- Products Block -->
-      <div class="rounded g-brd-around g-brd-gray-light-v4 g-overflow-x-scroll g-overflow-x-visible--lg g-pa-30">
-        <table class="text-center w-100">
-          <thead class="h6 g-brd-bottom g-brd-gray-light-v4 g-color-black text-uppercase">
-          <tr>
-            <th class="g-font-weight-500 text-left g-pb-20">{{'PROFILE.WISHLIST.ARTWORK' |
-              translate}}
-            </th>
-            <th class="g-font-weight-500 g-width-130 g-pb-20">{{'PROFILE.WISHLIST.PRICE' |
-              translate}}
-            </th>
-            <th></th>
-          </tr>
-          </thead>
-
-          <tbody>
-          <!-- Item-->
-          <tr class="g-brd-bottom g-brd-gray-light-v4" *ngFor="let wish of wishList.data | paginate: { id: 'server',
-                                                      itemsPerPage: wishList.size,
-                                                      currentPage: wishList.currentPage,
-                                                      totalItems: wishList.totalElements }">
-            <td class="text-left g-py-25">
-              <img class="d-inline-block g-width-100 mr-4" src="{{url}}{{wish.artworkStock.artwork.thumbnail.url}}"
-                   alt="Image Description">
-              <div class="d-inline-block align-middle">
-                <h4 class="h6 g-color-black">{{wish.artworkStock.artwork.titleMl[translate.currentLang]}}</h4>
-                <ul class="list-unstyled g-color-gray-dark-v4 g-font-size-12 g-line-height-1_6 mb-0">
-                  <li>Category: {{wish.artworkStock.artwork.category.categoryNameMl[translate.currentLang]}}</li>
-                  <li>Artist: {{wish.artworkStock.artwork.artist.fullNameMl[translate.currentLang]}}</li>
-                </ul>
-              </div>
-            </td>
-            <td class="g-color-gray-dark-v2 g-font-size-13">{{wish.artworkStock.artwork.estimatedPrice}}</td>
-            <td class="text-right g-color-black">
-              <span class="g-color-gray-dark-v4 g-color-black--hover g-cursor-pointer"
-                    (click)="removeWish(wish.id)">
-                        <i class="mt-auto fa fa-trash"></i>
-                      </span>
-            </td>
-          </tr>
-          </tbody>
-        </table>
-        <div>
-          <!-- Pagination -->
-          <nav class="g-mb-100" aria-label="Page Navigation">
-            <ul class="list-inline mb-0" *ngIf="pager.pages && pager.pages.length">
-
-              <li class="list-inline-item hidden-down" *ngFor="let page of pager.pages"
-                  [ngClass]="{active:pager.currentPage === page}">
-                <a
-                  class="active u-pagination-v1__item g-width-30 g-height-30 g-brd-gray-light-v3 g-brd-primary--active g-color-white g-bg-primary--active g-font-size-12 rounded-circle g-pa-5"
-                  href="javascript:void(0);" (click)="setPage(page-1)">{{page}}</a>
-              </li>
-              <li class="list-inline-item" [ngClass]="{'disable': pager.currentPage === pager.totalPages-1 }">
-                <a
-                  class="u-pagination-v1__item g-width-30 g-height-30 g-brd-gray-light-v3 g-brd-primary--hover g-color-gray-dark-v5 g-color-primary--hover g-font-size-12 rounded-circle g-pa-5 g-ml-15"
-                  href="javascript:void(0);" aria-label="Next" (click)="setPage(pager.currentPage + 1)">
-                      <span aria-hidden="true">
-                        <i class="fa fa-angle-right"></i>
-                      </span>
-                  <span class="sr-only">{{"PAGINATION.NEXT"|translate}}</span>
-                </a>
-              </li>
-              <li class="list-inline-item float-right">
-                <span class="u-pagination-v1__item-info g-color-gray-dark-v4 g-font-size-12 g-pa-5">{{"PAGINATION.PAGE"|translate}} {{pager.currentPage+1}} of {{pager.totalPages}}</span>
-              </li>
-            </ul>
-          </nav>
-          <!-- End Pagination -->
-        </div>
-      </div>
+      <app-artworks-list-view [artworkStockPage]="wishList"
+                              (onPageChanged)="setPage($event)"
+                              (onPageSizeChanged)="setPageSize($event)"
+                              (onSortChanged)="setSort($event)"
+                              (onWishListToggle)="toggleWishList($event)"></app-artworks-list-view>
       <!-- End Products Block -->
     </div>
   </div>

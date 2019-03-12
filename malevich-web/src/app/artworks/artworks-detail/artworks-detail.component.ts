@@ -78,7 +78,6 @@ export class ArtworksDetailComponent implements OnInit, AfterViewInit {
       return this.isOwnArtwork ? 'MAIN.ARTWORK.PLACE_ASK' : 'MAIN.ARTWORK.PLACE_BID';
     } else {
       return this.isOwnArtwork ? 'MAIN.ARTWORK.REPLACE_ASK' : 'MAIN.ARTWORK.REPLACE_BID';
-
     }
   }
 

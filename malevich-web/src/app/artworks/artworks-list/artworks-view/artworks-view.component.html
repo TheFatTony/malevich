@@ -1,5 +1,5 @@
 <!-- Filters -->
-<div class="d-flex justify-content-end align-items-center g-brd-bottom g-brd-gray-light-v4 g-pt-40 g-pb-20">
+<div class="d-flex justify-content-end align-items-center g-brd-bottom g-brd-gray-light-v4 g-pb-20">
   <!-- Show -->
   <div class="g-mr-60">
     <h2 class="h6 align-middle d-inline-block g-font-weight-400 text-uppercase g-pos-rel g-top-1 mb-0">
@@ -85,8 +85,14 @@
 <!-- End Filters -->
 
 <!-- Products -->
-<app-artworks-list-grid [artworkStocks]="stockData.data" *ngIf="showGrid"></app-artworks-list-grid>
-<app-artworks-list-list [artworkStocks]="stockData.data" *ngIf="!showGrid"></app-artworks-list-list>
+<app-artworks-list-grid *ngIf="showGrid"
+                        [artworkStocks]="stockData.data"
+                        [wishListMap]="wishListMap"
+                        (onWishListToggle)="toggleWishList($event)"></app-artworks-list-grid>
+<app-artworks-list-list *ngIf="!showGrid"
+                        [artworkStocks]="stockData.data"
+                        [wishListMap]="wishListMap"
+                        (onWishListToggle)="toggleWishList($event)"></app-artworks-list-list>
 <!-- End Products -->
 
 <hr class="g-mb-60">

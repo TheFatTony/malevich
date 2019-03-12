@@ -29,7 +29,7 @@
 <!-- Product Description -->
 
 <div class="container g-pt-50 g-pb-100">
-  <div class="row">
+  <div *ngIf="artworkStock" class="row">
     <div class="col-lg-7">
       <!-- Carousel -->
       <div class="g-pt-10 g-mb-10">
@@ -50,22 +50,22 @@
 
         <!-- Price -->
         <ng-container *ngIf="tradingAccess.read">
-          <div *ngIf="instantPrice" class="g-mb-30">
+          <div *ngIf="artworkStock.instantPrice" class="g-mb-30">
             <h2 class="g-color-gray-dark-v5 g-font-weight-400 g-font-size-12 text-uppercase mb-2">
               Instant Price
             </h2>
             <a href="javascript:void(0)" (click)="instantPriceClick()">
             <span class="g-color-black g-font-weight-500 g-font-size-30 mr-2">
-                {{instantPrice | number:'1.0-2'}} SQR
+                {{artworkStock.instantPrice | number:'1.0-2'}} SQR
               </span>
             </a>
           </div>
-          <div *ngIf="!instantPrice && lastPrice" class="g-mb-30">
+          <div *ngIf="!artworkStock.instantPrice && artworkStock.lastPrice" class="g-mb-30">
             <h2 class="g-color-gray-dark-v5 g-font-weight-400 g-font-size-12 text-uppercase mb-2">
               Last Price
             </h2>
             <span class="g-color-gray-dark-v4 g-font-weight-500 g-font-size-30 mr-2">
-                {{lastPrice | number:'1.0-2'}} SQR
+                {{artworkStock.lastPrice | number:'1.0-2'}} SQR
               </span>
           </div>
         </ng-container>
@@ -143,7 +143,7 @@
                 <tr class="g-color-gray-dark-v4 g-font-size-12" *ngFor="let placedOrder of placedOrders">
                   <td class="align-top g-py-10" *ngIf="placedOrder.type.id === 'ASK'"></td>
                   <td class="align-top g-py-10" *ngIf="placedOrder.type.id === 'ASK'">
-                    {{placedOrder.amount}}
+                    {{placedOrder.amount | number:'1.0-2'}}
                   </td>
                   <td class="align-top g-py-10" *ngIf="placedOrder.type.id === 'BID'">
                     <a *ngIf="placedOrder.isOwn"
@@ -151,8 +151,8 @@
                        class="u-tags-v1 g-color-main g-brd-around g-brd-gray-light-v3 g-bg-primary--hover g-brd-primary--hover g-color-white--hover g-rounded-50 g-py-4 g-px-15"
                        data-toggle="tooltip" data-placement="top" title=""
                        data-original-title="This is your bid. Click to cancel"
-                    >{{placedOrder.amount}}</a>
-                    <span *ngIf="!placedOrder.isOwn">{{placedOrder.amount}}</span>
+                    >{{placedOrder.amount | number:'1.0-2'}}</a>
+                    <span *ngIf="!placedOrder.isOwn">{{placedOrder.amount | number:'1.0-2'}}</span>
                   </td>
                   <td class="align-top g-py-10" *ngIf="placedOrder.type.id === 'BID'"></td>
                 </tr>
@@ -174,8 +174,8 @@
                 </thead>
                 <tbody>
                 <tr class="g-color-gray-dark-v4 g-font-size-12" *ngFor="let tradeHistoryItem of tradeHistory">
-                  <td class="align-top g-py-10">{{tradeHistoryItem.effectiveDate}}</td>
-                  <td class="align-top g-py-10">{{tradeHistoryItem.amount}} SQR</td>
+                  <td class="align-top g-py-10">{{tradeHistoryItem.effectiveDate | date:'d MMMM yyyy, h:mm a'}}</td>
+                  <td class="align-top g-py-10">{{tradeHistoryItem.amount | number:'1.0-2'}} SQR</td>
                 </tr>
                 </tbody>
               </table>

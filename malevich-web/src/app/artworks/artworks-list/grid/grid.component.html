@@ -18,7 +18,8 @@
           </a>
         </h4>
         <span class="d-inline-block g-color-gray-dark-v5 g-font-size-13">{{artworkStock.artwork.category.categoryNameMl[translate.currentLang]}}</span>
-        <span class="d-block g-color-black g-font-size-17">${{artworkStock.artwork.estimatedPrice}}</span>
+        <span *ngIf="artworkStock.instantPrice" class="d-block g-color-black g-font-size-17">{{artworkStock.instantPrice}} SQR</span>
+        <span *ngIf="!artworkStock.instantPrice && artworkStock.lastPrice" class="d-block g-color-gray-dark-v5 g-font-size-17">{{artworkStock.lastPrice}} SQR</span>
       </div>
       <!-- End Product Info -->
 

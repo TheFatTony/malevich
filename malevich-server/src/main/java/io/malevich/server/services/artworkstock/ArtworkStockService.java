@@ -24,6 +24,8 @@ public interface ArtworkStockService {
 
     ArtworkStockEntity find(long id);
 
+    void sync(long id);
+
     Page<ArtworkStockEntity> findAll(Specification<ArtworkStockEntity> specification, Pageable pageable);
 
     List<ArtworkStockEntity> findAllByGalleryId(Long galleryId);

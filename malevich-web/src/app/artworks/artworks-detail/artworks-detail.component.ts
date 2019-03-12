@@ -35,9 +35,6 @@ export class ArtworksDetailComponent implements OnInit, AfterViewInit {
   ownOrder: OrderPublicDto;
   id: number;
 
-  instantPrice: number;
-  lastPrice: number;
-
   orderDefaultAmount = 0;
 
   placeOrderMode: boolean = false;
@@ -130,7 +127,6 @@ export class ArtworksDetailComponent implements OnInit, AfterViewInit {
   }
 
   getOpenOrdersByArtworkId(): void {
-    this.instantPrice = null;
     this.ownOrder = null;
 
     this.orderService
@@ -140,9 +136,6 @@ export class ArtworksDetailComponent implements OnInit, AfterViewInit {
           this.placedOrders = data.sort((a, b) => b.amount - a.amount);
 
           for (let order of this.placedOrders) {
-            if (order.type.id == 'ASK')
-              this.instantPrice = order.amount;
-
             if (order.isOwn)
               this.ownOrder = order;
           }
@@ -151,16 +144,13 @@ export class ArtworksDetailComponent implements OnInit, AfterViewInit {
   }
 
   getTradeHistoryByArtworkId(): void {
-    this.lastPrice = null;
-
     this.tradeHistoryService
       .findAllByArtworkId(this.id)
       .subscribe(
         data => {
-          this.tradeHistory = data;
-          const lastTrade = this.tradeHistory[0];
-          if (lastTrade)
-            this.lastPrice = lastTrade.amount;
+          // console.log(data[0]);
+          this.tradeHistory = data.sort((x, y) => new Date(y.effectiveDate).getTime() - new Date(x.effectiveDate).getTime());
+          //
         }
       );
   }
@@ -196,7 +186,7 @@ export class ArtworksDetailComponent implements OnInit, AfterViewInit {
   }
 
   instantPriceClick() {
-    this.orderDefaultAmount = this.instantPrice | 0;
+    this.orderDefaultAmount = this.artworkStock.instantPrice | 0;
     this.placeOrderMode = true;
   }
 

@@ -77,7 +77,13 @@ public class ArtworkStockServiceImpl implements ArtworkStockService {
         List<ArtworkStockEntity> result = new ArrayList<>();
 
         for (ArtworkStockAsset asset : artworkStockAssetService.selectOwnedArtworkStocks()) {
-            result.add(find(new Long(asset.getId().replace("resource:io.malevich.network.ArtworkStock#", ""))));
+            Long id = Long.parseLong(asset.getId().replace("resource:io.malevich.network.ArtworkStock#", ""));
+
+            ArtworkStockEntity artworkStockEntity = find(id);
+            artworkStockEntity.setInstantPrice(asset.getCurrentAsk());
+            artworkStockEntity.setLastPrice(asset.getLastPrice());
+
+            result.add(artworkStockEntity);
         }
 
         return result;
@@ -103,6 +109,26 @@ public class ArtworkStockServiceImpl implements ArtworkStockService {
     @Transactional(readOnly = true)
     public ArtworkStockEntity find(long id) {
         return artworkStockDao.findById(id).orElse(null);
+    }
+
+    @Override
+    @Transactional
+    public void sync(long id){
+        ArtworkStockAsset asset = artworkStockAssetService.findOne(id);
+
+        if(asset == null)
+            return;
+
+        ArtworkStockEntity artworkStockEntity = find(id);
+
+        if(artworkStockEntity != null){
+            artworkStockEntity.setInstantPrice(asset.getCurrentAsk());
+            artworkStockEntity.setLastPrice(asset.getLastPrice());
+            this.artworkStockDao.save(artworkStockEntity);
+        } else {
+            // todo create?
+            return;
+        }
     }
 
     @Override

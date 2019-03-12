@@ -11,4 +11,6 @@ import java.util.List;
 public interface ArtworkStockAssetService extends GenericComposerService<ArtworkStockEntity> {
 
     List<ArtworkStockAsset> selectOwnedArtworkStocks();
+
+    ArtworkStockAsset findOne(Long id);
 }

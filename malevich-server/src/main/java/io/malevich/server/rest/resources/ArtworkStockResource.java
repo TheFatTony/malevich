@@ -85,6 +85,7 @@ public class ArtworkStockResource extends RestResource<ArtworkStockDto, ArtworkS
         return ResponseEntity.ok().build();
     }
 
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN')")
     @RequestMapping(value = "/delete/{id}", method = RequestMethod.DELETE)
     @ResponseStatus(HttpStatus.OK)
     @ResponseBody

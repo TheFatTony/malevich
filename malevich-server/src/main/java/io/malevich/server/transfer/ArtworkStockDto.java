@@ -15,6 +15,8 @@ public class ArtworkStockDto {
 
     private GalleryDto gallery;
 
-    private Double price;
+    private Double instantPrice;
+
+    private Double lastPrice;
 
 }

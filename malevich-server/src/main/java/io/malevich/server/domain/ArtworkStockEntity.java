@@ -32,7 +32,10 @@ public class ArtworkStockEntity extends YAbstractPersistable<Long> {
 
     @Getter
     @Setter
-    @Column(name = "price")
-    private double price;
+    private Double instantPrice;
+
+    @Getter
+    @Setter
+    private Double lastPrice;
 
 }

@@ -225,6 +225,7 @@ async function placeOrder(order) { // eslint-disable-line no-unused-vars
             uptadeArtwork = await registryArtworkStock.get(currentAsk.order.artworkStock.getIdentifier());
         }
         uptadeArtwork.owner = matchingBid.order.counterparty;
+        uptadeArtwork.currentAsk = 0;
         uptadeArtwork.lastPrice = matchingBid.order.amount;
         await registryArtworkStock.update(uptadeArtwork);
 

@@ -15,6 +15,10 @@ public class ArtworkStockAsset {
 
     private String token;
 
+    private Double currentAsk;
+
+    private Double lastPrice;
+
     private String owner;
 
     private String holder;

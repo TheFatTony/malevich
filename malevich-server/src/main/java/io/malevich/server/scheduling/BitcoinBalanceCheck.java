@@ -1,25 +1,22 @@
 package io.malevich.server.scheduling;
 
+import io.malevich.server.blockonomics.model.BalanceResponseModel;
+import io.malevich.server.blockonomics.services.balance.BalanceService;
 import io.malevich.server.domain.PaymentMethodBitcoinEntity;
-import io.malevich.server.domain.PaymentsEntity;
-import io.malevich.server.domain.enums.ExchangeOrderStatus;
-import io.malevich.server.services.bitcoin.BitcoinService;
 import io.malevich.server.services.exchange.ExchangeService;
 import io.malevich.server.services.paymentmethodbitcoin.PaymentMethodBitcoinService;
-import io.malevich.server.services.payments.PaymentsService;
-import org.bitcoinj.core.Context;
-import org.bitcoinj.core.PeerGroup;
+import lombok.extern.slf4j.Slf4j;
+import org.bitcoinj.core.InsufficientMoneyException;
+import org.bitcoinj.wallet.UnreadableWalletException;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Profile;
-import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
 import java.io.ByteArrayOutputStream;
-import java.math.BigDecimal;
-import java.sql.Timestamp;
+import java.io.IOException;
 import java.util.List;
+import java.util.concurrent.ExecutionException;
 
-@Profile({"test", "prod"})
+@Slf4j
 @Component
 public class BitcoinBalanceCheck {
 
@@ -28,57 +25,33 @@ public class BitcoinBalanceCheck {
     private PaymentMethodBitcoinService paymentMethodBitcoinService;
 
     @Autowired
-    private BitcoinService bitcoinService;
-
-    @Autowired
     private ExchangeService exchangeService;
 
     @Autowired
-    public Context context;
+    private BalanceService balanceService;
 
-    private BigDecimal exchangeRate = new BigDecimal("4000");
 
-    @Autowired
-    private PaymentsService paymentsService;
+    //    @Scheduled(initialDelay = 2000, fixedDelay = 10000)
+    public void checkBalance() throws UnreadableWalletException, IOException, InterruptedException, InsufficientMoneyException, ExecutionException {
+        List<PaymentMethodBitcoinEntity> accounts = paymentMethodBitcoinService.findAllAll();
 
-//    @Scheduled(initialDelay = 2000, fixedDelay = 10000)
-    public void checkBalance() {
-        Context.propagate(context);
-        try {
-            List<PaymentMethodBitcoinEntity> accounts = paymentMethodBitcoinService.findAllAll();
+        for (PaymentMethodBitcoinEntity account : accounts) {
 
-            PeerGroup peerGroup = bitcoinService.startPeerGroup();
-            bitcoinService.downloadBlockchain(peerGroup);
+            BalanceResponseModel balance = balanceService.get(account);
 
-            for (PaymentMethodBitcoinEntity account : accounts) {
-//            wallet.addWatchedAddress(new Address(networkParameters, account.getBtcAddress()));
-//            peerGroup.addWallet(wallet);
+            log.info("address = " + balance.getResponse().get(0).getAddress() + " balance = " + balance.getResponse().get(0).getConfirmed().toString());
 
-                if (account.getBtcWallet().getBalance().getValue() > 0) {
-                    // real code
-//                    exchangeService.placeOrder(account.getBtcWallet(), account);
-
-                    // current mock begin
-                    PaymentsEntity paymentsEntity = new PaymentsEntity();
-                    paymentsEntity.setEffectiveDate(new Timestamp(System.currentTimeMillis()));
-                    paymentsEntity.setAmount(new BigDecimal(account.getBtcWallet().getBalance().getValue()).multiply(exchangeRate));
-                    paymentsEntity.setPaymentMethod(account);
-                    paymentsEntity.setParticipant(account.getParticipant());
-                    paymentsService.insert(paymentsEntity);
-                    // current mock end
-                }
-
-                ByteArrayOutputStream walletDump = new ByteArrayOutputStream();
-                account.getBtcWallet().saveToFileStream(walletDump);
-                account.setWallet(walletDump.toByteArray());
-                paymentMethodBitcoinService.save(account);
-
+            if (balance.getResponse().get(0).getConfirmed() > 0) {
+                exchangeService.placeOrder(balance.getResponse().get(0).getConfirmed(), account.getBtcWallet(), account);
             }
 
-            peerGroup.stop();
-        } catch (Throwable e) {
-            e.printStackTrace();
+            ByteArrayOutputStream walletDump = new ByteArrayOutputStream();
+            account.getBtcWallet().saveToFileStream(walletDump);
+            account.setWallet(walletDump.toByteArray());
+            paymentMethodBitcoinService.save(account);
+
         }
+
     }
 
 

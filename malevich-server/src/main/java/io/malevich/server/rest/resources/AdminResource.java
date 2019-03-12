@@ -3,10 +3,15 @@ package io.malevich.server.rest.resources;
 
 import io.malevich.server.scheduling.*;
 import lombok.extern.slf4j.Slf4j;
+import org.bitcoinj.core.InsufficientMoneyException;
+import org.bitcoinj.wallet.UnreadableWalletException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.io.IOException;
+import java.util.concurrent.ExecutionException;
 
 
 @Slf4j
@@ -43,7 +48,13 @@ public class AdminResource {
     @ResponseStatus(HttpStatus.OK)
     @ResponseBody
     public ResponseEntity<Void> checkBalance() {
-        bitcoinBalanceCheck.checkBalance();
+        try {
+            bitcoinBalanceCheck.checkBalance();
+        } catch (UnreadableWalletException | InterruptedException | InsufficientMoneyException | ExecutionException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
         return ResponseEntity.ok().build();
     }

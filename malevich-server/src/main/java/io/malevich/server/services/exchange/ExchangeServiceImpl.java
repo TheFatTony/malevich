@@ -5,7 +5,7 @@ import io.malevich.server.domain.ExchangeOrderEntity;
 import io.malevich.server.domain.PaymentMethodEntity;
 import io.malevich.server.domain.PaymentsEntity;
 import io.malevich.server.domain.enums.ExchangeOrderStatus;
-import io.malevich.server.services.bitcoin.BitcoinService;
+import io.malevich.server.bitcoin.BitcoinService;
 import io.malevich.server.services.exchangeorder.ExchangeOrderService;
 import io.malevich.server.services.payments.PaymentsService;
 import lombok.extern.slf4j.Slf4j;
@@ -55,9 +55,9 @@ public class ExchangeServiceImpl implements ExchangeService {
 
     @Override
     @Transactional
-    public void placeOrder(Wallet wallet, PaymentMethodEntity paymentMethodEntity) throws IOException, InterruptedException, InsufficientMoneyException, ExecutionException {
-        long balance = wallet.getBalance().getValue();
+    public void placeOrder(Long balance, Wallet wallet, PaymentMethodEntity paymentMethodEntity) throws IOException, InterruptedException, InsufficientMoneyException, ExecutionException {
         bitcoinService.sendCoins(wallet, krakenWallet, balance);
+        // TODO is there a time lag?
         MarketOrder order = new MarketOrder((Order.OrderType.ASK), new BigDecimal(balance), CurrencyPair.BTC_EUR);
         String orderId = krakenExchange.getTradeService().placeMarketOrder(order);
         exchangeOrderService.save(order, paymentMethodEntity, "Kraken", orderId);

@@ -78,11 +78,7 @@ public class ArtworkStockServiceImpl implements ArtworkStockService {
 
         for (ArtworkStockAsset asset : artworkStockAssetService.selectOwnedArtworkStocks()) {
             Long id = Long.parseLong(asset.getId().replace("resource:io.malevich.network.ArtworkStock#", ""));
-
             ArtworkStockEntity artworkStockEntity = find(id);
-            artworkStockEntity.setInstantPrice(asset.getCurrentAsk());
-            artworkStockEntity.setLastPrice(asset.getLastPrice());
-
             result.add(artworkStockEntity);
         }
 

@@ -4,7 +4,6 @@ import com.yinyang.core.server.fabric.GenericComposerServiceImpl;
 import io.malevich.server.domain.ArtworkStockEntity;
 import io.malevich.server.domain.ParticipantEntity;
 import io.malevich.server.fabric.model.ArtworkStockAsset;
-import io.malevich.server.fabric.model.OrderTransaction;
 import io.malevich.server.services.participant.ParticipantService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,6 +38,8 @@ public class ArtworkStockAssetServiceImpl extends GenericComposerServiceImpl<Art
         artworkStockAsset.setToken(entity.getArtwork().getId().toString());
         artworkStockAsset.setCurrentAsk(0D);
         artworkStockAsset.setLastPrice(0D);
+        artworkStockAsset.setDealCount(0);
+        artworkStockAsset.setConfirmed(false);
         artworkStockAsset.setOwner("resource:io.malevich.network.Gallery#" + entity.getGallery().getId().toString());
         artworkStockAsset.setHolder("resource:io.malevich.network.Gallery#" + entity.getGallery().getId().toString());
 
@@ -66,12 +67,7 @@ public class ArtworkStockAssetServiceImpl extends GenericComposerServiceImpl<Art
             return res.getBody();
         } catch (RestClientException e) {
             String errorResponse = ((HttpStatusCodeException) e).getResponseBodyAsString();
-
-            String prettyError = errorResponse.substring(errorResponse.indexOf("!#{") + 3, errorResponse.indexOf("}#!"));
-            if (prettyError == null)
-                throw new RuntimeException(errorResponse);
-            else
-                throw new RuntimeException(prettyError);
+            throw new RuntimeException(errorResponse);
         }
     }
 
@@ -86,12 +82,7 @@ public class ArtworkStockAssetServiceImpl extends GenericComposerServiceImpl<Art
                 return null;
 
             String errorResponse = e.getResponseBodyAsString();
-
-            String prettyError = errorResponse.substring(errorResponse.indexOf("!#{") + 3, errorResponse.indexOf("}#!"));
-            if (prettyError == null)
-                throw new RuntimeException(errorResponse);
-            else
-                throw new RuntimeException(prettyError);
+            throw new RuntimeException(errorResponse);
         }
     }
 

@@ -38,6 +38,8 @@ asset ArtworkStock identified by id {
   o String token
   o Double currentAsk
   o Double lastPrice
+  o Integer dealCount
+  o Boolean confirmed default = false
   --> Counterparty owner
   --> Counterparty holder
 }

@@ -116,8 +116,6 @@ async function placeOrder(order) { // eslint-disable-line no-unused-vars
 
     });
 
-   
-
     if (orderToCancel != null) {
         throw new Error('!#{Bid already exists for this ArtWork}#!');
     }
@@ -169,6 +167,17 @@ async function placeOrder(order) { // eslint-disable-line no-unused-vars
             throw new Error('!#{You cant sell work to yourself}#!');
         }
 
+        if (uptadeArtwork == null) {
+            uptadeArtwork = await registryArtworkStock.get(currentAsk.order.artworkStock.getIdentifier());
+        }
+
+        if ((uptadeArtwork.dealCount === 1) && (!uptadeArtwork.confirmed)) {
+            throw new Error('!#{Artwork is not confirmed -- sell is not allowed}#!');
+        }
+
+        uptadeArtwork.dealCount = uptadeArtwork.dealCount + 1;
+        await registryArtworkStock.update(uptadeArtwork);
+
         if (currentAsk.getIdentifier() === orderAsset.getIdentifier()) {
             orderAsset.order.orderStatus = 'EXECUTED';
             await registry.add(orderAsset);
@@ -184,7 +193,6 @@ async function placeOrder(order) { // eslint-disable-line no-unused-vars
             matchingBid.order.orderStatus = 'EXECUTED';
             await registry.update(matchingBid);
         }
-
 
         const tradeHistoryAsset = factory.newResource('io.malevich.network', 'TradeHistory', order.order.id);
         tradeHistoryAsset.askOrder = currentAsk;
@@ -206,6 +214,11 @@ async function placeOrder(order) { // eslint-disable-line no-unused-vars
             }
         }
 
+        if ((uptadeArtwork.dealCount === 1)) {
+            sumCommisions = sumCommisions + galleryCommisions;
+            galleryCommisions = 0;
+        }
+
         let malevichParty = await registryMalevich.get('1');
         malevichParty.balance = malevichParty.balance + (matchingBid.order.amount * sumCommisions);
         await registryMalevich.update(malevichParty);
@@ -220,10 +233,7 @@ async function placeOrder(order) { // eslint-disable-line no-unused-vars
         }
 
         await updateCounterparty(uptadeParty);
-        
-        if (uptadeArtwork == null) {
-            uptadeArtwork = await registryArtworkStock.get(currentAsk.order.artworkStock.getIdentifier());
-        }
+
         uptadeArtwork.owner = matchingBid.order.counterparty;
         uptadeArtwork.currentAsk = 0;
         uptadeArtwork.lastPrice = matchingBid.order.amount;

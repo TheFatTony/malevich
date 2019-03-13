@@ -17,6 +17,13 @@ public class MarketOrdersCheck {
 
     @Scheduled(initialDelay = 2000, fixedRate = 10000)
     public void checkExecution() {
+
+        try {
+            exchangeService.placeOrders();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
         try {
             exchangeService.processExecution();
         } catch (IOException e) {

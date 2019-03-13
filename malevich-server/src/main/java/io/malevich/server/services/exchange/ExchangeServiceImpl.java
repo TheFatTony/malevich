@@ -1,11 +1,12 @@
 package io.malevich.server.services.exchange;
 
 
+import io.malevich.server.domain.BitcoinTransfersEntity;
 import io.malevich.server.domain.ExchangeOrderEntity;
 import io.malevich.server.domain.PaymentMethodEntity;
 import io.malevich.server.domain.PaymentsEntity;
 import io.malevich.server.domain.enums.ExchangeOrderStatus;
-import io.malevich.server.bitcoin.BitcoinService;
+import io.malevich.server.services.bitcointransfers.BitcoinTransfers;
 import io.malevich.server.services.exchangeorder.ExchangeOrderService;
 import io.malevich.server.services.payments.PaymentsService;
 import lombok.extern.slf4j.Slf4j;
@@ -14,19 +15,20 @@ import org.bitcoinj.wallet.Wallet;
 import org.knowm.xchange.currency.Currency;
 import org.knowm.xchange.currency.CurrencyPair;
 import org.knowm.xchange.dto.Order;
+import org.knowm.xchange.dto.account.FundingRecord;
 import org.knowm.xchange.dto.trade.MarketOrder;
 import org.knowm.xchange.dto.trade.UserTrade;
 import org.knowm.xchange.dto.trade.UserTrades;
 import org.knowm.xchange.kraken.KrakenExchange;
 import org.knowm.xchange.service.trade.params.DefaultTradeHistoryParamCurrency;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import java.io.IOException;
 import java.math.BigDecimal;
 import java.sql.Timestamp;
+import java.util.List;
 import java.util.concurrent.ExecutionException;
 
 
@@ -35,8 +37,8 @@ import java.util.concurrent.ExecutionException;
 public class ExchangeServiceImpl implements ExchangeService {
 
 
-    @Value("${malevich.kraken.wallet.address}")
-    private String krakenWallet;
+    @Autowired
+    private BitcoinTransfers bitcoinTransfers;
 
     @Autowired
     private KrakenExchange krakenExchange;
@@ -47,17 +49,33 @@ public class ExchangeServiceImpl implements ExchangeService {
     @Autowired
     private PaymentsService paymentsService;
 
-    @Autowired
-    private BitcoinService bitcoinService;
-
     protected ExchangeServiceImpl() {
     }
 
     @Override
     @Transactional
+    public void placeOrders() throws IOException {
+        List<FundingRecord> fundingRecords = krakenExchange.getAccountService().getFundingHistory(new DefaultTradeHistoryParamCurrency(Currency.BTC));
+
+        for (FundingRecord fundingRecord : fundingRecords) {
+            List<BitcoinTransfersEntity> bitcoinTransfersEntities = bitcoinTransfers.findByStatusAndSenderAddress("SENT", fundingRecord.getAddress());
+
+            for (BitcoinTransfersEntity bitcoinTransfersEntity: bitcoinTransfersEntities) {
+                if (bitcoinTransfersEntity.getAmount().equals(fundingRecord.getAmount())) {
+                    MarketOrder order = new MarketOrder((Order.OrderType.ASK), fundingRecord.getAmount(), CurrencyPair.BTC_EUR);
+                    String orderId = krakenExchange.getTradeService().placeMarketOrder(order);
+                    exchangeOrderService.save(order, bitcoinTransfersEntity.getPaymentMethod(), "Kraken", orderId);
+                    bitcoinTransfersEntity.setStatus("PROCESSED");
+                    bitcoinTransfers.save(bitcoinTransfersEntity);
+                    break;
+                }
+            }
+        }
+    }
+
+    @Override
+    @Transactional
     public void placeOrder(Long balance, Wallet wallet, PaymentMethodEntity paymentMethodEntity) throws IOException, InterruptedException, InsufficientMoneyException, ExecutionException {
-        bitcoinService.sendCoins(wallet, krakenWallet, balance);
-        // TODO is there a time lag?
         MarketOrder order = new MarketOrder((Order.OrderType.ASK), new BigDecimal(balance), CurrencyPair.BTC_EUR);
         String orderId = krakenExchange.getTradeService().placeMarketOrder(order);
         exchangeOrderService.save(order, paymentMethodEntity, "Kraken", orderId);

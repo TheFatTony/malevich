@@ -23,6 +23,7 @@
             <column name="amount" type="decimal(21, 15)">
                 <constraints nullable="false"/>
             </column>
+            <column name="status" type="varchar(100)"/>
         </createTable>
     </changeSet>
 

@@ -214,6 +214,11 @@ async function placeOrder(order) { // eslint-disable-line no-unused-vars
             }
         }
 
+        if ((uptadeArtwork.dealCount === 1)) {
+            sumCommisions = sumCommisions + galleryCommisions;
+            galleryCommisions = 0;
+        }
+
         let malevichParty = await registryMalevich.get('1');
         malevichParty.balance = malevichParty.balance + (matchingBid.order.amount * sumCommisions);
         await registryMalevich.update(malevichParty);

@@ -3,7 +3,6 @@ package io.malevich.server.fabric.services.gallery;
 import com.yinyang.core.server.fabric.GenericComposerServiceImpl;
 import io.malevich.server.domain.ParticipantEntity;
 import io.malevich.server.fabric.model.GalleryParticipant;
-import io.malevich.server.fabric.model.TraderParticipant;
 import io.malevich.server.services.participant.ParticipantService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -44,32 +43,24 @@ public class GalleryParticipantServiceImpl extends GenericComposerServiceImpl<Pa
     public GalleryParticipant getOne() {
         ParticipantEntity participantEntity = participantService.getCurrent();
         try {
-            ResponseEntity<GalleryParticipant> res = restTemplate.exchange(composerUrl + "/Gallery/{gallery}", HttpMethod.GET, null, new ParameterizedTypeReference<GalleryParticipant>() {}, participantEntity.getId());
+            ResponseEntity<GalleryParticipant> res = restTemplate.exchange(composerUrl + "/Gallery/{gallery}", HttpMethod.GET, null, new ParameterizedTypeReference<GalleryParticipant>() {
+            }, participantEntity.getId());
             return res.getBody();
         } catch (RestClientException e) {
             String errorResponse = ((HttpStatusCodeException) e).getResponseBodyAsString();
-
-            String prettyError = errorResponse.substring(errorResponse.indexOf("!#{") + 3, errorResponse.indexOf("}#!"));
-            if (prettyError == null)
-                throw new RuntimeException(errorResponse);
-            else
-                throw new RuntimeException(prettyError);
+            throw new RuntimeException(errorResponse);
         }
     }
 
     @Override
-    public List<GalleryParticipant> getAll(){
+    public List<GalleryParticipant> getAll() {
         try {
-            ResponseEntity<List<GalleryParticipant>> res = restTemplate.exchange(composerUrl + "/Gallery", HttpMethod.GET, null, new ParameterizedTypeReference<List<GalleryParticipant>>() {});
+            ResponseEntity<List<GalleryParticipant>> res = restTemplate.exchange(composerUrl + "/Gallery", HttpMethod.GET, null, new ParameterizedTypeReference<List<GalleryParticipant>>() {
+            });
             return res.getBody();
         } catch (RestClientException e) {
             String errorResponse = ((HttpStatusCodeException) e).getResponseBodyAsString();
-
-            String prettyError = errorResponse.substring(errorResponse.indexOf("!#{") + 3, errorResponse.indexOf("}#!"));
-            if (prettyError == null)
-                throw new RuntimeException(errorResponse);
-            else
-                throw new RuntimeException(prettyError);
+            throw new RuntimeException(errorResponse);
         }
     }
 

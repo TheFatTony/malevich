@@ -42,32 +42,24 @@ public class TraderParticipantServiceImpl extends GenericComposerServiceImpl<Par
     public TraderParticipant getOne() {
         ParticipantEntity participantEntity = participantService.getCurrent();
         try {
-            ResponseEntity<TraderParticipant> res = restTemplate.exchange(composerUrl + "/Trader/{trader}", HttpMethod.GET, null, new ParameterizedTypeReference<TraderParticipant>() {}, participantEntity.getId());
+            ResponseEntity<TraderParticipant> res = restTemplate.exchange(composerUrl + "/Trader/{trader}", HttpMethod.GET, null, new ParameterizedTypeReference<TraderParticipant>() {
+            }, participantEntity.getId());
             return res.getBody();
         } catch (RestClientException e) {
             String errorResponse = ((HttpStatusCodeException) e).getResponseBodyAsString();
-
-            String prettyError = errorResponse.substring(errorResponse.indexOf("!#{"), errorResponse.indexOf("}#!"));
-            if (prettyError == null)
-                throw new RuntimeException(errorResponse);
-            else
-                throw new RuntimeException(prettyError);
+            throw new RuntimeException(errorResponse);
         }
     }
 
     @Override
-    public List<TraderParticipant> getAll(){
+    public List<TraderParticipant> getAll() {
         try {
-            ResponseEntity<List<TraderParticipant>> res = restTemplate.exchange(composerUrl + "/Trader", HttpMethod.GET, null, new ParameterizedTypeReference<List<TraderParticipant>>() {});
+            ResponseEntity<List<TraderParticipant>> res = restTemplate.exchange(composerUrl + "/Trader", HttpMethod.GET, null, new ParameterizedTypeReference<List<TraderParticipant>>() {
+            });
             return res.getBody();
         } catch (RestClientException e) {
             String errorResponse = ((HttpStatusCodeException) e).getResponseBodyAsString();
-
-            String prettyError = errorResponse.substring(errorResponse.indexOf("!#{"), errorResponse.indexOf("}#!"));
-            if (prettyError == null)
-                throw new RuntimeException(errorResponse);
-            else
-                throw new RuntimeException(prettyError);
+            throw new RuntimeException(errorResponse);
         }
     }
 }

@@ -14,7 +14,8 @@
             <column name="gallery_id" type="bigint">
                 <constraints nullable="false"/>
             </column>
-            <column name="price" type="double"/>
+            <column name="instant_price" type="double"/>
+            <column name="last_price" type="double"/>
         </createTable>
     </changeSet>
 

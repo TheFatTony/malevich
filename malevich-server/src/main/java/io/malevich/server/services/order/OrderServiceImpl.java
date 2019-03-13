@@ -150,36 +150,29 @@ public class OrderServiceImpl implements OrderService {
     @Override
     @Transactional
     public void placeAsk(OrderEntity orderEntity) {
-
-
-        orderEntity.setEffectiveDate(new Timestamp(System.currentTimeMillis()));
-        orderEntity.setParticipant(participantService.getCurrent());
-        if (orderEntity.getTradeType() == null)
-            orderEntity.setTradeType(tradeTypeService.getGtc());
         orderEntity.setType(orderTypeService.getAsk());
-        orderEntity.setStatus(orderStatusService.getOpen());
-        if (orderEntity.getExpirationDate() != null)
-            setEndOfDay(orderEntity.getExpirationDate());
-
-        orderTransactionService.create(orderEntity);
-
+        placeOrder(orderEntity);
     }
 
 
     @Override
     @Transactional()
     public void placeBid(OrderEntity orderEntity) {
+        orderEntity.setType(orderTypeService.getBid());
+        placeOrder(orderEntity);
+    }
+
+    private void placeOrder(OrderEntity orderEntity){
         orderEntity.setEffectiveDate(new Timestamp(System.currentTimeMillis()));
         orderEntity.setParticipant(participantService.getCurrent());
         if (orderEntity.getTradeType() == null)
             orderEntity.setTradeType(tradeTypeService.getGtc());
-        orderEntity.setType(orderTypeService.getBid());
         orderEntity.setStatus(orderStatusService.getOpen());
         if (orderEntity.getExpirationDate() != null)
             setEndOfDay(orderEntity.getExpirationDate());
 
         orderTransactionService.create(orderEntity);
-
+        artworkStockService.sync(orderEntity.getArtworkStock().getId());
     }
 
     @Override
@@ -191,6 +184,7 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     public void cancelOwnOrder(OrderEntity orderEntity) {
+        // check if canceled order is of your own
         orderEntity.setStatus(orderStatusService.getCanceled());
         orderEntity.setParticipant(participantService.getCurrent());
         cancelOrderTransactionService.create(orderEntity);

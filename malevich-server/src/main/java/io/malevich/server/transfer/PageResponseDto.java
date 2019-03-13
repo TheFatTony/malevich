@@ -19,4 +19,8 @@ public class PageResponseDto {
     private int totalPages;
 
     private String sortBy;
+
+    private int number;
+
+    private int size;
 }

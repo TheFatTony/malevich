@@ -1,4 +1,4 @@
-import {Component, Input, OnInit, ViewChild} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output, ViewChild} from '@angular/core';
 import {TranslateService} from "@ngx-translate/core";
 import {environment} from "../../../../environments/environment.dev";
 import {ArtworkStockDto} from "../../../_transfer/artworkStockDto";
@@ -17,11 +17,13 @@ export class ListComponent implements OnInit {
   @ViewChild('myWindow') myWindow: OrderWindowComponent;
 
   @Input() artworkStocks;
+  @Input() wishListMap: { [artworkStockId: number]: number } = {};
+
+  @Output() onWishListToggle = new EventEmitter<ArtworkStockDto>();
 
   private url = environment.baseUrl;
 
-  constructor(public translate: TranslateService,
-              private wishListService: WishListService) {
+  constructor(public translate: TranslateService) {
   }
 
   ngOnInit() {
@@ -32,14 +34,11 @@ export class ListComponent implements OnInit {
     this.myWindow.open();
   }
 
-
   onOrderPlaced(order: OrderDto) {
 
   }
 
-  addToWishList(artworkStock: ArtworkStockDto): void {
-    let wishList = new WishListDto();
-    wishList.artworkStock = artworkStock;
-    this.wishListService.addToWishList(wishList).subscribe();
+  toggleWishList(artworkStock: ArtworkStockDto){
+    this.onWishListToggle.next(artworkStock);
   }
 }

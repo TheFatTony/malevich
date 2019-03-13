@@ -2,7 +2,7 @@ import {OrderTypeDto} from "./orderTypeDto";
 import {ArtworkStockDto} from "./artworkStockDto";
 
 export class OrderPublicDto {
-  id: number;
+  id: string;
   type: OrderTypeDto;
   artworkStock: ArtworkStockDto;
   amount: number;

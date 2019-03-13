@@ -4,6 +4,7 @@ import {HttpClient} from '@angular/common/http';
 import {ArtworkStockDto} from '../_transfer/artworkStockDto';
 import {map} from 'rxjs/internal/operators';
 import {TranslateService} from '../../../node_modules/@ngx-translate/core';
+import {PageResponseDto} from "../_transfer/pageResponseDto";
 
 @Injectable({
   providedIn: 'root'
@@ -22,7 +23,7 @@ export class ArtworkStockService {
   }
 
   stocksByFilter(filterDto: any) {
-    return this.http.post(this.url + '/filter', filterDto, {observe: 'response'}).pipe(map((response: any) => response));
+    return this.http.post<PageResponseDto<ArtworkStockDto>>(this.url + '/filter', filterDto, {observe: 'response'});
   }
 
   getArtworkStock(id: number) {

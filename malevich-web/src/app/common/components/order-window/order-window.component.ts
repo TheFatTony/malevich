@@ -34,18 +34,12 @@ export class OrderWindowComponent implements OnInit, AfterViewInit, OnDestroy {
   private x: number;
   private y: number;
 
-  tradeTypes: TradeTypeDto [];
-  tradeTypeDisplayFunc = (type: TradeTypeDto) => type.nameMl[this.translate.currentLang];
   expirationDateHidden: boolean = true;
-  public newOrder: OrderDto = new OrderDto();
 
-  constructor(private orderService: OrderService,
-              public translate: TranslateService,
-              private tradeTypeService: TradeTypeService) {
+  constructor(public translate: TranslateService) {
   }
 
   ngOnInit() {
-    this.getTradeTypes();
   }
 
   ngAfterViewInit(): void {
@@ -53,16 +47,6 @@ export class OrderWindowComponent implements OnInit, AfterViewInit, OnDestroy {
 
   ngOnDestroy(): void {
     this.myWindow.close();
-  }
-
-  getTradeTypes(): void {
-    this.tradeTypeService
-      .getTradeTypes()
-      .subscribe(
-        data => {
-          this.tradeTypes = data;
-        }
-      );
   }
 
   showExpirationDateInput(show: boolean) {
@@ -74,37 +58,8 @@ export class OrderWindowComponent implements OnInit, AfterViewInit, OnDestroy {
       this.myWindow.height(240);
   }
 
-  onTradeTypeSelected(event: any) {
-    if (!event.args.item)
-      return;
-
-    switch (event.args.item.value.id) {
-      case "GTC_": {
-        this.newOrder.expirationDate = null;
-        this.showExpirationDateInput(false);
-
-        break;
-      }
-      case "GTT0": {
-        this.newOrder.expirationDate = new Date();
-        this.showExpirationDateInput(false);
-        break;
-      }
-      case "GTD_": {
-        this.newOrder.expirationDate = new Date();
-        this.showExpirationDateInput(true);
-        break;
-      }
-    }
-  }
-
   open() {
-    this.newOrder = new OrderDto();
-    this.newOrder.artworkStock = this.artworkStock();
-    this.newOrder.expirationDate = null;
-    this.newOrder.tradeType = this.tradeTypes[0];
-    this.newOrder.amount = 0;
-    this.showExpirationDateInput(false);
+     this.showExpirationDateInput(false);
 
     this.myWindow.width(310);
     this.myWindow.height(240);
@@ -116,17 +71,8 @@ export class OrderWindowComponent implements OnInit, AfterViewInit, OnDestroy {
     this.myWindow.close();
   }
 
-  onFormSubmit() {
-    if (this.orderType().toLocaleLowerCase() == 'ask')
-      this.orderService.placeAsk(this.newOrder).subscribe(() => {
-        this.onOrderPlaced.emit(this.newOrder);
-      });
-
-    if (this.orderType().toLocaleLowerCase() == 'bid')
-      this.orderService.placeBid(this.newOrder).subscribe(() => {
-        this.onOrderPlaced.emit(this.newOrder);
-      });
-
+  orderPlaced(order: OrderDto) {
+    this.onOrderPlaced.emit(order);
     this.myWindow.close();
   }
 

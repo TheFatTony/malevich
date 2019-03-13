@@ -18,7 +18,9 @@ export class FiltersComponent implements OnInit, AfterViewInit {
   page: number = 0;
   sort: string = '';
 
-  constructor(public translate: TranslateService, private categoryService: CategoryService, private artworksListComponent: ArtworksListComponent) {
+  constructor(public translate: TranslateService,
+              private categoryService: CategoryService,
+              private artworksListComponent: ArtworksListComponent) {
   }
 
   ngOnInit() {

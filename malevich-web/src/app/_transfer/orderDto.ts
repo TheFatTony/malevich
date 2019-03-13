@@ -4,7 +4,7 @@ import {TradeTypeDto} from "./tradeTypeDto";
 import {ParticipantDto} from "./participantDto";
 
 export class OrderDto {
-  id: number;
+  id: string;
   type: OrderTypeDto;
   artworkStock: ArtworkStockDto;
   party: ParticipantDto;

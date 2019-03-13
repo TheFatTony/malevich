@@ -34,7 +34,7 @@ export class OrderService {
       .post<OrderDto>(this.url + '/placeBid', order);
   }
 
-  cancel(order: OrderDto) {
+  cancel(order: OrderDto | OrderPublicDto) {
     return this.http
       .post(this.url + '/cancel', order);
   }

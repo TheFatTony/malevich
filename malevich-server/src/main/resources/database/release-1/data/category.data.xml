@@ -6,7 +6,8 @@
     <changeSet author="thefattony" id="category-data" dbms="mysql">
         <sql splitStatements="true" stripComments="true">
             INSERT INTO category (id, description, category_name_ml)
-            VALUES (1, '', JSON_OBJECT('en', 'Painting', 'ru', 'Картина')),
+            VALUES (-1, '', JSON_OBJECT('en', 'Other', 'ru', 'Прочее')),
+                   (1, '', JSON_OBJECT('en', 'Painting', 'ru', 'Картина')),
                    (2, '', JSON_OBJECT('en', 'Sculpture', 'ru', 'Скульптура')),
                    (3, '', JSON_OBJECT('en', 'Photography', 'ru', 'Фотография')),
                    (4, '', JSON_OBJECT('en', 'Digital Art', 'ru', 'Цифровое искусство')),

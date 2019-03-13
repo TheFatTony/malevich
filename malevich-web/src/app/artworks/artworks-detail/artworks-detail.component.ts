@@ -15,7 +15,7 @@ import {WishListService} from '../../_services/wish-list.service';
 import {WishListDto} from '../../_transfer/wishListDto';
 import {ParticipantService} from "../../_services/participant.service";
 import {KycLevelService} from "../../_services/kyc-level.service";
-import {Subject} from "rxjs";
+import {forkJoin, Subject} from "rxjs";
 import {Globals} from "../../globals";
 import {map} from "rxjs/operators";
 
@@ -30,10 +30,16 @@ export class ArtworksDetailComponent implements OnInit, AfterViewInit {
   @ViewChild('tradeTypeDropDown') tradeTypeDropDown: jqxDropDownListComponent;
 
   artworkStock: ArtworkStockDto;
+  isOwnArtwork: boolean;
+  wishListItem: WishListDto;
+  ownOrder: OrderPublicDto;
   id: number;
 
-  placedOrders: OrderPublicDto[];
+  orderDefaultAmount = 0;
 
+  placeOrderMode: boolean = false;
+
+  placedOrders: OrderPublicDto[];
   tradeHistory: TradeHistoryDto[];
 
   tradingAccess: { read: boolean, write: boolean } = {read: false, write: false};
@@ -64,8 +70,16 @@ export class ArtworksDetailComponent implements OnInit, AfterViewInit {
     $['HSCore'].components.HSTabs.init('[role="tablist"]');
   }
 
+  get placeOrderButtonCaption() {
+    if (!this.ownOrder) {
+      return this.isOwnArtwork ? 'MAIN.ARTWORK.PLACE_ASK' : 'MAIN.ARTWORK.PLACE_BID';
+    } else {
+      return this.isOwnArtwork ? 'MAIN.ARTWORK.REPLACE_ASK' : 'MAIN.ARTWORK.REPLACE_BID';
+    }
+  }
+
   checkTradingAccess() {
-    if (!this.globals.isAuthorised$) {
+    if (!this.globals.isAuthorised$.getValue()) {
       const subj = new Subject();
       subj.next({read: false, write: false});
       return subj;
@@ -86,8 +100,7 @@ export class ArtworksDetailComponent implements OnInit, AfterViewInit {
       .subscribe(r => {
         this.tradingAccess = r;
 
-        if(this.tradingAccess.read)
-        {
+        if (this.tradingAccess.read) {
           this.getOpenOrdersByArtworkId();
           this.getTradeHistoryByArtworkId();
         }
@@ -95,18 +108,38 @@ export class ArtworksDetailComponent implements OnInit, AfterViewInit {
   }
 
   getArtworkStock(): void {
-    this.artworkStockService
-      .getArtworkStock(this.id)
-      .subscribe(
-        data => (this.artworkStock = data)
-      );
+    this.isOwnArtwork = null;
+    this.wishListItem = null;
+
+    forkJoin(
+      this.artworkStockService.getArtworkStock(this.id),
+      this.artworkStockService.getOwnArtworks(),
+      this.wishListService.getWishListAll()
+    ).pipe(map(([artwork, ownedArtworks, wishList]) => {
+      this.artworkStock = artwork;
+      const owned = ownedArtworks.find(a => a.id == artwork.id);
+
+      this.isOwnArtwork = !!owned;
+
+      this.wishListItem = wishList.find(i => i.artworkStock.id == artwork.id);
+
+    })).subscribe();
   }
 
   getOpenOrdersByArtworkId(): void {
+    this.ownOrder = null;
+
     this.orderService
       .getOpenOrdersByArtworkId(this.id)
       .subscribe(
-        data => (this.placedOrders = data.sort((a, b) => b.amount - a.amount))
+        data => {
+          this.placedOrders = data.sort((a, b) => b.amount - a.amount);
+
+          for (let order of this.placedOrders) {
+            if (order.isOwn)
+              this.ownOrder = order;
+          }
+        }
       );
   }
 
@@ -114,25 +147,58 @@ export class ArtworksDetailComponent implements OnInit, AfterViewInit {
     this.tradeHistoryService
       .findAllByArtworkId(this.id)
       .subscribe(
-        data => (this.tradeHistory = data)
+        data => {
+          // console.log(data[0]);
+          this.tradeHistory = data.sort((x, y) => new Date(y.effectiveDate).getTime() - new Date(x.effectiveDate).getTime());
+          //
+        }
       );
   }
 
-  openWindow() {
-    this.myWindow.artworkStock(this.artworkStock);
-    this.myWindow.open();
+  placeOrder() {
+    this.orderDefaultAmount = 0;
+    this.placeOrderMode = true;
   }
 
-
   onOrderPlaced(order: OrderDto) {
+    this.placeOrderMode = false;
+    this.getArtworkStock();
     this.getOpenOrdersByArtworkId();
     this.getTradeHistoryByArtworkId();
   }
 
-  addToWishList(): void {
-    let wishList = new WishListDto();
-    wishList.artworkStock = this.artworkStock;
-    this.wishListService.addToWishList(wishList).subscribe();
+  wishListClick(): void {
+    if (this.wishListItem) {
+      this.wishListService.removeWish(this.wishListItem.id).subscribe(() => {
+        this.getArtworkStock();
+      });
+    } else {
+      let wishList = new WishListDto();
+      wishList.artworkStock = this.artworkStock;
+      this.wishListService.addToWishList(wishList).subscribe(() => {
+        this.getArtworkStock();
+      });
+    }
   }
 
+  onOrderCanceled() {
+    this.placeOrderMode = false;
+  }
+
+  instantPriceClick() {
+    this.orderDefaultAmount = this.artworkStock.instantPrice | 0;
+    this.placeOrderMode = true;
+  }
+
+  ownOrderClick() {
+    const cancelOrder = new OrderDto();
+    cancelOrder.id = this.ownOrder.id;
+    cancelOrder.amount = this.ownOrder.amount;
+    cancelOrder.artworkStock = this.ownOrder.artworkStock;
+    cancelOrder.type = this.ownOrder.type;
+
+    this.orderService.cancel(cancelOrder).subscribe(() => {
+      this.getOpenOrdersByArtworkId();
+    });
+  }
 }

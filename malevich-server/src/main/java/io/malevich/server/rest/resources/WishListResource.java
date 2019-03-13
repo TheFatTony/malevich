@@ -14,6 +14,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.stream.Collectors;
 
 @RestController
@@ -27,7 +28,6 @@ public class WishListResource extends RestResource<WishListDto, WishListEntity> 
         super(WishListDto.class, WishListEntity.class);
     }
 
-    @PreAuthorize("hasRole('ROLE_TRADER')")
     @PostMapping("/addWish")
     @ResponseStatus(HttpStatus.OK)
     public ResponseEntity<Void> save(@RequestBody WishListDto dto) {
@@ -35,12 +35,24 @@ public class WishListResource extends RestResource<WishListDto, WishListEntity> 
         return ResponseEntity.ok().build();
     }
 
-    //@PreAuthorize("hasRole('ROLE_TRADER')")
     @PostMapping("/list")
     @ResponseStatus(HttpStatus.OK)
     public PageResponseDto list(@RequestBody PageRequestDto requestDto) {
-        Page<WishListEntity> resultPage = this.wishListService.findAll(PageRequest.of(requestDto.getPage(), requestDto.getSize()));
-        return new PageResponseDto(resultPage.getContent().stream().map(pageEntry -> convertToDto(pageEntry)).collect(Collectors.toList()), resultPage.getTotalElements(), resultPage.getTotalPages(), requestDto.getSort());
+        Page<WishListEntity> resultPage = this.wishListService.findAllPageable(PageRequest.of(requestDto.getPage(), requestDto.getSize()));
+        return new PageResponseDto(
+                convertListOfDto(resultPage.getContent()),
+                resultPage.getTotalElements(),
+                resultPage.getTotalPages(),
+                requestDto.getSort(),
+                resultPage.getNumber(),
+                resultPage.getSize());
+    }
+
+    @GetMapping("/list_all")
+    @ResponseStatus(HttpStatus.OK)
+    public List<WishListDto> listAll() {
+        List<WishListEntity> listEntities = this.wishListService.findAll();
+        return convertListOfDto(listEntities);
     }
 
     @DeleteMapping("/remove/{id}")

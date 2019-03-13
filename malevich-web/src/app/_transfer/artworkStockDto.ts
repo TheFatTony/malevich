@@ -5,5 +5,6 @@ export class ArtworkStockDto {
   id: number;
   artwork: ArtworkDto;
   gallery: GalleryDto;
-  price: number;
+  instantPrice: number;
+  lastPrice: number;
 }

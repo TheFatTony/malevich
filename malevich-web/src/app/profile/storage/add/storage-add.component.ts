@@ -22,7 +22,7 @@ export class StorageAddComponent implements OnInit {
 
   gallery: GalleryDto;
 
-  public artwork: ArtworkDto;
+  public artwork: ArtworkDto = new ArtworkDto();
 
   artworks: ArtworkDto[];
 

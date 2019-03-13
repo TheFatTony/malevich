@@ -7,11 +7,15 @@ import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {TranslateLoader, TranslateModule} from "@ngx-translate/core";
 import {HttpClient} from "@angular/common/http";
 import {createTranslateLoader} from "../../app.module";
+import {OrderEditComponent} from './order-edit/order-edit.component';
+import { PagesNavigationComponent } from './pages-navigation/pages-navigation.component';
 
 @NgModule({
   declarations: [
     OrderWindowComponent,
-    ArtworkEditComponent
+    ArtworkEditComponent,
+    OrderEditComponent,
+    PagesNavigationComponent
   ],
   imports: [
     CommonModule,
@@ -28,7 +32,9 @@ import {createTranslateLoader} from "../../app.module";
   ],
   exports: [
     OrderWindowComponent,
-    ArtworkEditComponent
+    OrderEditComponent,
+    ArtworkEditComponent,
+    PagesNavigationComponent
   ]
 })
 export class CommonComponentsModule {

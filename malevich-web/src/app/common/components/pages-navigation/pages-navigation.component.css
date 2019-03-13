@@ -1,0 +1,6 @@
+/*Disable next button in pagination*/
+.disable {
+  opacity: .7;
+  filter: alpha(opacity=40);
+  pointer-events: none;
+}

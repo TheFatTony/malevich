@@ -5,6 +5,7 @@ import com.yinyang.core.server.domain.YAbstractPersistable;
 import lombok.Getter;
 import lombok.Setter;
 
+import javax.persistence.CascadeType;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
@@ -15,12 +16,12 @@ public class WishListEntity extends YAbstractPersistable<Long> {
 
     @Getter
     @Setter
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.REFRESH)
     private ArtworkStockEntity artworkStock;
 
     @Getter
     @Setter
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.REFRESH)
     private ParticipantEntity participant;
 
 }

@@ -10,11 +10,13 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.HttpMethod;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.HttpStatusCodeException;
 import org.springframework.web.client.RestClientException;
 
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -46,6 +48,10 @@ public class ArtworkStockAssetServiceImpl extends GenericComposerServiceImpl<Art
     @Override
     public List<ArtworkStockAsset> selectOwnedArtworkStocks() {
         ParticipantEntity participantEntity = participantService.getCurrent();
+
+        if (participantEntity == null)
+            return new ArrayList<>();
+
         String fabricClass = null;
 
         if ("G".equals(participantEntity.getType().getId())) {
@@ -60,6 +66,26 @@ public class ArtworkStockAssetServiceImpl extends GenericComposerServiceImpl<Art
             return res.getBody();
         } catch (RestClientException e) {
             String errorResponse = ((HttpStatusCodeException) e).getResponseBodyAsString();
+
+            String prettyError = errorResponse.substring(errorResponse.indexOf("!#{") + 3, errorResponse.indexOf("}#!"));
+            if (prettyError == null)
+                throw new RuntimeException(errorResponse);
+            else
+                throw new RuntimeException(prettyError);
+        }
+    }
+
+    @Override
+    public ArtworkStockAsset findOne(Long id) {
+        try {
+            ResponseEntity<ArtworkStockAsset> res = restTemplate.exchange(this.composerUrl + "/" + this.endpoint + "/{id}", HttpMethod.GET, null, new ParameterizedTypeReference<ArtworkStockAsset>() {
+            }, id);
+            return res.getBody();
+        } catch (HttpStatusCodeException e) {
+            if (HttpStatus.NOT_FOUND.value() == e.getStatusCode().value())
+                return null;
+
+            String errorResponse = e.getResponseBodyAsString();
 
             String prettyError = errorResponse.substring(errorResponse.indexOf("!#{") + 3, errorResponse.indexOf("}#!"));
             if (prettyError == null)

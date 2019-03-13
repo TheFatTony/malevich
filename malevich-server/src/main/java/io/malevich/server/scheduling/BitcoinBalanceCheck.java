@@ -9,6 +9,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.bitcoinj.core.InsufficientMoneyException;
 import org.bitcoinj.wallet.UnreadableWalletException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
 import java.io.ByteArrayOutputStream;
@@ -31,7 +32,7 @@ public class BitcoinBalanceCheck {
     private BalanceService balanceService;
 
 
-    //    @Scheduled(initialDelay = 2000, fixedDelay = 10000)
+    @Scheduled(initialDelay = 2000, fixedDelay = 10000)
     public void checkBalance() throws UnreadableWalletException, IOException, InterruptedException, InsufficientMoneyException, ExecutionException {
         List<PaymentMethodBitcoinEntity> accounts = paymentMethodBitcoinService.findAllAll();
 

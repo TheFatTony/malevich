@@ -8,7 +8,6 @@ import org.springframework.stereotype.Component;
 
 import java.io.IOException;
 
-@Profile({"test", "prod"})
 @Component
 public class MarketOrdersCheck {
 
@@ -16,7 +15,7 @@ public class MarketOrdersCheck {
     @Autowired
     private ExchangeService exchangeService;
 
-//    @Scheduled(initialDelay = 2000, fixedRate = 10000)
+    @Scheduled(initialDelay = 2000, fixedRate = 10000)
     public void checkExecution() {
         try {
             exchangeService.processExecution();

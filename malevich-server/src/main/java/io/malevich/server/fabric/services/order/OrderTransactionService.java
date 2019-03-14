@@ -18,4 +18,6 @@ public interface OrderTransactionService extends GenericComposerService<OrderEnt
     List<OrderTransaction> getOpenOrdersByArtworkStock(Long artworkId);
 
     List<OrderTransaction> getOpenOrdersByCounterparty();
+
+    OrderTransaction checkOrderExists(OrderEntity orderEntity);
 }

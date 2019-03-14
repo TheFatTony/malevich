@@ -23,10 +23,9 @@ public class CancelOrderTransactionServiceImpl extends GenericComposerServiceImp
 
     @Override
     public void create(OrderEntity entity) {
-        ParticipantEntity participantEntity = entity.getParticipant();
         String fabricClass = null;
 
-        if ("G".equals(participantEntity.getType().getId())) {
+        if ("G".equals(entity.getParticipant().getType().getId())) {
             fabricClass = "resource:io.malevich.network.Gallery#";
         } else {
             fabricClass = "resource:io.malevich.network.Trader#";
@@ -41,7 +40,7 @@ public class CancelOrderTransactionServiceImpl extends GenericComposerServiceImp
         orderTransaction.getOrder().setOrderType(entity.getType().getId());
         orderTransaction.getOrder().setOrderStatus(entity.getStatus().getId());
         orderTransaction.getOrder().setArtworkStock("resource:io.malevich.network.ArtworkStock#" + entity.getArtworkStock().getId().toString());
-        orderTransaction.getOrder().setCounterparty(fabricClass + participantEntity.getId());
+        orderTransaction.getOrder().setCounterparty(fabricClass + entity.getParticipant().getId());
 
         doPost(orderTransaction);
     }

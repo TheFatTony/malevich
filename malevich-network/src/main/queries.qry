@@ -34,6 +34,16 @@ query getOpenOrdersByArtworkStock {
       SELECT io.malevich.network.OrderAsset WHERE ((order.artworkStock == _$artworkStock) AND (order.orderStatus == 'OPEN'))
 }
 
+query checkOrderExists {
+  description: "checkOrderExists"
+  statement:
+      SELECT io.malevich.network.OrderAsset 
+      WHERE ((order.artworkStock == _$artworkStock)
+            AND (order.counterparty == _$counterparty)
+            AND (order.orderType == _$orderType)
+            AND (order.orderStatus == 'OPEN'))
+}
+
 query getOrdersByCounterparty {
   description: "getOrdersByCounterparty"
   statement:

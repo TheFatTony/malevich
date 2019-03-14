@@ -19,6 +19,7 @@ export class OrderEditComponent implements OnInit {
 
   @Output() onOrderPlaced = new EventEmitter();
   @Output() onCancel = new EventEmitter();
+  @Output() onError = new EventEmitter();
 
   tradeTypes: TradeTypeDto [];
   tradeTypeDisplayFunc = (type: TradeTypeDto) => type.nameMl[this.translate.currentLang];
@@ -90,14 +91,22 @@ export class OrderEditComponent implements OnInit {
     this.orderType = (this.orderType || '').toLocaleLowerCase();
 
     if (this.orderType == 'ask')
-      this.orderService.placeAsk(newOrder).subscribe(() => {
-        this.onOrderPlaced.emit(newOrder);
-      });
+      this.orderService.placeAsk(newOrder).subscribe(
+        () => {
+          this.onOrderPlaced.emit(newOrder);
+        },
+        error => {
+          this.onError.next(error);
+        });
 
     if (this.orderType == 'bid')
-      this.orderService.placeBid(newOrder).subscribe(() => {
-        this.onOrderPlaced.emit(newOrder);
-      });
+      this.orderService.placeBid(newOrder).subscribe(
+        () => {
+          this.onOrderPlaced.emit(newOrder);
+        },
+        error => {
+          this.onError.next(error);
+        });
   }
 
   cancel() {

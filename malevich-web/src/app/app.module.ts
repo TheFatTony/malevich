@@ -15,7 +15,13 @@ import {TranslateLoader, TranslateModule} from '@ngx-translate/core';
 import {TranslateHttpLoader} from '@ngx-translate/http-loader';
 import {Globals} from './globals';
 import {FileService} from './_services';
-import {ErrorInterceptor, JwtInterceptor, YinyangCoreModule, AuthGuard, AdminGuard} from '../../node_modules/yinyang-core';
+import {
+  AdminGuard,
+  AuthGuard,
+  ErrorInterceptor,
+  JwtInterceptor,
+  YinyangCoreModule
+} from '../../node_modules/yinyang-core';
 import {HelpComponent} from './main/help/help.component';
 import {AboutComponent} from './main/about/about.component';
 import {ContactComponent} from './main/contact/contact.component';
@@ -47,7 +53,6 @@ import {StepOneComponent as ResetStepOneComponent} from './auth/reset/step-one/s
 import {StepTwoComponent as ResetStepTwoComponent} from './auth/reset/step-two/step-two.component';
 
 import {PageNotFoundComponent} from './page-not-found/page-not-found.component';
-import {OrderWindowComponent} from './common/components/order-window/order-window.component';
 
 import {NavigationComponent as ProfileNavigationComponent} from "./profile/navigation/navigation.component";
 import {ViewComponent as ProfileViewComponent} from "./profile/view/view.component";
@@ -63,16 +68,16 @@ import {DocumentAddComponent as ProfileDocumentAddComponent} from './profile/doc
 import {StorageComponent as ProfileStorageComponent} from './profile/storage/storage.component';
 import {StorageAddComponent as ProfileStorageAddComponent} from './profile/storage/add/storage-add.component';
 import {StorageEditComponent as ProfileStorageEditComponent} from './profile/storage/edit/storage-edit.component';
-import { PaymentCardComponent } from './profile/payment/payment-card/payment-card.component';
-import { PaymentBitcoinComponent } from './profile/payment/payment-bitcoin/payment-bitcoin.component';
-import { PaymentAccountComponent } from './profile/payment/payment-account/payment-account.component';
-import { PaymentAccountEditComponent } from './profile/payment/payment-account/edit/payment-account-edit.component';
-import { PaymentAccountViewComponent } from './profile/payment/payment-account/view/payment-account-view.component';
+import {PaymentCardComponent} from './profile/payment/payment-card/payment-card.component';
+import {PaymentBitcoinComponent} from './profile/payment/payment-bitcoin/payment-bitcoin.component';
+import {PaymentAccountComponent} from './profile/payment/payment-account/payment-account.component';
+import {PaymentAccountEditComponent} from './profile/payment/payment-account/edit/payment-account-edit.component';
+import {PaymentAccountViewComponent} from './profile/payment/payment-account/view/payment-account-view.component';
 import {KycGuard} from "./_guards/kyc.guard";
-import { ArtworkEditComponent } from './common/components/artwork-edit/artwork-edit.component';
 import {CommonComponentsModule} from "./common/components/common-components.module";
 import {NgxStripeModule} from "ngx-stripe";
-import { ArtworksViewComponent } from './artworks/artworks-list/artworks-view/artworks-view.component';
+import {ArtworksViewComponent} from './artworks/artworks-list/artworks-view/artworks-view.component';
+import {NgbModule} from "@ng-bootstrap/ng-bootstrap";
 
 
 export function createTranslateLoader(http: HttpClient) {
@@ -153,7 +158,8 @@ export function createTranslateLoader(http: HttpClient) {
     AppRoutingModule,
     NgxPaginationModule,
     AdminModule,
-    CommonComponentsModule
+    CommonComponentsModule,
+    NgbModule
   ],
   providers:
     [Globals, FileService, AuthGuard, AdminGuard, KycGuard,

@@ -19,7 +19,8 @@
         </h4>
         <span class="d-inline-block g-color-gray-dark-v5 g-font-size-13">{{artworkStock.artwork.category.categoryNameMl[translate.currentLang]}}</span>
         <span *ngIf="artworkStock.instantPrice" class="d-block g-color-black g-font-size-17">{{artworkStock.instantPrice}} SQR</span>
-        <span *ngIf="!artworkStock.instantPrice && artworkStock.lastPrice" class="d-block g-color-gray-dark-v5 g-font-size-17">{{artworkStock.lastPrice}} SQR</span>
+        <span *ngIf="!artworkStock.instantPrice && artworkStock.lastPrice"
+              class="d-block g-color-gray-dark-v5 g-font-size-17">{{artworkStock.lastPrice}} SQR</span>
       </div>
       <!-- End Product Info -->
 
@@ -28,18 +29,23 @@
         <li class="list-inline-item align-middle mx-0">
           <a
             class="u-icon-v1 u-icon-size--sm g-color-gray-dark-v5 g-color-primary--hover g-font-size-15 rounded-circle"
-            (click)="openWindow(artworkStock)" data-toggle="tooltip" data-placement="top" title=""
-            data-original-title="Place a bid">
+            (click)="openWindow(artworkStock)" placement="top"
+            ngbTooltip="Place a bid">
             <i class="icon-real-estate-089 u-line-icon-pro"></i>
           </a>
         </li>
         <li class="list-inline-item align-middle mx-0">
-          <a
-            class="u-icon-v1 u-icon-size--sm g-color-gray-dark-v5 g-color-primary--hover g-font-size-15 rounded-circle"
-            (click)="toggleWishList(artworkStock)" data-toggle="tooltip" data-placement="top" title=""
-            data-original-title="Add to Wishlist">
-            <i *ngIf="wishListMap[artworkStock.id] == null" class="icon-medical-022 u-line-icon-pro "></i>
-            <i *ngIf="wishListMap[artworkStock.id] != null" class="fa fa-heart g-color-lightred" style="line-height: 1.5"></i>
+          <a *ngIf="wishListMap[artworkStock.id] == null"
+             class="u-icon-v1 u-icon-size--sm g-color-gray-dark-v5 g-color-primary--hover g-font-size-15 rounded-circle"
+             (click)="toggleWishList(artworkStock)" placement="top"
+             ngbTooltip="{{'MAIN.ARTWORK.ADD_TO_WISHLIST' | translate}}">
+            <i class="icon-medical-022 u-line-icon-pro "></i>
+          </a>
+          <a *ngIf="wishListMap[artworkStock.id] != null"
+             class="u-icon-v1 u-icon-size--sm g-color-gray-dark-v5 g-color-primary--hover g-font-size-15 rounded-circle"
+             (click)="toggleWishList(artworkStock)" placement="top"
+             ngbTooltip="{{'MAIN.ARTWORK.REMOVE_FROM_WISHLIST' | translate}}">
+            <i class="fa fa-heart g-color-lightred" style="line-height: 1.5"></i>
           </a>
         </li>
       </ul>

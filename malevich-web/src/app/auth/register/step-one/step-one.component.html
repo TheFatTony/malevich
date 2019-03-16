@@ -13,11 +13,14 @@
 
   <div class="g-mb-20">
     <mchDropDownList name="userType"
+                     #userType="ngModel"
+                     mchRequired
+                     [placeHolder]="'Select user type'"
                      [objectSource]="userTypes"
                      [displayFunc]="userTypeDisplayFunc"
-                     [(ngModel)]="userTypeSelected"
-                     [selectedIndex]="1">
+                     [(ngModel)]="userTypeSelected">
     </mchDropDownList>
+    <mchErrors [component]="userType"></mchErrors>
   </div>
 
   <div class="mb-1">

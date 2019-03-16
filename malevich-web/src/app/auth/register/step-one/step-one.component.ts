@@ -49,7 +49,8 @@ export class StepOneComponent implements OnInit, AfterViewInit {
   }
 
   getUserTypes() {
-    this.userTypeService.getAll().subscribe(data => (this.userTypes = data));
+    this.userTypeService.getAll()
+      .subscribe(data => (this.userTypes = data.filter(t => t.typeName != 'Malevich')));
   }
 
   ngAfterViewInit(): void {

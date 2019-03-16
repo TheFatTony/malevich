@@ -1,9 +1,9 @@
 <ng-template #myWindow let-modal>
   <div class="modal-header">
     <h4 class="modal-title">{{(attrOrderType == 'ask' ? 'MAIN.ARTWORK.PLACE_ASK' : 'MAIN.ARTWORK.PLACE_BID') | translate}}</h4>
-    <button type="button" class="close" aria-label="Close" (click)="close('Cross click')">
-      <span aria-hidden="true">&times;</span>
-    </button>
+    <!--<button type="button" class="close" aria-label="Close" (click)="close('Cross click')">-->
+      <!--<i class="hs-icon hs-icon-close"></i>-->
+    <!--</button>-->
   </div>
   <div class="modal-body">
     <mch-order-edit

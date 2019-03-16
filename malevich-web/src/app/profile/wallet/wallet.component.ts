@@ -1,6 +1,5 @@
-import {AfterViewInit, Component, HostListener, OnDestroy, OnInit, ViewChild} from '@angular/core';
+import {AfterViewInit, Component, OnDestroy, OnInit, TemplateRef, ViewChild} from '@angular/core';
 import {PaymentsDto} from '../../_transfer/paymentsDto';
-import {jqxWindowComponent} from 'jqwidgets-scripts/jqwidgets-ts/angular_jqxwindow';
 import {PaymentsService} from '../../_services/payments.service';
 import {AccountStateService} from '../../_services/account-state.service';
 import {AccountStateDto} from '../../_transfer/accountStateDto';
@@ -13,11 +12,12 @@ import {PaymentMethodDepositReferenceService} from "../../_services/payment-meth
 import {ParticipantService} from "../../_services/participant.service";
 import {KycLevelService} from "../../_services/kyc-level.service";
 
-import { StripeService, StripeCardComponent, ElementOptions, ElementsOptions } from "ngx-stripe";
+import {ElementOptions, ElementsOptions, StripeCardComponent, StripeService} from "ngx-stripe";
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {environment} from "../../../environments/environment.dev";
 import {MalevichStripeService} from "../../_services/malevich-stripe.service";
 import {AlertService} from "yinyang-core";
+import {NgbModal, NgbModalRef} from "@ng-bootstrap/ng-bootstrap";
 
 type PaymentType = {
   value: string
@@ -31,15 +31,17 @@ type PaymentType = {
 })
 export class WalletComponent implements OnInit, AfterViewInit, OnDestroy {
 
-  @ViewChild('myWindow') myWindow: jqxWindowComponent;
-  @ViewChild('withdrawWindow') withdrawWindow: jqxWindowComponent;
+  @ViewChild('myWindow') myWindow: TemplateRef<any>;
+  @ViewChild('addAccountModal') addAccountWindow: TemplateRef<any>;
   @ViewChild('myGrid') myGrid: jqxGridComponent;
 
   public newPayment: PaymentsDto;
-  public newWithdraw: PaymentsDto;
   public accountState: AccountStateDto;
 
   private referenceState: string;
+  private paymentModalRef: NgbModalRef;
+  private addAccountModalRef: NgbModalRef;
+  private depositWithdraw: 'deposit' | 'withdraw';
 
   public amount: number = 0;
 
@@ -53,19 +55,15 @@ export class WalletComponent implements OnInit, AfterViewInit, OnDestroy {
 
   paymentTypes: PaymentType[] = [
     {
-      value: 'transfer',
-      name: 'SEPA Transfer'
+      value: 'swift',
+      name: 'SWIFT Transfer'
     },
     {
       value: 'saved_card',
       name: 'Saved Card'
     }
   ];
-  selectedPaymentType: PaymentType;
-
-  x: number;
-  y: number;
-
+  selectedDepositType: PaymentType;
 
   get reference() {
     if (this.referenceState)
@@ -140,7 +138,8 @@ export class WalletComponent implements OnInit, AfterViewInit, OnDestroy {
               private fb: FormBuilder,
               private stripeService: StripeService,
               private malevichStripeService: MalevichStripeService,
-              private alertService: AlertService) {
+              private alertService: AlertService,
+              private modalService: NgbModal) {
   }
 
   ngOnInit() {
@@ -158,11 +157,11 @@ export class WalletComponent implements OnInit, AfterViewInit, OnDestroy {
   buy() {
     const name = this.stripeTest.get('name').value;
     this.stripeService
-      .createToken(this.card.getCard(), { name })
+      .createToken(this.card.getCard(), {name})
       .subscribe(result => {
         if (result.token) {
-          this.malevichStripeService.pay(result.token.id, this.amount).subscribe(()=>{
-            this.myWindow.close();
+          this.malevichStripeService.pay(result.token.id, this.amount).subscribe(() => {
+            this.paymentModalRef.close();
             this.getAccountState();
             this.getPayments();
           });
@@ -177,8 +176,7 @@ export class WalletComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this.myWindow.close();
-    this.withdrawWindow.close();
+    this.modalService.dismissAll();
   }
 
   getKycAccess() {
@@ -197,7 +195,7 @@ export class WalletComponent implements OnInit, AfterViewInit, OnDestroy {
 
   hasKycAccess(levels: string[]) {
     if (!levels) return true;
-    console.log(this.kycLevels);
+
     if (!this.kycLevels)
       return false;
 
@@ -270,42 +268,33 @@ export class WalletComponent implements OnInit, AfterViewInit, OnDestroy {
     ];
   }
 
-  sendPayment() {
-    this.paymentsService.insert(this.newPayment).subscribe(() => {
-      this.myWindow.close();
-      this.getPayments();
-      this.getAccountState();
-    });
-  }
-
   sendWithdraw() {
-    this.paymentsService.insert(this.newWithdraw).subscribe(() => {
-      this.withdrawWindow.close();
+    this.paymentsService.insert(this.newPayment).subscribe(() => {
+      this.closeWindow();
       this.getPayments();
       this.getAccountState();
     });
   }
 
-  openPaymentWindow() {
-    this.newPayment = new PaymentsDto();
-    this.myWindow.width(410);
-    this.myWindow.height(550);
-    this.myWindow.open();
-    // this.myWindow.move(this.x, this.y);
+  openDepositWindow() {
+    this.depositWithdraw = 'deposit';
+    this.openPaymentWindow();
   }
 
   openWithdrawWindow() {
-    this.newWithdraw = new PaymentsDto();
-    this.withdrawWindow.width(310);
-    this.withdrawWindow.height(220);
-    this.withdrawWindow.open();
-    this.withdrawWindow.move(this.x, this.y);
+    this.depositWithdraw = 'withdraw';
+    this.openPaymentWindow();
   }
 
-  @HostListener('mousedown', ['$event'])
-  mouseHandling(event) {
-    this.x = event.pageX;
-    this.y = event.pageY;
+  private openPaymentWindow() {
+    this.selectedDepositType = null;
+    this.newPayment = new PaymentsDto();
+    this.paymentModalRef = this.modalService.open(this.myWindow, {centered: true});
+  }
+
+  closeWindow() {
+    if (this.paymentModalRef)
+      this.paymentModalRef.close();
   }
 
   getAccountState(): void {
@@ -323,4 +312,17 @@ export class WalletComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
 
+  addAccount() {
+    this.addAccountModalRef = this.modalService.open(this.addAccountWindow, {centered: true});
+  }
+
+  accountCreated(account: PaymentMethodDto) {
+    this.getPaymentMethods();
+    this.newPayment.paymentMethod = account;
+    this.addAccountModalRef.close();
+  }
+
+  accountCreationCanceled() {
+    this.addAccountModalRef.close();
+  }
 }

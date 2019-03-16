@@ -6,6 +6,7 @@ import {ArtworkStockDto} from '../../_transfer/artworkStockDto';
 import {PageSortableRequestDto} from '../../_transfer/pageSortableRequestDto';
 import {FilterDto} from '../../_transfer/filterDto';
 import {PageResponseDto} from "../../_transfer/pageResponseDto";
+import {OrderDto} from "../../_transfer/orderDto";
 
 @Component({
   selector: 'app-artworks-list',
@@ -59,6 +60,9 @@ export class ArtworksListComponent implements OnInit {
         this.stockData = data.body;
       }
     );
+  }
+
+  orderPlaced(order: OrderDto) {
   }
 }
 

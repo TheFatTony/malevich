@@ -18,8 +18,11 @@ export class ListComponent implements OnInit {
 
   @Input() artworkStocks;
   @Input() wishListMap: { [artworkStockId: number]: number } = {};
+  @Input() artworkWalletMap: { [artworkStockId: number]: ArtworkStockDto } = {};
 
   @Output() onWishListToggle = new EventEmitter<ArtworkStockDto>();
+  @Output() onOrderPlaced = new EventEmitter<OrderDto>();
+
 
   private url = environment.baseUrl;
 
@@ -29,13 +32,21 @@ export class ListComponent implements OnInit {
   ngOnInit() {
   }
 
-  openWindow(artworkStock: ArtworkStockDto) {
+  openWindow(artworkStock: ArtworkStockDto, orderType: string) {
     this.myWindow.artworkStock(artworkStock);
+    this.myWindow.orderType(orderType);
     this.myWindow.open();
   }
 
-  onOrderPlaced(order: OrderDto) {
+  isOwn(artworkStock: ArtworkStockDto) {
+    if (!artworkStock)
+      return false;
 
+    return !!this.artworkWalletMap[artworkStock.id];
+  }
+
+  orderPlaced(order: OrderDto) {
+    this.onOrderPlaced.next(order);
   }
 
   toggleWishList(artworkStock: ArtworkStockDto){

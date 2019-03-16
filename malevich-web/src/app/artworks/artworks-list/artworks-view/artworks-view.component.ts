@@ -4,6 +4,8 @@ import {ArtworkStockDto} from "../../../_transfer/artworkStockDto";
 import {TranslateService} from "@ngx-translate/core";
 import {WishListService} from "../../../_services/wish-list.service";
 import {WishListDto} from "../../../_transfer/wishListDto";
+import {ArtworkStockService} from "../../../_services/artwork-stock.service";
+import {OrderDto} from "../../../_transfer/orderDto";
 
 @Component({
   selector: 'app-artworks-list-view',
@@ -16,7 +18,7 @@ export class ArtworksViewComponent implements OnInit {
   @Output() onSortChanged = new EventEmitter<string>();
   @Output() onPageChanged = new EventEmitter<number>();
   @Output() onWishListToggle = new EventEmitter<ArtworkStockDto>();
-
+  @Output() onOrderPlaced = new EventEmitter<OrderDto>();
 
   @Input('artworkStockPage')
   set stockDataSetter(value: PageResponseDto<ArtworkStockDto>) {
@@ -27,13 +29,16 @@ export class ArtworksViewComponent implements OnInit {
   showGrid: boolean = true;
   stockData: PageResponseDto<ArtworkStockDto> = new PageResponseDto();
   wishListMap: { [artworkStockId: number]: number } = {};
+  ownArtworksMap: { [artworkStockId: number]: ArtworkStockDto } = {};
 
   constructor(public translate: TranslateService,
-              private wishListService: WishListService) {
+              private wishListService: WishListService,
+              private artworkStockService: ArtworkStockService) {
   }
 
   ngOnInit() {
     this.getWishList();
+    this.getOwnArtworks();
   }
 
   setPageSize(pageSize: number) {
@@ -46,6 +51,19 @@ export class ArtworksViewComponent implements OnInit {
 
   setPage(page: number) {
     this.onPageChanged.next(page);
+  }
+
+  getOwnArtworks() {
+    this.artworkStockService.getOwnArtworks().subscribe(data => {
+      if (!data) return;
+
+      const newMap = {};
+      for (let artworkStock of data) {
+        newMap[artworkStock.id] = artworkStock;
+      }
+
+      this.ownArtworksMap = newMap;
+    });
   }
 
   getWishList() {
@@ -77,5 +95,10 @@ export class ArtworksViewComponent implements OnInit {
         this.onWishListToggle.next(artworkStock);
       });
     }
+  }
+
+  orderPlaced(order: OrderDto) {
+    this.getOwnArtworks();
+    this.onOrderPlaced.next(order);
   }
 }

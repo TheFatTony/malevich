@@ -88,10 +88,14 @@
 <app-artworks-list-grid *ngIf="showGrid"
                         [artworkStocks]="stockData.data"
                         [wishListMap]="wishListMap"
+                        [artworkWalletMap]="ownArtworksMap"
+                        (onOrderPlaced)="orderPlaced($event)"
                         (onWishListToggle)="toggleWishList($event)"></app-artworks-list-grid>
 <app-artworks-list-list *ngIf="!showGrid"
                         [artworkStocks]="stockData.data"
                         [wishListMap]="wishListMap"
+                        [artworkWalletMap]="ownArtworksMap"
+                        (onOrderPlaced)="orderPlaced($event)"
                         (onWishListToggle)="toggleWishList($event)"></app-artworks-list-list>
 <!-- End Products -->
 

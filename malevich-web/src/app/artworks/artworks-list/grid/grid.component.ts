@@ -2,10 +2,8 @@ import {Component, EventEmitter, Input, OnInit, Output, ViewChild} from '@angula
 import {TranslateService} from "@ngx-translate/core";
 import {environment} from "../../../../environments/environment.dev";
 import {OrderDto} from "../../../_transfer/orderDto";
-import {WishListDto} from "../../../_transfer/wishListDto";
 import {OrderWindowComponent} from "../../../common/components/order-window/order-window.component";
 import {ArtworkStockDto} from "../../../_transfer/artworkStockDto";
-import {WishListService} from "../../../_services/wish-list.service";
 
 @Component({
   selector: 'app-artworks-list-grid',
@@ -18,8 +16,10 @@ export class GridComponent implements OnInit {
 
   @Input() artworkStocks;
   @Input() wishListMap: { [artworkStockId: number]: number } = {};
+  @Input() artworkWalletMap: { [artworkStockId: number]: ArtworkStockDto } = {};
 
   @Output() onWishListToggle = new EventEmitter<ArtworkStockDto>();
+  @Output() onOrderPlaced = new EventEmitter<OrderDto>();
 
   private url = environment.baseUrl;
 
@@ -29,17 +29,24 @@ export class GridComponent implements OnInit {
   ngOnInit() {
   }
 
-  openWindow(artworkStock: ArtworkStockDto) {
+  openWindow(artworkStock: ArtworkStockDto, orderType: string) {
     this.myWindow.artworkStock(artworkStock);
+    this.myWindow.orderType(orderType);
     this.myWindow.open();
   }
 
+  isOwn(artworkStock: ArtworkStockDto) {
+    if (!artworkStock)
+      return false;
 
-  onOrderPlaced(order: OrderDto) {
-
+    return !!this.artworkWalletMap[artworkStock.id];
   }
 
-  toggleWishList(artworkStock: ArtworkStockDto){
+  orderPlaced(order: OrderDto) {
+    this.onOrderPlaced.next(order);
+  }
+
+  toggleWishList(artworkStock: ArtworkStockDto) {
     this.onWishListToggle.next(artworkStock);
   }
 

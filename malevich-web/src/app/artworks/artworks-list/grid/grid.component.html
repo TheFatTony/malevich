@@ -5,6 +5,12 @@
        routerLink="/artworks/artworks-detail/{{artworkStock.id}}">
       <figure class="g-pos-rel g-mb-20">
         <img class="img-fluid" src="{{url}}{{artworkStock.artwork.thumbnail.url}}" alt="Image Description">
+        <span *ngIf="isOwn(artworkStock)"
+              class="u-ribbon-v1 g-width-40 g-height-40 g-color-white g-bg-primary g-font-size-15 text-center text-uppercase g-rounded-50x g-top-10 g-right-minus-10 g-px-2 g-py-10"
+              ngbTooltip="This is my artwork"
+        >
+          <i class="fa fa-shopping-basket"></i>
+        </span>
       </figure>
     </a>
 
@@ -19,28 +25,44 @@
         </h4>
         <span class="d-inline-block g-color-gray-dark-v5 g-font-size-13">{{artworkStock.artwork.category.categoryNameMl[translate.currentLang]}}</span>
         <span *ngIf="artworkStock.instantPrice" class="d-block g-color-black g-font-size-17">{{artworkStock.instantPrice}} SQR</span>
-        <span *ngIf="!artworkStock.instantPrice && artworkStock.lastPrice" class="d-block g-color-gray-dark-v5 g-font-size-17">{{artworkStock.lastPrice}} SQR</span>
+        <span *ngIf="!artworkStock.instantPrice && artworkStock.lastPrice"
+              class="d-block g-color-gray-dark-v5 g-font-size-17">{{artworkStock.lastPrice}} SQR</span>
       </div>
       <!-- End Product Info -->
 
       <!-- Products Icons -->
       <ul class="list-inline media-body text-right">
         <li class="list-inline-item align-middle mx-0">
-          <a
-            class="u-icon-v1 u-icon-size--sm g-color-gray-dark-v5 g-color-primary--hover g-font-size-15 rounded-circle"
-            (click)="openWindow(artworkStock)" data-toggle="tooltip" data-placement="top" title=""
-            data-original-title="Place a bid">
-            <i class="icon-real-estate-089 u-line-icon-pro"></i>
-          </a>
+          <ng-container [ngSwitch]="isOwn(artworkStock)">
+            <a *ngSwitchCase="true"
+               class="u-icon-v1 u-icon-size--sm g-color-gray-dark-v5 g-color-primary--hover g-font-size-15 rounded-circle"
+               (click)="openWindow(artworkStock, 'ask')" placement="top"
+               ngbTooltip="{{'MAIN.ARTWORK.PLACE_ASK' | translate}}">
+              <i class="icon-real-estate-089 u-line-icon-pro"></i>
+            </a>
+            <a *ngSwitchCase="false"
+               class="u-icon-v1 u-icon-size--sm g-color-gray-dark-v5 g-color-primary--hover g-font-size-15 rounded-circle"
+               (click)="openWindow(artworkStock, 'bid')" placement="top"
+               ngbTooltip="{{'MAIN.ARTWORK.PLACE_BID' | translate}}">
+              <i class="icon-real-estate-089 u-line-icon-pro"></i>
+            </a>
+          </ng-container>
         </li>
         <li class="list-inline-item align-middle mx-0">
-          <a
-            class="u-icon-v1 u-icon-size--sm g-color-gray-dark-v5 g-color-primary--hover g-font-size-15 rounded-circle"
-            (click)="toggleWishList(artworkStock)" data-toggle="tooltip" data-placement="top" title=""
-            data-original-title="Add to Wishlist">
-            <i *ngIf="wishListMap[artworkStock.id] == null" class="icon-medical-022 u-line-icon-pro "></i>
-            <i *ngIf="wishListMap[artworkStock.id] != null" class="fa fa-heart g-color-lightred" style="line-height: 1.5"></i>
-          </a>
+          <ng-container [ngSwitch]="wishListMap[artworkStock.id] == null">
+            <a *ngSwitchCase="true"
+               class="u-icon-v1 u-icon-size--sm g-color-gray-dark-v5 g-color-primary--hover g-font-size-15 rounded-circle"
+               (click)="toggleWishList(artworkStock)" placement="top"
+               ngbTooltip="{{'MAIN.ARTWORK.ADD_TO_WISHLIST' | translate}}">
+              <i class="icon-medical-022 u-line-icon-pro "></i>
+            </a>
+            <a *ngSwitchCase="false"
+               class="u-icon-v1 u-icon-size--sm g-color-gray-dark-v5 g-color-primary--hover g-font-size-15 rounded-circle"
+               (click)="toggleWishList(artworkStock)" placement="top"
+               ngbTooltip="{{'MAIN.ARTWORK.REMOVE_FROM_WISHLIST' | translate}}">
+              <i class="fa fa-heart g-color-lightred" style="line-height: 1.5"></i>
+            </a>
+          </ng-container>
         </li>
       </ul>
       <!-- End Products Icons -->
@@ -50,4 +72,4 @@
 
 </div>
 
-<mch-order-window #myWindow [orderType]="'bid'" (onOrderPlaced)="onOrderPlaced($event)"></mch-order-window>
+<mch-order-window #myWindow (onOrderPlaced)="orderPlaced($event)"></mch-order-window>

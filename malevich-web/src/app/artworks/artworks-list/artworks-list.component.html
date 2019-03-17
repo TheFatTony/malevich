@@ -27,6 +27,7 @@
     <div class="col-md-9 order-md-2">
       <div class="g-pl-15--lg g-pt-40">
         <app-artworks-list-view [artworkStockPage]="stockData"
+                                (onOrderPlaced)="orderPlaced($event)"
                                 (onPageChanged)="setPage($event)"
                                 (onPageSizeChanged)="setPageSize($event)"
                                 (onSortChanged)="setSort($event)"></app-artworks-list-view>

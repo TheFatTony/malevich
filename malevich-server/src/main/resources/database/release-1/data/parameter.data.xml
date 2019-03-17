@@ -6,10 +6,11 @@
     <changeSet author="toolstik" id="parameter-data" dbms="mysql">
         <sql splitStatements="true" stripComments="true">
             INSERT INTO parameter (id, value)
-            VALUES ('revolut.account.beneficiary.name', 'Revolut LTD'),
-                   ('revolut.account.iban', 'GB98LOYD30801286568290'),
-                   ('revolut.account.bic', 'LOYDGB2L'),
-                   ('revolut.account.beneficiary.address', 'Revolut LTD, Level39, 1 Canada Square, London, E14 5AB, United Kingdom'),
+            VALUES ('revolut.account.beneficiary.name', 'ARTFACTORY PRODUCTION LIMITED'),
+                   ('revolut.account.iban', 'GB91REVO00996981910169'),
+                   ('revolut.account.bic', 'REVOGB21'),
+                   ('revolut.account.intermediary_bic', 'BARCGB22'),
+                   ('revolut.account.beneficiary.address', 'PO Box 3RD FLOOR, 86-90, London, EC2A 4 NE, United Kingdom'),
                    ('revolut.account.bank.name', 'Revolut');
         </sql>
     </changeSet>

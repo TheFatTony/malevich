@@ -66,10 +66,10 @@ public class UserResource extends RestResource<UserDto, UserEntity> {
     @RequestMapping(value = "/register", method = RequestMethod.POST)
     @ResponseStatus(HttpStatus.OK)
     @ResponseBody
-    public ResponseEntity<String> registerStep1(@RequestBody RegisterFormDto registerFormDto, @RequestParam("lang") String lang) {
+    public ResponseEntity<Void> registerStep1(@RequestBody RegisterFormDto registerFormDto, @RequestParam("lang") String lang) {
         RegisterTokenEntity registerTokenEntity = modelMapper.map(registerFormDto, RegisterTokenEntity.class);
         registerService.register(registerTokenEntity, lang);
-        return ResponseEntity.ok().body("registered");
+        return ResponseEntity.ok().build();
     }
 
     @RequestMapping(value = "/register/{token}", method = RequestMethod.POST)
@@ -82,23 +82,23 @@ public class UserResource extends RestResource<UserDto, UserEntity> {
     @RequestMapping(value = "/password/reset", method = RequestMethod.POST)
     @ResponseStatus(HttpStatus.OK)
     @ResponseBody
-    public ResponseEntity<String> reset(@RequestBody ResetPasswordFormDto resetFormDto) {
+    public ResponseEntity<Void> reset(@RequestBody ResetPasswordFormDto resetFormDto) {
         userService.reset(resetFormDto.getLang(), resetFormDto.getEmail());
-        return ResponseEntity.ok().body("reset");
+        return ResponseEntity.ok().build();
     }
 
     @RequestMapping(value = "/password/reset/{token}", method = RequestMethod.POST)
-    public ResponseEntity<String> reset(@RequestBody PasswordDto resetDto, @PathVariable("token") String token) {
+    public ResponseEntity<Void> reset(@RequestBody PasswordDto resetDto, @PathVariable("token") String token) {
         userService.setNewPassword(token, resetDto.getPassword());
-        return ResponseEntity.ok().body("password set");
+        return ResponseEntity.ok().build();
     }
 
     @RequestMapping(value = "/password/change", method = RequestMethod.POST)
     @ResponseStatus(HttpStatus.OK)
     @ResponseBody
-    public ResponseEntity<String> changePassword(@RequestBody PasswordDto pwd) {
+    public ResponseEntity<Void> changePassword(@RequestBody PasswordDto pwd) {
         userService.changePassword(pwd.getPassword(), pwd.getNewPassword());
-        return ResponseEntity.ok().body("password changed");
+        return ResponseEntity.ok().build();
     }
 
 }

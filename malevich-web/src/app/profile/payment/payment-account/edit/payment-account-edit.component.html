@@ -2,116 +2,147 @@
 <div class="g-color-gray-dark-v5 rounded g-pa-30">
   <form #f="ngForm" (ngSubmit)="save()" novalidate>
     <!-- Card Number -->
-    <div class="g-mb-30">
-      <h4 class="h6 g-color-black g-font-weight-400 mb-3">{{'PROFILE.PAYMENT_METHODS.LABEL.ACCOUNT_NUMBER' | translate}}</h4>
-      <mchInput
-        name="accountNum"
-        yycPattern="[0-9A-Z]+"
-        yycPatternMessage="Digits and capital letters only. No spaces"
-        mchRequired
-        [(ngModel)]="editAccount.iban"
-        class="form-control u-form-control g-brd-around g-brd-gray-light-v3 g-brd-primary--focus g-font-size-13 g-rounded-3"
-        [type]="'tel'" [placeHolder]="'DIGITS AND CAPITAL LETTERS'">
-      </mchInput>
+    <div class="row g-mb-30">
+      <div class="col">
+        <h4 class="h6 g-color-black g-font-weight-400 mb-3">{{'PROFILE.PAYMENT_METHODS.LABEL.ACCOUNT_NUMBER' |
+          translate}}</h4>
+        <mchInput
+          name="accountNum"
+          yycPattern="[0-9A-Z]+"
+          yycPatternMessage="Digits and capital letters only. No spaces"
+          mchRequired
+          [(ngModel)]="editAccount.iban"
+          class="form-control u-form-control g-brd-around g-brd-gray-light-v3 g-brd-primary--focus g-font-size-13 g-rounded-3"
+          [type]="'tel'" [placeHolder]="'DIGITS AND CAPITAL LETTERS'">
+        </mchInput>
+      </div>
     </div>
     <!-- End Card Number -->
 
     <hr class="g-brd-gray-light-v4 g-my-20">
 
-    <div class="g-mb-30">
-      <h4 class="h6 g-color-black g-font-weight-400 mb-3">{{'PROFILE.PAYMENT_METHODS.LABEL.BENEFICIARY_NAME' | translate}}</h4>
-      <mchInput
-        name="beneficiaryName"
-        mchRequired
-        [(ngModel)]="editAccount.beneficiaryName"
-        class="form-control u-form-control g-brd-around g-brd-gray-light-v3 g-brd-primary--focus g-font-size-13 g-rounded-3"
-        [type]="'tel'" [placeHolder]="'ACCOUNT HOLDER'">
-      </mchInput>
+    <div class="row g-mb-30">
+      <div class="col">
+        <h4 class="h6 g-color-black g-font-weight-400 mb-3">{{'PROFILE.PAYMENT_METHODS.LABEL.BENEFICIARY_NAME' |
+          translate}}</h4>
+        <mchInput
+          name="beneficiaryName"
+          mchRequired
+          [(ngModel)]="editAccount.beneficiaryName"
+          class="form-control u-form-control g-brd-around g-brd-gray-light-v3 g-brd-primary--focus g-font-size-13 g-rounded-3"
+          [type]="'tel'" [placeHolder]="'ACCOUNT HOLDER'">
+        </mchInput>
+      </div>
     </div>
 
-    <div class="g-mb-30">
-      <h4 class="h6 g-color-black g-font-weight-400 mb-3">{{'PROFILE.PAYMENT_METHODS.LABEL.BENEFICIARY_COUNTRY' | translate}}</h4>
-      <mchComboBox name="beneficiaryCountry"
-                   #beneficiaryCountry="ngModel"
-                   mchRequired
-                   class="form-control u-form-control g-brd-around g-brd-gray-light-v3 g-brd-primary--focus g-font-size-13 g-rounded-3"
-                   [objectSource]="countries"
-                   [displayFunc]="countryDisplayFunc"
-                   [(ngModel)]="editAccount.beneficiaryCountry">
-      </mchComboBox>
-      <mchErrors [component]="beneficiaryCountry"></mchErrors>
+    <div class="row g-mb-30">
+      <div class="col">
+        <h4 class="h6 g-color-black g-font-weight-400 mb-3">{{'PROFILE.PAYMENT_METHODS.LABEL.BENEFICIARY_COUNTRY' |
+          translate}}</h4>
+        <mchComboBox name="beneficiaryCountry"
+                     #beneficiaryCountry="ngModel"
+                     mchRequired
+                     class="form-control u-form-control g-brd-around g-brd-gray-light-v3 g-brd-primary--focus g-font-size-13 g-rounded-3"
+                     [objectSource]="countries"
+                     [displayFunc]="countryDisplayFunc"
+                     [(ngModel)]="editAccount.beneficiaryCountry">
+        </mchComboBox>
+        <mchErrors [component]="beneficiaryCountry"></mchErrors>
+      </div>
     </div>
 
-    <div class="g-mb-30">
-      <h4 class="h6 g-color-black g-font-weight-400 mb-3">{{'PROFILE.PAYMENT_METHODS.LABEL.BENEFICIARY_ADDRESS' | translate}}</h4>
-      <mchInput
-        name="beneficiaryAddress"
-        mchRequired
-        [(ngModel)]="editAccount.beneficiaryAddress"
-        class="form-control u-form-control g-brd-around g-brd-gray-light-v3 g-brd-primary--focus g-font-size-13 g-rounded-3"
-      >
-      </mchInput>
+    <div class="row g-mb-30">
+      <div class="col">
+        <h4 class="h6 g-color-black g-font-weight-400 mb-3">{{'PROFILE.PAYMENT_METHODS.LABEL.BENEFICIARY_ADDRESS' |
+          translate}}</h4>
+        <mchInput
+          name="beneficiaryAddress"
+          mchRequired
+          [(ngModel)]="editAccount.beneficiaryAddress"
+          class="form-control u-form-control g-brd-around g-brd-gray-light-v3 g-brd-primary--focus g-font-size-13 g-rounded-3"
+        >
+        </mchInput>
+      </div>
     </div>
 
     <hr class="g-brd-gray-light-v4 g-my-20">
 
-    <div class="g-mb-30">
-      <h4 class="h6 g-color-black g-font-weight-400 mb-3">{{'PROFILE.PAYMENT_METHODS.LABEL.BANK_NUMBER' | translate}}</h4>
-      <mchInput
-        name="bic"
-        mchRequired
-        yycPattern="[0-9A-Z]+"
-        yycPatternMessage="Digits and capital letters only"
-        [(ngModel)]="editAccount.bic"
-        class="form-control u-form-control g-brd-around g-brd-gray-light-v3 g-brd-primary--focus g-font-size-13 g-rounded-3"
-      >
-      </mchInput>
+    <div class="row g-mb-30">
+      <div class="col">
+        <h4 class="h6 g-color-black g-font-weight-400 mb-3">{{'PROFILE.PAYMENT_METHODS.LABEL.BANK_NUMBER' |
+          translate}}</h4>
+        <mchInput
+          name="bic"
+          mchRequired
+          yycPattern="[0-9A-Z]+"
+          yycPatternMessage="Digits and capital letters only"
+          [(ngModel)]="editAccount.bic"
+          class="form-control u-form-control g-brd-around g-brd-gray-light-v3 g-brd-primary--focus g-font-size-13 g-rounded-3"
+        >
+        </mchInput>
+      </div>
     </div>
 
-    <div class="g-mb-30">
-      <h4 class="h6 g-color-black g-font-weight-400 mb-3">{{'PROFILE.PAYMENT_METHODS.LABEL.BANK_NAME' | translate}}</h4>
-      <mchInput
-        name="bankName"
-        mchRequired
-        [(ngModel)]="editAccount.bankName"
-        class="form-control u-form-control g-brd-around g-brd-gray-light-v3 g-brd-primary--focus g-font-size-13 g-rounded-3"
-      >
-      </mchInput>
+    <div class="row g-mb-30">
+      <div class="col">
+        <h4 class="h6 g-color-black g-font-weight-400 mb-3">{{'PROFILE.PAYMENT_METHODS.LABEL.BANK_NAME' |
+          translate}}</h4>
+        <mchInput
+          name="bankName"
+          mchRequired
+          [(ngModel)]="editAccount.bankName"
+          class="form-control u-form-control g-brd-around g-brd-gray-light-v3 g-brd-primary--focus g-font-size-13 g-rounded-3"
+        >
+        </mchInput>
+      </div>
     </div>
 
-    <div class="g-mb-30">
-      <h4 class="h6 g-color-black g-font-weight-400 mb-3">{{'PROFILE.PAYMENT_METHODS.LABEL.BANK_COUNTRY' | translate}}</h4>
-      <mchComboBox name="bankCountry"
-                   #bankCountry="ngModel"
-                   mchRequired
-                   class="form-control u-form-control g-brd-around g-brd-gray-light-v3 g-brd-primary--focus g-font-size-13 g-rounded-3"
-                   [objectSource]="countries"
-                   [displayFunc]="countryDisplayFunc"
-                   [(ngModel)]="editAccount.bankCountry">
-      </mchComboBox>
-      <mchErrors [component]="bankCountry"></mchErrors>
+    <div class="row g-mb-30">
+      <div class="col">
+        <h4 class="h6 g-color-black g-font-weight-400 mb-3">{{'PROFILE.PAYMENT_METHODS.LABEL.BANK_COUNTRY' |
+          translate}}</h4>
+        <mchComboBox name="bankCountry"
+                     #bankCountry="ngModel"
+                     mchRequired
+                     class="form-control u-form-control g-brd-around g-brd-gray-light-v3 g-brd-primary--focus g-font-size-13 g-rounded-3"
+                     [objectSource]="countries"
+                     [displayFunc]="countryDisplayFunc"
+                     [(ngModel)]="editAccount.bankCountry">
+        </mchComboBox>
+        <mchErrors [component]="bankCountry"></mchErrors>
+      </div>
     </div>
 
-    <div class="g-mb-30">
-      <h4 class="h6 g-color-black g-font-weight-400 mb-3">{{'PROFILE.PAYMENT_METHODS.LABEL.BANK_ADDRESS' | translate}}</h4>
-      <mchInput
-        name="bankAddress"
-        mchRequired
-        [(ngModel)]="editAccount.bankAddress"
-        class="form-control u-form-control g-brd-around g-brd-gray-light-v3 g-brd-primary--focus g-font-size-13 g-rounded-3"
-      >
-      </mchInput>
+    <div class="row g-mb-30">
+      <div class="col">
+        <h4 class="h6 g-color-black g-font-weight-400 mb-3">{{'PROFILE.PAYMENT_METHODS.LABEL.BANK_ADDRESS' |
+          translate}}</h4>
+        <mchInput
+          name="bankAddress"
+          mchRequired
+          [(ngModel)]="editAccount.bankAddress"
+          class="form-control u-form-control g-brd-around g-brd-gray-light-v3 g-brd-primary--focus g-font-size-13 g-rounded-3"
+        >
+        </mchInput>
+      </div>
     </div>
 
-    <mchButton class="btn u-btn-primary g-font-size-12 text-uppercase g-py-12 g-px-25"
-               [submitForm]="f">
-      {{'PROFILE.BUTTON.SUBMIT' | translate}}
-    </mchButton>
-
-    <mchButton class="btn u-btn-primary g-font-size-12 text-uppercase g-py-12 g-px-25"
-               (click)="cancel()">
-      {{'PROFILE.BUTTON.CANCEL' | translate}}
-    </mchButton>
+    <div class="row justify-content-center">
+      <div class="col-4">
+        <mchButton class="btn u-btn-primary g-font-size-12 text-uppercase g-py-15 g-px-15"
+                   [submitForm]="f"
+                   [height]="null">
+          {{'PROFILE.BUTTON.SUBMIT' | translate}}
+        </mchButton>
+      </div>
+      <div class="col-4">
+        <mchButton class="btn u-btn-primary g-font-size-12 text-uppercase g-py-15 g-px-15"
+                   (click)="cancel()"
+                   [height]="null">
+          {{'PROFILE.BUTTON.CANCEL' | translate}}
+        </mchButton>
+      </div>
+    </div>
   </form>
 </div>
 <!-- End Payment Details -->

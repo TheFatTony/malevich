@@ -2,20 +2,17 @@ import {
   AfterViewInit,
   Component,
   EventEmitter,
-  HostListener,
   Input,
   OnDestroy,
   OnInit,
   Output,
+  TemplateRef,
   ViewChild
 } from '@angular/core';
 import {ArtworkStockDto} from "../../../_transfer/artworkStockDto";
-import {OrderService} from "../../../_services/order.service";
 import {TranslateService} from "@ngx-translate/core";
-import {TradeTypeService} from "../../../_services/trade-type.service";
-import {TradeTypeDto} from "../../../_transfer/tradeTypeDto";
 import {OrderDto} from "../../../_transfer/orderDto";
-import {jqxWindowComponent} from "jqwidgets-scripts/jqwidgets-ts/angular_jqxwindow";
+import {NgbModal, NgbModalRef} from "@ng-bootstrap/ng-bootstrap";
 
 @Component({
   selector: 'mch-order-window',
@@ -29,14 +26,13 @@ export class OrderWindowComponent implements OnInit, AfterViewInit, OnDestroy {
   @Input('orderType') attrOrderType: string;
   @Output() onOrderPlaced = new EventEmitter();
 
-  @ViewChild('myWindow') myWindow: jqxWindowComponent;
-
-  private x: number;
-  private y: number;
+  @ViewChild('myWindow') myWindow: TemplateRef<any>;
 
   expirationDateHidden: boolean = true;
+  private modalRef: NgbModalRef;
 
-  constructor(public translate: TranslateService) {
+  constructor(public translate: TranslateService,
+              private modalService: NgbModal) {
   }
 
   ngOnInit() {
@@ -46,34 +42,26 @@ export class OrderWindowComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this.myWindow.close();
+    this.modalService.dismissAll();
   }
 
   showExpirationDateInput(show: boolean) {
     this.expirationDateHidden = !show;
-
-    if (show)
-      this.myWindow.height(300);
-    else
-      this.myWindow.height(240);
   }
 
   open() {
-     this.showExpirationDateInput(false);
-
-    this.myWindow.width(310);
-    this.myWindow.height(240);
-    this.myWindow.open();
-    this.myWindow.move(this.x, this.y);
+    this.showExpirationDateInput(false);
+    this.modalRef = this.modalService.open(this.myWindow, { centered: true });
   }
 
-  close() {
-    this.myWindow.close();
+  close(reason?) {
+    if (this.modalRef)
+      this.modalRef.close(reason);
   }
 
   orderPlaced(order: OrderDto) {
+    this.close();
     this.onOrderPlaced.emit(order);
-    this.myWindow.close();
   }
 
   artworkStock(arg?: ArtworkStockDto): any {
@@ -90,11 +78,5 @@ export class OrderWindowComponent implements OnInit, AfterViewInit, OnDestroy {
     } else {
       return this.attrOrderType;
     }
-  }
-
-  @HostListener('mousedown', ['$event'])
-  mouseHandling(event) {
-    this.x = event.pageX;
-    this.y = event.pageY;
   }
 }

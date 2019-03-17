@@ -7,8 +7,8 @@
         <sql splitStatements="true" stripComments="true">
             insert into user_type (id, type_name, description)
             values (1, 'Gallery', ''),
-                   (2, 'TraderPerson', ''),
-                   (3, 'TraderOrganization', ''),
+                   (2, 'Individual', ''),
+                   (3, 'Organization', ''),
                    (4, 'Malevich', '');
         </sql>
     </changeSet>

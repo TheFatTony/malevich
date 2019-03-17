@@ -224,6 +224,8 @@
       "DELETE": "Delete",
       "CHANGE_PASSWORD": "Change Password",
       "ADD": "Add",
+      "ADD_ACCOUNT": "Add Account",
+      "DEPOSIT": "Deposit",
       "WITHDRAW": "Withdraw",
       "CANCEL_ORDER": "Cancel order",
       "GENERATE_BITCOIN_ADDRESS":"Generate"

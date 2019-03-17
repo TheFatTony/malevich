@@ -21,7 +21,7 @@ public class TestResource {
 //    @ResponseStatus(HttpStatus.OK)
 //    @ResponseBody
 //    public ResponseEntity<Void> smsService() {
-//        smsService.sendSms("+79258815879", "Привет от malevich.io");
+//        smsService.sendSms("+79175896086", "Привет от malevich.io");
 //
 //        return ResponseEntity.ok().build();
 //    }

@@ -33,6 +33,9 @@ participant Gallery extends Counterparty {
 participant Malevich extends Counterparty {
 }
 
+participant TechAccount extends Counterparty {
+}
+
 asset ArtworkStock identified by id {
   o String id
   o String token

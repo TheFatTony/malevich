@@ -6,5 +6,6 @@ export class AccountStateDto {
   participant: ParticipantDto;
   artworkStock: ArtworkStockDto;
   amount: number;
+  bonuses: number;
   quantity: number;
 }

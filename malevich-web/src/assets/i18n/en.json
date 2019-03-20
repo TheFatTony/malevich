@@ -152,7 +152,9 @@
     },
     "WALLET": {
       "TITLE": "Wallet",
-      "BALANCE": "Balance",
+      "BALANCE": "Available Balance",
+      "BLOCKED": "Blocked Balance",
+      "BONUSES": "Available Bonuses",
       "AVAILABLE": "Available"
     },
     "WISHLIST": {

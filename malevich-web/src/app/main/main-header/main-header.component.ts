@@ -6,7 +6,7 @@ import {Router} from "@angular/router";
 import {UserDto} from '../../../../node_modules/yinyang-core';
 import {ParticipantDto} from "../../_transfer/participantDto";
 import {ParticipantService} from "../../_services/participant.service";
-import {filter, filter} from "rxjs/operators";
+import {filter} from "rxjs/operators";
 
 @Component({
   selector: 'app-main-header',

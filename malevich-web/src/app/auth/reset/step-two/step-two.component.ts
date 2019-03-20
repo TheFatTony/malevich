@@ -22,8 +22,11 @@ export class StepTwoComponent implements OnInit {
   }
 
   submit() {
-    this.userService.setNewPassword(this.token, this.password).subscribe();
-    this.router.navigate(['/main-page']);
+    this.userService.setNewPassword(this.token, this.password)
+      .subscribe(() => {
+        this.router.navigate(['/profile/view']);
+      });
+
   }
 
 }

@@ -38,7 +38,8 @@ export class UserService {
   }
 
   setNewPassword(token: string, password: string) {
-    return this.http.post<any>(this.url + `/password/reset/${token}`, {password: password});
+    return this.http.post<any>(this.url + `/password/reset/${token}`, {password: password})
+      .pipe(map(this.authService.setUser));
   }
 
   changePassword(password: string, newPassword: string) {

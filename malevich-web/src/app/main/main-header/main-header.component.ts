@@ -6,6 +6,7 @@ import {Router} from "@angular/router";
 import {UserDto} from '../../../../node_modules/yinyang-core';
 import {ParticipantDto} from "../../_transfer/participantDto";
 import {ParticipantService} from "../../_services/participant.service";
+import {filter, filter} from "rxjs/operators";
 
 @Component({
   selector: 'app-main-header',
@@ -28,15 +29,17 @@ export class MainHeaderComponent implements OnInit, AfterViewInit {
   }
 
   ngOnInit() {
-    this.globals.currentUser$.subscribe(data => {
-      this.user = data;
+    this.globals.currentUser$
+      .pipe(filter((u) => !!u))
+      .subscribe(data => {
+        this.user = data;
 
-      this.participantService.getCurrent()
-        .subscribe(data => {
-          this.participant = data;
-          this.userName = this.participantService.getName(this.participant) || this.user.name;
-        });
-    });
+        this.participantService.getCurrent()
+          .subscribe(data => {
+            this.participant = data;
+            this.userName = this.participantService.getName(this.participant) || this.user.name;
+          });
+      });
 
     this.globals.isAdmin$.subscribe(data => {
       this.isAdmin = data;

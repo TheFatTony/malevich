@@ -259,7 +259,7 @@
 				<configuration>
 					<promptOnNonLocalDatabase>false</promptOnNonLocalDatabase>
 					<propertyFileWillOverride>true</propertyFileWillOverride>
-                    <contexts>default, test_data</contexts>
+                    <contexts>${build.profile.id}</contexts>
                     <propertyFile>src/main/resources/liquibase-${build.profile.id}.properties</propertyFile>
 				</configuration>
 			</plugin>

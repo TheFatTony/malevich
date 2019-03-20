@@ -1,9 +1,9 @@
 'use strict';
 
 /**
- * Determine the net transfer between a banking pair, accounting for exchange rates
- * @param {io.malevich.network.Counterparty} party array of TransferRequest objects
- * @return {io.malevich.network.Counterparty} net amount in USD
+ * updateCounterparty
+ * @param {io.malevich.network.Counterparty} party
+ * @return {io.malevich.network.Counterparty}
  */
 async function getCounterparty(party) { // eslint-disable-line no-unused-vars
     const registryTrader = await getParticipantRegistry('io.malevich.network.Trader');
@@ -19,9 +19,9 @@ async function getCounterparty(party) { // eslint-disable-line no-unused-vars
 }
 
 /**
- * Determine the net transfer between a banking pair, accounting for exchange rates
- * @param {io.malevich.network.Counterparty} party array of TransferRequest objects
- * @return {io.malevich.network.Counterparty} net amount in USD
+ * updateCounterparty
+ * @param {io.malevich.network.Counterparty} party 
+ * @return {io.malevich.network.Counterparty}
  */
 async function updateCounterparty(party) { // eslint-disable-line no-unused-vars
     const registryTrader = await getParticipantRegistry('io.malevich.network.Trader');
@@ -36,6 +36,27 @@ async function updateCounterparty(party) { // eslint-disable-line no-unused-vars
 }
 
 /**
+ * balanceHistory
+ * @param {String} id
+ * @param {DateTime} effectiveDate
+ * @param {Double} amount
+ * @param {Counterparty} counterparty
+ * @return {boolean}
+ */
+async function balanceHistory(id, effectiveDate, amount, counterparty) { // eslint-disable-line no-unused-vars
+    const factory = getFactory();
+    const balanceHistoryRegistry = await getAssetRegistry('io.malevich.network.BalanceHistory');
+    
+    var balanceAsset = factory.newResource('io.malevich.network', 'BalanceHistory', new Date().toString());
+    balanceAsset.effectiveDate = new Date();
+    balanceAsset.amount = amount;
+    balanceAsset.counterparty = counterparty;
+    await balanceHistoryRegistry.add(balanceAsset);
+
+    return true;
+}
+
+/**
  * processPayment
  * @param {io.malevich.network.Payment} payment - payment
  * @transaction
@@ -45,8 +66,10 @@ async function processPayment(payment) { // eslint-disable-line no-unused-vars
 
     if (payment.paymentType === 'IN') {
         counterparty.balance = counterparty.balance + payment.amount;
+        await balanceHistory(payment.id, payment.timestamp, payment.amount, counterparty);
     } else if (payment.paymentType === 'OUT') {
         counterparty.balance = counterparty.balance - payment.amount;
+        await balanceHistory(payment.id, payment.timestamp, -payment.amount, counterparty);
     }
     
     await updateCounterparty(counterparty);
@@ -137,6 +160,7 @@ async function placeOrder(order) { // eslint-disable-line no-unused-vars
         if (chargeParty.balance < 0) {
             throw new Error('!#{Insufficient Funds}#!');
         }
+        await balanceHistory(order.order.id, order.timestamp, -orderAsset.order.amount, chargeParty);
         await registryTrader.update(chargeParty);
     }
     
@@ -215,12 +239,13 @@ async function placeOrder(order) { // eslint-disable-line no-unused-vars
         }
 
         if ((uptadeArtwork.dealCount === 1)) {
-            sumCommisions = sumCommisions + galleryCommisions;
+            sumCommisions = 0.03;
             galleryCommisions = 0;
         }
 
         let malevichParty = await registryMalevich.get('1');
         malevichParty.balance = malevichParty.balance + (matchingBid.order.amount * sumCommisions);
+        await balanceHistory('malevichParty' + order.order.id, order.timestamp, (matchingBid.order.amount * sumCommisions), malevichParty);
         await registryMalevich.update(malevichParty);
 
         let uptadeParty = await getCounterparty(currentAsk.order.counterparty);
@@ -241,10 +266,12 @@ async function placeOrder(order) { // eslint-disable-line no-unused-vars
 
         let galleryParty = await registryGallery.get(uptadeArtwork.holder.getIdentifier());
         if (uptadeParty.getIdentifier() === galleryParty.getIdentifier()) {
-                uptadeParty.balance = uptadeParty.balance + (matchingBid.order.amount * galleryCommisions);
+            uptadeParty.balance = uptadeParty.balance + (matchingBid.order.amount * galleryCommisions);
+            await balanceHistory('uptadeParty' + order.order.id, order.timestamp, (matchingBid.order.amount * galleryCommisions), uptadeParty);
             await registryGallery.update(uptadeParty);
         } else {
             galleryParty.balance = galleryParty.balance + (matchingBid.order.amount * galleryCommisions);
+            await balanceHistory('galleryParty' + order.order.id, order.timestamp, (matchingBid.order.amount * galleryCommisions), galleryParty);
             await registryGallery.update(galleryParty);
         }
 
@@ -281,6 +308,7 @@ async function cancelOrder(cancelOrder) { // eslint-disable-line no-unused-vars
             let uptadeParty = null;
             uptadeParty = await registryTrader.get(updateOrder.order.counterparty.getIdentifier());
             uptadeParty.balance = uptadeParty.balance + updateOrder.order.amount;
+            await balanceHistory(cancelOrder.order.id, cancelOrder.timestamp, updateOrder.order.amount, uptadeParty);
             await registryTrader.update(uptadeParty);
         }
     }
@@ -317,7 +345,7 @@ async function testData(testData) { // eslint-disable-line no-unused-vars
     commissionRule3Asset.value = 0.001;
     await registryCommissionRule.add(commissionRule3Asset);
 
-    if (testData === 'dev') {
+    if (testData.testData === 'dev') {
         const gallery1Asset = factory.newResource('io.malevich.network', 'Gallery', '2');
         gallery1Asset.email = 'gallery1@malevich.io';
         gallery1Asset.balance = 0;

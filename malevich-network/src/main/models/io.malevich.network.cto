@@ -33,9 +33,6 @@ participant Gallery extends Counterparty {
 participant Malevich extends Counterparty {
 }
 
-participant TechAccount extends Counterparty {
-}
-
 asset ArtworkStock identified by id {
   o String id
   o String token
@@ -79,6 +76,13 @@ asset TradeHistory identified by id {
   --> ArtworkStock artworkStock
   o OrderAsset askOrder
   o OrderAsset bidOrder
+}
+
+asset BalanceHistory identified by id {
+  o String id
+  o DateTime effectiveDate
+  o Double amount
+  --> Counterparty counterparty
 }
 
 transaction Order {

@@ -248,6 +248,7 @@
   <div class="row mb-3">
     <div *ngIf="withdrawMethods && withdrawMethods.length" class="col">
       <mchDropDownList name="paymentMethods"
+                       [placeHolder]="'Select an account'"
                        [objectSource]="withdrawMethods"
                        [displayFunc]="paymentMethodDisplayFunc"
                        [width]="'100%'"

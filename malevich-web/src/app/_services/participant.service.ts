@@ -4,6 +4,7 @@ import {HttpClient} from "@angular/common/http";
 import {ParticipantDto} from "../_transfer/participantDto";
 import {OrganizationDto, PersonDto} from "../_transfer";
 import {AddressDto} from "../_transfer/addressDto";
+import {TranslateService} from "@ngx-translate/core";
 
 @Injectable({
   providedIn: 'root'
@@ -12,7 +13,8 @@ export class ParticipantService {
 
   private url = environment.baseUrl + 'participant';
 
-  constructor(private http: HttpClient) {
+  constructor(private http: HttpClient,
+              private translate: TranslateService) {
   }
 
   getCurrent() {
@@ -64,6 +66,16 @@ export class ParticipantService {
     }
 
     return dto;
+  }
+
+  getName(participant: ParticipantDto) {
+    if (participant.person && participant.person.firstName && participant.person.lastName) {
+      return `${participant.person.firstName} ${participant.person.lastName}`
+    } else if (participant.organization && participant.organization.legalNameMl) {
+      return participant.organization.legalNameMl[this.translate.currentLang] || participant.organization.legalNameMl['en'];
+    }
+
+    return null;
   }
 
 }

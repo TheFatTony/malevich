@@ -225,7 +225,7 @@
       "CHANGE_PASSWORD": "Change Password",
       "ADD": "Add",
       "ADD_ACCOUNT": "Add Account",
-      "DEPOSIT": "Deposit",
+      "DEPOSIT": "Buy SQR",
       "WITHDRAW": "Withdraw",
       "CANCEL_ORDER": "Cancel order",
       "GENERATE_BITCOIN_ADDRESS":"Generate"

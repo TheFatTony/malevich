@@ -163,11 +163,13 @@ p {
 }
 
 .u-btn-primary.u-btn-hover-v1-2::after, .u-btn-primary.u-btn-hover-v1-2:hover::after {
-  background-color: #e44f45;
+  background-color: #fff;
+  color: #e44235
 }
 
 .u-btn-primary.u-btn-hover-v1-2:hover {
-  background-color: #e44235;
+  background-color: #fff;
+  color: #e44235;
   overflow: hidden;
 }
 

@@ -319,7 +319,7 @@ async function cancelOrder(cancelOrder) { // eslint-disable-line no-unused-vars
             let uptadeParty = null;
             uptadeParty = await registryTrader.get(updateOrder.order.counterparty.getIdentifier());
             uptadeParty.balance = uptadeParty.balance + updateOrder.order.amount;
-            await balanceHistory(updateOrder.order.amount, uptadeParty, 'BALANCE', cancelOrder.id);
+            await balanceHistory(updateOrder.order.amount, uptadeParty, 'BALANCE', cancelOrder.transactionId);
             await registryTrader.update(uptadeParty);
         }
     }

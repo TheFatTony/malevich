@@ -4,9 +4,7 @@ import {ParticipantService} from "../../_services/participant.service";
 import {TranslateService} from "@ngx-translate/core";
 import {ParticipantDto} from "../../_transfer/participantDto";
 import {KycLevelService} from "../../_services/kyc-level.service";
-import {KycLevelDto} from "../../_transfer/kycLevelDto";
 import {ActivatedRoute} from "@angular/router";
-import {HttpClient} from "@angular/common/http";
 import {Globals} from "../../globals";
 
 @Component({

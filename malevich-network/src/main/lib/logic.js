@@ -75,10 +75,10 @@ async function processPayment(payment) { // eslint-disable-line no-unused-vars
 
     if (payment.paymentType === 'IN') {
         counterparty.balance = counterparty.balance + payment.amount;
-        await balanceHistory(payment.amount, counterparty, 'BALANCE', payment.id);
+        await balanceHistory(payment.amount, counterparty, 'BALANCE', payment.transactionId);
     } else if (payment.paymentType === 'OUT') {
         counterparty.balance = counterparty.balance - payment.amount;
-        await balanceHistory(-payment.amount, counterparty, 'BALANCE', payment.id);
+        await balanceHistory(-payment.amount, counterparty, 'BALANCE', payment.transactionId);
     }
     
     await updateCounterparty(counterparty);
@@ -169,7 +169,7 @@ async function placeOrder(order) { // eslint-disable-line no-unused-vars
         if (chargeParty.balance < 0) {
             throw new Error('!#{Insufficient Funds}#!');
         }
-        await balanceHistory(-orderAsset.order.amount, chargeParty, 'ORDER', order.id);
+        await balanceHistory(-orderAsset.order.amount, chargeParty, 'ORDER', order.transactionId);
         await registryTrader.update(chargeParty);
     }
     
@@ -254,7 +254,7 @@ async function placeOrder(order) { // eslint-disable-line no-unused-vars
 
         let malevichParty = await registryMalevich.get('1');
         malevichParty.balance = malevichParty.balance + (matchingBid.order.amount * sumCommisions);
-        await balanceHistory((matchingBid.order.amount * sumCommisions), malevichParty, 'COMMISSION', order.id);
+        await balanceHistory((matchingBid.order.amount * sumCommisions), malevichParty, 'COMMISSION', order.transactionId);
         await registryMalevich.update(malevichParty);
 
         let uptadeParty = await getCounterparty(currentAsk.order.counterparty);
@@ -264,8 +264,8 @@ async function placeOrder(order) { // eslint-disable-line no-unused-vars
             uptadeParty.balance = uptadeParty.balance + matchingBid.order.amount;
         } else {
             uptadeParty.balance = uptadeParty.balance + matchingBid.order.amount - matchingBid.order.amount * sumCommisions - matchingBid.order.amount * galleryCommisions;
-            await balanceHistory(matchingBid.order.amount, uptadeParty, 'ORDER', order.id);
-            await balanceHistory(-(matchingBid.order.amount * sumCommisions - matchingBid.order.amount * galleryCommisions), uptadeParty, 'COMMISSION', order.id);
+            await balanceHistory(matchingBid.order.amount, uptadeParty, 'ORDER', order.transactionId);
+            await balanceHistory(-(matchingBid.order.amount * sumCommisions - matchingBid.order.amount * galleryCommisions), uptadeParty, 'COMMISSION', order.transactionId);
         }
 
         await updateCounterparty(uptadeParty);
@@ -278,11 +278,11 @@ async function placeOrder(order) { // eslint-disable-line no-unused-vars
         let galleryParty = await registryGallery.get(uptadeArtwork.holder.getIdentifier());
         if (uptadeParty.getIdentifier() === galleryParty.getIdentifier()) {
             uptadeParty.balance = uptadeParty.balance + (matchingBid.order.amount * galleryCommisions);
-            await balanceHistory((matchingBid.order.amount * galleryCommisions), uptadeParty, 'COMMISSION', order.id);
+            await balanceHistory((matchingBid.order.amount * galleryCommisions), uptadeParty, 'COMMISSION', order.transactionId);
             await registryGallery.update(uptadeParty);
         } else {
             galleryParty.balance = galleryParty.balance + (matchingBid.order.amount * galleryCommisions);
-            await balanceHistory((matchingBid.order.amount * galleryCommisions), galleryParty, 'COMMISSION', order.id);
+            await balanceHistory((matchingBid.order.amount * galleryCommisions), galleryParty, 'COMMISSION', order.transactionId);
             await registryGallery.update(galleryParty);
         }
 

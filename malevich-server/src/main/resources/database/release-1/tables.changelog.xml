@@ -3,7 +3,7 @@
                    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
                    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.6.xsd">
 
-    <include relativeToChangelogFile="true" file="tables/gender.table.xml"/>
+    <include relativeToChangelogFile="true" file="tables/sms_queue.table.xml"/>
     <include relativeToChangelogFile="true" file="tables/gender.table.xml"/>
     <include relativeToChangelogFile="true" file="tables/country.table.xml"/>
     <include relativeToChangelogFile="true" file="tables/participant.table.xml"/>

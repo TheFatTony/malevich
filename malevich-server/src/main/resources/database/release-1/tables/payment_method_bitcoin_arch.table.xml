@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+				   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+				   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.6.xsd">
+
+	<changeSet author="thefattony" id="payment_method_bitcoin_arch-table">
+		<createTable tableName="payment_method_bitcoin_arch">
+			<column name="id" type="bigint">
+				<constraints nullable="false"/>
+			</column>
+			<column name="address" type="varchar(100)">
+				<constraints nullable="false"/>
+			</column>
+			<column name="wallet" type="blob">
+				<constraints nullable="false"/>
+			</column>
+			<column name="change_date" type="timestamp">
+				<constraints nullable="false"/>
+			</column>
+			<column name="action_type" type="char(1)">
+				<constraints nullable="false"/>
+			</column>
+		</createTable>
+		<modifySql dbms="mysql">
+			<replace replace="blob" with="longblob"/>
+		</modifySql>
+	</changeSet>
+
+</databaseChangeLog>

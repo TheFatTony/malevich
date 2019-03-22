@@ -53,6 +53,8 @@ export class WalletComponent implements OnInit, AfterViewInit, OnDestroy {
   private kycLevels: Map<string, boolean>;
   hasWithdrawalAccess = false;
 
+  gridSource: any;
+
   paymentTypes: PaymentType[] = [
     {
       value: 'swift',
@@ -239,18 +241,23 @@ export class WalletComponent implements OnInit, AfterViewInit, OnDestroy {
         ({
           columns: this.columns(data)
         });
+
         this.myGrid.endupdate();
       });
   }
 
   columns(names: any): any[] {
     return [
-      {dataField: 'PAYMENT_NO', text: names['PROFILE.GRID.PAYMENT_NO'], width: '20%', columntype: 'textbox'},
-      {dataField: 'DATE', text: names['PROFILE.GRID.DATE'], width: '20%', columntype: 'textbox'},
-      {dataField: 'AMOUNT', text: names['PROFILE.GRID.AMOUNT'], width: '20%', columntype: 'textbox'},
-      {dataField: 'TYPE', text: names['PROFILE.GRID.TYPE'], width: '20%', columntype: 'textbox'},
+      {dataField: 'id', text: names['PROFILE.GRID.PAYMENT_NO'], width: '20%', columntype: 'textbox'},
       {
-        dataField: 'PRINT',
+        dataField: 'effectiveDate',
+        text: names['PROFILE.GRID.DATE'],
+        width: '20%',
+        cellsformat: 'dd/MM/yyyy HH:mm:ss'
+      },
+      {dataField: 'amount', text: names['PROFILE.GRID.AMOUNT'], width: '20%', cellsformat: 'd'},
+      {dataField: 'paymentType', text: names['PROFILE.GRID.TYPE'], width: '20%', columntype: 'textbox'},
+      {
         text: names['PROFILE.GRID.PRINT'],
         width: '20%',
         columntype: 'button',
@@ -258,7 +265,7 @@ export class WalletComponent implements OnInit, AfterViewInit, OnDestroy {
           return names['PROFILE.GRID.PRINT'];
         },
         buttonclick: (row: number): void => {
-          this.paymentsService.receiptPrint(this.myGrid.getrowdata(row).PAYMENT_NO).subscribe((data) => {
+          this.paymentsService.receiptPrint(this.myGrid.getrowdata(row).id).subscribe((data) => {
             let file = new Blob([data], {type: 'application/pdf'});
             let fileURL = URL.createObjectURL(file);
             window.open(fileURL);
@@ -308,6 +315,23 @@ export class WalletComponent implements OnInit, AfterViewInit, OnDestroy {
   getPayments(): void {
     this.paymentsService.getPayments().subscribe((data) => {
       this.payments = data;
+
+      this.gridSource = {
+        datatype: "array",
+        datafields: [
+          { name: 'id', type: 'number' },
+          { name: 'effectiveDate', type: 'date' },
+          { name: 'amount', type: 'number' },
+          { name: 'paymentType', type: 'string' },
+        ],
+        localdata: data.map(i => ({
+          id: i.id,
+          effectiveDate: i.effectiveDate,
+          amount: i.amount,
+          paymentType: i.paymentType.nameMl[this.translate.currentLang]
+        }))
+      };
+
     });
   }
 

@@ -65,6 +65,7 @@ public class AccountStateServiceImpl implements AccountStateService {
         AccountStateEntity accountStateEntity = new AccountStateEntity();
         accountStateEntity.setParticipant(participantEntity);
         accountStateEntity.setAmount(fabricParticipant.getBalance());
+        accountStateEntity.setBonuses(fabricParticipant.getBonuses());
         return accountStateEntity;
     }
 

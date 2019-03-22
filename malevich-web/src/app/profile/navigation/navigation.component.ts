@@ -4,9 +4,7 @@ import {ParticipantService} from "../../_services/participant.service";
 import {TranslateService} from "@ngx-translate/core";
 import {ParticipantDto} from "../../_transfer/participantDto";
 import {KycLevelService} from "../../_services/kyc-level.service";
-import {KycLevelDto} from "../../_transfer/kycLevelDto";
 import {ActivatedRoute} from "@angular/router";
-import {HttpClient} from "@angular/common/http";
 import {Globals} from "../../globals";
 
 @Component({
@@ -81,10 +79,6 @@ export class NavigationComponent implements OnInit {
           if (!data)
             return;
 
-          data.users[0].roles.forEach(r => {
-            // this.isGallery = this.isGallery || (r === "ROLE_GALLERY");
-          });
-
           this.participant = this.participantService.initInstance(data);;
 
           this.kycLevelService.getDetailing(this.participant.kycLevel.id)
@@ -92,11 +86,7 @@ export class NavigationComponent implements OnInit {
               this.kycLevels = kycData;
             });
 
-          if (this.participant.person) {
-            this.titleName = `${this.participant.person.firstName} ${this.participant.person.lastName}`
-          } else if (this.participant.organization) {
-            this.titleName = this.participant.organization.legalNameMl[this.translate.currentLang] || this.participant.organization.legalNameMl['en'];
-          }
+          this.titleName = this.participantService.getName(this.participant) || this.participant.users[0].name;
         }
       );
   }

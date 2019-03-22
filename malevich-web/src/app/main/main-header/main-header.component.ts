@@ -4,6 +4,9 @@ import {Globals} from "../../globals";
 import {AuthService} from "../../_services";
 import {Router} from "@angular/router";
 import {UserDto} from '../../../../node_modules/yinyang-core';
+import {ParticipantDto} from "../../_transfer/participantDto";
+import {ParticipantService} from "../../_services/participant.service";
+import {filter} from "rxjs/operators";
 
 @Component({
   selector: 'app-main-header',
@@ -13,19 +16,30 @@ import {UserDto} from '../../../../node_modules/yinyang-core';
 export class MainHeaderComponent implements OnInit, AfterViewInit {
 
   user: UserDto;
+  participant: ParticipantDto
+  userName: string;
   isAdmin: boolean;
 
   constructor(
     public router: Router,
     public translate: TranslateService,
     public globals: Globals,
-    public authService: AuthService) {
+    public authService: AuthService,
+    private participantService: ParticipantService) {
   }
 
   ngOnInit() {
-    this.globals.currentUser$.subscribe(data => {
-      this.user = data;
-    });
+    this.globals.currentUser$
+      .pipe(filter((u) => !!u))
+      .subscribe(data => {
+        this.user = data;
+
+        this.participantService.getCurrent()
+          .subscribe(data => {
+            this.participant = data;
+            this.userName = this.participantService.getName(this.participant) || this.user.name;
+          });
+      });
 
     this.globals.isAdmin$.subscribe(data => {
       this.isAdmin = data;

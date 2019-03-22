@@ -25,7 +25,51 @@
   </div>
 </section>
 
-<div class="container g-pt-70 g-pb-30">
+<div class="container g-pt-30 g-pb-30">
+
+  <div class="row g-mb-30">
+    <div class="col">
+      <div>
+        <div class="container g-py-20">
+          <div class="row justify-content-center">
+            <div class="col-md-4 mx-auto g-py-20">
+              <!-- Media -->
+              <div class="media g-px-20--lg">
+                <i class="d-flex g-color-text g-font-size-40 g-pos-rel g-top-3 mr-4 icon-finance-246 u-line-icon-pro"></i>
+                <div class="media-body">
+                  <span class="d-block g-color-text g-font-weight-500 g-font-size-17 text-uppercase g-py-10">We charge you in EUR</span>
+                </div>
+              </div>
+              <!-- End Media -->
+            </div>
+
+            <div class="col-md-4 mx-auto g-brd-x--md g-brd-gray-dark-v3 g-py-20">
+              <!-- Media -->
+              <div class="media g-px-20--lg">
+                <i class="d-flex g-color-text g-font-size-40 g-pos-rel g-top-3 mr-4 icon-finance-135 u-line-icon-pro"></i>
+                <div class="media-body">
+                  <span class="d-block g-color-text g-font-weight-500 g-font-size-17 text-uppercase g-py-10">1 SQR = 1 EUR always</span>
+                </div>
+              </div>
+              <!-- End Media -->
+            </div>
+
+            <div class="col-md-4 mx-auto g-py-20">
+              <!-- Media -->
+              <div class="media g-px-20--lg">
+                <i class="d-flex g-color-text g-font-size-40 g-pos-rel g-top-3 mr-4 icon-finance-153 u-line-icon-pro"></i>
+                <div class="media-body text-left">
+                  <span class="d-block g-color-text g-font-weight-500 g-font-size-17 text-uppercase g-py-10">We don’t get any fees</span>
+                </div>
+              </div>
+              <!-- End Media -->
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
   <div class="row">
     <!-- Profile Settings -->
     <div class="col-lg-3 g-mb-50">
@@ -39,6 +83,33 @@
       <div class="g-brd-around g-brd-gray-light-v4 rounded g-px-30 g-pt-30">
         <!--<h3 class="h5 mb-3">{{"PROFILE.WALLET.BALANCE" | translate}}</h3>-->
 
+        <!-- Balance Info -->
+        <div class="row g-mb-30">
+          <div class="col-sm-4">
+            <div class="g-bg-gray-dark-v3 text-center rounded g-px-20 g-py-30">
+              <span class="d-block g-color-white-opacity-0_8 g-font-size-18 mb-1">{{"PROFILE.WALLET.BALANCE" | translate}}</span>
+              <span class="d-block g-color-white g-font-weight-600 g-font-size-25">SQR {{accountState?.amount | number:'1.0-2'}}</span>
+            </div>
+          </div>
+
+          <div class="col-sm-4">
+            <div class="g-bg-gray-dark-v5 text-center rounded g-px-20 g-py-30">
+              <span class="d-block g-color-white-opacity-0_8 g-font-size-18 mb-1">{{"PROFILE.WALLET.BLOCKED" | translate}}</span>
+              <span class="d-block g-color-white g-font-weight-600 g-font-size-25">SQR {{-1 | number:'1.0-2'}}</span>
+            </div>
+          </div>
+
+          <div class="col-sm-4">
+            <div class="g-bg-gray-dark-v5 text-center rounded g-px-20 g-py-30">
+              <span class="d-block g-color-white-opacity-0_8 g-font-size-18 mb-1">{{"PROFILE.WALLET.BONUSES" | translate}}</span>
+              <span class="d-block g-color-white g-font-weight-600 g-font-size-25">SQR {{accountState?.bonuses || 0 | number:'1.0-2'}}</span>
+            </div>
+          </div>
+
+        </div>
+        <!-- End Balance Info -->
+
+        <!-- Add Balance -->
         <div class="row g-mb-30">
           <div class="col">
             <div class="row justify-content-center">
@@ -53,7 +124,7 @@
               </div>
               <div class="col-lg-4">
                 <mchButton
-                  class="btn btn-block u-btn-primary g-font-size-12 text-uppercase g-py-15 g-px-5"
+                  class="btn btn-block u-btn-outline-primary g-font-size-12 text-uppercase g-py-15 g-px-5"
                   (click)="openWithdrawWindow()"
                   [disabled]="!hasWithdrawalAccess"
                   [height]="null">
@@ -64,19 +135,7 @@
             </div>
           </div>
         </div>
-        <!-- Balance Info -->
-        <div class="row justify-content-center g-mb-30">
-          <div class="col-sm-4">
-            <div class="g-bg-gray-dark-v3 text-center rounded g-px-20 g-py-30">
-              <span class="d-block g-color-white-opacity-0_8 g-font-size-18 mb-1">{{"PROFILE.WALLET.AVAILABLE" | translate}} {{"PROFILE.WALLET.BALANCE" | translate}}</span>
-              <span class="d-block g-color-white g-font-weight-600 g-font-size-25">SQR {{accountState?.amount | number:'1.0-2'}}</span>
-            </div>
-          </div>
 
-        </div>
-        <!-- End Balance Info -->
-
-        <!-- Add Balance -->
 
         <div class="row">
           <div class="col">
@@ -87,30 +146,8 @@
                      [sortable]="true"
                      [columnsresize]="true"
                      [filterable]="true"
+                     [source]="gridSource"
                      [autoshowfiltericon]="true">
-              <tr>
-                <th>PAYMENT_NO</th>
-                <th>DATE</th>
-                <th>AMOUNT</th>
-                <th>TYPE</th>
-                <th>PRINT</th>
-              </tr>
-              <tr *ngFor="let payment of payments">
-                <td>
-                  {{payment.id}}
-                </td>
-                <td>
-                  {{payment.effectiveDate}}
-                </td>
-                <td>
-                  {{payment.amount}}
-                </td>
-                <td>
-                  {{payment.paymentType.nameMl[translate.currentLang]}}
-                </td>
-                <td>
-                </td>
-              </tr>
             </jqxGrid>
           </div>
         </div>
@@ -235,11 +272,12 @@
       mchRequired
       mchGreaterThan="0"
       name="amount"
+      [symbol]="'€'"
       [(ngModel)]="amount"></mchNumberInput>
     <!--<input type="text" formControlName="name" placeholder="Jane Doe">-->
     <ngx-stripe-card [options]="cardOptions" [elementsOptions]="elementsOptions"></ngx-stripe-card>
     <mchButton [submitForm]="stripeTest">
-      BUY
+      BUY SQR
     </mchButton>
   </form>
 </ng-template>
@@ -248,6 +286,7 @@
   <div class="row mb-3">
     <div *ngIf="withdrawMethods && withdrawMethods.length" class="col">
       <mchDropDownList name="paymentMethods"
+                       [placeHolder]="'Select an account'"
                        [objectSource]="withdrawMethods"
                        [displayFunc]="paymentMethodDisplayFunc"
                        [width]="'100%'"

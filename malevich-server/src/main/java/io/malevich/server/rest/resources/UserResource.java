@@ -88,9 +88,8 @@ public class UserResource extends RestResource<UserDto, UserEntity> {
     }
 
     @RequestMapping(value = "/password/reset/{token}", method = RequestMethod.POST)
-    public ResponseEntity<Void> reset(@RequestBody PasswordDto resetDto, @PathVariable("token") String token) {
-        userService.setNewPassword(token, resetDto.getPassword());
-        return ResponseEntity.ok().build();
+    public AccessTokenDto reset(@RequestBody PasswordDto resetDto, @PathVariable("token") String token) {
+        return userService.setNewPassword(token, resetDto.getPassword());
     }
 
     @RequestMapping(value = "/password/change", method = RequestMethod.POST)

@@ -23,4 +23,8 @@ public class AccountStateEntity extends YAbstractPersistable<Long> {
     @Setter
     private Double amount;
 
+    @Getter
+    @Setter
+    private Double bonuses;
+
 }

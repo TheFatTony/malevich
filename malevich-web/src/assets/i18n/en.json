@@ -152,7 +152,9 @@
     },
     "WALLET": {
       "TITLE": "Wallet",
-      "BALANCE": "Balance",
+      "BALANCE": "Available Balance",
+      "BLOCKED": "Blocked Balance",
+      "BONUSES": "Available Bonuses",
       "AVAILABLE": "Available"
     },
     "WISHLIST": {
@@ -225,7 +227,7 @@
       "CHANGE_PASSWORD": "Change Password",
       "ADD": "Add",
       "ADD_ACCOUNT": "Add Account",
-      "DEPOSIT": "Deposit",
+      "DEPOSIT": "Buy SQR",
       "WITHDRAW": "Withdraw",
       "CANCEL_ORDER": "Cancel order",
       "GENERATE_BITCOIN_ADDRESS":"Generate"

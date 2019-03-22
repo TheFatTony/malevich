@@ -19,4 +19,6 @@ public class AccountStateDto {
 
     private Double amount;
 
+    private Double bonuses;
+
 }

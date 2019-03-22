@@ -43,6 +43,20 @@ public class PaymentTypeServiceImpl implements PaymentTypeService {
     }
 
     @Override
+    public PaymentTypeEntity invert(PaymentTypeEntity paymentTypeEntity){
+        if(paymentTypeEntity == null)
+            return null;
+
+        if("IN".equals(paymentTypeEntity.getId()))
+            return getWithdrawalType();
+
+        if("OUT".equals(paymentTypeEntity.getId()))
+            return getPaymentType();
+
+        return null;
+    }
+
+    @Override
     public Map<String, PaymentTypeEntity> getValues() {
         return values;
     }

@@ -1,5 +1,6 @@
 package io.malevich.server.services.payments;
 
+import io.malevich.server.domain.DelayedChangeEntity;
 import io.malevich.server.domain.ParticipantEntity;
 import io.malevich.server.domain.PaymentTypeEntity;
 import io.malevich.server.domain.PaymentsEntity;
@@ -7,6 +8,7 @@ import io.malevich.server.domain.enums.KycLevel;
 import io.malevich.server.fabric.services.payment.PaymentTransactionService;
 import io.malevich.server.repositories.payments.PaymentsDao;
 import io.malevich.server.revolut.services.payments.PaymentsBankService;
+import io.malevich.server.services.delayedchange.DelayedChangeService;
 import io.malevich.server.services.kyc.KycLevelService;
 import io.malevich.server.services.participant.ParticipantService;
 import io.malevich.server.services.paymentmethod.PaymentMethodService;
@@ -49,6 +51,9 @@ public class PaymentsServiceImpl implements PaymentsService {
 
     @Autowired
     private PaymentsBankService paymentsBankService;
+
+    @Autowired
+    private DelayedChangeService delayedChangeService;
 
     @Autowired
     private KycLevelService kycLevelService;
@@ -128,6 +133,13 @@ public class PaymentsServiceImpl implements PaymentsService {
 
     @Override
     @Transactional
+    public void defer(PaymentsEntity paymentsEntity) {
+        paymentsEntity = adjustPayment(paymentsEntity);
+        delayedChangeService.saveEntity(paymentsEntity);
+    }
+
+    @Override
+    @Transactional
     public PaymentsEntity save(PaymentsEntity paymentsEntity) {
         paymentsEntity = adjustPayment(paymentsEntity);
         return paymentsDao.save(paymentsEntity);
@@ -148,24 +160,19 @@ public class PaymentsServiceImpl implements PaymentsService {
 
     private void insertWithdrawal(PaymentsEntity paymentsEntity) {
 
-        paymentTransactionService.create(paymentsEntity);
-
-        paymentsEntity = save(paymentsEntity);
-
         if (paymentsEntity.getPaymentMethod() != null &&
-                paymentMethodTypeService.getAccountType().equals(paymentsEntity.getPaymentMethod().getType()))
-            paymentsBankService.create(paymentsEntity);
+                paymentMethodTypeService.getAccountType().equals(paymentsEntity.getPaymentMethod().getType())) {
+            paymentsEntity = paymentsDao.save(paymentsEntity);
+//            paymentsBankService.create(paymentsEntity);
+            delayedChangeService.saveEntity(paymentsEntity);
+        } else {
+            paymentsEntity = paymentsDao.save(paymentsEntity);
+        }
+        paymentTransactionService.create(paymentsEntity);
     }
 
     private void insertDeposit(PaymentsEntity paymentsEntity) {
-
         paymentsEntity = save(paymentsEntity);
-
-        if (paymentsEntity.getPaymentMethod() != null &&
-                paymentMethodTypeService.getCardType().equals(paymentsEntity.getPaymentMethod().getType())) {
-            // todo hit stripe api ?
-        }
-
         paymentTransactionService.create(paymentsEntity);
     }
 

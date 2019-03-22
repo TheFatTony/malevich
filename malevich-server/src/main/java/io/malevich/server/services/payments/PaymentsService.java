@@ -23,6 +23,8 @@ public interface PaymentsService {
 
     ResponseEntity<byte[]> createFop(PaymentsEntity entity);
 
+    void defer(PaymentsEntity paymentsEntity);
+
     PaymentsEntity save(PaymentsEntity paymentEntity);
 }
 

@@ -69,6 +69,8 @@ export class ParticipantService {
   }
 
   getName(participant: ParticipantDto) {
+    if(!participant) return null;
+
     if (participant.person && participant.person.firstName && participant.person.lastName) {
       return `${participant.person.firstName} ${participant.person.lastName}`
     } else if (participant.organization && participant.organization.legalNameMl) {

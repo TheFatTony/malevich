@@ -104,7 +104,7 @@ export class StorageComponent implements OnInit, AfterViewInit {
 
   getArtworkStock(): void {
     this.artworkStockService
-      .getArtworkStocks()
+      .getStoredArtworks()
       .subscribe(
         data => {
           this.artworkStocks = data;

@@ -2,6 +2,7 @@ package io.malevich.server.services.paymenttype;
 
 import io.malevich.server.domain.PaymentTypeEntity;
 import org.springframework.stereotype.Service;
+
 import java.util.List;
 import java.util.Map;
 
@@ -9,11 +10,13 @@ import java.util.Map;
 @Service
 public interface PaymentTypeService {
 
-  List<PaymentTypeEntity> findAll();
+    List<PaymentTypeEntity> findAll();
 
-  PaymentTypeEntity getPaymentType();
+    PaymentTypeEntity getPaymentType();
 
-  PaymentTypeEntity getWithdrawalType();
+    PaymentTypeEntity getWithdrawalType();
 
-  Map<String, PaymentTypeEntity> getValues();
+    PaymentTypeEntity invert(PaymentTypeEntity paymentTypeEntity);
+
+    Map<String, PaymentTypeEntity> getValues();
 }

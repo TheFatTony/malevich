@@ -262,7 +262,10 @@ async function cancelOrder(cancelOrder) { // eslint-disable-line no-unused-vars
             throw new Error('!#{Only open Order can be canceled}#!');
         }
         var uptadeArtwork = await registryArtworkStock.get(updateOrder.order.artworkStock.getIdentifier());
-        uptadeArtwork.currentAsk = 0;
+
+        if (cancelOrder.order.orderType === 'ASK')
+            uptadeArtwork.currentAsk = 0;
+
         await registryArtworkStock.update(uptadeArtwork);
 
         updateOrder.order.orderStatus = 'CANCELED';

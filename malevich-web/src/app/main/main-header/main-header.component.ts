@@ -37,6 +37,7 @@ export class MainHeaderComponent implements OnInit, AfterViewInit {
         this.participantService.getCurrent()
           .subscribe(data => {
             this.participant = data;
+
             this.userName = this.participantService.getName(this.participant) || this.user.name;
           });
       });

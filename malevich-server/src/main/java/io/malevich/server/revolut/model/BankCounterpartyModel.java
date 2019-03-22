@@ -27,6 +27,9 @@ public class BankCounterpartyModel {
     @JsonProperty("iban")
     private String iban;
 
+    @JsonProperty("account_no")
+    private String accountNo;
+
     @JsonProperty("bic")
     private String bic;
 

@@ -11,6 +11,7 @@
                    ('revolut.account.bic', 'REVOGB21'),
                    ('revolut.account.intermediary_bic', 'BARCGB22'),
                    ('revolut.account.beneficiary.address', 'PO Box 3RD FLOOR, 86-90, London, EC2A 4 NE, United Kingdom'),
+                   ('revolut.account.bank.address', 'Revolut LTD, 7 Westferry Circus, The Columbus Building, 4th Floor, London, E14 4HB'),
                    ('revolut.account.bank.name', 'Revolut');
         </sql>
     </changeSet>

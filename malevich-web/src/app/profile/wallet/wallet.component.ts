@@ -160,9 +160,6 @@ export class WalletComponent implements OnInit, AfterViewInit, OnDestroy {
     this.getKycAccess();
     this.getMethods();
 
-    if ((this.addresses == null) || (this.addresses.length === 0)) {
-      this.onAddButton();
-    }
 
     this.stripeService.setKey(environment.stripeKey);
     this.stripeTest = this.fb.group({
@@ -173,6 +170,10 @@ export class WalletComponent implements OnInit, AfterViewInit, OnDestroy {
   getMethods() {
     this.paymentMethodBitcoinService.getPaymentMethods().subscribe(data => {
       this.addresses = data;
+
+      if ((this.addresses == null) || (this.addresses.length === 0)) {
+        this.onAddButton();
+      }
     });
   }
 

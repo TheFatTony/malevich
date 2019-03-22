@@ -61,3 +61,9 @@ query getTradeHistoryByArtworkStock {
   statement:
       SELECT io.malevich.network.TradeHistory WHERE (artworkStock == _$artworkStock)
 }
+
+query getBalanceHistoryByCounterparty {
+  description: "getBalanceHistoryByCounterparty"
+  statement:
+      SELECT io.malevich.network.BalanceHistory WHERE (counterparty == _$counterparty)
+}

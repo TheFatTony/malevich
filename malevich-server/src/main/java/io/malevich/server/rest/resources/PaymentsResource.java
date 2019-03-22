@@ -4,7 +4,9 @@ import com.yinyang.core.server.rest.RestResource;
 import io.malevich.server.aop.KycRequired;
 import io.malevich.server.domain.PaymentsEntity;
 import io.malevich.server.domain.enums.KycLevel;
+import io.malevich.server.fabric.model.BalanceHistoryAsset;
 import io.malevich.server.services.payments.PaymentsService;
+import io.malevich.server.transfer.BalanceHistoryDto;
 import io.malevich.server.transfer.PaymentsDto;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +16,7 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 
 @Slf4j
@@ -35,6 +38,15 @@ public class PaymentsResource extends RestResource<PaymentsDto, PaymentsEntity> 
         List<PaymentsEntity> allEntries = this.paymentsService.findOwnPayments();
         return convertListOfDto(allEntries);
     }
+
+    @KycRequired(level = {KycLevel.G_TIER1, KycLevel.T_TIER1})
+    @GetMapping("/list1")
+    @ResponseStatus(HttpStatus.OK)
+    public List<BalanceHistoryDto> list1() {
+        List<BalanceHistoryAsset> allEntries = this.paymentsService.findOwnPayments1();
+        return allEntries.stream().map((o) -> this.modelMapper.map(o, BalanceHistoryDto.class)).collect(Collectors.toList());
+    }
+
 
     @GetMapping("/listByParticipant/{id}")
     @ResponseStatus(HttpStatus.OK)

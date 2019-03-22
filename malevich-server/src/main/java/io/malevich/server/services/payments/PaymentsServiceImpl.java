@@ -4,6 +4,8 @@ import io.malevich.server.domain.ParticipantEntity;
 import io.malevich.server.domain.PaymentTypeEntity;
 import io.malevich.server.domain.PaymentsEntity;
 import io.malevich.server.domain.enums.KycLevel;
+import io.malevich.server.fabric.model.BalanceHistoryAsset;
+import io.malevich.server.fabric.services.balancehistory.BalanceHistoryAssetService;
 import io.malevich.server.fabric.services.payment.PaymentTransactionService;
 import io.malevich.server.repositories.payments.PaymentsDao;
 import io.malevich.server.revolut.services.payments.PaymentsBankService;
@@ -53,6 +55,9 @@ public class PaymentsServiceImpl implements PaymentsService {
     @Autowired
     private KycLevelService kycLevelService;
 
+    @Autowired
+    private BalanceHistoryAssetService balanceHistoryAssetService;
+
     @Override
     @Transactional(readOnly = true)
     public List<PaymentsEntity> findOwnPayments() {
@@ -73,6 +78,14 @@ public class PaymentsServiceImpl implements PaymentsService {
 
         ParticipantEntity current = participantService.getCurrent();
         return this.paymentsDao.findAllByParticipant_Id(current.getId());
+//        List<BalanceHistoryAsset> balanceHistoryAssets = balanceHistoryAssetService.list();
+//        return balanceHistoryAssets;
+    }
+
+    @Override
+    public List<BalanceHistoryAsset> findOwnPayments1() {
+        List<BalanceHistoryAsset> balanceHistoryAssets = balanceHistoryAssetService.list();
+        return balanceHistoryAssets;
     }
 
     @Override

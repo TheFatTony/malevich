@@ -49,7 +49,11 @@ async function balanceHistory(amount, counterparty, operationType, transactionId
     const factory = getFactory();
     const balanceHistoryRegistry = await getAssetRegistry('io.malevich.network.BalanceHistory');
     
-    var guidstring = Math.random().toString(26).slice(2);
+    var guidstring = Math.random().toString(26).slice(2) + '-' + 
+                     Math.random().toString(26).slice(2) + '-' + 
+                     Math.random().toString(26).slice(2) + '-' + 
+                     Math.random().toString(26).slice(2) + '-' + 
+                     Math.random().toString(26).slice(2);
     var balanceAsset = factory.newResource('io.malevich.network', 'BalanceHistory', guidstring);
     balanceAsset.effectiveDate = new Date();
     balanceAsset.amount = amount;

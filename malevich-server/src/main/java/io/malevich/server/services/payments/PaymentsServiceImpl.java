@@ -83,6 +83,12 @@ public class PaymentsServiceImpl implements PaymentsService {
     }
 
     @Override
+    public List<BalanceHistoryAsset> findOwnPayments1() {
+        List<BalanceHistoryAsset> balanceHistoryAssets = balanceHistoryAssetService.list();
+        return balanceHistoryAssets;
+    }
+
+    @Override
     @Transactional(readOnly = true)
     public List<PaymentsEntity> findAllByParticipant(Long participantId) {
         return this.paymentsDao.findAllByParticipant_Id(participantId);

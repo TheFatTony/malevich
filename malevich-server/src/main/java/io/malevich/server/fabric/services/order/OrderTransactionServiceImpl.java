@@ -28,7 +28,6 @@ public class OrderTransactionServiceImpl extends GenericComposerServiceImpl<Orde
     private ParticipantService participantService;
 
 
-
     public OrderTransactionServiceImpl() {
         super("Order");
     }
@@ -85,7 +84,6 @@ public class OrderTransactionServiceImpl extends GenericComposerServiceImpl<Orde
     public List<OrderTransaction> getOpenOrdersByArtworkStock(Long artworkId) {
         String fabricClass = "resource:io.malevich.network.ArtworkStock#";
 
-
         try {
             ResponseEntity<List<OrderTransaction>> res = restTemplate.exchange(composerUrl + "/queries/getOpenOrdersByArtworkStock?artworkStock={artworkStock}", HttpMethod.GET, null, new ParameterizedTypeReference<List<OrderTransaction>>() {
             }, (fabricClass + artworkId.toString()));
@@ -119,11 +117,14 @@ public class OrderTransactionServiceImpl extends GenericComposerServiceImpl<Orde
         } catch (RestClientException e) {
             String errorResponse = ((HttpStatusCodeException) e).getResponseBodyAsString();
 
-            String prettyError = errorResponse.substring(errorResponse.indexOf("!#{") + 3, errorResponse.indexOf("}#!"));
-            if (prettyError == null)
-                throw new RuntimeException(errorResponse);
-            else
+            int errorStart = errorResponse.indexOf("!#{");
+            int errorEnd = errorResponse.indexOf("}#!");
+
+            if (errorStart >= 0 && errorEnd >= errorStart + 3) {
+                String prettyError = errorResponse.substring(errorStart + 3, errorEnd);
                 throw new RuntimeException(prettyError);
+            } else
+                throw new RuntimeException(errorResponse);
         }
     }
 

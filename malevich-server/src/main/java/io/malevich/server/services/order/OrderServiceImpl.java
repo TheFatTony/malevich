@@ -65,9 +65,10 @@ public class OrderServiceImpl implements OrderService {
 
             orderEntity.setIsOwn(participantEntity.getId().toString().equals(order.getOrder().getCounterparty().replace("resource:io.malevich.network.Trader#", "").replace("resource:io.malevich.network.Gallery#", "")));
 
-            orderEntity.setId(order.getOrder().getId());
             orderEntity.setArtworkStock(artworkStockService.find(new Long(order.getOrder().getArtworkStock().replace("resource:io.malevich.network.ArtworkStock#", ""))));
             orderEntity.setTradeType(tradeTypeService.getGtc());
+            orderEntity.setId(order.getOrder().getId());
+            orderEntity.setEffectiveDate(order.getTimestamp());
             result.add(orderEntity);
         }
 

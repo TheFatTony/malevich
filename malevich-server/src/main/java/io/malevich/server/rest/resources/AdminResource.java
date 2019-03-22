@@ -3,15 +3,11 @@ package io.malevich.server.rest.resources;
 
 import io.malevich.server.scheduling.*;
 import lombok.extern.slf4j.Slf4j;
-import org.bitcoinj.core.InsufficientMoneyException;
-import org.bitcoinj.wallet.UnreadableWalletException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
-
-import java.io.IOException;
-import java.util.concurrent.ExecutionException;
 
 
 @Slf4j
@@ -20,21 +16,22 @@ import java.util.concurrent.ExecutionException;
 public class AdminResource {
 
 
-    @Autowired(required = false)
+    @Autowired
     private MailQueueTask mailQueueTask;
 
-    @Autowired(required = false)
+    @Autowired
     private BitcoinBalanceCheck bitcoinBalanceCheck;
 
-    @Autowired(required = false)
+    @Autowired
     private MarketOrdersCheck marketOrdersCheck;
 
-    @Autowired(required = false)
+    @Autowired
     private RevolutDepositCheck revolutDepositCheck;
 
-    @Autowired(required = false)
+    @Autowired
     private SmsQueueTask smsQueueTask;
 
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN')")
     @RequestMapping(value = "/scheduling/sendAllMail", method = RequestMethod.GET)
     @ResponseStatus(HttpStatus.OK)
     @ResponseBody
@@ -44,21 +41,17 @@ public class AdminResource {
         return ResponseEntity.ok().build();
     }
 
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN')")
     @RequestMapping(value = "/scheduling/checkBalance", method = RequestMethod.GET)
     @ResponseStatus(HttpStatus.OK)
     @ResponseBody
     public ResponseEntity<Void> checkBalance() {
-        try {
-            bitcoinBalanceCheck.checkBalance();
-        } catch (UnreadableWalletException | InterruptedException | InsufficientMoneyException | ExecutionException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        bitcoinBalanceCheck.checkBalance();
 
         return ResponseEntity.ok().build();
     }
 
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN')")
     @RequestMapping(value = "/scheduling/marketOrdersCheck", method = RequestMethod.GET)
     @ResponseStatus(HttpStatus.OK)
     @ResponseBody
@@ -68,6 +61,7 @@ public class AdminResource {
         return ResponseEntity.ok().build();
     }
 
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN')")
     @RequestMapping(value = "/scheduling/revolutDepositCheck", method = RequestMethod.GET)
     @ResponseStatus(HttpStatus.OK)
     @ResponseBody
@@ -77,6 +71,7 @@ public class AdminResource {
         return ResponseEntity.ok().build();
     }
 
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN')")
     @RequestMapping(value = "/scheduling/sendAllMessages", method = RequestMethod.GET)
     @ResponseStatus(HttpStatus.OK)
     @ResponseBody

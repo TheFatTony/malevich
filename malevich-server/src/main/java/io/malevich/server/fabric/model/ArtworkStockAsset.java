@@ -19,6 +19,10 @@ public class ArtworkStockAsset {
 
     private Double lastPrice;
 
+    private Integer dealCount;
+
+    private Boolean confirmed;
+
     private String owner;
 
     private String holder;

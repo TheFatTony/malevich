@@ -71,12 +71,7 @@ public class OrderTransactionServiceImpl extends GenericComposerServiceImpl<Orde
             return res.getBody();
         } catch (RestClientException e) {
             String errorResponse = ((HttpStatusCodeException) e).getResponseBodyAsString();
-
-            String prettyError = errorResponse.substring(errorResponse.indexOf("!#{") + 3, errorResponse.indexOf("}#!"));
-            if (prettyError == null)
                 throw new RuntimeException(errorResponse);
-            else
-                throw new RuntimeException(prettyError);
         }
     }
 
@@ -90,12 +85,7 @@ public class OrderTransactionServiceImpl extends GenericComposerServiceImpl<Orde
             return res.getBody();
         } catch (RestClientException e) {
             String errorResponse = ((HttpStatusCodeException) e).getResponseBodyAsString();
-
-            String prettyError = errorResponse.substring(errorResponse.indexOf("!#{") + 3, errorResponse.indexOf("}#!"));
-            if (prettyError == null)
                 throw new RuntimeException(errorResponse);
-            else
-                throw new RuntimeException(prettyError);
         }
     }
 
@@ -116,6 +106,9 @@ public class OrderTransactionServiceImpl extends GenericComposerServiceImpl<Orde
             return res.getBody();
         } catch (RestClientException e) {
             String errorResponse = ((HttpStatusCodeException) e).getResponseBodyAsString();
+            throw new RuntimeException(errorResponse);
+        }
+    }
 
             int errorStart = errorResponse.indexOf("!#{");
             int errorEnd = errorResponse.indexOf("}#!");
@@ -125,6 +118,32 @@ public class OrderTransactionServiceImpl extends GenericComposerServiceImpl<Orde
                 throw new RuntimeException(prettyError);
             } else
                 throw new RuntimeException(errorResponse);
+        }
+    }
+
+    @Override
+    public OrderTransaction checkOrderExists(OrderEntity orderEntity) {
+        String fabricClass = null;
+
+        if ("G".equals(orderEntity.getParticipant().getType().getId())) {
+            fabricClass = "resource:io.malevich.network.Gallery#";
+        } else {
+            fabricClass = "resource:io.malevich.network.Trader#";
+        }
+
+        try {
+            ResponseEntity<List<OrderTransaction>> res = restTemplate.exchange(composerUrl + "/queries/checkOrderExists?artworkStock={artworkStock}&counterparty={counterparty}&orderType={orderType}", HttpMethod.GET, null, new ParameterizedTypeReference<List<OrderTransaction>>() {
+                    }, "resource:io.malevich.network.ArtworkStock#" + orderEntity.getArtworkStock().getArtwork().getId().toString()
+                    , (fabricClass + orderEntity.getParticipant().getId())
+                    , orderEntity.getType().getId());
+            OrderTransaction orderTransaction = null;
+            if (res.getBody().size() > 0) {
+                orderTransaction = res.getBody().get(0);
+            }
+            return orderTransaction;
+        } catch (RestClientException e) {
+            String errorResponse = ((HttpStatusCodeException) e).getResponseBodyAsString();
+            throw new RuntimeException(errorResponse);
         }
     }
 

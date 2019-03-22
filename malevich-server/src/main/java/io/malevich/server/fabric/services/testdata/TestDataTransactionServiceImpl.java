@@ -33,7 +33,7 @@ public class TestDataTransactionServiceImpl extends GenericComposerServiceImpl<O
     @Override
     public void create(Object entity) {
         TestDataTransaction testDataTransaction = new TestDataTransaction();
-        testDataTransaction.setTestData("test");
+        testDataTransaction.setTestData(entity.toString());
         doPost(testDataTransaction);
     }
 

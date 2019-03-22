@@ -34,6 +34,16 @@ query getOpenOrdersByArtworkStock {
       SELECT io.malevich.network.OrderAsset WHERE ((order.artworkStock == _$artworkStock) AND (order.orderStatus == 'OPEN'))
 }
 
+query checkOrderExists {
+  description: "checkOrderExists"
+  statement:
+      SELECT io.malevich.network.OrderAsset 
+      WHERE ((order.artworkStock == _$artworkStock)
+            AND (order.counterparty == _$counterparty)
+            AND (order.orderType == _$orderType)
+            AND (order.orderStatus == 'OPEN'))
+}
+
 query getOrdersByCounterparty {
   description: "getOrdersByCounterparty"
   statement:
@@ -50,4 +60,10 @@ query getTradeHistoryByArtworkStock {
   description: "getTradeHistoryByArtworkStock"
   statement:
       SELECT io.malevich.network.TradeHistory WHERE (artworkStock == _$artworkStock)
+}
+
+query getBalanceHistoryByCounterparty {
+  description: "getBalanceHistoryByCounterparty"
+  statement:
+      SELECT io.malevich.network.BalanceHistory WHERE (counterparty == _$counterparty)
 }

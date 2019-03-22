@@ -43,4 +43,9 @@ public class BitcoinTransfersEntity extends YAbstractPersistable<Long> {
     @Column(name = "effective_date")
     private java.sql.Timestamp effectiveDate;
 
+    @Getter
+    @Setter
+    @Column(name = "status")
+    private String status;
+
 }

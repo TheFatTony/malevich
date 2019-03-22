@@ -18,6 +18,8 @@ import {environment} from "../../../environments/environment.dev";
 import {MalevichStripeService} from "../../_services/malevich-stripe.service";
 import {AlertService} from "yinyang-core";
 import {NgbModal, NgbModalRef} from "@ng-bootstrap/ng-bootstrap";
+import {PaymentMethodBitcoinService} from "../../_services/payment-method-bitcoin.service";
+import {BalanceHistoryDto} from "../../_transfer/balabceHistoryDto";
 
 type PaymentType = {
   value: string
@@ -34,6 +36,7 @@ export class WalletComponent implements OnInit, AfterViewInit, OnDestroy {
   @ViewChild('myWindow') myWindow: TemplateRef<any>;
   @ViewChild('addAccountModal') addAccountWindow: TemplateRef<any>;
   @ViewChild('myGrid') myGrid: jqxGridComponent;
+  @ViewChild('myGrid1') myGrid1: jqxGridComponent;
 
   public newPayment: PaymentsDto;
   public accountState: AccountStateDto;
@@ -46,6 +49,8 @@ export class WalletComponent implements OnInit, AfterViewInit, OnDestroy {
   public amount: number = 0;
 
   payments: PaymentsDto[];
+  payments1: BalanceHistoryDto[];
+
   paymentMethods: PaymentMethodDto[];
   cards: PaymentMethodDto[];
   withdrawMethods: PaymentMethodDto[];
@@ -54,6 +59,7 @@ export class WalletComponent implements OnInit, AfterViewInit, OnDestroy {
   hasWithdrawalAccess = false;
 
   gridSource: any;
+  gridSource1: any;
 
   paymentTypes: PaymentType[] = [
     {
@@ -62,10 +68,16 @@ export class WalletComponent implements OnInit, AfterViewInit, OnDestroy {
     },
     {
       value: 'saved_card',
-      name: 'Saved Card'
+      name: 'Card'
+    },
+    {
+      value: 'bitcoin',
+      name: 'Bitcoin'
     }
   ];
   selectedDepositType: PaymentType;
+
+  addresses: PaymentMethodDto[];
 
   get reference() {
     if (this.referenceState)
@@ -141,18 +153,39 @@ export class WalletComponent implements OnInit, AfterViewInit, OnDestroy {
               private stripeService: StripeService,
               private malevichStripeService: MalevichStripeService,
               private alertService: AlertService,
-              private modalService: NgbModal) {
+              private modalService: NgbModal,
+              private paymentMethodBitcoinService: PaymentMethodBitcoinService) {
   }
 
   ngOnInit() {
     this.getAccountState();
     this.getPayments();
+    this.getPayments1();
     this.getPaymentMethods();
     this.getParameters();
     this.getKycAccess();
+    this.getMethods();
+
+
     this.stripeService.setKey(environment.stripeKey);
     this.stripeTest = this.fb.group({
       name: ['', [Validators.required]]
+    });
+  }
+
+  getMethods() {
+    this.paymentMethodBitcoinService.getPaymentMethods().subscribe(data => {
+      this.addresses = data;
+
+      if ((this.addresses == null) || (this.addresses.length === 0)) {
+        this.onAddButton();
+      }
+    });
+  }
+
+  onAddButton() {
+    this.paymentMethodBitcoinService.generateBtc().subscribe(data => {
+      this.getMethods();
     });
   }
 
@@ -166,6 +199,7 @@ export class WalletComponent implements OnInit, AfterViewInit, OnDestroy {
             this.paymentModalRef.close();
             this.getAccountState();
             this.getPayments();
+            this.getPayments1();
           });
         } else if (result.error) {
           this.alertService.error(result.error.message);
@@ -175,6 +209,7 @@ export class WalletComponent implements OnInit, AfterViewInit, OnDestroy {
 
   ngAfterViewInit(): void {
     this.updateGrid();
+    this.updateGrid1();
   }
 
   ngOnDestroy(): void {
@@ -244,6 +279,40 @@ export class WalletComponent implements OnInit, AfterViewInit, OnDestroy {
 
         this.myGrid.endupdate();
       });
+  }
+
+  updateGrid1() {
+    this.translate
+      .get([
+        'PROFILE.GRID.PAYMENT_NO',
+        'PROFILE.GRID.DATE',
+        'PROFILE.GRID.AMOUNT',
+        'PROFILE.GRID.TYPE',
+      ])
+      .subscribe(data => {
+        this.myGrid1.hideloadelement();
+        this.myGrid1.beginupdate();
+        this.myGrid1.setOptions
+        ({
+          columns: this.columns1(data)
+        });
+
+        this.myGrid1.endupdate();
+      });
+  }
+
+  columns1(names: any): any[] {
+    return [
+      {dataField: 'id', text: names['PROFILE.GRID.PAYMENT_NO'], width: '25%', columntype: 'textbox'},
+      {
+        dataField: 'effectiveDate',
+        text: names['PROFILE.GRID.DATE'],
+        width: '25%',
+        cellsformat: 'dd/MM/yyyy HH:mm:ss'
+      },
+      {dataField: 'amount', text: names['PROFILE.GRID.AMOUNT'], width: '25%', cellsformat: 'd'},
+      {dataField: 'operationType', text: names['PROFILE.GRID.TYPE'], width: '25%', columntype: 'textbox'}
+    ];
   }
 
   columns(names: any): any[] {
@@ -329,6 +398,29 @@ export class WalletComponent implements OnInit, AfterViewInit, OnDestroy {
           effectiveDate: i.effectiveDate,
           amount: i.amount,
           paymentType: i.paymentType.nameMl[this.translate.currentLang]
+        }))
+      };
+
+    });
+  }
+
+  getPayments1(): void {
+    this.paymentsService.getPayments1().subscribe((data) => {
+      this.payments1 = data;
+
+      this.gridSource1 = {
+        datatype: "array",
+        datafields: [
+          { name: 'id', type: 'number' },
+          { name: 'effectiveDate', type: 'date' },
+          { name: 'amount', type: 'number' },
+          { name: 'operationType', type: 'string' },
+        ],
+        localdata: data.map(i => ({
+          id: i.id,
+          effectiveDate: i.effectiveDate,
+          amount: i.amount,
+          operationType: i.operationType
         }))
       };
 

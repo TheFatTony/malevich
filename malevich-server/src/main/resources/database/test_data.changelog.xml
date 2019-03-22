@@ -3,73 +3,73 @@
                    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
                    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.6.xsd">
 
-    <changeSet author="thefattony" id="000_files-data">
+    <changeSet author="thefattony" id="000_files-data" context="dev">
         <sqlFile splitStatements="false" stripComments="false"
                  relativeToChangelogFile="true"
                  path="test_data/000_files.sql"/>
     </changeSet>
 
-    <changeSet author="thefattony" id="001_lob_storage-data">
+    <changeSet author="thefattony" id="001_lob_storage-data" context="dev">
         <sqlFile splitStatements="false" stripComments="false"
                  relativeToChangelogFile="true"
                  path="test_data/001_lob_storage.sql"/>
     </changeSet>
 
-    <changeSet author="thefattony" id="002_artist-data">
+    <changeSet author="thefattony" id="002_artist-data" context="dev">
         <sqlFile splitStatements="false" stripComments="false"
                  relativeToChangelogFile="true"
                  path="test_data/002_artist.sql"/>
     </changeSet>
 
-    <changeSet author="thefattony" id="003_user-data">
+    <changeSet author="thefattony" id="003_user-data" context="dev">
         <sqlFile splitStatements="false" stripComments="false"
                  relativeToChangelogFile="true"
                  path="test_data/003_user.sql"/>
     </changeSet>
 
-    <changeSet author="thefattony" id="004_user_roles-data">
+    <changeSet author="thefattony" id="004_user_roles-data" context="dev">
         <sqlFile splitStatements="false" stripComments="false"
                  relativeToChangelogFile="true"
                  path="test_data/004_user_roles.sql"/>
     </changeSet>
 
-    <changeSet author="thefattony" id="005_participant-data">
+    <changeSet author="thefattony" id="005_participant-data" context="dev">
         <sqlFile splitStatements="false" stripComments="false"
                  relativeToChangelogFile="true"
                  path="test_data/005_participant.sql"/>
     </changeSet>
 
-    <changeSet author="thefattony" id="006_participant_user-data">
+    <changeSet author="thefattony" id="006_participant_user-data" context="dev">
         <sqlFile splitStatements="false" stripComments="false"
                  relativeToChangelogFile="true"
                  path="test_data/006_participant_user.sql"/>
     </changeSet>
 
-    <changeSet author="thefattony" id="007_commission_rule-data">
+    <changeSet author="thefattony" id="007_commission_rule-data" context="dev">
         <sqlFile splitStatements="false" stripComments="false"
                  relativeToChangelogFile="true"
                  path="test_data/007_commission_rule.sql"/>
     </changeSet>
 
-    <changeSet author="thefattony" id="008_organization-data">
+    <changeSet author="thefattony" id="008_organization-data" context="dev">
         <sqlFile splitStatements="false" stripComments="false"
                  relativeToChangelogFile="true"
                  path="test_data/008_organization.sql"/>
     </changeSet>
 
-    <changeSet author="thefattony" id="009_gallery-data">
+    <changeSet author="thefattony" id="009_gallery-data" context="dev">
         <sqlFile splitStatements="false" stripComments="false"
                  relativeToChangelogFile="true"
                  path="test_data/009_gallery.sql"/>
     </changeSet>
 
-    <changeSet author="thefattony" id="010_trader_person-data">
+    <changeSet author="thefattony" id="010_trader_person-data" context="dev">
         <sqlFile splitStatements="false" stripComments="false"
                  relativeToChangelogFile="true"
                  path="test_data/010_trader_person.sql"/>
     </changeSet>
 
-    <changeSet author="thefattony" id="011_trader_organization-data">
+    <changeSet author="thefattony" id="011_trader_organization-data" context="dev">
         <sqlFile splitStatements="false" stripComments="false"
                  relativeToChangelogFile="true"
                  path="test_data/011_trader_organization.sql"/>

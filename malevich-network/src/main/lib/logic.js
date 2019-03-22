@@ -1,9 +1,9 @@
 'use strict';
 
 /**
- * Determine the net transfer between a banking pair, accounting for exchange rates
- * @param {io.malevich.network.Counterparty} party array of TransferRequest objects
- * @return {io.malevich.network.Counterparty} net amount in USD
+ * updateCounterparty
+ * @param {io.malevich.network.Counterparty} party
+ * @return {io.malevich.network.Counterparty}
  */
 async function getCounterparty(party) { // eslint-disable-line no-unused-vars
     const registryTrader = await getParticipantRegistry('io.malevich.network.Trader');
@@ -19,9 +19,9 @@ async function getCounterparty(party) { // eslint-disable-line no-unused-vars
 }
 
 /**
- * Determine the net transfer between a banking pair, accounting for exchange rates
- * @param {io.malevich.network.Counterparty} party array of TransferRequest objects
- * @return {io.malevich.network.Counterparty} net amount in USD
+ * updateCounterparty
+ * @param {io.malevich.network.Counterparty} party 
+ * @return {io.malevich.network.Counterparty}
  */
 async function updateCounterparty(party) { // eslint-disable-line no-unused-vars
     const registryTrader = await getParticipantRegistry('io.malevich.network.Trader');
@@ -36,6 +36,40 @@ async function updateCounterparty(party) { // eslint-disable-line no-unused-vars
 }
 
 /**
+ * balanceHistory
+ * @param {String} id
+ * @param {DateTime} effectiveDate
+ * @param {Double} amount
+ * @param {io.malevich.network.Counterparty} counterparty
+ * @param {io.malevich.network.OperationType} operationType
+ * @param {String} transactionId
+ * @return {boolean}
+ */
+async function balanceHistory(amount, counterparty, operationType, transactionId) { // eslint-disable-line no-unused-vars
+    const factory = getFactory();
+    const balanceHistoryRegistry = await getAssetRegistry('io.malevich.network.BalanceHistory');
+    
+    var guidstring = Math.random().toString(26).slice(2) + '-' + 
+                     Math.random().toString(26).slice(2) + '-' + 
+                     Math.random().toString(26).slice(2) + '-' + 
+                     Math.random().toString(26).slice(2) + '-' + 
+                     Math.random().toString(26).slice(2);
+    var balanceAsset = factory.newResource('io.malevich.network', 'BalanceHistory', guidstring);
+    balanceAsset.effectiveDate = new Date();
+    balanceAsset.amount = amount;
+    balanceAsset.counterparty = counterparty;
+    balanceAsset.operationType = operationType;
+    if (transactionId == null)
+        balanceAsset.transactionId = 'null';
+    else
+        balanceAsset.transactionId = transactionId;
+
+    await balanceHistoryRegistry.add(balanceAsset);
+
+    return true;
+}
+
+/**
  * processPayment
  * @param {io.malevich.network.Payment} payment - payment
  * @transaction
@@ -45,8 +79,10 @@ async function processPayment(payment) { // eslint-disable-line no-unused-vars
 
     if (payment.paymentType === 'IN') {
         counterparty.balance = counterparty.balance + payment.amount;
+        await balanceHistory(payment.amount, counterparty, 'BALANCE', payment.transactionId);
     } else if (payment.paymentType === 'OUT') {
         counterparty.balance = counterparty.balance - payment.amount;
+        await balanceHistory(-payment.amount, counterparty, 'BALANCE', payment.transactionId);
     }
     
     await updateCounterparty(counterparty);
@@ -116,8 +152,6 @@ async function placeOrder(order) { // eslint-disable-line no-unused-vars
 
     });
 
-   
-
     if (orderToCancel != null) {
         throw new Error('!#{Bid already exists for this ArtWork}#!');
     }
@@ -139,6 +173,7 @@ async function placeOrder(order) { // eslint-disable-line no-unused-vars
         if (chargeParty.balance < 0) {
             throw new Error('!#{Insufficient Funds}#!');
         }
+        await balanceHistory(-orderAsset.order.amount, chargeParty, 'ORDER', order.transactionId);
         await registryTrader.update(chargeParty);
     }
     
@@ -169,6 +204,17 @@ async function placeOrder(order) { // eslint-disable-line no-unused-vars
             throw new Error('!#{You cant sell work to yourself}#!');
         }
 
+        if (uptadeArtwork == null) {
+            uptadeArtwork = await registryArtworkStock.get(currentAsk.order.artworkStock.getIdentifier());
+        }
+
+        if ((uptadeArtwork.dealCount === 1) && (!uptadeArtwork.confirmed)) {
+            throw new Error('!#{Artwork is not confirmed -- sell is not allowed}#!');
+        }
+
+        uptadeArtwork.dealCount = uptadeArtwork.dealCount + 1;
+        await registryArtworkStock.update(uptadeArtwork);
+
         if (currentAsk.getIdentifier() === orderAsset.getIdentifier()) {
             orderAsset.order.orderStatus = 'EXECUTED';
             await registry.add(orderAsset);
@@ -184,7 +230,6 @@ async function placeOrder(order) { // eslint-disable-line no-unused-vars
             matchingBid.order.orderStatus = 'EXECUTED';
             await registry.update(matchingBid);
         }
-
 
         const tradeHistoryAsset = factory.newResource('io.malevich.network', 'TradeHistory', order.order.id);
         tradeHistoryAsset.askOrder = currentAsk;
@@ -206,8 +251,14 @@ async function placeOrder(order) { // eslint-disable-line no-unused-vars
             }
         }
 
+        if ((uptadeArtwork.dealCount === 1)) {
+            sumCommisions = 0.03;
+            galleryCommisions = 0;
+        }
+
         let malevichParty = await registryMalevich.get('1');
         malevichParty.balance = malevichParty.balance + (matchingBid.order.amount * sumCommisions);
+        await balanceHistory((matchingBid.order.amount * sumCommisions), malevichParty, 'COMMISSION', order.transactionId);
         await registryMalevich.update(malevichParty);
 
         let uptadeParty = await getCounterparty(currentAsk.order.counterparty);
@@ -217,13 +268,12 @@ async function placeOrder(order) { // eslint-disable-line no-unused-vars
             uptadeParty.balance = uptadeParty.balance + matchingBid.order.amount;
         } else {
             uptadeParty.balance = uptadeParty.balance + matchingBid.order.amount - matchingBid.order.amount * sumCommisions - matchingBid.order.amount * galleryCommisions;
+            await balanceHistory(matchingBid.order.amount, uptadeParty, 'ORDER', order.transactionId);
+            await balanceHistory(-(matchingBid.order.amount * sumCommisions - matchingBid.order.amount * galleryCommisions), uptadeParty, 'COMMISSION', order.transactionId);
         }
 
         await updateCounterparty(uptadeParty);
-        
-        if (uptadeArtwork == null) {
-            uptadeArtwork = await registryArtworkStock.get(currentAsk.order.artworkStock.getIdentifier());
-        }
+
         uptadeArtwork.owner = matchingBid.order.counterparty;
         uptadeArtwork.currentAsk = 0;
         uptadeArtwork.lastPrice = matchingBid.order.amount;
@@ -231,10 +281,12 @@ async function placeOrder(order) { // eslint-disable-line no-unused-vars
 
         let galleryParty = await registryGallery.get(uptadeArtwork.holder.getIdentifier());
         if (uptadeParty.getIdentifier() === galleryParty.getIdentifier()) {
-                uptadeParty.balance = uptadeParty.balance + (matchingBid.order.amount * galleryCommisions);
+            uptadeParty.balance = uptadeParty.balance + (matchingBid.order.amount * galleryCommisions);
+            await balanceHistory((matchingBid.order.amount * galleryCommisions), uptadeParty, 'COMMISSION', order.transactionId);
             await registryGallery.update(uptadeParty);
         } else {
             galleryParty.balance = galleryParty.balance + (matchingBid.order.amount * galleryCommisions);
+            await balanceHistory((matchingBid.order.amount * galleryCommisions), galleryParty, 'COMMISSION', order.transactionId);
             await registryGallery.update(galleryParty);
         }
 
@@ -274,6 +326,7 @@ async function cancelOrder(cancelOrder) { // eslint-disable-line no-unused-vars
             let uptadeParty = null;
             uptadeParty = await registryTrader.get(updateOrder.order.counterparty.getIdentifier());
             uptadeParty.balance = uptadeParty.balance + updateOrder.order.amount;
+            await balanceHistory(updateOrder.order.amount, uptadeParty, 'BALANCE', cancelOrder.transactionId);
             await registryTrader.update(uptadeParty);
         }
     }
@@ -298,24 +351,6 @@ async function testData(testData) { // eslint-disable-line no-unused-vars
     malevichAsset.bonuses = 0;
     await registryMalevich.add(malevichAsset);
 
-    const gallery1Asset = factory.newResource('io.malevich.network', 'Gallery', '2');
-    gallery1Asset.email = 'gallery1@malevich.io';
-    gallery1Asset.balance = 0;
-    gallery1Asset.bonuses = 0;
-    await registryGallery.add(gallery1Asset);
-
-    const trader1Asset = factory.newResource('io.malevich.network', 'Trader', '3');
-    trader1Asset.email = 'trader1@malevich.io';
-    trader1Asset.balance = 0;
-    trader1Asset.bonuses = 0;
-    await registryTrader.add(trader1Asset);
-
-    const trader2Asset = factory.newResource('io.malevich.network', 'Trader', '4');
-    trader2Asset.email = 'trader2@malevich.io';
-    trader2Asset.balance = 0;
-    trader2Asset.bonuses = 0;
-    await registryTrader.add(trader2Asset);
-
     const commissionRule1Asset = factory.newResource('io.malevich.network', 'CommissionRule', 'Gallery');
     commissionRule1Asset.value = 0.005;
     await registryCommissionRule.add(commissionRule1Asset);
@@ -327,5 +362,25 @@ async function testData(testData) { // eslint-disable-line no-unused-vars
     const commissionRule3Asset = factory.newResource('io.malevich.network', 'CommissionRule', 'Endorser');
     commissionRule3Asset.value = 0.001;
     await registryCommissionRule.add(commissionRule3Asset);
+
+    if (testData.testData === 'dev') {
+        const gallery1Asset = factory.newResource('io.malevich.network', 'Gallery', '2');
+        gallery1Asset.email = 'gallery1@malevich.io';
+        gallery1Asset.balance = 0;
+        gallery1Asset.bonuses = 0;
+        await registryGallery.add(gallery1Asset);
+
+        const trader1Asset = factory.newResource('io.malevich.network', 'Trader', '3');
+        trader1Asset.email = 'trader1@malevich.io';
+        trader1Asset.balance = 0;
+        trader1Asset.bonuses = 0;
+        await registryTrader.add(trader1Asset);
+
+        const trader2Asset = factory.newResource('io.malevich.network', 'Trader', '4');
+        trader2Asset.email = 'trader2@malevich.io';
+        trader2Asset.balance = 0;
+        trader2Asset.bonuses = 0;
+        await registryTrader.add(trader2Asset);
+    }
 
 }

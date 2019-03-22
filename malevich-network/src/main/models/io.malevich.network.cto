@@ -16,6 +16,12 @@ enum OrderType {
   o BID
 }
 
+enum OperationType {
+  o ORDER
+  o BALANCE
+  o COMMISSION
+}
+
 
 abstract participant Counterparty identified by id {
   o String id
@@ -38,6 +44,8 @@ asset ArtworkStock identified by id {
   o String token
   o Double currentAsk
   o Double lastPrice
+  o Integer dealCount
+  o Boolean confirmed default = false
   --> Counterparty owner
   --> Counterparty holder
 }
@@ -74,6 +82,15 @@ asset TradeHistory identified by id {
   --> ArtworkStock artworkStock
   o OrderAsset askOrder
   o OrderAsset bidOrder
+}
+
+asset BalanceHistory identified by id {
+  o String id
+  o DateTime effectiveDate
+  o Double amount
+  o OperationType operationType
+  o String transactionId
+  --> Counterparty counterparty
 }
 
 transaction Order {

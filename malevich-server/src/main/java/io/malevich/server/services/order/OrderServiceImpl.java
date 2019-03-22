@@ -58,6 +58,13 @@ public class OrderServiceImpl implements OrderService {
         List<OrderEntity> result = new ArrayList<>();
 
         for (OrderTransaction order : fabricOrders) {
+            result.add(convertToEntity(order, participantEntity));
+        }
+
+        return result;
+    }
+
+    private OrderEntity convertToEntity(OrderTransaction order, ParticipantEntity participantEntity) {
             OrderEntity orderEntity = new OrderEntity();
             orderEntity.setStatus(orderStatusService.getValues().get(order.getOrder().getOrderStatus()));
             orderEntity.setType(orderTypeService.getValues().get(order.getOrder().getOrderType()));
@@ -67,12 +74,10 @@ public class OrderServiceImpl implements OrderService {
 
             orderEntity.setArtworkStock(artworkStockService.find(new Long(order.getOrder().getArtworkStock().replace("resource:io.malevich.network.ArtworkStock#", ""))));
             orderEntity.setTradeType(tradeTypeService.getGtc());
-            orderEntity.setId(order.getOrder().getId());
-            orderEntity.setEffectiveDate(order.getTimestamp());
-            result.add(orderEntity);
-        }
+        orderEntity.setId(order.getOrder().getId());
+        orderEntity.setEffectiveDate(order.getTimestamp());
+        return orderEntity;
 
-        return result;
     }
 
     @Override
@@ -87,18 +92,7 @@ public class OrderServiceImpl implements OrderService {
         List<OrderEntity> result = new ArrayList<>();
 
         for (OrderTransaction order : fabricOrders) {
-            OrderEntity orderEntity = new OrderEntity();
-            orderEntity.setStatus(orderStatusService.getValues().get(order.getOrder().getOrderStatus()));
-            orderEntity.setType(orderTypeService.getValues().get(order.getOrder().getOrderType()));
-            orderEntity.setAmount(order.getOrder().getAmount());
-
-            orderEntity.setIsOwn(participantEntity.getId().toString().equals(order.getOrder().getCounterparty().replace("resource:io.malevich.network.Trader#", "").replace("resource:io.malevich.network.Gallery#", "")));
-
-            orderEntity.setArtworkStock(artworkStockEntity);
-            orderEntity.setTradeType(tradeTypeService.getGtc());
-            orderEntity.setId(order.getOrder().getId());
-            orderEntity.setEffectiveDate(order.getTimestamp());
-            result.add(orderEntity);
+            result.add(convertToEntity(order, participantEntity));
         }
 
         return result;
@@ -117,18 +111,7 @@ public class OrderServiceImpl implements OrderService {
         List<OrderEntity> result = new ArrayList<>();
 
         for (OrderTransaction order : fabricOrders) {
-            OrderEntity orderEntity = new OrderEntity();
-            orderEntity.setStatus(orderStatusService.getValues().get(order.getOrder().getOrderStatus()));
-            orderEntity.setType(orderTypeService.getValues().get(order.getOrder().getOrderType()));
-            orderEntity.setAmount(order.getOrder().getAmount());
-
-            orderEntity.setIsOwn(participantEntity.getId().toString().equals(order.getOrder().getCounterparty().replace("resource:io.malevich.network.Trader#", "").replace("resource:io.malevich.network.Gallery#", "")));
-
-            orderEntity.setArtworkStock(artworkStockEntity);
-            orderEntity.setTradeType(tradeTypeService.getGtc());
-            orderEntity.setId(order.getOrder().getId());
-            orderEntity.setEffectiveDate(order.getTimestamp());
-            result.add(orderEntity);
+            result.add(convertToEntity(order, participantEntity));
         }
 
         return result;
@@ -164,13 +147,25 @@ public class OrderServiceImpl implements OrderService {
     }
 
     private void placeOrder(OrderEntity orderEntity){
+        ParticipantEntity participantEntity = participantService.getCurrent();
+
         orderEntity.setEffectiveDate(new Timestamp(System.currentTimeMillis()));
-        orderEntity.setParticipant(participantService.getCurrent());
+        orderEntity.setParticipant(participantEntity);
+
         if (orderEntity.getTradeType() == null)
             orderEntity.setTradeType(tradeTypeService.getGtc());
         orderEntity.setStatus(orderStatusService.getOpen());
         if (orderEntity.getExpirationDate() != null)
             setEndOfDay(orderEntity.getExpirationDate());
+
+        OrderTransaction existingOrderTransaction = orderTransactionService.checkOrderExists(orderEntity);
+        if (existingOrderTransaction != null) {
+            OrderEntity cancelOrder= convertToEntity(existingOrderTransaction, participantEntity);
+            cancelOrder.setParticipant(participantEntity);
+            cancelOrder.setId(existingOrderTransaction.getOrder().getId());
+            cancelOrder.setStatus(orderStatusService.getCanceled());
+            cancelOrderTransactionService.create(cancelOrder);
+        }
 
         orderTransactionService.create(orderEntity);
         artworkStockService.sync(orderEntity.getArtworkStock().getId());
@@ -178,17 +173,27 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     public void cancelOrder(OrderEntity orderEntity) {
+        ParticipantEntity participantEntity = participantService.getCurrent();
+
         orderEntity.setStatus(orderStatusService.getCanceled());
-        orderEntity.setParticipant(participantService.getCurrent());
+        orderEntity.setParticipant(participantEntity);
+
+        OrderTransaction existingOrderTransaction = orderTransactionService.checkOrderExists(orderEntity);
+        if (existingOrderTransaction != null) {
+            OrderEntity cancelOrder= convertToEntity(existingOrderTransaction, participantEntity);
+            cancelOrder.setParticipant(participantEntity);
+            cancelOrder.setId(existingOrderTransaction.getOrder().getId());
+            cancelOrder.setStatus(orderStatusService.getCanceled());
+            cancelOrderTransactionService.create(cancelOrder);
+        }
+
         cancelOrderTransactionService.create(orderEntity);
     }
 
     @Override
     public void cancelOwnOrder(OrderEntity orderEntity) {
-        // check if canceled order is of your own
-        orderEntity.setStatus(orderStatusService.getCanceled());
-        orderEntity.setParticipant(participantService.getCurrent());
-        cancelOrderTransactionService.create(orderEntity);
+        // TODO check if canceled order is of your own
+        cancelOrder(orderEntity);
     }
 
 }

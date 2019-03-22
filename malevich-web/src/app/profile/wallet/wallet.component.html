@@ -188,6 +188,17 @@
 <ng-template #depositView>
   <ng-container *ngIf="selectedDepositType.value == 'swift'; then depositSwift"></ng-container>
   <ng-container *ngIf="selectedDepositType.value == 'saved_card'; then depositCard"></ng-container>
+  <ng-container *ngIf="selectedDepositType.value == 'bitcoin'; then bitcoin"></ng-container>
+</ng-template>
+
+<ng-template #bitcoin>
+  <div class="row mb-3">
+    <div class="col">
+      <p>Deposit Satoshis to your address in Malevich system</p>
+      <br>
+      <p>Address - {{addresses[0].btcAddress}}</p>
+    </div>
+  </div>
 </ng-template>
 
 <ng-template #depositSwift>

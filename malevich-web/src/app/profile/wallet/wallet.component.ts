@@ -18,6 +18,7 @@ import {environment} from "../../../environments/environment.dev";
 import {MalevichStripeService} from "../../_services/malevich-stripe.service";
 import {AlertService} from "yinyang-core";
 import {NgbModal, NgbModalRef} from "@ng-bootstrap/ng-bootstrap";
+import {PaymentMethodBitcoinService} from "../../_services/payment-method-bitcoin.service";
 
 type PaymentType = {
   value: string
@@ -62,10 +63,16 @@ export class WalletComponent implements OnInit, AfterViewInit, OnDestroy {
     },
     {
       value: 'saved_card',
-      name: 'Saved Card'
+      name: 'Card'
+    },
+    {
+      value: 'bitcoin',
+      name: 'Bitcoin'
     }
   ];
   selectedDepositType: PaymentType;
+
+  addresses: PaymentMethodDto[];
 
   get reference() {
     if (this.referenceState)
@@ -141,7 +148,8 @@ export class WalletComponent implements OnInit, AfterViewInit, OnDestroy {
               private stripeService: StripeService,
               private malevichStripeService: MalevichStripeService,
               private alertService: AlertService,
-              private modalService: NgbModal) {
+              private modalService: NgbModal,
+              private paymentMethodBitcoinService: PaymentMethodBitcoinService) {
   }
 
   ngOnInit() {
@@ -150,9 +158,27 @@ export class WalletComponent implements OnInit, AfterViewInit, OnDestroy {
     this.getPaymentMethods();
     this.getParameters();
     this.getKycAccess();
+    this.getMethods();
+
+    if ((this.addresses == null) || (this.addresses.length === 0)) {
+      this.onAddButton();
+    }
+
     this.stripeService.setKey(environment.stripeKey);
     this.stripeTest = this.fb.group({
       name: ['', [Validators.required]]
+    });
+  }
+
+  getMethods() {
+    this.paymentMethodBitcoinService.getPaymentMethods().subscribe(data => {
+      this.addresses = data;
+    });
+  }
+
+  onAddButton() {
+    this.paymentMethodBitcoinService.generateBtc().subscribe(data => {
+      this.getMethods();
     });
   }
 

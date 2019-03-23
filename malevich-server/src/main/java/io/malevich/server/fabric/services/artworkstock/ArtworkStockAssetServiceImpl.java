@@ -37,6 +37,7 @@ public class ArtworkStockAssetServiceImpl extends GenericComposerServiceImpl<Art
         artworkStockAsset.setId(entity.getId().toString());
         artworkStockAsset.setToken(entity.getArtwork().getId().toString());
         artworkStockAsset.setCurrentAsk(0D);
+        artworkStockAsset.setBestBid(0D);
         artworkStockAsset.setLastPrice(0D);
         artworkStockAsset.setDealCount(0);
         artworkStockAsset.setConfirmed(false);

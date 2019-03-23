@@ -36,6 +36,10 @@ public class ArtworkStockEntity extends YAbstractPersistable<Long> {
 
     @Getter
     @Setter
+    private Double bestBid;
+
+    @Getter
+    @Setter
     private Double lastPrice;
 
 }

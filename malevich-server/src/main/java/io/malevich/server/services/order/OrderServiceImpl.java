@@ -186,9 +186,10 @@ public class OrderServiceImpl implements OrderService {
             cancelOrder.setId(existingOrder.getOrder().getId());
             cancelOrder.setStatus(orderStatusService.getCanceled());
             cancelOrderTransactionService.create(cancelOrder);
+            artworkStockService.sync(orderEntity.getArtworkStock().getId());
         }
 
-        cancelOrderTransactionService.create(orderEntity);
+//        cancelOrderTransactionService.create(orderEntity);
     }
 
     @Override

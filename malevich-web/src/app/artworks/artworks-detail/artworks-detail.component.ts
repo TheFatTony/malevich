@@ -201,4 +201,10 @@ export class ArtworksDetailComponent implements OnInit, AfterViewInit {
       this.getOpenOrdersByArtworkId();
     });
   }
+
+  getDescriptionHtml(text: string) {
+    text = text.replace('\n', '</p><p>');
+    text = '<p>' + text + '</p>';
+    return text;
+  }
 }

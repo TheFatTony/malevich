@@ -15,6 +15,7 @@
                 <constraints nullable="false"/>
             </column>
             <column name="instant_price" type="double"/>
+            <column name="best_bid" type="double"/>
             <column name="last_price" type="double"/>
         </createTable>
     </changeSet>

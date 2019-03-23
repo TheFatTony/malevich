@@ -17,6 +17,8 @@ public class ArtworkStockAsset {
 
     private Double currentAsk;
 
+    private Double bestBid;
+
     private Double lastPrice;
 
     private Integer dealCount;

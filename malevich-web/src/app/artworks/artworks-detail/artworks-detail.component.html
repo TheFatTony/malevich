@@ -43,8 +43,8 @@
         <!-- Product Info -->
         <div class="g-mb-30">
           <h1 class="g-font-weight-300 mb-4">{{artworkStock?.artwork?.titleMl[translate.currentLang]}}</h1>
-          <p *ngIf="artworkStock?.artwork?.descriptionMl">
-            {{artworkStock.artwork.descriptionMl[translate.currentLang]}}</p>
+          <div *ngIf="artworkStock?.artwork?.descriptionMl"
+               [innerHTML]="getDescriptionHtml(artworkStock.artwork.descriptionMl[translate.currentLang])"></div>
         </div>
         <!-- End Product Info -->
 

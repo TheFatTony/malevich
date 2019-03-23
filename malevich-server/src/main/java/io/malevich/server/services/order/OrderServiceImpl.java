@@ -3,6 +3,7 @@ package io.malevich.server.services.order;
 import io.malevich.server.domain.ArtworkStockEntity;
 import io.malevich.server.domain.OrderEntity;
 import io.malevich.server.domain.ParticipantEntity;
+import io.malevich.server.fabric.model.OrderAsset;
 import io.malevich.server.fabric.model.OrderTransaction;
 import io.malevich.server.fabric.services.cancelorder.CancelOrderTransactionService;
 import io.malevich.server.fabric.services.order.OrderTransactionService;
@@ -53,29 +54,29 @@ public class OrderServiceImpl implements OrderService {
     public List<OrderEntity> getPlacedOrders() {
         ParticipantEntity participantEntity = participantService.getCurrent();
 
-        List<OrderTransaction> fabricOrders = orderTransactionService.getOpenOrdersByCounterparty();
+        List<OrderAsset> fabricOrders = orderTransactionService.getOpenOrdersByCounterparty();
 
         List<OrderEntity> result = new ArrayList<>();
 
-        for (OrderTransaction order : fabricOrders) {
+        for (OrderAsset order : fabricOrders) {
             result.add(convertToEntity(order, participantEntity));
         }
 
         return result;
     }
 
-    private OrderEntity convertToEntity(OrderTransaction order, ParticipantEntity participantEntity) {
-            OrderEntity orderEntity = new OrderEntity();
-            orderEntity.setStatus(orderStatusService.getValues().get(order.getOrder().getOrderStatus()));
-            orderEntity.setType(orderTypeService.getValues().get(order.getOrder().getOrderType()));
-            orderEntity.setAmount(order.getOrder().getAmount());
+    private OrderEntity convertToEntity(OrderAsset order, ParticipantEntity participantEntity) {
+        OrderEntity orderEntity = new OrderEntity();
+        orderEntity.setStatus(orderStatusService.getValues().get(order.getOrder().getOrderStatus()));
+        orderEntity.setType(orderTypeService.getValues().get(order.getOrder().getOrderType()));
+        orderEntity.setAmount(order.getOrder().getAmount());
 
-            orderEntity.setIsOwn(participantEntity.getId().toString().equals(order.getOrder().getCounterparty().replace("resource:io.malevich.network.Trader#", "").replace("resource:io.malevich.network.Gallery#", "")));
+        orderEntity.setIsOwn(participantEntity.getId().toString().equals(order.getOrder().getCounterparty().replace("resource:io.malevich.network.Trader#", "").replace("resource:io.malevich.network.Gallery#", "")));
 
-            orderEntity.setArtworkStock(artworkStockService.find(new Long(order.getOrder().getArtworkStock().replace("resource:io.malevich.network.ArtworkStock#", ""))));
-            orderEntity.setTradeType(tradeTypeService.getGtc());
+        orderEntity.setArtworkStock(artworkStockService.find(new Long(order.getOrder().getArtworkStock().replace("resource:io.malevich.network.ArtworkStock#", ""))));
+        orderEntity.setTradeType(tradeTypeService.getGtc());
         orderEntity.setId(order.getOrder().getId());
-        orderEntity.setEffectiveDate(order.getTimestamp());
+        orderEntity.setEffectiveDate(order.getEffectiveDate());
         return orderEntity;
 
     }
@@ -87,11 +88,11 @@ public class OrderServiceImpl implements OrderService {
 
         ArtworkStockEntity artworkStockEntity = artworkStockService.find(artworkId);
 
-        List<OrderTransaction> fabricOrders = orderTransactionService.getOrdersByArtworkStock(artworkId);
+        List<OrderAsset> fabricOrders = orderTransactionService.getOrdersByArtworkStock(artworkId);
 
         List<OrderEntity> result = new ArrayList<>();
 
-        for (OrderTransaction order : fabricOrders) {
+        for (OrderAsset order : fabricOrders) {
             result.add(convertToEntity(order, participantEntity));
         }
 
@@ -106,11 +107,11 @@ public class OrderServiceImpl implements OrderService {
 
         ArtworkStockEntity artworkStockEntity = artworkStockService.find(artworkId);
 
-        List<OrderTransaction> fabricOrders = orderTransactionService.getOpenOrdersByArtworkStock(artworkId);
+        List<OrderAsset> fabricOrders = orderTransactionService.getOpenOrdersByArtworkStock(artworkId);
 
         List<OrderEntity> result = new ArrayList<>();
 
-        for (OrderTransaction order : fabricOrders) {
+        for (OrderAsset order : fabricOrders) {
             result.add(convertToEntity(order, participantEntity));
         }
 
@@ -146,7 +147,7 @@ public class OrderServiceImpl implements OrderService {
         placeOrder(orderEntity);
     }
 
-    private void placeOrder(OrderEntity orderEntity){
+    private void placeOrder(OrderEntity orderEntity) {
         ParticipantEntity participantEntity = participantService.getCurrent();
 
         orderEntity.setEffectiveDate(new Timestamp(System.currentTimeMillis()));
@@ -158,11 +159,11 @@ public class OrderServiceImpl implements OrderService {
         if (orderEntity.getExpirationDate() != null)
             setEndOfDay(orderEntity.getExpirationDate());
 
-        OrderTransaction existingOrderTransaction = orderTransactionService.checkOrderExists(orderEntity);
-        if (existingOrderTransaction != null) {
-            OrderEntity cancelOrder= convertToEntity(existingOrderTransaction, participantEntity);
+        OrderAsset existingOrder = orderTransactionService.checkOrderExists(orderEntity);
+        if (existingOrder != null) {
+            OrderEntity cancelOrder = convertToEntity(existingOrder, participantEntity);
             cancelOrder.setParticipant(participantEntity);
-            cancelOrder.setId(existingOrderTransaction.getOrder().getId());
+            cancelOrder.setId(existingOrder.getOrder().getId());
             cancelOrder.setStatus(orderStatusService.getCanceled());
             cancelOrderTransactionService.create(cancelOrder);
         }
@@ -178,11 +179,11 @@ public class OrderServiceImpl implements OrderService {
         orderEntity.setStatus(orderStatusService.getCanceled());
         orderEntity.setParticipant(participantEntity);
 
-        OrderTransaction existingOrderTransaction = orderTransactionService.checkOrderExists(orderEntity);
-        if (existingOrderTransaction != null) {
-            OrderEntity cancelOrder= convertToEntity(existingOrderTransaction, participantEntity);
+        OrderAsset existingOrder = orderTransactionService.checkOrderExists(orderEntity);
+        if (existingOrder != null) {
+            OrderEntity cancelOrder = convertToEntity(existingOrder, participantEntity);
             cancelOrder.setParticipant(participantEntity);
-            cancelOrder.setId(existingOrderTransaction.getOrder().getId());
+            cancelOrder.setId(existingOrder.getOrder().getId());
             cancelOrder.setStatus(orderStatusService.getCanceled());
             cancelOrderTransactionService.create(cancelOrder);
         }

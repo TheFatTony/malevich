@@ -72,6 +72,7 @@ concept OrderConcept {
 
 asset OrderAsset identified by id {
   o String id
+  o DateTime effectiveDate
   o OrderConcept order
 }
 

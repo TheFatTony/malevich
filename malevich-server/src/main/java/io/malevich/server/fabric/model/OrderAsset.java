@@ -15,6 +15,8 @@ public class OrderAsset {
 
     private String id;
 
+    private Timestamp effectiveDate;
+
     private OrderConcept order;
 
 }

@@ -165,6 +165,7 @@ async function placeOrder(order) { // eslint-disable-line no-unused-vars
     }
 
     var orderAsset = factory.newResource('io.malevich.network', 'OrderAsset', order.order.id);
+    orderAsset.effectiveDate = new Date();
     orderAsset.order = order.order;
     orderAsset.order.orderStatus = 'OPEN';
     if (orderAsset.order.orderType === 'BID') {

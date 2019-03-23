@@ -218,6 +218,7 @@
     },
     "BUTTON": {
       "EDIT_PROFILE": "Edit",
+      "OK": "OK",
       "SUBMIT": "Submit",
       "UPDATE": "Update",
       "CONFIRM": "Confirm",

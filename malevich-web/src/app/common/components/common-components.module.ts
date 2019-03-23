@@ -10,13 +10,15 @@ import {createTranslateLoader} from "../../app.module";
 import {OrderEditComponent} from './order-edit/order-edit.component';
 import {PagesNavigationComponent} from './pages-navigation/pages-navigation.component';
 import {NgbModule} from "@ng-bootstrap/ng-bootstrap";
+import { ConfirmWindowComponent } from './confirm-window/confirm-window.component';
 
 @NgModule({
   declarations: [
     OrderWindowComponent,
     ArtworkEditComponent,
     OrderEditComponent,
-    PagesNavigationComponent
+    PagesNavigationComponent,
+    ConfirmWindowComponent
   ],
   imports: [
     CommonModule,
@@ -36,7 +38,8 @@ import {NgbModule} from "@ng-bootstrap/ng-bootstrap";
     OrderWindowComponent,
     OrderEditComponent,
     ArtworkEditComponent,
-    PagesNavigationComponent
+    PagesNavigationComponent,
+    ConfirmWindowComponent
   ]
 })
 export class CommonComponentsModule {

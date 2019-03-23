@@ -18,6 +18,7 @@ import {KycLevelService} from "../../_services/kyc-level.service";
 import {forkJoin, Subject} from "rxjs";
 import {Globals} from "../../globals";
 import {map} from "rxjs/operators";
+import {ConfirmWindowComponent} from "../../common/components/confirm-window/confirm-window.component";
 
 @Component({
   selector: 'app-artworks-detail',
@@ -28,6 +29,8 @@ export class ArtworksDetailComponent implements OnInit, AfterViewInit {
 
   @ViewChild('myWindow') myWindow: OrderWindowComponent;
   @ViewChild('tradeTypeDropDown') tradeTypeDropDown: jqxDropDownListComponent;
+  @ViewChild('confirmCancel') confirmCancelWindow: ConfirmWindowComponent;
+  @ViewChild('confirmInstantBuy') confirmInstantBuyWindow: ConfirmWindowComponent;
 
   artworkStock: ArtworkStockDto;
   isOwnArtwork: boolean;
@@ -191,6 +194,26 @@ export class ArtworksDetailComponent implements OnInit, AfterViewInit {
   }
 
   ownOrderClick() {
+    this.confirmCancelWindow.open();
+  }
+
+  askClick() {
+    this.confirmInstantBuyWindow.open();
+  }
+
+  instantBuy() {
+    const newOrder = new OrderDto();
+    newOrder.artworkStock = this.artworkStock;
+    newOrder.expirationDate = null;
+    newOrder.tradeType = null;
+    newOrder.amount = this.artworkStock.instantPrice;
+
+    this.orderService.placeBid(newOrder).subscribe(order => {
+      this.onOrderPlaced(order);
+    })
+  }
+
+  cancelOwnOrder() {
     const cancelOrder = new OrderDto();
     cancelOrder.id = this.ownOrder.id;
     cancelOrder.amount = this.ownOrder.amount;
@@ -207,4 +230,6 @@ export class ArtworksDetailComponent implements OnInit, AfterViewInit {
     text = '<p>' + text + '</p>';
     return text;
   }
+
+
 }

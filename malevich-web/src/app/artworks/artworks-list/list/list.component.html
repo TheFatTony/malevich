@@ -15,9 +15,9 @@
         </h4>
         <a class="d-inline-block g-color-gray-dark-v5 g-font-size-13 mb-2" href="#!">{{artworkStock.artwork.category.categoryNameMl[translate.currentLang]}}</a>
         <div class="mb-4">
-          <span *ngIf="artworkStock.instantPrice" class="g-color-black g-font-size-20 mr-2">{{artworkStock.instantPrice}} SQR</span>
+          <span *ngIf="artworkStock.instantPrice" class="g-color-black g-font-size-20 mr-2">{{artworkStock.instantPrice | number:'1.0-2'}} SQR</span>
           <span *ngIf="!artworkStock.instantPrice && artworkStock.lastPrice"
-                class="g-color-gray-dark-v5 g-font-size-20 mr-2">{{artworkStock.lastPrice}} SQR</span>
+                class="g-color-gray-dark-v5 g-font-size-20 mr-2">{{artworkStock.lastPrice | number:'1.0-2'}} SQR</span>
         </div>
         <p *ngIf="artworkStock?.artwork?.descriptionMl">
           {{artworkStock.artwork.descriptionMl[translate.currentLang]}}</p>

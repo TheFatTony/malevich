@@ -1,17 +1,17 @@
 <!-- Login -->
-<section class="container g-pt-100 g-pb-20">
+<section class="container g-pt-80 g-pb-20">
   <div class="row justify-content-between">
 
     <div class="col-md-3 g-mb-80">
     </div>
     <div class="col-md-6 g-mb-80">
-      <div class="g-brd-around g-brd-gray-light-v3 g-bg-white rounded g-px-30 g-py-50 mb-4">
+      <div class="g-brd-around g-brd-gray-light-v3 g-bg-white rounded g-px-30 g-py-30 mb-4">
         <header class="text-center mb-4">
           <h1 class="h4 g-color-black g-font-weight-400">Login to Your Account</h1>
         </header>
 
         <!-- Form -->
-        <form #f="ngForm" class="g-py-15" (ngSubmit)="onSubmit()">
+        <form #f="ngForm" class="g-pt-15" (ngSubmit)="onSubmit()">
           <div class="form-group mb-4">
             <div class="input-group g-rounded-left-3">
                     <span class="input-group-prepend g-width-45">
@@ -51,27 +51,29 @@
             <mchErrors [component]="passwordInput"></mchErrors>
           </div>
 
-          <div class="row justify-content-between mb-5">
-            <div class="col align-self-center">
-              <label class="form-check-inline u-check g-color-gray-dark-v5 g-font-size-13 g-pl-25 mb-0">
-                <input class="g-hidden-xs-up g-pos-abs g-top-0 g-left-0" type="checkbox">
-                <span class="d-block u-check-icon-checkbox-v6 g-absolute-centered--y g-left-0">
-                        <i class="fa" data-check-icon=""></i>
-                      </span>
-                Keep signed in
-              </label>
-            </div>
+
+
+          <div class="form-group">
+            <mchButton class="btn btn-block u-btn-primary g-font-size-12 text-uppercase g-py-12 g-px-25"
+                       [submitForm]="f"
+                       [height]="null">
+              Login
+            </mchButton>
+          </div>
+
+          <div class="row justify-content-between">
+            <!--<div class="col align-self-center">-->
+            <!--<label class="form-check-inline u-check g-color-gray-dark-v5 g-font-size-13 g-pl-25 mb-0">-->
+            <!--<input class="g-hidden-xs-up g-pos-abs g-top-0 g-left-0" type="checkbox">-->
+            <!--<span class="d-block u-check-icon-checkbox-v6 g-absolute-centered&#45;&#45;y g-left-0">-->
+            <!--<i class="fa" data-check-icon=""></i>-->
+            <!--</span>-->
+            <!--Keep signed in-->
+            <!--</label>-->
+            <!--</div>-->
             <div class="col align-self-center text-right">
               <a class="g-font-size-13" routerLink="/auth/reset">Forgot password?</a>
             </div>
-          </div>
-
-          <div class="form-group mb-5">
-            <mchButton class="btn btn-block u-btn-primary g-font-size-12 text-uppercase g-py-12 g-px-25"
-                       [submitForm]="f"
-                       [height]="40">
-              Login
-            </mchButton>
           </div>
 
         </form>
@@ -80,7 +82,7 @@
 
       <div class="text-center">
         <p class="g-color-gray-dark-v5 mb-0">Don't have an account?
-          <a class="g-font-weight-600" routerLink="/auth/register">signup</a></p>
+          <a class="g-font-weight-600" routerLink="/auth/register">Sign Up</a></p>
       </div>
     </div>
 

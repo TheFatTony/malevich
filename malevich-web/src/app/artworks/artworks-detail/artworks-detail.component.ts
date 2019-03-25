@@ -209,6 +209,7 @@ export class ArtworksDetailComponent implements OnInit, AfterViewInit {
     newOrder.amount = this.artworkStock.instantPrice;
 
     this.orderService.placeBid(newOrder).subscribe(order => {
+      this.getArtworkStock();
       this.onOrderPlaced(order);
     })
   }
@@ -221,6 +222,7 @@ export class ArtworksDetailComponent implements OnInit, AfterViewInit {
     cancelOrder.type = this.ownOrder.type;
 
     this.orderService.cancel(cancelOrder).subscribe(() => {
+      this.getArtworkStock();
       this.getOpenOrdersByArtworkId();
     });
   }

@@ -32,10 +32,10 @@ public class FilterSpecification implements Specification<ArtworkStockEntity> {
             criteriaQuery.orderBy(criteriaBuilder.asc(artwork.get("titleMl")));
         }
         if (filterDto.getSort().equalsIgnoreCase(SortEnum.PLTH.getValue())) {
-            criteriaQuery.orderBy(criteriaBuilder.asc(artwork.get("estimatedPrice")));
+            criteriaQuery.orderBy(criteriaBuilder.asc(criteriaBuilder.coalesce(artworkStock.get("instantPrice"), artworkStock.get("lastPrice"))));
         }
         if (filterDto.getSort().equalsIgnoreCase(SortEnum.PHTL.getValue())) {
-            criteriaQuery.orderBy(criteriaBuilder.desc(artwork.get("estimatedPrice")));
+            criteriaQuery.orderBy(criteriaBuilder.desc(criteriaBuilder.coalesce(artworkStock.get("instantPrice"), artworkStock.get("lastPrice"))));
         }
         if (filterDto.getCategoryId() != 0) {
             clause = criteriaBuilder.and(criteriaBuilder.equal(artwork.get("category"), filterDto.getCategoryId()));

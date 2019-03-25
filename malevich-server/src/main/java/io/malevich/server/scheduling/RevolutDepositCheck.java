@@ -12,7 +12,7 @@ public class RevolutDepositCheck {
     @Autowired
     private RevolutTransactionService revolutTransactionService;
 
-    @Scheduled(initialDelay = 2000, fixedRate = 10000)
+//    @Scheduled(initialDelay = 2000, fixedRate = 300000)
     public void checkTransactions() {
         revolutTransactionService.processDeposits();
     }

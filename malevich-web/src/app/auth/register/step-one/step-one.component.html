@@ -23,8 +23,8 @@
     <mchErrors [component]="userType"></mchErrors>
   </div>
 
-  <div class="mb-1">
-    <label class="form-check-inline u-check g-color-gray-dark-v5 g-font-size-13 g-pl-25 mb-2">
+  <div class="mb-1" [ngClass]="{disable: !userTypeSelected}">
+    <label class="form-check-inline u-check g-color-gray-dark-v3 g-font-size-13 g-pl-25 mb-2">
       <input
         class="g-hidden-xs-up g-pos-abs g-top-0 g-left-0"
         type="checkbox"
@@ -40,7 +40,7 @@
   </div>
 
   <div class="mb-3">
-    <label class="form-check-inline u-check g-color-gray-dark-v5 g-font-size-13 g-pl-25 mb-2">
+    <label class="form-check-inline u-check g-color-gray-dark-v3 g-font-size-13 g-pl-25 mb-2">
       <input
         class="g-hidden-xs-up g-pos-abs g-top-0 g-left-0"
         type="checkbox"

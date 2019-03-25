@@ -13,6 +13,13 @@ p {
   font-weight: 400;
 }
 
+/*Disable next button in pagination*/
+.disable {
+  opacity: .7;
+  filter: alpha(opacity=40);
+  pointer-events: none;
+}
+
 ::-moz-selection {
   background-color: #e44235;
 }

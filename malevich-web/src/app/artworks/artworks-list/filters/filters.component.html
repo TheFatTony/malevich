@@ -4,9 +4,11 @@
 
   <ul class="list-unstyled">
     <li class="my-3" *ngFor="let category of categories">
-      <a class="d-block u-link-v5 g-color-gray-dark-v4 g-color-primary--hover" href="javascript:;"
+      <a class="d-block u-link-v5 g-color-gray-dark-v4 g-color-primary--hover g-color-primary--active"
+         [ngClass]="{active: filterDto.categoryId == category.id}"
+         href="javascript:void(0);"
          (click)="filter(category.id)">{{category.categoryNameMl[translate.currentLang]}}
-        <span class="float-right g-font-size-12">...</span></a>
+        <span class="float-right g-font-size-12"></span></a>
     </li>
   </ul>
 </div>

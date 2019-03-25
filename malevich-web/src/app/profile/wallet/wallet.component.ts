@@ -64,7 +64,7 @@ export class WalletComponent implements OnInit, AfterViewInit, OnDestroy {
   paymentTypes: PaymentType[] = [
     {
       value: 'swift',
-      name: 'SWIFT Transfer'
+      name: 'Wire transfer'
     },
     {
       value: 'saved_card',

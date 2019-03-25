@@ -4,8 +4,8 @@
                    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.6.xsd">
 
     <changeSet author="thefattony" id="payment_method_bitcoin-insert-arch-trigger" runOnChange="true">
-        <!--<sql splitStatements="false">delimiter GO</sql>-->
-        <sql splitStatements="false" stripComments="false" endDelimiter="\n -- //">
+        <sql splitStatements="false">delimiter GO</sql>
+        <sql splitStatements="false" stripComments="false" endDelimiter="\nGO;">
             CREATE TRIGGER payment_method_bitcoin_arch_i_trg AFTER INSERT ON payment_method_bitcoin
             FOR EACH ROW
             BEGIN
@@ -15,12 +15,12 @@
             (NEW.id, NEW.address, NEW.wallet, NOW(), 'I');
             END
         </sql>
-        <!--<sql splitStatements="false">delimiter ;</sql>-->
+        <sql splitStatements="false">delimiter ;</sql>
     </changeSet>
 
     <changeSet author="thefattony" id="payment_method_bitcoin-update-arch-trigger" runOnChange="true">
-        <!--<sql splitStatements="false">delimiter GO</sql>-->
-        <sql splitStatements="false" stripComments="false" endDelimiter="\n -- //">
+        <sql splitStatements="false">delimiter GO</sql>
+        <sql splitStatements="false" stripComments="false" endDelimiter="\nGO;">
             CREATE TRIGGER payment_method_bitcoin_arch_u_trg AFTER UPDATE ON payment_method_bitcoin
             FOR EACH ROW
             BEGIN
@@ -30,12 +30,12 @@
             (NEW.id, NEW.address, NEW.wallet, NOW(), 'U');
             END
         </sql>
-        <!--<sql splitStatements="false">delimiter ;</sql>-->
+        <sql splitStatements="false">delimiter ;</sql>
     </changeSet>
 
     <changeSet author="thefattony" id="payment_method_bitcoin-delete-trigger" runOnChange="true">
-        <!--<sql splitStatements="false">delimiter GO</sql>-->
-        <sql splitStatements="false" stripComments="false" endDelimiter="\n -- //">
+        <sql splitStatements="false">delimiter GO</sql>
+        <sql splitStatements="false" stripComments="false" endDelimiter="\nGO;">
             CREATE TRIGGER payment_method_bitcoin_d_trg AFTER DELETE ON payment_method_bitcoin
             FOR EACH ROW
             BEGIN
@@ -45,7 +45,7 @@
             (OLD.id, OLD.address, OLD.wallet, NOW(), 'D');
             END
         </sql>
-        <!--<sql splitStatements="false">delimiter ;</sql>-->
+        <sql splitStatements="false">delimiter ;</sql>
     </changeSet>
 
 </databaseChangeLog>

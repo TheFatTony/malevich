@@ -64,7 +64,7 @@
           </tr>
           <tr *ngFor="let order of orders">
             <td>
-              {{order?.effectiveDate | date:'long'}}
+              {{order?.effectiveDate | date: 'dd/MM/yyyy HH:mm:ss'}}
             </td>
             <td>
               {{order?.amount}}
@@ -79,10 +79,10 @@
               {{order?.type.nameMl[translate.currentLang]}}
             </td>
             <td>
-              {{order?.bestBid}}
+              {{order?.artworkStock.bestBid}}
             </td>
             <td>
-              {{order?.currentAsk}}
+              {{order?.artworkStock.instantPrice}}
             </td>
           </tr>
         </jqxGrid>

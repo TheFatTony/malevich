@@ -1,0 +1,28 @@
+<ng-template #myWindow let-modal>
+  <div class="modal-body">
+    <div class="container">
+      <div class="row justify-content-center">
+        <div class="col text-center">
+          <ng-content></ng-content>
+        </div>
+      </div>
+
+      <div class="row justify-content-center">
+        <div class="col-lg-3">
+          <mchButton class="btn btn-block u-btn-primary g-font-size-12 text-uppercase w-100 g-py-15 g-px-5"
+                     (onClick)="ok()"
+                     [height]="null">
+            {{'PROFILE.BUTTON.OK' | translate}}
+          </mchButton>
+        </div>
+        <div class="col-lg-3">
+          <mchButton class="btn btn-block u-btn-outline-primary g-font-size-12 text-uppercase w-100 g-py-15 g-px-5"
+                     (onClick)="cancel()"
+                     [height]="null">
+            {{'PROFILE.BUTTON.CANCEL' | translate}}
+          </mchButton>
+        </div>
+      </div>
+    </div>
+  </div>
+</ng-template>

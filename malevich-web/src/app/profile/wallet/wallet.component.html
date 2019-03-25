@@ -242,6 +242,7 @@
         </li>
         <li><strong>Important: The name on the bank account you are depositing from must match the name entered for
           verification on the Malevich account you are depositing into.</strong></li>
+        <li><strong>Important: Please don't forget to include the complete reference code containing "malevich.io"</strong></li>
         <!--<li><strong>Revolut can accept international wire transfer deposits (EUR only), but withdrawals can only be sent-->
         <!--to SEPA bank accounts.</strong></li>-->
         <!--<li>Please be aware that Revolut can only accept Euro transfers. Transfer sent in any other currency will be-->
@@ -287,6 +288,12 @@
     <div class="col">
       <span class="d-block g-color-text g-font-size-13 mb-1">Bank / Payment institution</span>
       <span class="d-block">{{parameters['revolut.account.bank.name']}}</span>
+    </div>
+  </div>
+  <div class="row mb-3">
+    <div class="col">
+      <span class="d-block g-color-text g-font-size-13 mb-1">Bank address</span>
+      <span class="d-block">{{parameters['revolut.account.bank.address']}}</span>
     </div>
   </div>
   <div class="row mb-3">
@@ -350,6 +357,7 @@
       <mchButton #SendButton
                  class="btn btn-block u-btn-primary g-font-size-12 text-uppercase g-py-15 g-px-5"
                  (onClick)="sendWithdraw()"
+                 [disabled]="!newPayment.paymentMethod || !newPayment.amount"
                  [height]="null">
         {{'PROFILE.BUTTON.CONFIRM' | translate}}
       </mchButton>

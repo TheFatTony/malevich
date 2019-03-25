@@ -137,7 +137,7 @@ async function placeOrder(order) { // eslint-disable-line no-unused-vars
     var currentAsk = null;
     var matchingBid = null;
 
-    var uptadeArtwork = null;
+    var updateArtwork = null;
 
     results.forEach(async existingOrders => {
         if ((order.order.orderType === 'ASK') && (existingOrders.order.orderType === 'ASK') && (existingOrders.order.orderStatus === 'OPEN')) {
@@ -146,7 +146,7 @@ async function placeOrder(order) { // eslint-disable-line no-unused-vars
             currentAsk = existingOrders;
         } else if ((existingOrders.order.orderType === 'BID') && (order.order.orderType === 'BID') 
         && (existingOrders.order.orderStatus === 'OPEN') 
-        && (existingOrders.order.counterparty.getIdentifier() === order.order.counterparty.getIdentifier())) {
+        && (existingOrders.order.counterparty.getIdentifier() === order.order.counterparty.getIdentifier())){ 
             orderToCancel = existingOrders;
         }
 
@@ -165,6 +165,7 @@ async function placeOrder(order) { // eslint-disable-line no-unused-vars
     }
 
     var orderAsset = factory.newResource('io.malevich.network', 'OrderAsset', order.order.id);
+    orderAsset.effectiveDate = new Date();
     orderAsset.order = order.order;
     orderAsset.order.orderStatus = 'OPEN';
     if (orderAsset.order.orderType === 'BID') {
@@ -182,9 +183,9 @@ async function placeOrder(order) { // eslint-disable-line no-unused-vars
             currentAsk = orderAsset;
         }
 
-        uptadeArtwork = await registryArtworkStock.get(currentAsk.order.artworkStock.getIdentifier());
-        uptadeArtwork.currentAsk = currentAsk.order.amount;
-        await registryArtworkStock.update(uptadeArtwork);
+        updateArtwork = await registryArtworkStock.get(currentAsk.order.artworkStock.getIdentifier());
+        updateArtwork.currentAsk = currentAsk.order.amount;
+        await registryArtworkStock.update(updateArtwork);
 
         results.forEach(async existingOrders => {
             if ((currentAsk.order.amount === existingOrders.order.amount) && (existingOrders.order.orderStatus === 'OPEN')) {
@@ -192,6 +193,13 @@ async function placeOrder(order) { // eslint-disable-line no-unused-vars
             }
         });
     } else if ((orderAsset.order.orderType === 'BID')) {
+
+        updateArtwork = await registryArtworkStock.get(orderAsset.order.artworkStock.getIdentifier());
+        if(updateArtwork.bestBid < orderAsset.order.amount){
+            updateArtwork.bestBid = orderAsset.order.amount;
+            await registryArtworkStock.update(updateArtwork);
+        }
+
         results.forEach(async existingOrders => {
             if ((order.order.amount === existingOrders.order.amount) && (existingOrders.order.orderStatus === 'OPEN')) {
                 matchingBid = orderAsset;
@@ -204,16 +212,16 @@ async function placeOrder(order) { // eslint-disable-line no-unused-vars
             throw new Error('!#{You cant sell work to yourself}#!');
         }
 
-        if (uptadeArtwork == null) {
-            uptadeArtwork = await registryArtworkStock.get(currentAsk.order.artworkStock.getIdentifier());
+        if (updateArtwork == null) {
+            updateArtwork = await registryArtworkStock.get(currentAsk.order.artworkStock.getIdentifier());
         }
 
-        if ((uptadeArtwork.dealCount === 1) && (!uptadeArtwork.confirmed)) {
+        if ((updateArtwork.dealCount === 1) && (!updateArtwork.confirmed)) {
             throw new Error('!#{Artwork is not confirmed -- sell is not allowed}#!');
         }
 
-        uptadeArtwork.dealCount = uptadeArtwork.dealCount + 1;
-        await registryArtworkStock.update(uptadeArtwork);
+        updateArtwork.dealCount = updateArtwork.dealCount + 1;
+        await registryArtworkStock.update(updateArtwork);
 
         if (currentAsk.getIdentifier() === orderAsset.getIdentifier()) {
             orderAsset.order.orderStatus = 'EXECUTED';
@@ -251,7 +259,7 @@ async function placeOrder(order) { // eslint-disable-line no-unused-vars
             }
         }
 
-        if ((uptadeArtwork.dealCount === 1)) {
+        if ((updateArtwork.dealCount === 1)) {
             sumCommisions = 0.03;
             galleryCommisions = 0;
         }
@@ -274,12 +282,12 @@ async function placeOrder(order) { // eslint-disable-line no-unused-vars
 
         await updateCounterparty(uptadeParty);
 
-        uptadeArtwork.owner = matchingBid.order.counterparty;
-        uptadeArtwork.currentAsk = 0;
-        uptadeArtwork.lastPrice = matchingBid.order.amount;
-        await registryArtworkStock.update(uptadeArtwork);
+        updateArtwork.owner = matchingBid.order.counterparty;
+        updateArtwork.currentAsk = 0;
+        updateArtwork.lastPrice = matchingBid.order.amount;
+        await registryArtworkStock.update(updateArtwork);
 
-        let galleryParty = await registryGallery.get(uptadeArtwork.holder.getIdentifier());
+        let galleryParty = await registryGallery.get(updateArtwork.holder.getIdentifier());
         if (uptadeParty.getIdentifier() === galleryParty.getIdentifier()) {
             uptadeParty.balance = uptadeParty.balance + (matchingBid.order.amount * galleryCommisions);
             await balanceHistory((matchingBid.order.amount * galleryCommisions), uptadeParty, 'COMMISSION', order.transactionId);
@@ -313,17 +321,39 @@ async function cancelOrder(cancelOrder) { // eslint-disable-line no-unused-vars
         if (updateOrder.order.orderStatus !== 'OPEN') {
             throw new Error('!#{Only open Order can be canceled}#!');
         }
-        var uptadeArtwork = await registryArtworkStock.get(updateOrder.order.artworkStock.getIdentifier());
-        uptadeArtwork.currentAsk = 0;
-        await registryArtworkStock.update(uptadeArtwork);
+        var updateArtwork = await registryArtworkStock.get(updateOrder.order.artworkStock.getIdentifier());
+
+        if (updateOrder.order.orderType === 'ASK')
+            updateArtwork.currentAsk = 0;
+    
+        if (updateOrder.order.orderType == 'BID' && updateArtwork.bestBid === updateOrder.order.amount) {
+            var bidsQuery = buildQuery("SELECT io.malevich.network.OrderAsset WHERE ((order.artworkStock == _$artworkStock) AND (order.orderStatus == _$status) AND (order.orderType == _$type))");
+            var results = await query(
+                bidsQuery, 
+                { 
+                    artworkStock: 'resource:io.malevich.network.ArtworkStock#' + updateOrder.order.artworkStock.getIdentifier(),
+                    status: 'OPEN',
+                    type: 'BID'
+                }
+            );
+
+            updateArtwork.bestBid = 0;
+
+            results.forEach(async existingBid => {
+                if(existingBid.order.amount > updateArtwork.bestBid && existingBid.id !== updateOrder.id)
+                    updateArtwork.bestBid = existingBid.order.amount;
+            });
+        }
+
+        await registryArtworkStock.update(updateArtwork);
 
         updateOrder.order.orderStatus = 'CANCELED';
         await registry.update(updateOrder);
-        if ((updateOrder.order.counterparty.getFullyQualifiedType() === "io.malevich.network.Trader") && (cancelOrder.order.orderType === 'BID'))  {
+        if ((updateOrder.order.counterparty.getFullyQualifiedType() === "io.malevich.network.Trader") && (updateOrder.order.orderType === 'BID'))  {
             let uptadeParty = null;
             uptadeParty = await registryTrader.get(updateOrder.order.counterparty.getIdentifier());
             uptadeParty.balance = uptadeParty.balance + updateOrder.order.amount;
-            await balanceHistory(updateOrder.order.amount, uptadeParty, 'BALANCE', cancelOrder.transactionId);
+            await balanceHistory(updateOrder.order.amount, uptadeParty, 'BALANCE', updateOrder.transactionId);
             await registryTrader.update(uptadeParty);
         }
     }

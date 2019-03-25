@@ -17,6 +17,8 @@ public class ArtworkStockDto {
 
     private Double instantPrice;
 
+    private Double bestBid;
+
     private Double lastPrice;
 
 }

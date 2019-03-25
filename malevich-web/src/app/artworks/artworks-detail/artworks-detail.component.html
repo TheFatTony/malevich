@@ -43,8 +43,8 @@
         <!-- Product Info -->
         <div class="g-mb-30">
           <h1 class="g-font-weight-300 mb-4">{{artworkStock?.artwork?.titleMl[translate.currentLang]}}</h1>
-          <p *ngIf="artworkStock?.artwork?.descriptionMl">
-            {{artworkStock.artwork.descriptionMl[translate.currentLang]}}</p>
+          <div *ngIf="artworkStock?.artwork?.descriptionMl"
+               [innerHTML]="getDescriptionHtml(artworkStock.artwork.descriptionMl[translate.currentLang])"></div>
         </div>
         <!-- End Product Info -->
 
@@ -143,14 +143,22 @@
                 <tr class="g-color-gray-dark-v4 g-font-size-12" *ngFor="let placedOrder of placedOrders">
                   <td class="align-top g-py-10" *ngIf="placedOrder.type.id === 'ASK'"></td>
                   <td class="align-top g-py-10" *ngIf="placedOrder.type.id === 'ASK'">
-                    {{placedOrder.amount | number:'1.0-2'}}
+                    <a *ngIf="placedOrder.isOwn"
+                       (click)="ownOrderClick()"
+                       class="u-tags-v1 g-color-main g-brd-around g-brd-gray-light-v3 g-bg-primary--hover g-brd-primary--hover g-color-white--hover g-rounded-50 g-py-4 g-px-15"
+                       ngbTooltip="This is your bid. Click to cancel"
+                    >{{placedOrder.amount | number:'1.0-2'}}</a>
+                    <a *ngIf="!placedOrder.isOwn"
+                       (click)="askClick()"
+                       class="u-tags-v1 g-color-main g-brd-around g-brd-gray-light-v3 g-bg-primary--hover g-brd-primary--hover g-color-white--hover g-rounded-50 g-py-4 g-px-15"
+                       ngbTooltip="This is sellers offer. Click to buy artwork at this price"
+                    >{{placedOrder.amount | number:'1.0-2'}}</a>
                   </td>
                   <td class="align-top g-py-10" *ngIf="placedOrder.type.id === 'BID'">
                     <a *ngIf="placedOrder.isOwn"
                        (click)="ownOrderClick()"
                        class="u-tags-v1 g-color-main g-brd-around g-brd-gray-light-v3 g-bg-primary--hover g-brd-primary--hover g-color-white--hover g-rounded-50 g-py-4 g-px-15"
-                       data-toggle="tooltip" data-placement="top" title=""
-                       data-original-title="This is your bid. Click to cancel"
+                       ngbTooltip="This is your bid. Click to cancel"
                     >{{placedOrder.amount | number:'1.0-2'}}</a>
                     <span *ngIf="!placedOrder.isOwn">{{placedOrder.amount | number:'1.0-2'}}</span>
                   </td>
@@ -506,3 +514,11 @@
 <!--</div>-->
 <!--</div>-->
 <!-- End Review -->
+
+<mch-confirm-window #confirmCancel (onOk)="cancelOwnOrder()">
+  <p>Are you sure you want to cancel your current order?</p>
+</mch-confirm-window>
+
+<mch-confirm-window #confirmInstantBuy (onOk)="instantBuy()">
+  <p>Are you sure you want to buy this artwork for {{artworkStock.instantPrice | number:'1.0-2'}} SQR?</p>
+</mch-confirm-window>

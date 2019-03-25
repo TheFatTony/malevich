@@ -33,6 +33,10 @@ public class ParticipantResource extends RestResource<ParticipantDto, Participan
     @ResponseBody
     public ParticipantDto getCurrent() {
         ParticipantEntity entity = participantService.getCurrent();
+
+        if(entity == null)
+            return null;
+
         return convertToDto(entity);
     }
 

@@ -46,8 +46,6 @@ public class CounterpartyBankServiceImpl extends GenericBankServiceImpl implemen
         bankCounterpartyModel.setBic(entity.getBic());
         bankCounterpartyModel.setIban(entity.getIban());
 
-        //todo check if iban is iban or account num?
-
         return doPost(bankCounterpartyModel);
     }
 

@@ -43,6 +43,7 @@ asset ArtworkStock identified by id {
   o String id
   o String token
   o Double currentAsk
+  o Double bestBid
   o Double lastPrice
   o Integer dealCount
   o Boolean confirmed default = false
@@ -72,6 +73,7 @@ concept OrderConcept {
 
 asset OrderAsset identified by id {
   o String id
+  o DateTime effectiveDate
   o OrderConcept order
 }
 

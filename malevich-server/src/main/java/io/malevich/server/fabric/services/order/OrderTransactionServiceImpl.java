@@ -3,6 +3,7 @@ package io.malevich.server.fabric.services.order;
 import com.yinyang.core.server.fabric.GenericComposerServiceImpl;
 import io.malevich.server.domain.OrderEntity;
 import io.malevich.server.domain.ParticipantEntity;
+import io.malevich.server.fabric.model.OrderAsset;
 import io.malevich.server.fabric.model.OrderConcept;
 import io.malevich.server.fabric.model.OrderTransaction;
 import io.malevich.server.services.participant.ParticipantService;
@@ -61,12 +62,12 @@ public class OrderTransactionServiceImpl extends GenericComposerServiceImpl<Orde
     }
 
     @Override
-    public List<OrderTransaction> getOrdersByArtworkStock(Long artworkId) {
+    public List<OrderAsset> getOrdersByArtworkStock(Long artworkId) {
         String fabricClass = "resource:io.malevich.network.ArtworkStock#";
 
 
         try {
-            ResponseEntity<List<OrderTransaction>> res = restTemplate.exchange(composerUrl + "/queries/getOrdersByArtworkStock?artworkStock={artworkStock}", HttpMethod.GET, null, new ParameterizedTypeReference<List<OrderTransaction>>() {
+            ResponseEntity<List<OrderAsset>> res = restTemplate.exchange(composerUrl + "/queries/getOrdersByArtworkStock?artworkStock={artworkStock}", HttpMethod.GET, null, new ParameterizedTypeReference<List<OrderAsset>>() {
             }, (fabricClass + artworkId.toString()));
             return res.getBody();
         } catch (RestClientException e) {
@@ -76,12 +77,11 @@ public class OrderTransactionServiceImpl extends GenericComposerServiceImpl<Orde
     }
 
     @Override
-    public List<OrderTransaction> getOpenOrdersByArtworkStock(Long artworkId) {
+    public List<OrderAsset> getOpenOrdersByArtworkStock(Long artworkId) {
         String fabricClass = "resource:io.malevich.network.ArtworkStock#";
 
-
         try {
-            ResponseEntity<List<OrderTransaction>> res = restTemplate.exchange(composerUrl + "/queries/getOpenOrdersByArtworkStock?artworkStock={artworkStock}", HttpMethod.GET, null, new ParameterizedTypeReference<List<OrderTransaction>>() {
+            ResponseEntity<List<OrderAsset>> res = restTemplate.exchange(composerUrl + "/queries/getOpenOrdersByArtworkStock?artworkStock={artworkStock}", HttpMethod.GET, null, new ParameterizedTypeReference<List<OrderAsset>>() {
             }, (fabricClass + artworkId.toString()));
             return res.getBody();
         } catch (RestClientException e) {
@@ -91,7 +91,7 @@ public class OrderTransactionServiceImpl extends GenericComposerServiceImpl<Orde
     }
 
     @Override
-    public List<OrderTransaction> getOpenOrdersByCounterparty() {
+    public List<OrderAsset> getOpenOrdersByCounterparty() {
         ParticipantEntity participantEntity = participantService.getCurrent();
         String fabricClass = null;
 
@@ -102,7 +102,7 @@ public class OrderTransactionServiceImpl extends GenericComposerServiceImpl<Orde
         }
 
         try {
-            ResponseEntity<List<OrderTransaction>> res = restTemplate.exchange(composerUrl + "/queries/getOpenOrdersByCounterparty?counterparty={counterparty}", HttpMethod.GET, null, new ParameterizedTypeReference<List<OrderTransaction>>() {
+            ResponseEntity<List<OrderAsset>> res = restTemplate.exchange(composerUrl + "/queries/getOpenOrdersByCounterparty?counterparty={counterparty}", HttpMethod.GET, null, new ParameterizedTypeReference<List<OrderAsset>>() {
             }, (fabricClass + participantEntity.getId()));
             return res.getBody();
         } catch (RestClientException e) {
@@ -112,7 +112,7 @@ public class OrderTransactionServiceImpl extends GenericComposerServiceImpl<Orde
     }
 
     @Override
-    public OrderTransaction checkOrderExists(OrderEntity orderEntity) {
+    public OrderAsset checkOrderExists(OrderEntity orderEntity) {
         String fabricClass = null;
 
         if ("G".equals(orderEntity.getParticipant().getType().getId())) {
@@ -122,11 +122,11 @@ public class OrderTransactionServiceImpl extends GenericComposerServiceImpl<Orde
         }
 
         try {
-            ResponseEntity<List<OrderTransaction>> res = restTemplate.exchange(composerUrl + "/queries/checkOrderExists?artworkStock={artworkStock}&counterparty={counterparty}&orderType={orderType}", HttpMethod.GET, null, new ParameterizedTypeReference<List<OrderTransaction>>() {
+            ResponseEntity<List<OrderAsset>> res = restTemplate.exchange(composerUrl + "/queries/checkOrderExists?artworkStock={artworkStock}&counterparty={counterparty}&orderType={orderType}", HttpMethod.GET, null, new ParameterizedTypeReference<List<OrderAsset>>() {
                     }, "resource:io.malevich.network.ArtworkStock#" + orderEntity.getArtworkStock().getArtwork().getId().toString()
                     , (fabricClass + orderEntity.getParticipant().getId())
                     , orderEntity.getType().getId());
-            OrderTransaction orderTransaction = null;
+            OrderAsset orderTransaction = null;
             if (res.getBody().size() > 0) {
                 orderTransaction = res.getBody().get(0);
             }

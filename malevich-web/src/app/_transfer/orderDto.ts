@@ -12,6 +12,4 @@ export class OrderDto {
   amount: number;
   effectiveDate: Date;
   expirationDate: Date;
-  bestBid: number;
-  currentAsk: number;
 }

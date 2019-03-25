@@ -218,6 +218,7 @@
     },
     "BUTTON": {
       "EDIT_PROFILE": "Edit",
+      "OK": "OK",
       "SUBMIT": "Submit",
       "UPDATE": "Update",
       "CONFIRM": "Confirm",
@@ -246,7 +247,7 @@
       "DESCRIPTION": "Description",
       "PROPERTY": "Property",
       "EFFECTIVE_DATE": "Effective Date",
-      "COST": "Cost",
+      "COST": "Price",
       "BID": "Bid",
       "ASK": "Ask",
       "TRADE_HISTORY": "Trader History",

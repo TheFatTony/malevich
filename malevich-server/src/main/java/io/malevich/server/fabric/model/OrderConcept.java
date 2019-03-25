@@ -9,9 +9,9 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class OrderConcept  {
+public class OrderConcept {
 
-    private  String id;
+    private String id;
 
     private Double amount;
 

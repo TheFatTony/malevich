@@ -120,6 +120,7 @@ public class ArtworkStockServiceImpl implements ArtworkStockService {
         if(artworkStockEntity != null){
             artworkStockEntity.setInstantPrice(asset.getCurrentAsk());
             artworkStockEntity.setLastPrice(asset.getLastPrice());
+            artworkStockEntity.setBestBid(asset.getBestBid());
             this.artworkStockDao.save(artworkStockEntity);
         } else {
             // todo create?

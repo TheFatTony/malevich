@@ -24,14 +24,12 @@ public class ArtistEntity extends YAbstractPersistable<Long> {
     @Setter
     @Fetch(FetchMode.JOIN)
     @ManyToOne
-    @NotNull
     private FileEntity thumbnail;
 
     @Getter
     @Setter
     @Fetch(FetchMode.JOIN)
     @ManyToOne
-    @NotNull
     private FileEntity image;
 
     @Getter

@@ -5,6 +5,8 @@
         <mchNumberInput name="amount"
                         mchRequired
                         mchMultipleOf="10"
+                        [spinMode]="'simple'"
+                        [inputMode]="'simple'"
                         [decimalDigits]="0"
                         [(ngModel)]="amount"
         ></mchNumberInput>

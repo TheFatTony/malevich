@@ -6,17 +6,7 @@
     <changeSet author="harshilmelegant" id="help_category-data" dbms="mysql">
         <sql splitStatements="true" stripComments="true">
             INSERT INTO help_category (id, help_category_name_ml)
-            VALUES (1, JSON_OBJECT('en', 'Painting', 'ru', 'Картина')),
-            (2, JSON_OBJECT('en', 'Sculpture', 'ru', 'Скульптура')),
-            (3, JSON_OBJECT('en', 'Photography', 'ru', 'Фотография')),
-            (4, JSON_OBJECT('en', 'Digital Art', 'ru', 'Цифровое искусство')),
-            (5, JSON_OBJECT('en', 'Multimedia', 'ru', 'Мультимедиа')),
-            (6, JSON_OBJECT('en', 'Installation', 'ru', 'Инсталляция')),
-            (7, JSON_OBJECT('en', 'Artistic handicrafts', 'ru', 'Художественные ремёсла')),
-            (8, JSON_OBJECT('en', 'Prints and Engravings', 'ru', 'Отпечатки и Гравюры')),
-            (9, JSON_OBJECT('en', 'Calligraphy', 'ru', 'Каллиграфия')),
-            (10, JSON_OBJECT('en', 'Artistic composition', 'ru', 'Художественная композиция')),
-            (11, JSON_OBJECT('en', 'Drawing', 'ru', 'Рисунок'));
+            VALUES (1, JSON_OBJECT('en', 'Main', 'ru', 'Главное'));
         </sql>
     </changeSet>
 

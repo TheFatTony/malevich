@@ -1,3 +1,3 @@
 #!/usr/bin/env bash
 
-scp -i "~/Documents/amazon/blckkey.pem" malevich-network/target/malevich-network.bna ec2-user@ec2-35-173-181-233.compute-1.amazonaws.com:~/conf/composer
+scp -i "~/Documents/amazon/blckkey.pem" malevich-network/target/malevich-network.bna ubuntu@ec2-54-166-198-178.compute-1.amazonaws.com:~

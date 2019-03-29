@@ -7,7 +7,7 @@ import {TermsAndConditionsService} from "../../../_services/terms-and-conditions
 import {UserService} from "../../../_services/user.service";
 import {UserTypeService} from "../../../_services/user-type.service";
 import {RegisterFormDto} from "../../../_transfer/registerFormDto";
-import {UserTypeDto} from '../../../../../node_modules/yinyang-core';
+import {AlertService, UserTypeDto} from '../../../../../node_modules/yinyang-core';
 
 @Component({
   selector: 'app-auth-register-step-one',
@@ -33,7 +33,8 @@ export class StepOneComponent implements OnInit, AfterViewInit {
               private userService: UserService,
               private userTypeService: UserTypeService,
               private subscriptionService: SubscriptionService,
-              private termsAndConditionsService: TermsAndConditionsService) {
+              private termsAndConditionsService: TermsAndConditionsService,
+              private alertService: AlertService) {
   }
 
   ngOnInit() {
@@ -63,7 +64,9 @@ export class StepOneComponent implements OnInit, AfterViewInit {
     info.userType = this.userTypeSelected;
 
     this.userService.register(this.translate.currentLang, info)
-      .subscribe();
+      .subscribe(() => {
+        this.alertService.success(this.translate.instant('ALERT.REGISTER.MAIL_SENT', {email: info.userName}));
+      });
 
     if (this.subscribe) {
       let subscription = new SubscriptionDto();

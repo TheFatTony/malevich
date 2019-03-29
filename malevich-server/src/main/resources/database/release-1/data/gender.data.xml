@@ -7,7 +7,8 @@
         <sql splitStatements="true" stripComments="true">
             INSERT INTO gender (id, name_ml)
             VALUES ('M', JSON_OBJECT('en', 'Male', 'ru', 'Мужской')),
-                   ('F', JSON_OBJECT('en', 'Female', 'ru', 'Женский'));
+                   ('F', JSON_OBJECT('en', 'Female', 'ru', 'Женский')),
+                   ('X', JSON_OBJECT('en', 'Other', 'ru', 'Другой'));
         </sql>
     </changeSet>
 

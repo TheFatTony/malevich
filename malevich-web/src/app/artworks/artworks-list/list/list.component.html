@@ -2,6 +2,12 @@
   <div class="row g-pt-30">
     <figure class="col-6 col-sm-5 col-lg-4 g-mb-30">
       <img class="img-fluid" src="{{url}}{{artworkStock.artwork.thumbnail.url}}" alt="Image Description">
+      <span *ngIf="isOwn(artworkStock)"
+            class="u-ribbon-v1 g-width-40 g-height-40 g-color-white g-bg-primary g-font-size-15 text-center text-uppercase g-rounded-50x g-top-10 g-right-minus-10 g-px-2 g-py-10"
+            ngbTooltip="This is my artwork"
+      >
+          <i class="icon-education-031 u-line-icon-pro g-font-size-18"></i>
+        </span>
     </figure>
 
     <div class="col-6 col-sm-7 col-lg-8 g-mb-15">

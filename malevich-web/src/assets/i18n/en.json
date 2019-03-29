@@ -272,5 +272,10 @@
     "NOT_FOUND": "Not found",
     "HOME_PAGE": "Home page"
   },
-  "EDIT": "Edit"
+  "EDIT": "Edit",
+  "ALERT":{
+    "REGISTER":{
+      "MAIL_SENT": "Registration info email was sent to {{email}}. Check your inbox and spam folders"
+    }
+  }
 }

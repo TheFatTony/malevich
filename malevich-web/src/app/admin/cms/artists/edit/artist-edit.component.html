@@ -7,7 +7,7 @@
           <div>
             <jqxFileUpload
               [width]="'100%'" [uploadUrl]="url + 'files/uploadFile'" [fileInputName]="'file'"
-              (onUploadEnd)="onImageUploadEnd($event)" [multipleFilesUpload]="false" [autoUpload]="false">
+              (onUploadEnd)="onImageUploadEnd($event)" [multipleFilesUpload]="false" [autoUpload]="true">
             </jqxFileUpload>
           </div>
         </div>
@@ -17,7 +17,7 @@
           <div>
             <jqxFileUpload
               [width]="'100%'" [uploadUrl]="url + 'files/uploadFile'" [fileInputName]="'file'"
-              (onUploadEnd)="onThumbnailUploadEnd($event)" [multipleFilesUpload]="false" [autoUpload]="false">
+              (onUploadEnd)="onThumbnailUploadEnd($event)" [multipleFilesUpload]="false" [autoUpload]="true">
             </jqxFileUpload>
           </div>
         </div>

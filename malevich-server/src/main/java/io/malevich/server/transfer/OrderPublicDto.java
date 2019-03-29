@@ -10,7 +10,7 @@ import lombok.Setter;
 @Setter
 public class OrderPublicDto {
 
-//    @JsonView({View.Admin.class, View.Gallery.class, View.Trader.class})
+    @JsonView({View.Admin.class, View.Gallery.class, View.Trader.class})
     private String id;
 
     private OrderTypeDto type;

@@ -1,8 +1,10 @@
 package io.malevich.server.fabric.services.gallery;
 
 import com.yinyang.core.server.fabric.GenericComposerServiceImpl;
+import io.malevich.server.domain.FabricObjectsEntity;
 import io.malevich.server.domain.ParticipantEntity;
 import io.malevich.server.fabric.model.GalleryParticipant;
+import io.malevich.server.services.fabricobjects.FabricObjectsService;
 import io.malevich.server.services.participant.ParticipantService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,6 +26,9 @@ public class GalleryParticipantServiceImpl extends GenericComposerServiceImpl<Pa
     @Autowired
     private ParticipantService participantService;
 
+    @Autowired
+    private FabricObjectsService fabricObjectsService;
+
     public GalleryParticipantServiceImpl() {
         super("Gallery");
     }
@@ -37,6 +42,13 @@ public class GalleryParticipantServiceImpl extends GenericComposerServiceImpl<Pa
         galleryParticipant.setBonuses(0D);
 
         doPost(galleryParticipant);
+
+        FabricObjectsEntity fabricObjectsEntity = new FabricObjectsEntity();
+        fabricObjectsEntity.setReferenceId(entity.getId().toString());
+        fabricObjectsEntity.setTypeId("Gallery");
+        fabricObjectsEntity.setPayload(entity);
+
+        fabricObjectsService.save(fabricObjectsEntity);
     }
 
     @Override

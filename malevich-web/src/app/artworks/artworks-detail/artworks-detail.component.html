@@ -60,21 +60,26 @@
         <ng-container *ngIf="tradingAccess.read">
           <div *ngIf="artworkStock.instantPrice" class="g-mb-30">
             <h2 class="g-color-gray-dark-v5 g-font-weight-400 g-font-size-12 text-uppercase mb-2">
-              Instant Price
+              Buy now for
             </h2>
+
             <a href="javascript:void(0)" (click)="instantPriceClick()">
-            <span class="g-color-black g-font-weight-500 g-font-size-30 mr-2">
-                {{artworkStock.instantPrice | number:'1.0-2'}} SQR
-              </span>
+              <span class="g-color-black g-font-weight-500 g-font-size-30 mr-2">
+                  {{artworkStock.instantPrice | number:'1.0-2'}} SQR</span>
             </a>
+            <span class="g-color-gray-dark-v5 g-font-size-14" ngbTooltip="1 SQR = 1 EUR" container="body"
+                  style="bottom: 15px; position: relative">[?]</span>
+
+
           </div>
           <div *ngIf="!artworkStock.instantPrice && artworkStock.lastPrice" class="g-mb-30">
             <h2 class="g-color-gray-dark-v5 g-font-weight-400 g-font-size-12 text-uppercase mb-2">
               Last Price
             </h2>
             <span class="g-color-gray-dark-v4 g-font-weight-500 g-font-size-30 mr-2">
-                {{artworkStock.lastPrice | number:'1.0-2'}} SQR
-              </span>
+                {{artworkStock.lastPrice | number:'1.0-2'}} SQR</span>
+            <span class="g-color-gray-dark-v5 g-font-size-14" ngbTooltip="1 SQR = 1 EUR" container="body"
+                  style="bottom: 15px; position: relative">[?]</span>
           </div>
         </ng-container>
         <!-- End Price -->

@@ -1,6 +1,8 @@
 package io.malevich.server.services.termsandconditions;
 
 
+import com.sun.org.apache.bcel.internal.generic.NEW;
+import com.yinyang.core.server.domain.UserTypeEntity;
 import com.yinyang.core.server.services.usertype.UserTypeService;
 import com.yinyang.core.server.transfer.UserTypeDto;
 import io.malevich.server.transfer.TermsAndConditionsDto;
@@ -12,7 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.io.StringWriter;
-import java.util.List;
+import java.util.*;
 import java.util.stream.Collectors;
 
 
@@ -29,17 +31,21 @@ public class TermsAndConditionsServiceImpl implements TermsAndConditionsService 
     @Autowired
     private ModelMapper modelMapper;
 
-    private String getText(String template) {
-        VelocityContext context = new VelocityContext();
+    private String getText(String template, Map<String, Object> context) {
+        VelocityContext velocityContext = new VelocityContext(context);
         StringWriter stringWriter = new StringWriter();
 
         velocityEngine.mergeTemplate(
                 template,
                 "UTF-8",
-                context,
+                velocityContext,
                 stringWriter);
 
         return stringWriter.toString();
+    }
+
+    private String getText(String template) {
+        return getText(template, Collections.emptyMap());
     }
 
     @Override
@@ -58,5 +64,19 @@ public class TermsAndConditionsServiceImpl implements TermsAndConditionsService 
                     return result;
                 })
                 .collect(Collectors.toList());
+    }
+
+    @Override
+    public String getHtmlByUserType(UserTypeEntity userTypeEntity) {
+        HashMap<String, Object> context = new HashMap<String, Object>(){
+            {
+                put("userType", userTypeEntity.getTypeName());
+            }
+        };
+
+        String text =
+                getText("templates/pages/terms_and_conditions.vm", context);
+
+        return text;
     }
 }

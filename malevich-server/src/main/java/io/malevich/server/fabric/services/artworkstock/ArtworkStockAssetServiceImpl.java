@@ -2,8 +2,10 @@ package io.malevich.server.fabric.services.artworkstock;
 
 import com.yinyang.core.server.fabric.GenericComposerServiceImpl;
 import io.malevich.server.domain.ArtworkStockEntity;
+import io.malevich.server.domain.FabricObjectsEntity;
 import io.malevich.server.domain.ParticipantEntity;
 import io.malevich.server.fabric.model.ArtworkStockAsset;
+import io.malevich.server.services.fabricobjects.FabricObjectsService;
 import io.malevich.server.services.participant.ParticipantService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,6 +28,9 @@ public class ArtworkStockAssetServiceImpl extends GenericComposerServiceImpl<Art
     @Autowired
     private ParticipantService participantService;
 
+    @Autowired
+    private FabricObjectsService fabricObjectsService;
+
 
     public ArtworkStockAssetServiceImpl() {
         super("ArtworkStock");
@@ -45,6 +50,13 @@ public class ArtworkStockAssetServiceImpl extends GenericComposerServiceImpl<Art
         artworkStockAsset.setHolder("resource:io.malevich.network.Gallery#" + entity.getGallery().getId().toString());
 
         doPost(artworkStockAsset);
+
+        FabricObjectsEntity fabricObjectsEntity = new FabricObjectsEntity();
+        fabricObjectsEntity.setReferenceId(entity.getId().toString());
+        fabricObjectsEntity.setTypeId("ArtworkStock");
+        fabricObjectsEntity.setPayload(entity);
+
+        fabricObjectsService.save(fabricObjectsEntity);
     }
 
     @Override

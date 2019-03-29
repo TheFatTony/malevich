@@ -1,10 +1,12 @@
 package io.malevich.server.fabric.services.cancelorder;
 
 import com.yinyang.core.server.fabric.GenericComposerServiceImpl;
+import io.malevich.server.domain.FabricObjectsEntity;
 import io.malevich.server.domain.OrderEntity;
 import io.malevich.server.domain.ParticipantEntity;
 import io.malevich.server.fabric.model.OrderConcept;
 import io.malevich.server.fabric.model.OrderTransaction;
+import io.malevich.server.services.fabricobjects.FabricObjectsService;
 import io.malevich.server.services.participant.ParticipantService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +18,10 @@ import java.util.UUID;
 @Slf4j
 @Service
 public class CancelOrderTransactionServiceImpl extends GenericComposerServiceImpl<OrderEntity> implements CancelOrderTransactionService {
+
+
+    @Autowired
+    private FabricObjectsService fabricObjectsService;
 
     public CancelOrderTransactionServiceImpl() {
         super("CancelOrder");
@@ -43,6 +49,13 @@ public class CancelOrderTransactionServiceImpl extends GenericComposerServiceImp
         orderTransaction.getOrder().setCounterparty(fabricClass + entity.getParticipant().getId());
 
         doPost(orderTransaction);
+
+        FabricObjectsEntity fabricObjectsEntity = new FabricObjectsEntity();
+        fabricObjectsEntity.setReferenceId(entity.getId().toString());
+        fabricObjectsEntity.setTypeId("CancelOrder");
+        fabricObjectsEntity.setPayload(entity);
+
+        fabricObjectsService.save(fabricObjectsEntity);
     }
 
 

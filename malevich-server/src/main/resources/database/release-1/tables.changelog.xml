@@ -48,5 +48,6 @@
     <include relativeToChangelogFile="true" file="tables/revolut_withdrawal_history.table.xml"/>
     <include relativeToChangelogFile="true" file="tables/revolut_transaction.table.xml"/>
     <include relativeToChangelogFile="true" file="tables/parameter.table.xml"/>
+    <include relativeToChangelogFile="true" file="tables/fabric_objects.table.xml"/>
 
 </databaseChangeLog>

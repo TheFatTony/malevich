@@ -1,9 +1,11 @@
 package io.malevich.server.fabric.services.payment;
 
 import com.yinyang.core.server.fabric.GenericComposerServiceImpl;
+import io.malevich.server.domain.FabricObjectsEntity;
 import io.malevich.server.domain.ParticipantEntity;
 import io.malevich.server.domain.PaymentsEntity;
 import io.malevich.server.fabric.model.PaymentTransaction;
+import io.malevich.server.services.fabricobjects.FabricObjectsService;
 import io.malevich.server.services.participant.ParticipantService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,6 +26,9 @@ public class PaymentTransactionServiceImpl extends GenericComposerServiceImpl<Pa
 
     @Autowired
     private ParticipantService participantService;
+
+    @Autowired
+    private FabricObjectsService fabricObjectsService;
 
 
     public PaymentTransactionServiceImpl() {
@@ -46,6 +51,13 @@ public class PaymentTransactionServiceImpl extends GenericComposerServiceImpl<Pa
         paymentTransaction.setPaymentType(entity.getPaymentType().getId());
 
         doPost(paymentTransaction);
+
+        FabricObjectsEntity fabricObjectsEntity = new FabricObjectsEntity();
+        fabricObjectsEntity.setReferenceId(entity.getId().toString());
+        fabricObjectsEntity.setTypeId("Payment");
+        fabricObjectsEntity.setPayload(entity);
+
+        fabricObjectsService.save(fabricObjectsEntity);
     }
 
     @Override

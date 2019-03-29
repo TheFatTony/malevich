@@ -1,11 +1,13 @@
 package io.malevich.server.fabric.services.order;
 
 import com.yinyang.core.server.fabric.GenericComposerServiceImpl;
+import io.malevich.server.domain.FabricObjectsEntity;
 import io.malevich.server.domain.OrderEntity;
 import io.malevich.server.domain.ParticipantEntity;
 import io.malevich.server.fabric.model.OrderAsset;
 import io.malevich.server.fabric.model.OrderConcept;
 import io.malevich.server.fabric.model.OrderTransaction;
+import io.malevich.server.services.fabricobjects.FabricObjectsService;
 import io.malevich.server.services.participant.ParticipantService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,6 +29,9 @@ public class OrderTransactionServiceImpl extends GenericComposerServiceImpl<Orde
 
     @Autowired
     private ParticipantService participantService;
+
+    @Autowired
+    private FabricObjectsService fabricObjectsService;
 
 
     public OrderTransactionServiceImpl() {
@@ -59,6 +64,13 @@ public class OrderTransactionServiceImpl extends GenericComposerServiceImpl<Orde
         orderTransaction.getOrder().setCounterparty(fabricClass + participantEntity.getId());
 
         doPost(orderTransaction);
+
+        FabricObjectsEntity fabricObjectsEntity = new FabricObjectsEntity();
+        fabricObjectsEntity.setReferenceId(entity.getId().toString());
+        fabricObjectsEntity.setTypeId("Order");
+        fabricObjectsEntity.setPayload(entity);
+
+        fabricObjectsService.save(fabricObjectsEntity);
     }
 
     @Override

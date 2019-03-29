@@ -1,8 +1,10 @@
 package io.malevich.server.fabric.services.malevich;
 
 import com.yinyang.core.server.fabric.GenericComposerServiceImpl;
+import io.malevich.server.domain.FabricObjectsEntity;
 import io.malevich.server.domain.ParticipantEntity;
 import io.malevich.server.fabric.model.MalevichParticipant;
+import io.malevich.server.services.fabricobjects.FabricObjectsService;
 import io.malevich.server.services.participant.ParticipantService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,6 +24,9 @@ public class MalevichParticipantServiceImpl extends GenericComposerServiceImpl<P
     @Autowired
     private ParticipantService participantService;
 
+    @Autowired
+    private FabricObjectsService fabricObjectsService;
+
     public MalevichParticipantServiceImpl() {
         super("Malevich");
     }
@@ -35,6 +40,13 @@ public class MalevichParticipantServiceImpl extends GenericComposerServiceImpl<P
         galleryParticipant.setBonuses(0D);
 
         doPost(galleryParticipant);
+
+        FabricObjectsEntity fabricObjectsEntity = new FabricObjectsEntity();
+        fabricObjectsEntity.setReferenceId(entity.getId().toString());
+        fabricObjectsEntity.setTypeId("Malevich");
+        fabricObjectsEntity.setPayload(entity);
+
+        fabricObjectsService.save(fabricObjectsEntity);
     }
 
     @Override

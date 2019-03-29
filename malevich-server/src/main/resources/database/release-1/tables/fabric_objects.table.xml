@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.6.xsd">
+
+    <changeSet author="thefattony" id="fabric_objects-table">
+        <createTable tableName="fabric_objects">
+            <column name="id" type="bigint">
+                <constraints nullable="false"/>
+            </column>
+            <column name="type_id" type="varchar(1000)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="reference_id" type="char(100)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="payload" type="json">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+    <changeSet author="thefattony" id="fabric_objects-pk">
+        <addPrimaryKey columnNames="id" constraintName="fabric_objects_pk" tableName="fabric_objects"/>
+    </changeSet>
+
+    <changeSet author="thefattony" id="fabric_objects-id-aa" dbms="mysql">
+        <addAutoIncrement columnDataType="bigint" columnName="id" tableName="fabric_objects"/>
+    </changeSet>
+
+</databaseChangeLog>

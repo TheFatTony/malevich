@@ -45,8 +45,22 @@ export class StepOneComponent implements OnInit, AfterViewInit {
   }
 
   getUserTypes() {
+    const sorting: { [name: string]: number } = {
+      'Individual': 1,
+      'Organization': 2,
+      'Gallery': 3
+    };
+
+    const getSorting = (t: UserTypeDto) => sorting[t.typeName] || 100;
+
     this.userTypeService.getAll()
-      .subscribe(data => (this.userTypes = data.filter(t => t.typeName != 'Malevich')));
+      .subscribe(data => {
+        this.userTypes = data
+          .filter(t => t.typeName != 'Malevich')
+          .sort((a, b) => {
+            return getSorting(a) - getSorting(b);
+          });
+      });
   }
 
   ngAfterViewInit(): void {

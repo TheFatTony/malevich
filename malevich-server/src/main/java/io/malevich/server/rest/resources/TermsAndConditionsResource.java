@@ -1,8 +1,7 @@
 package io.malevich.server.rest.resources;
 
-import com.yinyang.core.server.domain.UserTypeEntity;
-import com.yinyang.core.server.transfer.UserTypeDto;
 import io.malevich.server.services.termsandconditions.TermsAndConditionsService;
+import io.malevich.server.transfer.TermsAndConditionsDto;
 import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,15 +17,12 @@ public class TermsAndConditionsResource {
     @Autowired
     private TermsAndConditionsService termsAndConditionsService;
 
-    @Autowired
-    private ModelMapper modelMapper;
-
-    @PostMapping(value = "")
+    @GetMapping(value = "/{id}")
     @ResponseStatus(HttpStatus.OK)
-    public String getHtml(@RequestBody UserTypeDto userType) {
-        UserTypeEntity userTypeEntity = modelMapper.map(userType, UserTypeEntity.class);
-        String result = termsAndConditionsService.getHtmlByUserType(userTypeEntity);
+    public TermsAndConditionsDto getHtml(@PathVariable("id") Long userTypeId) {
+        TermsAndConditionsDto result = termsAndConditionsService.getHtmlByUserTypeId(userTypeId);
         return result;
     }
+
 
 }

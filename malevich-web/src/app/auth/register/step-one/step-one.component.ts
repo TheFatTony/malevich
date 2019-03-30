@@ -1,4 +1,4 @@
-import {AfterViewInit, Component, OnInit} from '@angular/core';
+import {AfterViewInit, Component, OnInit, ViewChild} from '@angular/core';
 import {TranslateService} from "@ngx-translate/core";
 import {Router} from "@angular/router";
 import {SubscriptionService} from "../../../_services/subscription.service";
@@ -8,6 +8,7 @@ import {UserService} from "../../../_services/user.service";
 import {UserTypeService} from "../../../_services/user-type.service";
 import {RegisterFormDto} from "../../../_transfer/registerFormDto";
 import {AlertService, UserTypeDto} from '../../../../../node_modules/yinyang-core';
+import {WindowComponent} from "../../../common/components/window/window.component";
 
 @Component({
   selector: 'app-auth-register-step-one',
@@ -16,10 +17,12 @@ import {AlertService, UserTypeDto} from '../../../../../node_modules/yinyang-cor
 })
 export class StepOneComponent implements OnInit, AfterViewInit {
 
+  @ViewChild('licenceModal') licenceWindow: WindowComponent;
+
   email: string = "";
   agreementAccepted: boolean = false;
   subscribe: boolean = false;
-  termsAndConditions: { [type: string]: string } = {};
+  termsAndConditions: string;
 
   userTypes: UserTypeDto[];
   userTypeSelected: UserTypeDto;
@@ -39,14 +42,6 @@ export class StepOneComponent implements OnInit, AfterViewInit {
 
   ngOnInit() {
     this.getUserTypes();
-    this.termsAndConditionsService.getHtml(this.translate.currentLang)
-      .subscribe(data => {
-        if (!data) return;
-
-        data.forEach(i => {
-          this.termsAndConditions[i.userType.typeName] = i.htmlText;
-        });
-      });
   }
 
   getUserTypes() {
@@ -77,4 +72,11 @@ export class StepOneComponent implements OnInit, AfterViewInit {
     this.router.navigate(['/main-page']);
   }
 
+  openLicence() {
+    this.termsAndConditionsService.getHtml(this.userTypeSelected)
+      .subscribe(data => {
+        this.termsAndConditions = data.htmlText;
+        this.licenceWindow.open();
+      });
+  }
 }

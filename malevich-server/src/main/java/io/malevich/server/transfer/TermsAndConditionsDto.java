@@ -12,6 +12,4 @@ public class TermsAndConditionsDto {
 
     private String htmlText;
 
-    private UserTypeDto userType;
-
 }

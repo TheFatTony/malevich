@@ -1,7 +1,6 @@
 package io.malevich.server.services.termsandconditions;
 
 
-import com.sun.org.apache.bcel.internal.generic.NEW;
 import com.yinyang.core.server.domain.UserTypeEntity;
 import com.yinyang.core.server.services.usertype.UserTypeService;
 import com.yinyang.core.server.transfer.UserTypeDto;
@@ -14,7 +13,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.io.StringWriter;
-import java.util.*;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 
@@ -49,34 +51,21 @@ public class TermsAndConditionsServiceImpl implements TermsAndConditionsService 
     }
 
     @Override
-    public List<TermsAndConditionsDto> getByLang(String lang) {
+    public TermsAndConditionsDto getHtmlByUserTypeId(Long userTypeId) {
+        UserTypeEntity userTypeEntity = userTypeService.getOne(userTypeId);
 
-        return userTypeService.findAll()
-                .stream()
-                .map(type -> {
-                    TermsAndConditionsDto result = new TermsAndConditionsDto();
-                    UserTypeDto typeDto = modelMapper.map(type, UserTypeDto.class);
-                    String text =
-                            getText("templates/pages/terms_and_conditions_" +
-                                    type.getTypeName() + "_" + lang + ".vm");
-                    result.setUserType(typeDto);
-                    result.setHtmlText(text);
-                    return result;
-                })
-                .collect(Collectors.toList());
-    }
+        if (userTypeEntity == null)
+            return null;
 
-    @Override
-    public String getHtmlByUserType(UserTypeEntity userTypeEntity) {
-        HashMap<String, Object> context = new HashMap<String, Object>(){
-            {
-                put("userType", userTypeEntity.getTypeName());
-            }
-        };
+        HashMap<String, Object> context = new HashMap<>();
+        context.put("userType", userTypeEntity.getTypeName());
 
         String text =
                 getText("templates/pages/terms_and_conditions.vm", context);
 
-        return text;
+        TermsAndConditionsDto result = new TermsAndConditionsDto();
+        result.setHtmlText(text);
+
+        return result;
     }
 }

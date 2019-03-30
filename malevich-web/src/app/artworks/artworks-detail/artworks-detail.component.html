@@ -533,5 +533,5 @@
 </mch-confirm-window>
 
 <mch-confirm-window #confirmInstantBuy (onOk)="instantBuy()">
-  <p>Are you sure you want to buy this artwork for {{artworkStock.instantPrice | number:'1.0-2'}} SQR?</p>
+  <p>Are you sure you want to buy this artwork for {{artworkStock?.instantPrice | number:'1.0-2'}} SQR?</p>
 </mch-confirm-window>

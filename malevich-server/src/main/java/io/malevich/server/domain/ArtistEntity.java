@@ -13,6 +13,7 @@ import javax.persistence.Convert;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
+import java.sql.Timestamp;
 import java.util.Map;
 
 
@@ -44,5 +45,13 @@ public class ArtistEntity extends YAbstractPersistable<Long> {
     @Convert(converter = JpaConverterJson.class)
     @Column(name = "description_ml")
     private Map<String, String> descriptionMl;
+
+    @Getter
+    @Setter
+    private Timestamp dateOfBirth;
+
+    @Getter
+    @Setter
+    private Timestamp dateOfDeath;
 
 }

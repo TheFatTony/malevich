@@ -28,14 +28,34 @@ import java.util.Arrays;
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     private static final String[] PUBLIC_MATCHERS = {
-            "**"
     };
+
     private static final String[] PUBLIC_MATCHERS_GET = {
+            "/artworkstock/getOwnArtworks",
+            "/categories/list",
+            "/wishlist/list_all",
+            "/counters/involvementCounters",
+            "/userType/list",
+            "/galleries/list",
+            "/artists/list",
+            "/help/topic/*",
+            "/help/categoryList",
+            "/userType/list",
+            "/files/downloadFile/*"
     };
+
     private static final String[] PUBLIC_MATCHERS_POST = {
+            "/auth/authenticate",
+            "/artworkstock/filter",
+            "/contactus/save",
+            "/user/register",
+            "/user/register/*",
+            "/files/uploadFile"
     };
+
     private static final String[] PUBLIC_MATCHERS_PUT = {
     };
+
     private static final String[] PUBLIC_MATCHERS_DELETE = {
     };
 

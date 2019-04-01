@@ -34,7 +34,8 @@
       <span class="d-block u-check-icon-checkbox-v6 g-absolute-centered--y g-left-0">
                       <i class="fa" data-check-icon=""></i>
                     </span>
-      {{'REGISTER.STEP_ONE.ACCEPT' | translate}} <a href="#modal1" data-modal-target="#modal1" data-modal-effect="fadein">
+      {{'REGISTER.STEP_ONE.ACCEPT' | translate}} <a href="javascript:void(0);"
+                                                    (click)="openLicence()">
       {{'REGISTER.STEP_ONE.TERMS_AND_CONDITIONS' | translate}}</a>
     </label>
   </div>
@@ -61,11 +62,15 @@
 </form>
 <!-- End Form -->
 
-<!-- Demo modal window -->
-<div id="modal1" class="text-left g-max-width-600 g-bg-white g-overflow-y-auto g-pa-20" style="display: none;">
-  <button type="button" class="close" onclick="Custombox.modal.close();">
+<mch-window #licenceModal>
+  <button type="button" class="close" (click)="licenceModal.close();">
     <i class="hs-icon hs-icon-close"></i>
   </button>
-  <div [innerHTML]="termsAndConditions[userTypeSelected?.typeName]"></div>
-</div>
-<!-- End Demo modal window -->
+  <div class="container g-px-40--md">
+    <div class="row">
+      <div class="col">
+        <div [innerHTML]="termsAndConditions"></div>
+      </div>
+    </div>
+  </div>
+</mch-window>

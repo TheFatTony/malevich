@@ -10,7 +10,8 @@ import {createTranslateLoader} from "../../app.module";
 import {OrderEditComponent} from './order-edit/order-edit.component';
 import {PagesNavigationComponent} from './pages-navigation/pages-navigation.component';
 import {NgbModule} from "@ng-bootstrap/ng-bootstrap";
-import { ConfirmWindowComponent } from './confirm-window/confirm-window.component';
+import {ConfirmWindowComponent} from './confirm-window/confirm-window.component';
+import {WindowComponent} from "./window/window.component";
 
 @NgModule({
   declarations: [
@@ -18,7 +19,8 @@ import { ConfirmWindowComponent } from './confirm-window/confirm-window.componen
     ArtworkEditComponent,
     OrderEditComponent,
     PagesNavigationComponent,
-    ConfirmWindowComponent
+    ConfirmWindowComponent,
+    WindowComponent
   ],
   imports: [
     CommonModule,
@@ -39,7 +41,8 @@ import { ConfirmWindowComponent } from './confirm-window/confirm-window.componen
     OrderEditComponent,
     ArtworkEditComponent,
     PagesNavigationComponent,
-    ConfirmWindowComponent
+    ConfirmWindowComponent,
+    WindowComponent
   ]
 })
 export class CommonComponentsModule {

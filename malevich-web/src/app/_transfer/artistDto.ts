@@ -6,4 +6,6 @@ export class ArtistDto {
   image: FileDto;
   fullNameMl: Map<string, string>;
   descriptionMl: Map<string, string>;
+  dateOfBirth: Date;
+  dateOfDeath: Date;
 }

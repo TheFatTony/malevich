@@ -4,6 +4,7 @@ import {KycLevelService} from "../_services/kyc-level.service";
 import {Observable, Subject} from "rxjs";
 import {ParticipantService} from "../_services/participant.service";
 import {mergeMap} from "rxjs/operators";
+import {KycLevel} from "../_transfer/kycLevelDto";
 
 @Injectable({
   providedIn: 'root'
@@ -30,7 +31,7 @@ export class KycGuard implements CanActivate, CanActivateChild {
   private canActivateInternal(
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): Observable<boolean> | boolean {
-    const levels = route.data['kycLevels'] as string[];
+    const levels = route.data['kycLevels'] as KycLevel[];
 
     if (!levels || !levels.length)
       return true;

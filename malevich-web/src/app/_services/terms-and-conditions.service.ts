@@ -1,6 +1,7 @@
-import { Injectable } from '@angular/core';
+import {Injectable} from '@angular/core';
 import {environment} from "../../environments/environment.dev";
 import {HttpClient} from "@angular/common/http";
+import {UserTypeDto} from "yinyang-core";
 import {TermsAndConditionsDto} from "../_transfer/termsAndConditions";
 
 @Injectable({
@@ -13,8 +14,8 @@ export class TermsAndConditionsService {
   constructor(private http: HttpClient) {
   }
 
-  getHtml(lang: string) {
-    return this.http.get<TermsAndConditionsDto[]>(this.url + '/' + lang);
+  getHtml(userType: UserTypeDto) {
+    return this.http.get<TermsAndConditionsDto>(this.url + `/${userType.id}`);
   }
 
 }

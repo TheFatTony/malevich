@@ -8,5 +8,7 @@ import java.util.List;
 
 @Service
 public interface TermsAndConditionsService {
-    List<TermsAndConditionsDto> getByLang(String lang);
+
+    TermsAndConditionsDto getHtmlByUserTypeId(Long userTypeId);
+
 }

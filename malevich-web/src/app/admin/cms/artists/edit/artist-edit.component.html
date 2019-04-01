@@ -41,6 +41,24 @@
                 [height]="'200px'" mchRequired></mchTextArea>
             </div>
           </div>
+          <div class="g-mb-10">
+            <label>Date Of Birth:</label>
+            <div>
+              <mchDateTimeInput
+                name="dateOfBirth"
+                [(ngModel)]="editArtist.dateOfBirth"
+              ></mchDateTimeInput>
+            </div>
+          </div>
+          <div class="g-mb-10">
+            <label>Date Of Death:</label>
+            <div>
+              <mchDateTimeInput
+                name="dateOfDeath"
+                [(ngModel)]="editArtist.dateOfDeath"
+              ></mchDateTimeInput>
+            </div>
+          </div>
         </form>
         <div class="text-center">
           <mchButton [submitForm]="f"

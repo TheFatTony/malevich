@@ -41,7 +41,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
             "/help/topic/*",
             "/help/categoryList",
             "/userType/list",
-            "/files/downloadFile/*"
+            "/files/downloadFile/*",
+            "/termsAndConditions/*"
     };
 
     private static final String[] PUBLIC_MATCHERS_POST = {

@@ -2,7 +2,9 @@ package io.malevich.server.scheduling;
 
 import io.malevich.server.bitcoin.BitcoinService;
 import lombok.extern.slf4j.Slf4j;
+import org.bitcoinj.core.Context;
 import org.bitcoinj.core.InsufficientMoneyException;
+import org.bitcoinj.store.BlockStoreException;
 import org.bitcoinj.wallet.UnreadableWalletException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
@@ -19,9 +21,12 @@ public class BitcoinBalanceCheck {
     private BitcoinService bitcoinService;
 
 
+    @Autowired
+    private Context context;
     @Scheduled(initialDelay = 2000, fixedDelay = 10000)
     public void checkBalance() {
         try {
+            Context.propagate(context);
             bitcoinService.checkBalance();
         } catch (UnreadableWalletException e) {
             e.printStackTrace();
@@ -32,6 +37,8 @@ public class BitcoinBalanceCheck {
         } catch (ExecutionException e) {
             e.printStackTrace();
         } catch (IOException e) {
+            e.printStackTrace();
+        } catch (BlockStoreException e) {
             e.printStackTrace();
         }
     }

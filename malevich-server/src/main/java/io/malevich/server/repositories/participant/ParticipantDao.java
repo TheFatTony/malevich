@@ -11,7 +11,8 @@ import java.util.Optional;
 @Repository
 public interface ParticipantDao extends JpaRepository<ParticipantEntity, Long> {
 
-    @Query("select pe from ParticipantEntity pe left join pe.country")
+    @Query("select pe from ParticipantEntity pe left join pe.country " +
+            "left join pe.type")
     List<ParticipantEntity> findAll();
 
     Optional<ParticipantEntity> findByUsers_Name(String name);

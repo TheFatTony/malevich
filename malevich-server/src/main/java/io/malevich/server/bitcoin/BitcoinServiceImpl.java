@@ -9,6 +9,9 @@ import io.malevich.server.services.bitcointransfers.BitcoinTransfers;
 import io.malevich.server.services.paymentmethodbitcoin.PaymentMethodBitcoinService;
 import lombok.extern.slf4j.Slf4j;
 import org.bitcoinj.core.*;
+import org.bitcoinj.net.discovery.DnsDiscovery;
+import org.bitcoinj.store.BlockStoreException;
+import org.bitcoinj.store.MemoryBlockStore;
 import org.bitcoinj.wallet.SendRequest;
 import org.bitcoinj.wallet.UnreadableWalletException;
 import org.bitcoinj.wallet.Wallet;
@@ -45,13 +48,17 @@ public class BitcoinServiceImpl implements BitcoinService {
     @Autowired
     private BitcoinTransfers bitcoinTransfers;
 
+    @Autowired
+    private PeerGroup peerGroup;
+
+
     protected BitcoinServiceImpl() {
     }
 
 
     @Override
     @Transactional
-    public void checkBalance() throws UnreadableWalletException, InterruptedException, InsufficientMoneyException, ExecutionException, IOException {
+    public void checkBalance() throws UnreadableWalletException, InterruptedException, InsufficientMoneyException, ExecutionException, IOException, BlockStoreException {
         List<PaymentMethodBitcoinEntity> accounts = paymentMethodBitcoinService.findAllAll();
 
         for (PaymentMethodBitcoinEntity account : accounts) {
@@ -81,18 +88,23 @@ public class BitcoinServiceImpl implements BitcoinService {
 
 
     @Override
-    public Transaction sendCoins(Wallet wallet, String destinationAddress, long satoshis) throws InsufficientMoneyException, ExecutionException, InterruptedException {
-        Address dest = Address.fromBase58(networkParameters, destinationAddress);
-        SendRequest request = null;
+    public Transaction sendCoins(Wallet wallet, String destinationAddress, long satoshis) throws InsufficientMoneyException, ExecutionException, InterruptedException, BlockStoreException {
+        peerGroup.downloadBlockChain();
+
         Wallet.SendResult result;
 
-        try {
-            request = SendRequest.to(dest, Coin.valueOf(satoshis - Transaction.DEFAULT_TX_FEE.getValue()));
-            result = wallet.sendCoins(request);
-        } catch (InsufficientMoneyException e) {
-            request = SendRequest.to(dest, Coin.valueOf(satoshis - Transaction.REFERENCE_DEFAULT_MIN_TX_FEE.getValue()));
-            result = wallet.sendCoins(request);
-        }
+        Coin value = Coin.valueOf(satoshis);
+        Address to = Address.fromBase58(networkParameters, destinationAddress);
+
+        Transaction transaction = new Transaction(networkParameters);
+
+        transaction.addInput(wallet.getUnspents().get(0));
+        transaction.addOutput(value, to);
+
+        SendRequest request = SendRequest.forTx(transaction);
+        request.feePerKb = Coin.valueOf(1000);
+
+        result = wallet.sendCoins(peerGroup, request);
 
 
         Transaction endTransaction = result.broadcastComplete.get();

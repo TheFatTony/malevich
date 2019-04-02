@@ -25,7 +25,7 @@ import java.util.Optional;
 public class ParticipantServiceImpl implements ParticipantService {
 
     @Autowired
-    private ParticipantDao dao;
+    private ParticipantDao participantDao;
 
     @Autowired
     private DelayedChangeService delayedChangeService;
@@ -50,13 +50,13 @@ public class ParticipantServiceImpl implements ParticipantService {
 
     @Override
     public List<ParticipantEntity> findAll() {
-        return dao.findAll();
+        return participantDao.findAll();
     }
 
     @Override
     @Transactional(readOnly = true)
     public Optional<ParticipantEntity> findById(Long participantId) {
-        return dao.findById(participantId);
+        return participantDao.findById(participantId);
     }
 
     @Override
@@ -67,7 +67,7 @@ public class ParticipantServiceImpl implements ParticipantService {
         if (userEntity == null)
             return null;
 
-        return dao.findByUsers_Name(userEntity.getUsername()).orElse(null);
+        return participantDao.findByUsers_Name(userEntity.getUsername()).orElse(null);
     }
 
     @Override
@@ -97,13 +97,13 @@ public class ParticipantServiceImpl implements ParticipantService {
     @Override
     @Transactional
     public ParticipantEntity saveAsIs(ParticipantEntity participantEntity) {
-        return dao.save(participantEntity);
+        return participantDao.save(participantEntity);
     }
 
     @Override
     @Transactional
     public ParticipantEntity save(ParticipantEntity participantEntity, UserEntity user) {
-        ParticipantEntity currentParticipant = dao.findByUsers_Name(user.getName()).orElse(null);
+        ParticipantEntity currentParticipant = participantDao.findByUsers_Name(user.getName()).orElse(null);
 
         boolean isNew = currentParticipant == null;
         if (!isNew) {
@@ -139,7 +139,7 @@ public class ParticipantServiceImpl implements ParticipantService {
 
         boolean isNew1 = participantEntity.isNew();
 
-        participantEntity = dao.save(participantEntity);
+        participantEntity = participantDao.save(participantEntity);
 
         if (isNew1) {
             if ("G".equals(participantEntity.getType().getId()))

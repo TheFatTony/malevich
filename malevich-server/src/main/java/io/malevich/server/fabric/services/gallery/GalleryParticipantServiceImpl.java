@@ -1,6 +1,7 @@
 package io.malevich.server.fabric.services.gallery;
 
 import com.yinyang.core.server.fabric.GenericComposerServiceImpl;
+import com.yinyang.core.server.services.auth.AuthService;
 import io.malevich.server.domain.FabricObjectsEntity;
 import io.malevich.server.domain.ParticipantEntity;
 import io.malevich.server.fabric.model.GalleryParticipant;
@@ -29,6 +30,9 @@ public class GalleryParticipantServiceImpl extends GenericComposerServiceImpl<Pa
     @Autowired
     private FabricObjectsService fabricObjectsService;
 
+    @Autowired
+    private AuthService authService;
+
     public GalleryParticipantServiceImpl() {
         super("Gallery");
     }
@@ -37,7 +41,7 @@ public class GalleryParticipantServiceImpl extends GenericComposerServiceImpl<Pa
     public void create(ParticipantEntity entity) {
         GalleryParticipant galleryParticipant = new GalleryParticipant();
         galleryParticipant.setId(entity.getId().toString());
-        galleryParticipant.setEmail(entity.getUser().getUsername());
+        galleryParticipant.setEmail(authService.getUserEntity().getUsername());
         galleryParticipant.setBalance(0D);
         galleryParticipant.setBonuses(0D);
 

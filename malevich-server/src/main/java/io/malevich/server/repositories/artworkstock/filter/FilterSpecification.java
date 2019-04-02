@@ -25,6 +25,9 @@ public class FilterSpecification implements Specification<ArtworkStockEntity> {
     public Predicate toPredicate(Root<ArtworkStockEntity> artworkStock, CriteriaQuery<?> criteriaQuery, CriteriaBuilder criteriaBuilder) {
 
         Join<ArtworkStockEntity, ArtworkEntity> artwork = artworkStock.join("artwork");
+        artwork.join("category");
+        artwork.join("thumbnail");
+        artwork.join("image");
 
         Predicate clause = null;
 

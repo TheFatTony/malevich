@@ -1,6 +1,7 @@
 package io.malevich.server.fabric.services.trader;
 
 import com.yinyang.core.server.fabric.GenericComposerServiceImpl;
+import com.yinyang.core.server.services.auth.AuthService;
 import io.malevich.server.domain.FabricObjectsEntity;
 import io.malevich.server.domain.ParticipantEntity;
 import io.malevich.server.fabric.model.TraderParticipant;
@@ -28,6 +29,9 @@ public class TraderParticipantServiceImpl extends GenericComposerServiceImpl<Par
     @Autowired
     private FabricObjectsService fabricObjectsService;
 
+    @Autowired
+    private AuthService authService;
+
     public TraderParticipantServiceImpl() {
         super("Trader");
     }
@@ -36,7 +40,7 @@ public class TraderParticipantServiceImpl extends GenericComposerServiceImpl<Par
     public void create(ParticipantEntity entity) {
         TraderParticipant traderParticipant = new TraderParticipant();
         traderParticipant.setId(entity.getId().toString());
-        traderParticipant.setEmail(entity.getUser().getUsername());
+        traderParticipant.setEmail(authService.getUserEntity().getUsername());
         traderParticipant.setBalance(0D);
         traderParticipant.setBonuses(0D);
 

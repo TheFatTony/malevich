@@ -54,7 +54,7 @@ public class ParticipantEntity extends YAbstractPersistable<Long> {
 
     @Getter
     @Setter
-    @LazyCollection(LazyCollectionOption.FALSE)
+    @LazyCollection(LazyCollectionOption.TRUE)
     @OneToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     @JoinTable(name = "participant_user",
             joinColumns = @JoinColumn(name = "participant_id"),
@@ -65,13 +65,8 @@ public class ParticipantEntity extends YAbstractPersistable<Long> {
     @Getter
     @Setter
     @Fetch(FetchMode.JOIN)
-    @ManyToOne(cascade = CascadeType.REFRESH, fetch = FetchType.LAZY)
+    @ManyToOne(cascade = CascadeType.REFRESH)
     private KycLevelEntity kycLevel;
 
-    @Transient
-    public UserEntity getUser() {
-        List<UserEntity> usersList = getUsers();
-        return usersList != null && !usersList.isEmpty() ? usersList.get(0) : null;
-    }
 
 }

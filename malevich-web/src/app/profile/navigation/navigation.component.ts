@@ -86,7 +86,8 @@ export class NavigationComponent implements OnInit {
               this.kycLevels = kycData;
             });
 
-          this.titleName = this.participantService.getName(this.participant) || this.participant.users[0].name;
+          // this.titleName = this.participantService.getName(this.participant) || this.participant.users[0].name;
+          this.titleName = this.participantService.getName(this.participant) || "null";
         }
       );
   }

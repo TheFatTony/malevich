@@ -11,9 +11,13 @@ import java.util.List;
 public interface GalleryDao extends JpaRepository<GalleryEntity, Long> {
 
     @Query("select ge from GalleryEntity ge " +
-            "left join ge.image " +
-            "left join ge.thumbnail " +
-            "left join ge.country")
+            "left join fetch ge.image " +
+            "left join fetch ge.thumbnail " +
+            "left join fetch ge.country " +
+            "left join fetch ge.addresses " +
+            "left join fetch ge.kycLevel " +
+            "left join fetch ge.type " +
+            "left join fetch ge.organization ")
     List<GalleryEntity> findAll();
 
 }

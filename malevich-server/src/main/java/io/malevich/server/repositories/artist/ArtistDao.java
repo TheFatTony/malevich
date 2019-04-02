@@ -10,7 +10,9 @@ import java.util.List;
 @Repository
 public interface ArtistDao extends JpaRepository<ArtistEntity, Long> {
 
-    @Query("select ae from ArtistEntity ae left join fetch ae.thumbnail left join fetch ae.image")
+    @Query("select ae from ArtistEntity ae " +
+            "left join fetch ae.thumbnail " +
+            "left join fetch ae.image")
     List<ArtistEntity> findAll();
 
 }

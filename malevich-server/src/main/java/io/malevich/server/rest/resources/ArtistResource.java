@@ -37,9 +37,10 @@ public class ArtistResource extends RestResource<ArtistDto, ArtistEntity> {
         return allEntries.stream().map(allEntry -> convertToDto(allEntry)).collect(Collectors.toList());
     }
 
+
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @PostMapping("/save")
     @ResponseStatus(HttpStatus.OK)
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
     public ResponseEntity<Void> save(@RequestBody ArtistDto artist) {
         this.artistService.save(convertToEntity(artist));
         return ResponseEntity.ok().build();

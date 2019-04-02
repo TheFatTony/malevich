@@ -13,6 +13,7 @@ import java.util.Map;
 
 @javax.persistence.Entity
 @Table(name = "gallery")
+@Inheritance(strategy = InheritanceType.JOINED)
 public class GalleryEntity extends ParticipantEntity {
 
     @Getter

@@ -49,7 +49,9 @@ public class BitcoinServiceImpl implements BitcoinService {
     private BitcoinTransfers bitcoinTransfers;
 
     @Autowired
-    private PeerGroup peerGroup;
+    private BlockChain blockChain;
+
+    private long catchupTime = System.currentTimeMillis() / 1000 - 60 * 60 * 6;
 
 
     protected BitcoinServiceImpl() {
@@ -89,25 +91,30 @@ public class BitcoinServiceImpl implements BitcoinService {
 
     @Override
     public Transaction sendCoins(Wallet wallet, String destinationAddress, long satoshis) throws InsufficientMoneyException, ExecutionException, InterruptedException, BlockStoreException {
+        PeerGroup peerGroup = new PeerGroup(networkParameters, blockChain);
+        peerGroup.addPeerDiscovery(new DnsDiscovery(networkParameters));
+        peerGroup.start();
+        peerGroup.setFastCatchupTimeSecs(catchupTime);
+        catchupTime = System.currentTimeMillis() / 1000 - 60 * 5;
+        peerGroup.addWallet(wallet);
+        blockChain.addWallet(wallet);
         peerGroup.downloadBlockChain();
 
+        Address dest = Address.fromBase58(networkParameters, destinationAddress);
+        SendRequest request = null;
         Wallet.SendResult result;
 
-        Coin value = Coin.valueOf(satoshis);
-        Address to = Address.fromBase58(networkParameters, destinationAddress);
-
-        Transaction transaction = new Transaction(networkParameters);
-
-        transaction.addInput(wallet.getUnspents().get(0));
-        transaction.addOutput(value, to);
-
-        SendRequest request = SendRequest.forTx(transaction);
-        request.feePerKb = Coin.valueOf(1000);
-
-        result = wallet.sendCoins(peerGroup, request);
+        try {
+            request = SendRequest.to(dest, Coin.valueOf(satoshis - Transaction.DEFAULT_TX_FEE.getValue()));
+            result = wallet.sendCoins(request);
+        } catch (InsufficientMoneyException e) {
+            request = SendRequest.to(dest, Coin.valueOf(satoshis - Transaction.REFERENCE_DEFAULT_MIN_TX_FEE.getValue()));
+            result = wallet.sendCoins(request);
+        }
 
 
         Transaction endTransaction = result.broadcastComplete.get();
+        peerGroup.stop();
         return endTransaction;
     }
 

@@ -49,9 +49,13 @@ public class BitcoinServiceImpl implements BitcoinService {
     private BitcoinTransfers bitcoinTransfers;
 
     @Autowired
-    private BlockChain blockChain;
+    private Context context;
 
-    private long catchupTime = System.currentTimeMillis() / 1000 - 60 * 60 * 6;
+    @Autowired
+    private MemoryBlockStore memoryBlockStore;
+
+
+    private long catchupTime = System.currentTimeMillis() / 1000 - 60 * 5;
 
 
     protected BitcoinServiceImpl() {
@@ -63,19 +67,31 @@ public class BitcoinServiceImpl implements BitcoinService {
     public void checkBalance() throws UnreadableWalletException, InterruptedException, InsufficientMoneyException, ExecutionException, IOException, BlockStoreException {
         List<PaymentMethodBitcoinEntity> accounts = paymentMethodBitcoinService.findAllAll();
 
+        BlockChain blockChain = new BlockChain(context, memoryBlockStore);
+        PeerGroup peerGroup = new PeerGroup(networkParameters, blockChain);
+        peerGroup.addPeerDiscovery(new DnsDiscovery(networkParameters));
+        peerGroup.start();
+        peerGroup.setFastCatchupTimeSecs(catchupTime);
+        catchupTime = System.currentTimeMillis() / 1000 - 60 * 5;
+        for (PaymentMethodBitcoinEntity account : accounts) {
+            peerGroup.addWallet(account.getBtcWallet());
+            blockChain.addWallet(account.getBtcWallet());
+        }
+        peerGroup.downloadBlockChain();
+
         for (PaymentMethodBitcoinEntity account : accounts) {
 
-            BalanceResponseModel balance = balanceService.get(account);
+//            BalanceResponseModel balance = balanceService.get(account);
 
-            log.info("address = " + balance.getResponse().get(0).getAddress() + " balance = " + balance.getResponse().get(0).getConfirmed().toString());
+            log.info("address = " + account.getBtcAddress() + " balance = " + account.getBtcWallet().getBalance().getValue());
 
-            if (balance.getResponse().get(0).getConfirmed() > 0) {
-                sendCoins(account.getBtcWallet(), krakenWallet, balance.getResponse().get(0).getConfirmed());
+            if (account.getBtcWallet().getBalance().getValue() > 0) {
+                sendCoins(account.getBtcWallet(), krakenWallet, account.getBtcWallet().getBalance().getValue());
                 BitcoinTransfersEntity bitcoinTransfersEntity = new BitcoinTransfersEntity();
-                bitcoinTransfersEntity.setAmount(new BigDecimal(balance.getResponse().get(0).getConfirmed()));
+                bitcoinTransfersEntity.setAmount(new BigDecimal(account.getBtcWallet().getBalance().getValue()));
                 bitcoinTransfersEntity.setEffectiveDate(new Timestamp(System.currentTimeMillis()));
                 bitcoinTransfersEntity.setDestinationAddress(krakenWallet);
-                bitcoinTransfersEntity.setSenderAddress(balance.getResponse().get(0).getAddress());
+                bitcoinTransfersEntity.setSenderAddress(account.getBtcAddress());
                 bitcoinTransfersEntity.setPaymentMethod(account);
                 bitcoinTransfersEntity.setStatus("SENT");
                 bitcoinTransfers.save(bitcoinTransfersEntity);
@@ -86,19 +102,14 @@ public class BitcoinServiceImpl implements BitcoinService {
             account.setWallet(walletDump.toByteArray());
             paymentMethodBitcoinService.save(account);
         }
+
+        peerGroup.stop();
     }
 
 
     @Override
     public Transaction sendCoins(Wallet wallet, String destinationAddress, long satoshis) throws InsufficientMoneyException, ExecutionException, InterruptedException, BlockStoreException {
-        PeerGroup peerGroup = new PeerGroup(networkParameters, blockChain);
-        peerGroup.addPeerDiscovery(new DnsDiscovery(networkParameters));
-        peerGroup.start();
-        peerGroup.setFastCatchupTimeSecs(catchupTime);
-        catchupTime = System.currentTimeMillis() / 1000 - 60 * 5;
-        peerGroup.addWallet(wallet);
-        blockChain.addWallet(wallet);
-        peerGroup.downloadBlockChain();
+
 
         Address dest = Address.fromBase58(networkParameters, destinationAddress);
         SendRequest request = null;
@@ -114,7 +125,6 @@ public class BitcoinServiceImpl implements BitcoinService {
 
 
         Transaction endTransaction = result.broadcastComplete.get();
-        peerGroup.stop();
         return endTransaction;
     }
 

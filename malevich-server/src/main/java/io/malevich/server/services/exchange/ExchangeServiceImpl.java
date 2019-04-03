@@ -61,14 +61,14 @@ public class ExchangeServiceImpl implements ExchangeService {
         for (FundingRecord fundingRecord : fundingRecords) {
             List<BitcoinTransfersEntity> bitcoinTransfersEntities = bitcoinTransfers.findByStatusAndAmount("SENT", fundingRecord.getAmount().add(new BigDecimal(0.001D)).multiply(new BigDecimal(100000000)).round(MathContext.DECIMAL32));
 
-            for (BitcoinTransfersEntity bitcoinTransfersEntity: bitcoinTransfersEntities) {
+            for (BitcoinTransfersEntity bitcoinTransfersEntity : bitcoinTransfersEntities) {
 //                if (bitcoinTransfersEntity.getAmount().equals(fundingRecord.getAmount())) {
-                    MarketOrder order = new MarketOrder((Order.OrderType.ASK), fundingRecord.getAmount(), CurrencyPair.BTC_EUR);
-                    String orderId = krakenExchange.getTradeService().placeMarketOrder(order);
-                    exchangeOrderService.save(order, bitcoinTransfersEntity.getPaymentMethod(), "Kraken", orderId);
-                    bitcoinTransfersEntity.setStatus("PROCESSED");
-                    bitcoinTransfers.save(bitcoinTransfersEntity);
-                    break;
+                MarketOrder order = new MarketOrder((Order.OrderType.ASK), fundingRecord.getAmount(), CurrencyPair.BTC_EUR);
+                String orderId = krakenExchange.getTradeService().placeMarketOrder(order);
+                exchangeOrderService.save(order, bitcoinTransfersEntity.getPaymentMethod(), "Kraken", orderId);
+                bitcoinTransfersEntity.setStatus("PROCESSED");
+                bitcoinTransfers.save(bitcoinTransfersEntity);
+                break;
 //                }
             }
         }
@@ -89,7 +89,7 @@ public class ExchangeServiceImpl implements ExchangeService {
 
         for (UserTrade trade : userTrades.getUserTrades()) {
             ExchangeOrderEntity exchangeOrderEntity = exchangeOrderService.findByOrderId(trade.getOrderId());
-            if (exchangeOrderEntity.getInternalStatus().equals(ExchangeOrderStatus.SUBMITTED)) {
+            if ((exchangeOrderEntity != null) && (ExchangeOrderStatus.SUBMITTED.equals(exchangeOrderEntity.getInternalStatus()))) {
 
                 PaymentsEntity paymentsEntity = new PaymentsEntity();
                 paymentsEntity.setEffectiveDate(new Timestamp(System.currentTimeMillis()));

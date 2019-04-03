@@ -57,7 +57,6 @@ public class ExchangeServiceImpl implements ExchangeService {
     @Transactional
     public void placeOrders() throws IOException {
         List<FundingRecord> fundingRecords = krakenExchange.getAccountService().getFundingHistory(new DefaultTradeHistoryParamCurrency(Currency.BTC));
-        krakenExchange.getAccountService().
 
         for (FundingRecord fundingRecord : fundingRecords) {
             List<BitcoinTransfersEntity> bitcoinTransfersEntities = bitcoinTransfers.findByStatusAndAmount("SENT", fundingRecord.getAmount().add(new BigDecimal(0.001D)).multiply(new BigDecimal(100000000)).round(MathContext.DECIMAL32));

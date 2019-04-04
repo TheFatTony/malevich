@@ -142,7 +142,7 @@ public class RevolutTransactionServiceImpl implements RevolutTransactionService 
             delayedChangeEntity.setPayload(transaction);
             delayedChangeEntity.setReferenceId(transaction.getId());
             delayedChangeEntity.setTypeId("REVOLUT_DEPOSIT");
-            delayedChangeEntity.setUser(authService.getUserEntity());
+            delayedChangeEntity.setUser(paymentMethod.getParticipant().getUsers().get(0));
             delayedChangeService.save(delayedChangeEntity);
             return;
         }

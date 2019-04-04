@@ -1,8 +1,6 @@
 package io.malevich.server.bitcoin;
 
 
-import io.malevich.server.blockonomics.model.BalanceResponseModel;
-import io.malevich.server.blockonomics.services.balance.BalanceService;
 import io.malevich.server.domain.BitcoinTransfersEntity;
 import io.malevich.server.domain.PaymentMethodBitcoinEntity;
 import io.malevich.server.services.bitcointransfers.BitcoinTransfers;
@@ -41,9 +39,6 @@ public class BitcoinServiceImpl implements BitcoinService {
     @Autowired
     private PaymentMethodBitcoinService paymentMethodBitcoinService;
 
-
-    @Autowired
-    private BalanceService balanceService;
 
     @Autowired
     private BitcoinTransfers bitcoinTransfers;

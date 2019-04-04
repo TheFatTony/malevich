@@ -41,7 +41,7 @@ public class GalleryParticipantServiceImpl extends GenericComposerServiceImpl<Pa
     public void create(ParticipantEntity entity) {
         GalleryParticipant galleryParticipant = new GalleryParticipant();
         galleryParticipant.setId(entity.getId().toString());
-        galleryParticipant.setEmail(authService.getUserEntity().getUsername());
+        galleryParticipant.setEmail(entity.getUsers().get(0).getUsername());
         galleryParticipant.setBalance(0D);
         galleryParticipant.setBonuses(0D);
 

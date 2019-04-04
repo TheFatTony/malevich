@@ -1,6 +1,5 @@
 package io.malevich.server.services.paymentmethodbitcoin;
 
-import io.malevich.server.blockonomics.services.addresses.AddressesService;
 import io.malevich.server.domain.ParticipantEntity;
 import io.malevich.server.domain.PaymentMethodBitcoinEntity;
 import io.malevich.server.repositories.paymentmethod.PaymentMethodDao;
@@ -36,9 +35,6 @@ public class PaymentMethodBitcoinServiceImpl implements PaymentMethodBitcoinServ
 
     @Autowired
     private NetworkParameters networkParameters;
-
-    @Autowired
-    private AddressesService addressesService;
 
     @Override
     @Transactional(readOnly = true)
@@ -81,13 +77,7 @@ public class PaymentMethodBitcoinServiceImpl implements PaymentMethodBitcoinServ
         }
         address.setWallet(walletDump.toByteArray());
 
-        if (existing.isPresent()) {
-            addressesService.delete(existing.get());
-        }
-
         PaymentMethodBitcoinEntity newAddress = paymentMethodDao.save(address);
-        addressesService.create(newAddress);
-
 
         return newAddress;
     }

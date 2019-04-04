@@ -66,7 +66,7 @@ public class OrderTransactionServiceImpl extends GenericComposerServiceImpl<Orde
         doPost(orderTransaction);
 
         FabricObjectsEntity fabricObjectsEntity = new FabricObjectsEntity();
-        fabricObjectsEntity.setReferenceId(entity.getId().toString());
+        fabricObjectsEntity.setReferenceId(entity.getId());
         fabricObjectsEntity.setTypeId("Order");
         fabricObjectsEntity.setPayload(entity);
 

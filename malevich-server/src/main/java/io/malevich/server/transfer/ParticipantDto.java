@@ -20,8 +20,6 @@ public class ParticipantDto {
 
     private CountryDto country;
 
-    private List<UserDto> users;
-
     private List<AddressDto> addresses;
 
     private FileDto thumbnail;

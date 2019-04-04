@@ -12,6 +12,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.sql.Timestamp;
 import java.util.List;
+import java.util.Optional;
 
 
 @Slf4j
@@ -31,7 +32,10 @@ public class ExchangeOrderServiceImpl implements ExchangeOrderService {
     @Override
     @Transactional(readOnly = true)
     public ExchangeOrderEntity findByOrderId(String orderId) {
-        return this.exchangeOrderDao.findByOrderId(orderId).get();
+        Optional<ExchangeOrderEntity> exchangeOrderEntity = exchangeOrderDao.findByOrderId(orderId);
+        if (exchangeOrderEntity.isPresent())
+            return exchangeOrderEntity.get();
+        return null;
     }
 
 

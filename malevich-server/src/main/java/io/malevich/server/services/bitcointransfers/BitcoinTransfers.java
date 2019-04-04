@@ -4,6 +4,7 @@ package io.malevich.server.services.bitcointransfers;
 import io.malevich.server.domain.BitcoinTransfersEntity;
 import org.springframework.stereotype.Service;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 @Service
@@ -14,4 +15,7 @@ public interface BitcoinTransfers {
     List<BitcoinTransfersEntity> findByStatus(String status);
 
     List<BitcoinTransfersEntity> findByStatusAndSenderAddress(String status, String senderAddress);
+
+    List<BitcoinTransfersEntity> findByStatusAndAmount(String status, BigDecimal amount);
+
 }

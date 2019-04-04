@@ -1,5 +1,6 @@
 package io.malevich.server.services.revoluttransaction;
 
+import com.yinyang.core.server.services.auth.AuthService;
 import io.malevich.server.domain.*;
 import io.malevich.server.fabric.services.payment.PaymentTransactionService;
 import io.malevich.server.repositories.revoluttransaction.RevolutTransactionDao;
@@ -29,7 +30,7 @@ import static io.malevich.server.util.DateUtils.getDateWithoutTime;
 @Slf4j
 public class RevolutTransactionServiceImpl implements RevolutTransactionService {
 
-    private final Pattern pattern;
+    private final Pattern pattern = Pattern.compile("([0-9A-Z]{4} [0-9A-Z]{4} [0-9A-Z]{4} [0-9A-Z]{4}) malevich\\.io");
 
     @Autowired
     private RevolutTransactionDao revolutTransactionDao;
@@ -55,8 +56,10 @@ public class RevolutTransactionServiceImpl implements RevolutTransactionService 
     @Autowired
     private DelayedChangeService delayedChangeService;
 
+    @Autowired
+    private AuthService authService;
+
     public RevolutTransactionServiceImpl() {
-        pattern = Pattern.compile("([0-9A-Z]{4} [0-9A-Z]{4} [0-9A-Z]{4} [0-9A-Z]{4}) malevich\\.io");
     }
 
     @Override
@@ -139,7 +142,7 @@ public class RevolutTransactionServiceImpl implements RevolutTransactionService 
             delayedChangeEntity.setPayload(transaction);
             delayedChangeEntity.setReferenceId(transaction.getId());
             delayedChangeEntity.setTypeId("REVOLUT_DEPOSIT");
-            delayedChangeEntity.setUser(paymentMethod.getParticipant().getUser());
+            delayedChangeEntity.setUser(paymentMethod.getParticipant().getUsers().get(0));
             delayedChangeService.save(delayedChangeEntity);
             return;
         }

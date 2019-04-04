@@ -53,7 +53,6 @@ public class PaymentTransactionServiceImpl extends GenericComposerServiceImpl<Pa
         doPost(paymentTransaction);
 
         FabricObjectsEntity fabricObjectsEntity = new FabricObjectsEntity();
-        fabricObjectsEntity.setReferenceId(entity.getId().toString());
         fabricObjectsEntity.setTypeId("Payment");
         fabricObjectsEntity.setPayload(entity);
 

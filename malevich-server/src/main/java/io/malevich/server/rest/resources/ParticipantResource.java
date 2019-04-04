@@ -40,6 +40,7 @@ public class ParticipantResource extends RestResource<ParticipantDto, Participan
         return convertToDto(entity);
     }
 
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @RequestMapping(value = "/list", method = RequestMethod.GET)
     @ResponseStatus(HttpStatus.OK)
     @ResponseBody

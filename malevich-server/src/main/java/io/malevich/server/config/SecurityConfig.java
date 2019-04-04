@@ -14,6 +14,7 @@ import org.springframework.security.config.annotation.method.configuration.Enabl
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.config.annotation.web.servlet.configuration.EnableWebMvcSecurity;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.cors.CorsConfiguration;
@@ -26,18 +27,6 @@ import java.util.Arrays;
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(prePostEnabled = true)
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
-
-    private static final String[] PUBLIC_MATCHERS = {
-            "**"
-    };
-    private static final String[] PUBLIC_MATCHERS_GET = {
-    };
-    private static final String[] PUBLIC_MATCHERS_POST = {
-    };
-    private static final String[] PUBLIC_MATCHERS_PUT = {
-    };
-    private static final String[] PUBLIC_MATCHERS_DELETE = {
-    };
 
     @Autowired
     private UserService userService;
@@ -55,13 +44,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http.authorizeRequests()
-                .antMatchers(HttpMethod.POST, PUBLIC_MATCHERS_POST).permitAll()
-                .antMatchers(HttpMethod.GET, PUBLIC_MATCHERS_GET).permitAll()
-                .antMatchers(HttpMethod.PUT, PUBLIC_MATCHERS_PUT).permitAll()
-                .antMatchers(HttpMethod.DELETE, PUBLIC_MATCHERS_DELETE).permitAll()
-                .antMatchers(PUBLIC_MATCHERS).permitAll()
-                .anyRequest().authenticated();
         http.addFilter(new JWTAuthenticationFilter(authenticationManager(), jwtUtil));
         http.addFilter(new JWTAuthorizationFilter(authenticationManager(), jwtUtil, userService));
         http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);

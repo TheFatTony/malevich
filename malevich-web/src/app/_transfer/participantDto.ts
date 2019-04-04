@@ -9,7 +9,7 @@ import {KycLevelDto} from "./kycLevelDto";
 export class ParticipantDto {
   id: number;
   type: ParticipantTypeDto;
-  users: UserDto[];
+  // users: UserDto[];
   phoneNumber: string;
   country: CountryDto;
   thumbnail: FileDto;

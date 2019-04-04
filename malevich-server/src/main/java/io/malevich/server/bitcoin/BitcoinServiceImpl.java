@@ -1,14 +1,15 @@
 package io.malevich.server.bitcoin;
 
 
-import io.malevich.server.blockonomics.model.BalanceResponseModel;
-import io.malevich.server.blockonomics.services.balance.BalanceService;
 import io.malevich.server.domain.BitcoinTransfersEntity;
 import io.malevich.server.domain.PaymentMethodBitcoinEntity;
 import io.malevich.server.services.bitcointransfers.BitcoinTransfers;
 import io.malevich.server.services.paymentmethodbitcoin.PaymentMethodBitcoinService;
 import lombok.extern.slf4j.Slf4j;
 import org.bitcoinj.core.*;
+import org.bitcoinj.net.discovery.DnsDiscovery;
+import org.bitcoinj.store.BlockStoreException;
+import org.bitcoinj.store.MemoryBlockStore;
 import org.bitcoinj.wallet.SendRequest;
 import org.bitcoinj.wallet.UnreadableWalletException;
 import org.bitcoinj.wallet.Wallet;
@@ -40,10 +41,17 @@ public class BitcoinServiceImpl implements BitcoinService {
 
 
     @Autowired
-    private BalanceService balanceService;
+    private BitcoinTransfers bitcoinTransfers;
 
     @Autowired
-    private BitcoinTransfers bitcoinTransfers;
+    private Context context;
+
+    @Autowired
+    private MemoryBlockStore memoryBlockStore;
+
+
+    private long catchupTime = System.currentTimeMillis() / 1000 - 60 * 5;
+
 
     protected BitcoinServiceImpl() {
     }
@@ -51,22 +59,34 @@ public class BitcoinServiceImpl implements BitcoinService {
 
     @Override
     @Transactional
-    public void checkBalance() throws UnreadableWalletException, InterruptedException, InsufficientMoneyException, ExecutionException, IOException {
+    public void checkBalance() throws UnreadableWalletException, InterruptedException, InsufficientMoneyException, ExecutionException, IOException, BlockStoreException {
         List<PaymentMethodBitcoinEntity> accounts = paymentMethodBitcoinService.findAllAll();
+
+        BlockChain blockChain = new BlockChain(context, memoryBlockStore);
+        PeerGroup peerGroup = new PeerGroup(networkParameters, blockChain);
+        peerGroup.addPeerDiscovery(new DnsDiscovery(networkParameters));
+        peerGroup.start();
+        peerGroup.setFastCatchupTimeSecs(catchupTime);
+        catchupTime = System.currentTimeMillis() / 1000 - 60 * 5;
+        for (PaymentMethodBitcoinEntity account : accounts) {
+            peerGroup.addWallet(account.getBtcWallet());
+            blockChain.addWallet(account.getBtcWallet());
+        }
+        peerGroup.downloadBlockChain();
 
         for (PaymentMethodBitcoinEntity account : accounts) {
 
-            BalanceResponseModel balance = balanceService.get(account);
+//            BalanceResponseModel balance = balanceService.get(account);
 
-            log.info("address = " + balance.getResponse().get(0).getAddress() + " balance = " + balance.getResponse().get(0).getConfirmed().toString());
+            log.info("address = " + account.getBtcAddress() + " balance = " + account.getBtcWallet().getBalance().getValue());
 
-            if (balance.getResponse().get(0).getConfirmed() > 0) {
-                sendCoins(account.getBtcWallet(), krakenWallet, balance.getResponse().get(0).getConfirmed());
+            if (account.getBtcWallet().getBalance().getValue() > 0) {
+                sendCoins(account.getBtcWallet(), krakenWallet, account.getBtcWallet().getBalance().getValue());
                 BitcoinTransfersEntity bitcoinTransfersEntity = new BitcoinTransfersEntity();
-                bitcoinTransfersEntity.setAmount(new BigDecimal(balance.getResponse().get(0).getConfirmed()));
+                bitcoinTransfersEntity.setAmount(new BigDecimal(account.getBtcWallet().getBalance().getValue()));
                 bitcoinTransfersEntity.setEffectiveDate(new Timestamp(System.currentTimeMillis()));
                 bitcoinTransfersEntity.setDestinationAddress(krakenWallet);
-                bitcoinTransfersEntity.setSenderAddress(balance.getResponse().get(0).getAddress());
+                bitcoinTransfersEntity.setSenderAddress(account.getBtcAddress());
                 bitcoinTransfersEntity.setPaymentMethod(account);
                 bitcoinTransfersEntity.setStatus("SENT");
                 bitcoinTransfers.save(bitcoinTransfersEntity);
@@ -77,11 +97,15 @@ public class BitcoinServiceImpl implements BitcoinService {
             account.setWallet(walletDump.toByteArray());
             paymentMethodBitcoinService.save(account);
         }
+
+        peerGroup.stop();
     }
 
 
     @Override
-    public Transaction sendCoins(Wallet wallet, String destinationAddress, long satoshis) throws InsufficientMoneyException, ExecutionException, InterruptedException {
+    public Transaction sendCoins(Wallet wallet, String destinationAddress, long satoshis) throws InsufficientMoneyException, ExecutionException, InterruptedException, BlockStoreException {
+
+
         Address dest = Address.fromBase58(networkParameters, destinationAddress);
         SendRequest request = null;
         Wallet.SendResult result;

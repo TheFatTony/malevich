@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 
@@ -36,6 +37,11 @@ public class BitcoinTransfersImpl implements BitcoinTransfers {
     @Override
     public List<BitcoinTransfersEntity> findByStatusAndSenderAddress(String status, String senderAddress) {
         return bitcoinTransfersDao.findByStatusAndSenderAddress(status, senderAddress);
+    }
+
+    @Override
+    public List<BitcoinTransfersEntity> findByStatusAndAmount(String status, BigDecimal amount) {
+        return bitcoinTransfersDao.findByStatusAndAmount(status, amount);
     }
 
 }

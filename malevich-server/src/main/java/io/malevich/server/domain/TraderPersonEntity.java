@@ -6,13 +6,12 @@ import lombok.Setter;
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
 
-import javax.persistence.CascadeType;
-import javax.persistence.OneToOne;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 
 @javax.persistence.Entity
 @Table(name = "trader_person")
+@Inheritance(strategy = InheritanceType.JOINED)
 public class TraderPersonEntity extends ParticipantEntity {
 
     @Getter

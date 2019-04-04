@@ -27,6 +27,7 @@ import org.springframework.stereotype.Service;
 import javax.transaction.Transactional;
 import java.io.IOException;
 import java.math.BigDecimal;
+import java.math.MathContext;
 import java.sql.Timestamp;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
@@ -58,17 +59,17 @@ public class ExchangeServiceImpl implements ExchangeService {
         List<FundingRecord> fundingRecords = krakenExchange.getAccountService().getFundingHistory(new DefaultTradeHistoryParamCurrency(Currency.BTC));
 
         for (FundingRecord fundingRecord : fundingRecords) {
-            List<BitcoinTransfersEntity> bitcoinTransfersEntities = bitcoinTransfers.findByStatusAndSenderAddress("SENT", fundingRecord.getAddress());
+            List<BitcoinTransfersEntity> bitcoinTransfersEntities = bitcoinTransfers.findByStatusAndAmount("SENT", fundingRecord.getAmount().add(new BigDecimal(0.001D)).multiply(new BigDecimal(100000000)).round(MathContext.DECIMAL32));
 
-            for (BitcoinTransfersEntity bitcoinTransfersEntity: bitcoinTransfersEntities) {
-                if (bitcoinTransfersEntity.getAmount().equals(fundingRecord.getAmount())) {
-                    MarketOrder order = new MarketOrder((Order.OrderType.ASK), fundingRecord.getAmount(), CurrencyPair.BTC_EUR);
-                    String orderId = krakenExchange.getTradeService().placeMarketOrder(order);
-                    exchangeOrderService.save(order, bitcoinTransfersEntity.getPaymentMethod(), "Kraken", orderId);
-                    bitcoinTransfersEntity.setStatus("PROCESSED");
-                    bitcoinTransfers.save(bitcoinTransfersEntity);
-                    break;
-                }
+            for (BitcoinTransfersEntity bitcoinTransfersEntity : bitcoinTransfersEntities) {
+//                if (bitcoinTransfersEntity.getAmount().equals(fundingRecord.getAmount())) {
+                MarketOrder order = new MarketOrder((Order.OrderType.ASK), fundingRecord.getAmount(), CurrencyPair.BTC_EUR);
+                String orderId = krakenExchange.getTradeService().placeMarketOrder(order);
+                exchangeOrderService.save(order, bitcoinTransfersEntity.getPaymentMethod(), "Kraken", orderId);
+                bitcoinTransfersEntity.setStatus("PROCESSED");
+                bitcoinTransfers.save(bitcoinTransfersEntity);
+                break;
+//                }
             }
         }
     }
@@ -88,7 +89,7 @@ public class ExchangeServiceImpl implements ExchangeService {
 
         for (UserTrade trade : userTrades.getUserTrades()) {
             ExchangeOrderEntity exchangeOrderEntity = exchangeOrderService.findByOrderId(trade.getOrderId());
-            if (exchangeOrderEntity.getInternalStatus().equals(ExchangeOrderStatus.SUBMITTED)) {
+            if ((exchangeOrderEntity != null) && (ExchangeOrderStatus.SUBMITTED.equals(exchangeOrderEntity.getInternalStatus()))) {
 
                 PaymentsEntity paymentsEntity = new PaymentsEntity();
                 paymentsEntity.setEffectiveDate(new Timestamp(System.currentTimeMillis()));
@@ -96,7 +97,7 @@ public class ExchangeServiceImpl implements ExchangeService {
                 paymentsEntity.setPaymentMethod(exchangeOrderEntity.getPaymentMethod());
                 paymentsEntity.setParticipant(exchangeOrderEntity.getPaymentMethod().getParticipant());
 
-                paymentsService.insert(paymentsEntity);
+                paymentsService.insertAdmin(paymentsEntity);
 
                 exchangeOrderEntity.setInternalStatus(ExchangeOrderStatus.EXECUTED);
                 exchangeOrderService.save(exchangeOrderEntity);

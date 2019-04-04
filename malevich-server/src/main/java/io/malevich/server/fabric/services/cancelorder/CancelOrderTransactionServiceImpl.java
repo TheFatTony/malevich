@@ -49,13 +49,6 @@ public class CancelOrderTransactionServiceImpl extends GenericComposerServiceImp
         orderTransaction.getOrder().setCounterparty(fabricClass + entity.getParticipant().getId());
 
         doPost(orderTransaction);
-
-        FabricObjectsEntity fabricObjectsEntity = new FabricObjectsEntity();
-        fabricObjectsEntity.setReferenceId(entity.getId().toString());
-        fabricObjectsEntity.setTypeId("CancelOrder");
-        fabricObjectsEntity.setPayload(entity);
-
-        fabricObjectsService.save(fabricObjectsEntity);
     }
 
 

@@ -102,8 +102,7 @@ public class PaymentsServiceImpl implements PaymentsService {
     @Override
     @Transactional
     public void insert(PaymentsEntity paymentsEntity) {
-        if (paymentsEntity.getParticipant() == null)
-            paymentsEntity.setParticipant(participantService.getCurrent());
+        paymentsEntity.setParticipant(participantService.getCurrent());
 
         if (paymentTypeService.getWithdrawalType().equals(paymentsEntity.getPaymentType())) {
             kycLevelService.checkLevelOrException(
